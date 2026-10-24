@@ -8,3 +8,4 @@
 - The successful GitHub CLI authentication check outside the sandbox supersedes the earlier restricted failure. Do not request another login based on that failure.
 - When Amit references a picture containing collaborator details, use the supplied image if it is available. If it is absent from the current chat, state that limitation and request the image or exact handles without guessing identities.
 - For GitHub branch protection, use the source-bound `checks` request format without the legacy `contexts` field. Test the request and read back effective rules before claiming enforcement; some schema combinations are rejected even when their values appear harmless.
+- This hackathon should not require teammate approvals to merge. Keep reviews optional and retain CI and security requirements. Do not reinstate mandatory teammate or latest-push approvals without Amit's request.

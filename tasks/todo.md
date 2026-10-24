@@ -6,6 +6,14 @@
 - [x] Review the brief and repository proposal against Amit's notes.
 - [x] Agree and publish the shared repository scaffold and main coding harness while idea selection continues.
 
+## Remove mandatory teammate approval
+
+Owner: Amit, with Codex maintaining the repository configuration and documentation.
+
+- [x] Synchronize the stored branch-protection configuration with Amit's request for zero required approvals while preserving CI and security requirements.
+- [x] Update the current team workflow and resolve the superseded pending approval for PR #3.
+- [x] Capture the preference in session lessons, validate the diff and configuration, and record verification results.
+
 ## Repository and harness discussion
 
 - [x] Inspect the session's actual working directory and applicable instructions. It remains `/Users/amit/Desktop/Hackathons/OXHack/`.
@@ -43,14 +51,24 @@
 - [x] Confirm the supplied Granola ceremony notes are present on GitHub and link them clearly from the README.
 - [x] Inspect workflow permissions and security settings, then confirm private-repo branch protection by a successful update and independent readback.
 - [x] Add stack-neutral CI for repository hygiene and secret scanning, with pinned dependencies and minimal permissions. Local positive and negative checks and independent review passed.
-- [x] Document the PR workflow and configure one approval, current GitHub Actions checks, resolved conversations, linear history, admin enforcement, and protections against force pushes/deletions. GitHub readback confirms enforcement on the private repo.
+- [x] Initially configure one approval, current GitHub Actions checks, resolved conversations, linear history, admin enforcement, and protections against force pushes/deletions. The approval requirement is superseded by Amit's request for zero required approvals; the other safeguards remain active.
 - [x] Verify CI with both passing runs and a safe deliberate failure, independently review the change, and integrate it. PR #2 merged as `ce40669`; clean PR run `40092846642` and main run `40092935972` passed.
 - [x] Prove hosted CI rejects a temporary trailing-whitespace defect. Run `40092708257` failed `Repository checks` on that defect and passed `Secret scan`; remove the probe before merge.
 - [x] Verify effective GitHub settings and accepted collaborator access. Actions require full SHA pins, permit GitHub-owned actions, use read-only tokens, and cannot approve PRs. Dependabot alerts and security fixes are enabled.
-- [ ] Merge the follow-up configuration/verification PR after one teammate approves it. The active protection is already correct; the stored request must omit legacy `contexts` when using `checks`.
+- [x] Merge the follow-up configuration/verification PR. PR #3 merged as `c08a66a`; the stored request omits legacy `contexts` when using `checks`.
 
 ## Review
 
+24 October 2026, approval-policy update: the stored protection JSON changes only
+the required approval count from one to zero, stale-review dismissal to false,
+and latest-push approval to false. Both strict GitHub Actions checks and every
+other protection are unchanged. `git diff --check` passed; Python parsed the
+JSON, compared it against the prior configuration, checked the six-file edit
+scope, and verified all nine local Markdown links in the changed documents.
+The live protection update and independent API readback were completed in the
+coordinating maintenance session. Hosted CI and integration of this follow-up
+remain to be completed there.
+
 24 October 2026: Discord was inaccessible and Amit then cancelled that research. The Granola notes are the working event brief. Local Git and author identity are available. GitHub CLI authentication for `amitvijapur` was successfully verified outside the sandbox; the earlier restricted check is superseded and no re-login is needed. The plan is in `research/repository-plan.md`. Repository identity, visibility, harness, and accepted teammate access are confirmed. Stack, data source, and exact submission deadline remain open.
 
-The private repository is live at https://github.com/amitvijapur/oxhack-2026 with the shared Cortex/Codex/Claude Code arrangement and supplied Granola notes. All three teammates from the image have accepted write access. PR #2 added CI, dependency controls, and team documentation; the deliberate whitespace defect was rejected and removed before the clean revision merged. Both required jobs passed on the PR and main. Main protection is active and was independently read back from GitHub, including one approval, current GitHub Actions-issued checks, resolved conversations, linear history, no force pushes/deletions, stale-review dismissal, latest-push approval, and admin enforcement. A follow-up PR corrects the stored API payload and records verification; it needs a teammate approval under those active rules. No application exists yet, so runtime correctness/performance checks remain pending. Rust is a candidate for algorithm performance. Keep the repo private until the planned review and public transition before submission; exact deadline and event eligibility rules remain open.
+The private repository is live at https://github.com/amitvijapur/oxhack-2026 with the shared Cortex/Codex/Claude Code arrangement and supplied Granola notes. All three teammates from the image have accepted write access. PR #2 added CI, dependency controls, and team documentation; the deliberate whitespace defect was rejected and removed before the clean revision merged. Both required jobs passed on the PR and main. PR #3 merged as `c08a66a`, correcting the stored API payload and recording verification. Main protection now requires zero approving reviews at Amit's request. Stale-review dismissal and latest-push approval are disabled. Current GitHub Actions-issued checks, resolved conversations, linear history, no force pushes/deletions, and admin enforcement remain active and were independently read back from GitHub. No application exists yet, so runtime correctness/performance checks remain pending. Rust is a candidate for algorithm performance. Keep the repo private until the planned review and public transition before submission; exact deadline and event eligibility rules remain open.

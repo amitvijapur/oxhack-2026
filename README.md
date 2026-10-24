@@ -32,7 +32,8 @@ deadlines, and eligibility details are labelled in those notes.
 Follow the [team workflow and security guide](docs/team-workflow.md).
 The initial CI checks repository hygiene, workflow validity, and committed
 secrets. Application build and test checks will be added with the selected stack.
-Keep each PR small and obtain a teammate's approval before merging.
+Keep each PR small. Teammate review is optional; merge after the required CI
+checks pass on the current branch and all conversations are resolved.
 
 ## Application setup
 

@@ -7,12 +7,16 @@ Coordinate shared interfaces and dependency files. Open a PR against `main`,
 explain the change, and include actual verification results. Use squash merges
 and remove completed branches.
 
-The merge policy is one teammate approval, dismissal of stale approvals after
-new changes, current required CI checks, resolved conversations, and no force
-pushes or branch deletion on `main`. The repository owner follows the same
-protected-branch requirements. GitHub's API readback confirmed these rules are
-active on the private repository on 24 October 2026, including latest-push
-approval and checks tied to the GitHub Actions App.
+PRs require no approving reviews. Teammates can review when useful, but neither
+a teammate approval nor an approval of the latest push is a merge requirement.
+Do not reinstate mandatory approvals without Amit's request.
+
+Merging still requires the branch to be up to date, both required CI checks to
+pass, and all conversations to be resolved. Linear history is required, and
+force pushes and deletion of `main` are blocked. The repository owner follows
+the same protected-branch requirements. GitHub's API readback confirmed these
+rules on the private repository on 24 October 2026, including checks tied to
+the GitHub Actions App. This policy supersedes the initial one-approval rule.
 
 The intended API configuration is versioned in
 [main-branch-protection.json](../.github/main-branch-protection.json).
