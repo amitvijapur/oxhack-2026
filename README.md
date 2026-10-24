@@ -18,7 +18,8 @@ The integration owner and remaining team responsibilities are pending.
 
 Team GitHub accounts: [amitvijapur](https://github.com/amitvijapur),
 [meep-boop](https://github.com/meep-boop), [arjn15](https://github.com/arjn15),
-and [iloveclouduk](https://github.com/iloveclouduk).
+and [iloveclouduk](https://github.com/iloveclouduk). All teammates have accepted
+write access.
 
 ## Event brief
 
@@ -43,7 +44,6 @@ run, demo, and verification commands here when the stack is agreed.
 ## Open decisions
 
 - Agree the MVP, data sources, success criteria, and team responsibilities.
-- Confirm all teammates have accepted their write-access invitations.
 - Confirm the submission deadline, judging format, repository rules, and exact
   Zed/Delta prize requirements.
 - [ ] Review the repository and switch it to public before submission.

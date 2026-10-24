@@ -10,9 +10,9 @@ and remove completed branches.
 The merge policy is one teammate approval, dismissal of stale approvals after
 new changes, current required CI checks, resolved conversations, and no force
 pushes or branch deletion on `main`. The repository owner follows the same
-protected-branch requirements. A branch-protection readback must confirm this
-policy is enforced; if GitHub plan limits prevent it, record that limitation
-here and in the task list rather than claiming enforcement.
+protected-branch requirements. GitHub's API readback confirmed these rules are
+active on the private repository on 24 October 2026, including latest-push
+approval and checks tied to the GitHub Actions App.
 
 The intended API configuration is versioned in
 [main-branch-protection.json](../.github/main-branch-protection.json).
@@ -24,7 +24,9 @@ gh api --method PUT repos/amitvijapur/oxhack-2026/branches/main/protection \
   --input .github/main-branch-protection.json
 ```
 
-Read the resulting protection back from GitHub before reporting enforcement.
+Read the resulting protection back from GitHub after any change. The request
+uses the `checks` format only; GitHub rejects a request that also supplies the
+legacy `contexts` field, even when that field is empty.
 
 ## Initial CI boundary
 
