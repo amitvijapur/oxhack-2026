@@ -1,12 +1,32 @@
 # OXHack preparation
 
+## Reviewable US soil build plan
+
+- [x] Apply the user-specified names throughout the current plan and working split.
+- [x] Validate the named assignments and prepare the reviewed documents for publication on the existing research branch.
+
+Owner: Amit. America is selected. Arjin owns Site B, Muhd owns prompts and agent information, Salman owns the decision algorithm, and Amit owns Site A/local MiroFish. The implementation plan remains for review before extraction or building.
+
+- [x] Draft the single-table scope, two-area selection, shared evidence format, MiroFish handoff, numerical decision contract and four-person responsibilities. See [US soil build plan](../research/us-soil-build-plan.md).
+- [x] Independently review the plan for missing ownership, inconsistent inputs and overstated prediction claims. Added explicit independence/validation assumptions and a shared solver-output contract.
+- [x] Save the plan for Amit and request its display in Codex, update the working split and Obsidian, and leave implementation pending review. The panel open request was queued; the file link is available directly.
+
+## Revised site ownership and dataset choice
+
+Owner: Amit. See [working split](../research/team-working-split.md).
+
+- [x] Record two site-evidence owners, a separate prompt owner, an algorithm owner and local MiroFish execution on Amit’s laptop.
+- [x] Inventory existing project data and compare US regional soil chemistry with Australian local drilling.
+- [x] Amit selected America and the existing US soil dataset. Broad regional scope is proposed in the build plan; exact A/B boundaries remain unassigned. Owners are Amit for A/local MiroFish, Arjin for B, Muhd for prompts and Salman for the algorithm.
+- [ ] Agree the shared evidence/agent/algorithm fields, then extract both site packs in parallel while prompts and the solver are prepared.
+
 ## One-source US mineral decision simulator, discussion proposal
 
-Owner: Amit. Scope: simplify the hackathon idea and publish a discussion plan before the team chooses the build. Human implementation roles remain to be assigned.
+Owner: Amit. Scope: simplify the hackathon idea and publish a discussion plan before the team chooses the build. Named roles are recorded in the current US soil plan.
 
 - [x] Read the existing LODESTAR and newer claims research; propose one mineral-occurrence source and two illustrative US sites.
 - [x] Write the real-data versus hypothetical boundary, Bayesian decision algorithm, demo, roles and relative schedule in [the proposal](../research/mineral-hackathon-proposal.md).
-- [ ] Team discusses the proposal, confirms available time, assigns owners and selects a familiar stack before implementation.
+- [ ] Team discusses the proposal, confirms available time and selects a familiar stack before implementation.
 
 Publication scope: this proposal and task entry only. No new datasets, models, dependencies or repository-policy changes. Previous empirical studies remain separate evidence, and no real mineral or financial edge is claimed.
 

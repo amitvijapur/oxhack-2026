@@ -2,6 +2,8 @@
 
 24 October 2026. Owner: Amit. **Discussion proposal, not an approved build or a validated mineral-discovery model.** This deliberately simplifies the earlier exploration and land-buy plans for the hackathon. Publish it now for team discussion; further geological verification is not a prerequisite to discussing this simulation scope.
 
+> Update: Amit has since selected the existing US soil dataset and a four-person split with two site-evidence owners, one prompt owner and one algorithm owner. MiroFish runs locally on Amit’s laptop. Read [the current US soil build plan](us-soil-build-plan.md) for review; its data scope and ownership supersede the MRDS/Nevada proposal below.
+
 ## Recommendation
 
 Build a two-site exploration decision simulator anchored to one US mineral-occurrence dataset. It shows how an algorithm chooses between investigating now, paying for information and waiting, or walking away before a deadline.
@@ -76,18 +78,20 @@ Simulated outcomes must come from a separate hidden-state generator, with survey
 
 ## Four-person scope and schedule
 
-This is an indicative eight-hour build after team agreement, not a commitment about the event deadline. Confirm actual remaining time before starting. Human assignments beyond Amit are for the team to fill in.
+The source and schedule below originated in the earlier proposal. Follow [the current US soil build plan](us-soil-build-plan.md) for the agreed dataset direction and current sequence. Named responsibilities are:
 
 | Owner | Bounded responsibility | Deliverable |
 |---|---|---|
-| Amit | Product scope, assumptions, integration and pitch | Agreed claim, worked scenario and coherent demo |
-| Data teammate | One-source snapshot and A/B evidence | Small static extract, source references and evidence summaries |
-| Algorithm teammate | Decision tree, Bayesian update and verification | Deterministic solver plus shared-world baseline comparison |
-| Interface teammate | Four views and interactions | Two-site map/context, deadline control and explanation |
+| Amit | Site A evidence and local MiroFish execution/integration | Site A pack and saved swarm run |
+| Arjin | Site B evidence, then the A/B display | Site B pack and comparison view |
+| Muhd | Agent prompts, information packaging and output schema | Versioned prompt bundle |
+| Salman | Decision algorithm and swarm-output adapter | Verified solver and structured decision |
+
+The following eight-hour schedule is retained as the earlier proposal; use the current plan's sequence for planning work.
 
 | Time after agreement | Work |
 |---|---|
-| 0–0.5 h | Agree this scope, choose familiar stack, assign names and freeze input/output fields |
+| 0–0.5 h | Agree this scope, choose familiar stack and freeze input/output fields |
 | 0.5–2 h | Import the small source extract and choose A/B; implement the worked example; build interface with clearly labelled fixtures |
 | 2–4 h | Complete finite decision tree, budget/time constraints, Bayesian branches and seeded scenarios |
 | 4–6 h | Integrate the real context and solver; compare fixed policies and check boundary cases |
