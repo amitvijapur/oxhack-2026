@@ -16,7 +16,8 @@ For a Claude session on Muhd's desktop. Written 25 Oct 2026 ~00:35 by the laptop
 ## Current problem (25 Oct 00:27)
 `desktop_run.ps1` set up fine, but every run in wave 1 failed about 5 minutes after starting.
 - Read `C:\Oxhack\swarm-runs\01_baseline_s1.out` (the driver's `run_meta`, with the error) and `C:\Oxhack\swarm-runs\01_baseline_s1\runner.log` (the MiroFish runner's output; `OPENAI_LOG=info` shows each API request's status).
-- Hypotheses, unverified:
+- **Cause (found 25 Oct 00:45, desktop):** OASIS's Twitter recommender runs every profile and post through BERT in one batch of up to 1000. One pass over 100 long texts peaks near 10 GB, so three runs on this 16 GB PC ran out of memory and torch crashed (Windows event log: 0xC0000005 in `torch\lib\c10.dll`). Runs 04 and 06 had not crashed; they were stopped with Ctrl+C. Fix: MiroFish commit `743a0b8` caps the batch at 8 (peak 1.9 GB, identical vectors); the bundle is updated. It changes `patch_sha256` in `run_meta.json`.
+- Hypotheses before that, now ruled out:
   1. A first-run download of a model for OASIS's Twitter recommender, colliding across 3 parallel runs.
   2. A missing dependency after `uv sync`.
   3. A path problem: MiroFish must sit next to the repo, at `C:\Oxhack\MiroFish`.
