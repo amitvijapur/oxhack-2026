@@ -2,11 +2,13 @@
 
 ## Gold stakeholder swarm on MiroFish (owner: Muhd)
 
-Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).
+Plan: [gold swarm plan](../research/gold-swarm-plan.md), revision 2: one society of 60 at Tok, Alaska, seven scenarios, 9 runs. Approved by Muhd on 24 Oct; MiroFish runs on Muhd's laptop (team decision).
 
-- [ ] Step 0: set up MiroFish on Muhd's laptop (Zep Cloud key, OpenAI key, disk check, pick the middle model tier).
-- [ ] Agree with the team what this swarm feeds (for example, policy-risk and price scenarios for Salman's solver) and who writes the per-agent model-tier patch.
-- [ ] Timed pilot, then fix rounds and run count from measured numbers.
+- [x] Install MiroFish, set the OpenAI key and choose the model tiers from the key's model list: gpt-5.5, gpt-5.4-mini and gpt-5-mini.
+- [ ] Add a Zep Cloud key and start MiroFish.
+- [ ] Write the Tok seed documents and the 61-role cast; write and smoke-test three small runner patches (per-agent tiers, seeded activation, day-3 news).
+- [ ] Pre-register the judge prompt, expected directions and checks; run the one-day timed pilot, then the 9 runs.
+- [ ] Agree with the team what this feeds (for example, policy-risk and price scenarios for Salman's solver) and the proposed `swarm/` folder.
 
 ## Resolve and merge gold evidence PR #20
 
