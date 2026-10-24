@@ -1,5 +1,15 @@
 # OXHack preparation
 
+## One-source US mineral decision simulator, discussion proposal
+
+Owner: Amit. Scope: simplify the hackathon idea and publish a discussion plan before the team chooses the build. Human implementation roles remain to be assigned.
+
+- [x] Read the existing LODESTAR and newer claims research; propose one mineral-occurrence source and two illustrative US sites.
+- [x] Write the real-data versus hypothetical boundary, Bayesian decision algorithm, demo, roles and relative schedule in [the proposal](../research/mineral-hackathon-proposal.md).
+- [ ] Team discusses the proposal, confirms available time, assigns owners and selects a familiar stack before implementation.
+
+Publication scope: this proposal and task entry only. No new datasets, models, dependencies or repository-policy changes. Previous empirical studies remain separate evidence, and no real mineral or financial edge is claimed.
+
 ## Optional pieces from Muhammad's team kit
 
 Owner: Amit, with Codex integrating the selected tools. The kit source is the
