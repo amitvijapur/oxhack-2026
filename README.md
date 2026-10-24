@@ -6,7 +6,7 @@ data to support a useful prediction and decision.
 
 ## Repository and shared workflow
 
-The repository target is `amitvijapur/oxhack-2026`, private initially. Amit uses
+The repository is [amitvijapur/oxhack-2026](https://github.com/amitvijapur/oxhack-2026), private initially. Amit uses
 Codex with Cortex as his personal router. Teammates use Claude Code with their
 existing skills. Everyone follows [the shared rules](AGENTS.md); no additional
 workflow installation is required. Claude Code imports those rules through
