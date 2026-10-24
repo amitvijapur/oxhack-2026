@@ -4,10 +4,11 @@
 
 Owner: Amit. Explicitly authorised to resolve conflicts, pass checks and merge PR #20. Preserve both contributors' changes and the published gold A/B release; no repository-policy changes.
 
-- [ ] Integrate current main into the PR branch and resolve only actual conflicts with independent review.
-- [ ] Verify gold/soil extraction tests, release/source integrity and relevant repository checks against the final branch state.
-- [ ] Push, mark ready, confirm required checks and resolved conversations on the exact head, then squash merge through GitHub protections.
-- [ ] Verify the merged main contents and the team's main-branch download instructions, and update Obsidian.
+- [x] Integrate current main into the PR branch and resolve only actual conflicts with independent review.
+- [x] Verify local gold/soil extraction tests and release/source integrity against the resolved branch state. All 27 evidence tests passed; hosted checks are the remaining merge gate.
+Protected execution: push and mark ready; require both GitHub checks and resolved conversations on the exact head before squash merge. [PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20) records the live check and merge outcome. After merge, verify main contents and record the merged commit and data access in Obsidian.
+
+Pre-merge review: conflicts were limited to the two task documents and resolved by retaining both sides. Main's duplicate-recorder removal and reference update are preserved. Gold code, source catalogue/selection and release ZIPs are unchanged. Independent review passed. Team instructions now use `main` plus the verified release downloads.
 
 ## Publish gold branch and downloadable A/B data
 
@@ -77,6 +78,22 @@ Owner: Amit. Branch: `codex/site-a-soil-evidence`. MiroFish, prompts, algorithm 
 - [x] Generate Site A and a portable handoff archive; independently validate source rows, counts, summaries, provenance and B-method compatibility.
 - [x] Document the evidence contract, reusable commands and development/review loop; run 15 focused tests, independent raw-source checks and portable archive reproduction.
 - [x] Commit the implementation branch and publish the shared method in [draft PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20). Remote extractor matches local; both initial required CI checks passed. Record the final handoff in the backed-up Obsidian log.
+
+## Approved minimal cleanup
+
+Owner: Amit, with Codex maintaining the repository. Preserve every potentially
+useful plan, dataset, source note and experiment; no archival moves are approved.
+
+- [x] Verify the two cryptocurrency recorders are byte-identical and remove only the generated local probe cache.
+- [x] Delete the duplicate recorder and point its documentation to the retained script.
+- [x] Verify the retained recorder is unchanged, references resolve, and no other files are removed; prepare the change for the existing protected PR flow.
+
+Review: the retained recorder matches the duplicate's original SHA-256; all 11
+local links in the updated README resolve, no deleted-name references remain,
+and the only tracked removal is the duplicate. Six ignored local cache files
+were removed. All 25 original checkout research/task files checked retained
+their hashes. Whitespace, actionlint and all 13 existing tooling tests passed.
+Hosted CI and integration results are recorded in the PR and Obsidian build log.
 
 ## Reviewable US soil build plan
 

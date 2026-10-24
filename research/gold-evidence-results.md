@@ -56,4 +56,4 @@ The source remains a targeted historical survey. It does not establish undrilled
 
 Independent downloads verified all three ZIP sizes/hashes, the identical archive manifest and all 77 internal checksums. Standalone and complete-bundle samples match, with A33/B34 and no overlap. All three teammate accounts have repository read/write access, which permits signed-in download of the private release.
 
-Draft PR #20 remains unmerged. GitHub reports conflicts with main and no current CI checks on the publication head. Branch checkout and data downloads are available independently of integration; merge/CI work remains with the repository-maintenance workstream.
+Integration and final check results are tracked in [PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20). The task-log conflicts were resolved by retaining both the gold work and main's recorder-cleanup notes; the duplicate recorder remains removed. Team instructions now use `main`, with the immutable release assets supplying the data files.

@@ -30,7 +30,7 @@ The idea: rebuild Nasdaq and IEX order books from raw feeds and measure, to the 
 | [`fed_moment_results.txt`](../fed-millisecond/fed_moment_results.txt) | Output from one run (428.7M messages, per-symbol first-event and first-trade µs) |
 | [`data_facts.py`](../fed-millisecond/data_facts.py) | Quick exploratory stats from the ITCH stream |
 | [`order_lifetimes.py`](../fed-millisecond/order_lifetimes.py) | How long orders live before cancel or execute |
-| [`recorder.py`](../fed-millisecond/recorder.py), [`crypto_recorder.py`](../fed-millisecond/crypto_recorder.py) | Live BTC/USD order-book recorders (Kraken, Bitstamp, Coinbase) |
+| [`recorder.py`](../fed-millisecond/recorder.py) | Live BTC/USD order-book recorder (Kraken, Bitstamp, Coinbase) |
 
 ## HRT-relevant data sources
 

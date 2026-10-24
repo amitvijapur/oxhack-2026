@@ -1,6 +1,6 @@
 # Get the gold A and B packs
 
-Release: [Gold A/B data handoff v1](https://github.com/amitvijapur/oxhack-2026/releases/tag/gold-evidence-v1). Sign in to GitHub with an account that has access to `amitvijapur/oxhack-2026`; the repository remains private. This is a data handoff prerelease from the feature branch, not a merge into main.
+Release: [Gold A/B data handoff v1](https://github.com/amitvijapur/oxhack-2026/releases/tag/gold-evidence-v1). Sign in to GitHub with an account that has access to `amitvijapur/oxhack-2026`; the repository remains private. This prerelease preserves the verified v1 data snapshot. Use `main` for the shared project code and documentation.
 
 ## Downloads
 
@@ -20,7 +20,8 @@ For the easiest standalone use, unzip the complete team handoff into a **fresh d
 In your existing repository, with your normal GitHub CLI authentication:
 
 ```sh
-gh pr checkout 20 --repo amitvijapur/oxhack-2026
+git switch main
+git pull --ff-only origin main
 gh release download gold-evidence-v1 --repo amitvijapur/oxhack-2026 --pattern 'tok-gold-team-handoff.zip' --pattern 'archives.json' --dir data/raw/gold-release-v1
 shasum -a 256 data/raw/gold-release-v1/tok-gold-team-handoff.zip
 ```
@@ -34,7 +35,7 @@ python3 -m unittest discover -s tests -p 'test_gold_evidence.py' -v
 
 `unzip -n` keeps any existing files. If the pinned-source tests reject an existing snapshot, use the complete bundle in a fresh directory instead of overwriting your data. All 12 tests should pass with no skips after the source is present.
 
-Without the GitHub CLI, fetch and check out `codex/site-a-soil-evidence` using your Git client, then download the assets in your signed-in browser. A Git pull alone transfers code and docs, not the data packs.
+Without the GitHub CLI, switch to `main` and pull it using your Git client, then download the assets in your signed-in browser. A Git pull alone transfers code and docs, not the data packs.
 
 ## What to open
 
