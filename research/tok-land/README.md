@@ -25,7 +25,7 @@ In the whole search box there are 706 active and 763 closed state claims. The la
 |---|---|
 | [tok_sample_claim_matches.csv](tok_sample_claim_matches.csv) | One row per sample–claim pair (a sample can sit in several claims), or one `outside_state_claims` row. Includes claim status, case ID, owner, start date and the distance to the nearest active claim. |
 | [tok_land_summary.json](tok_land_summary.json) | Per-site counts, owners and claims by start year. |
-| [gold_deal_comparables.csv](gold_deal_comparables.csv) | Six Alaska gold deals with prices and sources, in the same layout as the [lithium deal table](../lithium-data/land-pack/05_deal_comparables.csv). Shows how each one relates to the Tok sites. |
+| [gold_deal_comparables.csv](gold_deal_comparables.csv) | Ten Alaska deals with prices and sources: six project sales and four claim-package deals, in the same layout as the [lithium deal table](../lithium-data/land-pack/05_deal_comparables.csv). Shows how each one relates to the Tok sites. |
 | [tok_land_claims.py](tok_land_claims.py) | Downloads the claims, checks the gold source hash and rebuilds the first two files. |
 
 Regenerate the files from the repository root with Python 3. The script uses only the standard library and takes about 30 seconds:
@@ -40,11 +40,11 @@ Raw downloads go to `data/raw/tok-land/`, which Git ignores. If a file is alread
 
 - **The start date is not confirmed.** The date comes from the DNR field `NTPSTDT`, which DNR does not document. It is probably the date the claim was located. DNR's case-file pages block scripts, so check one in a browser before relying on it. Example: case ADL 715614, field value 22 August 2012.
 - **State claims only.** The BLM Alaska federal claims service returned "Service not started" on 24 October 2026. Native corporation land and the state land-status layers are not checked yet.
-- **No price for individual claims.** Alaska state claims are rented, not bought. The deal table gives project-level prices only. The yearly rent found so far comes from the 2000 statute: $20, $40 or $100 per 40 acres a year, by claim age. That statute requires a CPI revision every ten years, so the current rate is unverified.
+- **No open-market price for individual claims.** Alaska state claims are rented, not bought, and small claim sales are rarely published. The deal table has four claim-package prices. Raw claim packages run about $170–205 per acre (Avidian 2024, US Antimony 2025), while advanced projects sell for tens of millions of dollars or more. The only priced deal inside the Tok area is the June 2021 sale of ~13,000 acres for $50,000 (~$3.85 per acre). It was between related parties (Contango owned 30% of the buyer), so it is not a market price. The yearly rent found so far comes from the 2000 statute: $20, $40 or $100 per 40 acres a year, by claim age. That statute requires a CPI revision every ten years, so the current rate is unverified.
 - **A point inside a claim is only a spatial relationship.** It does not show where the sediment's gold came from, who owns the minerals, or whether land is available. This follows the [gold evidence contract](../gold-evidence-contract.md#future-land-record-join-contract).
 - **Distances are approximate.** They use a local flat projection, which is accurate to well under 1% across this area. A cross-check with geopandas in Alaska Albers (EPSG:3338) gave the same matches and a median within 5 m.
 - **Window counts use the sample bounding boxes,** which are search aids, not parcel boundaries.
-- **The deal table needs care.** Delta's price covers two projects. The Gold Reserve purchase closing was not confirmed. Values marked "our arithmetic" are simple calculations, such as scaling a 70% price to 100%.
+- **The deal table needs care.** Delta's price covers two projects. The Gold Reserve purchase closing was not confirmed. The Tanacross option was terminated in 2024. The US Antimony claims are for antimony, not gold. The Avidian price was not re-read in the filing itself. Values marked "our arithmetic" are simple calculations, such as scaling a 70% price to 100%.
 
 ## Sources
 
