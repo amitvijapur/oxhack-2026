@@ -6,23 +6,42 @@
     "carry": "REAL BLM maintenance fee: 30 lode claims x $200 per year = $500 a month (paid by the optionee during the option, assumed); after exercise the $25,000 advance royalty adds $2,083.33 a month.",
     "arrival": "MEASURED: the 2025 forecast P(any new staking in the section) from scripts/claims_forecast.py (held-out skill in claim-activity-forecast.md). Mean staking rate = -ln(1 - p); spread from the event counts of sections in the same forecast band. q (buyers per staking event) is an ASSUMPTION; the engine reports q*.",
     "bids": "ASSUMED two-point offers for the full block, as in the Tok demo. For scale: the clean NV/AZ catalogue median is about $285/acre, roughly $177k for White Rock's estimated 620 acres.",
-    "acceleration": "ASSUMPTION: remaining stages may be paid early to complete a sale. Not stated in the White Rock release."
+    "acceleration": "ASSUMPTION: remaining stages may be paid early to complete a sale. Not stated in the White Rock release.",
+    "wait": "ASSUMPTION: if we wait 12 months and watch nearby staking, the same terms are still available with probability 0.5. The engine reports the probability at which waiting beats buying now."
   },
   "forecast_source": {
     "report": "data/generated/claims_forecast/report.json",
     "cells_csv": "data/generated/claims_forecast/forecast_2025.csv"
   },
-  "forecast_cells": ["21 0310N 0330E 001", "21 0040N 0320E 016"],
+  "forecast_cells": [
+    "21 0310N 0330E 001",
+    "21 0040N 0320E 016"
+  ],
   "q_buyers_per_staking_event": 0.5,
   "contract": {
     "instrument": "staged_option",
     "horizon_months": 72,
     "stages": [
-      {"month": 0, "payment_usd": 10000},
-      {"month": 12, "payment_usd": 25000},
-      {"month": 24, "payment_usd": 40000},
-      {"month": 36, "payment_usd": 50000},
-      {"month": 48, "payment_usd": 125000}
+      {
+        "month": 0,
+        "payment_usd": 10000
+      },
+      {
+        "month": 12,
+        "payment_usd": 25000
+      },
+      {
+        "month": 24,
+        "payment_usd": 40000
+      },
+      {
+        "month": 36,
+        "payment_usd": 50000
+      },
+      {
+        "month": 48,
+        "payment_usd": 125000
+      }
     ],
     "acceleration_allowed": true,
     "carry_during_option": true,
@@ -32,9 +51,19 @@
     "salvage_usd": 0,
     "annual_discount_rate": 0.08,
     "bids": [
-      {"usd": 450000, "probability": 0.35},
-      {"usd": 120000, "probability": 0.65}
+      {
+        "usd": 450000,
+        "probability": 0.35
+      },
+      {
+        "usd": 120000,
+        "probability": 0.65
+      }
     ]
   },
-  "policy": {"budget_usd": 300000, "loss_limit_usd": 100000}
+  "policy": {
+    "budget_usd": 300000,
+    "loss_limit_usd": 100000
+  },
+  "p_deal_still_open": 0.5
 }

@@ -1,34 +1,36 @@
-# Decision engine: buy, hold, sell or skip a gold land contract
+# Decision engine: buy, wait, hold, sell or skip a gold land contract
 
 25 October 2026. Owner: Salman. Code:
 - [`scripts/decision_engine.py`](../../scripts/decision_engine.py): the decision
 - [`scripts/claims_forecast.py`](../../scripts/claims_forecast.py): the measured prediction
+- [`scripts/claims_pbo.py`](../../scripts/claims_pbo.py): the overfitting check
 - [`scripts/claims_fetch.py`](../../scripts/claims_fetch.py): the data
 
-Standard library only. The design follows the combined strategy (PR #24) and the review in PR #25. Every number below sits beside the command that regenerates it.
+Standard library only. The design follows the combined strategy (PR #24) and the three reviews in PR #25. Every number below sits beside the command that regenerates it.
 
 ## Data → features → measured prediction → decision
 
 | Step | What it does | Result |
 |---|---|---|
-| Data | 875,406 Nevada and Arizona lode claims since 1997; 21,141 MRDS gold sites; 1,469 Tok state claims. Each fetch has a manifest and SHA-256 | Fetched and hashed |
-| Features | Point-in-time staking decisions (distinct claimant-days) per section, township activity, active claims, distance to gold | 446,047 cell-years |
-| Measured prediction | Will a staked section see new staking next year? | **Beats climatology in 21/21 held-out years; skill +2.2% (95% CI +1.7% to +2.8%)**. See [forecast results](claim-activity-forecast.md) |
-| Decision | Staged land-contract options solved month by month: pay the next stage, sell, hold or lapse | Below |
+| Data | 875,406 Nevada and Arizona lode claims since 1997 (874,545 pass validation); 21,141 MRDS gold sites; 1,469 Tok state claims. Each fetch has a manifest and SHA-256 | 125,005 staking decisions across 31,431 sections |
+| Features | Point-in-time staking decisions per section (claimant names normalised), township activity, active claims, distance to gold | 445,681 cell-years |
+| Measured prediction | Will a staked section see new staking next year? | **Beats climatology in 21/21 held-out years; +2.2% (95% CI +1.7% to +2.7%); DM t = 9.0; +6.7% against persistence; overfitting probability 0.0.** See [forecast results](claim-activity-forecast.md) |
+| Decision | Staged land-contract options solved month by month: buy now, wait a year, pay the next stage, sell, hold or lapse | Below |
 
 ## How the decision works
 
-1. **The contract is a staged option.** Real gold land options are paid in stages. At each due date the holder pays the next stage or lets the option lapse. When a buyer arrives, the holder can pay the remaining stages early and sell, or decline and wait. The payment schedule is the TIME axis.
-2. **Buyers are learned over time.** Staking near the land follows a Poisson process with an uncertain rate (a Gamma belief). Buyers arrive at `q` times the staking rate. Quiet months lower the belief; an offer, even a declined one, raises it. The updates are exact.
+1. **The contract is a staged option.** At each due date the holder pays the next stage or lets the option lapse. When a buyer arrives, the holder can pay the remaining stages early and sell, or decline and wait. The payment schedule is the TIME axis.
+2. **Buyers are learned over time.** Staking near the land follows a Poisson process with an uncertain rate (a Gamma belief). Buyers arrive at `q` times the staking rate. Quiet months lower the belief, and an offer, even a declined one, raises it. Every update is exact.
 3. **Where the belief comes from:**
-   - In **Nevada and Arizona**, the measured forecast sets it. A section's P(any staking) gives the mean rate (λ = −ln(1 − p)), and sections in the same forecast band give the spread.
-   - In **Tok**, the forecast isn't validated, so Tok's own recorded history sets it. Old years are discounted by a forgetting rate chosen by one-step-ahead predictive score (each year predicted only from earlier years), and the decision averages over the forgetting rates, weighted by those scores.
-4. **The policy is optimal by backward induction**, subject to a loss limit applied inside it: a stage that could push the cash at risk past the limit is refused.
-5. **Every result reports:**
-   - the full outcome distribution: P(loss), P(gain), median, 5th and 95th percentiles
-   - the worst reachable outcome and the peak cash needed
-   - break-evens: the `q` at which the decision flips, the largest first payment and the smallest high offer worth entering for
-   - **fragility flags**: any input within 25% of its break-even, or any single assumption that flips the sign
+   - **Nevada and Arizona:** the measured forecast (λ = −ln(1 − p); the spread comes from sections in the same forecast band).
+   - **Tok:** the forecast isn't validated there, so Tok's own history is used. Old years are discounted (the West and Harrison discount model), at a rate chosen by one-step-ahead predictive score using only earlier years, and averaged over rates by that score.
+4. **Constrained optimal policy.** Backward induction finds it, with the loss limit applied inside the policy.
+5. **Three choices today: BUY, WAIT or SKIP.** WAIT means watching staking for 12 months and then deciding with the updated belief, which is valued exactly. Whether the deal is still open then is a labelled assumption.
+6. **Every result reports:**
+   - the exact outcome distribution
+   - the certainty equivalent under risk aversion
+   - break-evens
+   - **the facts the decision is conditional on**: any assumption or single observation that flips it
 
 ## Tok demo: real contract terms, real local demand
 
@@ -37,30 +39,36 @@ python3 scripts/decision_engine.py research/decision-engine/tok-demo.json
 ```
 
 - **Contract (real terms):** the White Rock option (Elko County, NV; catalogue row NV-04). $10k at signing, then $25k, $40k, $50k and $125k at years 1–4, and a $25k annual advance royalty after exercise. It is applied hypothetically to a 640-acre block in the Tok Site B window.
-- **Demand (real data):** Site B's staking decisions from 2007 to 5 March 2025. Counting claims instead would mislead badly: the 392 claims of 2016–17 were only 5 decisions.
-- **Assumed:** `q` = 0.5; offers of $450k (probability 0.35) or $120k (0.65); Alaska rent of $133 a month (unverified); an 8% discount rate; and early completion being allowed.
+- **Demand (real data):** Site B's staking decisions from 2007 to 5 March 2025.
+- **Assumed:**
+  - `q` = 0.5
+  - offers of $450k (probability 0.35) or $120k (0.65)
+  - Alaska rent of $133 a month (unverified)
+  - an 8% discount rate
+  - early completion allowed
+  - a 50% chance the deal is still open in a year
+
+**What the data say about demand:**
+- **A constant rate is rejected.** A run of seven quiet years like 2018–2024 happens only 2% of the time under it (posterior predictive check).
+- **The change is located exactly.** The changepoint posterior gives an **87–90% probability that the staking rate changed**, most likely in **2018** (35–46%). It fell from about **1.5 decisions a year to 0.2–0.33**, with a Bayes factor of 6–9 across three priors.
+- The best forgetting half-life is about 2.4 years.
 
 | Output | Value |
 |---|---|
-| Signal | **BUY** the option, by paying the $10k first stage |
+| Signal | **BUY, conditional** (see below): pay the $10k first stage |
 | Expected value | +$9,617 |
 | Outcome distribution | **87% chance of a loss**; median −$11,545; 5th percentile −$36,123; 95th percentile +$182,901 |
 | Worst reachable outcome | −$71,742, within the $100k limit |
-| Plan | Hold; **sell** on an offer of at least $279,780 in month 0, falling to $252,629 by month 11; **lapse** at month 12 rather than pay the $25k second stage |
-| Break-even `q` | 0.269: BUY only if at least about 1 in 4 staking events becomes a buyer |
-| Largest first payment worth making | $19,617 |
-| Smallest high offer worth entering for | $361,893 |
-| P(buyer within 12 months) | 0.266 |
+| Waiting 12 months instead | +$9,676 if the deal is still open. WAIT beats BUY only if that's more than 99.4% likely, because Tok's staking is too sparse for a year to teach much |
+| Risk aversion | Certainty equivalent with $300k wealth: +$4,057 at γ = 1 and −$251 at γ = 2. **A buyer with risk aversion above γ ≈ 1.9 should not take it** |
+| Plan | Hold; sell on an offer of at least $279,780 in month 0, falling to $252,629 by month 11; lapse at month 12 rather than pay the $25k second stage |
+| Break-even `q` | 0.269: about 1 in 4 staking events must become a buyer |
 
-**What the data say about demand:**
-- **A constant-rate model is rejected.** Under the pooled model, a run of 7 quiet years like 2018–2024 happens only 2% of the time (posterior predictive check, p = 0.020 over 20,000 simulations).
-- **Best half-life:** recent years carry most weight. The best-scoring forgetting rate gives a half-life of about 2.4 years.
-
-**Fragile, and flagged as such by the engine:**
+**The decision is conditional on two checkable facts.** The engine flags both:
 - **Acceleration:** if the remaining stages can't be paid early to complete a sale, the value is **−$11,545** (SKIP). The White Rock release doesn't say whether this is allowed.
-- **One recent event:** without the single staking decision in January–March 2025, the value is **−$9,140** (SKIP). One fresh observation in a 63-day window flips the recommendation. Its date field (`NTPSTDT`) is still unconfirmed.
+- **One recent event:** without the single staking decision in January–March 2025, the value is **−$9,140** (SKIP). Its date field (`NTPSTDT`) is unconfirmed.
 
-This is the honest headline: the BUY is a low-probability, high-payoff bet that rests on two checkable facts.
+Honest summary: the evidence isn't strong enough for an unconditional BUY. The engine shows exactly which two facts would settle it.
 
 ## Nevada: the measured forecast drives the decision
 
@@ -69,43 +77,59 @@ python3 scripts/claims_forecast.py      # writes forecast_2025.csv
 python3 scripts/decision_engine.py research/decision-engine/nv-forecast-demo.json
 ```
 
-This uses the same White Rock terms with real BLM fees: 30 claims × $200 a year = $500 a month, plus the $25k advance royalty after exercise. The two sections come from the 2025 forecast:
+This uses the same White Rock terms with real BLM fees: 30 claims × $200 a year = $500 a month, plus the $25k advance royalty after exercise. The forecast is the raw model, which over-forecasts slightly, so it leans towards BUY.
 
-| Section | Forecast P(staking in 2025) | Expected value | P(loss) | Break-even `q` | Signal |
-|---|---:|---:|---:|---:|---|
-| 21 0310N 0330E 001 (top Nevada forecast) | 0.359 | −$1,843 | 91% | 0.565 | SKIP, near the boundary (fragile) |
-| 21 0040N 0320E 016 (median Nevada forecast) | 0.064 | −$13,673 | 99% | none | SKIP |
+| Section | Forecast P(staking in 2025) | Buy now | Wait a year | P(loss) if bought | Break-even `q` | Signal |
+|---|---:|---:|---:|---:|---:|---|
+| 21 0310N 0330E 001 (top-ranked) | 0.372 | −$1,186 | +$3,402 | 91% | 0.541 | **WAIT**, near the boundary |
+| 21 0040N 0320E 016 (median) | 0.066 | −$13,636 | +$157 | 99% | none | WAIT in name only; effectively SKIP |
 
-The forecast moves the value by about $12k. The top section becomes a BUY if more than about 57% of staking events turn into buyers; the median section never does.
+The forecast moves the value of buying now by about $12k. For the top section, watching staking for a year is worth more than buying today, and it becomes a BUY if more than about 54% of staking events turn into buyers.
 
 ## Correctness checks
 
-`python3 -m unittest discover -s tests -p 'test_decision_engine.py' -v` runs 24 tests:
-- the review fixture and its boundary cases ($9,500 / $12,600 / −$400 and SKIP)
-- the one-period monthly tree matching the fixture
+`python3 -m unittest discover -s tests -p 'test_decision_engine.py' -v` runs 29 tests:
+- the review fixture and its boundary cases
+- the one-period tree matching the fixture
 - the Gamma hand values
-- backward induction equal to an **independent brute-force search over full histories**, including offers seen, on 40 random contracts
+- backward induction equal to an **independent brute-force search over full histories** on 40 random contracts
 - costs never raising value
 - a stronger forecast never lowering an option's value
-- the exact outcome distribution agreeing with both the expected value and the worst case
-- the loss cap bounding losses
+- the exact outcome distribution agreeing with the expected value and the worst case
+- the loss cap
 - forgetting-rate scoring using only earlier years
 - partial years counting less
-- the pinned demos
+- the negative-binomial staking predictive
+- waiting-value bounds
+- the certainty equivalent falling with risk aversion
+- the changepoint marginal against a hand value, and a known break recovered
+- the pinned demo
 
-`python3 -m unittest discover -s tests -p 'test_claims_forecast.py' -v` runs 6 leakage and arithmetic tests.
+`python3 -m unittest discover -s tests -p 'test_claims_forecast.py' -v` runs 15 tests:
+- leakage
+- name normalisation and validation counts
+- logistic convergence and coefficient recovery
+- the intercept shift
+- economic-value bounds
+- the Student-t p-value
+- PBO behaviour
 
-**Demo re-pin, 25 October:**
-- **Before:** the earlier pin (+$14,507) pooled all years equally, counted 2025 as a full year, treated declined offers as quiet months, and applied the loss limit only after optimising.
-- **What changed:** each of those was fixed after the PR #25 review, which moved the pin to +$9,617.
+**Demo re-pin, 25 October:** the earlier pin (+$14,507) pooled all years, counted 2025 as a full year, treated declined offers as quiet months, and applied the loss limit only after optimising. Each was fixed after the PR #25 review, which moved the pin to +$9,617.
 
 ## Still open
 
 - Confirm what `NTPSTDT` means (Alaska DNR case ADL 715614 against its case abstract).
 - Check the White Rock agreement's early-exercise and assignment terms.
-- Calibrate the forecast (it over-forecasts by about 1 percentage point).
-- Add a point-in-time gold-price feature.
-- Add log loss and AUC, a persistence-only ablation, and a run without the gold terms.
-- Normalise claimant names.
+- From the PR #25 research-standards review:
+  - a gold-price feature, which would also drive offers (D5)
+  - a rate that keeps changing during the contract (D2)
+  - stacking across model types with robust values (D3)
+  - the optimizer's-curse adjustment (D10)
+  - a stopping-theory test (D8)
+  - inference calibration checks (D9)
+  - skill within strata (V3)
+  - a drift alarm (V10)
+  - a frozen 2026 forecast hash (V11)
+  - profiling (E1)
 - Offers and `q` remain assumptions. The engine reports how far each can move before the signal flips.
 - Not investment or legal advice. Brokerage routes need the licensing gates in PR #23.

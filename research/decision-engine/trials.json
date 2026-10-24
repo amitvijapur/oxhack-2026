@@ -1,0 +1,22 @@
+{
+  "purpose": "Every forecast variant tried or decided, so results can be judged against the number of choices made (Man AHL, Jane Street; PBO by Bailey et al.). Runs with a report feed scripts/claims_pbo.py.",
+  "fixed_before_any_fit": [
+    "target: any new locator-day in a previously staked section in calendar year Y",
+    "event unit: distinct claimant-and-date, not claim count",
+    "training labels up to Y-2; test years 2003-2023; 5 township folds",
+    "features: trailing 1y and 3y staking decisions, active claims, township activity, gold within radius, distance to gold",
+    "model: logistic regression; baselines: climatology, per-cell trailing rate, year base rate (oracle)"
+  ],
+  "history": [
+    {"date": "2026-10-24", "change": "first full run (no recalibration, claimant names upper-cased only)", "headline_skill_vs_climatology": 0.0221},
+    {"date": "2026-10-25", "change": "claimant names normalised; invalid rows dropped; intercept recalibration added; same variant grid below"}
+  ],
+  "variants": [
+    {"id": "base", "lag_days": 92, "gold_radius_km": 5, "gold": true, "report": "data/generated/claims_forecast/report.json"},
+    {"id": "lag60", "lag_days": 60, "gold_radius_km": 5, "gold": true, "report": "data/generated/claims_forecast/report_lag60.json"},
+    {"id": "lag180", "lag_days": 180, "gold_radius_km": 5, "gold": true, "report": "data/generated/claims_forecast/report_lag180.json"},
+    {"id": "radius2", "lag_days": 92, "gold_radius_km": 2, "gold": true, "report": "data/generated/claims_forecast/report_radius2.json"},
+    {"id": "radius10", "lag_days": 92, "gold_radius_km": 10, "gold": true, "report": "data/generated/claims_forecast/report_radius10.json"},
+    {"id": "nogold", "lag_days": 92, "gold": false, "report": "data/generated/claims_forecast/report_nogold.json"}
+  ]
+}

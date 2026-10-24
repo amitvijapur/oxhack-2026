@@ -6,7 +6,8 @@
     "carry": "Alaska state claim rent assumed at $100 per 40 acres per year (2000 statute; current CPI-revised rate UNVERIFIED) = $1,600/yr; after exercise the $25,000/yr advance royalty is added.",
     "arrival": "Staking events = distinct owner-days in the Tok Site B window, 2007-2025, from Alaska DNR state claims (NTPSTDT meaning unconfirmed). 2025 is partial: data end 2025-03-05, so its exposure is 63/365 of a year. The belief forgets old years at a rate chosen by one-step-ahead predictive score (only earlier years), averaged over the grid by those scores. Weak starting prior Gamma(0.5, 0.5 years). q (buyers per staking event) is an ASSUMPTION; the engine reports the q at which the decision flips.",
     "bids": "ASSUMED two-point buyer offers for the full block. For scale only: published Alaska claim packages sold for about $170-205/acre (Avidian 2024; US Antimony 2025, an antimony option), i.e. roughly $109k-131k for 640 acres. Not a Tok price.",
-    "acceleration": "ASSUMPTION: the optionee may pay the remaining stages early to complete a sale when a buyer arrives. Not stated in the White Rock release; the engine reports the value with this assumption reversed."
+    "acceleration": "ASSUMPTION: the optionee may pay the remaining stages early to complete a sale when a buyer arrives. Not stated in the White Rock release; the engine reports the value with this assumption reversed.",
+    "wait": "ASSUMPTION: if we wait 12 months and watch nearby staking, the same terms are still available with probability 0.5. The engine reports the probability at which waiting beats buying now."
   },
   "q_buyers_per_staking_event": 0.5,
   "contract": {
@@ -138,5 +139,6 @@
       0.4,
       0.3
     ]
-  }
+  },
+  "p_deal_still_open": 0.5
 }

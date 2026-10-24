@@ -278,6 +278,39 @@ def arrival_from_history(history, prior, q):
     return MixtureArrival(components), rows
 
 
+def segment_log_marginal(counts, exposures, a, b):
+    """Log marginal likelihood of Poisson counts sharing one Gamma(a, b) rate (b in years)."""
+    s, e = sum(counts), sum(exposures)
+    return (a * math.log(b) - math.lgamma(a) + math.lgamma(a + s) - (a + s) * math.log(b + e)
+            + sum(y * math.log(x) for y, x in zip(counts, exposures) if y) - sum(math.lgamma(y + 1) for y in counts))
+
+
+def changepoint_posterior(years, counts, exposures, a, b, p_change=0.5):
+    """Exact posterior over at most one change in the staking rate.
+
+    Every change year is enumerated (uniform prior), against the no-change model. Each segment's
+    rate has a Gamma(a, b) prior, so the marginals are closed-form (Raftery and Akman 1986). The
+    forgetting model in ``discounted_posterior`` is the West and Harrison discount alternative."""
+    no_change = segment_log_marginal(counts, exposures, a, b)
+    splits = []
+    for k in range(1, len(counts)):
+        log_l = (segment_log_marginal(counts[:k], exposures[:k], a, b)
+                 + segment_log_marginal(counts[k:], exposures[k:], a, b))
+        splits.append((years[k], log_l, k))
+    logs = [math.log(1 - p_change) + no_change] + [math.log(p_change / len(splits)) + l for _, l, _ in splits]
+    top = max(logs)
+    norm = sum(math.exp(x - top) for x in logs)
+    post = [math.exp(x - top) / norm for x in logs]
+    best_year, _, k = max(splits, key=lambda s: s[1])
+    rate = lambda c, e: (a + sum(c)) / (b + sum(e))
+    return {"prior": {"a": a, "b_years": b, "p_change": p_change}, "p_no_change": post[0],
+            "p_change_by_year": {str(y): post[i + 1] for i, (y, _, _) in enumerate(splits)},
+            "most_likely_change_year": best_year,
+            "rate_before_per_year": rate(counts[:k], exposures[:k]), "rate_after_per_year": rate(counts[k:], exposures[k:]),
+            "log_bayes_factor_change_vs_none": math.log(sum(math.exp(l - top) for _, l, _ in splits) / len(splits))
+            + top - no_change}
+
+
 def longest_zero_run(counts):
     best = run = 0
     for n in counts:
@@ -575,6 +608,60 @@ def break_even(objective, low, high, steps=60):
     return (low + high) / 2
 
 
+def staking_predictive(arrival, months, max_events=200, tail=1e-9):
+    """Exact predictive of staking counts over ``months``, and the updated belief after each count.
+
+    Returns [(probability, belief after n events), ...]. For a mixture, each component's weight is
+    updated by how likely it made the observed count (negative binomial)."""
+    components = arrival.components if isinstance(arrival, MixtureArrival) else ((1.0, arrival),)
+    out, total = [], 0.0
+    for n in range(max_events + 1):
+        joint = []
+        for w, g in components:
+            b = g.beta
+            log_nb = (math.lgamma(g.alpha + n) - math.lgamma(g.alpha) - math.lgamma(n + 1)
+                      + g.alpha * math.log(b / (b + months)) + n * math.log(months / (b + months)))
+            joint.append((w * math.exp(log_nb), g.with_staking(n, months)))
+        prob = sum(j for j, _ in joint)
+        if prob > 0:
+            belief = joint[0][1] if len(joint) == 1 else MixtureArrival(tuple((j / prob, g) for j, g in joint if j > 0))
+            out.append((prob, belief))
+            total += prob
+        if 1 - total < tail:
+            break
+    return out
+
+
+def entry_value_if_feasible(contract, arrival, budget_usd, loss_limit_usd):
+    """Value of entering now, or 0 if a funding or loss constraint excludes entry."""
+    solver = Solver(contract, arrival, commitment_cap=loss_limit_usd)
+    value = solver.entry_value()
+    if solver.peak_funding() > budget_usd + TOLERANCE or -solver.entry_worst() > loss_limit_usd + TOLERANCE:
+        return 0.0
+    return max(0.0, value)
+
+
+def wait_value(contract, arrival, budget_usd, loss_limit_usd, p_deal_still_open, months=12):
+    """Value of waiting ``months``, watching nearby staking, then deciding on the same terms.
+
+    Exact: sum over staking counts n of P(n) times the value of entering with the updated belief,
+    discounted, times the chance the deal is still open (a labelled assumption)."""
+    rate = contract.get("annual_discount_rate", 0.0)
+    disc = (1 + rate) ** (-months / 12)
+    later = sum(prob * entry_value_if_feasible(contract, belief, budget_usd, loss_limit_usd)
+                for prob, belief in staking_predictive(arrival, months))
+    return p_deal_still_open * disc * later, disc * later
+
+
+def certainty_equivalent(dist, wealth, gamma):
+    """CRRA certainty equivalent of a {cash: probability} distribution added to ``wealth``."""
+    if gamma == 1:
+        expected = sum(p * math.log(wealth + c) for c, p in dist.items())
+        return math.exp(expected) - wealth
+    expected = sum(p * (wealth + c) ** (1 - gamma) for c, p in dist.items())
+    return expected ** (1 / (1 - gamma)) - wealth
+
+
 FRAGILE_BAND = 0.25  # an input within 25% of the value that flips the action is flagged
 
 
@@ -628,6 +715,34 @@ def analyse(contract, arrival, budget_usd, loss_limit_usd):
     return out
 
 
+def decide_with_waiting(contract, arrival, budget_usd, loss_limit_usd, p_deal_still_open, wealth_usd=None):
+    """BUY, WAIT or SKIP: compare entering now with waiting a year and deciding with more evidence."""
+    out = analyse(contract, arrival, budget_usd, loss_limit_usd)
+    buy = out["value_usd"] if out["action"] == "BUY" else 0.0
+    wait, wait_if_open = wait_value(contract, arrival, budget_usd, loss_limit_usd, p_deal_still_open)
+    if buy > TOLERANCE and buy >= wait:
+        signal = "BUY"
+    elif wait > TOLERANCE:
+        signal = "WAIT"
+    else:
+        signal = "SKIP"
+    out["signal"] = signal
+    out["wait"] = {"months": 12, "p_deal_still_open": p_deal_still_open, "value_usd": wait,
+                   "value_if_deal_still_open_usd": wait_if_open,
+                   "p_open_where_wait_beats_buy": (buy / wait_if_open if wait_if_open > TOLERANCE else None)}
+    dist = Solver(contract, arrival, commitment_cap=loss_limit_usd).outcomes()
+    wealth = wealth_usd or budget_usd
+    out["risk_aversion"] = {
+        "wealth_usd": wealth,
+        "certainty_equivalent_usd": {str(g): certainty_equivalent(dist, wealth, g) for g in (0.5, 1, 2, 4)},
+        "gamma_where_buy_stops_paying": (break_even(lambda g: certainty_equivalent(dist, wealth, g), 1e-6, 50.0)
+                                         if out["value_usd"] > TOLERANCE else None),
+    }
+    if out["fragile"]:
+        out["conditional_on"] = out["fragile"]
+    return out
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("contract", type=Path, help="JSON with contract, arrival and policy sections")
@@ -650,7 +765,8 @@ def main():
             p_any = float(row["p_any_staking"])
             band, band_row = band_for(p_any, moments)
             arrival = arrival_from_forecast(p_any, band_row, spec["q_buyers_per_staking_event"])
-            result = analyse(spec["contract"], arrival, spec["policy"]["budget_usd"], spec["policy"]["loss_limit_usd"])
+            result = decide_with_waiting(spec["contract"], arrival, spec["policy"]["budget_usd"],
+                                         spec["policy"]["loss_limit_usd"], spec["p_deal_still_open"])
             result["forecast"] = {"mtrs": mtrs, "p_any_staking": p_any, "cutoff": row["cutoff"], "band": band,
                                   "staking_rate_per_year": -math.log(1 - p_any), "alpha": arrival.alpha,
                                   "p_buyer_within_12_months": arrival.p_buyer_within(12)}
@@ -668,6 +784,8 @@ def main():
         pooled = [r for r in profile if r["forget"] == 1.0][0]
         full = [n for n, e in zip(history["events"], history["exposure_years"]) if e >= 1.0]
         report["forgetting_sweep"] = sweep
+        report["changepoint"] = [changepoint_posterior(history["years"], history["events"], history["exposure_years"], a, b)
+                                 for a, b in spec.get("changepoint_priors", [[0.5, 0.5], [1, 1], [2, 2]])]
         report["pooled_model_check"] = zero_run_check(full, pooled["posterior_alpha"], pooled["posterior_beta_years"])
         latest = max(i for i, n in enumerate(history["events"]) if n > 0)
         trimmed = dict(history, events=[n - (i == latest) for i, n in enumerate(history["events"])])
@@ -675,7 +793,8 @@ def main():
         report["latest_event_check"] = {
             "year_of_latest_event": history["years"][latest],
             "value_without_it_usd": solve(spec["contract"], without, spec["policy"]["loss_limit_usd"])}
-    result = analyse(spec["contract"], arrival, spec["policy"]["budget_usd"], spec["policy"]["loss_limit_usd"])
+    result = decide_with_waiting(spec["contract"], arrival, spec["policy"]["budget_usd"],
+                                 spec["policy"]["loss_limit_usd"], spec["p_deal_still_open"])
     result["arrival"] = {"p_buyer_within_12_months": arrival.p_buyer_within(12)}
     result.update(report)
     if "latest_event_check" in report and (report["latest_event_check"]["value_without_it_usd"] > TOLERANCE) != \

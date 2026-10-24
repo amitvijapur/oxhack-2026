@@ -253,6 +253,48 @@ class ForecastToDecisionTests(unittest.TestCase):
         self.assertEqual(values, sorted(values))
 
 
+class WaitRiskChangepointTests(unittest.TestCase):
+    def test_staking_predictive_is_negative_binomial(self):
+        g = engine.GammaArrival(alpha=2, beta=6)  # months
+        pred = engine.staking_predictive(g, 12)
+        self.assertAlmostEqual(sum(p for p, _ in pred), 1.0, places=6)
+        self.assertAlmostEqual(pred[0][0], (6 / 18) ** 2)  # P(0 events in 12 months)
+        self.assertEqual(pred[3][1], g.with_staking(3, 12))
+
+    def test_wait_value_bounds(self):
+        contract = {"instrument": "staged_option", "horizon_months": 24, "exit_fee_usd": 5000,
+                    "carry_usd_per_month": 300, "carry_during_option": True, "bids": BIDS,
+                    "stages": [{"month": 0, "payment_usd": 8000}, {"month": 12, "payment_usd": 30000},
+                               {"month": 24, "payment_usd": 90000}]}
+        arrival = engine.GammaArrival(1.5, 20, 0.5)
+        never, _ = engine.wait_value(contract, arrival, 10 ** 6, 10 ** 6, 0.0)
+        half, if_open = engine.wait_value(contract, arrival, 10 ** 6, 10 ** 6, 0.5)
+        self.assertEqual(never, 0.0)
+        self.assertAlmostEqual(half, 0.5 * if_open)
+        self.assertGreaterEqual(if_open, 0.0)
+
+    def test_certainty_equivalent(self):
+        sure = {1000.0: 1.0}
+        self.assertAlmostEqual(engine.certainty_equivalent(sure, 10000, 2), 1000.0)
+        gamble = {-5000.0: 0.5, 7000.0: 0.5}  # mean +1000
+        ces = [engine.certainty_equivalent(gamble, 10000, g) for g in (0.5, 1, 2, 4)]
+        self.assertEqual(ces, sorted(ces, reverse=True))  # more risk aversion, lower value
+        self.assertLess(ces[0], 1000.0)
+        self.assertAlmostEqual(engine.certainty_equivalent(gamble, 10000, 1), (5000 * 17000) ** 0.5 - 10000)
+
+    def test_segment_marginal_hand_value(self):
+        # One event in one year, Gamma(1, 1) rate: negative binomial P(1) = 1/4.
+        self.assertAlmostEqual(engine.segment_log_marginal([1], [1.0], 1.0, 1.0), __import__("math").log(0.25))
+
+    def test_changepoint_finds_a_clear_break(self):
+        years = list(range(2000, 2020))
+        counts = [4] * 10 + [0] * 10
+        post = engine.changepoint_posterior(years, counts, [1.0] * 20, 1.0, 1.0)
+        self.assertAlmostEqual(post["p_no_change"] + sum(post["p_change_by_year"].values()), 1.0)
+        self.assertEqual(post["most_likely_change_year"], 2010)
+        self.assertGreater(1 - post["p_no_change"], 0.99)
+
+
 class OutcomeTests(unittest.TestCase):
     def test_outcome_distribution_matches_value(self):
         rng = random.Random(5)

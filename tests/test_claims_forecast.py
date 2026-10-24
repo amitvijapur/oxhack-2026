@@ -71,7 +71,67 @@ class FeatureTests(unittest.TestCase):
         self.assertAlmostEqual(rows[0]["x"][3], __import__("math").log1p(1))
 
 
+class ValidationTests(unittest.TestCase):
+    def test_claimant_names_normalised(self):
+        self.assertEqual(forecast.normalise_claimant("ABC, LLC"), forecast.normalise_claimant("ABC LLC"))
+        self.assertEqual(forecast.normalise_claimant("Barrick Gold Exploration Inc."), "BARRICK GOLD EXPLORATION")
+
+    def test_name_variants_are_one_decision(self):
+        claims = [("NV", "21 0100N 0100E 001", "A", "1998-05-01", ""),
+                  ("NV", "21 0100N 0100E 001", "ABC, LLC", "2005-06-01", ""),
+                  ("NV", "21 0100N 0100E 001", "ABC LLC", "2005-06-01", "")]
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "claims.csv"
+            write_claims(path, claims)
+            row = [r for r in forecast.build_rows(forecast.load_claims(path), FakeGold(), [2005])][0]
+        self.assertEqual(row["events"], 1)
+
+    def test_invalid_rows_counted_and_dropped(self):
+        claims = [("NV", "21 0100N 0100E 001", "A", "1998-05-01", ""),
+                  ("NV", "bad mtrs", "A", "1998-05-01", ""),
+                  ("NV", "21 0100N 0100E 001", "B", "2026-01-01", ""),
+                  ("NV", "21 0100N 0100E 001", "C", "2000-01-01", "1999-01-01")]
+        stats = {}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "claims.csv"
+            write_claims(path, claims)
+            forecast.load_claims(path, stats)
+        self.assertEqual(stats["dropped_bad_mtrs_format"], 1)
+        self.assertEqual(stats["dropped_location_after_snapshot"], 1)
+        self.assertEqual(stats["closed_before_located_ignored"], 1)
+        self.assertEqual(stats["kept"], 2)
+
+
+class ScoringTests(unittest.TestCase):
+    def test_intercept_shift_recovers_known_offset(self):
+        rng = random.Random(9)
+        rows = []
+        for _ in range(20000):
+            x = (1.0, rng.gauss(0, 1))
+            rows.append({"x": x, "y": 1 if rng.random() < forecast.predict((-1.0, 1.0), x, shift=-0.7) else 0})
+        self.assertAlmostEqual(forecast.intercept_shift((-1.0, 1.0), rows), -0.7, delta=0.06)
+
+    def test_economic_value_bounds(self):
+        perfect = [(1.0, 1)] * 10 + [(0.0, 0)] * 90
+        self.assertTrue(all(abs(v["value"] - 1.0) < 1e-9 for v in forecast.economic_value(perfect)))
+        useless = [(0.1, 1)] * 10 + [(0.1, 0)] * 90  # constant at the base rate
+        self.assertTrue(all(v["value"] <= 1e-9 for v in forecast.economic_value(useless)))
+
+    def test_student_t_p_value(self):
+        self.assertAlmostEqual(forecast.t_two_sided_p(2.086, 20), 0.05, places=3)
+        self.assertAlmostEqual(forecast.t_two_sided_p(0.0, 5), 1.0)
+
+
 class LogisticTests(unittest.TestCase):
+    def test_converges_and_reports(self):
+        rng = random.Random(4)
+        rows = [{"x": (1.0, x), "y": 1 if rng.random() < forecast.predict((0.3, -0.8), (1.0, x)) else 0}
+                for x in (rng.gauss(0, 1) for _ in range(3000))]
+        info = {}
+        forecast.fit_logistic(rows, info=info)
+        self.assertTrue(info["converged"])
+        self.assertLess(info["iterations"], 25)
+
     def test_recovers_known_coefficients(self):
         rng = random.Random(3)
         rows = []
@@ -86,3 +146,23 @@ class LogisticTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+PBO_SPEC = importlib.util.spec_from_file_location("claims_pbo", ROOT / "scripts/claims_pbo.py")
+claims_pbo = importlib.util.module_from_spec(PBO_SPEC)
+PBO_SPEC.loader.exec_module(claims_pbo)
+
+
+class PboTests(unittest.TestCase):
+    def test_clear_winner_has_no_overfitting(self):
+        rng = random.Random(1)
+        names = [f"v{i}" for i in range(5)] + ["best"]
+        matrix = {y: {n: rng.gauss(3 if n == "best" else 0, 1) for n in names} for y in range(2003, 2024)}
+        result = claims_pbo.pbo(matrix, names, 6)
+        self.assertEqual(result["splits"], 20)
+        self.assertEqual(result["pbo"], 0.0)
+
+    def test_identical_variants_are_coin_flips(self):
+        names = ["a", "b"]
+        matrix = {y: {"a": (y % 2) * 1.0, "b": ((y + 1) % 2) * 1.0} for y in range(2003, 2023)}
+        self.assertGreater(claims_pbo.pbo(matrix, names, 4)["pbo"], 0.0)
