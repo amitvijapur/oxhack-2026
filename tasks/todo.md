@@ -73,6 +73,11 @@ Owner: Amit, with Codex maintaining the repository configuration and documentati
 - [x] Compile the official slide deck and ceremony audio into `research/event-context.md`: schedule, Sunday 12:00 hacking cutoff, prize rubrics, corrected MLH prize names, venue, and the team's brainstorm leanings.
 - [ ] Confirm with an organiser whether Sunday 12:00 is also the Devpost deadline, plus team size and repository rules.
 
+## Ideas list (owner: Ahmed)
+
+- [x] Add the full scored ideas list as `research/all-ideas.md`, with a section cross-checking it against the event context and the Fed Millisecond brief.
+- [ ] Team picks the direction: Fed Millisecond or Golden Hour (financial), Flag Fall or Memento Mori (non-financial), Bang the Close as backup.
+
 ## Review
 
 24 October 2026, optional kit import: inspected Muhammad's actual archive at
