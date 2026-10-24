@@ -2,6 +2,8 @@
 
 24 October 2026. Owner: Amit. Coordination note. US soil data is selected; the named assignments are agreed and exact area boundaries remain pending. See [the current build plan](us-soil-build-plan.md).
 
+> Execution update: Amit has completed both Site A and Site B using the shared method while Arjin was unavailable. Arjin can review B and continue the display work on return. See [Site A results](site-a-evidence-results.md) and [Site B results](site-b-evidence-results.md). MiroFish remains a separate workstream.
+
 | Person | Responsibility | Handoff |
 |---|---|---|
 | Amit: Site A and local MiroFish | Extract Site A evidence; bootstrap and run MiroFish locally after both packs and prompts are ready | Site A pack, then saved local swarm run |

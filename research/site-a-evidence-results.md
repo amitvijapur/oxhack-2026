@@ -31,7 +31,7 @@ These are observed historical soil concentrations. They do not establish a depos
 - All 15 focused tests passed, including an independent test run. Source checksum, output hashes, quality flags and the provenance references were reviewed.
 - An identical A rerun leaves the existing pack unchanged. A changed or unrelated output directory is refused.
 - Both cohorts match the frozen split at longitude -111.5453: A has 88 records, B has 89, with no overlap and complete coverage of the 177 Arizona records.
-- The source-and-method archive was extracted into a clean temporary directory. Its file checksums passed; the included command regenerated A byte-for-byte and generated B successfully with 89 quantified records. Temporary B outputs were removed; Arjin owns the final B pack and narrative.
+- The source-and-method archive was extracted into a clean temporary directory. Its file checksums passed; the included command regenerated A byte-for-byte and generated B successfully with 89 quantified records. Those temporary B outputs were removed. Amit has subsequently completed the final B pack while Arjin was away; see [the B results](site-b-evidence-results.md).
 
 The development loop was worker implementation, meaningful tests, independent source/code review, and parent integration/portable reproduction. No new dependency, framework, CI policy or MiroFish component was introduced.
 

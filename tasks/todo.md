@@ -1,5 +1,15 @@
 # OXHack preparation
 
+## Generate Site B while Amit covers Arjin
+
+Review: all 89 B rows and summary metrics independently match the source. Median copper is 18.0 mg/kg. A/B cover all 177 records without overlap; output and archive hashes pass. The method and previous artifacts are unchanged.
+
+Owner: Amit for this extraction; Arjin can review the pack and continue display work when available. Use the existing source, split and extractor. No MiroFish or algorithm changes.
+
+- [x] Generate B and verify the source records, summaries, checksums and repeatability without changing the extraction method.
+- [x] Package B and a combined A/B handoff; preserve the existing Site A artifacts.
+- [x] Prepare the reviewed [Site B results](../research/site-b-evidence-results.md) for the existing evidence PR and Obsidian handoff record. No source or extractor changes.
+
 ## Build Site A soil evidence and reusable B extraction
 
 Results: [verified Site A evidence](../research/site-a-evidence-results.md). A has 88 rows, 87 quantified copper measurements and one retained missing sample. Median copper is 17.4 mg/kg. Independent review passed; the source-and-method archive regenerated A identically and generated B in a clean temporary directory.
