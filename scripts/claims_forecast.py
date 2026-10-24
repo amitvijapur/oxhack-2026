@@ -213,6 +213,7 @@ def evaluate(rows, train_filter, test_filter, label):
                          **{f"brier_{k}": round(brier(v), 5) for k, v in rows_scored.items()}})
     b = {k: brier(v) for k, v in scored.items() if v}
     return {
+        "_pairs": scored["model"], **year_stats(per_year),
         "evaluation": label, "test_rows": len(scored["model"]),
         "brier": {k: round(v, 5) for k, v in b.items()},
         "skill_vs_climatology": round(1 - b["model"] / b["climatology"], 4),
@@ -222,6 +223,25 @@ def evaluate(rows, train_filter, test_filter, label):
         "reliability": reliability(scored["model"]),
         "per_year": per_year,
     }
+
+
+def year_stats(per_year, draws=5000):
+    """Years are the independent units: count wins per year (sign test) and bootstrap whole years."""
+    if not per_year:
+        return {}
+    n = len(per_year)
+    wins = sum(y["brier_model"] < y["brier_climatology"] for y in per_year)
+    p_value = sum(math.comb(n, i) for i in range(wins, n + 1)) / 2 ** n
+    rng, skills = random.Random(0), []
+    for _ in range(draws):
+        sample = [rng.choice(per_year) for _ in per_year]
+        model = sum(y["brier_model"] * y["test_cells"] for y in sample)
+        clim = sum(y["brier_climatology"] * y["test_cells"] for y in sample)
+        skills.append(1 - model / clim)
+    skills.sort()
+    return {"years_beating_climatology": f"{wins}/{n}", "sign_test_p": p_value,
+            "skill_vs_climatology_95ci_year_bootstrap": [round(skills[int(0.025 * draws)], 4),
+                                                         round(skills[int(0.975 * draws) - 1], 4)]}
 
 
 def reliability(pairs, bins=10):
@@ -253,11 +273,28 @@ def final_model(rows):
     return {"coefficients": dict(zip(FEATURES, (round(v, 4) for v in w))), "count_moments_by_forecast_band": moments}
 
 
+def write_forecast(cells, gold, rows, year, output):
+    """Forecast ``year`` for every section eligible at its cutoff, with the final model fitted on resolved years."""
+    train = [r for r in rows if FIRST_LABEL_YEAR <= r["year"] <= year - 2]
+    w = fit_logistic(random.Random(0).sample(train, min(SAMPLE, len(train))))
+    target = build_rows(cells, gold, [year])
+    path = output / f"forecast_{year}.csv"
+    with path.open("w", newline="") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(["mtrs", "state", "p_any_staking", "cutoff", *FEATURES[1:]])
+        for r in sorted(target, key=lambda r: -predict(w, r["x"])):
+            writer.writerow([r["cell"], r["state"], round(predict(w, r["x"]), 5), cutoff(year).isoformat(),
+                             *(round(v, 4) for v in r["x"][1:])])
+    print(f"forecast {year}: {len(target):,} sections -> {path}", flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--claims", type=Path, default=Path("data/raw/claims/nv_az_lode_since_1997.csv"))
     parser.add_argument("--mrds", type=Path, default=Path("data/raw/claims/mrds_gold_nv_az_box.csv"))
     parser.add_argument("--output", type=Path, default=Path("data/generated/claims_forecast"))
+    parser.add_argument("--forecast-year", type=int, default=2025,
+                        help="year to forecast for every eligible section, from data available at its cutoff")
     args = parser.parse_args()
     cells = load_claims(args.claims)
     gold = GoldIndex(args.mrds)
@@ -276,8 +313,13 @@ def main():
     report["results"].append(evaluate(rows, lambda r, y: r["state"] == "AZ", lambda r, y: r["state"] == "NV",
                                       "transfer: train Arizona, test Nevada"))
     report["final_model"] = final_model(rows)
+    report["year_base_rate_note"] = ("year_base_rate uses the test year's own outcome rate: a hindsight oracle. "
+                                     "Beating it shows ranking skill across cells within a year.")
+    for r in report["results"]:
+        r.pop("_pairs", None)
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    write_forecast(cells, gold, rows, args.forecast_year, args.output)
     for r in report["results"]:
         print(f"{r['evaluation']}: rows={r['test_rows']:,} brier={r['brier']} "
               f"skill vs climatology={r['skill_vs_climatology']} vs trailing={r['skill_vs_trailing_rate']} "
@@ -288,7 +330,18 @@ def pool_folds(results):
     """Combine township folds, weighting each fold's Brier scores by its number of test rows."""
     total = sum(r["test_rows"] for r in results)
     brier_pooled = {k: sum(r["brier"][k] * r["test_rows"] for r in results) / total for k in results[0]["brier"]}
+    years = defaultdict(lambda: {"test_cells": 0, "brier_model": 0.0, "brier_climatology": 0.0})
+    for r in results:
+        for y in r["per_year"]:
+            row = years[y["year"]]
+            row["test_cells"] += y["test_cells"]
+            row["brier_model"] += y["brier_model"] * y["test_cells"]
+            row["brier_climatology"] += y["brier_climatology"] * y["test_cells"]
+    per_year = [{"year": k, "test_cells": v["test_cells"], "brier_model": v["brier_model"] / v["test_cells"],
+                 "brier_climatology": v["brier_climatology"] / v["test_cells"]} for k, v in sorted(years.items())]
+    pairs = [pair for r in results for pair in r["_pairs"]]
     return {
+        **year_stats(per_year), "reliability": reliability(pairs),
         "evaluation": "time-forward x township folds (cells never seen in training)", "test_rows": total,
         "brier": {k: round(v, 5) for k, v in brier_pooled.items()},
         "skill_vs_climatology": round(1 - brier_pooled["model"] / brier_pooled["climatology"], 4),

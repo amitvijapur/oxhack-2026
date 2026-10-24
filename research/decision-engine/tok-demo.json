@@ -4,20 +4,35 @@
   "labels": {
     "contract": "REAL staged terms of the White Rock option (Elko County, NV, 2020; catalogue row NV-04): $10,000 at signing, then $25,000, $40,000, $50,000 and $125,000 at years 1-4, no work commitments, 2% NSR, $25,000 annual advance minimum royalty after exercise. Applied HYPOTHETICALLY to a 640-acre claim block inside the Tok Site B window; no such offer exists.",
     "carry": "Alaska state claim rent assumed at $100 per 40 acres per year (2000 statute; current CPI-revised rate UNVERIFIED) = $1,600/yr; after exercise the $25,000/yr advance royalty is added.",
-    "arrival": "Staking-event prior from Tok Site B's own recorded history: distinct owner-days per year 2007-2025 from Alaska DNR state claims (NTPSTDT meaning unconfirmed). Method-of-moments spread; mean = historical mean. q (buyers per staking event) is an ASSUMPTION; the engine reports the q at which the decision flips.",
-    "bids": "ASSUMED two-point buyer offers for the full block. For scale only: published Alaska claim packages sold for about $170-205/acre (Avidian 2024; US Antimony 2025, an antimony option), i.e. roughly $109k-131k for 640 acres. Not a Tok price."
+    "arrival": "Staking events = distinct owner-days in the Tok Site B window, 2007-2025, from Alaska DNR state claims (NTPSTDT meaning unconfirmed). 2025 is partial: data end 2025-03-05, so its exposure is 63/365 of a year. The belief forgets old years at a rate chosen by one-step-ahead predictive score (only earlier years), averaged over the grid by those scores. Weak starting prior Gamma(0.5, 0.5 years). q (buyers per staking event) is an ASSUMPTION; the engine reports the q at which the decision flips.",
+    "bids": "ASSUMED two-point buyer offers for the full block. For scale only: published Alaska claim packages sold for about $170-205/acre (Avidian 2024; US Antimony 2025, an antimony option), i.e. roughly $109k-131k for 640 acres. Not a Tok price.",
+    "acceleration": "ASSUMPTION: the optionee may pay the remaining stages early to complete a sale when a buyer arrives. Not stated in the White Rock release; the engine reports the value with this assumption reversed."
   },
-  "staking_events_per_year": [2, 0, 0, 3, 2, 2, 0, 1, 2, 4, 1, 0, 0, 0, 0, 0, 0, 0, 1],
   "q_buyers_per_staking_event": 0.5,
   "contract": {
     "instrument": "staged_option",
     "horizon_months": 72,
     "stages": [
-      {"month": 0, "payment_usd": 10000},
-      {"month": 12, "payment_usd": 25000},
-      {"month": 24, "payment_usd": 40000},
-      {"month": 36, "payment_usd": 50000},
-      {"month": 48, "payment_usd": 125000}
+      {
+        "month": 0,
+        "payment_usd": 10000
+      },
+      {
+        "month": 12,
+        "payment_usd": 25000
+      },
+      {
+        "month": 24,
+        "payment_usd": 40000
+      },
+      {
+        "month": 36,
+        "payment_usd": 50000
+      },
+      {
+        "month": 48,
+        "payment_usd": 125000
+      }
     ],
     "acceleration_allowed": true,
     "carry_during_option": true,
@@ -27,9 +42,101 @@
     "salvage_usd": 0,
     "annual_discount_rate": 0.08,
     "bids": [
-      {"usd": 450000, "probability": 0.35},
-      {"usd": 120000, "probability": 0.65}
+      {
+        "usd": 450000,
+        "probability": 0.35
+      },
+      {
+        "usd": 120000,
+        "probability": 0.65
+      }
     ]
   },
-  "policy": {"budget_usd": 300000, "loss_limit_usd": 100000}
+  "policy": {
+    "budget_usd": 300000,
+    "loss_limit_usd": 100000
+  },
+  "staking_history": {
+    "years": [
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "events": [
+      2,
+      0,
+      0,
+      3,
+      2,
+      2,
+      0,
+      1,
+      2,
+      4,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "exposure_years": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.1726
+    ]
+  },
+  "arrival_prior": {
+    "alpha0": 0.5,
+    "beta0_years": 0.5,
+    "burn_in_years": 3,
+    "forget_grid": [
+      1.0,
+      0.95,
+      0.9,
+      0.85,
+      0.8,
+      0.75,
+      0.7,
+      0.6,
+      0.5,
+      0.4,
+      0.3
+    ]
+  }
 }
