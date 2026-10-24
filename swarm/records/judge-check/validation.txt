@@ -1,6 +1,6 @@
 27 of 30 human scores within 2 points of the judge; the plan needs 24 of 30
 outside 2 points:
-  id 15: judge 6, muhd n/a: Price first — post the front‑month COMEX GC (or Kitco/Reuters) link + timestamp and Ill verify. If 
+  id 15: judge 6, muhd n/a: Price first — post the front‑month COMEX GC (or Kitco/Reuters) link + timestamp and Ill verify. If
   id 28: judge 5, muhd n/a: Show the tape — which feed/contract and a timestamp? I’ll check front‑month COMEX (GC), spot (Kitco)
-  id 30: judge 8, muhd 5: Practical add: if the tape verifies I’m looking at 2–4 week GLD call‑spreads (buy low‑delta, sell a 
+  id 30: judge 8, muhd 5: Practical add: if the tape verifies I’m looking at 2–4 week GLD call‑spreads (buy low‑delta, sell a
 judge check: pass
