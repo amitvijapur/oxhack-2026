@@ -6,7 +6,7 @@
 
 [The harness comparison](harness-comparison.md) says no extra workflow system is planned, and that one should only be added when it solves a concrete coordination problem. This file follows that rule: each piece of the kit is listed with the problem it solves, what it clashes with, and a recommendation. Amit picks; a small follow-up PR adds only the ticked pieces.
 
-The kit is a Claude Code workflow kit our teammates used at a previous 24-hour event (IBM Z Datathon). It contains shared rules, skills, subagents, hooks, and git hooks. Ahmed holds the source; it is not in this repo.
+The kit is a Claude Code workflow kit our teammates used at a previous 24-hour event (IBM Z Datathon). It contains shared rules, skills, subagents, hooks, and git hooks. The full kit is in [team-kit.zip](team-kit.zip) for review. It is archived rather than unpacked so none of its hooks, skills, or rules take effect until pieces are chosen. Unzip it outside the repo to read it.
 
 ## Recommended: low cost, no clash
 
