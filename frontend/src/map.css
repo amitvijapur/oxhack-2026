@@ -1,0 +1,44 @@
+.evidence-map-frame { position: relative; width: 100%; height: 620px; min-height: 470px; overflow: hidden; background: #839772; }
+.map-canvas { position: absolute; inset: 0; }
+.sample-marker { width: 24px; height: 24px; border: 0; background: transparent; display: grid; place-items: center; padding: 0; cursor: pointer; clip-path: circle(50%); }
+.sample-marker-dot { display: block; width: 10px; height: 10px; border: 2px solid #12201b; border-radius: 50%; background: #d9ffe4; box-shadow: 0 1px 3px #0007; }
+.sample-marker--b .sample-marker-dot { background: #7baecb; border-radius: 2px; }
+.sample-marker:hover .sample-marker-dot { width: 13px; height: 13px; }
+.sample-marker.is-selected .sample-marker-dot { width: 13px; height: 13px; outline: 2px solid #ebf0ee; outline-offset: 3px; }
+.sample-marker:focus-visible { outline: 2px solid #ebf0ee; border-radius: 4px; outline-offset: 1px; }
+.sample-marker:focus-visible .sample-marker-dot { outline: 2px solid #ebf0ee; outline-offset: 3px; }
+.nearby-samples { position: absolute; z-index: 5; left: 16px; top: 16px; width: min(300px, calc(100% - 70px)); max-height: calc(100% - 40px); overflow-y: auto; background: #111a2b; border: 1px solid #405778; border-radius: 12px; padding: 16px; box-shadow: 0 8px 24px #0005; }
+.nearby-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nearby-heading h3 { font-size: 14px; font-weight: 500; }
+.nearby-heading button { border: 0; background: transparent; color: #a3b1b6; font: inherit; font-size: 11px; padding: 6px; cursor: pointer; }
+.nearby-samples p { font-size: 12px; color: #a3b1b6; margin: 7px 0 11px; line-height: 1.5; }
+.nearby-samples ul { list-style: none; padding: 0; margin: 0; }
+.nearby-samples li + li { border-top: 1px solid #2b3940; }
+.nearby-samples li button { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; padding: 11px 2px; background: transparent; border: 0; color: #ebf0ee; font: inherit; font-size: 12px; cursor: pointer; }
+.nearby-samples li button span:last-child { font-family: 'IBM Plex Mono', monospace; color: #9ac7ff; font-size: 11px; }
+.map-status { position: absolute; z-index: 2; left: 16px; right: 54px; top: 65px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 13px; color: #d7af79; background: #171d20ed; font-size: 12px; border: 1px solid #4f4738; border-radius: 5px; }
+.map-status button { flex-shrink: 0; padding: 4px 7px; border: 1px solid #8d7856; color: #f1d4a9; background: transparent; border-radius: 3px; cursor: pointer; font: inherit; }
+.sample-plot { height: 100%; min-height: 470px; display: grid; align-items: center; background: #10191e; }
+.sample-plot svg { width: 100%; max-height: 100%; }
+.plot-grid line { stroke: #2b3940; stroke-width: .7; }
+.plot-grid text { fill: #a3b1b6; font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+.point-target { fill: transparent; }
+.point-dot { fill: #a3d3b1; stroke: #10191e; stroke-width: 1; }
+.plot-point--b .point-dot { fill: #7baecb; }
+.point-ring { fill: transparent; stroke: #ebf0ee; stroke-width: 2; }
+.plot-point { cursor: pointer; }
+.plot-point:hover .point-dot, .plot-point:focus-visible .point-dot { stroke: #ebf0ee; stroke-width: 3; }
+.plot-point:focus-visible { outline: none; }
+.maplibregl-ctrl-attrib { color: #b8c4c7 !important; background: #151c21ee !important; font-size: 10px !important; }
+.maplibregl-ctrl-attrib a { color: #dce6e5 !important; }
+.maplibregl-ctrl-group { background: #e4eae7; border-radius: 5px; box-shadow: 0 1px 5px #0004; }
+.maplibregl-canvas:focus-visible { outline: 2px solid #a3d3b1; outline-offset: -3px; }
+@media (min-width: 1121px) {
+  .sample-plot { padding-right: 370px; }
+  .maplibregl-ctrl-bottom-right { right: 370px; }
+}
+@media (max-width: 620px) {
+  .evidence-map-frame { height: 430px; min-height: 370px; }
+  .sample-plot { min-height: 370px; }
+  .map-status { left: 10px; right: 10px; top: 62px; font-size: 11px; }
+}

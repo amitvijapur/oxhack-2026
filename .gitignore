@@ -47,3 +47,7 @@ coverage/
 /data/raw/
 /data/generated/
 /outputs/
+
+.playwright-cli/
+
+/frontend/artifacts/

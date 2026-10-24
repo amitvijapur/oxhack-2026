@@ -1,0 +1,168 @@
+{
+  "access": {
+    "archive_bytes": 139924,
+    "authentication_required": false,
+    "checked_on": "2026-10-24",
+    "fee_required": false,
+    "http_status": 200
+  },
+  "authors": [
+    "Travis J. Naibert",
+    "Melanie B. Werdon",
+    "Lauren L. Lande",
+    "Alicja Wypych"
+  ],
+  "citation": "Naibert, T.J., Werdon, M.B., Lande, L.L., and Wypych, A., 2016, Alaska DGGS Raw Data File 2016-10, 3 p., https://doi.org/10.14509/29688.",
+  "evidence_scope": {
+    "excluded_companion_fraction": "-80",
+    "excluded_companion_rows": 23,
+    "field_sample_id": "SAMPLE",
+    "lab_sample_id": "LAB_SAMPLE_NUMBER",
+    "medium": "stream_sediment",
+    "primary_commodity": "gold",
+    "secondary_commodity": "lithium",
+    "selected_max_grain_size_microns": 75,
+    "selected_size_fraction": "-200",
+    "source_record_number_definition": "1-based CSV data record, excluding the header; not a physical text line",
+    "source_rows": 90,
+    "unique_sampling_locations": 67
+  },
+  "files": {
+    "archive": {
+      "archive_member": null,
+      "bytes": 139924,
+      "filename": "rdf2016_010.zip",
+      "sha256": "2ac0b7eaeeb1bf114172ad80e2afde2065a9af1946a3be163f843cb736e91d86"
+    },
+    "assays": {
+      "archive_member": "tables/rdf2016-10-stream-sed-trace-element.csv",
+      "bytes": 39971,
+      "filename": "rdf2016-10-stream-sed-trace-element.csv",
+      "sha256": "3833f09686ce03ba823881df5ff662768e24a05f12091ee1c097b1e2ec7c30d1"
+    },
+    "limits": {
+      "archive_member": "tables/rdf2016-10-stream-sed-trace-element-limits.csv",
+      "bytes": 15674,
+      "filename": "rdf2016-10-stream-sed-trace-element-limits.csv",
+      "sha256": "94a81641f92af2e0fd94864cf56a2106a27792408da817e6061b012769772ed5"
+    },
+    "metadata": {
+      "archive_member": "metadata/RDF2016-10.xml",
+      "bytes": 55206,
+      "filename": "RDF2016-10.xml",
+      "sha256": "53af294bc4de3f1253cb821ece71e6184352745ec7842ac006b26e48471f8b1e"
+    },
+    "readme": {
+      "archive_member": "README.txt",
+      "bytes": 3279,
+      "filename": "README.txt",
+      "sha256": "24cbc8335a2500a784be98bedecffb999f7c79c2fdc736761fe30b7516771d5f"
+    }
+  },
+  "limitations": [
+    "Targeted known or suspected mineralised drainages; not random exploration outcomes",
+    "Sediment concentrations are not ore grades, reserves or valuations",
+    "No drilling-status, land-contract or ownership identifiers present",
+    "No row-level chronology for chronological prediction evaluation",
+    "Batch composition and upstream drainage may confound area comparisons",
+    "Raw-data report states it was not reviewed for technical content"
+  ],
+  "methods": {
+    "gold_primary": {
+      "column": "Au_ppm_PGM-MS23",
+      "digestion": "",
+      "lab": "ALS Geochemistry",
+      "lab_code": "PGM-MS23",
+      "lower_detection_limit_ppm": 0.001,
+      "technique": "Fire Assay - Inductively Coupled Plasma - Mass Spectrometry",
+      "unit": "ppm",
+      "upper_detection_limit_ppm": 1.0
+    },
+    "gold_retest": {
+      "column": "Au_ppm_Au-AA25",
+      "digestion": "",
+      "lab": "ALS Geochemistry",
+      "lab_code": "Au-AA25",
+      "lower_detection_limit_ppm": 0.01,
+      "technique": "Fire Assay - Atomic Absorption Spectroscopy",
+      "unit": "ppm",
+      "upper_detection_limit_ppm": 100.0
+    },
+    "lithium_secondary": {
+      "column": "Li_ppm_ME-MS61",
+      "digestion": "HF-HNO3 -HClO4 Acid Digestion, HCl Leach",
+      "lab": "ALS Geochemistry",
+      "lab_code": "ME-MS61",
+      "lower_detection_limit_ppm": 0.2,
+      "technique": "Inductively Coupled Plasma - Atomic Emission Spectroscopy/Inductively Coupled - Plasma Mass Spectrometry",
+      "unit": "ppm",
+      "upper_detection_limit_ppm": 10000.0
+    }
+  },
+  "provider": "Alaska Division of Geological & Geophysical Surveys",
+  "publication_id": "RDF 2016-10",
+  "reuse": {
+    "attribution_required": true,
+    "do_not_imply_provider_endorsement": true,
+    "license_label": "DGGS stated use constraints; do not label as US federal public domain",
+    "modification_disclosure_required": true,
+    "modifications": [
+      "Select -200 mesh fraction",
+      "Split by median longitude without selecting on assays",
+      "Normalize fields with raw strings retained",
+      "Export WGS84 longitude-latitude GeoJSON points",
+      "Compute descriptive method-specific summaries"
+    ],
+    "terms_url": "https://dggs.alaska.gov/webpubs/metadata/RDF2016-10.faq.html"
+  },
+  "schema_version": "1.0",
+  "source_id": "alaska_dggs_rdf2016_10",
+  "spatial": {
+    "country": "US",
+    "feature_meaning": "Stream-sediment sampling location; upstream sediment source footprint unknown",
+    "geojson_coordinate_order": [
+      "longitude",
+      "latitude"
+    ],
+    "geojson_coordinate_system": "OGC:CRS84 / RFC7946",
+    "region": "Tok River, Tanacross A-5 and A-6 quadrangles",
+    "reported_horizontal_error_m": {
+      "maximum": 10,
+      "meaning": "Reported GPS location error range, not a per-record confidence radius or deposit-location accuracy",
+      "minimum": 1
+    },
+    "source_coordinate_unit": "decimal_degrees",
+    "source_crs": "EPSG:4326",
+    "source_datum": "WGS84",
+    "source_latitude_field": "LATITUDE",
+    "source_longitude_field": "LONGITUDE",
+    "state": "AK"
+  },
+  "time": {
+    "collection_campaigns": [
+      {
+        "end": "2016-06-26",
+        "start": "2016-06-12"
+      },
+      {
+        "end": "2016-07-26",
+        "start": "2016-07-08"
+      }
+    ],
+    "collection_scope": "Dataset campaign dates only; exact per-sample dates unavailable",
+    "current_land_status_as_of": null,
+    "future_updates": "None planned in source metadata",
+    "per_observation_available_at": null,
+    "publication": "2016-11",
+    "publication_day": null,
+    "publication_precision": "month"
+  },
+  "title": "Trace-element geochemical data from stream sediments collected in the Tok River area, Tanacross A-5 and A-6 quadrangles, Alaska in 2016",
+  "urls": {
+    "doi": "https://doi.org/10.14509/29688",
+    "download": "https://dggs.alaska.gov/webpubs/data/rdf2016_010_tok-stream-sediment-geochemistry.zip",
+    "metadata": "https://dggs.alaska.gov/webpubs/metadata/RDF2016-10.faq.html",
+    "publication": "https://dggs.alaska.gov/pubs/id/29688",
+    "report": "https://dggs.alaska.gov/webpubs/dggs/rdf/text/rdf2016_010.pdf"
+  }
+}
