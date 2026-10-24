@@ -28,7 +28,8 @@ for the working event brief and initial brainstorm. Unverified sponsor names,
 deadlines, and eligibility details are labelled in those notes. The
 [event context](research/event-context.md) adds the official schedule, the
 Sunday 12:00 hacking cutoff, prize rubrics, and corrected sponsor names from
-the slide deck.
+the slide deck. Every idea the team has scored so far, with status and the
+reasons ideas were dropped, is in [the ideas list](research/all-ideas.md).
 
 ## Checks and merging
 
