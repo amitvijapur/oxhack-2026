@@ -1,0 +1,11 @@
+jurisdiction,tenure_type,cost_item,amount,currency,unit,effective,source_url
+USA (BLM federal land),lode claim / 20 acres placer,annual maintenance fee,200,USD,per claim per year,assessment years 2026 and 2027 (due 1 Sep),https://www.blm.gov/sites/default/files/docs/2026-03/2027_Mining_Season_508.pdf
+USA (BLM federal land),new claim,location + processing + first maintenance,274,USD,per claim one-off,2026,https://www.blm.gov/sites/default/files/docs/2026-02/20260209_Encl.%207_MiningClaimFeesEffective.pdf
+USA (Arkansas),brine lithium production,royalty to landowners (Reynolds Unit only),2.5,%,of lithium value,approved ~2025-05-28,https://arkansasadvocate.com/2025/05/29/arkansas-oil-and-gas-commission-approves-first-lithium-royalty/
+Australia (WA),exploration licence,rent years 1-3,173,AUD,per block per year,2025-26,https://www.wa.gov.au/system/files/2025-07/minerals_fees_charges2025-26.pdf
+Australia (WA),exploration licence,rent years 4-5,310,AUD,per block per year,2025-26,https://www.wa.gov.au/system/files/2025-07/minerals_fees_charges2025-26.pdf
+Australia (WA),exploration licence,rent years 6-7,424,AUD,per block per year,2025-26,https://www.wa.gov.au/system/files/2025-07/minerals_fees_charges2025-26.pdf
+Australia (WA),exploration licence,rent year 8+,803,AUD,per block per year,2025-26,https://www.wa.gov.au/system/files/2025-07/minerals_fees_charges2025-26.pdf
+Australia (WA),mining lease,rent,29.30,AUD,per ha per year,2025-26,https://www.wa.gov.au/system/files/2025-07/minerals_fees_charges2025-26.pdf
+Canada (Quebec),claim <25 ha south of 52nd parallel,registration / renewal,53.95,CAD,per claim,from 2026-07-15,https://www.quebec.ca/en/agriculture-environment-and-natural-resources/mining/how-carry-out-mining-project/titles/exclusive-exploration-right/rates-indexation
+Canada (Quebec),claim >100 ha south of 52nd parallel,registration / renewal,158.60,CAD,per claim,from 2026-07-15,https://www.quebec.ca/en/agriculture-environment-and-natural-resources/mining/how-carry-out-mining-project/titles/exclusive-exploration-right/rates-indexation

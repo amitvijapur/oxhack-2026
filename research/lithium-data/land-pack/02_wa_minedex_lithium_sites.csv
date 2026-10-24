@@ -1,0 +1,624 @@
+site_code,site_title,site_commo,site_type_,site_stage,latitude,longitude
+S0001220,Dalgaranga Tantalite Mine,"Ta, Li, Nb, Sn, Rb, Tur",Mine,Shut,-27.711005,117.216983
+S0001260,Cornwall Primary Pegmatite,"Ta, Li, Sn, Ta2O5, SnO2",Mine,Operating,-33.855791,116.05989
+S0001731,Greenbushes C3 Spodumene,"Li, Ta, Sn",Mine,Operating,-33.858907,116.065805
+S0001818,Londonderry No 2,"Fel, Mica, Ta, Brl, Li",Mine,Care and Maintenance,-31.111924,121.078301
+S0002154,Wodgina Plant and Stockyard,"Ta, Li, Sn",Infrastructure,Operating,-21.181128,118.675211
+S0002166,Cassiterite,"Li, Ta, Sn, Rb",Mine,Operating,-21.190319,118.674102
+S0002167,Mt Cattlin - Dowling Openpit,"Li, Ta",Mine,Care and Maintenance,-33.562492,120.033992
+S0002210,Wodgina Group,"Li, Ta, Sn, Rb",Mine,Operating,-21.190319,118.674102
+S0002356,Eastern Pegmatites - Pilgangoora,"Li, Ta",Mine,Proposed,-21.046602,118.907768
+S0002357,Pilgangoora Eastern Pegmatite / Metalicity,"Ta, Li",Deposit,Undeveloped,-20.995015,118.919611
+S0002358,Pilgangoora Plant (old),"Ta, Li",Infrastructure,Shut,-21.045674,118.90087
+S0002418,Greenbushes Technical Grade Lithium Plant (TGP),Li,Infrastructure,Operating,-33.860476,116.055658
+S0003188,Greenbushes Tailings Retreatment Plant,"Ta, Li, Sn",Infrastructure,Care and Maintenance,-33.867667,116.059207
+S0003190,Greenbushes Dry Plant,"Ta, Li, Sn",Infrastructure,Care and Maintenance,-33.857367,116.055408
+S0003496,Mt Edon North,"Li, Ta, Rb",Mine,Shut,-29.321538,117.665687
+S0003876,Bunbury Port Shed 8.2 / Talison,"Li, Ta, Sn",Infrastructure,Operating,-33.321474,115.669517
+S0004564,Greenbushes Chemical Grade Lithium Plant (CGP1),Li,Infrastructure,Operating,-33.860289,116.054987
+S0005763,Donovans Find - Smithfield,"Sn, Cbe, Li",Mine,Shut,-34.053576,116.006313
+S0005766,Mullalyup A,"Mica, Li, Ta",Mine,Shut,-33.746916,115.935413
+S0006640,Mt Marion North Pit 1 (N01),"Li, Ta, Mica, Spd",Mine,Care and Maintenance,-31.072294,121.45697
+S0017008,Greenbushes TSF1,"Ta, Li, Sn",Infrastructure,Operating,-33.877028,116.060215
+S0017021,Pilgangoora TSF,"Ta, Li",Infrastructure,Shut,-21.063322,118.921453
+S0017030,Wodgina TSF1,"Ta, Sn, Li",Infrastructure,Shut,-21.181837,118.671607
+S0017031,Wodgina TSF2,"Ta, Sn, Li",Infrastructure,Shut,-21.181601,118.667634
+S0017070,Mt Cattlin TSF1,"Ta, Sn, Li",Infrastructure,Operating,-33.556879,120.020717
+S0017467,Ravensthorpe / Frayne (74),Li,Mine,Shut,-33.563501,120.039403
+S0017470,"Ravensthorpe / Pantall, Frayne and WMC (74)",Li,Mine,Shut,-33.563501,120.039403
+S0017578,Greenbushes / Greenbushes Ltd (01),"Sn, Li, Ta, Ta2O5",Mine,Shut,-33.864195,116.06261
+S0017592,Greenbushes / Vultan (01),"Sn, Ta, Li, Ta2O5",Mine,Shut,-33.860587,116.071209
+S0018624,Cocanarup / Beavis (74),"Brl, Li",Mine,Shut,-33.647629,119.889438
+S0018625,Cocanarup / Frayne (74),"Brl, Li",Mine,Shut,-33.647636,119.889435
+S0018807,Londonderry Dumps,"Fel, Li, Rb",Mine,Care and Maintenance,-31.114104,121.075356
+S0018920,Dalgaranga Tantalite Group,"Ta, Li, Nb, Sn, Rb, Tur",Mine,Shut,-27.711005,117.216983
+S0019176,Wodgina TSF3,"Ta, Sn, Li",Mine,Shut,-21.190485,118.662278
+S0019517,Bald Hill Central (South),"Li, Ta",Mine,Operating,-31.522761,122.177346
+S0020400,Mullalyup D,"Mica, Li, Ta",Mine,Shut,-33.752509,115.934413
+S0020532,Spargos,"Ni, Co, Li",Prospect,Undeveloped,-31.321786,120.906008
+S0021317,Johnsons Well Pegmatite,"Ta, Li, Lpd, Cs, Rb",Deposit,Undeveloped,-28.198781,116.692301
+S0021491,Mt Deans East Lode North,"Ta, Sn, Li, Rb",Prospect,Undeveloped,-32.289266,121.783213
+S0021516,Mt Marion North Pit 2,"Li, Ta, Mica",Mine,Care and Maintenance,-31.070891,121.461158
+S0021517,Mt Marion Area 3 Pegmatite (Hampton Area 53),"Li, Ta, Mica",Prospect,Undeveloped,-31.064496,121.445612
+S0022385,Greenbushes TSF2,"Ta, Li",Infrastructure,Operating,-33.871916,116.053913
+S0022513,Pilgangoora Northern Alluvials,"Ta, Li",Occurrence,Undeveloped,-20.990306,118.920809
+S0026082,Doreen,"Ta, Li, Brl",Occurrence,Undeveloped,-27.126387,117.42169
+S0026374,Tambourah Creek 1 ,"Li, Sn",Mine,Shut,-21.663885,119.308181
+S0026383,Stannum North,"Sn, Li",Mine,Shut,-21.241676,118.630631
+S0027100,Columbium Creek,"Sn, Nb, Ta, Li, Brl",Occurrence,Undeveloped,-18.916586,127.24115
+S0027320,Tambourah North 1,Li,Occurrence,Undeveloped,-21.718307,119.183082
+S0027321,Tambourah North 2,Li,Occurrence,Undeveloped,-21.687754,119.184927
+S0027557,Pilgangoora Area C,"Li, Ta, Sn",Mine,Shut,-21.074194,118.899482
+S0027873,Londonderry No 1,"Fel, Mica, Li, Ta, Brl, Nb, Brlm, Prh, Rb",Mine,Care and Maintenance,-31.112806,121.07682
+S0027957,Mt Day 1,"Li, Brl",Prospect,Undeveloped,-32.138743,120.49379
+S0027967,Mt Thirsty Pegmatite,"Ta, Sn, Li",Prospect,Undeveloped,-32.107061,121.614517
+S0028078,Pilgangoora 3,"Li, Ta, Sn, Brl, Brle",Prospect,Undeveloped,-21.045557,118.90602
+S0028079,Monster,"Li, Ta, Sn",Mine,Proposed,-21.020948,118.915212
+S0028081,South-Pilgangoora ,"Li, Ta, Sn",Mine,Operating,-21.066067,118.90552
+S0029448,Mt Mann SE,"Cor, Li",Mine,Shut,-27.486864,120.558369
+S0030822,Red Rock Creek,"Li, Brl",Occurrence,Undeveloped,-20.607316,119.06017
+S0030913,Blue Bar Lithium,"Li, Fl",Occurrence,Undeveloped,-21.659486,120.4689
+S0031458,Quartz Hill west,Li,Occurrence,Undeveloped,-21.971235,120.220923
+S0032272,Nanutarra East,Li,Occurrence,Undeveloped,-22.541385,115.508461
+S0032299,April Pegmatite,"Tur, Brla, Li",Occurrence,Undeveloped,-24.453839,116.17473
+S0032981,Patons Lode,Li,Occurrence,Undeveloped,-27.118567,117.42342
+S0033090,Lithium Show Pegmatite,Li,Occurrence,Undeveloped,-28.133197,116.72637
+S0033132,Southeast Harrison North,"Li, Rb, Brl",Mine,Shut,-28.144357,116.73161
+S0223184,Bald Hill Environmental Group,"Li, Ta",Other,Operating,-31.510765,122.18874
+S0223708,Mt Cattlin Processing Plant,"Ta, Sn, Li",Infrastructure,Operating,-33.561851,120.019819
+S0223709,Mt Cattlin Environmental Group,"Li, Ta, Nb",Other,Operating,-33.562492,120.033992
+S0223953,Mt Day 3,"Li, Lpd",Occurrence,Undeveloped,-32.154044,120.487506
+S0224166,Bounty Airstrip,"Li, Au",Infrastructure,Operating,-32.109943,119.760755
+S0224212,Mt Cattlin North / Traka,"Li, Ta, Sn",Occurrence,Undeveloped,-33.533559,120.037473
+S0224317,Pilgangoora C1 Area,"Li, Ta",Deposit,Undeveloped,-21.072184,118.900013
+S0224318,Lake Dumbleyung Lithium Brine,"Li, K2SO4",Target,Undeveloped,-33.334526,117.64915
+S0224319,Wagin Lithium Brine,Li,Target,Undeveloped,-33.452214,117.294876
+S0224673,Mt Marion North Pit 4 (2 West),"Li, Ta, Mica",Mine,Shut,-31.072437,121.455905
+S0224674,Mt Marion Area 4 Pegmatite,"Li, Ta, Mica",Deposit,Undeveloped,-31.112203,121.495451
+S0224675,Mt Marion Area 5 Pegmatite,"Li, Ta, Mica",Mine,Proposed,-31.079722,121.468638
+S0224901,Kirup East / Red River,"Li, Ta, Sn",Target,Undeveloped,-33.720309,115.957523
+S0224930,Bridgetown BT020,"Pb, Ta, Sn, Li",Target,Undeveloped,-34.082208,116.290058
+S0225152,Greenbushes Lithium Resources Safety Group,"Li, Ta, Sn",Mine,Operating,-33.858907,116.065805
+S0225199,Bridgetown Environmental Group / Amerod,"Pb, Ta, Sn, Li",Other,Undeveloped,-34.082208,116.290058
+S0225748,Greenbushes Lithium Environmental Group,Li,Other,Undeveloped,-33.859845,116.056939
+S0225839,Greenbushes C1 Spodumene,Li,Mine,Shut,-33.86975,116.072415
+S0225840,Greenbushes C2 Spodumene,Li,Mine,Proposed,-33.86423,116.069823
+S0225841,Greenbushes Central Lode Spodumene Resources Group,"Li, Ta, Sn",Mine,Operating,-33.858907,116.065805
+S0226014,Mt Marion Pit C01,"Li, Ta, Mica",Mine,Proposed,-31.089445,121.472887
+S0226030,Mt Marion Lithium Plant and LNG Power Plant,"Li, Ta, Mica",Infrastructure,Operating,-31.080782,121.43656
+S0226058,Pilgangoora E1 Area,"Li, Ta",Deposit,Undeveloped,-21.071343,118.902533
+S0226059,Pilgangoora S1 Area,"Li, Ta",Deposit,Undeveloped,-21.077678,118.900632
+S0226060,Pilgangoora W1 Area,"Li, Ta",Prospect,Undeveloped,-21.07225,118.895338
+S0226061,Pilgangoora N1 Area,"Li, Ta",Mine,Shut,-21.068909,118.902089
+S0226066,Wodgina Village,"UN, Li",Infrastructure,Operating,-21.167808,118.677471
+S0229271,Mt Cattlin Waste Dump (WD1),"Ta, Sn, Li",Infrastructure,Operating,-33.567737,120.032587
+S0229331,Wodgina Fuel Tanks,"Ta, Li, Sn",Infrastructure,Proposed,-21.187465,118.668911
+S0229332,Wodgina Office,"Ta, Li, Sn",Infrastructure,Operating,-21.187904,118.668242
+S0229333,Wodgina Workshop,"Ta, Li, Sn",Infrastructure,Operating,-21.186924,118.668496
+S0229374,Wodgina Overflow Camp and Laboratory,Li,Infrastructure,Operating,-21.164055,118.680684
+S0229565,Lynas Find Main Pegmatite,"Li, Ta",Deposit,Undeveloped,-21.012046,118.922358
+S0229756,Pilgangoora Resources Group,"Li, Ta",Mine,Operating,-21.072822,118.90167
+S0230125,Pegmatite Gully - Moolyella,"Sn, Ta, Nb, Li",Target,Undeveloped,-21.14431,119.895913
+S0230151,Horseshoe Pegmatite - Cocanarup,"Li, Brl, Tur",Prospect,Undeveloped,-33.654655,119.878373
+S0230152,Quarry Pegmatite - Cocanarup,"Brl, Tur, Li",Mine,Shut,-33.64605,119.883095
+S0230855,Bounty Village Site,"Li, Au",Infrastructure,Operating,-32.119476,119.776466
+S0231010,Wodgina Outer Stockyard and Truck Parking Area,"FeOre, Li",Infrastructure,Operating,-21.136358,118.699268
+S0231205,Floyds WRD,Li,Infrastructure,Operating,-33.862701,116.077653
+S0231209,Bald Hill Central Pit,"Li, Ta",Mine,Care and Maintenance,-31.519337,122.176361
+S0231715,Mt Marion Environmental Group,"Li, Ta, Mica, Spd",Other,Care and Maintenance,-31.072294,121.45697
+S0232600,Lepidolite Hill Dumps,Li,Mine,Shut,-31.097563,121.076897
+S0232601,Seabrook Pegmatites,Li,Occurrence,Undeveloped,-30.966546,119.665832
+S0232602,Brookhampton Pegmatites,Li,Occurrence,Undeveloped,-33.613151,115.888944
+S0232603,Greenbushes South Pegmatites,Li,Occurrence,Undeveloped,-33.938187,116.046393
+S0232604,Koala Road Pegmatite,Li,Occurrence,Undeveloped,-33.828829,115.878914
+S0232860,Mt Marion Transport and Infrastructure Corridor,"Li, Ta, Mica",Infrastructure,Operating,-31.076994,121.438676
+S0232878,Pilgangoora North - Eastern Pegmatites,"Li, Ta",Mine,Proposed,-21.033379,118.910652
+S0233100,Ghost Crab In-Pit TSF,"Li, Ta, Mica",Infrastructure,Operating,-31.080353,121.431053
+S0233234,South End - Pilgangoora,"Li, Ta, Sn",Mine,Proposed,-21.081464,118.906127
+S0233301,Pilgangoora Resource Estimates Group / Pilbara,"Li, Ta",Mine,Proposed,-21.046602,118.907768
+S0233303,Central - Far East,"Li, Ta",Mine,Operating,-21.056337,118.90524
+S0233304,Western Domain,"Li, Ta",Deposit,Undeveloped,-21.062927,118.901006
+S0233717,Mt Marion Waste Disposal Facility,"Li, Ta, Mica",Infrastructure,Under Development,-31.076362,121.43182
+S0233737,Greenbushes Crusher,Li,Infrastructure,Operating,-33.858244,116.056534
+S0233747,Wodgina Crushing and Screening Plant / CSI,"Li, Ta",Infrastructure,Operating,-21.18455,118.670917
+S0233789,Wodgina East,Li,Occurrence,Undeveloped,-21.189791,118.717356
+S0233800,Stannum / Metalicity,"Li, Sn",Occurrence,Undeveloped,-21.24571,118.632938
+S0233820,Deep Purple,"Li, Ta",Prospect,Undeveloped,-33.633421,119.915242
+S0233821,Phillips South,"Li, Ta",Prospect,Undeveloped,-33.650896,119.910388
+S0233835,Lynas Find Northeast Pegmatite,"Li, Ta",Occurrence,Undeveloped,-21.009572,118.92477
+S0233836,Lynas Find Track Pegmatite,"Li, Ta",Deposit,Undeveloped,-21.013632,118.918581
+S0233837,Lynas Find South Pegmatites,"Li, Ta",Occurrence,Undeveloped,-21.017522,118.918861
+S0233838,Mt Cattlin Temporary Dried Tailings Storage Area,"Ta, Sn, Li",Infrastructure,Operating,-33.558207,120.023979
+S0233876,Landor,Li,Occurrence,Undeveloped,-31.275873,121.45084
+S0233877,Lefroy Pegmatite,Li,Prospect,Undeveloped,-31.290259,121.478506
+S0233940,Young River Lithium,"Li, Ta",Target,Undeveloped,-33.544106,121.077832
+S0233963,Ironcap South Lithium / Western Areas,Li,Prospect,Undeveloped,-32.685838,119.777628
+S0233980,Lefroy Pegmatite Target 1,Li,Occurrence,Undeveloped,-31.285567,121.472342
+S0233982,Pioneer Dome Pegmatite 9A,Li,Occurrence,Undeveloped,-31.940883,121.638994
+S0233983,Pioneer Dome Pegmatite 9B,Li,Occurrence,Undeveloped,-31.940009,121.63998
+S0234003,Cisco ,"Li, Ta, Sn",Prospect,Undeveloped,-21.369245,118.555439
+S0234008,Bounty Pegmatites,Li,Prospect,Undeveloped,-32.100034,119.779465
+S0234009,Pegmatite - Mt Holland /Aztec,Li,Target,Undeveloped,-31.966585,119.765049
+S0234036,South Eastern Pegmatite,"Li, Ta",Deposit,Undeveloped,-21.062899,118.910509
+S0234037,Mt Day 4,"Ta, Li",Occurrence,Undeveloped,-32.154195,120.489317
+S0234047,Mt Day 5,"Li, Lpd",Occurrence,Undeveloped,-32.154619,120.500499
+S0234048,Whitten - Mt Day 7,"Li, Lpd",Occurrence,Undeveloped,-32.130439,120.484061
+S0234049,Trackside - Mt Day 8,"Li, Lpd",Occurrence,Undeveloped,-32.13061,120.498238
+S0234051,Lake Johnson 1,Li,Occurrence,Undeveloped,-32.15503,120.499987
+S0234074,Deep Purple South,Li,Occurrence,Undeveloped,-33.635846,119.917354
+S0234093,Mt Marion Resources Group,"Li, Ta, Mica, Spd",Mine,Care and Maintenance,-31.072294,121.45697
+S0234095,Earl Grey Lithium Mine Pit,Li,Mine,Operating,-32.092628,119.747965
+S0234096,Texas Pegmatite,Li,Target,Undeveloped,-32.004268,119.754516
+S0234097,Prince Of Wales Pegmatite,Li,Target,Undeveloped,-32.051009,119.749479
+S0234098,Van Uden North Pegmatite,Li,Target,Undeveloped,-32.139914,119.634543
+S0234099,Tasman Pegmatite,Li,Target,Undeveloped,-32.152888,119.650244
+S0234131,P23 Pegmatite,Li,Occurrence,Undeveloped,-31.434557,122.123695
+S0234132,P33 Pegmatite,Li,Occurrence,Undeveloped,-31.437271,122.129983
+S0234133,P49 Pegmatite,Li,Occurrence,Undeveloped,-31.428166,122.120503
+S0234161,Lake Percy Pegmatite South,Li,Target,Undeveloped,-31.984048,120.455288
+S0234162,Lake Percy Pegmatite North,Li,Target,Undeveloped,-31.952639,120.404606
+S0234163,Mt Mann Pit,"Li, Ta",Mine,Care and Maintenance,-27.475022,120.555814
+S0234164,Kathleen Corner Pit,"Li, Ta",Mine,Care and Maintenance,-27.471056,120.558141
+S0234168,Duus Area,Li,Occurrence,Undeveloped,-21.223252,118.620109
+S0234330,Kwinana Lithium Hydroxide Plant / Tianqi,Li,Infrastructure,Operating,-32.215868,115.778415
+S0234347,Pilgangoora (C1 E1 N1 S1) ,"Li, Ta",Mine,Operating,-21.072822,118.90167
+S0234353,Ngungaju Processing Plant / PLS,"Li, Ta",Infrastructure,Care and Maintenance,-21.078042,118.891631
+S0234354,Pilgangoora ROM Pad / Altura ,"Li, Ta",Infrastructure,Operating,-21.077086,118.892666
+S0234355,Pilgangoora Low Grade Stockpile South / Altura ,"Li, Ta",Infrastructure,Proposed,-21.077671,118.898636
+S0234357,Pilgangoora Admin and Workshop Areas / Altura ,"Li, Ta",Infrastructure,Operating,-21.077197,118.890036
+S0234358,Pilgangoora Access and Haul Roads and Borefield Pipeline / Altura ,"Li, Ta, H2O",Infrastructure,Operating,-21.067137,118.883339
+S0234360,Pilgangoora Tailings Storage Facility,"Li, Ta",Infrastructure,Care and Maintenance,-21.070849,118.888072
+S0234361,Pilgangoora - Ngungaju South WRL1,"Li, Ta, H2O",Infrastructure,Operating,-21.070362,118.894036
+S0234362,Pilgangoora - Ngungaju South WRL2,"Li, Ta",Infrastructure,Proposed,-21.079597,118.895544
+S0234390,Splay Pegmatite,"Li, Ta",Deposit,Undeveloped,-21.012466,118.920879
+S0234391,South West Pegmatite,"Li, Ta",Prospect,Undeveloped,-21.012758,118.918183
+S0234398,North Poona Schist,"Li, Rb, Ta",Occurrence,Undeveloped,-27.13114,117.450957
+S0234402,Lithium Show South,Li,Occurrence,Undeveloped,-28.137806,116.725054
+S0234403,Larkinville West Pegmatite,"Li, Cs, Rb",Occurrence,Undeveloped,-31.416914,121.460865
+S0234404,Pioneer Dome Pegmatite 8,"Li, Cs",Prospect,Undeveloped,-31.909811,121.637791
+S0234405,King Col Pegmatite,"Li, Rb, Cs, Be, Ta",Prospect,Undeveloped,-20.79253,118.753786
+S0234412,Gem Pegmatite - Gemcutter,Li,Prospect,Undeveloped,-32.188093,119.794266
+S0234413,Giant Pegmatite,Li,Prospect,Undeveloped,-32.177371,119.792331
+S0234440,Marble Bar Pegmatite 1,Li,Prospect,Undeveloped,-21.188067,119.863974
+S0234441,Marble Bar Pegmatite 2,Li,Prospect,Undeveloped,-21.192064,119.867834
+S0234442,Marble Bar Pegmatite 3,Li,Occurrence,Undeveloped,-21.207286,119.884589
+S0234443,Iron Stirrup Pegmatites,Li,Occurrence,Undeveloped,-21.065513,118.918961
+S0234529,Munda Pegmatite,Li,Occurrence,Undeveloped,-31.503016,121.531748
+S0234628,Greenbushes Chemical Grade Lithium Plant (CGP2),Li,Infrastructure,Operating,-33.863517,116.05685
+S0234629,Greenbushes Chemical Grade Lithium No 2 Crushing and Screening Plant,Li,Infrastructure,Operating,-33.867019,116.059433
+S0234630,Mt Marion Waste Dump 2,"Li, Ta, Mica",Infrastructure,Operating,-31.080249,121.453436
+S0234631,Mt Marion Waste Dump 1,"Li, Ta, Mica",Infrastructure,Operating,-31.073074,121.464292
+S0234632,Mt Marion Topsoil Stockpile,"Li, Ta, Mica",Infrastructure,Proposed,-31.076242,121.44658
+S0234633,Mt Marion Accomodation Camp,"Li, Ta, Mica",Infrastructure,Proposed,-31.091693,121.448486
+S0234678,Sinclair Cesium Zone,"Cs, Li, Fel, Qtz, Rb",Mine,Care and Maintenance,-31.910577,121.636978
+S0234694,Mallina Western Discovery Pegmatites,Li,Prospect,Undeveloped,-21.052336,118.018828
+S0234696,Tria,Li,Prospect,Undeveloped,-21.218869,118.627874
+S0234697,Vun,Li,Target,Undeveloped,-21.226562,118.625357
+S0234736,Monster North WRL,"Li, Ta, Sn",Infrastructure,Operating,-21.018277,118.910976
+S0234737,Monster South WRL,"Li, Ta, Sn",Infrastructure,Operating,-21.024779,118.912414
+S0234738,Pilgangoora - East WRL,"Li, Ta, Sn",Infrastructure,Proposed,-21.044129,118.915472
+S0234739,Pilgangoora - Southeast WRL,"Li, Ta, Sn",Infrastructure,Proposed,-21.06829,118.911549
+S0234741,Pilbara Minerals Tailings Management facility,"Li, Ta, Sn",Infrastructure,Under Development,-21.056268,118.894227
+S0234743,Pilbara Minerals Borefield Pipeline and Infrastructure,"Li, Ta, Sn",Infrastructure,Proposed,-21.09633,118.914551
+S0234744,RFDS Airstrip,"Li, Ta, Sn",Infrastructure,Proposed,-21.016551,118.906038
+S0234745,Pilbara Minerals Village,"Li, Ta, Sn",Infrastructure,Operating,-21.026619,118.903227
+S0234746,Landfill and Bioremediation Pad,"Li, Ta, Sn",Infrastructure,Proposed,-21.023769,118.90988
+S0234747,Pilbara Minerals Workshop and Offices,"Li, Ta, Sn",Infrastructure,Under Development,-21.044379,118.903984
+S0234748,Pilgan Processing Plant,"Li, Ta, Sn",Infrastructure,Operating,-21.049371,118.894329
+S0234749,P680 Crushing and Ore Circuit,"Li, Ta, Sn",Infrastructure,Under Development,-21.050981,118.898314
+S0234750,Pilbara Minerals Run Of Mine,"Li, Ta, Sn",Infrastructure,Under Development,-21.050342,118.899957
+S0234751,Pilbara Minerals Transport and Infrastructure Corridor,"Li, Ta, Sn",Infrastructure,Operating,-21.045904,118.897038
+S0234772,Bounty West Lithium,Li,Prospect,Undeveloped,-32.089381,119.755802
+S0234846,Pilgangoora - Tambrah Village,"Li, Ta",Infrastructure,Operating,-21.129115,118.711143
+S0234865,Cassiterite North East Node,"Li, Ta, Sn",Mine,Care and Maintenance,-21.188444,118.68023
+S0234892,Atomic Three,Li,Occurrence,Undeveloped,-31.449355,121.536258
+S0234918,Eastern Waste Landform Stage 1 - Wodgina,"Li, Ta, Sn",Infrastructure,Operating,-21.197884,118.678121
+S0234926,Pilgangoora Environmental Group / Altura,"Li, Ta, H2O",Other,Operating,-21.067137,118.883339
+S0234946,WID1 pegmatite,"Li, Cs, Ta",Occurrence,Undeveloped,-31.493961,121.532784
+S0234947,WID2 pegmatite,"Li, Cs, Ta",Occurrence,Undeveloped,-31.506128,121.55956
+S0234961,Tomahawk (M47) - Malinda,Li,Deposit,Undeveloped,-24.503379,116.269131
+S0235101,Mallina Eastern Pegmatite No 2,Li,Occurrence,Undeveloped,-21.066556,118.062299
+S0235125,Pilgangoora Environmental Group / Pilbara Minerals,"Li, Ta",Other,Operating,-21.056337,118.90524
+S0235127,Bald Hill Contractors Yard and Laydown Area,"Ta, Li",Infrastructure,Operating,-31.510074,122.18063
+S0235143,Mt Alexander Amax Pegmatite,"Li, Ta, Sn",Occurrence,Undeveloped,-22.670944,115.528132
+S0235820,Sinclair Crusher and Run of Mine Pad,"Cs, Li",Infrastructure,Operating,-31.913255,121.637002
+S0235832,Pilgangoora Low Grade Stockpile North / Altura ,"Li, Ta",Infrastructure,Under Development,-21.074272,118.898796
+S0235836,Mt Marion Waste Dump 3,"Li, Ta, Mica",Infrastructure,Operating,-31.088708,121.47816
+S0235879,Dalgaranga Mullock Dump,"Li, Rb, Ta, Sn",Occurrence,Undeveloped,-27.713081,117.217697
+S0235880,Dalgaranga South,"Li, Rb, Ta, Sn",Occurrence,Undeveloped,-27.716649,117.216081
+S0235985,Dowling Southwest Extension,"Li, Ta",Mine,Shut,-33.564976,120.030412
+S0236094,Mt Marion Production Bore,"Li, Ta, Mica",Infrastructure,Proposed,-31.100054,121.461249
+S0236113,Mt Marion Waste Dump 4,"Li, Ta, Mica",Infrastructure,Operating,-31.081623,121.473556
+S0236121,Anna,"Li, Ta",Deposit,Undeveloped,-32.069516,122.091599
+S0236122,T-Bone (M36) - Malinda,"Li, Ta",Deposit,Undeveloped,-24.505659,116.267471
+S0236123,M1 - Malinda,"Li, Ta",Deposit,Undeveloped,-24.511635,116.276072
+S0236130,Greenbushes TLA Crusher 1,Li,Infrastructure,Under Development,-33.859826,116.05637
+S0236133,Monster North ROM,"Li, Ta, Sn",Infrastructure,Proposed,-21.021397,118.908843
+S0236200,Kemerton Lithium Hydroxide Plant / Albemarle,Li,Infrastructure,Care and Maintenance,-33.203986,115.762011
+S0236220,Wodgina New Crushing and Screening Plant,"Li, Ta",Infrastructure,Under Development,-21.182859,118.669959
+S0236221,Wodgina Spodumene and Tantalite Beneficiation Plant,"Li, Ta",Infrastructure,Under Development,-21.179377,118.67481
+S0236222,Wodgina Tailings Pipeline,"Li, Ta",Infrastructure,Under Development,-21.184739,118.667776
+S0236239,Bogardi Lithium Clay,Li,Target,Undeveloped,-25.915687,115.678111
+S0236281,Mt Marion North Pit,"Li, Ta",Mine,Operating,-31.077395,121.460085
+S0236398,Bunbury Port Shed 8.8 / Talison,"Li, Ta, Sn",Infrastructure,Under Development,-33.322978,115.671158
+S0236429,Anna North,Li,Occurrence,Undeveloped,-32.068115,122.089292
+S0236430,Conda,Li,Occurrence,Undeveloped,-32.074911,122.093569
+S0236440,Wodgina Topsoil Stockpile,"Li, Ta",Infrastructure,Proposed,-21.200993,118.68207
+S0236441,Mt Marion Heavy Mobile Equipment Workshop,"Li, Ta, Mica",Infrastructure,Proposed,-31.079797,121.441479
+S0236442,Mt Marion Second Landfill Facility,"Li, Ta, Mica",Infrastructure,Operating,-31.080703,121.454175
+S0236495,Dulcie West (Li),"Li, Ta",Prospect,Undeveloped,-31.767883,119.58853
+S0236544,Eastern Waste Landform Haul Road,"Li, Ta, Sn",Infrastructure,Under Development,-21.184592,118.684174
+S0236631,Dowling Stage 2 Northeast,"Li, Ta",Mine,Care and Maintenance,-33.561608,120.038962
+S0236632,Dowling Stage 2 Southeast,"Li, Ta",Mine,Shut,-33.564572,120.042501
+S0236665,Kwinana Lithium Hydroxide Refinery / Western Australia Lithium,Li,Infrastructure,Operating,-32.218743,115.770401
+S0236704,Pioneer Waste Dump,"Cs, Li",Infrastructure,Under Development,-31.908434,121.641975
+S0236744,Sinclair Lithium-Caesium Environmental Group,"Cs, Li, Fel, Qtz, Rb",Other,Care and Maintenance,-31.910577,121.636978
+S0236960,Kathleen Valley Lithium Resource Group,"Li, Ta",Mine,Operating,-27.475198,120.556136
+S0237006,Northern / Youanmi,Li,Prospect,Undeveloped,-28.71238,118.659583
+S0237007,Central / Youanmi,Li,Prospect,Undeveloped,-28.718387,118.662749
+S0237008,Kathleen Valley Lithium Environmental Group,Li,Other,Operating,-27.460889,120.55507
+S0237009,Mallina Area C Pegmatite,Li,Prospect,Undeveloped,-21.060096,118.033448
+S0237160,Manna,"Li, Ta",Deposit,Undeveloped,-30.870938,122.537328
+S0237332,Dowling Southwest In-Pit TSF,"Li, Ta",Infrastructure,Shut,-33.56498,120.029424
+S0237333,Mt Cattlin Coarse Rejects Stockpile,"Li, Ta, Sn",Infrastructure,Proposed,-33.556946,120.021175
+S0237334,Mt Holland Access Roads,"Li, Ta",Infrastructure,Operating,-32.098093,119.680426
+S0237385,Port Hedland Storage Facility / QUBE ,"UN, Li",Infrastructure,Operating,-20.376856,118.600103
+S0237539,Earl Grey Lithium Environmental Group,"Li, Ta",Other,Operating,-32.120747,119.619817
+S0237552,Wodgina Construction Laydown Area,Li,Infrastructure,Operating,-21.158455,118.6794
+S0237578,Greenbushes Roads and Infrastructure,Li,Infrastructure,Operating,-33.847163,116.070859
+S0237580,Greenbushes Chemical Grade Lithium Plant CGP3,Li,Infrastructure,Operating,-33.86655,116.057046
+S0237581,Greenbushes Tailings Retreatment Plant (TRP),Li,Infrastructure,Operating,-33.880019,116.050505
+S0237639,Mt Marion Pit C01 In-Pit WRD,"Li, Ta, Mica",Infrastructure,Proposed,-31.091212,121.473488
+S0237640,Mt Marion N01 In-Pit WRD,"Li, Ta, Mica, Spd",Infrastructure,Proposed,-31.073371,121.462909
+S0237641,Wodgina Access Tracks,Li,Infrastructure,Proposed,-21.223657,118.683971
+S0237735,Mt Marion Waste Dump 5,Li,Infrastructure,Operating,-31.065926,121.462894
+S0237784,Mt Holland Infrastructure,"Li, Ta",Infrastructure,Operating,-32.120744,119.619816
+S0237817,Greenbushes TSF4,"Li, Ta, Sn",Infrastructure,Proposed,-33.885686,116.059966
+S0237819,Greenbushes Kapanga,"Li, Ta, Sn",Mine,Proposed,-33.859479,116.074531
+S0237860,Dowling Northwest (Stages 2 and 3),"Li, Ta",Mine,Care and Maintenance,-33.561976,120.031478
+S0237984,Medcalf Lithium,"Li, Ta, Rb",Deposit,Undeveloped,-32.451813,120.859179
+S0238043,Cade,"Li, Ta",Mine,Under Development,-31.753739,121.602544
+S0238044,Cade East,Li,Prospect,Undeveloped,-31.756973,121.608201
+S0238045,Heller ,Li,Deposit,Undeveloped,-31.748973,121.578714
+S0238051,Davy,Li,Mine,Under Development,-31.753393,121.585234
+S0238052,Cade West,Li,Occurrence,Undeveloped,-31.751502,121.59881
+S0238053,Cade South,Li,Prospect,Undeveloped,-31.760782,121.599068
+S0238054,Cade Northeast,Li,Prospect,Undeveloped,-31.7473,121.60721
+S0238177,Kathleen Valley North,"Li, Ta",Mine,Operating,-27.466396,120.553817
+S0238278,Mt Cattlin NW Waste Rock Landform 2,Li,Infrastructure,Proposed,-33.557303,120.024139
+S0238279,Mt Cattlin SW Coarse Rejects Stockpile,"Ta, Sn, Li",Infrastructure,Proposed,-33.564811,120.018328
+S0238280,Dowling Stage 2 NE In-Pit WRD,"Li, Ta",Infrastructure,Shut,-33.561717,120.03938
+S0238339,Pilgangoora - West WRL,"Li, Ta, Sn",Infrastructure,Proposed,-21.039775,118.90797
+S0238341,Pilbara Minerals Baldy North Borefield,"Li, Ta, Sn",Infrastructure,Operating,-21.026992,118.780197
+S0238342,Pilbara Minerals Turner East Borefield,"Li, Ta, Sn",Infrastructure,Operating,-21.07915,118.726321
+S0238678,Mulgara-Warabi Lithium,"Li, Ta",Prospect,Undeveloped,-28.752098,118.683305
+S0238730,Youanmi Lithium,Li,Prospect,Undeveloped,-28.672306,118.664456
+S0238767,Floyd - Mt Day,"Li, Lpd",Occurrence,Undeveloped,-32.144046,120.505815
+S0239035,Nomad / Golden State,Li,Prospect,Undeveloped,-20.727596,118.23451
+S0239107,Archer Lithium,"Li, Ta",Deposit,Undeveloped,-21.074026,119.850029
+S0239137,Waratah Well Lithium-Tantalum,"Ta, Li",Prospect,Undeveloped,-28.170967,116.5556
+S0239400,Earl Grey South Waste Rock Landform,Li,Infrastructure,Proposed,-32.100459,119.75219
+S0239401,Earl Grey - Bounty In-pit Waste Dump,Li,Infrastructure,Proposed,-32.097416,119.776572
+S0239402,Earl Grey Borefield,"Li, Au",Infrastructure,Operating,-32.161549,119.792505
+S0239461,The Raj,"Ta, Li",Occurrence,Undeveloped,-27.114674,117.421481
+S0239552,Earl Grey Freshwater Pipeline,"Li, Au",Infrastructure,Operating,-32.101983,119.74053
+S0239554,Mt Holland Communication Tower,Li,Infrastructure,Operating,-32.083318,119.752052
+S0239619,Earl Grey Lithium Environmental Group Tenements,"Li, Ta",Other,Operating,-32.120747,119.619817
+S0239717,DN21,Li,Target,Undeveloped,-31.759458,121.559803
+S0239718,DN6,Li,Target,Undeveloped,-31.762294,121.566161
+S0239724,Peggy Sue,"Ta, Li",Target,Undeveloped,-29.685518,120.124742
+S0239731,M69 / M67 Malinda,"Li, Ta",Deposit,Undeveloped,-24.507131,116.279474
+S0239883,Windimurra Pegmatites Dome 2,"Li, Ta",Occurrence,Undeveloped,-28.522455,118.559276
+S0239884,Loop Pegmatite Dome 1,"Li, Ta",Occurrence,Undeveloped,-28.482949,118.591523
+S0240063,Wodgina Transport and Infrastructure Corridor,Li,Infrastructure,Operating,-21.180448,118.678316
+S0240107,Li Soil Anomaly 1,Li,Occurrence,Undeveloped,-31.792089,119.631539
+S0240157,Sister Sam,"Li, Ta",Mine,Proposed,-29.101465,120.466639
+S0240158,Timoni Open Pit,"Li, Ta",Mine,Proposed,-29.096605,120.461873
+S0240160,Youanmi Target 3,Li,Prospect,Undeveloped,-28.729531,118.660533
+S0240186,Foundation,"Li, Ta, Cs",Prospect,Undeveloped,-28.750453,118.677101
+S0240191,Manna East,"Li, Ta",Prospect,Undeveloped,-30.881092,122.527565
+S0240280,Kathleen Valley Camp,Li,Infrastructure,Operating,-27.4542,120.54506
+S0240281,Kathleen Valley Solar Farm,"Power, Li",Infrastructure,Operating,-27.460086,120.547895
+S0240309,North West Li,Li,Prospect,Undeveloped,-32.037172,122.05035
+S0240326,Foundation North,"Li, Ta",Prospect,Undeveloped,-28.749784,118.67794
+S0240327,Dibbler,"Li, Ta",Prospect,Undeveloped,-28.747898,118.677194
+S0240328,Quoll (Li),"Li, Ta",Prospect,Undeveloped,-28.753676,118.685693
+S0240350,Rio,"Li, Ta, Nb",Deposit,Undeveloped,-31.734283,119.552347
+S0240351,Estrela (Li),"Li, Ta",Prospect,Undeveloped,-31.815721,119.61571
+S0240352,British Hills East (Li),"Li, Ta",Prospect,Undeveloped,-31.828094,119.629974
+S0240472,Kangaroo Hills Lithium,"Li, Ta, Cs, Sn",Prospect,Undeveloped,-31.096922,121.090853
+S0240535,Vickers Find South B,Li,Prospect,Undeveloped,-31.502434,119.608168
+S0240546,Buldania / MIN,"Li, Ta",Prospect,Undeveloped,-32.065621,122.083598
+S0240550,Mallina Lithium,Li,Target,Undeveloped,-21.06514,118.049158
+S0240615,Kathleen Valley Transport and Infrastructure Corridor,Li,Infrastructure,Operating,-27.460889,120.55507
+S0240636,South Iron Cap East,"Li, Ta",Prospect,Undeveloped,-32.678024,119.781533
+S0240637,Bannon,"Li, Ta",Prospect,Undeveloped,-32.623241,119.767222
+S0240650,Red Panda,Li,Prospect,Undeveloped,-30.921208,120.926574
+S0240654,Emerald SE,"Li, Ta, Nb",Target,Undeveloped,-29.604426,120.61761
+S0240707,East Curlew,"Li, Ta, Sn",Occurrence,Undeveloped,-21.574545,119.300119
+S0240754,Spear Hill / Pirra,Li,Prospect,Undeveloped,-21.496368,119.442106
+S0240762,Sparrow Pegmatite,"Li, Ta",Deposit,Undeveloped,-29.080693,120.452746
+S0240763,Eastern Pegmatites,"Li, Ta",Prospect,Undeveloped,-29.089917,120.511552
+S0240788,Archer South,Li,Prospect,Undeveloped,-21.079305,119.848075
+S0240789,Lantern Lithium,Li,Prospect,Undeveloped,-21.087128,119.853704
+S0240808,Big Pegmatite,"Li, Ta",Prospect,Undeveloped,-33.654693,119.909985
+S0240809,Creek Pegmatite,"Li, Ta",Prospect,Undeveloped,-33.635808,119.915509
+S0240822,Bengal,"Li, Rb, Ta",Prospect,Undeveloped,-21.670164,119.203572
+S0240823,Ragdoll,"Li, Rb, Ta",Occurrence,Undeveloped,-21.718628,119.184722
+S0240824,Lion,"Li, Rb, Ta",Occurrence,Undeveloped,-21.721961,119.185352
+S0240841,Mt Marion Pit C02,"Li, Ta",Mine,Proposed,-31.095119,121.48
+S0240897,Russian Jack 4,"Li, Rb",Occurrence,Undeveloped,-22.001743,120.117921
+S0240917,Dowling Stage 2 SE In-Pit TSF,"Li, Ta",Infrastructure,Operating,-33.564338,120.04338
+S0240924,Cherry,"Li, Ta",Prospect,Undeveloped,-31.006017,122.585587
+S0240925,Mesquite,"Li, Ta",Prospect,Undeveloped,-30.98301,122.591001
+S0240926,Pecan,"Li, Ta",Prospect,Undeveloped,-30.95775,122.590518
+S0240927,Hickory,"Li, Ta",Prospect,Undeveloped,-30.997734,122.588399
+S0240928,Red Oak,"Li, Ta",Prospect,Undeveloped,-31.317551,122.713324
+S0240929,Alder,"Li, Ta",Prospect,Undeveloped,-31.528072,122.753881
+S0240959,Faraday,Li,Mine,Proposed,-31.484416,121.532681
+S0240961,Breakaway Pegmatites,"Rb, Li, Cs, Ta",Deposit,Undeveloped,-27.711234,117.262113
+S0240962,Northeast Pegmatite,"Rb, Li, Ta, Cs",Deposit,Undeveloped,-27.706709,117.268198
+S0240965,Bandicoot Lithium,"Li, Ta, Rb",Prospect,Undeveloped,-28.758077,118.685948
+S0240977,Mt Correll,"Li, Cs, Ta, Rb",Occurrence,Undeveloped,-30.522113,118.892584
+S0240993,Kawana,"Li, Cs, Ta, Rb",Occurrence,Undeveloped,-30.346588,118.914957
+S0241008,Niobe Resource Group,"Rb, Li, Ta, Cs",Deposit,Undeveloped,-27.706709,117.268198
+S0241009,Southeast Pegmatite,"Rb, Li, Ta, Cs",Deposit,Undeveloped,-27.709372,117.272617
+S0241022,Jailbreak,"Li, Rb, Cs, Ta",Occurrence,Undeveloped,-28.943036,120.342734
+S0241023,Stricklands Lithium,"Li, Rb, Cs, Ta",Occurrence,Undeveloped,-28.844019,120.259224
+S0241026,Pegmatite 1,Li,Occurrence,Undeveloped,-33.402536,115.85493
+S0241030,Mt Ida Nth,"Li, Rb, Ta",Occurrence,Undeveloped,-28.927172,120.360814
+S0241041,F-Camp,Li,Occurrence,Undeveloped,-30.66717,120.7027
+S0241042,GCP North WRL,"Au, Li",Infrastructure,Shut,-31.075486,121.433545
+S0241043,GCP South WRL,"Au, Li",Infrastructure,Shut,-31.08395,121.429479
+S0241045,Mt Holland Landfill,"Li, Au",Infrastructure,Proposed,-32.094424,119.772502
+S0241046,Mt Holland Earl Grey Laydown,"Li, Au",Infrastructure,Proposed,-32.079441,119.761106
+S0241068,Mathesons,"Li, Ta",Occurrence,Undeveloped,-30.833801,119.045368
+S0241076,Mandilla Lithium,"Li, Ta",Occurrence,Undeveloped,-31.378809,121.546659
+S0241084,Radio Lithium,"Li, Rb, Cs",Occurrence,Undeveloped,-30.902602,119.071834
+S0241090,Coolgardie West Pegmatite,"Li, Ta",Target,Undeveloped,-30.954339,121.063717
+S0241103,Mondana South,"Li, Ta",Target,Undeveloped,-21.812687,119.785668
+S0241132,Chola,"Li, Ta",Occurrence,Undeveloped,-21.86586,119.439449
+S0241202,Yalgoo West Lithium,"Ta, Li",Occurrence,Undeveloped,-28.137093,116.535751
+S0241213,Harolds North,Li,Occurrence,Undeveloped,-31.331184,121.411827
+S0241214,Pegmatite Geochem Anomaly,Li,Occurrence,Undeveloped,-31.379797,121.4707
+S0241254,Lucky Sump,"Li, Ta",Prospect,Undeveloped,-21.106459,118.902804
+S0241255,Black Cat REE,"REE, Li, Be, Cs",Prospect,Undeveloped,-30.976342,122.559637
+S0241257,Tierra Lithium,"Li, Ta",Target,Undeveloped,-21.387616,118.164991
+S0241259,Manta Lithium,"Li, Rb, Cs, Ta",Prospect,Undeveloped,-28.880387,120.289622
+S0241291,Drillhole MQRC045,"Li, Cs, Rb",Occurrence,Undeveloped,-31.409821,121.454691
+S0241292,WID4 pegmatite,"Li, Cs, Ta",Occurrence,Undeveloped,-31.498273,121.556353
+S0241293,Andover AP0010,Li,Occurrence,Undeveloped,-20.816561,117.177763
+S0241299,Andover AP0009,Li,Prospect,Undeveloped,-20.820038,117.179564
+S0241308,Bald Hill Transport and Infrastructure Corridor,"Li, Ta",Infrastructure,Operating,-31.510765,122.18874
+S0241436,Londonderry Infrastructure,"Li, Rb, Fel",Infrastructure,Proposed,-31.114269,121.077629
+S0241469,Kathleen Valley TSF1,Li,Infrastructure,Operating,-27.471817,120.567028
+S0241470,Kathleen Valley TSF2,Li,Infrastructure,Proposed,-27.492204,120.571153
+S0241471,Kathleen Valley WRD,Li,Infrastructure,Operating,-27.482795,120.569563
+S0241472,Kathleen Valley Processing Plant and ROM Pad,"Li, Ta",Infrastructure,Operating,-27.479057,120.547394
+S0241482,Earl Grey Integrated Waste Landform and Tailings Storage Facility 1,Li,Infrastructure,Proposed,-32.086051,119.760048
+S0241484,Earl Grey ROM Pad,Li,Infrastructure,Proposed,-32.097874,119.772581
+S0241507,Pinnacle Well Lithium,"Li, Ta",Occurrence,Undeveloped,-20.991401,119.935505
+S0241550,Talga / Minrex,Li,Prospect,Undeveloped,-21.089319,119.910129
+S0241551,Sisters/ Minrex,Li,Prospect,Undeveloped,-21.110353,119.826894
+S0241619,Yalgoo Rubidium-LCT Pegmatite,"Rb, Li",Prospect,Undeveloped,-28.133206,116.726695
+S0241687,Jamesons Lithium / J1,Li,Deposit,Undeveloped,-24.448861,116.053431
+S0241688,Greenbushes East Pegmatites,"Li, Ta",Occurrence,Undeveloped,-33.901085,116.106785
+S0241694,Pegmatite Creek,Li,Occurrence,Undeveloped,-24.546942,116.331822
+S0241695,Crystal Palace,"Li, Be, Cs",Geological Observation,Undeveloped,-30.918947,122.512153
+S0241696,Grumpys,Li,Prospect,Undeveloped,-21.694898,119.188065
+S0241697,McNeills,Li,Prospect,Undeveloped,-21.688505,119.186007
+S0241698,Woody,Li,Prospect,Undeveloped,-21.699405,119.186883
+S0241699,Hippy Lady East,Li,Occurrence,Undeveloped,-33.538233,115.880949
+S0241700,DBGM ,Li,Occurrence,Undeveloped,-33.609204,115.829995
+S0241707,Beryl / Youanmi,Li,Prospect,Undeveloped,-28.712518,118.666959
+S0241780,Andrada,Li,Prospect,Undeveloped,-24.631832,116.381681
+S0241799,Federal Flag Lithium,Li,Prospect,Undeveloped,-30.133402,120.646898
+S0241840,Purple Panda,Li,Prospect,Undeveloped,-30.903727,120.937966
+S0241841,Ubini,Li,Prospect,Undeveloped,-30.938727,120.928383
+S0241843,Eastern Prospect,Li,Target,Undeveloped,-21.677994,119.183896
+S0241844,Bonzer,Li,Prospect,Undeveloped,-24.519394,116.165824
+S0241845,Malibu,Li,Occurrence,Undeveloped,-24.530539,116.196067
+S0241846,Single Fin - Wabli Creek,Li,Target,Undeveloped,-24.87694,116.289617
+S0241850,Greenbushes Lithium Environmental Group Tenements,Li,Other,Undeveloped,-33.859845,116.056939
+S0241851,Mustang Lithium,Li,Occurrence,Undeveloped,-33.715009,115.80855
+S0241852,Cobra Lithium,Li,Occurrence,Undeveloped,-33.896659,115.792352
+S0241853,Taliah,"Li, Ta",Occurrence,Undeveloped,-31.29217,119.457136
+S0241879,Bencubbin,"Nb, Ta, Li",Prospect,Undeveloped,-30.878555,117.818208
+S0241884,Royale / Lithium,"Li, Ni",Prospect,Undeveloped,-30.094379,118.651474
+S0241885,South Lake / Lithium,Li,Prospect,Undeveloped,-30.064168,118.608786
+S0241914,M42 - Malinda,"Li, Ta",Deposit,Undeveloped,-24.503819,116.266911
+S0241916,M20 - Malinda,"Li, Ta",Deposit,Undeveloped,-24.507784,116.275692
+S0241946,Johnson Well - Firetail,"Rb, Li",Prospect,Undeveloped,-28.19691,116.688782
+S0241959,Anomaly 1 - Horse Rocks,"Li, Ta, Cs",Prospect,Undeveloped,-31.094225,121.324506
+S0241960,Anomaly 3 - Horse Rocks,"Li, Ta, Cs",Prospect,Undeveloped,-31.126064,121.325446
+S0241976,Calypso Lithium,"Li, Ta",Target,Undeveloped,-32.673668,119.727392
+S0242033,Kobe / Lithium,Li,Occurrence,Undeveloped,-20.85141,116.837021
+S0242036,Andover AP0011-AP0012,Li,Prospect,Undeveloped,-20.812302,117.182071
+S0242037,Mt Edon,"Rb, Li, Ta, Nb",Deposit,Undeveloped,-29.316483,117.659557
+S0242038,Mt Edon Drilling ME22-019-024,"Li, Ta, Nb, Rb",Target,Undeveloped,-29.322391,117.663861
+S0242039,Trainline,Li,Deposit,Undeveloped,-31.482262,121.53252
+S0242177,Balla Yule Ni-Co-Li / Golden State,"Ni, Co, Li",Target,Undeveloped,-20.4682,118.184845
+S0242184,Faraday WRD,Li,Infrastructure,Proposed,-31.48479,121.533571
+S0242185,Faraday Infrastructure Corridor,Li,Infrastructure,Proposed,-31.486079,121.536997
+S0242186,Faraday Environmental Group,Li,Other,Proposed,-31.486079,121.536997
+S0242198,Big Red Lithium,Li,Deposit,Undeveloped,-31.095621,121.089631
+S0242199,Rocky Lithium,"Li, Ta, Cs, Sn",Prospect,Undeveloped,-31.099672,121.086443
+S0242200,Eastern Grey Lithium,"Li, Ta, Cs, Sn",Prospect,Undeveloped,-31.100746,121.09456
+S0242256,Taupo North,"Li, Ta",Prospect,Undeveloped,-30.985365,122.545962
+S0242264,Wallaroo Lithium,"Li, Ta, Cs, Sn",Prospect,Undeveloped,-31.105081,121.082788
+S0242265,Morpheus Lithium,Li,Prospect,Undeveloped,-24.58662,116.385716
+S0242266,Akira Lithium,Li,Prospect,Undeveloped,-24.624173,116.411052
+S0242285,Leia,"Li, Ta",Deposit,Undeveloped,-20.67178,118.917412
+S0242286,Loudens Patch - Anax,Li,Target,Undeveloped,-20.911257,117.837862
+S0242304,Buttamiah,"Li, Ta",Prospect,Undeveloped,-26.294324,118.405506
+S0242315,North Rover,"Li, Ta",Target,Undeveloped,-28.064908,119.647061
+S0242316,Monument Well Lithium,"Li, Cs, Rb",Target,Undeveloped,-29.100268,121.987616
+S0242317,Two Tanks,"Li, Rb, Ta",Prospect,Undeveloped,-28.930572,120.36079
+S0242322,Yilmia,Li,Occurrence,Undeveloped,-31.19575,121.195813
+S0242343,Andover AP003-005,Li,Prospect,Undeveloped,-20.830511,117.163025
+S0242347,Andover AP015-016,Li,Target,Undeveloped,-20.805732,117.192125
+S0242454,Earl Grey East / Cacique,Li,Prospect,Undeveloped,-32.078202,119.769357
+S0242456,Wilsons / Krakatoa,"Li, Ta, Rb, Cs",Prospect,Undeveloped,-27.714138,117.214782
+S0242483,Burmeister Lithium,Li,Deposit,Undeveloped,-32.518518,120.706112
+S0242487,Kandui,"Li, Ni, Cu, PGE",Prospect,Undeveloped,-31.287822,121.477632
+S0242498,Merivale Li,Li,Prospect,Undeveloped,-32.13923,122.135831
+S0242503,Long John Pegmatite,"Li, Ta",Prospect,Undeveloped,-29.111507,120.509885
+S0242505,Andover AP001-002,Li,Prospect,Undeveloped,-20.829576,117.157267
+S0242507,Mt Gordon Lithium,Li,Target,Undeveloped,-32.500227,120.752674
+S0242508,New Dawn Lithium,Li,Prospect,Undeveloped,-31.51104,122.160473
+S0242540,Woodcutters,Li,Target,Undeveloped,-31.704585,122.307654
+S0242541,Pegasus Lithium,Li,Target,Undeveloped,-32.39802,120.907063
+S0242542,Roundbottom,Li,Target,Undeveloped,-32.140846,120.447243
+S0242570,Spargos East,Li,Geological Observation,Undeveloped,-31.214866,121.489142
+S0242572,Chalice South,Li,Occurrence,Undeveloped,-31.87364,121.532056
+S0242573,Pioneer Dome West (PDW),Li,Geological Observation,Undeveloped,-31.923744,121.505075
+S0242576,Andover South,Li,Prospect,Undeveloped,-20.870457,117.120508
+S0242601,Hutt Pegmatite,Li,Deposit,Undeveloped,-20.657666,118.926591
+S0242603,King Tamba,"Ta, Nb, Li, Rb",Deposit,Undeveloped,-27.710701,117.218035
+S0242604,Loader,"Li, Ga, Ta, Cs",Prospect,Undeveloped,-27.714606,117.216838
+S0242780,Lady Grey,Li,Occurrence,Undeveloped,-32.095386,119.739224
+S0242945,Dundas REE,"REE, Li",Prospect,Undeveloped,-32.365335,122.297416
+S0243012,Mt Ida Lithium,Li,Prospect,Undeveloped,-29.259158,120.42755
+S0243069,Deep South Lithium,Li,Prospect,Undeveloped,-29.007311,118.834101
+S0243073,Prinsep Lithium,Li,Prospect,Undeveloped,-20.852924,116.814862
+S0243078,Voyager Lithium,Li,Occurrence,Undeveloped,-31.452075,121.5375
+S0243079,Gemini Lithium,Li,Occurrence,Undeveloped,-31.442249,121.535695
+S0243119,Flynn-Giles,Li,Prospect,Undeveloped,-31.247103,121.477225
+S0243120,Widgiemooltha / Arc,Li,Prospect,Undeveloped,-31.454454,121.55952
+S0243167,Wodgina TSF3 Expansion,"Ta, Sn, Li",Infrastructure,Care and Maintenance,-21.195826,118.664411
+S0243170,Constellation B In-Pit TSF,"Li, Ta, Sn, Rb",Infrastructure,Proposed,-21.202463,118.667943
+S0243171,Dragon B In-Pit TSF,"Li, Ta, Sn, Rb",Infrastructure,Proposed,-21.205492,118.668823
+S0243172,Dragon C In-Pit TSF,"Li, Ta, Sn, Rb",Infrastructure,Proposed,-21.203774,118.665086
+S0243183,Kathleen Valley Mt Mann Underground,"Li, Ta",Mine,Operating,-27.475198,120.556136
+S0243184,Mt Ida IWLTSF,"Au, Li, Ta",Infrastructure,Proposed,-29.095304,120.470956
+S0243186,Mt Ida Transport and Infrastructure Corridor / Delta Lithium,"Au, Li, Ta",Infrastructure,Proposed,-29.109439,120.471236
+S0243187,Mt Ida Accomodation Village,"Au, Li, Ta",Infrastructure,Proposed,-29.117624,120.469517
+S0243190,Mt Marion North Underground,"Li, Ta",Mine,Under Development,-31.07701,121.449935
+S0243196,Degas,Li,Target,Undeveloped,-29.698462,121.237059
+S0243197,Cezanne,Li,Target,Undeveloped,-29.697192,121.246072
+S0243198,Monet,Li,Target,Undeveloped,-29.698755,121.244826
+S0243199,Matisse Li,Li,Target,Undeveloped,-29.696576,121.239717
+S0243200,Renoir,Li,Target,Undeveloped,-29.703953,121.242162
+S0243207,Luke,Li,Deposit,Undeveloped,-20.67857,118.915799
+S0243213,Pilgangoora IWL/TSF 3,"Li, Ta",Infrastructure,Proposed,-21.071889,118.876343
+S0243226,Monster West,"Li, Ta, Sn",Mine,Proposed,-21.016607,118.914651
+S0243227,Pilgangoora - South End South WRL,"Li, Ta, Sn",Infrastructure,Proposed,-21.083433,118.90195
+S0243229,Kathleen Valley UG WRD,Li,Infrastructure,Proposed,-27.474013,120.560369
+S0243241,Greenbushes Chemical Grade Lithium Plant CGP4,Li,Infrastructure,Proposed,-33.86893,116.050645
+S0243267,Fitzgerald,Li,Prospect,Undeveloped,-32.701024,119.902457
+S0243270,Bache,"Li, Ti",Prospect,Undeveloped,-32.717384,119.940518
+S0243275,Poona East,Li,Prospect,Undeveloped,-27.110979,117.531334
+S0243298,Cade WRL,"Li, Ta",Infrastructure,Proposed,-31.752914,121.607807
+S0243299,Davy WRL,Li,Infrastructure,Proposed,-31.753602,121.588904
+S0243302,Pioneer Dome Communication Tower,Li,Infrastructure,Proposed,-31.76967,121.601148
+S0243304,Pioneer Dome Transport and Infrastructure,Li,Infrastructure,Proposed,-31.77242,121.60321
+S0243322,Dowling Stage 2 NE In-Pit TSF,"Li, Ta",Infrastructure,Proposed,-33.56057,120.039671
+S0243394,Mt Marie Lithium,Li,Occurrence,Undeveloped,-20.827217,116.97828
+S0243451,Sister Sam Underground,"Li, Ta, Au",Mine,Proposed,-29.101173,120.466467
+S0243452,Meteor Lithium,"Li, Ta",Mine,Proposed,-29.088379,120.457144
+S0243453,Meteor WRL,"Au, Li, Ta",Infrastructure,Proposed,-29.088636,120.454824
+S0243456,Potoroo,Li,Prospect,Undeveloped,-31.09221,121.090832
+S0243518,Anson A In-Pit TSF,"Li, Ta, Sn, Rb",Infrastructure,Proposed,-21.202805,118.657503
+S0243519,Anson B In-Pit TSF,"Li, Ta, Sn, Rb",Infrastructure,Proposed,-21.203708,118.660188
+S0243520,Dragon A In-Pit TSF,"Li, Ta, Sn, Rb",Infrastructure,Proposed,-21.203557,118.669855
+S0243538,Lepidolite Fields,Li,Occurrence,Undeveloped,-21.973101,120.212974
+S0243592,Bird Rock Lithium,Li,Prospect,Undeveloped,-31.375409,121.479418
+S0243600,Han,Li,Deposit,Undeveloped,-20.659274,118.924377
+S0243612,North Dam,"Ta, Nb, Li",Prospect,Undeveloped,-31.281594,121.432385
+S0243626,Roadside Lithium,Li,Target,Undeveloped,-20.719971,118.888944
+S0243636,Youanmi Lithium / Rox,Li,Target,Undeveloped,-29.109825,118.888415
+S0243639,Bald Hill Central In-Pit WRD,"Li, Ta",Infrastructure,Proposed,-31.516841,122.174738
+S0243650,Pilgangoora - Northwest WRL,"Li, Ta, Sn",Infrastructure,Proposed,-21.031069,118.903478
+S0243651,Pilgangoora Creek WRL,"Li, Ta, Sn",Infrastructure,Proposed,-21.062861,118.888441
+S0243653,Pilgangoora Camp,"Li, Ta, Sn",Infrastructure,Proposed,-21.037221,118.806018
+S0243655,Green Flame,Li,Prospect,Undeveloped,-31.266556,121.476661
+S0243698,Parker-Grubb,Li,Occurrence,Undeveloped,-31.264431,121.452119
+S0243700,Mt Henry / Dave's Claim,Li,Occurrence,Undeveloped,-32.317287,121.785381
+S0243701,Widgiemooltha / X-Ray,Li,Occurrence,Undeveloped,-31.451539,121.557008
+S0243702,Widgiemooltha / Wireless,Li,Occurrence,Undeveloped,-31.459887,121.562079
+S0243766,Manna South,Li,Occurrence,Undeveloped,-30.875226,122.525361
+S0243773,Mt Marion Central Underground,"Li, Ta",Mine,Under Development,-31.085792,121.473049
+S0243774,Mogumber,Li,Prospect,Undeveloped,-31.067554,116.150748
+S0243777,Sidetrack,Li,Prospect,Undeveloped,-30.894895,120.799371
+S0243779,Chewy,Li,Deposit,Undeveloped,-20.668945,118.919639
+S0243788,Jaegermeister Lithium,Li,Prospect,Undeveloped,-32.479971,120.700523
+S0243801,Highway - Niobe Pipes,"Ta, Li",Prospect,Undeveloped,-27.711366,117.26838
+S0243878,Dome North Environmental Group,Li,Other,Proposed,-31.77242,121.60321
+S0243882,Medcalf West,Li,Prospect,Undeveloped,-32.454897,120.850714
+S0244131,Blanche,Li,Prospect,Undeveloped,-31.732681,119.550292
+S0244509,Kathleen Valley Lithium Environmental Group Tenements,Li,Other,Operating,-27.460889,120.55507
+S0244549,Bridgetown Environmental Group / Amerod Tenements,"Pb, Ta, Sn, Li",Other,Undeveloped,-34.082208,116.290058
+S0244699,Bald Hill Environmental Group Tenements,"Li, Ta",Other,Operating,-31.510765,122.18874
+S0244804,Pilgangoora Environmental Group / Altura Tenements,"Li, Ta, H2O",Other,Operating,-21.067137,118.883339
+S0244814,Pilgangoora Environmental Group / Pilbara Minerals Tenements,"Li, Ta",Other,Operating,-21.056337,118.90524
+S0244838,Sinclair Lithium-Caesium Environmental Group Tenements,"Cs, Li, Fel, Qtz, Rb",Other,Care and Maintenance,-31.910577,121.636978
+S0244936,Mt Cattlin Environmental Group Tenements,"Li, Ta, Nb",Other,Operating,-33.562492,120.033992
+S0245000,Mt Marion Environmental Group Tenements,"Li, Ta, Mica, Spd",Other,Care and Maintenance,-31.072294,121.45697
+S0245134,Faraday Environmental Group Tenements,Li,Other,Proposed,-31.486079,121.536997
+S0245159,Dome North Environmental Group Tenements,Li,Other,Proposed,-31.77242,121.60321
+S0245248,Paynes Find North Li,Li,Target,Undeveloped,-28.741345,117.737934
+S0245249,Paynes Find Central,Li,Target,Undeveloped,-29.32225,117.762871
+S0245251,Chalby Chalby Li,Li,Occurrence,Undeveloped,-24.807993,115.959024
+S0245271,Morrissey Hill  Environmental Group Tenements,Li,Other,Proposed,-24.560106,116.175113
+S0245272,Morrissey Hill Environmental Group,Li,Other,Proposed,-24.560106,116.175113
+S0245273,P1 Target,Li,Target,Undeveloped,-20.592544,118.099397
+S0245465,West Spargoville EIS,Li,Target,Undeveloped,-31.408261,121.448316
+S0245466,Greenbushes TSF3,"Ta, Li, Sn",Infrastructure,Shut,-33.881396,116.046846
+S0245529,Lisa,Li,Target,Undeveloped,-32.461346,120.74051
+S0245720,New Dawn Environmental Group Tenements,Li,Other,Proposed,-31.511053,122.160437
+S0245721,New Dawn Environmental Group,Li,Other,Proposed,-31.511053,122.160437
+S0245731,Mt Marion Waste Dump 7,Li,Infrastructure,Proposed,-31.077546,121.472953
+S0245890,Boba,Li,Prospect,Undeveloped,-20.678908,118.914843
+S0245900,Utara,"Li, Ta",Deposit,Undeveloped,-21.01335,118.912257
+S0245903,Calix Midstream Demonstration Plant,"Li, Ta, Sn",Infrastructure,Proposed,-21.047353,118.894191
+S0245905,Pilgan Power Plant,"Li, Ta, Sn",Infrastructure,Operating,-21.048105,118.894695
+S0246039,Tambina Granite,"Li, Sn",Geological Observation,Undeveloped,-21.983221,119.520389
+S0246180,G2,"Li, Ta, Cs, Rb, Nb",Occurrence,Undeveloped,-31.151458,123.633551
+S0246241,Mt Alexander,Li,Occurrence,Undeveloped,-28.92838,120.298083
+S0246258,Munni Munni Lithium,Li,Prospect,Undeveloped,-21.135931,116.801781
+S0246284,Odin Lithium,Li,Prospect,Undeveloped,-29.64353,120.543868
+S0246285,Thor Lithium,Li,Prospect,Undeveloped,-29.619322,120.606078
+S0246286,Mjolnir,Li,Prospect,Undeveloped,-29.628857,120.58469
+S0246287,Vidar,Li,Prospect,Undeveloped,-29.583762,120.585245
+S0246288,Heimdall,Li,Prospect,Undeveloped,-29.673555,120.612025
+S0246289,Loki,Li,Prospect,Undeveloped,-29.654619,120.612473
+S0246344,Pianto South,Li,Prospect,Undeveloped,-29.966375,121.337893
+S0246382,Cave Hill Anomaly,Li,Target,Undeveloped,-31.734072,121.26281
+S0246410,Miriam Lithium,Li,Prospect,Undeveloped,-31.068681,121.111412
+S0246413,Central Target,Li,Target,Undeveloped,-28.575705,120.518308
+S0246434,Panther Lithium,Li,Prospect,Undeveloped,-21.208923,119.92791
+S0246461,Dundas South,Li,Prospect,Undeveloped,-32.004518,122.234614
+S0246464,Yinnetharra  REE / Lithium,Li,Occurrence,Undeveloped,-24.596249,115.946403
+S0246472,Cooletha Lithium,Li,Occurrence,Undeveloped,-22.03354,119.012636
+S0246510,Mt Dove / Flynn,Li,Occurrence,Undeveloped,-20.901134,118.571204
+S0246512,Olga rocks,Li,Target,Undeveloped,-31.729181,119.571425
+S0246514,View Hill Lithium,"Li, Rb",Occurrence,Undeveloped,-24.628034,115.899359
+S0246520,Jingjing,"Li, Ta",Occurrence,Undeveloped,-31.722889,122.117257
+S0246522,Southern Lithium Zone,Li,Target,Undeveloped,-32.29007,120.59365
+S0246523,Northern pegmatite,Li,Occurrence,Undeveloped,-27.318358,119.575699
+S0246524,Southern pegmatite,Li,Occurrence,Undeveloped,-27.407149,119.597284
+S0246532,Target Area 2 Pegmatite,"REE, Li",Prospect,Undeveloped,-30.231428,117.7984
+S0246561,West Wodgina,Li,Occurrence,Undeveloped,-21.237241,118.546232
+S0246572,Bolt Cutter Central,Li,Prospect,Undeveloped,-20.629326,118.8201
+S0246590,Sabbath Lithium,Li,Target,Undeveloped,-32.076566,120.50417
+S0246591,Pagrus,Li,Target,Undeveloped,-32.336892,120.613165
+S0246936,Pancho,"Li, Ta, Sn",Target,Undeveloped,-21.26102,118.626262
+S0247162,Sophie,"Rb, Li",Deposit,Undeveloped,-29.316563,117.667705
+S0247167,Nepean North Lithium,Li,Prospect,Undeveloped,-31.091054,121.085034
+S0247184,Eastern Waste Landform Stage 2,Li,Infrastructure,Proposed,-21.191138,118.696391
+S0247185,Southern NAF Stockpiles,Li,Infrastructure,Proposed,-21.213522,118.674824
+S0247186,Atlas NAF Stockpile,Li,Infrastructure,Proposed,-21.200504,118.665651
+S0247187,Atlas WRD,Li,Infrastructure,Shut,-21.209054,118.661183
+S0247188,Valley Fill NAF Stockpile,Li,Infrastructure,Proposed,-21.192964,118.667692
+S0247201,Gecko North,"Li, REE",Target,Undeveloped,-30.738024,120.80894
+S0247223,Lepidolite Hill / ERL,Li,Mine,Shut,-31.09852,121.077938
+S0247279,Mt Marion Stage 1 KW Pit,Li,Mine,Proposed,-31.116823,121.498021
+S0247280,Mt Marion Stage 2 KW Pit,Li,Mine,Proposed,-31.121508,121.499622
+S0247308,Greenbushes Underground,Li,Deposit,Undeveloped,-33.865463,116.068723
+S0247311,Earl Grey Integrated Waste Landform and Tailings Storage Facility 2B,Li,Infrastructure,Proposed,-32.073193,119.724672
+S0247312,East WRL,Li,Infrastructure,Proposed,-32.065717,119.761105
+S0247313,West WRL,Li,Infrastructure,Proposed,-32.0646,119.739624
+S0247314,Earl Grey Integrated Waste Landform and Tailings Storage Facility 2A,Li,Infrastructure,Proposed,-32.075857,119.714877
+S0247316,Big Red West Lithium,Li,Prospect,Undeveloped,-31.093593,121.083618
+S0247325,Miles and June,"Rb, Li",Deposit,Undeveloped,-29.306627,117.674858
+S0247355,Mac Well Rb,"Rb, Li",Occurrence,Undeveloped,-20.606308,118.848817

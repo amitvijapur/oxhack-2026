@@ -2,9 +2,9 @@
 
 Saturday 24 Oct 2026, added by Salman. These are leads only. Related notes: [LODESTAR](lodestar.md), [the land-buy plan](lodestar-land-buy.md) and [the LODESTAR data check](lodestar-data-check.md).
 
-> ## ⚠️ Read this first: nothing here is verified
+> ## ⚠️ Read this first: the data is included, but double-check it
 >
-> Most of this note comes from **AI-generated summaries** of two data packs. Row counts, prices, dates, deal values and legal rules **may be wrong, out of date or made up**.
+> The data files are in [`lithium-data/`](lithium-data/). We recommend checking them against the official sources before you use them. Most of this note comes from **AI-generated summaries** of those two data packs. Row counts, prices, dates, deal values and legal rules **may be wrong, out of date or made up**.
 >
 > - **Don't cite any number from this file.** Open the original source, find the figure there, and cite that.
 > - When you check something, update its **Status** in this file: ✅ verified (with where you found it), ❌ wrong (with the correct value), or ❓ couldn't reach.
@@ -37,7 +37,7 @@ Link checks were run on 24 Oct 2026 and only show whether the page loads. They s
 
 ## 2. Pack A: Nevada / USGS geology pack (claimed)
 
-These CSVs are **not in this repo**. The table below is the summary as it was given to us.
+The data is in [`lithium-data/nevada-usgs-pack/`](lithium-data/nevada-usgs-pack/). The table below is the summary as it was given to us.
 
 | File | Claimed contents | Claimed sample row |
 |---|---|---|
@@ -46,9 +46,11 @@ These CSVs are **not in this repo**. The table below is the summary as it was gi
 | `world_lithium_pegmatite_deposits_grade_tonnage.csv` | 86 hard-rock Li deposits worldwide (USGS, updated June 2026) | Greenbushes: 261 Mt at 1.93% Li₂O |
 | `usgs_mrds_lithium_sites_US.csv` | 566 US mineral sites that mention lithium | Silver Peak, NV, producer |
 
+**Claimed key finding (from the pack's README, to be re-tested):** all 9 Nevada lithium deposits in the USGS database lie 1.0–3.3 km from a top-5% NURE lithium sample taken in 1976–80. For random Nevada points, the median distance is 23.8 km and the 10th percentile is 5.3 km. This includes deposits found decades later, such as Clayton Valley-Cypress (2015) and Bonnie Claire (2015–18). Caveats: 6 of the 9 deposits are clustered in Clayton Valley, NURE sampling density varies, and the "top 5%" threshold was picked by hand (sediment ≥ 46 ppm, water ≥ 257.6 ppb). Re-run it from the CSVs before quoting it.
+
 ## 3. Pack B: `lithium_land_data` (claimed)
 
-This is a sample pack built on 24 Oct 2026. It claims about 1,170 rows pulled from official registries. These CSVs are **not in this repo** either. Ask Salman if you want them.
+This is a sample pack built on 24 Oct 2026. It claims about 1,170 rows pulled from official registries. The data is in [`lithium-data/land-pack/`](lithium-data/land-pack/).
 
 | File | Rows | Claimed contents |
 |---|---|---|
@@ -100,7 +102,7 @@ This is a sample pack built on 24 Oct 2026. It claims about 1,170 rows pulled fr
 
 These came up while writing this note and haven't been resolved:
 
-1. **Site counts don't match.** Pack A says the USGS US deposits database has "21 sites". Pack B has 46 rows from what looks like the same source, and its catalogue says "~20 sites". Are the 46 rows one per resource estimate rather than one per site?
+1. **Site counts don't match.** Pack A's `Site.csv` has 21 rows and its `Resources.csv` has 73. Pack B's `01_us_lithium_deposits_usgs.csv` has 46 rows from what looks like the same source, and its catalogue says "~20 sites". Which resource rows did Pack B keep, and why?
 2. **"Prices nearly doubled from 2025 lows."** MCS 2026 is quoted with a 2025e US price of $9,000/t. 97,000 CNY/t is roughly US$13–14k/t at today's rate. BMI's 2026 forecast is quoted at $20,100/t. Which series supports "nearly doubled"?
 3. **Production and reserve figures** (Australia 92kt, China 62kt, Chile 56kt, world reserves 37 Mt Li and so on) are flagged by the pack itself as "check against PDF". Compare them with the MCS 2026 PDF.
 4. **The GM / Thacker Pass $/t LCE** swings from 37 to ~275 depending on which resource vintage you use. Don't use it as a comparable until this is resolved.
