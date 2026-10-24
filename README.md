@@ -16,6 +16,23 @@ Use short task branches, one owner per task, and frequent integration into a
 runnable `main`. Track ownership, plans, and outcomes in [the task list](tasks/todo.md).
 The integration owner and remaining team responsibilities are pending.
 
+Team GitHub accounts: [amitvijapur](https://github.com/amitvijapur),
+[meep-boop](https://github.com/meep-boop), [arjn15](https://github.com/arjn15),
+and [iloveclouduk](https://github.com/iloveclouduk).
+
+## Event brief
+
+Read the [supplied Granola ceremony notes](research/opening-ceremony-notes.md)
+for the working event brief and initial brainstorm. Unverified sponsor names,
+deadlines, and eligibility details are labelled in those notes.
+
+## Checks and merging
+
+Follow the [team workflow and security guide](docs/team-workflow.md).
+The initial CI checks repository hygiene, workflow validity, and committed
+secrets. Application build and test checks will be added with the selected stack.
+Keep each PR small and obtain a teammate's approval before merging.
+
 ## Application setup
 
 The language, framework, dependencies, and deployment approach are pending.
@@ -26,7 +43,7 @@ run, demo, and verification commands here when the stack is agreed.
 ## Open decisions
 
 - Agree the MVP, data sources, success criteria, and team responsibilities.
-- Confirm teammate GitHub handles and repository access.
+- Confirm all teammates have accepted their write-access invitations.
 - Confirm the submission deadline, judging format, repository rules, and exact
   Zed/Delta prize requirements.
 - [ ] Review the repository and switch it to public before submission.
