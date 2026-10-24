@@ -1,0 +1,20 @@
+series,period,value,unit,quality_flag,source_url
+US battery-grade lithium carbonate price (real),2021,11700,USD/t,verified,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+US battery-grade lithium carbonate price (real),2022,63700,USD/t,verified,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+US battery-grade lithium carbonate price (real),2023,39000,USD/t,verified,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+US battery-grade lithium carbonate price (real),2024,11800,USD/t,verified,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+US battery-grade lithium carbonate price (real),2025e,9000,USD/t,verified,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+China lithium carbonate 2025 average (BMI),2025,10502,USD/t,secondary report,https://www.miningreporters.com/noticia/news/2026/08/bmi-lithium-carbonate-forecast-20100-tonne-2026
+China lithium carbonate 2026 forecast (BMI),2026 forecast,20100,USD/t,forecast,https://www.miningreporters.com/noticia/news/2026/08/bmi-lithium-carbonate-forecast-20100-tonne-2026
+Lithium carbonate CIF Asia (Benchmark),2026-09-02,19750,USD/t,headline only (history paywalled),https://www.benchmarkminerals.com/lithium/prices/index
+Spodumene SC6 FOB Australia (Benchmark),2026-09-02,2254,USD/t,headline only (history paywalled),https://www.benchmarkminerals.com/lithium/prices/index
+China lithium carbonate (Trading Economics),2026-10-23,97000,CNY/t,free daily series; -27% m/m,https://tradingeconomics.com/commodity/lithium
+World mine production excl. US,2024,222000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+World mine production excl. US,2025e,290000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+Production Australia,2025e,92000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+Production China,2025e,62000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+Production Chile,2025e,56000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+Production Zimbabwe,2025e,28000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+Production Argentina,2025e,23000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+World reserves,2025,37000000,t Li,check against PDF,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf
+World consumption,2025e,263000,t Li,88% batteries,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf

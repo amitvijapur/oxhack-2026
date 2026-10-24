@@ -1,0 +1,5 @@
+OBJECTID *,Shape *,Ftr_ID,Ftr_Name,Last_Updt,State,County,Loc_Date,Ref_Detail,Ref_ID,Remarks,Area_SqKm,Area_Acres
+1,Polygon,Sw00134,Surface workings,2018-12-20,CA,San Bernardino,2016,World Imagery,Esri World Imagery (2018),<Null>,136.3283,33687.45
+2,Polygon,Sw00128,Surface workings,2018-05-18,NC,Cleveland,2016,World Imagery,Esri World Imagery (2018),<Null>,1.710041,422.5603
+3,Polygon,Sw00129,Surface workings,2018-05-18,NC,Gaston,2016,World Imagery,Esri World Imagery (2018),<Null>,1.516284,374.6818
+4,Polygon,Sw00135,Surface workings,2018-09-12,NV,Esmeralda,2015,World Imagery,Esri World Imagery (2018),<Null>,31.39795,7758.601

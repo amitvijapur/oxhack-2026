@@ -1,0 +1,22 @@
+OBJECTID *,Site_ID *,Site_Name,Other_Name,Last_Updt,Commodity,MinReg_ID,Remarks,Approx_Lon,Approx_Lat,Loc_Pt,Loc_Poly,GeolMinOcc,Resources,Production,History,Dep_Model,Descr_Sum
+1,AR00002,Smackover-Lanxess,Lanxess Property; South Arkansas Lithium Brine Project; Lanxess Smackover Lithium-Brine Property; Smackover,2019-08-05,lithium; bromine,Mr00127,<Null>,-92.7791,33.1686,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+2,AR00003,Regional Smackover brine,H2S-Rich Belt,2019-08-05,lithium; bromine,Mr00127,<Null>,-93.1025,33.2484,Yes,Yes,No,No,No,No,No,No
+3,AR00005,Smackover-Tetra,Tetra property; Tetra lithium-brine project,2019-08-05,lithium,Mr00127,<Null>,-93.5135,33.2843,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+4,CA00002,Fort Cady,Fort Cady boron and lithium project; Fort Cady boron project,2019-08-05,lithium; boron; gypsum,<Null>,<Null>,-116.417546,34.753293,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+5,CA00003,Salton Sea,Salton Sea Known Geothermal Resources Area (KGRA); Salton Sea Geothermal Field (SSGF); Hell's Kitchen LG 1,2018-12-12,lithium; potash; boron; zinc; lead; sodium; potassium; calcium; magnesium; strontium; barium; rubidium; cesium; iron; manganese; silica; chloride,Mr00159,<Null>,-115.62648,33.228823,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+6,CA00005,Salton Trough,Imperial Valley; Coachella Valley,2018-12-12,lithium; potash; boron; zinc; lead; sodium; potassium; calcium; magnesium; strontium; barium; rubidium; cesium; iron; manganese; silica; chloride,Mr00159,<Null>,-115.716942,33.238405,Yes,Yes,No,No,No,No,No,No
+7,CA00060,Searles Lake,Searles Dry Lake,2018-12-13,lithium; tungsten; salt; borax,<Null>,<Null>,-117.327,35.717,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+8,NC00002,Kings Mountain,Foote Minerals,2019-08-05,lithium,Mr00161,<Null>,-81.355926,35.220551,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+9,NC00003,Bessemer City,Cherryville; FMC-Lithco; Lithium Corp. of America; North Carolina lithium project,2019-08-05,lithium,Mr00161,<Null>,-81.313952,35.33629,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes
+10,NC00006,Kings Mountain District,Kings Mountain belt and spodumene pegmatite district; Carolina Lithium belt,2019-08-03,lithium; tin,Mr00161,<Null>,-81.341508,35.230711,Yes,Yes,No,No,No,No,No,No
+11,NC00007,Piedmont,<Null>,2018-12-14,lithium; quartz; feldspar; mica,Mr00161,<Null>,-81.288113,35.391507,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+12,NV00118,Kings Valley,McDermitt; Lithium Nevada; Kings Valley lithium; Lithium Americas Corp.; Thacker Pass,2019-08-05,lithium; potassium; sodium; fluorine,Mr00162,<Null>,-118.117056,41.851043,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+13,NV00121,Clayton Valley-Zeus,Clayton; Clayton Valley North; Zeus; Noram Ventures Inc.,2018-12-18,lithium,<Null>,<Null>,-117.501472,37.769073,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+14,NV00122,Clayton Valley South,Pure Energy Minerals Ltd.,2019-06-05,lithium,Mr00080,<Null>,-117.608333,37.683333,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+15,NV00127,Rhyolite Ridge,North Borate Hill; South Borate Hill; South Lithium Basin; North Lithium Basin,2018-12-20,lithium; boron; potassium,<Null>,<Null>,-117.855115,37.810671,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+16,NV00143,Clayton Valley-Cypress,Dean; Glory; Clayton Valley lithium project; Cypress Development Corp.,2019-08-05,lithium,<Null>,<Null>,-117.535785,37.749885,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+17,NV00144,Clayton Valley brine operation,Silver Peak lithium operations; Silver Peak operations; Clayton Lake; Clayton Valley brine field; Clayton Valley; Albemarle Corp.,2019-08-05,lithium; potash,Mr00080,<Null>,-117.535057,37.791644,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+18,NV00147,Silver Peak Marsh,<Null>,2019-08-03,lithium carbonate; sodium chloride; borates; potash,Mr00080,<Null>,-117.561251,37.781133,Yes,Yes,No,No,No,No,No,No
+19,NV00148,Bonnie Claire,<Null>,2018-12-17,lithium,<Null>,<Null>,-117.022487,37.199778,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes
+20,NV00149,McDermitt Caldera,West Lith,2018-12-19,lithium,Mr00162,<Null>,-117.994858,41.903853,Yes,Yes,No,No,No,No,No,No
+21,UT00001,Great Salt Lake,<Null>,2018-12-21,lithium; magnesium; salt; chlorine; sulfate of potash,<Null>,<Null>,-112.799109,41.402712,Yes,Yes,Yes,Yes,No,No,Yes,Yes

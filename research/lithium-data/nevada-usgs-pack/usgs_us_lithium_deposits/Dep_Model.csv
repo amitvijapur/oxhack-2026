@@ -1,0 +1,28 @@
+OBJECTID *,Site_ID *,Ftr_ID *,Ftr_Name,Last_Updt,DpMd_NoNm,Ref_Detail,DpMd_RefID,GEM_Name,GEM_RefID,Remarks
+1,AR00002,Mo00612,"Smackover-Lanxess, South Unit",2018-11-19,lithium-enriched oilfield brine,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+2,AR00002,Mo00616,"Smackover-Lanxess, Central Unit",2018-11-19,lithium-enriched oilfield brine,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+3,AR00002,Mo00617,"Smackover-Lanxess, West Unit",2018-11-19,lithium-enriched oilfield brine,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+4,AR00005,Mo00647,"Smackover-Tetra, North Resource Area",2019-06-03,lithium-enriched oilfield brine,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+5,AR00005,Mo00648,"Smackover-Tetra, South Resource Area",2019-06-03,lithium-enriched oilfield brine,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+6,CA00002,Mo00588,"Fort Cady, Fort Cady brine deposit",2018-11-06,closed-basin brine,Page 3,American Pacific Borate and Lithium Ltd. (2017),unclassified,<Null>,<Null>
+7,CA00002,Mo00611,"Fort Cady, Fort Cady evaporite deposit",2018-11-13,evaporites,"Page 11, Figure 6",Fourie (2017),unclassified,<Null>,<Null>
+8,CA00003,Mo00589,"Salton Sea, Salton Sea brine deposit",2018-11-06,geothermal brine,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+9,CA00060,Mo00593,"Searles Lake, Searles Lake brine deposit",2019-07-18,lithium brine,"Page 3, Figure 2",Bradley and others (2013),unclassified,<Null>,<Null>
+10,CA00060,Mo00697,"Searles Lake, Searles Lake evaporite deposit",2018-12-13,evaporites,Page 143,Cowie (1985),unclassified,<Null>,<Null>
+11,NC00002,Mo00567,"Kings Mountain, Foote deposit",2018-11-06,lithium-cesium-tantalum (LCT) pegmatite,"Page 6, Table 1",Bradley and others (2017b),unclassified,<Null>,<Null>
+12,NC00003,Mo00568,"Bessemer City, Bessemer City deposit",2018-11-06,lithium-cesium-tantalum (LCT) pegmatite,"Page 6, Table 1",Bradley and others (2017b),unclassified,<Null>,<Null>
+13,NC00007,Mo00639,"Piedmont, Core deposit",2018-12-17,lithium-cesium-tantalum (LCT) pegmatite,"Page 6, Table 1",Bradley and others (2017b),unclassified,<Null>,<Null>
+14,NV00118,Mo00574,"Kings Valley, Thacker Pass deposit",2019-07-18,251.30(T) - lithium in smectites of closed basins,Page 11,Asher-Bolinder (1991),unclassified,<Null>,<Null>
+15,NV00118,Mo00576,"Kings Valley, Stage 2 Lens",2019-07-18,251.30(T) - lithium in smectites of closed basins,Page 11,Asher-Bolinder (1991),unclassified,<Null>,<Null>
+16,NV00118,Mo00577,"Kings Valley, Stage 3 Lens",2019-07-18,251.30(T) - lithium in smectites of closed basins,Page 11,Asher-Bolinder (1991),unclassified,<Null>,<Null>
+17,NV00118,Mo00580,"Kings Valley, Stage 4 Lens",2019-07-18,251.30(T) - lithium in smectites of closed basins,Page 11,Asher-Bolinder (1991),unclassified,<Null>,<Null>
+18,NV00118,Mo00581,"Kings Valley, Stage 5 Lens",2019-07-18,251.30(T) - lithium in smectites of closed basins,Page 11,Asher-Bolinder (1991),unclassified,<Null>,<Null>
+19,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2018-11-06,lithium-bearing clay,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+20,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2019-07-18,lithium brine,"Page 3, Figure 2",Bradley and others (2013),unclassified,<Null>,<Null>
+21,NV00127,Mo00585,"Rhyolite Ridge, South Basin deposit",2018-11-06,lithium-bearing clay,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+22,NV00127,Mo00587,"Rhyolite Ridge, North Basin occurrence",2018-12-19,lithium-bearing clay,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+23,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2018-11-06,lithium-bearing clay,"Page K7, Figure K5",Bradley and others (2017),unclassified,<Null>,<Null>
+24,NV00144,Mo00586,"Clayton Valley brine operation, Clayton Valley brine deposit",2019-07-18,lithium brine,"Page 3, Figure 2",Bradley and others (2013),unclassified,<Null>,<Null>
+25,NV00148,Mo00640,"Bonnie Claire, Bonnie Claire deposit",2019-04-18,evaporites,Page 30,Lane and others (2018b),unclassified,<Null>,<Null>
+26,UT00001,Mo00641,"Great Salt Lake, North Arm",2019-07-18,lithium brine,"Page 3, Figure 2",Bradley and others (2013),unclassified,<Null>,<Null>
+27,UT00001,Mo00642,"Great Salt Lake, South Arm",2019-07-18,lithium brine,"Page 3, Figure 2",Bradley and others (2013),unclassified,<Null>,<Null>

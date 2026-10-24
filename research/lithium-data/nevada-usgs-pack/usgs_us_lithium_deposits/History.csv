@@ -1,0 +1,71 @@
+OID *,Site_ID *,Ftr_ID *,Ftr_Name,Last_Updt,Status,StatDetail,Year_From,Year_To,Ref_Detail,Ref_ID,Remarks
+1,AR00002,-1111,Smackover-Lanxess,2018-11-20,Exploration,"Standard Lithium Ltd., completed a preliminary brine geochemical survey, subsurface data review, and geochemical brine sampling programs",2017,2018,Page 58,Eccles and others (2018),<Null>
+2,AR00002,-1111,Smackover-Lanxess,2018-11-20,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Eccles and others (2018),<Null>
+3,AR00002,-1111,Smackover-Lanxess,2018-11-19,Active,Bromine has been produced from the brine since 1957 and production is still active,1957,<Null>,Page 16,Eccles and others (2018),<Null>
+4,AR00002,-1111,Smackover-Lanxess,2018-11-21,Discovery,Discovery of oil in southern Arkansas in 1921,1921,1921,Page 29,Eccles and others (2018),<Null>
+5,AR00005,-1111,Smackover-Tetra,2019-06-04,Exploration,"Standard Lithium Ltd., conducted a 2018 exploration program consisting of historical geological and subsurface reviews of the Smackover Formation, and analyzing core samples from multiple wells",2018,2018,Page 3,Eccles and others (2019),<Null>
+6,AR00005,-1111,Smackover-Tetra,2019-06-04,Evaluation,NI 43-101 compliant report,2019,2019,<Null>,Eccles and others (2019),<Null>
+7,CA00002,Mf00304,"Fort Cady, Pilot plant",2018-11-21,Active,"The first phase of pilot plant operation consisted of 450 t of boric acid production, the second phase consisted of 1,800 t of synthetic colemanite",1987,2001,Page 6,Fourie (2018),<Null>
+8,CA00002,Mo00588,"Fort Cady, Fort Cady brine deposit",2019-08-05,Discovery,Discovery of the Fort Cady borate deposit occurred in 1964,1964,1964,Page 5,Fourie (2018),<Null>
+9,CA00002,Mo00588,"Fort Cady, Fort Cady brine deposit",2019-08-05,Exploration,Completed 2 of 6 lithium brine exploration holes to assess the lithium potential for the project,2017,2017,Page 2,Fourie (2017),<Null>
+10,CA00002,Mo00588,"Fort Cady, Fort Cady brine deposit",2019-08-05,Development,The project was fully permitted for construction and operation,1994,1994,Page 2,Fourie (2018),<Null>
+11,CA00002,Mo00588,"Fort Cady, Fort Cady brine deposit",2019-08-05,Evaluation,JORC compliant report,2017,2018,Page 1,Fourie (2018),<Null>
+12,CA00003,Mo00589,"Salton Sea, Salton Sea brine deposit",2018-12-10,Discovery,Discovered in 1927,1927,1927,Chapter 8,Laflin (1995),<Null>
+13,CA00003,Mo00589,"Salton Sea, Salton Sea brine deposit",2018-12-11,Evaluation,Controlled Thermal Resources completed a geothermal resource assessment with plans of production in 2023,2018,2018,<Null>,Controlled Thermal Resources (2018),NI 43-101 report is not publicly available
+14,CA00003,Mo00589,"Salton Sea, Salton Sea brine deposit",2018-12-11,Exploration,The first commercial geothermal well was brought in,1964,1964,Chapter 8,Laflin (1995),<Null>
+15,CA00060,Mf00292,"Searles Lake, Searles Lake mine",2019-08-05,Active,Intermittent mining of Searles Lake,1873,2018,<Null>,Searles Valley Minerals (2018),<Null>
+16,CA00060,Mf00292,"Searles Lake, Searles Lake mine",2019-08-05,Active,The recovery of lithium concentrates commenced in 1936,1936,1979,Page 66; Page 33,Mohr and others (2010); Rykken (1976),<Null>
+17,CA00060,Mo00593,"Searles Lake, Searles Lake brine deposit",2018-11-06,Discovery,Tungsten was first recognized in the Searles Lake brine,1937,1937,Page 302,Carpenter and Garrett (1959),<Null>
+18,CA00060,Mo00697,"Searles Lake, Searles Lake evaporite deposit",2018-11-06,Discovery,Borax discovered,1862,1862,<Null>,Searles Valley Minerals (2018),<Null>
+19,CA00060,Mo00697,"Searles Lake, Searles Lake evaporite deposit",2018-12-13,Discovery,Trona was discovered in 1905,1905,1905,<Null>,Searles Valley Minerals (2018),<Null>
+20,NC00002,Mf00233,"Kings Mountain, Kings Mountain mine",2018-11-06,Development,"In 1976, construction of a lithium carbonate plant was completed",1976,1976,Page 4,Foote Mineral Company (1986),<Null>
+21,NC00002,Mf00233,"Kings Mountain, Kings Mountain mine",2018-12-14,Active,Mining commenced in 1952 and production ceased in the 1990's,1952,1990,Page 5,Swanson (2012),<Null>
+22,NC00002,Mf00233,"Kings Mountain, Kings Mountain mine",2018-11-06,Development,Development of open pit mining began in the 1930's,1930,1930,Page 45,Kesler (1976),<Null>
+23,NC00002,Mf00233,"Kings Mountain, Kings Mountain mine",2018-11-06,Development,In 1981 a facility was added for producing pharmaceutical grade lithium carbonate and in 1982 a facility was added for granulating lithium carbonate,1981,1982,Page 4,Foote Mineral Company (1986),<Null>
+24,NC00002,Mo00567,"Kings Mountain, Foote deposit",2018-11-07,Discovery,Discovered in the 1930's,1930,1930,"Page 22, Table 12",Anstett and others (1990),<Null>
+25,NC00003,Mf00287,"Bessemer City, Hallman-Beam mine",2018-12-14,Active,"Commenced operations in 1969, and production ceased in the 1990's",1969,1990,Page 5,Swanson (2012),<Null>
+26,NC00007,Mo00639,"Piedmont, Core deposit",2018-12-17,Exploration,"Exploration drilling on the site has occurred in three drilling campaigns with 229-holes being drilled for 35,293 m",2009,2010,Page 6,Piedmont Lithium Ltd. (2018),<Null>
+27,NC00007,Mo00639,"Piedmont, Core deposit",2018-12-17,Evaluation,JORC compliant report,2018,2018,<Null>,Piedmont Lithium Ltd. (2018),<Null>
+28,NV00118,-1111,Kings Valley,2019-06-06,Evaluation,NI 43-101 compliant report,2012,2012,<Null>,Schneider and others (2012),<Null>
+29,NV00118,-1111,Kings Valley,2018-12-19,Evaluation,NI 43-101 compliant report,2008,2008,<Null>,Eggleston (2008),<Null>
+30,NV00118,-1111,Kings Valley,2019-08-05,Discovery,Discovery is considered 1975 when Chevron began exploration of the McDermitt caldera area,1975,1975,Page 27,Rossi (2010),<Null>
+31,NV00118,-1111,Kings Valley,2019-06-06,Evaluation,NI 43-101 compliant report,2008,2008,<Null>,Eggleston and Hertel (2008),<Null>
+32,NV00118,-1111,Kings Valley,2019-08-05,Evaluation,NI 43-101 compliant report,2017,2017,<Null>,Carew and Rossi (2016),<Null>
+33,NV00118,-1111,Kings Valley,2019-06-06,Evaluation,NI 43-101 compliant report,2014,2014,<Null>,Carew and others (2014),<Null>
+34,NV00118,-1111,Kings Valley,2019-06-06,Evaluation,NI 43-101 compliant report,2009,2009,<Null>,Ajie and others (2009),<Null>
+35,NV00118,Mo00574,"Kings Valley, Thacker Pass deposit",2019-06-06,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Fourie and Peldiak (2018),<Null>
+36,NV00118,Mo00574,"Kings Valley, Thacker Pass deposit",2019-06-06,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Ehsani and others (2018),<Null>
+37,NV00118,Mo00574,"Kings Valley, Thacker Pass deposit",2019-08-05,Exploration,Intermittent exploration drilling by multiple companies,2010,2018,Pages 34-35,Schneider and others (2012) ,<Null>
+38,NV00118,Mo00576,"Kings Valley, Stage 2 Lens",2018-11-06,Exploration,Western Lithium Corp. drilled 38 core holes to confirm the mineralization indicated by the previous Chevron drilling,2009,2010,Page 10,Rossi (2010),<Null>
+39,NV00118,Mo00576,"Kings Valley, Stage 2 Lens",2019-06-06,Evaluation,NI 43-101 compliant report,2010,2010,<Null>,Rossi (2010),<Null>
+40,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-06-05,Evaluation,NI 43-101 compliant report,2019,2019,<Null>,Peek and Barrie (2019),<Null>
+41,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-06-05,Exploration,Phase 1 exploration drilling completed 46 holes with an average hole depth of 14.3 meters,2016,2017,Page 18,Peek (2017b),<Null>
+42,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-06-05,Evaluation,NI 43-101 compliant report,2017,2017,<Null>,Peek (2017),<Null>
+43,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-06-05,Evaluation,NI 43-101 compliant report,2017,2017,<Null>,Peek (2017b),<Null>
+44,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-06-05,Evaluation,NI 43-101 compliant report,2016,2016,<Null>,Peek (2016),<Null>
+45,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-08-05,Exploration,Phase 2 exploration drilling completed 9 holes with an average hold depth of 82.2 meters,2018,2018,Pages 25-26,Peek and Barrie (2019),<Null>
+46,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-06-05,Exploration,Surface sampling in three phases,2016,2017,Page 3,Peek and Barrie (2019),<Null>
+47,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-06-05,Discovery,Staked claims in 2016 that was in close proximity to the producing Silver Peak mine,2016,2016,Page 12,Peek and Barrie (2019),<Null>
+48,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-08-05,Exploration,"Phase 3 exploration drilling completed 16 holes for 467.9 meters of total drilling, with an average hole depth of 29.2 meters",2018,2018,Pages 26-27,Peek and Barrie (2019),<Null>
+49,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2019-08-05,Discovery,"Lithium was initially discovered in the 1950's in the Clayton Valley, though the discovery of this site is considered 2009 by Rodinia",1950,1950,Page 32,Feyerabend (2014),<Null>
+50,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2019-06-05,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Molnar and others (2018),<Null>
+51,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2018-11-06,Evaluation,NI 43-101 compliant report,2014,2014,<Null>,Feyerabend (2014),<Null>
+52,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2019-06-05,Evaluation,NI 43-101 compliant report,2017,2017,<Null>,Blois and others (2017),<Null>
+53,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2019-06-05,Evaluation,NI 43-101 compliant report,2015,2015,<Null>,Spanjers (2015),<Null>
+54,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2019-06-05,Exploration,"There has been three phases of exploration, (1) Rodinia 2009-2010, (2) PEM 2014-2015, (3) PEM 2015-2017",2009,2017,Page 9-1,Molnar and others (2018),<Null>
+55,NV00127,Mo00585,"Rhyolite Ridge, South Basin deposit",2019-08-05,Exploration,Exploration drilling on the deposit from 2010-2017,2010,2017,"Pages 7, 16",Global Geoscience Ltd. (2017),<Null>
+56,NV00127,Mo00585,"Rhyolite Ridge, South Basin deposit",2018-12-20,Evaluation,JORC compliant report,2016,2018,<Null>,Global Geoscience Ltd. (2017); Global Geoscience Ltd. (2018),<Null>
+57,NV00127,Mo00587,"Rhyolite Ridge, North Basin occurrence",2018-11-06,Exploration,"Drilling of 57-holes totaling about 15,000m by US Borax in the 1980's",1980,1989,Page 16,Global Geoscience Ltd. (2017),<Null>
+58,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2019-06-06,Discovery,Discovery of mineralization in tabular zones through exploration drilling,2015,2015,Page 9,Marvin (2018),<Null>
+59,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2019-06-06,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Lane and others (2018c),<Null>
+60,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2019-06-06,Exploration,"Exploration diamond drilling of 14 holes for 3,657 feet was completed by Cypress",2017,2017,Page 11,Marvin (2018),<Null>
+61,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2019-06-06,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Lane and others (2018),<Null>
+62,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2019-06-06,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Marvin (2018),<Null>
+63,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2019-06-06,Exploration,"Exploration diamond drilling of 23 core holes for 1,905 meters was completed by Cypress",2017,2018,Page 45,Lane and others (2018),<Null>
+64,NV00144,Mf00291,"Clayton Valley brine operation, Silver Peak mine",2018-11-06,Development,"In 1964, the Foote Mineral Company acquired the property to develop the brine as a primary source for lithium",1964,1964,Page 132,Davis and others (1986),<Null>
+65,NV00144,Mf00291,"Clayton Valley brine operation, Silver Peak mine",2018-11-16,Active,Commenced production of Li2CO3 in 1967 and production is still ongoing,1967,<Null>,Page 132,Davis and others (1986),<Null>
+66,NV00144,Mo00586,"Clayton Valley brine operation, Clayton Valley brine deposit",2018-11-16,Exploration,Foote Mineral Company drilling uncovered the deposits stratigraphy,1964,1978,Page 134,Davis and others (1986),<Null>
+67,NV00144,Mo00586,"Clayton Valley brine operation, Clayton Valley brine deposit",2018-11-06,Discovery,"Discovered in the late 1950's, when the Leprechaun Mining Company was exploring for potassium brines; High concentrations of lithium in the subsurface brines of the playa was discovered",1950,1950,Page 132,Davis and others (1986),<Null>
+68,NV00144,Mo00586,"Clayton Valley brine operation, Clayton Valley brine deposit",2018-11-06,Exploration,Wells drilled in the playa and adjacent alluvial slopes by Foote Mineral Company to determine the subsurface stratigraphy of the basin,1964,1978,Page 134,Davis and others (1986),<Null>
+69,NV00148,Mo00640,"Bonnie Claire, Bonnie Claire deposit",2018-12-17,Evaluation,NI 43-101 compliant report,2018,2018,<Null>,Lane and others (2018b),<Null>
+70,NV00148,Mo00640,"Bonnie Claire, Bonnie Claire deposit",2019-08-05,Exploration,"Exploration activities reported which included drilling, geologic mapping, surface sampling, and geophysical surveying",2015,2018,Page 32,Lane and others (2018b),<Null>

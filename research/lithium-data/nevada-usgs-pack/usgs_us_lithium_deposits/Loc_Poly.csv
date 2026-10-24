@@ -1,0 +1,31 @@
+OBJECTID *,Shape *,Site_ID,Ftr_ID,Ftr_Name,Last_Updt,Remarks,Area_SqKm,Area_Acres
+1,Polygon,AR00003,Mr00127,Regional Smackover brine,2018-11-19,<Null>,1665.941,411663
+2,Polygon,AR00002,Mo00617,"Smackover-Lanxess, West Unit",2018-11-19,<Null>,257.2323,63563.5
+3,Polygon,AR00002,Mo00616,"Smackover-Lanxess, Central Unit",2018-11-19,<Null>,180.8728,44694.64
+4,Polygon,AR00002,Mo00612,"Smackover-Lanxess, South Unit",2018-11-19,<Null>,164.0732,40543.38
+5,Polygon,AR00005,Mo00647,"Smackover-Tetra, North Resource Area",2019-06-03,<Null>,79.56841,19661.78
+6,Polygon,AR00005,Mo00648,"Smackover-Tetra, South Resource Area",2019-06-03,<Null>,49.48563,12228.17
+7,Polygon,CA00005,Mr00159,Salton Trough,2018-12-20,<Null>,9204.555,2274495
+8,Polygon,CA00003,Mo00589,"Salton Sea, Salton Sea brine deposit",2018-12-12,<Null>,441.119,109002.9
+9,Polygon,CA00060,Mo00593,"Searles Lake, Searles Lake brine deposit",2018-12-13,<Null>,105.0221,25951.52
+10,Polygon,CA00060,Mo00697,"Searles Lake, Searles Lake evaporite deposit",2018-12-12,<Null>,31.64633,7819.979
+11,Polygon,CA00002,Mo00588,"Fort Cady, Fort Cady brine deposit",2018-11-06,<Null>,2.466346,609.4474
+12,Polygon,NC00006,Mr00161,Kings Mountain District,2019-08-03,<Null>,55.10668,13617.16
+13,Polygon,NC00007,Mo00639,"Piedmont, Core deposit",2018-12-17,<Null>,0.946717,233.9388
+14,Polygon,NC00003,Mo00568,"Bessemer City, Bessemer City deposit",2019-06-05,<Null>,0.189451,46.81449
+15,Polygon,NC00002,Mo00567,"Kings Mountain, Foote deposit",2019-08-02,<Null>,0.101531,25.08877
+16,Polygon,NV00149,Mr00162,McDermitt Caldera,2018-12-19,<Null>,516.0804,127526.3
+17,Polygon,NV00147,Mr00080,Silver Peak Marsh,2019-08-03,<Null>,82.55621,20400.09
+18,Polygon,NV00144,Mo00586,"Clayton Valley brine operation, Clayton Valley brine deposit",2019-08-02,<Null>,63.70467,15741.77
+19,Polygon,NV00122,Mo00584,"Clayton Valley South, Clayton Valley South deposit",2018-12-18,<Null>,17.99919,4447.697
+20,Polygon,NV00143,Mo00572,"Clayton Valley-Cypress, Clayton Valley-Cypress deposit",2019-08-03,<Null>,13.0209,3217.534
+21,Polygon,NV00148,Mo00640,"Bonnie Claire, Bonnie Claire deposit",2019-08-02,<Null>,11.79559,2914.754
+22,Polygon,NV00118,Mo00576,"Kings Valley, Stage 2 Lens",2018-12-19,<Null>,8.607468,2126.952
+23,Polygon,NV00118,Mo00581,"Kings Valley, Stage 5 Lens",2018-12-19,<Null>,8.451829,2088.492
+24,Polygon,NV00121,Mo00582,"Clayton Valley-Zeus, Zeus deposit",2019-08-03,<Null>,4.278071,1057.134
+25,Polygon,NV00118,Mo00574,"Kings Valley, Thacker Pass deposit",2018-12-19,<Null>,3.037043,750.4695
+26,Polygon,NV00118,Mo00580,"Kings Valley, Stage 4 Lens",2018-12-19,<Null>,2.23472,552.2112
+27,Polygon,NV00127,Mo00585,"Rhyolite Ridge, South Basin deposit",2019-08-02,<Null>,2.104094,519.9329
+28,Polygon,NV00118,Mo00577,"Kings Valley, Stage 3 Lens",2018-12-19,<Null>,1.376461,340.1309
+29,Polygon,UT00001,Mo00642,"Great Salt Lake, South Arm",2019-04-03,<Null>,2412.349,596104.4
+30,Polygon,UT00001,Mo00641,"Great Salt Lake, North Arm",2019-08-02,<Null>,1600.905,395592.1
