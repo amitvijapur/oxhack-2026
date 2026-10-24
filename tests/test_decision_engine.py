@@ -427,3 +427,38 @@ class TokDemoTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+SENTIMENT_SPEC = importlib.util.spec_from_file_location("jev_sentiment_check", ROOT / "scripts/jev_sentiment_check.py")
+sentiment = importlib.util.module_from_spec(SENTIMENT_SPEC)
+SENTIMENT_SPEC.loader.exec_module(sentiment)
+
+
+class SentimentCheckTests(unittest.TestCase):
+    def test_bucket_matches_judge_prompt(self):
+        self.assertEqual([sentiment.bucket(s) for s in (0, 3, 4, 6, 7, 10, None, "n/a")],
+                         ["cold", "cold", "warm", "warm", "hot", "hot", None, None])
+
+    def test_kappa_hand_value(self):
+        # 10 items, 8 agree. Reference: 5 warm, 5 hot. Predicted: 6 warm, 3 hot, 1 cold.
+        # Chance agreement = (5*6 + 5*3) / 100 = 0.45, so kappa = (0.8 - 0.45) / 0.55 = 0.6364.
+        pairs = [("warm", "warm")] * 5 + [("hot", "hot")] * 3 + [("hot", "warm")] + [("hot", "cold")]
+        result = sentiment.agreement(pairs)
+        self.assertEqual(result["accuracy"], 0.8)
+        self.assertAlmostEqual(result["kappa"], 0.6364)
+
+    def test_always_warm_has_no_skill(self):
+        pairs = [("warm", "warm")] * 8 + [("hot", "warm"), ("cold", "warm")]
+        self.assertEqual(sentiment.agreement(pairs)["kappa"], 0.0)
+
+    def test_request_and_response_shapes(self):
+        posts = [{"name": "A", "group": "Funds", "text": "Buying GLD calls."}]
+        request = sentiment.build_request(posts)
+        self.assertEqual(request["questions"]["support_0"]["type"], "score")
+        self.assertEqual(len(request["questions"]["support_0"]["criteria"]), 3)
+        self.assertEqual(request["questions"]["on_topic_0"]["type"], "noul")
+        response = {"answers": {"support_0": {"score": 1.8, "confidence": 0.7, "probabilities": {"0": 0.0, "1": 0.2, "2": 0.8}},
+                                "on_topic_0": {"noul": 0.95}}}
+        answer = sentiment.read_answers(response, 1)[0]
+        self.assertEqual(answer["label"], "hot")
+        self.assertEqual(answer["p_on_topic"], 0.95)
