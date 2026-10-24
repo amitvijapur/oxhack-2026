@@ -49,6 +49,20 @@ profile are inactive until each teammate chooses to enable them. These tools
 add no review requirement or separate workflow. Cortex remains Amit's personal
 router.
 
+## Soil evidence utility
+
+Amit's Site A pack and Arjin's Site B pack use one deterministic Python 3 extractor, the same USGS soil snapshot and the [frozen Arizona selection](research/site-evidence-selection.json). This utility uses the standard library and does not install an application framework. Read the [shared contract and handoff guide](research/soil-evidence-contract.md) for source acquisition, field meanings and provenance.
+
+Place the exact source snapshot in the ignored data folder shown below, or supply its actual path:
+
+```sh
+python3 scripts/soil_evidence.py --source data/raw/us-soil/Appendix_4b_Chorizon_18Sept2013.txt --selection research/site-evidence-selection.json --area A --output data/generated/us-soil/site-a
+python3 scripts/soil_evidence.py --source data/raw/us-soil/Appendix_4b_Chorizon_18Sept2013.txt --selection research/site-evidence-selection.json --area B --output data/generated/us-soil/site-b
+python3 -m unittest discover -s tests -p 'test_soil_evidence.py' -v
+```
+
+Raw sources and generated packs are ignored by Git, so a pull alone does not transfer them. Use the handoff archive or the exact source file with its documented checksum. The pack contains measured soil evidence and explicit unknowns, not a mineral-discovery probability. MiroFish remains a separate workstream.
+
 ## Application setup
 
 The language, framework, dependencies, and deployment approach are pending.

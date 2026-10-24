@@ -1,5 +1,17 @@
 # OXHack preparation
 
+## Build Site A soil evidence and reusable B extraction
+
+Results: [verified Site A evidence](../research/site-a-evidence-results.md). A has 88 rows, 87 quantified copper measurements and one retained missing sample. Median copper is 17.4 mg/kg. Independent review passed; the source-and-method archive regenerated A identically and generated B in a clean temporary directory.
+
+Owner: Amit. Branch: `codex/site-a-soil-evidence`. MiroFish, prompts, algorithm implementation and repository-policy changes are outside this task.
+
+- [x] Isolate work on a new branch and freeze the coordinate-only Arizona A/B selection against the existing source checksum.
+- [x] Implement a shared standard-library extractor and meaningful tests with a bounded worker; keep raw/derived data ignored.
+- [x] Generate Site A and a portable handoff archive; independently validate source rows, counts, summaries, provenance and B-method compatibility.
+- [x] Document the evidence contract, reusable commands and development/review loop; run 15 focused tests, independent raw-source checks and portable archive reproduction.
+- [ ] Commit the implementation branch, publish the shared method for review and record the final handoff in Obsidian.
+
 ## Reviewable US soil build plan
 
 - [x] Apply the user-specified names throughout the current plan and working split.
