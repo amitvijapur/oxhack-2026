@@ -743,6 +743,42 @@ def decide_with_waiting(contract, arrival, budget_usd, loss_limit_usd, p_deal_st
     return out
 
 
+def apply_gates(result, gates):
+    """Gates are checked facts (pass / fail / unknown). A failed gate excludes entry; an unknown one
+    keeps the scenario signal but marks the result for manual review."""
+    failed = [name for name, g in gates.items() if g["status"] == "fail"]
+    unknown = [name for name, g in gates.items() if g["status"] == "unknown"]
+    result["gates"] = gates
+    if failed:
+        result["status"], result["signal"] = "excluded", "SKIP"
+        result["excluded_because"] = result.get("excluded_because", []) + [f"gate failed: {n}" for n in failed]
+    elif unknown:
+        result["status"] = "manual_review"
+        result["manual_review"] = unknown
+    else:
+        result["status"] = "ok"
+    return result
+
+
+def swarm_scenarios(spec, contract, arrival):
+    """Decision with and without each swarm scenario whose pre-registered checks passed."""
+    import importlib.util
+    path = Path(__file__).with_name("swarm_adapter.py")
+    module_spec = importlib.util.spec_from_file_location("swarm_adapter", path)
+    adapter = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(adapter)
+    used, dropped, mappings = adapter.load(spec["swarm"]["results"], spec["swarm"].get("mappings", adapter.MAPPINGS))
+    base = analyse(contract, arrival, spec["policy"]["budget_usd"], spec["policy"]["loss_limit_usd"])
+    rows = []
+    for scenario, transform, evidence in used:
+        changed, belief = adapter.apply_transform(contract, arrival, transform)
+        r = analyse(changed, belief, spec["policy"]["budget_usd"], spec["policy"]["loss_limit_usd"])
+        rows.append({"scenario": scenario, "transform": transform, "assumption": evidence["assumption"],
+                     "value_usd": r["value_usd"], "action": r["action"], "action_changes": r["action"] != base["action"]})
+    return {"mappings_version": mappings["version"], "used": rows, "dropped": dropped,
+            "without_swarm": {"value_usd": base["value_usd"], "action": base["action"]}}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("contract", type=Path, help="JSON with contract, arrival and policy sections")
@@ -797,6 +833,9 @@ def main():
                                  spec["policy"]["loss_limit_usd"], spec["p_deal_still_open"])
     result["arrival"] = {"p_buyer_within_12_months": arrival.p_buyer_within(12)}
     result.update(report)
+    if "swarm" in spec:
+        result["swarm"] = swarm_scenarios(spec, spec["contract"], arrival)
+    apply_gates(result, spec.get("gates", {}))
     if "latest_event_check" in report and (report["latest_event_check"]["value_without_it_usd"] > TOLERANCE) != \
             (result["value_usd"] > TOLERANCE):
         result["fragile"].append("removing the single most recent staking event flips the sign of the value")

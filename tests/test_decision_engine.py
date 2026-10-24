@@ -295,6 +295,78 @@ class WaitRiskChangepointTests(unittest.TestCase):
         self.assertGreater(1 - post["p_no_change"], 0.99)
 
 
+class GateTests(unittest.TestCase):
+    def test_failed_gate_excludes_entry(self):
+        result = engine.apply_gates({"signal": "BUY", "excluded_because": []},
+                                    {"title": {"status": "fail"}, "access": {"status": "pass"}})
+        self.assertEqual((result["status"], result["signal"]), ("excluded", "SKIP"))
+
+    def test_unknown_gate_keeps_signal_for_manual_review(self):
+        result = engine.apply_gates({"signal": "BUY"}, {"land_status": {"status": "unknown"},
+                                                        "counterparty": {"status": "pass"}})
+        self.assertEqual((result["status"], result["signal"], result["manual_review"]),
+                         ("manual_review", "BUY", ["land_status"]))
+
+
+SWARM_SPEC = importlib.util.spec_from_file_location("swarm_adapter", ROOT / "scripts/swarm_adapter.py")
+swarm = importlib.util.module_from_spec(SWARM_SPEC)
+SWARM_SPEC.loader.exec_module(swarm)
+MAPPINGS = json.loads((ROOT / "research/decision-engine/swarm-mappings.json").read_text())
+
+
+def fake_results(placebo_quiet="pass", tax="pass", tax_effect=-1.2, band=0.5):
+    """A results.json in the shape swarm/score.py writes."""
+    return {"checks": {"placebo": {"status": "pass", "parts": [
+                {"part": swarm.PLACEBO_PART, "status": placebo_quiet}, {"part": "tax_rise", "status": tax}]},
+                       "mirrors": {"status": "not run", "parts": []}},
+            "effects": {"tax_rise": {"funds": {"effect": tax_effect, "band": band, "beyond_band": abs(tax_effect) > band},
+                                     "land_industry": {"effect": -0.1, "band": band, "beyond_band": False}}}}
+
+
+class SwarmAdapterTests(unittest.TestCase):
+    def test_nothing_used_when_placebo_fails(self):
+        used, dropped = swarm.usable_scenarios(fake_results(placebo_quiet="fail"), MAPPINGS)
+        self.assertEqual(used, [])
+        self.assertIn("all", dropped)
+
+    def test_passed_scenario_applied_once(self):
+        used, dropped = swarm.usable_scenarios(fake_results(), MAPPINGS)
+        self.assertEqual([u[0] for u in used], ["tax_rise"])
+        self.assertIn("mine_approved", dropped)  # not run, so not used
+        changed, _ = swarm.apply_transform({"bids": [{"usd": 100000.0, "probability": 1.0}]},
+                                           engine.GammaArrival(1, 1, 0.5), used[0][1])
+        self.assertAlmostEqual(changed["bids"][0]["usd"], 85000.0)
+
+    def test_effect_inside_band_ignored(self):
+        used, _ = swarm.usable_scenarios(fake_results(tax_effect=-0.3), MAPPINGS)
+        self.assertEqual(used, [])
+
+    def test_missing_results_file(self):
+        used, dropped, _ = swarm.load(ROOT / "no-such-results.json")
+        self.assertEqual(used, [])
+        self.assertIn("no swarm results", dropped["all"])
+
+
+POLICY_SPEC = importlib.util.spec_from_file_location("policy_extract", ROOT / "scripts/policy_extract.py")
+policy = importlib.util.module_from_spec(POLICY_SPEC)
+POLICY_SPEC.loader.exec_module(policy)
+
+
+class PolicyExtractTests(unittest.TestCase):
+    def test_rules_fallback(self):
+        self.assertEqual(policy.rules_label("The state will propose raising the mining tax.")["move"], "tax_change")
+        self.assertEqual(policy.rules_label("DNR will continue reviewing public comments.")["move"], "review_or_delay")
+        self.assertEqual(policy.rules_label("Approval with enforceable mitigation conditions.")["move"],
+                         "approve_with_conditions")
+
+    def test_jev_request_shape(self):
+        request = policy.jev_request("text")
+        question = request["questions"]["policy_move"]
+        self.assertEqual(question["type"], "choice")
+        self.assertEqual(set(question["criteria"]), set(policy.MOVES))
+        self.assertEqual(request["state"], {"answer": "text"})
+
+
 class OutcomeTests(unittest.TestCase):
     def test_outcome_distribution_matches_value(self):
         rng = random.Random(5)
@@ -329,6 +401,8 @@ class TokDemoTests(unittest.TestCase):
     Re-pinned on 25 Oct 2026 after the PR #25 review fixes: time-aware history (forgetting rate chosen
     out of sample, 2025 counted as 63 days), buyer arrivals in the state, and the loss limit applied
     inside the policy. The earlier pin (+$14,507) pooled all years and ignored declined offers.
+    Re-pinned again (+$9,617 -> +$8,219) when the assumed Alaska rent was replaced by Arjin's verified
+    rates for claims aged 6-10 plus annual labour.
     """
 
     def setUp(self):
@@ -341,7 +415,7 @@ class TokDemoTests(unittest.TestCase):
         result = engine.analyse(self.spec["contract"], self.arrival, self.spec["policy"]["budget_usd"],
                                 self.spec["policy"]["loss_limit_usd"])
         self.assertEqual(result["action"], "BUY")
-        self.assertAlmostEqual(result["value_usd"], 9617.0, delta=1.0)
+        self.assertAlmostEqual(result["value_usd"], 8219.0, delta=1.0)
         self.assertGreaterEqual(result["worst_outcome_usd"], -self.spec["policy"]["loss_limit_usd"])
         self.assertIn("the acceleration assumption alone flips the sign of the value", result["fragile"])
         self.assertEqual([m for m in result["policy"] if m["action"] == "LAPSE"][0]["month"], 12)

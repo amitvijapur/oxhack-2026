@@ -1,0 +1,31 @@
+{
+  "version": "1",
+  "note": "How a passed Tok society scenario changes the decision engine's inputs. Trigger groups and signs follow the pre-registered expected directions in swarm/score.py (branch ahmed/gold-society-plan). Every magnitude is a labelled ASSUMPTION chosen by the algorithm owner, not a swarm output; the engine reports decisions with and without each scenario. A scenario's effect lasts for the whole contract unless stated otherwise, which is itself an assumption.",
+  "scenarios": {
+    "mine_approved": {
+      "trigger_groups": ["funds"], "trigger_sign": 1, "mirror_check": "funds move opposite ways after mine approved and court blocks, both beyond the band",
+      "transform": {"q_multiplier": 1.25},
+      "assumption": "A new approved mine nearby brings buyers: 25% more staking events turn into offers."
+    },
+    "court_blocks_mine": {
+      "trigger_groups": ["funds"], "trigger_sign": -1, "mirror_check": "funds move opposite ways after mine approved and court blocks, both beyond the band",
+      "transform": {"q_multiplier": 0.75},
+      "assumption": "A court block deters buyers: 25% fewer staking events turn into offers."
+    },
+    "tax_rise": {
+      "trigger_groups": ["funds", "land_industry"], "trigger_sign": -1,
+      "transform": {"bid_multiplier": 0.85},
+      "assumption": "A proposed state mining tax rise lowers what buyers pay for the block by 15%."
+    },
+    "protest": {
+      "trigger_groups": ["land_community", "government", "funds"], "trigger_sign": -1,
+      "transform": {"q_multiplier": 0.85},
+      "assumption": "Local opposition makes buyers 15% less likely to follow staking with an offer."
+    },
+    "gold_back_to_4000": {
+      "trigger_groups": ["funds", "retail"], "trigger_sign": -1, "mirror_check": "funds and retail fall beyond their bands when gold drops back",
+      "transform": {"bid_multiplier": 0.9},
+      "assumption": "Gold falling back about 11% lowers offers by 10% (a land-to-gold sensitivity of roughly 1, assumed)."
+    }
+  }
+}
