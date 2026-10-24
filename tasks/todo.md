@@ -1,5 +1,14 @@
 # OXHack preparation
 
+## Resolve and merge gold evidence PR #20
+
+Owner: Amit. Explicitly authorised to resolve conflicts, pass checks and merge PR #20. Preserve both contributors' changes and the published gold A/B release; no repository-policy changes.
+
+- [ ] Integrate current main into the PR branch and resolve only actual conflicts with independent review.
+- [ ] Verify gold/soil extraction tests, release/source integrity and relevant repository checks against the final branch state.
+- [ ] Push, mark ready, confirm required checks and resolved conversations on the exact head, then squash merge through GitHub protections.
+- [ ] Verify the merged main contents and the team's main-branch download instructions, and update Obsidian.
+
 ## Publish gold branch and downloadable A/B data
 
 Owner: Amit. Publish the existing branch and a prerelease handoff in the existing private repository. No merge or repository-setting change.
