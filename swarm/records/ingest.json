@@ -1,0 +1,1975 @@
+{
+  "project_id": "proj_dd9c97a5deeb",
+  "graph_id": "mirofish_e67c7ee7070748c7",
+  "note": "MiroFish stopped waiting for Zep after 600s at 60/71 chunks; entities read afterwards; 61/61 cast found",
+  "entities": {
+    "entities": [
+      {
+        "attributes": {
+          "community_role": "Tok parent",
+          "full_name": "Heather Moravec",
+          "name": "young families",
+          "primary_concern": "Good jobs, clean water, and safe roads"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "young families",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Heather Moravec wants good jobs that keep young families in Tok.",
+        "uuid": "fe39f68a-333c-4eeb-8f10-bc881a7825c1"
+      },
+      {
+        "attributes": {
+          "full_name": "Tyler Brockman",
+          "investment_role": "Manager, junior-miner fund",
+          "market_focus": "junior gold explorers and developers",
+          "name": "Tyler Brockman"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Tyler Brockman",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Tyler Brockman manages a fund that invests in junior gold explorers and developers. The Redpoll Ridge Project is the kind of asset the fund seeks, and the state’s decision on it affects how he values similar projects.",
+        "uuid": "fd59dafb-2c01-45e6-8007-81cddc0576a1"
+      },
+      {
+        "attributes": {
+          "location": "Alaska",
+          "name": "Kinross",
+          "org_name": "Kinross",
+          "organization_role": "Operator of Manh Choh; 70% owner of Peak Gold LLC"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Kinross",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Kinross operates and owns 70% of the Manh Choh mine in Alaska, which Diane Kessler runs as the company’s Alaska general manager. Manh Choh had about 300 employees, produced 141,000 ounces of gold in 2024, and hauled ore to the Fort Knox mill. How Alaska handles the Redpoll Ridge Project matters to Kinross’s plans in the state.",
+        "uuid": "f9c73c3b-0120-404c-bd3c-8e5e9c39f89f"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "bullion bank",
+          "org_name": "bullion bank",
+          "organization_role": "Makes markets in physical gold and gold futures"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "bullion bank",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The bullion bank’s precious metals desk, run by Hannah Whitcombe, makes markets in physical gold and gold futures. The desk provides direct visibility into shifts in physical demand and follows supply news from producers such as Kinross.",
+        "uuid": "f81f6613-ff37-49f8-b459-3d96bea3efd3"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Beatrice Lowell's family office",
+          "org_name": null,
+          "organization_role": "Family office investor"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Beatrice Lowell's family office",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Beatrice Lowell is its chief investment officer. The family office splits its gold exposure between bullion and royalty companies.",
+        "uuid": "f605e57f-6523-45f0-b28a-d3eccc7e186f"
+      },
+      {
+        "attributes": {
+          "full_name": "Nadia Kovacs",
+          "investment_role": "Manager, long-only gold fund",
+          "market_focus": "gold mining companies of all sizes; Alaska mining region, including Manh Choh and the pending Redpoll Ridge Project",
+          "name": "Nadia Kovacs"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Nadia Kovacs",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Nadia Kovacs manages a long-only fund invested in gold mining companies of all sizes. She follows Alaska mining, including Manh Choh and the pending Redpoll Ridge Project.",
+        "uuid": "f31a8ab4-2d62-46e7-80ba-3b41586ad81b"
+      },
+      {
+        "attributes": {
+          "location": "North America",
+          "name": "Sofia Varga's mining-equity fund",
+          "org_name": "Sofia Varga's mining-equity fund",
+          "organization_role": "Mining-equity fund focused on North American gold producers"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Sofia Varga's mining-equity fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Sofia Varga’s mining-equity fund focuses on North American gold producers.",
+        "uuid": "edb04af5-ca60-4ed7-844c-392f53079b6a"
+      },
+      {
+        "attributes": {
+          "full_name": "Douglas Renfrew",
+          "name": "Douglas Renfrew",
+          "policy_area": "mining approvals and state revenue",
+          "public_position": "Commissioner, Alaska Department of Natural Resources (DNR)"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Douglas Renfrew",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Douglas Renfrew is Commissioner of the Alaska Department of Natural Resources (DNR). He considers how mining approvals could affect state revenue, jobs, and local opposition; the DNR must decide on the Redpoll Ridge Project application.",
+        "uuid": "ed4cdbc4-efe3-45e1-9b79-cadadb6d3f15"
+      },
+      {
+        "attributes": {
+          "full_name": "Rebecca Sterling",
+          "investment_role": "Head of a commodity trading desk",
+          "market_focus": "physical gold",
+          "name": "Rebecca Sterling"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Rebecca Sterling",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Rebecca Sterling heads a commodity trading desk that buys and sells physical gold from producers and refiners. Mine-supply news, including news about Manh Choh, is part of her daily business alongside the gold price.",
+        "uuid": "eae23fc5-4b2b-4204-98cf-288c89e21ea0"
+      },
+      {
+        "attributes": {
+          "coverage_area": null,
+          "editorial_role": null,
+          "name": "mining news",
+          "org_name": null
+        },
+        "labels": [
+          "MediaOutlet"
+        ],
+        "name": "mining news",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "",
+        "uuid": "e7f6b146-f5e6-488c-a88b-5d399b9e7bb9"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "royalty companies",
+          "org_name": "royalty companies",
+          "organization_role": "Gold investment vehicles"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "royalty companies",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Royalty companies are one part of the gold exposure held by Beatrice Lowell’s family office, alongside bullion.",
+        "uuid": "e4c99ab2-4c46-42d2-aed5-e710bab6caa1"
+      },
+      {
+        "attributes": {
+          "full_name": "Naomi Crane",
+          "name": "Naomi Crane",
+          "policy_area": "Alaska's tax on mining",
+          "public_position": "State tax official (mining tax)"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Naomi Crane",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Naomi Crane is a state tax official working on Alaska’s mining tax. She estimates how higher gold prices or changes to the tax rate would affect revenue from mines such as Manh Choh, and would draft the details of a proposal to raise the tax on gold mining.",
+        "uuid": "e1afb7e5-5d37-4669-8b79-ed013b58951c"
+      },
+      {
+        "attributes": {
+          "full_name": "Victor Hale",
+          "investment_role": "Manager, trend-following fund (CTA)",
+          "market_focus": "Gold futures",
+          "name": "Victor Hale"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Victor Hale",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Victor Hale manages a trend-following fund, a commodity trading advisor (CTA), that trades gold futures using systematic signals. His models add to positions when prices break out and cut them when trends turn, so a gold breakout moves his book directly.",
+        "uuid": "ddde3649-c6a9-4fcf-b4f5-9828eb03848a"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "quantitative momentum fund",
+          "org_name": null,
+          "organization_role": "Trades gold, gold miners and gold ETFs on price and volume signals"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "quantitative momentum fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The quantitative momentum fund managed by Leo Zhang trades gold, gold miners, and gold ETFs based on price and volume signals. Gold breakouts feed directly into its models.",
+        "uuid": "dd9166b7-c918-4387-a936-c60e7932aa39"
+      },
+      {
+        "attributes": {
+          "full_name": "Jesse Pellerin",
+          "job_role": "Mine crew member",
+          "name": "Jesse Pellerin",
+          "work_location": "Manh Choh"
+        },
+        "labels": [
+          "MiningOperationsWorker"
+        ],
+        "name": "Jesse Pellerin",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Jesse Pellerin is a mine crew member who works rotations at Manh Choh and lives in Fairbanks between shifts. With Manh Choh expected to finish mining after 4 to 5 years, he wants to know whether the Redpoll Ridge Project will be approved.",
+        "uuid": "daba183f-e75a-49bd-83c7-703d21f2170d"
+      },
+      {
+        "attributes": {
+          "jurisdiction": "Alaska",
+          "name": "Alaska Department of Environmental Conservation (DEC)",
+          "org_name": "Alaska Department of Environmental Conservation (DEC)",
+          "responsibility": "Environmental conservation and water quality"
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "Alaska Department of Environmental Conservation (DEC)",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Alaska Department of Environmental Conservation (DEC) has regional water-quality work around Tok; regional official Alicia Mendoza works on that area’s water quality and follows water questions related to Manh Choh.",
+        "uuid": "da1173eb-c688-4f18-a8da-5b7073a7fcd1"
+      },
+      {
+        "attributes": {
+          "location": "North America",
+          "name": "North American gold producers",
+          "org_name": "North American gold producers",
+          "organization_role": null
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "North American gold producers",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "North American gold producers are the focus of Sofia Varga’s mining-equity fund.",
+        "uuid": "da0a3a26-4810-4544-ac79-9cea730d6036"
+      },
+      {
+        "attributes": {
+          "full_name": "Clayton Ruud",
+          "industry_role": "Placer miner",
+          "name": "Clayton Ruud",
+          "stake_description": "A higher gold price makes his small family placer gold claim in the Tok area pay better. He backs mining in general, but does not want large mines to tie up land or water that small miners use."
+        },
+        "labels": [
+          "MiningIndustryRepresentative"
+        ],
+        "name": "Clayton Ruud",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Clayton Ruud is a placer miner who works a small family placer gold claim in the Tok area. Higher gold prices make the claim pay better. He supports mining in general but does not want large mines to tie up land or water used by small miners.",
+        "uuid": "d80c76f2-203f-49a5-9381-935d969085d8"
+      },
+      {
+        "attributes": {
+          "full_name": "Dale Merritt",
+          "job_role": "Ore-haul truck driver",
+          "name": "Dale Merritt",
+          "work_location": "Manh Choh to the Fort Knox mill"
+        },
+        "labels": [
+          "MiningOperationsWorker"
+        ],
+        "name": "Dale Merritt",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Dale Merritt is an ore-haul truck driver whose income comes from hauling ore. He drives a B-train ore truck from Manh Choh to the Fort Knox mill, about 240 miles each way, and hears safety complaints from people along the route.",
+        "uuid": "d6dd5ca3-4a13-4366-bb63-c657daf407ba"
+      },
+      {
+        "attributes": {
+          "full_name": "Beatrice Lowell",
+          "investment_role": "Chief investment officer of a family office",
+          "market_focus": "Gold exposure split between bullion and royalty companies; new mines and tax changes in Alaska",
+          "name": "Beatrice Lowell"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Beatrice Lowell",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Beatrice Lowell is chief investment officer of a family office that splits its gold exposure between bullion and royalty companies. She reads every new mine and tax change in places like Alaska for their effect on long-term returns.",
+        "uuid": "d6ca8f23-c544-40f8-a654-05f87d996fcc"
+      },
+      {
+        "attributes": {
+          "full_name": "Wade Tillotson",
+          "industry_role": "Placer miner",
+          "name": "Wade Tillotson",
+          "stake_description": "Runs a seasonal placer mining operation near Tok and sells his gold at market prices, so every move in the gold price changes his season. He watches the state's decision on the Redpoll Ridge Project for what it means for mining permits near Tok."
+        },
+        "labels": [
+          "MiningIndustryRepresentative"
+        ],
+        "name": "Wade Tillotson",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Wade Tillotson is a placer miner who runs a seasonal operation near Tok and sells his gold at market prices, making each change in the gold price affect his season. He watches the state’s decision on the Redpoll Ridge Project for its implications for mining permits near Tok.",
+        "uuid": "d6b6d0ae-173d-46a1-9fed-4e0a32534149"
+      },
+      {
+        "attributes": {
+          "full_name": "Leo Zhang",
+          "investment_role": "Manager, quant momentum fund",
+          "market_focus": "gold, gold miners and gold ETFs",
+          "name": "Leo Zhang"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Leo Zhang",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Leo Zhang manages a quantitative momentum fund that trades gold, gold miners, and gold ETFs using price and volume signals. Gold breakouts feed directly into the fund’s models; he follows the Redpoll Ridge Project application and pays attention to local mining news only when it moves prices.",
+        "uuid": "d384ee28-60ea-4a5f-bfad-9f86ea5027c6"
+      },
+      {
+        "attributes": {
+          "full_name": "Kyle Brannigan",
+          "name": "Kyle Brannigan",
+          "policy_area": "Mine site inspections and reclamation plans",
+          "public_position": "DNR field inspector"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Kyle Brannigan",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Kyle Brannigan is a DNR field inspector who inspects mine sites, including Manh Choh, for compliance with approved reclamation plans. His inspection findings inform the DNR’s view of proposed mines such as the Redpoll Ridge Project.",
+        "uuid": "d2bbfec6-d653-4251-9b8d-2f0cf0247527"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "gold producers",
+          "org_name": "gold producers",
+          "organization_role": "Producers of physical gold"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "gold producers",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Gold producers supply physical gold to Rebecca Sterling's commodity trading desk.",
+        "uuid": "d16c7037-8b16-40f2-a577-783ae125ee33"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Charlotte Vandermeer's family office",
+          "org_name": "Charlotte Vandermeer's family office",
+          "organization_role": "Family office"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Charlotte Vandermeer's family office",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Charlotte Vandermeer's family office has held physical gold for decades, treating it as a store of family wealth across generations.",
+        "uuid": "d1021ef3-6a9e-4eb3-b318-82b9ed42370b"
+      },
+      {
+        "attributes": {
+          "location": "Between Manh Choh and the Fort Knox mill",
+          "name": "ore-haul trucking contractor",
+          "org_name": null,
+          "organization_role": "Trucking contractor hauling Manh Choh ore to the Fort Knox mill"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "ore-haul trucking contractor",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The trucking contractor hauls Manh Choh ore about 240 miles to the Fort Knox mill. Managed by Brent Holloway, it runs about 60 round trips a day using B-train trucks about 95 feet long; its contract depends on the haul staying open and on addressing safety complaints.",
+        "uuid": "c4a11776-a7aa-426f-a613-49f159ad4c5d"
+      },
+      {
+        "attributes": {
+          "full_name": "Sharon Delancey",
+          "industry_role": "Regional Native corporation representative",
+          "name": "Sharon Delancey",
+          "stake_description": "Looks for jobs and contract work from Manh Choh and any new mine near Tok, and hears concerns about land and subsistence from villages in the region."
+        },
+        "labels": [
+          "MiningIndustryRepresentative"
+        ],
+        "name": "Sharon Delancey",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Sharon Delancey represents a regional Alaska Native corporation in the Interior. She seeks jobs and contract work from Manh Choh and any new mine near Tok, while hearing villages’ concerns about land and subsistence.",
+        "uuid": "c1efd2ee-8026-43f9-a68e-778af0d05dd4"
+      },
+      {
+        "attributes": {
+          "full_name": "Gordon Strand",
+          "name": "Gordon Strand",
+          "policy_area": "State highways; ore-haul highway pavement damage, maintenance costs, and safety",
+          "public_position": "Regional director, Alaska Department of Transportation (DOT)"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Gordon Strand",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Gordon Strand is regional director for the Alaska Department of Transportation (DOT) and is responsible for the state highways used by the Manh Choh ore haul. About 60 daily round trips by 95-foot ore trucks run to the Fort Knox mill, raising pavement-damage, maintenance-cost, and safety questions handled by his office.",
+        "uuid": "be20bda8-bb77-4fcb-902a-86e9fd783846"
+      },
+      {
+        "attributes": {
+          "full_name": "Evelyn Marchetti",
+          "name": "Evelyn Marchetti",
+          "policy_area": "Mine plans and reclamation",
+          "public_position": "Director, DNR mining division"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Evelyn Marchetti",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Evelyn Marchetti is director of the DNR mining division, which reviews mine plans and reclamation. Manh Choh operates under a DNR-approved reclamation plan, and her division’s review of the pending Redpoll Ridge Project application will feed into the DNR’s decision.",
+        "uuid": "bba01d90-60d2-467e-b0ee-af7505b4d79e"
+      },
+      {
+        "attributes": {
+          "asset_focus": "gold ETF and a few mining shares",
+          "full_name": "Angela Fortier",
+          "name": "Angela Fortier",
+          "trading_style": "Regular investor"
+        },
+        "labels": [
+          "RetailInvestor"
+        ],
+        "name": "Angela Fortier",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Angela Fortier is a nurse and regular investor who holds a gold ETF and a few mining shares in her retirement account. She follows the gold price and news about mining in Alaska.",
+        "uuid": "bae1f8a2-d05e-4380-bc1c-24b5af4ad9bc"
+      },
+      {
+        "attributes": {
+          "full_name": "Elena Varnum",
+          "investment_role": "Manager, central-bank-flows fund",
+          "market_focus": "Central bank buying and selling of gold",
+          "name": "Elena Varnum"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Elena Varnum",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Elena Varnum manages a fund that positions around central-bank buying and selling of gold. She tracks official reserve flows and policy statements, while treating mine supply such as Manh Choh’s mainly as a backdrop to those flows.",
+        "uuid": "bac2af0d-d379-4ba9-8d27-e173d7a87843"
+      },
+      {
+        "attributes": {
+          "asset_focus": "gold coins and a gold ETF",
+          "full_name": "Shirley Dombrowski",
+          "name": "Shirley Dombrowski",
+          "trading_style": "Retirement saver"
+        },
+        "labels": [
+          "RetailInvestor"
+        ],
+        "name": "Shirley Dombrowski",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Shirley Dombrowski is a retired teacher who keeps part of her retirement savings in gold coins and a gold ETF. She reads gold and mining news to decide whether to keep or sell her gold.",
+        "uuid": "b2bc6fd5-38c1-4968-b0d0-3617ce1f9395"
+      },
+      {
+        "attributes": {
+          "full_name": "Brent Holloway",
+          "industry_role": "Ore-haul trucking contractor manager",
+          "name": "Brent Holloway",
+          "stake_description": "His contract depends on the haul staying open and on answering the safety complaints."
+        },
+        "labels": [
+          "MiningIndustryRepresentative"
+        ],
+        "name": "Brent Holloway",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Brent Holloway manages the trucking contractor hauling Manh Choh ore about 240 miles to the Fort Knox mill. The operation runs about 60 round trips a day using B-train trucks about 95 feet long. His contract depends on the haul remaining open and on addressing safety complaints.",
+        "uuid": "ad66d44b-ef1b-4a8a-a041-11c314d3ba11"
+      },
+      {
+        "attributes": {
+          "asset_focus": "index funds and a gold mining ETF",
+          "full_name": "Kevin Marsh",
+          "name": "Kevin Marsh",
+          "trading_style": "invests a set amount each month"
+        },
+        "labels": [
+          "RetailInvestor"
+        ],
+        "name": "Kevin Marsh",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Kevin Marsh is an electrician who invests a set amount each month in index funds and a gold mining ETF. He follows the gold price and news about mining companies such as Kinross.",
+        "uuid": "a8932cbb-7877-40c4-a758-5f59d63aebc7"
+      },
+      {
+        "attributes": {
+          "full_name": "Amara Osei",
+          "investment_role": "Manager, junior-miner fund",
+          "market_focus": "early-stage gold projects in Alaska and Canada",
+          "name": "Amara Osei"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Amara Osei",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Amara Osei manages a junior-miner fund focused on early-stage gold projects in Alaska and Canada. Alaska permitting decisions affect the value of undeveloped deposits the fund is exposed to, and she follows the Redpoll Ridge Project application.",
+        "uuid": "a2f30758-fb5c-4cbd-bf07-8e3cb94ada97"
+      },
+      {
+        "attributes": {
+          "coverage_area": "Gold market",
+          "editorial_role": "Publishes news reports only and does not take sides",
+          "name": "Yahoo Finance",
+          "org_name": "Yahoo Finance"
+        },
+        "labels": [
+          "MediaOutlet"
+        ],
+        "name": "Yahoo Finance",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Yahoo Finance supplied COMEX gold futures (GC=F) daily closing prices and monthly highs, fetched on October 24, 2026.",
+        "uuid": "9d4fe75a-12c8-48c6-a58b-2a3ffd2eae9b"
+      },
+      {
+        "attributes": {
+          "jurisdiction": "Alaska",
+          "name": "Alaska state government",
+          "org_name": "Alaska state government",
+          "responsibility": "Leads the state government, decides on the pending Redpoll Ridge Project, and sets the state's line on mining tax."
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "Alaska state government",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Alaska state government, led by Governor Margaret Halloran, will be held responsible for its decision on the pending Redpoll Ridge Project. It weighs mining jobs and state revenue against opposition to the Manh Choh ore haul raised at 2024 public meetings, and sets the state’s position on mining tax.",
+        "uuid": "96911c64-67c2-436c-8d5c-8c2a9cb522c3"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Kenneth Mwangi's mining-equity fund",
+          "org_name": null,
+          "organization_role": "Mining-equity fund that holds stakes in gold producers and mine partners, including Contango ORE"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Kenneth Mwangi's mining-equity fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Kenneth Mwangi manages the mining-equity fund, which holds stakes in gold producers and mine partners, including Contango ORE. Changes in Alaska’s mining taxes or permitting feed into its valuations.",
+        "uuid": "953c6e10-9c39-4a79-9194-46bf314ee7a7"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Elena Varnum's central-bank-flows fund",
+          "org_name": "Elena Varnum's central-bank-flows fund",
+          "organization_role": "Fund positioning around central bank buying and selling of gold"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Elena Varnum's central-bank-flows fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Elena Varnum’s central-bank-flows fund positions around central-bank buying and selling of gold. It tracks official reserve flows and policy statements, with mine supply such as Manh Choh’s serving mainly as a backdrop to those flows.",
+        "uuid": "94d8ea43-9cc4-4485-88d9-0a960f820157"
+      },
+      {
+        "attributes": {
+          "location": "Alaska and Canada",
+          "name": "junior-miner fund",
+          "org_name": "junior-miner fund",
+          "organization_role": "Fund focused on early-stage gold projects"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "junior-miner fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The junior-miner fund managed by Amara Osei focuses on early-stage gold projects in Alaska and Canada. Its exposure includes undeveloped deposits whose value is affected by permitting decisions in Alaska.",
+        "uuid": "93095f38-3e97-4bc5-b61a-5a3cc5fde817"
+      },
+      {
+        "attributes": {
+          "full_name": "Kenneth Mwangi",
+          "investment_role": "Portfolio manager, mining-equity fund",
+          "market_focus": "Mining equities, gold producers, and mine partners",
+          "name": "Kenneth Mwangi"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Kenneth Mwangi",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Kenneth Mwangi manages a mining-equity fund focused on mining equities, gold producers, and mine partners. Changes in Alaska’s mining taxes or permitting affect his fund’s valuations.",
+        "uuid": "91431665-34fa-4d3e-9f59-329e0dfbcb29"
+      },
+      {
+        "attributes": {
+          "asset_focus": "gold and silver futures",
+          "full_name": "Dylan Hargrove",
+          "name": "Dylan Hargrove",
+          "trading_style": "Momentum trader"
+        },
+        "labels": [
+          "RetailInvestor"
+        ],
+        "name": "Dylan Hargrove",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Dylan Hargrove is a part-time momentum trader who trades gold and silver futures using price charts. News about mines near Tok matters to him only when it moves the price.",
+        "uuid": "8c87a971-0b0c-4ac1-8423-6289f99d4064"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "junior gold explorers and developers",
+          "org_name": null,
+          "organization_role": null
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "junior gold explorers and developers",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "",
+        "uuid": "8b76b90e-e0dd-4f92-bbe6-31225b38e956"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "mining companies",
+          "org_name": "mining companies",
+          "organization_role": null
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "mining companies",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Charlotte Vandermeer looks at mining companies when their valuations stand out.",
+        "uuid": "8a5b5c30-a9ee-4649-944c-9e9c8d0335c7"
+      },
+      {
+        "attributes": {
+          "full_name": "Priya Raghunathan",
+          "investment_role": "Head of the largest gold ETF",
+          "market_focus": "Gold ETF, gold price, mining news, and physical gold",
+          "name": "Priya Raghunathan"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Priya Raghunathan",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Priya Raghunathan runs the largest gold exchange-traded fund. Investor inflows and outflows change the amount of physical gold it holds; she watches gold prices and mining news for factors that move those flows.",
+        "uuid": "8998af2e-e94b-40f4-b49f-0b5cd8b3fd6a"
+      },
+      {
+        "attributes": {
+          "full_name": "Gloria Purcell",
+          "industry_role": "Fuel and supply business owner, Tok",
+          "name": "Gloria Purcell",
+          "stake_description": "Her sales have grown with the mine and the ore-haul traffic, and she would gain from the Redpoll Ridge Project, but she also hears local complaints about the trucks at her counter."
+        },
+        "labels": [
+          "MiningIndustryRepresentative"
+        ],
+        "name": "Gloria Purcell",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Gloria Purcell owns a fuel and supply business in Tok. Her sales have grown with the mine and ore-haul traffic, and she would benefit from the Redpoll Ridge Project. She hears local complaints about the trucks at her counter.",
+        "uuid": "8772e61d-9701-4337-925f-42961e5c9126"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "gold refiners",
+          "org_name": null,
+          "organization_role": null
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "gold refiners",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Gold refiners supply physical gold to Rebecca Sterling's commodity trading desk.",
+        "uuid": "818542c2-189e-4444-a1b5-ee0a70b94f3a"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Farid Haddad's family office",
+          "org_name": null,
+          "organization_role": null
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Farid Haddad's family office",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Farid Haddad invests for a family office whose fortune came from mining.",
+        "uuid": "7ff99d40-f603-48a7-8642-731961be8ac1"
+      },
+      {
+        "attributes": {
+          "community_role": "Tetlin village council chief (landowner)",
+          "full_name": "Vernon Ostrander",
+          "name": "Vernon Ostrander",
+          "primary_concern": "Balancing lease income and jobs for the village against protecting its land and water"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Vernon Ostrander",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Vernon Ostrander is chief of the Native Village of Tetlin council. The Manh Choh project sits entirely on Tetlin land, whose surface and mineral rights the village owns and leases to Peak Gold LLC. He weighs lease income and village jobs against protecting Tetlin land and water.",
+        "uuid": "7f90c2d9-719e-4755-b6ed-5fecef371b9b"
+      },
+      {
+        "attributes": {
+          "coverage_area": "Tok, Manh Choh, the ore haul and the gold market",
+          "editorial_role": "Publishes news reports only and does not take sides",
+          "name": "Tok River News Wire",
+          "org_name": "Tok River News Wire"
+        },
+        "labels": [
+          "MediaOutlet"
+        ],
+        "name": "Tok River News Wire",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Tok River News Wire is a fictional news outlet covering gold mining at Tok.",
+        "uuid": "7f2941c6-3c24-4500-8410-eabc1948a447"
+      },
+      {
+        "attributes": {
+          "community_role": "residents opposing the ore haul",
+          "full_name": null,
+          "name": "Tok residents opposing the ore haul",
+          "primary_concern": "ore haul"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Tok residents opposing the ore haul",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Some Tok residents opposed the ore haul at a 2024 public meeting in Tok.",
+        "uuid": "7cb53235-f1d3-469a-9eab-ce80983baeef"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "multi-strategy fund",
+          "org_name": "multi-strategy fund",
+          "organization_role": "Covers metals and mining shares"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "multi-strategy fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The multi-strategy fund covers metals and mining shares. Its portfolio manager, Grace Thornbury, trades around company and policy news, including Kinross results and permitting decisions in Alaska.",
+        "uuid": "7aaedbaa-395a-402b-948b-d014fd6b295e"
+      },
+      {
+        "attributes": {
+          "community_role": "Tok community council head",
+          "full_name": "Patricia Engstrom",
+          "name": "Patricia Engstrom",
+          "primary_concern": "mine jobs and business"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Patricia Engstrom",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Patricia Engstrom chairs the Tok community council. She balances Tok residents seeking mine jobs and business against residents who opposed the ore haul at a 2024 public meeting in Tok; the council will be asked to take a position on the Redpoll Ridge Project.",
+        "uuid": "79550c29-46fb-4204-8a6b-ba287a0cdefa"
+      },
+      {
+        "attributes": {
+          "full_name": "Ingrid Solberg",
+          "job_role": "Fort Knox mill worker",
+          "name": "Ingrid Solberg",
+          "work_location": "Fort Knox mill near Fairbanks"
+        },
+        "labels": [
+          "MiningOperationsWorker"
+        ],
+        "name": "Ingrid Solberg",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Ingrid Solberg works at the Fort Knox mill near Fairbanks, processing ore trucked from Manh Choh. Her job depends on a steady ore supply, and she follows the haul and any new mine near Tok.",
+        "uuid": "7902daf2-2f5b-461e-8764-201bced3eb61"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Contango ORE",
+          "org_name": "Contango ORE",
+          "organization_role": "30% owner of Peak Gold LLC"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Contango ORE",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Contango ORE is a gold producer and mine partner in which Kenneth Mwangi’s mining-equity fund holds a stake.",
+        "uuid": "7477a513-5dbf-4a0b-8a19-d1936a1f2fff"
+      },
+      {
+        "attributes": {
+          "asset_focus": "gold ETFs and junior mining shares",
+          "full_name": "Brianna Costa",
+          "name": "Brianna Costa",
+          "trading_style": "Momentum trader"
+        },
+        "labels": [
+          "RetailInvestor"
+        ],
+        "name": "Brianna Costa",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Brianna Costa is a momentum trader who trades options on gold ETFs and junior mining shares. Big price moves and mining news, including approvals or court rulings, are trading opportunities for her.",
+        "uuid": "74746015-a41c-4ad6-8d67-65dcbe7a5282"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "large pension fund",
+          "org_name": "large pension fund",
+          "organization_role": "Invests in gold and gold miners"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "large pension fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The large pension fund invests in gold and gold miners, with Robert Glenning deciding how much to allocate to them. Gold serves as a hedge for the fund’s long-term obligations.",
+        "uuid": "7116be7e-8eff-4b08-829b-1a499c397f4b"
+      },
+      {
+        "attributes": {
+          "full_name": null,
+          "location": null,
+          "name": "User",
+          "public_role": null
+        },
+        "labels": [
+          "Person"
+        ],
+        "name": "User",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "",
+        "uuid": "69770634-686a-441d-a5a7-23f03570cd86"
+      },
+      {
+        "attributes": {
+          "asset_focus": "gold futures and gold mining shares",
+          "full_name": "Tyrone Weller",
+          "name": "Tyrone Weller",
+          "trading_style": "Momentum trader"
+        },
+        "labels": [
+          "RetailInvestor"
+        ],
+        "name": "Tyrone Weller",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Tyrone Weller is a momentum trader who trades gold futures and gold mining shares from home. He buys what is rising and sells what is falling; a gold breakout is the setup he trades.",
+        "uuid": "68c575fd-69e1-4450-8d50-c8aa62a385d6"
+      },
+      {
+        "attributes": {
+          "full_name": "Howard Prentiss",
+          "investment_role": "Manager, risk-parity fund",
+          "market_focus": "gold",
+          "name": "Howard Prentiss"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Howard Prentiss",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Howard Prentiss manages a risk-parity fund that spreads risk across stocks, bonds, commodities, and gold. When gold becomes more volatile, the fund’s rules reduce its gold position, so a breakout can change his holdings even without a view on mining.",
+        "uuid": "68a45164-7fb0-494f-8451-386184ecc08d"
+      },
+      {
+        "attributes": {
+          "full_name": "Walter Sobczak",
+          "name": "Walter Sobczak",
+          "policy_area": "State highway maintenance",
+          "public_position": "Highway maintenance supervisor, Tok"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Walter Sobczak",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Walter Sobczak supervises state highway maintenance out of Tok. Ore trucks bound for the Fort Knox mill add wear to the pavement he repairs, and he deals firsthand with the maintenance costs raised at the 2024 public meetings.",
+        "uuid": "686a1689-3e0c-4998-8bc1-668607e8ec7d"
+      },
+      {
+        "attributes": {
+          "full_name": "Tyler Brockman",
+          "investment_role": "Manager, junior-miner fund",
+          "market_focus": "junior gold explorers and developers",
+          "name": "Tyler Brockman's fund"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Tyler Brockman's fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Tyler Brockman manages the fund, which invests in junior gold explorers and developers. It seeks assets like the Redpoll Ridge Project; the state’s decision on that project matters to its valuation of similar projects.",
+        "uuid": "6565ff62-0d79-4d13-afa1-affe3c2ec158"
+      },
+      {
+        "attributes": {
+          "jurisdiction": null,
+          "name": "DNR mining division",
+          "org_name": "DNR mining division",
+          "responsibility": "Reviews mine plans and reclamation"
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "DNR mining division",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The DNR mining division reviews mine plans and reclamation. Manh Choh operates under a DNR-approved reclamation plan, and the division’s review of the pending Redpoll Ridge Project application will feed into the DNR’s decision.",
+        "uuid": "64d85eb5-d6b0-434b-8d82-230230ff90a2"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "multi-strategy fund",
+          "org_name": "multi-strategy fund",
+          "organization_role": "Holds gold through futures and ETFs"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "multi-strategy fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The multi-strategy fund holds gold through futures and ETFs. Ian Rothman oversees its risk, assesses whether gold breakouts reflect real demand or short-term flows, and sets its gold exposure.",
+        "uuid": "63d4167c-ab00-42da-a977-4f5f604569a3"
+      },
+      {
+        "attributes": {
+          "full_name": "Raymond Takahashi",
+          "name": "Raymond Takahashi",
+          "policy_area": "Federal land and permits for mining",
+          "public_position": "Alaska state director, Bureau of Land Management (BLM)"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Raymond Takahashi",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Raymond Takahashi is the Alaska state director of the Bureau of Land Management (BLM). He tracks whether new mining near Tok, including the Redpoll Ridge Project, would affect federal land or require federal permits.",
+        "uuid": "5d501448-c4d1-49ee-8c59-04ecccdf33cb"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Nadia Kovacs's long-only gold fund",
+          "org_name": "Nadia Kovacs's long-only gold fund",
+          "organization_role": "Long-only fund invested in gold mining companies of all sizes"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Nadia Kovacs's long-only gold fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Nadia Kovacs’s long-only gold fund invests in gold mining companies of all sizes.",
+        "uuid": "5aa33290-f2a0-4184-986c-0482bb4d0750"
+      },
+      {
+        "attributes": {
+          "location": "Tok",
+          "name": "Gloria Purcell's fuel and supply business",
+          "org_name": "Gloria Purcell's fuel and supply business",
+          "organization_role": "Fuel and supply business"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Gloria Purcell's fuel and supply business",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Gloria Purcell owns a fuel and supply business in Tok. Its sales have grown with the mine and ore-haul traffic, and it would benefit from the Redpoll Ridge Project.",
+        "uuid": "58151fe7-61e2-4428-90d0-ec7704483200"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Oliver Brandt's mining-equity fund",
+          "org_name": "Oliver Brandt's mining-equity fund",
+          "organization_role": "Mining-equity fund holding large gold producers, including Kinross"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Oliver Brandt's mining-equity fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Oliver Brandt’s mining-equity fund holds large gold producers, including Kinross. Manh Choh’s output and any approval of the Redpoll Ridge Project bear on the value of its holdings.",
+        "uuid": "53e0e486-f185-4be0-a39b-dd9aee5dfa26"
+      },
+      {
+        "attributes": {
+          "community_role": "Subsistence hunter",
+          "full_name": "Samuel Ahlberg",
+          "name": "Samuel Ahlberg",
+          "primary_concern": "Land, water, wildlife, and keeping access to hunting places near Manh Choh and the proposed Redpoll Ridge Project"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Samuel Ahlberg",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Samuel Ahlberg is a subsistence hunter who hunts and fishes around Tok to feed his family. He cares about the land, water, and wildlife near Manh Choh and the proposed Redpoll Ridge Project, and about maintaining access to the places where he hunts.",
+        "uuid": "530979f3-c1c9-4a8d-b9e5-51be3171ed3a"
+      },
+      {
+        "attributes": {
+          "community_role": "Commenters",
+          "full_name": null,
+          "name": "Commenters",
+          "primary_concern": "pavement damage"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Commenters",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Commenters raised concerns about pavement damage (62), maintenance costs (57), safety (55), alternatives to trucking (53), and the environment (51). They chose to come and speak, so these counts are not a poll of local opinion.",
+        "uuid": "52fc330f-88d4-4911-9d57-5d42736534d1"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Howard Prentiss's risk-parity fund",
+          "org_name": null,
+          "organization_role": "Spreads risk across stocks, bonds, commodities and gold"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Howard Prentiss's risk-parity fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Howard Prentiss’s risk-parity fund spreads risk across stocks, bonds, commodities, and gold. Its rules reduce the gold position when gold becomes more volatile, so a breakout can change holdings without a view on mining.",
+        "uuid": "519d25bc-4cf8-43d4-bf79-526ba86708da"
+      },
+      {
+        "attributes": {
+          "location": "Alaska",
+          "name": "Tetlin village council",
+          "org_name": "Native Village of Tetlin council",
+          "organization_role": "Village council and landowner"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Tetlin village council",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Native Village of Tetlin council is based in Alaska and owns the surface and mineral rights to the land on which the Manh Choh project sits entirely. The village leases those rights to Peak Gold LLC.",
+        "uuid": "5000faa0-07df-4158-9597-56a1c143880d"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Rebecca Sterling's commodity trading desk",
+          "org_name": "Rebecca Sterling's commodity trading desk",
+          "organization_role": "Commodity trading desk that buys and sells physical gold from producers and refiners"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Rebecca Sterling's commodity trading desk",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Rebecca Sterling's commodity trading desk buys and sells physical gold from producers and refiners. Mine-supply news, including news about Manh Choh, is part of its daily business alongside the gold price.",
+        "uuid": "4f1de269-f85c-4117-8d55-c99bc3c03e31"
+      },
+      {
+        "attributes": {
+          "location": "near Fairbanks",
+          "name": "Fort Knox mill",
+          "org_name": "Fort Knox mill",
+          "organization_role": "Mill that receives Manh Choh ore"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Fort Knox mill",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Ore trucks travel to the Fort Knox mill, adding wear to the pavement repaired by Walter Sobczak, Tok’s highway maintenance supervisor.",
+        "uuid": "4b256977-0d09-4677-a88e-090c13ea9c27"
+      },
+      {
+        "attributes": {
+          "full_name": "Farid Haddad",
+          "investment_role": "Family office investor",
+          "market_focus": "gold and shares in North American producers",
+          "name": "Farid Haddad"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Farid Haddad",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Farid Haddad invests for a family office whose fortune came from mining. He holds gold and shares in North American producers and follows Alaska’s mining politics because permitting can make or break a mine.",
+        "uuid": "47e9cc73-5bce-4f1a-a8a3-39ff8442746f"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Redpoll Ridge Project",
+          "org_name": "Redpoll Ridge Project",
+          "organization_role": "Project subject to water-side review"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Redpoll Ridge Project",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Redpoll Ridge Project is pending a decision by the Alaska state government, which will be held responsible for its decision.",
+        "uuid": "47b0cdf2-cdb6-47e7-91fd-46296060e389"
+      },
+      {
+        "attributes": {
+          "community_role": "Villages in the region",
+          "full_name": null,
+          "name": "villages in the region",
+          "primary_concern": "Land and subsistence"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "villages in the region",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Villages in the region have concerns about land and subsistence that Sharon Delancey hears.",
+        "uuid": "4760ef3a-9e07-46e3-a66b-391dcdd12514"
+      },
+      {
+        "attributes": {
+          "full_name": "Yuki Tanabe",
+          "investment_role": "Manager, risk-parity fund",
+          "market_focus": "gold; mining supply and policy news",
+          "name": "Yuki Tanabe"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Yuki Tanabe",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Yuki Tanabe co-manages a risk-parity fund that holds gold as one of its main diversifying assets. She rebalances as prices move and follows mining supply and policy news for its effect on gold volatility.",
+        "uuid": "46a949f0-1449-4bf6-bdb4-a7c70396a838"
+      },
+      {
+        "attributes": {
+          "location": "North America",
+          "name": "North American producers",
+          "org_name": "North American producers",
+          "organization_role": null
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "North American producers",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Farid Haddad holds shares in North American producers.",
+        "uuid": "44953436-35b0-431b-88d0-31d5da6f14f1"
+      },
+      {
+        "attributes": {
+          "community_role": "School bus driver",
+          "full_name": "Debra Quintana",
+          "name": "Debra Quintana",
+          "primary_concern": "Road safety on the school runs"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Debra Quintana",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Debra Quintana drives a school bus in Tok and shares the road with ore-haul trucks. Road safety on school runs is her primary concern, and she recognizes that Manh Choh brings jobs to Tok.",
+        "uuid": "440e246b-0f3f-49b4-960b-f326038c2102"
+      },
+      {
+        "attributes": {
+          "full_name": "Diane Kessler",
+          "industry_role": "Mine operator's Alaska general manager (Kinross)",
+          "name": "Diane Kessler",
+          "stake_description": "How the state handles the Redpoll Ridge Project matters to Kinross's plans in Alaska."
+        },
+        "labels": [
+          "MiningIndustryRepresentative"
+        ],
+        "name": "Diane Kessler",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Diane Kessler is Kinross’s Alaska general manager and runs the Manh Choh mine for Kinross, its operator and 70% owner. She answers for about 300 employees, the mine’s production of 141,000 ounces of gold in 2024, and the ore haul to the Fort Knox mill. How Alaska handles the Redpoll Ridge Project matters to Kinross’s plans in the state.",
+        "uuid": "40c47362-9668-4e4f-813e-ee618c6c22f3"
+      },
+      {
+        "attributes": {
+          "full_name": "Ian Rothman",
+          "investment_role": "Risk officer, multi-strategy fund",
+          "market_focus": "gold futures and ETFs",
+          "name": "Ian Rothman"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Ian Rothman",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Ian Rothman is the risk officer at a multi-strategy fund that holds gold through futures and ETFs. He assesses whether gold breakouts reflect real demand or short-term flows and sets the fund’s gold exposure.",
+        "uuid": "404b37c4-8352-4de6-9694-144807438d8a"
+      },
+      {
+        "attributes": {
+          "full_name": "Oliver Brandt",
+          "investment_role": "Portfolio manager, mining-equity fund",
+          "market_focus": "Mining equities",
+          "name": "Oliver Brandt"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Oliver Brandt",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Oliver Brandt is a portfolio manager of a mining-equity fund focused on mining equities. Manh Choh’s output and any approval of the Redpoll Ridge Project bear on the value of companies held by his fund.",
+        "uuid": "4006a7e9-097e-4bf4-916b-b72070e9a68f"
+      },
+      {
+        "attributes": {
+          "location": "Tok",
+          "name": "Tok community council",
+          "org_name": "Tok community council",
+          "organization_role": "Community council asked for a position on the Redpoll Ridge Project"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Tok community council",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Tok community council is chaired by Patricia Engstrom. It will be asked to take a position on the Redpoll Ridge Project.",
+        "uuid": "3d3d5880-3a0a-4a6d-8b4c-f38788834a6b"
+      },
+      {
+        "attributes": {
+          "full_name": "Robert Glenning",
+          "investment_role": "Pension allocator",
+          "market_focus": "gold and gold miners",
+          "name": "Robert Glenning"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Robert Glenning",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Robert Glenning is a pension allocator who decides how much of a large pension fund goes into gold and gold miners. He views gold as a hedge for the fund’s long-term obligations and follows mining and tax policy in states such as Alaska.",
+        "uuid": "3bbbcd3d-fd76-4128-a13c-4f57c963c972"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Yuki Tanabe's risk-parity fund",
+          "org_name": null,
+          "organization_role": "Risk-parity fund that holds gold as one of its main diversifying assets"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Yuki Tanabe's risk-parity fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Yuki Tanabe co-manages the risk-parity fund, which holds gold as one of its main diversifying assets. The fund rebalances as prices move.",
+        "uuid": "3a045766-04d4-4eae-a01d-76b54731168d"
+      },
+      {
+        "attributes": {
+          "location": "near Tok",
+          "name": "new mine near Tok",
+          "org_name": "new mine near Tok",
+          "organization_role": "Source of jobs and contract work"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "new mine near Tok",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "A potential new mine near Tok is a source of jobs and contract work sought by Sharon Delancey.",
+        "uuid": "347a66d4-2fce-4b99-831e-e66dadc63046"
+      },
+      {
+        "attributes": {
+          "full_name": "Charlotte Vandermeer",
+          "investment_role": "Family office investor",
+          "market_focus": "physical gold; mining companies",
+          "name": "Charlotte Vandermeer"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Charlotte Vandermeer",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Charlotte Vandermeer manages a family office that has held physical gold for decades, viewing it as a store of family wealth across generations. She looks at mining companies when their valuations stand out.",
+        "uuid": "345ddf8a-58fb-4831-b97d-eb1a42ec6fa5"
+      },
+      {
+        "attributes": {
+          "full_name": "Mateo Alvarez",
+          "investment_role": "Trader, commodity trading desk",
+          "market_focus": "gold futures and options",
+          "name": "Mateo Alvarez"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Mateo Alvarez",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Mateo Alvarez is a trader on a commodity trading desk in the Funds group. He trades gold futures and options and reads central bank comments, economic data, and mining news for their effects on the gold price.",
+        "uuid": "34555744-9ffb-45d0-88b4-2e796528a58e"
+      },
+      {
+        "attributes": {
+          "location": "Tetlin, Alaska",
+          "name": "Native Village of Tetlin",
+          "org_name": "Native Village of Tetlin",
+          "organization_role": "Landowner and lessor of surface and mineral rights to Peak Gold LLC"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Native Village of Tetlin",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Manh Choh sits entirely on Native Village of Tetlin land, not federal land.",
+        "uuid": "32feda61-3531-4af7-b61f-f63e18270b65"
+      },
+      {
+        "attributes": {
+          "location": "Tok",
+          "name": "Manh Choh",
+          "org_name": "Manh Choh",
+          "organization_role": "Mine"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Manh Choh",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Manh Choh operates under a reclamation plan approved by the Alaska Department of Natural Resources.",
+        "uuid": "32922d2a-6d0b-49fa-8e45-8cd3d3af20e9"
+      },
+      {
+        "attributes": {
+          "full_name": "Simon Archer",
+          "investment_role": "Manager, long-only gold fund",
+          "market_focus": "bullion and large gold miners",
+          "name": "Simon Archer"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Simon Archer",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Simon Archer manages a long-only gold fund that holds bullion and large gold miners and never sells short. A higher gold price directly lifts the fund, and Archer follows Manh Choh and Kinross as part of its miner holdings.",
+        "uuid": "327c3ea5-cb06-43d0-b630-aa6219c39fc6"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Peak Gold LLC",
+          "org_name": "Peak Gold LLC",
+          "organization_role": "Lessee of Tetlin land and mineral rights"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Peak Gold LLC",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Peak Gold LLC leases the surface and mineral rights to the Tetlin land where the Manh Choh project sits entirely.",
+        "uuid": "323ad250-a458-440f-af22-ba675e8a7b4e"
+      },
+      {
+        "attributes": {
+          "coverage_area": "gold and mining news",
+          "editorial_role": null,
+          "name": "Gold news",
+          "org_name": null
+        },
+        "labels": [
+          "MediaOutlet"
+        ],
+        "name": "Gold news",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "",
+        "uuid": "2b2c3001-1877-48d9-8436-d131dbe537d0"
+      },
+      {
+        "attributes": {
+          "community_role": "Road-safety campaigner on the ore-haul route",
+          "full_name": "Lorraine Pike",
+          "name": "Lorraine Pike",
+          "primary_concern": "Road safety"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Lorraine Pike",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Lorraine Pike lives on the ore-haul route and campaigns for road safety. About 60 round trips a day by 95-foot ore trucks pass near her home; since the 2024 public meetings, she has pushed for safer trucking or alternatives to trucking.",
+        "uuid": "2abe5036-b67c-4d70-b1a8-9369aef523b4"
+      },
+      {
+        "attributes": {
+          "full_name": null,
+          "location": null,
+          "name": "User",
+          "public_role": null
+        },
+        "labels": [
+          "Person"
+        ],
+        "name": "User",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "",
+        "uuid": "28ff0df5-cbfc-4d95-8264-d3259ddb7cc0"
+      },
+      {
+        "attributes": {
+          "location": "Tok and Tetlin",
+          "name": "Miriam Castellanos's local environmental group",
+          "org_name": null,
+          "organization_role": "Local environmental group preparing objections to the Redpoll Ridge Project application"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Miriam Castellanos's local environmental group",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Miriam Castellanos leads the local environmental group, based in Tok, which focuses on water, wildlife, and land around Tok and Tetlin. The group is preparing objections to the Redpoll Ridge Project application.",
+        "uuid": "24d8a7f4-e2f1-4fd1-94a9-19c3c503950a"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "largest gold exchange-traded fund (ETF)",
+          "org_name": "largest gold exchange-traded fund (ETF)",
+          "organization_role": "gold exchange-traded fund"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "largest gold exchange-traded fund (ETF)",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The largest gold exchange-traded fund holds physical gold, and investor money flowing in or out changes the amount it holds.",
+        "uuid": "2406deca-3f4c-4645-b4fa-56fa2578de4b"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "largest gold macro hedge fund",
+          "org_name": "largest gold macro hedge fund",
+          "organization_role": "macro hedge fund with the largest gold position among its peers"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "largest gold macro hedge fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The largest gold macro hedge fund has the largest gold position among its peers and is run by chief investment officer Julian Westbrook. It trades gold based on central bank policy, the dollar, and inflation, and considers gold supply, including at Manh Choh, when sizing its position.",
+        "uuid": "23bb0215-4421-40d3-9ea4-6cbf9757a33f"
+      },
+      {
+        "attributes": {
+          "full_name": "Grace Thornbury",
+          "investment_role": "Portfolio manager, multi-strategy fund",
+          "market_focus": "metals and mining shares",
+          "name": "Grace Thornbury"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Grace Thornbury",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Grace Thornbury is a portfolio manager at a multi-strategy fund covering metals and mining shares. She trades around company and policy news, including Kinross results and permitting decisions in Alaska.",
+        "uuid": "1fad7af7-30f8-40c1-a235-b564621c4791"
+      },
+      {
+        "attributes": {
+          "full_name": "Daniel Ferreira",
+          "investment_role": "Portfolio manager, multi-strategy fund",
+          "market_focus": "Gold and mining shares",
+          "name": "Daniel Ferreira"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Daniel Ferreira",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Daniel Ferreira is a portfolio manager at a multi-strategy fund and runs its commodities book. Gold is one of several positions he can increase or reduce, and he trades gold against mining shares when news such as a mine approval or tax change pulls their prices apart.",
+        "uuid": "1dc55c9a-804e-481c-82dd-b57cedaf1b5f"
+      },
+      {
+        "attributes": {
+          "community_role": "Environmental group lead",
+          "full_name": "Miriam Castellanos",
+          "name": "Miriam Castellanos",
+          "primary_concern": "water, wildlife and land around Tok and Tetlin"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Miriam Castellanos",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Miriam Castellanos leads a local environmental group based in Tok. Her focus is water, wildlife, and land around Tok and Tetlin, and she is preparing objections to the Redpoll Ridge Project application.",
+        "uuid": "1d22ae45-a516-42df-82cc-ef50f1092d0d"
+      },
+      {
+        "attributes": {
+          "full_name": "Julian Westbrook",
+          "investment_role": "Chief investment officer",
+          "market_focus": "gold; central bank policy; the dollar; inflation; gold supply",
+          "name": "Julian Westbrook"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Julian Westbrook",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Julian Westbrook is chief investment officer of a macro hedge fund with the largest gold position among its peers. He trades gold based on central bank policy, the dollar, and inflation, and follows gold supply, including at Manh Choh, when sizing the fund’s position.",
+        "uuid": "1cea2ae2-a2c7-4ee5-bc30-6f47f32c0664"
+      },
+      {
+        "attributes": {
+          "full_name": "Curtis Lindqvist",
+          "name": "Curtis Lindqvist",
+          "policy_area": "Mine jobs, local business, pavement damage, safety, and the environment",
+          "public_position": "State legislator for the Tok district"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Curtis Lindqvist",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Curtis Lindqvist represents Tok in the Alaska Legislature as state legislator for the Tok district. Mine jobs and local business matter in his district, alongside concerns raised at 2024 ore-haul meetings about pavement damage, safety, and the environment. He is expected to take a public position on the Redpoll Ridge Project.",
+        "uuid": "1b54a016-3a1e-49ac-989a-92df6302da5e"
+      },
+      {
+        "attributes": {
+          "full_name": "Tanya Rasmussen",
+          "job_role": "operates heavy equipment",
+          "name": "Tanya Rasmussen",
+          "work_location": "Manh Choh"
+        },
+        "labels": [
+          "MiningOperationsWorker"
+        ],
+        "name": "Tanya Rasmussen",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Tanya Rasmussen operates heavy equipment at the Manh Choh mine and lives in Tok. She considers the mine job the best-paid work available near her home, follows the gold price, and believes it determines how long mining near Tok will last.",
+        "uuid": "1a6f873d-a76c-4617-ab9e-9ca8ae090990"
+      },
+      {
+        "attributes": {
+          "full_name": "Marcus Delgado",
+          "job_role": "Mine crew lead",
+          "name": "Marcus Delgado",
+          "work_location": "Manh Choh"
+        },
+        "labels": [
+          "MiningOperationsWorker"
+        ],
+        "name": "Marcus Delgado",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Marcus Delgado is a mine crew lead at Manh Choh, where mining began in late 2023 and is expected to last four to five years. He wonders where his next job will come from and sees the Redpoll Ridge Project as a possible opportunity.",
+        "uuid": "16b48825-ce04-44ac-a14e-f9f794231509"
+      },
+      {
+        "attributes": {
+          "jurisdiction": "Alaska",
+          "name": "Alaska Department of Transportation (DOT)",
+          "org_name": "Alaska Department of Transportation (DOT)",
+          "responsibility": "State highways used by the Manh Choh ore haul; pavement damage, maintenance costs, and safety questions"
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "Alaska Department of Transportation (DOT)",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Alaska Department of Transportation is responsible for the state highways used by the Manh Choh ore haul. Its office handles pavement damage, maintenance costs, and safety questions raised by about 60 daily round trips of 95-foot ore trucks traveling to the Fort Knox mill.",
+        "uuid": "15f9bef8-5d10-4ef0-973a-7bcf58b286ed"
+      },
+      {
+        "attributes": {
+          "location": "Interior, Alaska",
+          "name": "regional Alaska Native corporation",
+          "org_name": "regional Alaska Native corporation",
+          "organization_role": "Regional Native corporation representative"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "regional Alaska Native corporation",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "A regional Alaska Native corporation in Alaska’s Interior is represented by Sharon Delancey.",
+        "uuid": "151dcded-97b4-4923-b22c-804c5ed5a115"
+      },
+      {
+        "attributes": {
+          "full_name": "Hannah Whitcombe",
+          "investment_role": "Head of a bullion bank desk",
+          "market_focus": "physical gold and gold futures",
+          "name": "Hannah Whitcombe"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Hannah Whitcombe",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Hannah Whitcombe runs a bullion bank’s precious metals desk, making markets in physical gold and gold futures. She sees shifts in physical demand directly through her desk and follows supply news from producers such as Kinross.",
+        "uuid": "14963e6e-a0c7-4bc9-836b-01a8ab0eca1b"
+      },
+      {
+        "attributes": {
+          "jurisdiction": "Alaska",
+          "name": "Alaska Department of Natural Resources",
+          "org_name": "Alaska Department of Natural Resources (DNR)",
+          "responsibility": "Deciding whether to approve the Redpoll Ridge Project application"
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "Alaska Department of Natural Resources",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Alaska Department of Natural Resources approved Manh Choh’s reclamation plan under Alaska state law AS 27.19.",
+        "uuid": "146cd01a-5e39-425e-8cd9-fa1b41ef7d58"
+      },
+      {
+        "attributes": {
+          "community_role": "Lodge owner on the Alaska Highway",
+          "full_name": "Frank Abernathy",
+          "name": "Frank Abernathy",
+          "primary_concern": "Ore-truck traffic and road wear"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Frank Abernathy",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Frank Abernathy runs a lodge on the Alaska Highway near Tok. Mine workers and contractors fill some rooms, while ore-truck traffic and road wear bother his tourist guests, so the mine both helps and hurts his business.",
+        "uuid": "14142ca1-a25c-4306-9316-24e301b86ea7"
+      },
+      {
+        "attributes": {
+          "jurisdiction": "Alaska",
+          "name": "Bureau of Land Management (BLM)",
+          "org_name": "Bureau of Land Management (BLM)",
+          "responsibility": "Tracks whether new mining near Tok, including the Redpoll Ridge Project, would touch federal land or need federal permits."
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "Bureau of Land Management (BLM)",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Bureau of Land Management (BLM) is led in Alaska by state director Raymond Takahashi. It tracks whether new mining near Tok, including the Redpoll Ridge Project, would affect federal land or require federal permits.",
+        "uuid": "13fa491b-f2b5-4e80-bc6f-6e4ddf41feb6"
+      },
+      {
+        "attributes": {
+          "full_name": "Margaret Halloran",
+          "name": "Margaret Halloran",
+          "policy_area": "mining tax",
+          "public_position": "Governor of Alaska"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Margaret Halloran",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Margaret Halloran is Governor of Alaska and leads the state government. She weighs mining jobs and state revenue against opposition to the Manh Choh ore haul raised at 2024 public meetings, and sets the state’s position on mining tax. The state will be held responsible for its decision on the pending Redpoll Ridge Project.",
+        "uuid": "1327b946-2402-4c96-a2da-0394b1018df3"
+      },
+      {
+        "attributes": {
+          "jurisdiction": "Alaska",
+          "name": "Alaska Department of Natural Resources (DNR)",
+          "org_name": "DNR",
+          "responsibility": "Conducts field inspections of mine sites and checks that mines follow their approved reclamation plans."
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "Alaska Department of Natural Resources (DNR)",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "The Alaska Department of Natural Resources approved the reclamation plan under which Manh Choh operates. It must decide on the Redpoll Ridge Project application, with Commissioner Douglas Renfrew considering effects on state revenue, jobs, and local opposition.",
+        "uuid": "113730be-a915-4c75-b476-cfc9a63d5ede"
+      },
+      {
+        "attributes": {
+          "community_role": "Tok parent",
+          "full_name": "Heather Moravec",
+          "name": "Heather Moravec",
+          "primary_concern": "good jobs, clean water, and safe roads"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Heather Moravec",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Heather Moravec is raising two children in Tok. She wants good jobs that keep young families in town, along with clean water and safe roads for her children; she knows Manh Choh brings jobs to Tok.",
+        "uuid": "0fc64716-bd1f-447b-bc48-cc476d02cb93"
+      },
+      {
+        "attributes": {
+          "full_name": "Sofia Varga",
+          "investment_role": "Portfolio manager, mining-equity fund",
+          "market_focus": "North American gold producers",
+          "name": "Sofia Varga"
+        },
+        "labels": [
+          "InstitutionalInvestor"
+        ],
+        "name": "Sofia Varga",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Sofia Varga manages a mining-equity fund focused on North American gold producers. She compares mines by cost, mine life, and permitting risk, and treats Alaska’s decision on the Redpoll Ridge Project as a test of permitting risk in the state.",
+        "uuid": "0f32e4af-2a2a-4d4b-9fe1-0268f3d861a3"
+      },
+      {
+        "attributes": {
+          "full_name": "Alicia Mendoza",
+          "name": "Alicia Mendoza",
+          "policy_area": "water quality",
+          "public_position": "Regional official, Alaska Department of Environmental Conservation (DEC)"
+        },
+        "labels": [
+          "GovernmentOfficial"
+        ],
+        "name": "Alicia Mendoza",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Alicia Mendoza is a regional Alaska Department of Environmental Conservation (DEC) official who works on water quality in the region around Tok. She follows water questions related to Manh Choh and would be involved in reviewing the water aspects of the Redpoll Ridge Project.",
+        "uuid": "0aecbbb0-5bea-44c0-982b-ec7eef12cd7b"
+      },
+      {
+        "attributes": {
+          "full_name": "Ricky Santoro",
+          "job_role": "Ore-haul truck driver",
+          "name": "Ricky Santoro",
+          "work_location": "Manh Choh haul to the Fort Knox mill"
+        },
+        "labels": [
+          "MiningOperationsWorker"
+        ],
+        "name": "Ricky Santoro",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Ricky Santoro is an ore-haul truck driver on the Manh Choh haul to the Fort Knox mill and is new to the job. He moved north for the pay and would stay if more mining near Tok kept him working.",
+        "uuid": "082fa87f-c66e-4fa0-87e5-d5e24909e140"
+      },
+      {
+        "attributes": {
+          "jurisdiction": "Alaska",
+          "name": "Alaska Legislature",
+          "org_name": "Alaska Legislature",
+          "responsibility": null
+        },
+        "labels": [
+          "GovernmentAgency"
+        ],
+        "name": "Alaska Legislature",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Curtis Lindqvist represents Tok in the Alaska Legislature as the state legislator for the Tok district.",
+        "uuid": "07386096-c2f5-4774-b267-e28cab1bc2b0"
+      },
+      {
+        "attributes": {
+          "community_role": "Tok residents",
+          "full_name": null,
+          "name": "Tok residents seeking mine jobs and business",
+          "primary_concern": "mine jobs and business"
+        },
+        "labels": [
+          "LocalCommunityStakeholder"
+        ],
+        "name": "Tok residents seeking mine jobs and business",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Some Tok residents want mine jobs and business connected with the mining activity near Tok.",
+        "uuid": "07080d23-c9a8-46a7-9eb8-c3d6a1e125c1"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Kinney Engineering",
+          "org_name": "Kinney Engineering",
+          "organization_role": null
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Kinney Engineering",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "",
+        "uuid": "06bbcd8a-83ee-4b79-b6db-68b84cb3ac6d"
+      },
+      {
+        "attributes": {
+          "location": null,
+          "name": "Victor Hale's trend-following fund",
+          "org_name": null,
+          "organization_role": "Trend-following fund (CTA) that trades gold futures on systematic signals"
+        },
+        "labels": [
+          "Organization"
+        ],
+        "name": "Victor Hale's trend-following fund",
+        "related_edges": [],
+        "related_nodes": [],
+        "summary": "Victor Hale’s fund is a trend-following commodity trading advisor (CTA) that trades gold futures on systematic signals. Its models add to positions when prices break out and cut them when trends turn.",
+        "uuid": "044fed38-051f-4dbc-beaf-d6c10406c18e"
+      }
+    ],
+    "entity_types": [
+      "MediaOutlet",
+      "GovernmentAgency",
+      "MiningOperationsWorker",
+      "MiningIndustryRepresentative",
+      "GovernmentOfficial",
+      "RetailInvestor",
+      "LocalCommunityStakeholder",
+      "Person",
+      "Organization",
+      "InstitutionalInvestor"
+    ],
+    "filtered_count": 122,
+    "total_count": 230
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "_note": "Pre-registered news, posted by Tok River News Wire. Day 1 at round 0 in every run; day 3 at the first round of simulated day 3 (hour 48). Plan section 5.",
+  "day1": "Gold futures jumped today from about $4,000 to about $4,500 an ounce.",
+  "day3": {
+    "baseline": null,
+    "mine_approved": "The Alaska Department of Natural Resources has approved the Redpoll Ridge Project, a new open-pit gold mine near Tok.",
+    "tax_rise": "The Alaska state government has proposed raising the state's tax on gold mining. The proposal goes to the legislature next month.",
+    "protest": "Residents protested in Tok today over gold mining's effects on local water and land, calling for a halt to new mine approvals.",
+    "placebo": "Tok school sports: the volleyball team won its home match, and the cross-country runners placed third at the regional meet.",
+    "court_blocks_mine": "A state court has blocked the Redpoll Ridge Project, the proposed open-pit gold mine near Tok, pending a full review.",
+    "gold_back_to_4000": "Gold futures fell back today to about $4,000 an ounce, erasing this week's jump."
+  }
+}

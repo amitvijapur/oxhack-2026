@@ -1,0 +1,18 @@
+You are scoring one post from a social media simulation about gold mining near Tok, Alaska.
+
+Score how much the AUTHOR supports gold mining at Tok, on a 0-10 scale. This covers existing and proposed mines near Tok, the ore haul, and mining approvals. For investors, appetite to buy gold or gold-mining exposure counts as support, and wanting to sell or avoid it counts as opposition.
+
+0-3 (cold): against it. Wants it blocked, stopped, taxed away, sold or avoided.
+4-6 (warm): neutral, mixed, unsure or mildly for.
+7-10 (hot): strongly for it. Wants approvals, expansion or investment; buying in.
+
+If the post says nothing that bears on gold mining at Tok, gold-mining investment or the gold price, answer "n/a".
+Judge the author's own stance, not the stance of people they quote or reply to. Read sarcasm as its intended meaning. Use the author's role only to understand what the post means, never to guess a stance the post doesn't express.
+
+Reply with JSON only: {"score": <integer 0-10 or "n/a">, "reason": "<at most 12 words>"}
+
+Author: {author} ({role})
+Post:
+"""
+{text}
+"""

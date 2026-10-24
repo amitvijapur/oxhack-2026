@@ -1,6 +1,6 @@
 # Plan: gold stakeholder society at Tok, Alaska (MiroFish)
 
-Status: **approved by Muhd, 24 Oct 2026 ~22:20** (revision 2, from the /plan interview with Muhd). It replaces the three-variant plan approved at ~20:30 (PR #22, commit `75d9bd1`, this file's previous version). Owner: Muhd. MiroFish runs on Muhd's laptop (team decision).
+Status: **approved by Muhd, 24 Oct 2026 ~21:40** (revision 2, from the /plan interview with Muhd). It replaces the three-variant plan approved at ~20:30 (PR #22, commit `75d9bd1`, this file's previous version). Owner: Muhd. MiroFish runs on Muhd's laptop (team decision).
 
 ## 1. What changed
 
@@ -40,7 +40,7 @@ Checked in the source of commit `7657031`. Paths are under `MiroFish/backend/`; 
 | Society | 60 stakeholders plus a silent news wire (section 4) |
 | Temperaments | Role realism; counts fixed before any run (section 4) |
 | Models | Tier 1: 6 agents on gpt-5.5. Tier 2: 18 on gpt-5.4-mini. Tier 3: 36 on gpt-5-mini |
-| Simulated time | 5 days. Day 1: gold breaks out from about $4,000 to a record $4,500/oz (gold futures closed at $4,008 on 23 Oct). Day 3: the scenario's news |
+| Simulated time | 5 days. Day 1: gold jumps from about $4,000 to about $4,500/oz (COMEX gold futures closed at $4,007.9 on 23 Oct, Yahoo Finance GC=F; this is a rebound, since the January 2026 peak was about $5,586). Day 3: the scenario's news |
 | Scenarios | 7 (section 5) |
 | Runs | 9: the 7 scenarios with seed 1, plus the baseline with seeds 2 and 3 |
 | Sentiment | Support for gold mining at Tok, 0–10: cold 0–3, warm 4–6, hot 7–10 |
@@ -132,7 +132,7 @@ These are roles, not real people. The seed documents carry public facts with sou
 
 ## 5. Scenarios and run order
 
-Day 1, round 0, in every scenario: the news wire posts that gold has broken out from about $4,000 to a record $4,500/oz. The seed documents describe a new open-pit mine near Tok as a pending application.
+Day 1, round 0, in every scenario: the news wire posts that gold has jumped from about $4,000 to about $4,500/oz. The seed documents describe a new open-pit mine near Tok as a pending application.
 
 The news wire posts the day-3 news in the first round of day 3 (simulated hour 48):
 
