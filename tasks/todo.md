@@ -10,7 +10,7 @@ Owner: Amit. Branch: `codex/site-a-soil-evidence`. MiroFish, prompts, algorithm 
 - [x] Implement a shared standard-library extractor and meaningful tests with a bounded worker; keep raw/derived data ignored.
 - [x] Generate Site A and a portable handoff archive; independently validate source rows, counts, summaries, provenance and B-method compatibility.
 - [x] Document the evidence contract, reusable commands and development/review loop; run 15 focused tests, independent raw-source checks and portable archive reproduction.
-- [ ] Commit the implementation branch, publish the shared method for review and record the final handoff in Obsidian.
+- [x] Commit the implementation branch and publish the shared method in [draft PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20). Remote extractor matches local; both initial required CI checks passed. Record the final handoff in the backed-up Obsidian log.
 
 ## Reviewable US soil build plan
 
