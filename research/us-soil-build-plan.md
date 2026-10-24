@@ -1,5 +1,7 @@
 # US soil investigation planner
 
+> **Commodity correction, 24 October 2026:** Amit specifies **gold primary, lithium secondary**. The copper scope below is superseded and retained as the history of the existing prototype. The soil table contains lithium but no gold measurements. The approved Tok River gold source and rebuilt packs are recorded in [gold A/B results](gold-evidence-results.md). See the [commodity correction](gold-lithium-scope-correction.md). MiroFish remains separately scoped.
+
 24 October 2026. Owner: Amit. **Dataset direction agreed; this build plan is awaiting review. No extraction, MiroFish setup or application implementation is authorised by this document alone.**
 
 ## 1. What we will demonstrate

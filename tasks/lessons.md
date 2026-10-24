@@ -2,6 +2,8 @@
 
 ## 24 October 2026
 
+- Amit wants gold as the primary commodity and lithium as secondary. Choosing America did not authorise choosing copper. Confirm the target commodity before building its evidence pack; never let a convenient dataset column silently decide the product. The existing soil table has lithium but no gold, so a gold source must be verified before rebuilding gold packs. Copper outputs remain labelled prototypes, never gold proxies.
+
 - The product name is MiroFish. Use that exact spelling in plans, prompts and replies; do not expand it to Mirrorfish.
 
 - MiroFish runs on Amit’s laptop; Muhd prepares prompts and information. The four-person split is two site-evidence owners, one prompt owner and one algorithm owner, with Amit owning Site A/local execution, Arjin owning Site B, Muhd owning prompts and Salman owning the algorithm. Do not allocate a fifth dedicated interface owner. Amit selected the existing US soil dataset after comparing it with Australian drilling. Do not substitute MRDS or confuse regional soil chemistry with parcel-scale deposit evidence. Draft the build plan for review before extracting A/B or installing the runtime.

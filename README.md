@@ -1,8 +1,9 @@
 # OXHack 2026
 
-A team hackathon project built around the mandatory **TIME** theme. The project
-idea is still being discussed. One candidate uses timestamped cultural or social
-data to support a useful prediction and decision.
+A team hackathon project built around the mandatory **TIME** theme. The current
+prototype compares two Tok River, Alaska study areas using measured gold, with
+lithium secondary, to support an investigation decision under a budget and
+deadline. Future outcomes and decision probabilities remain explicit scenarios.
 
 ## Repository and shared workflow
 
@@ -49,19 +50,17 @@ profile are inactive until each teammate chooses to enable them. These tools
 add no review requirement or separate workflow. Cortex remains Amit's personal
 router.
 
-## Soil evidence utility
+## Gold evidence packs
 
-Amit's Site A pack and Arjin's Site B pack use one deterministic Python 3 extractor, the same USGS soil snapshot and the [frozen Arizona selection](research/site-evidence-selection.json). This utility uses the standard library and does not install an application framework. Read the [shared contract and handoff guide](research/soil-evidence-contract.md) for source acquisition, field meanings and provenance.
+Amit owns both current packs. [The verified build results](research/gold-evidence-results.md) list the data files, archives and checks. [The evidence contract](research/gold-evidence-contract.md) records the official source, exact regeneration commands, field meanings and future land-record join requirements. [The source catalogue](research/gold-source-catalog.json) pins the publication, download, metadata and file hashes; [the selection](research/gold-site-selection.json) freezes A33/B34. The [feasibility report](research/us-gold-dataset-feasibility.md) explains why this source is suitable for the demo and its limits.
 
-Place the exact source snapshot in the ignored data folder shown below, or supply its actual path:
+Use Python 3 with the standard library. No framework is required. The contract's commands generate `data/generated/tok-gold/site-a` and `site-b` and run the focused gold tests. Each pack includes original records, normalized CSV, GeoJSON points, separately qualified primary/retest gold assays, secondary lithium, source provenance and an unevaluated land-match template.
 
-```sh
-python3 scripts/soil_evidence.py --source data/raw/us-soil/Appendix_4b_Chorizon_18Sept2013.txt --selection research/site-evidence-selection.json --area A --output data/generated/us-soil/site-a
-python3 scripts/soil_evidence.py --source data/raw/us-soil/Appendix_4b_Chorizon_18Sept2013.txt --selection research/site-evidence-selection.json --area B --output data/generated/us-soil/site-b
-python3 -m unittest discover -s tests -p 'test_soil_evidence.py' -v
-```
+Raw sources and generated packs are ignored by Git. A pull supplies code and documentation; transfer the portable handoff or download the pinned source separately. MiroFish remains a separate workstream. No land contracts have been fetched or matched.
 
-Raw sources and generated packs are ignored by Git, so a pull alone does not transfer them. Use the handoff archive or the exact source file with its documented checksum. The pack contains measured soil evidence and explicit unknowns, not a mineral-discovery probability. MiroFish remains a separate workstream.
+### Earlier copper prototype
+
+The Arizona soil extractor and its artifacts remain available as the earlier prototype. Their commands and definitions are in [the soil contract](research/soil-evidence-contract.md). They are not the current gold/lithium packs.
 
 ## Application setup
 

@@ -1,5 +1,41 @@
 # OXHack preparation
 
+## Build approved Tok River gold A/B packs
+
+Owner: Amit, covering both areas. Approved scope: Tok River, Alaska stream sediment; gold primary, lithium secondary from the same source. Continue on `codex/site-a-soil-evidence`. MiroFish and actual land-contract acquisition remain separate.
+
+- [x] Freeze the verified 67-location, -200 mesh coordinate split (A33/B34) and document source IDs, exact URLs, dates, hashes and reuse terms.
+- [x] Build a deterministic standard-library gold extractor and both packs, preserving original sample/lab IDs, assay methods, censoring and secondary lithium.
+- [x] Export GeoJSON sample points and a future land-match contract with explicit CRS, spatial/date provenance, unmatched status and no fabricated contract IDs.
+- [x] Independently verify every selected row and assay, A/B disjoint coverage, geospatial order, hashes, repeatability and meaningful rejection cases.
+- [x] Package a portable source/method/data handoff, update current documentation and Obsidian, and report reviewable outputs. Preserve copper artifacts.
+
+Review: [gold A/B results](../research/gold-evidence-results.md). Both 13-file packs passed independent verification of every record and all hashes. The complete source/method handoff reproduced A/B byte-identically; 12 focused tests passed with no skips in the fresh bundle. All 67 land templates remain not_evaluated. Work is on the existing branch; no push or merge is part of this turn.
+
+## Verify a primary US gold dataset before rebuilding
+
+Owner: Amit. Scope: source acquisition and feasibility audit only; lithium stays secondary. Preserve the copper extractor and packs and keep MiroFish separate.
+
+- [x] Find an official accessible US gold measurement source and save immutable source files with checksums and acquisition metadata outside Git.
+- [x] Audit identifiers, Au units/methods/qualifiers, coordinates, media, dates, restrictions and duplicate/missing records.
+- [x] Test two non-overlapping candidate areas with the same sample medium and assay method, selecting boundaries independently of gold values.
+- [x] Independently verify coverage and limitations, then save a clear go/no-go research note and update Obsidian. No pack rebuild or site commitment in this task.
+
+Review: [Tok River gold source](../research/us-gold-dataset-feasibility.md) passes the descriptive evidence gate. Independent raw-data and document reviews passed. The final read-only CLI passed ten checks and rejected a changed source hash. Candidate A/B have 33/34 unique locations; lithium is measured at all 67. This proposes Alaska stream sediment in place of Arizona soil. No gold packs, discovery model, MiroFish changes, commit, push or merge occurred.
+
+## Correct commodity scope to gold primary and lithium secondary
+
+Owner: Amit. This supersedes copper as the intended target in the entries below. See [verified coverage and transition plan](../research/gold-lithium-scope-correction.md). The copper packs remain prototype artifacts.
+
+- [x] Record Amit's commodity correction and inspect the actual source schema.
+- [x] Independently audit lithium units, flags and usable coverage; confirm that the soil table has no gold column.
+- [x] Make a bounded check of the existing USGS gold-source lead and document the access limitation. Official MRDS service and ZIP returned HTTP 403; no gold extract is verified yet.
+- [x] Mark the earlier plan and README so the copper utility is not mistaken for the intended gold/lithium output.
+- [x] Verify a usable primary gold source and its evidence type before adapting the extractor or selecting gold A/B windows. Tok River passes the evidence gate; the Alaska comparison windows remain proposed.
+- [x] Build and validate gold packs first; add lithium second with commodity-specific fields and censor rules. Both use the approved Tok River source; see gold A/B results.
+
+Review: the extraction infrastructure is reusable; gold measurements cannot be obtained from this soil table. No source substitution or regenerated commodity pack has been claimed. MiroFish stays separate.
+
 ## Generate Site B while Amit covers Arjin
 
 Review: all 89 B rows and summary metrics independently match the source. Median copper is 18.0 mg/kg. A/B cover all 177 records without overlap; output and archive hashes pass. The method and previous artifacts are unchanged.
