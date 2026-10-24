@@ -48,7 +48,7 @@
 ---
 
 ## 0. What the other files add (checked after 14:30)
-Cross-checked against the [event context](event-context.md) (official slides and ceremony audio) and the [Fed Millisecond brief](hrt-data/fed-millisecond/). These change how the ideas below compare.
+Cross-checked against the [event context](event-context.md) (official slides and ceremony audio) and the [Fed Millisecond brief](fed-millisecond/). These change how the ideas below compare.
 
 - **A strong financial contender is missing from this list: The Fed Millisecond.** Rebuild Nasdaq and IEX order books from raw feeds and replay the 10 Dec 2025 Fed rate cut. Bonds moved 1.15 ms after 14:00:00, close to light speed from Washington. It is already partly built (a C scan of 428 million messages), it is TIME to the microsecond, and it is the kind of data HRT's own systems consume. It needs an 11.6 GB download and a hand-written C++ parser, which also fits Citadel's handmade prize. Compare it with *The Golden Hour* before choosing a financial plan.
 - **Hard deadline: hacking finishes Sunday 12:00**, and judging runs 13:00–15:45. The slides give no separate Devpost deadline. Ideas that need long scraping or live data collection (*Golden Hour*, *Dip or Twitch*, *When Does It Really End?*) lose time against ideas with a ready backtest (*Memento Mori*, *3am Commits*, *Cliffhanger Insurance*, *Fed Millisecond*).
