@@ -1,5 +1,84 @@
 # OXHack preparation
 
+## Resolve and merge gold evidence PR #20
+
+Owner: Amit. Explicitly authorised to resolve conflicts, pass checks and merge PR #20. Preserve both contributors' changes and the published gold A/B release; no repository-policy changes.
+
+- [x] Integrate current main into the PR branch and resolve only actual conflicts with independent review.
+- [x] Verify local gold/soil extraction tests and release/source integrity against the resolved branch state. All 27 evidence tests passed; hosted checks are the remaining merge gate.
+Protected execution: push and mark ready; require both GitHub checks and resolved conversations on the exact head before squash merge. [PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20) records the live check and merge outcome. After merge, verify main contents and record the merged commit and data access in Obsidian.
+
+Pre-merge review: conflicts were limited to the two task documents and resolved by retaining both sides. Main's duplicate-recorder removal and reference update are preserved. Gold code, source catalogue/selection and release ZIPs are unchanged. Independent review passed. Team instructions now use `main` plus the verified release downloads.
+
+## Publish gold branch and downloadable A/B data
+
+Owner: Amit. Publish the existing branch and a prerelease handoff in the existing private repository. No merge or repository-setting change.
+
+- [x] Verify local artifact hashes and push the branch with clear team download instructions.
+- [x] Publish separate A/B ZIPs, the complete source/method handoff and archive manifest as GitHub release assets.
+- [x] Update draft PR #20 to the gold scope, verify downloaded assets and remote commit, and inspect current CI results.
+- [x] Record verified access instructions and publication links in Obsidian and the final handoff.
+
+Review: [gold-evidence-v1](https://github.com/amitvijapur/oxhack-2026/releases/tag/gold-evidence-v1) is published with A/B ZIPs, the complete bundle and archives.json. Independent fresh downloads matched all sizes/hashes and 77 internal checksums. A33/B34 coverage and all three teammate accounts' read access were verified. [Draft PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20) describes the gold scope. GitHub reports conflicts with main and no current CI checks; integration remains with the repository-maintenance workstream. No merge or settings change.
+
+## Build approved Tok River gold A/B packs
+
+Owner: Amit, covering both areas. Approved scope: Tok River, Alaska stream sediment; gold primary, lithium secondary from the same source. Continue on `codex/site-a-soil-evidence`. MiroFish and actual land-contract acquisition remain separate.
+
+- [x] Freeze the verified 67-location, -200 mesh coordinate split (A33/B34) and document source IDs, exact URLs, dates, hashes and reuse terms.
+- [x] Build a deterministic standard-library gold extractor and both packs, preserving original sample/lab IDs, assay methods, censoring and secondary lithium.
+- [x] Export GeoJSON sample points and a future land-match contract with explicit CRS, spatial/date provenance, unmatched status and no fabricated contract IDs.
+- [x] Independently verify every selected row and assay, A/B disjoint coverage, geospatial order, hashes, repeatability and meaningful rejection cases.
+- [x] Package a portable source/method/data handoff, update current documentation and Obsidian, and report reviewable outputs. Preserve copper artifacts.
+
+Review: [gold A/B results](../research/gold-evidence-results.md). Both 13-file packs passed independent verification of every record and all hashes. The complete source/method handoff reproduced A/B byte-identically; 12 focused tests passed with no skips in the fresh bundle. All 67 land templates remain not_evaluated. Work is on the existing branch; no push or merge is part of this turn.
+
+## Verify a primary US gold dataset before rebuilding
+
+Owner: Amit. Scope: source acquisition and feasibility audit only; lithium stays secondary. Preserve the copper extractor and packs and keep MiroFish separate.
+
+- [x] Find an official accessible US gold measurement source and save immutable source files with checksums and acquisition metadata outside Git.
+- [x] Audit identifiers, Au units/methods/qualifiers, coordinates, media, dates, restrictions and duplicate/missing records.
+- [x] Test two non-overlapping candidate areas with the same sample medium and assay method, selecting boundaries independently of gold values.
+- [x] Independently verify coverage and limitations, then save a clear go/no-go research note and update Obsidian. No pack rebuild or site commitment in this task.
+
+Review: [Tok River gold source](../research/us-gold-dataset-feasibility.md) passes the descriptive evidence gate. Independent raw-data and document reviews passed. The final read-only CLI passed ten checks and rejected a changed source hash. Candidate A/B have 33/34 unique locations; lithium is measured at all 67. This proposes Alaska stream sediment in place of Arizona soil. No gold packs, discovery model, MiroFish changes, commit, push or merge occurred.
+
+## Correct commodity scope to gold primary and lithium secondary
+
+Owner: Amit. This supersedes copper as the intended target in the entries below. See [verified coverage and transition plan](../research/gold-lithium-scope-correction.md). The copper packs remain prototype artifacts.
+
+- [x] Record Amit's commodity correction and inspect the actual source schema.
+- [x] Independently audit lithium units, flags and usable coverage; confirm that the soil table has no gold column.
+- [x] Make a bounded check of the existing USGS gold-source lead and document the access limitation. Official MRDS service and ZIP returned HTTP 403; no gold extract is verified yet.
+- [x] Mark the earlier plan and README so the copper utility is not mistaken for the intended gold/lithium output.
+- [x] Verify a usable primary gold source and its evidence type before adapting the extractor or selecting gold A/B windows. Tok River passes the evidence gate; the Alaska comparison windows remain proposed.
+- [x] Build and validate gold packs first; add lithium second with commodity-specific fields and censor rules. Both use the approved Tok River source; see gold A/B results.
+
+Review: the extraction infrastructure is reusable; gold measurements cannot be obtained from this soil table. No source substitution or regenerated commodity pack has been claimed. MiroFish stays separate.
+
+## Generate Site B while Amit covers Arjin
+
+Review: all 89 B rows and summary metrics independently match the source. Median copper is 18.0 mg/kg. A/B cover all 177 records without overlap; output and archive hashes pass. The method and previous artifacts are unchanged.
+
+Owner: Amit for this extraction; Arjin can review the pack and continue display work when available. Use the existing source, split and extractor. No MiroFish or algorithm changes.
+
+- [x] Generate B and verify the source records, summaries, checksums and repeatability without changing the extraction method.
+- [x] Package B and a combined A/B handoff; preserve the existing Site A artifacts.
+- [x] Prepare the reviewed [Site B results](../research/site-b-evidence-results.md) for the existing evidence PR and Obsidian handoff record. No source or extractor changes.
+
+## Build Site A soil evidence and reusable B extraction
+
+Results: [verified Site A evidence](../research/site-a-evidence-results.md). A has 88 rows, 87 quantified copper measurements and one retained missing sample. Median copper is 17.4 mg/kg. Independent review passed; the source-and-method archive regenerated A identically and generated B in a clean temporary directory.
+
+Owner: Amit. Branch: `codex/site-a-soil-evidence`. MiroFish, prompts, algorithm implementation and repository-policy changes are outside this task.
+
+- [x] Isolate work on a new branch and freeze the coordinate-only Arizona A/B selection against the existing source checksum.
+- [x] Implement a shared standard-library extractor and meaningful tests with a bounded worker; keep raw/derived data ignored.
+- [x] Generate Site A and a portable handoff archive; independently validate source rows, counts, summaries, provenance and B-method compatibility.
+- [x] Document the evidence contract, reusable commands and development/review loop; run 15 focused tests, independent raw-source checks and portable archive reproduction.
+- [x] Commit the implementation branch and publish the shared method in [draft PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20). Remote extractor matches local; both initial required CI checks passed. Record the final handoff in the backed-up Obsidian log.
+
 ## Approved minimal cleanup
 
 Owner: Amit, with Codex maintaining the repository. Preserve every potentially

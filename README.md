@@ -1,8 +1,9 @@
 # OXHack 2026
 
-A team hackathon project built around the mandatory **TIME** theme. The project
-idea is still being discussed. One candidate uses timestamped cultural or social
-data to support a useful prediction and decision.
+A team hackathon project built around the mandatory **TIME** theme. The current
+prototype compares two Tok River, Alaska study areas using measured gold, with
+lithium secondary, to support an investigation decision under a budget and
+deadline. Future outcomes and decision probabilities remain explicit scenarios.
 
 ## Repository and shared workflow
 
@@ -48,6 +49,20 @@ Code, and an explicitly loaded Claude permission profile. The Git hook and deny
 profile are inactive until each teammate chooses to enable them. These tools
 add no review requirement or separate workflow. Cortex remains Amit's personal
 router.
+
+## Gold evidence packs
+
+**Team download:** [Get both gold packs and the original source](research/gold-data-downloads.md). The named release assets include the ignored data files; a Git pull alone does not.
+
+Amit owns both current packs. [The verified build results](research/gold-evidence-results.md) list the data files, archives and checks. [The evidence contract](research/gold-evidence-contract.md) records the official source, exact regeneration commands, field meanings and future land-record join requirements. [The source catalogue](research/gold-source-catalog.json) pins the publication, download, metadata and file hashes; [the selection](research/gold-site-selection.json) freezes A33/B34. The [feasibility report](research/us-gold-dataset-feasibility.md) explains why this source is suitable for the demo and its limits.
+
+Use Python 3 with the standard library. No framework is required. The contract's commands generate `data/generated/tok-gold/site-a` and `site-b` and run the focused gold tests. Each pack includes original records, normalized CSV, GeoJSON points, separately qualified primary/retest gold assays, secondary lithium, source provenance and an unevaluated land-match template.
+
+Raw sources and generated packs are ignored by Git. A pull supplies code and documentation; transfer the portable handoff or download the pinned source separately. MiroFish remains a separate workstream. No land contracts have been fetched or matched.
+
+### Earlier copper prototype
+
+The Arizona soil extractor and its artifacts remain available as the earlier prototype. Their commands and definitions are in [the soil contract](research/soil-evidence-contract.md). They are not the current gold/lithium packs.
 
 ## Application setup
 
