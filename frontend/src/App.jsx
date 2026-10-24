@@ -5,6 +5,7 @@ import {
   RotateCcw, Search, X,
 } from 'lucide-react';
 import MapView from './MapView.jsx';
+import BackendStatus from './backend/BackendStatus.jsx';
 import {
   boundsFor, formatAssay, formatNumber, getVisibleFeatures, loadEvidence,
 } from './evidence.js';
@@ -140,7 +141,7 @@ function Workstreams({ pending }) {
     { key: 'decision', title: 'Algorithm & output', description: 'Decision logic and its resulting actions.', icon: Database },
   ];
   return <section className="workstreams" id="workstreams" aria-labelledby="workstream-heading">
-    <div className="section-title"><h2 id="workstream-heading">Connected workstreams</h2><span>Evidence first, team handoffs next</span></div>
+    <div className="section-title"><h2 id="workstream-heading">Connected workstreams</h2><span>Evidence first, team handoffs next</span><BackendStatus /></div>
     <div className="workstream-grid">{streams.map(({ key, title, description, icon: Icon }) => {
       const stream = pending[key];
       return <article className="workstream" key={key}><Icon size={18} aria-hidden="true" /><div><div className="workstream-title"><h3>{title}</h3><span className="pending-status">{stream.status === 'planning' ? 'Planning' : 'Pending'}</span></div><p>{description}</p><span className="workstream-owner">{stream.owner}</span></div></article>;
