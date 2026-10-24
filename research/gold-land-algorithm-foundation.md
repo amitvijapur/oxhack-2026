@@ -44,7 +44,7 @@ We rejected three alternatives as the core:
 |---|---|---|
 | Tok River gold assays: 67 stream-sediment points, Site A 33 and Site B 34 | [gold evidence results](gold-evidence-results.md) (Amit) | Measured gold evidence for the case-study sites |
 | Alaska state mining claims at Tok, with owners and start dates, plus 10 priced Alaska gold deals | `research/tok-land/` on branch `arjin/tok-land-data` (Arjin) | Who holds the land, the staking waves, and deal prices and terms |
-| 2.4M dated NV and AZ claims (1850 to Mar 2025), MRDS gold sites, World Bank monthly gold (1960 to Sep 2026) | `research/nv-az-data-sources.md` on branch `arjin/nv-az-claim-data` (Arjin) | Learning how land demand reacts to gold over decades, and backtesting |
+| NV and AZ claims with location dates (2.4M in the source layer, 1850 to Mar 2025; the forecast uses the **875,406 lode claims located since 1997**), MRDS gold sites, World Bank monthly gold (1960 to Sep 2026) | `research/nv-az-data-sources.md` on branch `arjin/nv-az-claim-data` (Arjin) | Learning how land demand reacts to gold over decades, and backtesting |
 | NV and AZ gold land-contract comparables | [gold-contract-comparables](gold-contract-comparables/README.md) | Real contract prices and terms for valuation |
 | BLM fees: $274 to stake a new lode claim, then $200 per claim per year | [holding costs](lithium-data/land-pack/06_land_holding_costs.csv) | Carrying cost |
 
