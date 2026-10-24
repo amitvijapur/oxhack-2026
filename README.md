@@ -25,7 +25,10 @@ write access.
 
 Read the [supplied Granola ceremony notes](research/opening-ceremony-notes.md)
 for the working event brief and initial brainstorm. Unverified sponsor names,
-deadlines, and eligibility details are labelled in those notes.
+deadlines, and eligibility details are labelled in those notes. The
+[event context](research/event-context.md) adds the official schedule, the
+Sunday 12:00 hacking cutoff, prize rubrics, and corrected sponsor names from
+the slide deck.
 
 ## Checks and merging
 
