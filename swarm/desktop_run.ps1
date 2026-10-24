@@ -14,6 +14,8 @@ function Step($m) { Write-Host "`n== $(Get-Date -Format HH:mm) $m" -ForegroundCo
 function Exec([scriptblock]$Cmd, [string]$What) { & $Cmd; if ($LASTEXITCODE -ne 0) { throw "$What failed (exit $LASTEXITCODE)" } }
 
 Step 'uv'
+# A terminal opened before uv was installed has a stale PATH; winget then fails with "no upgrade".
+$env:Path += ';' + [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
 if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {
     Exec { winget install --id astral-sh.uv -e --accept-source-agreements --accept-package-agreements } 'installing uv'
     $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
