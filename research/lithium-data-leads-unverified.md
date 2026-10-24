@@ -1,6 +1,6 @@
 # Lithium data leads (unverified)
 
-Saturday 24 Oct 2026, added by Salman. These are leads only. Related notes: [LODESTAR](lodestar.md), [the land-buy plan](lodestar-land-buy.md) and [the LODESTAR data check](lodestar-data-check.md).
+Saturday 24 Oct 2026, added by Salman. These are leads only. Related notes: [all data sources catalogue](data-sources-unverified.md), [LODESTAR](lodestar.md), [the land-buy plan](lodestar-land-buy.md) and [the LODESTAR data check](lodestar-data-check.md).
 
 > ## ⚠️ Read this first: the data is included, but double-check it
 >
@@ -14,15 +14,20 @@ Saturday 24 Oct 2026, added by Salman. These are leads only. Related notes: [LOD
 
 Link checks were run on 24 Oct 2026 and only show whether the page loads. They say nothing about whether the data matches the claims below.
 
-| Link | What it's said to be | Loads? | Status |
+| Dataset name (link) | What it's said to be | Loads? | Status |
 |---|---|---|---|
-| [ScienceBase 5d0baffce4b0e3d31162044c](https://www.sciencebase.gov/catalog/item/5d0baffce4b0e3d31162044c) | USGS lithium deposits in the US | 403 to scripts, so open it in a browser | ❓ unverified |
-| [ScienceBase 66db3cb7d34eef5af66d9306](https://www.sciencebase.gov/catalog/item/66db3cb7d34eef5af66d9306) | Unknown. Possibly the world Li pegmatite grade-tonnage data. Check it. | 403 to scripts | ❓ unverified |
-| [ScienceBase 64fa1e71d34ed30c2054ea11](https://www.sciencebase.gov/catalog/item/64fa1e71d34ed30c2054ea11) | Unknown. Check it. | 403 to scripts | ❓ unverified |
-| [NURE sediment](https://mrdata.usgs.gov/nure/sediment/) | NURE stream and soil sediment geochemistry, 1970s–80s | 200 | ❓ unverified |
-| [NURE water](https://mrdata.usgs.gov/nure/water/) | NURE groundwater and surface-water geochemistry | 200 | ❓ unverified |
-| [MRDS](https://mrdata.usgs.gov/mrds/) | USGS Mineral Resources Data System | 200 | ❓ unverified |
-| [USGS MCS 2026: Lithium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf) | Annual price, production and reserves by country | 200 | ❓ unverified |
+| [USGS Lithium Deposits in the United States](https://www.sciencebase.gov/catalog/item/5d0baffce4b0e3d31162044c) | About 21 US lithium sites with resources, history and production | 403 to scripts, so open it in a browser | ❓ unverified |
+| [USGS Grade and Tonnage Data for Li-Cs-Rb Pegmatite Deposits, v2.0](https://www.sciencebase.gov/catalog/item/66db3cb7d34eef5af66d9306) | Name taken from the Nevada pack's README, so confirm it. 86 hard-rock deposits worldwide. | 403 to scripts | ❓ unverified |
+| [USGS National Produced Waters Geochemical Database v3](https://www.sciencebase.gov/catalog/item/64fa1e71d34ed30c2054ea11) | Name taken from the Nevada pack's README, so confirm it. Oil-field brine chemistry including Li (80 MB xlsx). | 403 to scripts | ❓ unverified |
+| [USGS NURE Hydrogeochemical and Stream Sediment Reconnaissance: sediment](https://mrdata.usgs.gov/nure/sediment/) | NURE stream and soil sediment geochemistry, 1970s–80s | 200 | ❓ unverified |
+| [USGS NURE Hydrogeochemical and Stream Sediment Reconnaissance: water](https://mrdata.usgs.gov/nure/water/) | NURE groundwater and surface-water geochemistry | 200 | ❓ unverified |
+| [USGS Mineral Resources Data System (MRDS)](https://mrdata.usgs.gov/mrds/) | USGS Mineral Resources Data System | 200 | ❓ unverified |
+| [USGS Mineral Commodity Summaries 2026: Lithium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf) | Annual price, production and reserves by country. Saved in [`lithium-data/usgs-publications/`](lithium-data/usgs-publications/). | 200 | ❓ unverified |
+| [USGS Mineral Commodity Summaries 2025: Lithium](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-lithium.pdf) | The previous year's edition, for comparison. Also saved. | 200 | ❓ unverified |
+| [USGS Fact Sheet 2024-3052](https://pubs.usgs.gov/fs/2024/3052/fs20243052.pdf) | Couldn't read the full title from the PDF, so open it and confirm. Probably related to the Smackover lithium work. Saved. | 200 | ❓ unverified |
+| [USGS: Evaluation of the lithium resource in the Smackover Formation brines of southern Arkansas using machine learning](https://www.usgs.gov/publications/evaluation-lithium-resource-smackover-formation-brines-southern-arkansas-using-machine) | Paper estimating Li in Arkansas brines with ML. Title taken from the URL. Authors, journal and DOI not confirmed. | 403 to scripts, so use a browser | ❓ unverified |
+| [USGS data release: Lithium observations, machine learning predictions, and mass estimates from the Smackover Formation](https://www.usgs.gov/data/lithium-observations-machine-learning-predictions-and-mass-estimates-smackover-formation) | The data behind the paper above. **Worth downloading in a browser and adding here.** | 403 to scripts | ❓ unverified |
+| [SRK Consulting: Province-scale lithium prospectivity](https://www.srk.com/en/projects/province-scale-lithium-prospectivity) | A consultancy case study on lithium prospectivity mapping, probably without downloadable data. Check it. | 403 to scripts | ❓ unverified |
 | [WA Mining Tenements DMIRS-003](https://catalogue.data.wa.gov.au/dataset/mining-tenements-dmirs-003) | Live WA tenements with holders and expiry dates (daily, CC BY 4.0) | not checked | ❓ unverified |
 | [WA SLIP MapServer (DMIRS-026, dead tenements)](https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Industry_and_Mining/MapServer) | Expired and surrendered WA tenements, which could serve as churn labels | not checked | ❓ unverified |
 | [WA MINEDEX DMIRS-001](https://catalogue.data.wa.gov.au/dataset/minedex-dmirs-001) | WA mines and prospects with stage and coordinates | not checked | ❓ unverified |
@@ -109,7 +114,9 @@ These came up while writing this note and haven't been resolved:
 5. **Deal $/t LCE uses equity value and assumed FX** (A$ to US$ at ~0.65). Recompute it on an EV basis using the FX rate on the deal date.
 6. **Legal dates:** confirm Quebec Bill 63 (2025-11-29), Ontario Bill 5 and the Zimbabwe ban (2026-02-25) against official government text, not news articles.
 7. **The two unknown ScienceBase items** (`66db3cb7…` and `64fa1e71…`) need a person or a browser agent to open them and record what they actually are.
-8. **The Thacker Pass arithmetic** checks out (179.4 Mt × 3,283 ppm ≈ 589,000 t Li). That doesn't confirm the source figures are right.
+8. **Smackover brine value:** compare the USGS ML lithium mass estimate for the Smackover with the per-acre brine deals (Exxon ~US$830/acre, Chevron) in the deals table. Do the deal prices make sense per tonne of Li in place?
+9. **Price and supply rows:** check every MCS-sourced row in `land-pack/07_price_and_supply.csv` against the committed [MCS 2026 PDF](lithium-data/usgs-publications/mcs2026-lithium.pdf). Several rows say "check against PDF".
+10. **The Thacker Pass arithmetic** checks out (179.4 Mt × 3,283 ppm ≈ 589,000 t Li). That doesn't confirm the source figures are right.
 
 ## 5. How to check a lead
 
