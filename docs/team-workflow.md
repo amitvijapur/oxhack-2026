@@ -36,6 +36,9 @@ legacy `contexts` field, even when that field is empty.
 
 `Repository checks` verifies whitespace and workflow validity. `Secret scan`
 scans Git history for known credential patterns and redacts its output.
+It also exercises the optional staged hook in disposable repositories, using
+synthetic credentials generated only inside those tests. This uses the same
+existing CI job and does not activate hooks in anyone's clone.
 These checks do not prove an application's correctness or performance.
 Add build, lint, and meaningful test checks when the application stack is chosen.
 

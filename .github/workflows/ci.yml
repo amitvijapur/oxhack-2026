@@ -75,3 +75,6 @@ jobs:
 
       - name: Scan Git history with secrets redacted
         run: '"$RUNNER_TEMP/gitleaks" git --redact --log-opts="--all" .'
+
+      - name: Verify optional staged scanner
+        run: PATH="$RUNNER_TEMP:$PATH" python3 -m unittest discover -s tests -p 'test_optional_tooling.py' -v
