@@ -11,6 +11,7 @@
 - **Not in the original list:** *The Fed Millisecond* (section 0), the strongest HRT fit we have.
 - **From the HRT keyword run:** *Dark Sky Gamble* (section 3B).
 - **Backup:** *Bang the Close*.
+- **Deep check (17:00):** see [the idea scores](idea-scores.md). Build *The Fed Millisecond* (7.4); non-financial build *Memento Mori* (6.4). It also corrects this file: ShopGoodwill has a hard close, IsItRenewed already predicts Netflix renewals, and *Arrive Too Early* drops to 4.1.
 
 ## How to read this
 - **Status:**
