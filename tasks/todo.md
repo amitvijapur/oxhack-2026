@@ -49,6 +49,12 @@
 - [x] Verify effective GitHub settings and accepted collaborator access. Actions require full SHA pins, permit GitHub-owned actions, use read-only tokens, and cannot approve PRs. Dependabot alerts and security fixes are enabled.
 - [ ] Merge the follow-up configuration/verification PR after one teammate approves it. The active protection is already correct; the stored request must omit legacy `contexts` when using `checks`.
 
+## Team kit proposal (owner: Ahmed)
+
+- [x] Compare Ahmed's Claude Code team kit with the agreed harness and list each piece's fit and clashes in `research/team-kit-proposal.md`.
+- [ ] Amit ticks the pieces to adopt, or declines the proposal.
+- [ ] If any are ticked, open one PR adding only those pieces, with verification results.
+
 ## Review
 
 24 October 2026: Discord was inaccessible and Amit then cancelled that research. The Granola notes are the working event brief. Local Git and author identity are available. GitHub CLI authentication for `amitvijapur` was successfully verified outside the sandbox; the earlier restricted check is superseded and no re-login is needed. The plan is in `research/repository-plan.md`. Repository identity, visibility, harness, and accepted teammate access are confirmed. Stack, data source, and exact submission deadline remain open.
