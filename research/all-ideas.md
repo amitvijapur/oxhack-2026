@@ -12,6 +12,7 @@
 - **From the HRT keyword run:** *Dark Sky Gamble* (section 3B).
 - **Backup:** *Bang the Close*.
 - **Deep check (17:00):** see [the idea scores](idea-scores.md). Build *The Fed Millisecond* (7.4); non-financial build *Memento Mori* (6.4). It also corrects this file: ShopGoodwill has a hard close, IsItRenewed already predicts Netflix renewals, and *Arrive Too Early* drops to 4.1.
+- **Data-first round (18:30):** the keyword rounds kept producing small consumer ideas, so a new round started from rare data. See [the data-first round](data-first-round.md): *Shortwave Window* (7.2) and *The 15-Minute Shadow* (6.7) lead, and the grid-frequency idea failed its probe.
 
 ## How to read this
 - **Status:**
