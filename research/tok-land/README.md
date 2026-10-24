@@ -26,6 +26,8 @@ In the whole search box there are 706 active and 763 closed state claims. The la
 | [tok_sample_claim_matches.csv](tok_sample_claim_matches.csv) | One row per sample–claim pair (a sample can sit in several claims), or one `outside_state_claims` row. Includes claim status, case ID, owner, start date and the distance to the nearest active claim. |
 | [tok_land_summary.json](tok_land_summary.json) | Per-site counts, owners and claims by start year. |
 | [gold_deal_comparables.csv](gold_deal_comparables.csv) | Ten Alaska deals with prices and sources: six project sales and four claim-package deals, in the same layout as the [lithium deal table](../lithium-data/land-pack/05_deal_comparables.csv). Shows how each one relates to the Tok sites. |
+| [site-a/](site-a/summary.md), [site-b/](site-b/summary.md) | Per site: `land_matches.csv`, which fills the gold pack's `land_match_template.csv` columns with every state mining claim and state land record containing each sample, plus a `summary.md`. 29/33 Site A and 28/34 Site B samples sit on state land records; none sit in a mineral order or Native allotment. Built by [site_land_matches.py](site_land_matches.py). |
+| [claims-vs-gold.md](claims-vs-gold.md) | Timing check: Alaska-wide claim staking compares only weakly with the gold price, so price alone is not a buy/sell signal. Built by [claims_vs_gold.py](claims_vs_gold.py) into [alaska_claims_vs_gold.csv](alaska_claims_vs_gold.csv). |
 | [tok_land_claims.py](tok_land_claims.py) | Downloads the claims, checks the gold source hash and rebuilds the first two files. |
 
 Regenerate the files from the repository root with Python 3. The script uses only the standard library and takes about 30 seconds:

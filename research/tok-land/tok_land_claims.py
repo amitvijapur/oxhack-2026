@@ -108,8 +108,11 @@ def to_metres(lon, lat, lat0):
 
 def distance_m(lon, lat, geometry):
     """Metres from a point to a claim: 0 inside, otherwise to the nearest edge."""
-    if inside(lon, lat, geometry):
-        return 0.0
+    return 0.0 if inside(lon, lat, geometry) else edge_distance_m(lon, lat, geometry)
+
+
+def edge_distance_m(lon, lat, geometry):
+    """Metres from a point to the nearest polygon edge, whether the point is inside or not."""
     px, py = to_metres(lon, lat, lat)
     best = math.inf
     for ring in rings(geometry):
