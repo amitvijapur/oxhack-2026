@@ -1,7 +1,6 @@
 {
   "required_status_checks": {
     "strict": true,
-    "contexts": [],
     "checks": [
       { "context": "Repository checks", "app_id": 15368 },
       { "context": "Secret scan", "app_id": 15368 }

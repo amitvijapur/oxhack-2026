@@ -14,7 +14,8 @@
 - [x] Agree repository owner, name, and initial visibility: `amitvijapur/oxhack-2026`, private. Amit requires public visibility before submission.
 - [x] Verify teammate handles from Amit's supplied image and send write-access invitations to `meep-boop`, `arjn15`, and `iloveclouduk`.
 - [x] Create the agreed minimal shared scaffold and private remote; verify main and the scaffold from a fresh clone.
-- [ ] Verify teammate access after invitations. Once application code exists, verify application setup from a fresh clone.
+- [x] Verify accepted write access for `meep-boop`, `arjn15`, and `iloveclouduk` through GitHub's collaborator permissions API.
+- [ ] Once application code exists, verify application setup from a fresh clone.
 
 ## Mixed-tool harness comparison
 
@@ -38,17 +39,18 @@
 
 ## Team access, CI, and repository security
 
-- [x] Verify `meep-boop`, `arjn15`, and `iloveclouduk` from Amit's image and invite them with write access. Acceptance is pending.
+- [x] Verify `meep-boop`, `arjn15`, and `iloveclouduk` from Amit's image, invite them, and confirm all three accepted with write access.
 - [x] Confirm the supplied Granola ceremony notes are present on GitHub and link them clearly from the README.
-- [x] Inspect current workflow permissions and security settings. Branch-protection availability will be confirmed when applying the rule.
+- [x] Inspect workflow permissions and security settings, then confirm private-repo branch protection by a successful update and independent readback.
 - [x] Add stack-neutral CI for repository hygiene and secret scanning, with pinned dependencies and minimal permissions. Local positive and negative checks and independent review passed.
-- [ ] Document the PR workflow and configure one approval, required CI, resolved conversations, and protections against force pushes where supported.
-- [ ] Verify CI with both passing runs and a safe deliberate failure, independently review the change, and integrate it.
+- [x] Document the PR workflow and configure one approval, current GitHub Actions checks, resolved conversations, linear history, admin enforcement, and protections against force pushes/deletions. GitHub readback confirms enforcement on the private repo.
+- [x] Verify CI with both passing runs and a safe deliberate failure, independently review the change, and integrate it. PR #2 merged as `ce40669`; clean PR run `40092846642` and main run `40092935972` passed.
 - [x] Prove hosted CI rejects a temporary trailing-whitespace defect. Run `40092708257` failed `Repository checks` on that defect and passed `Secret scan`; remove the probe before merge.
-- [ ] Verify the effective GitHub settings and invitation state, then update the plan and Obsidian with any plan limitations.
+- [x] Verify effective GitHub settings and accepted collaborator access. Actions require full SHA pins, permit GitHub-owned actions, use read-only tokens, and cannot approve PRs. Dependabot alerts and security fixes are enabled.
+- [ ] Merge the follow-up configuration/verification PR after one teammate approves it. The active protection is already correct; the stored request must omit legacy `contexts` when using `checks`.
 
 ## Review
 
-24 October 2026: Discord was inaccessible and Amit then cancelled that research. The Granola notes are the working event brief. Local Git and author identity are available. GitHub CLI authentication for `amitvijapur` was successfully verified outside the sandbox; the earlier restricted check is superseded and no re-login is needed. The proposal is in `research/repository-plan.md`. The owner, name, initial visibility, and harness are agreed. Teammate handles, stack, data source, and exact submission deadline remain open.
+24 October 2026: Discord was inaccessible and Amit then cancelled that research. The Granola notes are the working event brief. Local Git and author identity are available. GitHub CLI authentication for `amitvijapur` was successfully verified outside the sandbox; the earlier restricted check is superseded and no re-login is needed. The plan is in `research/repository-plan.md`. Repository identity, visibility, harness, and accepted teammate access are confirmed. Stack, data source, and exact submission deadline remain open.
 
-The agreed setup is one shared repository, short task branches, a concise portable `AGENTS.md`, a `CLAUDE.md` compatibility import, and clear file ownership. Amit uses Codex with Cortex and teammates use Claude Code with skills only. The private repository is live at https://github.com/amitvijapur/oxhack-2026. The initial commit is `9d518ca`; GitHub confirms `main` as the default branch and private visibility. A fresh clone passed file, import, commit, clean-checkout, and ignore-rule checks. Gitleaks found no leaks in the initial files, and the staged whitespace check passed. No application exists yet, so application execution has not been tested. The repository must become public before submission. Rust remains a candidate for algorithm runtime performance. The image supplied in this session identifies `meep-boop`, `arjn15`, and `iloveclouduk`; all three have been invited with write access and currently await acceptance. Delta onboarding and sponsor eligibility still require confirmation. No application language or framework has been selected.
+The private repository is live at https://github.com/amitvijapur/oxhack-2026 with the shared Cortex/Codex/Claude Code arrangement and supplied Granola notes. All three teammates from the image have accepted write access. PR #2 added CI, dependency controls, and team documentation; the deliberate whitespace defect was rejected and removed before the clean revision merged. Both required jobs passed on the PR and main. Main protection is active and was independently read back from GitHub, including one approval, current GitHub Actions-issued checks, resolved conversations, linear history, no force pushes/deletions, stale-review dismissal, latest-push approval, and admin enforcement. A follow-up PR corrects the stored API payload and records verification; it needs a teammate approval under those active rules. No application exists yet, so runtime correctness/performance checks remain pending. Rust is a candidate for algorithm performance. Keep the repo private until the planned review and public transition before submission; exact deadline and event eligibility rules remain open.

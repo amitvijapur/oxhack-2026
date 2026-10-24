@@ -42,7 +42,7 @@ If the unconventional-data idea is selected, record each observation's availabil
 ## Setup checklist
 
 - [x] Agree repository name, GitHub owner, and visibility: `amitvijapur/oxhack-2026`, private now and public before submission.
-- [ ] Obtain teammate handles and grant access.
+- [x] Grant and verify accepted write access for `meep-boop`, `arjn15`, and `iloveclouduk`.
 - [x] Agree the minimal stack-neutral scaffold and main coding harness.
 - [x] Accept the successful external GitHub CLI authentication verification for `amitvijapur` using HTTPS. No re-login is needed.
 - [x] Initialize the local repository and publish the initial commit to the agreed private remote.
@@ -50,7 +50,7 @@ If the unconventional-data idea is selected, record each observation's availabil
 - [ ] Once the project direction is agreed, select the stack and package manager, then add application files, dependency lockfiles, configuration examples, and setup instructions as needed.
 - [x] Verify the initial shared scaffold from a fresh clone, including instruction imports and ignore rules.
 - [ ] Once executable code exists, verify a fresh clone can run the application.
-- [ ] Verify teammates can access the remote and understand branch/task ownership.
+- [x] Verify teammates can access the remote and publish the branch/task workflow.
 - [ ] If targeting Delta, onboard at least two teammates and verify collaboration early.
 - [ ] Make the repository public before submission after reviewing its contents and confirming event requirements.
 
@@ -63,4 +63,4 @@ If the unconventional-data idea is selected, record each observation's availabil
 
 ## Review
 
-The private remote and initial commit were verified on GitHub. The fresh clone passed the scaffold checks, and Gitleaks reported no leaks in the initial files. Application execution remains untested because the application has not been selected or built. Collaborator access is pending readable teammate handles. Public visibility is required by Amit before submission; the exact submission deadline and event repository requirements remain unknown.
+The private remote and initial commit were verified on GitHub. The fresh clone passed scaffold checks. All three teammates have accepted write access. The supplied Granola notes are on main and linked from README. CI checks repository hygiene, workflows, and Git-history secrets; a hosted rejection test and clean PR/main runs passed. One approval, current Actions-issued checks, resolved conversations, linear history, no force pushes/deletions, and administrator enforcement are active on main. Dependabot alerts/security fixes and restricted Actions permissions are enabled. Application execution remains untested because the application has not been selected or built. Public visibility is required by Amit before submission; the exact deadline and event repository requirements remain unknown.
