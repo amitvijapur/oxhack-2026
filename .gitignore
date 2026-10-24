@@ -1,0 +1,49 @@
+# Credentials and local environment files
+.env*
+!.env.example
+
+# OS and editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Personal tool state; shared instructions and skills remain trackable
+.omc/
+.claude/settings.local.json
+.codex/*.local.toml
+.codex/*.local.json
+
+# Rust build output; keep Cargo.lock when an application is added
+target/
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Node dependencies, caches, and generated output
+node_modules/
+.npm/
+.pnpm-store/
+.next/
+.nuxt/
+.turbo/
+.vite/
+.vercel/
+dist/
+build/
+coverage/
+
+# Local raw and generated data; document acquisition separately
+/data/raw/
+/data/generated/
+/outputs/

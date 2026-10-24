@@ -1,0 +1,8 @@
+# Session lessons
+
+## 24 October 2026
+
+- When Amit drops an information source, stop pursuing it and continue from the material he supplies. Discord is out of scope for OXHack unless he explicitly reopens it.
+- Granola notes are sufficient to start repo planning. Preserve uncertain sponsor names and missing rules as unknowns rather than delaying the team to reconstruct the event.
+- Follow Amit's latest sequencing instruction. GitHub setup can proceed alongside idea selection; do not make a stack or final project choice a prerequisite for a minimal shared repository.
+- The successful GitHub CLI authentication check outside the sandbox supersedes the earlier restricted failure. Do not request another login based on that failure.
