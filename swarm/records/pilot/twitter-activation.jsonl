@@ -1,0 +1,24 @@
+{"round": 1, "simulated_hour": 0, "agent_ids": []}
+{"round": 2, "simulated_hour": 1, "agent_ids": []}
+{"round": 3, "simulated_hour": 2, "agent_ids": []}
+{"round": 4, "simulated_hour": 3, "agent_ids": []}
+{"round": 5, "simulated_hour": 4, "agent_ids": []}
+{"round": 6, "simulated_hour": 5, "agent_ids": [17, 18]}
+{"round": 7, "simulated_hour": 6, "agent_ids": [18, 24, 27, 21, 17, 13, 30]}
+{"round": 8, "simulated_hour": 7, "agent_ids": [16, 32, 26, 33, 48, 17]}
+{"round": 9, "simulated_hour": 8, "agent_ids": [20, 39, 57, 13, 23, 40, 35, 19, 46, 22, 4, 32, 48, 26, 51, 30]}
+{"round": 10, "simulated_hour": 9, "agent_ids": [9, 30, 41, 37, 50, 35, 53, 44, 31]}
+{"round": 11, "simulated_hour": 10, "agent_ids": [6, 9, 47, 36, 33, 43]}
+{"round": 12, "simulated_hour": 11, "agent_ids": [33, 36, 32, 13, 44, 5, 30, 7, 52, 53]}
+{"round": 13, "simulated_hour": 12, "agent_ids": [41, 29, 6, 24, 53, 39, 55, 9, 40, 4]}
+{"round": 14, "simulated_hour": 13, "agent_ids": [53, 17, 52, 24, 35, 55, 50, 20, 36, 37, 46]}
+{"round": 15, "simulated_hour": 14, "agent_ids": [10, 2, 40, 50, 38, 30, 12]}
+{"round": 16, "simulated_hour": 15, "agent_ids": [57, 39, 9, 43, 52, 13]}
+{"round": 17, "simulated_hour": 16, "agent_ids": [9, 20, 40, 8, 51, 31, 57, 39, 50, 6]}
+{"round": 18, "simulated_hour": 17, "agent_ids": [40, 31, 47, 32, 46, 49, 12, 10]}
+{"round": 19, "simulated_hour": 18, "agent_ids": [11, 21, 15, 29, 25, 23, 47, 27, 48, 24, 19, 4, 22, 16]}
+{"round": 20, "simulated_hour": 19, "agent_ids": [13, 24, 42, 16, 15, 55]}
+{"round": 21, "simulated_hour": 20, "agent_ids": [39, 17, 42, 27, 23, 57, 29, 15, 49, 55, 20]}
+{"round": 22, "simulated_hour": 21, "agent_ids": [57, 17, 23, 55, 48, 35, 27, 21, 16, 29, 24, 30, 25, 19]}
+{"round": 23, "simulated_hour": 22, "agent_ids": [57, 50, 18, 25, 27, 15]}
+{"round": 24, "simulated_hour": 23, "agent_ids": [59, 41, 55, 58]}
