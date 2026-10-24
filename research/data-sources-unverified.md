@@ -1,6 +1,6 @@
 # Data sources catalogue (unverified)
 
-Saturday 24 Oct 2026, added by Salman. These are leads only. For lithium, see also [the lithium leads note](lithium-data-leads-unverified.md) and [the lithium data folder](lithium-data/README.md). For markets, see [the Fed Millisecond work](fed-millisecond/).
+Saturday 24 Oct 2026, added by Salman. These are leads only. For lithium, see also [the lithium leads note](lithium-data-leads-unverified.md) and [the lithium data folder](lithium-data/README.md). For markets and HRT, see [`hrt-data/`](hrt-data/README.md).
 
 > ## ⚠️ Read this first: double-check every source before you use it
 >
@@ -37,20 +37,9 @@ Saturday 24 Oct 2026, added by Salman. These are leads only. For lithium, see al
 | [FDD: China pauses some rare-earth export curbs (12 Nov 2025)](https://www.fdd.org/analysis/2025/11/12/china-pauses-some-rare-earth-export-curbs-while-retaining-levers-of-control/) | Timeline of export controls (an analysis piece, not a dataset) | ✅ | 403 to scripts | ❓ |
 | [Mindat API](https://api.mindat.org/) | Mineral localities worldwide. Needs a free API key. The licence is **non-commercial**. | ⚠️ Needs API key | 401 (expected without a key) | ❓ |
 
-## Markets (backup for the Fed Millisecond idea)
+## Markets and HRT
 
-| Dataset name (link) | What it's said to give | Reported | Loads today? | Checked by agent |
-|---|---|---|---|---|
-| [Nasdaq TotalView-ITCH sample files](https://emi.nasdaq.com/ITCH/Nasdaq%20ITCH/) | Full order feed. 10 Dec 2025 is `S121025-v50.txt.gz`. | ✅ Downloaded and analysed | 200 | ❓ |
-| [Nasdaq EMI data server](https://emi.nasdaq.com/) | Options, Plus feeds, BX, PSX | ✅ Listed | 200 | ❓ |
-| [IEX HIST (example: 9 Dec 2025)](https://iextrading.com/api/1.0/hist?date=20251209) | IEX exchange tick history | ✅ | 200 | ❓ |
-| [Federal Reserve FOMC statement, 10 Dec 2025](https://federalreserve.gov/newsevents/pressreleases/monetary20251210a.htm) | Fed decision text and time | ✅ | 206 | ❓ |
-| [FCC ULS microwave licences (`l_micro.zip`)](https://data.fcc.gov/download/pub/uls/complete/l_micro.zip) | Microwave tower licences (HFT routes) | ✅ Downloaded and analysed | 206 | ❓ |
-| [SEC EDGAR daily form index (example: 10 Dec 2025)](https://www.sec.gov/Archives/edgar/daily-index/2025/QTR4/form.20251210.idx) | Daily list of filings | ✅ | 403 (SEC requires a `User-Agent` with contact info) | ❓ |
-| [FINRA Reg SHO daily short-sale volume](https://cdn.finra.org/equity/regsho/daily/CNMSshvol20251209.txt) | Daily short volume by symbol | ✅ | 200 | ❓ |
-| [US Treasury Fiscal Data: Treasury auctions query](https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query) | Auction results | ✅ | 200 | ❓ |
-| [Binance public data: BTCUSDT spot trades (10 Dec 2025)](https://data.binance.vision/data/spot/daily/trades/BTCUSDT/BTCUSDT-trades-2025-12-10.zip) | Tick-level crypto trades | ✅ | 206 | ❓ |
-| [HRT Beat: How HRT Thinks About Data](https://www.hudsonrivertrading.com/hrtbeat/how-hrt-thinks-about-data/) | Blog post (context, not data) | ✅ | 403 to scripts | ❓ |
+The market and HRT sources (Nasdaq ITCH, IEX, the Fed statement, FCC, SEC, FINRA, Treasury, Binance, CFTC and the HRT blog) are in [`hrt-data/README.md`](hrt-data/README.md), alongside the Fed Millisecond work.
 
 ## Other world data
 
@@ -62,7 +51,6 @@ Saturday 24 Oct 2026, added by Salman. These are leads only. For lithium, see al
 | [OpenSky Network: state vectors](https://opensky-network.org/api/states/all) | Live aircraft positions | ✅ | 200 | ❓ |
 | [TeleGeography Submarine Cable Map: cable geometry](https://www.submarinecablemap.com/api/v3/cable/cable-geo.json) | Undersea cable routes | ✅ | 206 | ❓ |
 | [GDELT 2.0 event feed (`lastupdate.txt`)](http://data.gdeltproject.org/gdeltv2/lastupdate.txt) | Global news events, every 15 minutes | ✅ | 206 | ❓ |
-| [CFTC Public Reporting: Commitments of Traders](https://publicreporting.cftc.gov/resource/6dca-aqww.json) | Futures positions | ✅ | 200 | ❓ |
 
 ## Mismatches found while writing this
 

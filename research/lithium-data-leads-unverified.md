@@ -1,6 +1,6 @@
 # Lithium data leads (unverified)
 
-Saturday 24 Oct 2026, added by Salman. These are leads only. Related notes: [all data sources catalogue](data-sources-unverified.md), [LODESTAR](lodestar.md), [the land-buy plan](lodestar-land-buy.md) and [the LODESTAR data check](lodestar-data-check.md).
+Saturday 24 Oct 2026, added by Salman. These are leads only. Related notes: [all data sources catalogue](data-sources-unverified.md), [HRT data](hrt-data/README.md) and [the LODESTAR data check](lodestar-data-check.md).
 
 > ## ⚠️ Read this first: the data is included, but double-check it
 >

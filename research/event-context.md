@@ -90,7 +90,7 @@ No food in rooms. Don't use the AV systems. The fire assembly point is by Core 1
 
 ## Team brainstorm so far (from the audio)
 
-These are the ceremony-day leanings, not decisions. The newer [Fed Millisecond data brief](fed-millisecond/) proposes a concrete direction: raw Nasdaq and IEX order-book feeds around the 10 Dec 2025 Fed decision.
+These are the ceremony-day leanings, not decisions. The newer [Fed Millisecond data brief](hrt-data/fed-millisecond/) proposes a concrete direction: raw Nasdaq and IEX order-book feeds around the 10 Dec 2025 Fed decision.
 
 - **Core idea:** find an unconventional, untouched dataset first, then match it to a traded commodity or market where it might give an edge. Examples raised: social media sentiment, in-app purchases, game skin sales (CS skins was judged too well-known). Swarm or agent-based simulation of a population, such as MiroFish, came up as a modelling option.
 - **Framing:** it could be gamified or playful, but there must be a real, demonstrable edge. "Monetisation is secondary to finding the edge."
