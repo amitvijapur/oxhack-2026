@@ -1,5 +1,16 @@
 # OXHack preparation
 
+## Gold land-contract algorithm foundation (owner: Salman)
+
+Design: [algorithm foundation](../research/gold-land-algorithm-foundation.md), [input and output contracts](../research/foundation-input-contracts.md), [NV/AZ contract comparables](../research/gold-contract-comparables/README.md). The algorithm consumes the swarm prediction (Muhd), demand predictions and land data (Arjin), and gold evidence (Amit), and returns BUY/HOLD/SELL/SKIP for land contracts. Design only; no application code yet.
+
+- [x] Research and write the layered design: gold scenarios, land value, demand, swarm fusion, contracts, gates, decision rules and validation.
+- [x] Check the worked BUY → HOLD → SELL example by hand (computed and cross-checked).
+- [x] Collect sourced NV/AZ gold land-contract comparables to sit alongside Arjin's Alaska table.
+- [ ] Agree the input contracts with Muhd (swarm run record) and Arjin (claim-burst output, burst definition).
+- [ ] Build Tier 1 (see the design's build order), then the time-forward backtest against baselines.
+- [ ] Check broker/assignment licensing in NV, AZ and AK before pitching the broker route.
+
 ## Gold stakeholder swarm on MiroFish (owner: Muhd)
 
 Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).
