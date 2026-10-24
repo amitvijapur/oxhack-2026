@@ -2,6 +2,10 @@
 
 ## 24 October 2026
 
+- The product name is MiroFish. Use that exact spelling in plans, prompts and replies; do not expand it to Mirrorfish.
+
+- MiroFish runs on Amit’s laptop; Muhd prepares prompts and information. The four-person split is two site-evidence owners, one prompt owner and one algorithm owner, with Amit owning Site A/local execution, Arjin owning Site B, Muhd owning prompts and Salman owning the algorithm. Do not allocate a fifth dedicated interface owner. Amit selected the existing US soil dataset after comparing it with Australian drilling. Do not substitute MRDS or confuse regional soil chemistry with parcel-scale deposit evidence. Draft the build plan for review before extracting A/B or installing the runtime.
+
 - When Amit drops an information source, stop pursuing it and continue from the material he supplies. Discord is out of scope for OXHack unless he explicitly reopens it.
 - Granola notes are sufficient to start repo planning. Preserve uncertain sponsor names and missing rules as unknowns rather than delaying the team to reconstruct the event.
 - Follow Amit's latest sequencing instruction. GitHub setup can proceed alongside idea selection; do not make a stack or final project choice a prerequisite for a minimal shared repository.
