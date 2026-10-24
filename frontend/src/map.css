@@ -41,4 +41,6 @@
   .evidence-map-frame { height: 430px; min-height: 370px; }
   .sample-plot { min-height: 370px; }
   .map-status { left: 10px; right: 10px; top: 62px; font-size: 11px; }
+  /* Keep the expanded attribution clear of the zoom, compass and terrain controls. */
+  .maplibregl-ctrl-bottom-right { left: 52px; display: flex; justify-content: flex-end; }
 }

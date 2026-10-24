@@ -161,6 +161,11 @@ dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
 .pending-status { color: #f0ce9c; font-size: 11px; padding: 3px 9px; background: #d7af7912; border: 1px solid #d7af7938; border-radius: 999px; }
 .workstream p { font-size: 13px; color: var(--muted); margin: 8px 0 11px; line-height: 1.55; }
 .workstream-owner { color: #c5d2e4; font-size: 12px; }
+.section-title > .backend-status { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; padding: 3px 10px; font-size: 11px; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; }
+.backend-dot { width: 7px; height: 7px; border-radius: 50%; background: #6b7a90; }
+.backend-status.is-connecting .backend-dot { background: var(--amber); }
+.backend-status.is-connected { color: var(--sage); border-color: #a3d3b138; }
+.backend-status.is-connected .backend-dot { background: var(--sage); }
 .sample-records { padding-top: 34px; }
 .records-heading { display: flex; justify-content: space-between; align-items: center; gap: 22px; margin-bottom: 20px; }
 .sample-search { display: flex; align-items: center; gap: 10px; border: 1px solid #344a67; background: var(--surface); border-radius: 999px; padding: 12px 16px; color: #b5c9e5; }
@@ -285,10 +290,17 @@ tbody tr.is-selected { background: #0f335e; }
   .timeline-track li { font-size: 11px; }
   .workstreams > .section-title { display: block; }
   .workstreams > .section-title > span { display: block; margin: 8px 0 0; }
+  .workstreams > .section-title > .backend-status { display: inline-flex; margin-top: 10px; }
   .records-heading { display: block; }
   .sample-search { margin-top: 17px; border-radius: 12px; }
   .sample-search input { width: 100%; }
   .records-scroll { max-height: 380px; border-radius: 12px; }
+  /* Keep the sample ID in view while the assay columns scroll sideways. */
+  .records-scroll tbody th[scope="row"] { position: sticky; left: 0; z-index: 1; background: var(--surface); }
+  .records-scroll thead th:first-child { position: sticky; left: 0; z-index: 2; background: #152239; }
+  .records-scroll tr.is-selected th[scope="row"] { background: #0f335e; }
+  /* Adjacent collection months share one label on narrow tracks. */
+  .is-collected + .is-collected .timeline-event { visibility: hidden; }
   th, td { padding: 12px 16px; }
   .evidence-footer { grid-template-columns: 1fr; gap: 19px; font-size: 11px; }
   .drawer-identity h2 { font-size: 23px; }
