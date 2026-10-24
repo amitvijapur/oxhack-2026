@@ -34,7 +34,7 @@ from pathlib import Path
 from build_runs import RUN_ORDER
 
 HERE = Path(__file__).resolve().parent
-ENV_FILE = Path(r"C:\Users\ahmed\Downloads\Oxhack\MiroFish\.env")
+ENV_FILE = Path(__file__).resolve().parents[2] / "MiroFish" / ".env"  # MiroFish sits next to this repo
 CACHE_FILE = HERE / "records" / "judge_cache.jsonl"
 MODEL = "gpt-5.4-mini"
 WORKERS = 8

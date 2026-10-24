@@ -18,7 +18,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-MIROFISH_BACKEND = Path(r"C:\Users\ahmed\Downloads\Oxhack\MiroFish\backend")
+# MiroFish is cloned next to this repo (…/Oxhack/MiroFish), so the path works on any machine.
+MIROFISH_BACKEND = Path(os.environ.get("MIROFISH_DIR", Path(__file__).resolve().parents[2] / "MiroFish")) / "backend"
 
 # Passed in the environment because the runner's load_dotenv never overrides it:
 # an editor saving an old .env mid-session once silently reverted these lines.
@@ -113,7 +114,7 @@ def main():
         a["agent_id"] for a in config.get("agent_configs", []) if a.get("tier") in (1, 2)
     )
     git = lambda *a: subprocess.run(["git", "-C", str(MIROFISH_BACKEND.parent), *a],
-                                    capture_output=True, text=True).stdout
+                                    capture_output=True, encoding="utf-8", errors="replace").stdout or ""
     meta = {"sim_dir": str(sim_dir), "scenario": config.get("scenario"), "seed": config.get("seed"),
             "max_rounds": args.max_rounds, "interviewees": interviewees, "started": now(),
             "mirofish_commit": git("rev-parse", "HEAD").strip(),
