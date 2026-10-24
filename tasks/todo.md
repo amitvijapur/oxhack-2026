@@ -1,5 +1,13 @@
 # OXHack preparation
 
+## Gold stakeholder swarm on MiroFish (owner: Muhd)
+
+Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).
+
+- [ ] Step 0: set up MiroFish on Muhd's laptop (Zep Cloud key, OpenAI key, disk check, pick the middle model tier).
+- [ ] Agree with the team what this swarm feeds (for example, policy-risk and price scenarios for Salman's solver) and who writes the per-agent model-tier patch.
+- [ ] Timed pilot, then fix rounds and run count from measured numbers.
+
 ## Resolve and merge gold evidence PR #20
 
 Owner: Amit. Explicitly authorised to resolve conflicts, pass checks and merge PR #20. Preserve both contributors' changes and the published gold A/B release; no repository-policy changes.
