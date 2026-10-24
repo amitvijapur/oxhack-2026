@@ -30,6 +30,9 @@ prediction target, and application stack are still open. Read `README.md`,
   based only on generated code or an untested assumption.
 - Commit placeholders in `.env.example`; keep real credentials and large raw or
   generated datasets outside Git. Document data sources and acquisition steps.
+- Follow `docs/team-workflow.md` for CI, security, and merge requirements. Keep
+  required check names stable and include relevant application checks when
+  introducing a new application stack.
 
 ## If prediction is selected
 
