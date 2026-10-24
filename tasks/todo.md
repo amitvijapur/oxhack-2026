@@ -1,5 +1,14 @@
 # OXHack preparation
 
+## Publish gold branch and downloadable A/B data
+
+Owner: Amit. Publish the existing branch and a prerelease handoff in the existing private repository. No merge or repository-setting change.
+
+- [ ] Verify local artifact hashes and push the branch with clear team download instructions.
+- [ ] Publish separate A/B ZIPs, the complete source/method handoff and archive manifest as GitHub release assets.
+- [ ] Update draft PR #20 to the gold scope, verify downloaded assets and remote commit, and inspect current CI results.
+- [ ] Record verified access instructions and publication links in Obsidian and the final handoff.
+
 ## Build approved Tok River gold A/B packs
 
 Owner: Amit, covering both areas. Approved scope: Tok River, Alaska stream sediment; gold primary, lithium secondary from the same source. Continue on `codex/site-a-soil-evidence`. MiroFish and actual land-contract acquisition remain separate.

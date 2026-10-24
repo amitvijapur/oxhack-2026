@@ -52,6 +52,8 @@ router.
 
 ## Gold evidence packs
 
+**Team download:** [Get both gold packs and the original source](research/gold-data-downloads.md). The named release assets include the ignored data files; a Git pull alone does not.
+
 Amit owns both current packs. [The verified build results](research/gold-evidence-results.md) list the data files, archives and checks. [The evidence contract](research/gold-evidence-contract.md) records the official source, exact regeneration commands, field meanings and future land-record join requirements. [The source catalogue](research/gold-source-catalog.json) pins the publication, download, metadata and file hashes; [the selection](research/gold-site-selection.json) freezes A33/B34. The [feasibility report](research/us-gold-dataset-feasibility.md) explains why this source is suitable for the demo and its limits.
 
 Use Python 3 with the standard library. No framework is required. The contract's commands generate `data/generated/tok-gold/site-a` and `site-b` and run the focused gold tests. Each pack includes original records, normalized CSV, GeoJSON points, separately qualified primary/retest gold assays, secondary lithium, source provenance and an unevaluated land-match template.

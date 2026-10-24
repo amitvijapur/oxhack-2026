@@ -20,6 +20,8 @@ B primary-only statistics exclude the upper-censored result. The separate retest
 
 ## Prepared data and handoff
 
+[Download the published handoff and both packs](gold-data-downloads.md). Sign in with repository access.
+
 - `data/generated/tok-gold/site-a/` and `site-b/`: ready evidence packs.
 - `data/generated/tok-gold/handoff/tok-gold-team-handoff.zip`: both packs, exact original source archive and unpacked files, source/selection documents, extractor, audit, tests and the evidence contract.
 - Individual A/B ZIPs are available alongside the complete handoff.
