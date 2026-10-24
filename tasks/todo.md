@@ -1,5 +1,21 @@
 # OXHack preparation
 
+## Approved minimal cleanup
+
+Owner: Amit, with Codex maintaining the repository. Preserve every potentially
+useful plan, dataset, source note and experiment; no archival moves are approved.
+
+- [x] Verify the two cryptocurrency recorders are byte-identical and remove only the generated local probe cache.
+- [x] Delete the duplicate recorder and point its documentation to the retained script.
+- [x] Verify the retained recorder is unchanged, references resolve, and no other files are removed; prepare the change for the existing protected PR flow.
+
+Review: the retained recorder matches the duplicate's original SHA-256; all 11
+local links in the updated README resolve, no deleted-name references remain,
+and the only tracked removal is the duplicate. Six ignored local cache files
+were removed. All 25 original checkout research/task files checked retained
+their hashes. Whitespace, actionlint and all 13 existing tooling tests passed.
+Hosted CI and integration results are recorded in the PR and Obsidian build log.
+
 ## Reviewable US soil build plan
 
 - [x] Apply the user-specified names throughout the current plan and working split.
