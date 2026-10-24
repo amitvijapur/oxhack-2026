@@ -90,13 +90,13 @@ No food in rooms. Don't use the AV systems. The fire assembly point is by Core 1
 
 ## Team brainstorm so far (from the audio)
 
-These are leanings, not decisions.
+These are the ceremony-day leanings, not decisions. The newer [Fed Millisecond data brief](fed-millisecond/) proposes a concrete direction: raw Nasdaq and IEX order-book feeds around the 10 Dec 2025 Fed decision.
 
 - **Core idea:** find an unconventional, untouched dataset first, then match it to a traded commodity or market where it might give an edge. Examples raised: social media sentiment, in-app purchases, game skin sales (CS skins was judged too well-known). Swarm or agent-based simulation of a population, such as MiroFish, came up as a modelling option.
 - **Framing:** it could be gamified or playful, but there must be a real, demonstrable edge. "Monetisation is secondary to finding the edge."
 - **Language and performance:** C++ or Rust was raised for latency. One teammate has OpenAI credits.
 - **Zed and Delta:** one teammate likes Zed. Another was sceptical of Delta because nobody has used it yet. The Zed track's rubric is clear-cut, which makes it attractive.
-- **Repo and harness:** one shared repo with skills hosted on GitHub and a progress log, as used at the IBM hackathon. This is now covered by the existing repo setup and the open team kit proposal (branch `ahmed/team-kit-proposal`).
+- **Repo and harness:** one shared repo with skills hosted on GitHub and a progress log, as used at the IBM hackathon. This is now covered by the existing repo setup and the [optional tools from the team kit](../docs/optional-team-kit.md).
 
 ## What this means for our choices
 
