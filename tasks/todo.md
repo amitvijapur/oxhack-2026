@@ -7,7 +7,13 @@ Design: [algorithm foundation](../research/gold-land-algorithm-foundation.md), [
 - [x] Research and write the layered design: gold scenarios, land value, demand, swarm fusion, contracts, gates, decision rules and validation.
 - [x] Check the worked BUY → HOLD → SELL example by hand (computed and cross-checked).
 - [x] Collect sourced NV/AZ gold land-contract comparables to sit alongside Arjin's Alaska table.
+- [x] Respond to the strategy review (PR #24): accepted A1–A8, corrections marked in the foundation doc; see [audit response](../research/foundation-audit-response.md). The combined strategy is the current design.
+- [x] Normalize the contract catalogue (project/agreement/event links, outcome dates, exclusion flags) and add `catalogue_check.py`.
+- [x] Update the swarm input contract to Ahmed's revised Tok society plan (seven scenarios, checks gate its use).
+- [x] Research licensing and add the user-role gates; see [land-contract licensing](../research/land-contract-licensing.md).
+- [x] Design the Jev / OpenAI Decisions extraction adapter and image uses; see [Jev extraction and images](../research/jev-extraction-and-images.md).
 - [ ] Agree the input contracts with Muhd (swarm run record) and Arjin (claim-burst output, burst definition).
+- [ ] Build the exact fixture calculator (combined strategy, delivery step 1) and reproduce $9,500 / $12,600 / −$400.
 - [ ] Build Tier 1 (see the design's build order), then the time-forward backtest against baselines.
 - [ ] Check broker/assignment licensing in NV, AZ and AK before pitching the broker route.
 

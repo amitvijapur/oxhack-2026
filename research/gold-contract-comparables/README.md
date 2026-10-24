@@ -6,7 +6,8 @@ Retrieved 24 October 2026. Owner: Salman. This is a table of 40 real contracts o
 
 | File | Contents |
 |---|---|
-| [nv_az_gold_contracts.csv](nv_az_gold_contracts.csv) | One row per deal, 25 columns. Each row has a `source_url` that we opened and checked against the row. |
+| [nv_az_gold_contracts.csv](nv_az_gold_contracts.csv) | One row per deal, 35 columns. Each row has a `source_url` that we opened and checked against the row. |
+| [catalogue_check.py](catalogue_check.py) | Validates the table and prints the statistics below. Run `python3 research/gold-contract-comparables/catalogue_check.py` from the repository root. |
 
 ## How the rows were found
 
@@ -33,12 +34,27 @@ By stage there are 14 grassroots rows, 22 exploration rows and 4 advanced rows (
 
 All values are US dollars. "Total consideration" is the cash plus any share value the source states in USD. It leaves out work commitments, royalties, milestone payments and share values given in other currencies.
 
-- **Price per acre, grassroots and exploration land deals.** This covers purchases, options and earn-ins with a USD total and a known area (14 deals). The median is **about $280 per acre**. The middle half runs from about $80 to $580, and the full range is $19 to $4,288. The 7 grassroots-only deals have a median of about $205 per acre. The extremes are a 27-claim purchase for $10,395 (Loman, NV) and a single claim with an old heap-leach pad for $90,000 (Never Get Left, AZ).
-- **Price per claim, same 14 deals.** The median is **about $5,800 per claim**. The middle half runs from about $1,700 to $12,000, and the full range is $385 to $90,000.
+- **Price per acre, grassroots and exploration land deals.** This covers purchases, options and earn-ins with a USD total and a known area (14 deals). The median is **about $280 per acre**. The middle half runs from about $107 to $462 (inclusive quartiles), and the full range is $19 to $4,288. The clean subset drops the Gold Chain amendment (remaining payments only) and keeps one row per project; its 13 rows give a median of about $285 per acre. The 7 grassroots-only deals have a median of about $205 per acre. The extremes are a 27-claim purchase for $10,395 (Loman, NV) and a single claim with an old heap-leach pad for $90,000 (Never Get Left, AZ).
+- **Price per claim, same 14 deals.** The median is **about $5,800 per claim**. The middle half runs from about $2,400 to $9,500, and the full range is $385 to $90,000. The clean subset gives a median of about $5,900.
 - **Total option payments.** Ten options and earn-ins state a total cash amount in USD. They run from **$90,000 to $1.5 million**, with a median of about **$300,000**, usually paid over 4 to 5 years with small first payments ($10,000 to $55,500). Larger deals add work commitments of $1 million to $4 million, as at Betty East, Fivemile and Pearl String.
 - **Lease buy-out prices.** Leases with an option to buy name prices of $750,000 to $2 million (Agai-Pah, Swales, Silverton and Lone Mountain). Yearly payments are typically $20,000 to $30,000.
 - **Royalty retained by the seller.** Among land contracts that state one, 2% NSR is the most common (12 rows), then 3% (6 rows), and 1% or 1.5% (6 rows). Most allow half of the royalty to be bought back for roughly $0.5 million to $3 million.
 - **Advanced deals for range.** Augusta paid about $46 million for the Reward project in 2022 ($12.5 million cash + $22.1 million cash + 7.8 million shares; about $19,800 per acre). Royalty buyers paid $250 million for a 1% NSR on Arthur (2025) and $168 million for the Spring Valley royalties (2026).
+
+## Normalization for modelling
+
+Added after the [strategy review](https://github.com/amitvijapur/oxhack-2026/pull/24). These columns stop the table being misread as 40 independent, comparable sales:
+
+| Column | Meaning |
+|---|---|
+| `project_group`, `agreement_id`, `event_type` | Links records about the same land or agreement. AZ-08 (2023 amendment) and AZ-11 (2026 buyout) are one Gold Chain agreement; AZ-04, AZ-06 and AZ-09 share the Gold Basin project; NV-08 and NV-10 are both at Bullfrog. Evaluate a group together, never as separate observations. |
+| `interest_fraction` | What share is bought. Earn-ins buy part of a project (NV-06, NV-28, AZ-09); royalty rows buy only a royalty. "1.0 (assumed)" means the source implies the whole interest. |
+| `related_party` | NV-14 and NV-16 involve the same executive on both sides. |
+| `completion_status`, `outcome_known_from` | Outcomes such as exercise or closing, and the date that outcome was published. A backtest at an earlier date may use the agreement terms (`announce_date`) but not the outcome. |
+| `area_source` | `reported` or `estimated_claims_x_20.66`. Estimated areas should not silently become a valuation denominator. |
+| `exclude_from_land_value`, `exclude_reason` | Rows that must stay out of land-price statistics: royalty-only, related-party, remaining-commitments-only and share-only deals. |
+
+Cash, shares, work commitments, royalties and milestones are still mixed inside some free-text fields. Splitting them into dated components is the next step before any price model is fitted.
 
 ## Limits
 

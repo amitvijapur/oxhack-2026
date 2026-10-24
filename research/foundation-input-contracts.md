@@ -10,48 +10,52 @@ Rules for every input:
 
 ## 1. Swarm prediction
 
-Owner: Muhd. The source is the per-run JSON record in [the gold swarm plan, section 6](gold-swarm-plan.md#6-outputs-per-run). The algorithm reads that record as it is; this is the shape it expects:
+Owner: Muhd, with Ahmed's [revised society plan](https://github.com/amitvijapur/oxhack-2026/blob/71f25ea/research/gold-swarm-plan.md) (branch `ahmed/gold-society-plan`, revision 2): one 61-agent Tok society, five simulated days, and seven scenarios.
+
+| # | Day-3 news | Use in the algorithm |
+|---|---|---|
+| 0 | None (baseline; 3 seeds) | No-swarm comparison and the chance band |
+| 1 | State approves the new mine | Candidate demand-up scenario |
+| 2 | Alaska proposes a higher gold-mining tax | Candidate exit-value-down scenario |
+| 3 | Local protest over water and land | Candidate delay or closing-risk scenario |
+| 4 | Placebo (school sports) | Control only; must change nothing |
+| 5 | Court blocks the mine | Mirror of 1 |
+| 6 | Gold falls back to $4,000 | Mirror of the day-1 breakout |
+
+The algorithm reads the per-run JSON record from the plan's section 6, and the results table built from it:
 
 ```json
 {
   "run_id": "string",
-  "variant": "cautious | moderate | free",
-  "seed": 0,
-  "shock": "none | mine_approval | tax_hike | protest",
-  "model_tiers": "string",
-  "mirofish_version": "string",
-  "place": "tok_river_ak | nevada_district",
-  "as_of": "2026-10-25T10:00:00Z",
-  "available_at": "2026-10-25T10:00:00Z",
+  "scenario": 0,
+  "seed": 1,
+  "tiers": "string", "mirofish_commit": "string", "patch_hash": "string",
+  "place": "tok_river_ak",
+  "as_of": "ISO-8601", "available_at": "ISO-8601",
   "horizon_days": 5,
-  "daily_sentiment": [
-    {"day": 1, "government": "cold|warm|hot", "land_side": "cold|warm|hot", "buyers": "cold|warm|hot"}
+  "daily": [
+    {"day": 1, "group": "government | industry | community | funds | retail", "support_0_10": 0.0, "heat_posts": 0}
   ],
-  "gold": {"direction": "up|flat|down", "size_pct": 0.0, "confidence": 0.0},
-  "policy": {"move": "string", "type": "tax|permit|contract|withdrawal|none", "direction": "tighten|neutral|loosen", "timing_days": 0, "confidence": 0.0},
-  "political_leaning": {"direction": "string"},
-  "evidence_refs": ["post or seed-fact IDs"],
-  "grounding_ok": true
+  "calls": {
+    "price": {"direction": "up | flat | down", "size_fraction": null},
+    "policy": {"move": "string", "timing_days": null},
+    "leaning": {"direction": "for | against | split"}
+  },
+  "checks": {"placebo": "pass | fail", "mirrors": "pass | fail", "stability": "pass | fail", "grounding": "pass | fail"}
 }
 ```
 
-How the algorithm uses each part:
+`size_fraction` uses `0.05` for +5%, and stays `null` if no number was given. Gold `price.direction` and size describe five days only.
 
-| Swarm output | Where it goes in the algorithm |
-|---|---|
-| `gold` direction and size | Tilts the near-term drift of the gold scenarios. Over a 5-day horizon it hardly moves a multi-year land value, which is intended |
-| `policy` move, direction and timing | Probability of a policy event: a tax rise lowers the exit value, a withdrawal triggers the SKIP gate, a mine approval raises demand |
-| `buyers` and `land_side` sentiment | Buyer demand. It shifts the chance of finding a buyer before a deadline, the time to sell and the exit price |
-| `government` sentiment | Weight on policy-risk scenarios |
-| Spread across seeds | The swarm's uncertainty: a wider spread means less weight |
+**How the algorithm uses it (first version):**
 
-Before any of this is used, runs are aggregated per variant and shock:
-- Cold/warm/hot is mapped to −1, 0 and +1.
-- Daily values are averaged.
-- The across-seed spread is recorded.
-- Runs with `grounding_ok = false` are dropped.
+1. **Checks gate the swarm.** Use a scenario only when the placebo check passes, and the mirrors check passes for a mirrored pair. If either fails, show the run as narrative context with `swarm_used = false` in decisions.
+2. **Effects, not levels.** Use each scenario's effect per group: mean support over days 3–5 minus the seed-1 baseline, compared with the three-baseline chance band. Effects inside the chance band are treated as no effect.
+3. **Explicit mapping to economics.** Each effect that drives a decision has a versioned mapping: event → affected field → magnitude → onset → duration. For example, "tax rise, funds below the band → exit price −X% from day 3, held to contract expiry" or "protest → closing delayed N days". The magnitudes are labelled assumptions, not swarm outputs.
+4. **Show both results.** Report the decision without the swarm and with each mapped scenario, and say whether the action changes. No probability blending in the first version.
+5. **No persistence by default.** A five-day gold move does not continue past day five unless a mapping states retention, decay or reversion.
 
-A view built from fewer than 3 runs is ignored. While the swarm is unproven its weight is capped at about 25%; see the [foundation, layer 4](gold-land-algorithm-foundation.md#layer-4-swarm-prediction). If the interviews come back as free text, a Jev or rules-based step fills these fields and records which one was used.
+If the interview answers arrive as free text, an extraction step fills `calls`. It uses Jev, OpenAI Decisions or rules, and records which one ran; see [Jev extraction](jev-extraction-and-images.md).
 
 ## 2. Demand prediction (claim bursts)
 
@@ -94,10 +98,13 @@ One record per offer, listing or contract we hold:
 | `payment_schedule`, `work_commitment_usd`, `nsr_pct` | Option and earn-in terms |
 | `due_diligence_days`, `closing_or_expiry_date`, `assignable` | Time terms |
 | `carry_usd_per_year` | Fees or rent; for BLM claims, $200 per claim |
-| `gate_inputs` | Title, mineral rights included, access, fees paid, overlaps, withdrawal, liabilities, water; each `pass`, `fail` or `unknown` |
+| `gate_inputs` | Title, mineral rights included, access, fees paid, overlaps, withdrawal, liabilities, water; each `pass`, `fail`, `unknown` or `not_applicable`, with source, date and method |
+| `jurisdiction`, `user_role`, `compensation_from_third_party`, `user_licence_states` | Who is acting and how. `user_role` is `principal` or `agent`; an agent paid by a third party triggers the licensing check in [land-contract licensing](land-contract-licensing.md) |
+| `investor_count`, `passive_investors` | Selling fractions or royalties to many passive investors needs a securities review |
+| `blm_transfer_filed`, `dnr_transfer_recorded`, `legal_review_required` | Transfer filings (BLM 43 CFR 3833.32; Alaska DNR quitclaim) and a flag for open legal questions |
 | `price_kind` | `sale`, `asking` or `assumption`. An asking price is never treated as a sale price |
 
-A gate marked `unknown` counts as not passed. The result is SKIP until someone checks it.
+A known `fail` excludes entry, so SKIP remains feasible. A required gate marked `unknown` produces `manual_review` with no action, never a silent SKIP or BUY. Brokerage actions are only offered when the licensing fields allow them; otherwise the output says, for example, "SELL (principal only); brokerage blocked in AZ".
 
 ## 5. Decision record (output for the demo and UI)
 
@@ -107,7 +114,9 @@ One record per opportunity per decision date:
 {
   "opportunity_id": "string",
   "decision_time": "ISO-8601",
-  "signal": "BUY | HOLD | SELL | SKIP",
+  "status": "ok | insufficient_inputs | manual_review | unsupported_contract",
+  "valuation_mode": "evidence_only | scenario | empirical",
+  "signal": "BUY | HOLD | SELL | SKIP | LAPSE | EXERCISE | null",
   "contract_structure": "e.g. option_12m_5pct",
   "expected_profit_usd": 0, "profit_p10_usd": 0, "profit_p90_usd": 0,
   "p_profit": 0.0, "cvar95_usd": 0,
@@ -122,4 +131,4 @@ One record per opportunity per decision date:
 }
 ```
 
-`swarm.used = false` means the decision came from land and gold data alone. With the same inputs, versions and seed, a decision record must reproduce exactly.
+`signal` is `null` whenever `status` is not `ok`. The combined strategy's output fields (ledger by scenario, peak funding, excluded actions with reasons, families tested) are the fuller target; this record is the minimum. `swarm.used = false` means the decision came from land and gold data alone. With the same inputs, versions and seed, a decision record must reproduce exactly.

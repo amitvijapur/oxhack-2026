@@ -2,6 +2,8 @@
 
 24 October 2026. Owner: Salman (decision algorithm). Status: **design for team review; no application code yet.** The input and output formats are in [foundation-input-contracts.md](foundation-input-contracts.md).
 
+> **Revised after an independent review.** For the valuation formula, the decision ledger and the first deliverable, the [combined strategy in PR #24](https://github.com/amitvijapur/oxhack-2026/pull/24) (`research/gold-land-strategy.md`) is the current design. What changed here and why is in [the audit response](foundation-audit-response.md). The sections below are kept as the research record, with corrections marked.
+
 ## What it does
 
 The algorithm reads three inputs and returns **BUY, HOLD, SELL or SKIP** for a gold land contract:
@@ -86,9 +88,9 @@ We do **not** hard-wire the link between gold and real interest rates. That link
 
 ## Layer 2: Land value and its relationship to gold
 
-> **Land value = max(surface value, mineral option value) − cost of holding it**
+> **Corrected.** The first version used `max(surface value, mineral option value)`. That floor is withdrawn. An unpatented mining claim conveys mineral-development rights, not surface ownership ([BLM](https://www.blm.gov/programs/energy-and-minerals/mining-and-minerals/locatable-minerals/mining-claims)), so surface value only counts when a contract actually conveys a surface interest. The value is always the value **of the specific interest the contract conveys**: its rights, ownership fraction and dated cash flows.
 
-**Surface value** is the floor: what the land is worth with no gold. It comes from USDA land values, for example 2025 Mountain-region pasture at $946/acre ([NASS](https://data.nass.usda.gov/Publications/Highlights/2025/2025LandValuesCashRents_FINAL.pdf)), refined by local sales where they exist.
+**Surface value** applies only to patented or fee land where the surface is conveyed. It comes from USDA land values, for example 2025 Mountain-region pasture at $946/acre ([NASS](https://data.nass.usda.gov/Publications/Highlights/2025/2025LandValuesCashRents_FINAL.pdf)), refined by local sales where they exist.
 
 **Mineral option value.** Land over possible gold is an option on the gold price. This is the standard real-options view of mineral property:
 - [Brennan and Schwartz 1985](https://discovery.ucl.ac.uk/id/eprint/10107532/)
@@ -97,9 +99,11 @@ We do **not** hard-wire the link between gold and real interest rates. That link
 
 Value rises with the gold price, gold volatility and time left, and falls with development cost and holding cost.
 
-```text
-mineral option value = area × geology score × option factor(gold price, volatility, rates, cost, time)
-```
+> **Corrected.** The first version wrote `area × geology score × option factor`. That is not in dollars: the Kilburn method needs a base acquisition cost per area (its worked example is $500/km² × 25 km² × the four ratings), and multiplying by a gold option factor as well counts the gold price twice. Kept forms:
+>
+> - **Kilburn cross-check (secondary, in dollars):** `base acquisition cost per area × area × the four ratings`, with the base cost taken from staking costs and normalised comparables. It is a labelled cross-check beside comparable estimates, not the primary value.
+> - **Development option (later module):** a real option needs a project underneath it: resource ounces, development cost, operating costs and rights duration. Stream-sediment assays supply none of these, so this module stays off until those inputs exist.
+> - **First deliverable:** dated contract cash flows under labelled scenarios, as in the combined strategy.
 
 **Geology score.** The Kilburn rating multiplies four factors, each from 0.1 to 10: on-property, off-property, anomaly and geology ([AIMVA](https://smedg.org.au/old_site/AIMVA_Adamson_McIntyre_Sorentino_Aug2014.pdf)). Valuers use it for exploration land with no resource yet. The [CIMVAL 2019 code](https://www.valmin.org/docs/CIMVal-Code-November2019.pdf) says only cost and market approaches apply at this stage. Our inputs for each factor:
 - **Anomaly:** Tok gold assays.
@@ -149,12 +153,12 @@ It runs 3 seeds per variant, plus shock runs. The full mapping is in [the input 
   - the probability of a policy event (a tax rise, a mine approval, a protest)
   - buyer sentiment, which shifts time-to-sale and exit price
   - the gates
-- It enters as a **Black-Litterman-style view**: the model's estimate is blended with the swarm's, weighted by confidence. Its uncertainty is the spread across seeds plus a penalty of 3 × the model's own variance while it's unproven. That caps its weight at about 25%.
+- **Corrected:** in the first version the swarm's output was blended into the model's estimate as a Black-Litterman-style view, weighted at up to about 25%. That fusion is off. Same-model reruns aren't independent errors, so their spread isn't calibrated uncertainty, and a five-day output isn't a multi-year land forecast. The swarm now defines **labelled stress scenarios**. Each mapping (event → field → size → onset → duration) is explicit, and results are shown with and without it. Fusion can return later only with matched targets and resolved forecasts.
 - **Exclusion rules:**
   - Drop runs that fail the grounding check.
   - Don't use a view with fewer than 3 runs.
   - Never push probabilities toward extremes ("extremizing" only helps when forecasters hold different information).
-- **Earning more weight:** once 20 or more predictions resolve, recalibrate (Platt scaling, Brier score) and let the weight grow if it has earned it.
+- **Earning weight later:** 20 resolved predictions is a point at which to review the swarm's accuracy, not an automatic unlock. Calibrated fusion needs matched targets, resolved forecasts and held-out evidence that it adds value.
 
 **Jev** ([TypeSafe System One](https://typesafe.ai/blog/introducing-system-one-models-and-jev)) returns typed answers with probabilities. We use it on the input side only:
 - turning free-text swarm interviews into the typed fields above, if they arrive as text
@@ -192,7 +196,9 @@ Earn-in options are the most common real gold land contract. Arjin's Alaska tabl
 - royalty
 - what it conveys
 
-### Gates (checked first; any failure means SKIP)
+### Gates (checked first)
+
+Corrected: a known **failed** gate excludes entry, so SKIP stays feasible. An **unknown** gate gives `manual_review` or `insufficient_inputs` with no action, not SKIP. SKIP means the entry was evaluated and rejected.
 
 - **Title:** clear title and chain of title.
 - **Mineral rights:** they must be included. In the US the mineral estate can be separate from the surface.
@@ -203,6 +209,7 @@ Earn-in options are the most common real gold land contract. Arjin's Alaska tabl
 - **Water rights:** checked where relevant (Nevada).
 - **Broker deals:** the contract must be assignable.
 - **Domain:** the parcel is inside the model's domain, with enough comparables.
+- **Who may do the deal:** licensing and securities rules decide which actions this user can take. Principal trades (buying, optioning or leasing for yourself) need no licence. Brokerage for others does in some states, and selling fractions to passive investors can be a securities offering. Details and fields are in [land-contract licensing](land-contract-licensing.md).
 
 ### Decision rules
 
@@ -210,7 +217,7 @@ Each opportunity is valued under every feasible contract structure, and the best
 
 | Signal | When |
 |---|---|
-| **BUY** (enter the contract) | All of these hold: expected profit > the larger of the value of waiting and a hurdle of 0.5 × the profit spread; P(profit) ≥ 60%; average loss in the worst 5% of outcomes (CVaR 95) within the loss limit; true in at least 4 of 5 gold-price families. Size at ¼–½ Kelly, within a portfolio limit on total gold exposure |
+| **BUY** (enter the contract) | All of these hold: expected profit > the larger of the value of waiting and a hurdle of 0.5 × the profit spread; P(profit) ≥ 60%; average loss in the worst 5% of outcomes (CVaR 95) within the loss limit; true in every gold-price family actually enabled. Corrected: the first version said 4 of 5, but a Tier 1 build with two families can't meet that. The output reports which families were run and the action under each; the thresholds are versioned policy settings, not research constants. Size at ¼–½ Kelly, within a portfolio limit on total gold exposure |
 | **SKIP** (don't enter) | A gate fails, any BUY condition fails, the range is too wide, the swarm and the model strongly disagree, or portfolio limits are full |
 | **SELL** (sell, assign or exercise and resell) | Selling now beats holding by more than 0.25 × the spread, robustly; or the portfolio risk limit is breached |
 | **HOLD** (keep the contract) | Otherwise. Re-checked every quarter and before each fee or rent date |
@@ -226,15 +233,20 @@ Each opportunity is valued under every feasible contract structure, and the best
 - − price
 - − costs
 - − carry
-- + waiting value
-- − risk penalty
-- ± swarm adjustment
+- = net cash flow (the ledger; it must sum to the NPV)
+
+Shown beside the ledger, not inside it (corrected: the first version double-counted these):
+- waiting value, which is continuation minus act-now and already part of the optimised payoff
+- risk measures
+- the difference between results with and without each swarm scenario
 
 It also shows the top drivers, how many gold families agreed, and the gate results.
 
 ## Worked example (hand-checkable)
 
-**Fictional numbers chosen to check the arithmetic, not a real deal.** One gold-price family, no discounting, and a single 1-year horizon. The orders of magnitude come from real data:
+> **Withdrawn as evidence.** The $170–205/acre anchor comes from an antimony option and a bundled deal, not a gold-claim price at Tok. The example also assumes the land sells instantly at year end. Keep it only as an illustration of the rules. The verified acceptance case is the combined strategy's fixture (purchase $9,500 expected, option $12,600, SKIP when the premium rises to $16,000).
+
+**Fictional numbers chosen to check the arithmetic, not a real deal.** One gold-price family, no discounting, and a single 1-year horizon. The orders of magnitude originally came from:
 - Alaska claim packages sold for about $170–205 per acre (Avidian 2024 and US Antimony 2025, in Arjin's table).
 - Alaska rent is $100 per 40 acres a year for older claims. That rate comes from the 2000 statute, and its current CPI-adjusted value is unverified.
 
@@ -306,7 +318,7 @@ In the real engine these numbers come from thousands of paths across five famili
 
   For each, we show which signals flip.
 
-The honest limit: there are few priced land deals, so the strongest proof is in demand prediction against 2.4M dated claims, plus held-out deal checks. A precise per-acre price forecast is beyond what this data supports. No profit is guaranteed.
+The honest limit, corrected: claim-activity prediction against the dated claims proves **activity** forecasting only. It can't establish contract value or profit. Monetary claims need priced outcomes (held-out deals, realised cash flows), and Alaska transfer needs Alaska outcomes. Activity, monetary and decision results are validated and reported separately. No profit is guaranteed.
 
 ## Build order for the deadline (Sunday 12:00)
 
