@@ -44,6 +44,9 @@ jobs:
       - name: Verify evidence display contract
         run: npm test
 
+      - name: Typecheck Convex functions
+        run: npm run typecheck:backend
+
       - name: Build React website
         run: npm run build
 
