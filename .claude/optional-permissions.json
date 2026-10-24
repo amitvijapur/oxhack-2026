@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Read(!.env.example)",
+      "Read(!**/.env.example)",
+      "Read(./secrets/**)",
+      "Read(./**/secrets/**)",
+      "Read(./*.pem)",
+      "Read(./**/*.pem)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Edit(./**/.env)",
+      "Edit(./**/.env.*)",
+      "Edit(!.env.example)",
+      "Edit(!**/.env.example)",
+      "Edit(./secrets/**)",
+      "Edit(./**/secrets/**)",
+      "Edit(./*.pem)",
+      "Edit(./**/*.pem)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf /*)"
+    ]
+  }
+}

@@ -9,3 +9,4 @@
 - When Amit references a picture containing collaborator details, use the supplied image if it is available. If it is absent from the current chat, state that limitation and request the image or exact handles without guessing identities.
 - For GitHub branch protection, use the source-bound `checks` request format without the legacy `contexts` field. Test the request and read back effective rules before claiming enforcement; some schema combinations are rejected even when their values appear harmless.
 - This hackathon should not require teammate approvals to merge. Keep reviews optional and retain CI and security requirements. Do not reinstate mandatory teammate or latest-push approvals without Amit's request.
+- When adapting a teammate's kit, inspect the actual source first and import only the selected pieces. Keep local hooks and permission profiles opt-in, skills manual, and Cortex authoritative. Do not add review gates or extra workflows.

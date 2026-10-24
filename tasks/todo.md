@@ -1,5 +1,16 @@
 # OXHack preparation
 
+## Optional pieces from Muhammad's team kit
+
+Owner: Amit, with Codex integrating the selected tools. The kit source is the
+archive on `ahmed/team-kit-proposal` at `d517f31f842f9e8223d72175d797345a783743ef`.
+
+- [x] Inspect the actual archive and audit the selected source before execution.
+- [x] Adapt only the staged secret hook, manual debug and cleanup skills, and an explicitly loaded Claude deny profile.
+- [x] Document provenance, activation, limitations, and compatibility with Cortex and shared rules.
+- [x] Verify staged-only scanning, redaction, missing-tool behavior, skill safety, and unchanged workflow and approval requirements.
+- [x] Prepare integration through the existing protected PR flow. Track final hosted CI, merge, policy readback, and build-log completion in the PR and Obsidian log.
+
 - [x] Close Discord research at Amit's request. No server messages were accessed.
 - [x] Save Amit's Granola brief and label uncertainties and transcription issues.
 - [x] Inspect local Git tooling and prepare a minimal repository plan.
@@ -58,6 +69,19 @@ Owner: Amit, with Codex maintaining the repository configuration and documentati
 - [x] Merge the follow-up configuration/verification PR. PR #3 merged as `c08a66a`; the stored request omits legacy `contexts` when using `checks`.
 
 ## Review
+
+24 October 2026, optional kit import: inspected Muhammad's actual archive at
+`d517f31`, then adapted only the staged scan, two manual skills and supporting
+references, and an explicitly loaded deny profile. All 13 disposable-repository
+tests passed with Gitleaks 8.30.1. Shell syntax, JSON parsing, actionlint,
+whitespace, 17 local documentation links, manual skill metadata, both skill
+security audits, and the directory secret scan passed. Independent review
+caught and resolved environment-example negation syntax and preservation of
+default Git hooks. Pure-matcher probes against Claude Code 2.1.238 verified
+the intended example exceptions, but no full Claude tool permission invocation
+was tested. No hooks were activated in contributors' clones. The same two
+required checks and zero-approval policy were read back unchanged. Final hosted
+CI and integration results are recorded in the PR and external build log.
 
 24 October 2026, approval-policy update: the stored protection JSON changes only
 the required approval count from one to zero, stale-review dismissal to false,

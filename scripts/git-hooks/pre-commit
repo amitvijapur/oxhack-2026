@@ -1,0 +1,11 @@
+#!/bin/sh
+# Optional per-clone hook adapted from Muhammad's team kit. CI scans Git history.
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks is not installed; the local staged secret scan was skipped. CI still scans committed history." >&2
+  exit 0
+fi
+
+gitleaks git --pre-commit --staged --redact --no-banner || {
+  echo "pre-commit: commit blocked because the staged secret scan failed. Remove any real secret from the staged content and inspect scanner errors." >&2
+  exit 1
+}

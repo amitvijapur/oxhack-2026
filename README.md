@@ -35,6 +35,15 @@ secrets. Application build and test checks will be added with the selected stack
 Keep each PR small. Teammate review is optional; merge after the required CI
 checks pass on the current branch and all conversations are resolved.
 
+## Optional local tools
+
+The [selected tools from Muhammad's kit](docs/optional-team-kit.md) provide a
+staged secret scan, manual `/oxhack-debug` and `/oxhack-cleanup` skills for Claude
+Code, and an explicitly loaded Claude permission profile. The Git hook and deny
+profile are inactive until each teammate chooses to enable them. These tools
+add no review requirement or separate workflow. Cortex remains Amit's personal
+router.
+
 ## Application setup
 
 The language, framework, dependencies, and deployment approach are pending.
