@@ -1,0 +1,114 @@
+{
+  "retrieved_on": "2026-10-24",
+  "repository": "amitvijapur/oxhack-2026",
+  "files": [
+    {
+      "source_path": "research/gold-land-algorithm-foundation.md",
+      "ref": "ab660a94c3998e9345793987cd7f3342f93848a1",
+      "blob": "6154eca5a5f3d90409dec2f9bcc4793b7bd2a856",
+      "sha256": "422a6e3221c68efdf6631bc8568ed13c199d631a7c81cf39f01ce64b3d838dfe",
+      "bytes": 21950,
+      "lines": 324,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/ab660a94c3998e9345793987cd7f3342f93848a1/research/gold-land-algorithm-foundation.md"
+    },
+    {
+      "source_path": "research/foundation-input-contracts.md",
+      "ref": "ab660a94c3998e9345793987cd7f3342f93848a1",
+      "blob": "901a5af7276fc3fd65d5e0abace6cc2212b9dd2b",
+      "sha256": "57ced3fa4b899fcd773bfba6ff9ab40c31d3de81a746a925db49335fcee99b50",
+      "bytes": 7137,
+      "lines": 125,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/ab660a94c3998e9345793987cd7f3342f93848a1/research/foundation-input-contracts.md"
+    },
+    {
+      "source_path": "research/gold-contract-comparables/README.md",
+      "ref": "ab660a94c3998e9345793987cd7f3342f93848a1",
+      "blob": "0dda4cbd754df964349ce43282c2be3f8f191c82",
+      "sha256": "46b15aa30b5ce1dc51981c7efaa0b336ab5a7b41b051a2ddb47d47ed1ba44d3f",
+      "bytes": 6716,
+      "lines": 55,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/ab660a94c3998e9345793987cd7f3342f93848a1/research/gold-contract-comparables/README.md"
+    },
+    {
+      "source_path": "research/gold-contract-comparables/nv_az_gold_contracts.csv",
+      "ref": "ab660a94c3998e9345793987cd7f3342f93848a1",
+      "blob": "776d02f0a2828460aff0b5ead73d390bdc355c69",
+      "sha256": "31a3bf142012652b0156b94f4e64811e38090c20ed11a7553645397d42306b84",
+      "bytes": 24322,
+      "lines": 41,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/ab660a94c3998e9345793987cd7f3342f93848a1/research/gold-contract-comparables/nv_az_gold_contracts.csv"
+    },
+    {
+      "source_path": "research/gold-swarm-plan.md",
+      "ref": "75d9bd12fc53977f7e8d97213cb2f9032d52f46d",
+      "blob": "778ce8131d586d83cb4fbb844524aa825e7e012c",
+      "sha256": "56c9253caf5620cc560d6bd21f757aa2aa4862da7bae023d4d5e4af705999876",
+      "bytes": 10468,
+      "lines": 117,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/75d9bd12fc53977f7e8d97213cb2f9032d52f46d/research/gold-swarm-plan.md"
+    },
+    {
+      "source_path": "research/algorithm.md",
+      "ref": "3a84a2ce77644521229bd1f4d61fea03c7ee1635",
+      "blob": "cea3b6b4cbcbc8c030ff422d1f5b1a92c28d2b4c",
+      "sha256": "0cc74073ad9a9887b28739f54e6b3d8e2b5f4f626be7894511ce51480fd28481",
+      "bytes": 37339,
+      "lines": 487,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/3a84a2ce77644521229bd1f4d61fea03c7ee1635/research/algorithm.md"
+    },
+    {
+      "source_path": "research/tok-land/README.md",
+      "ref": "9517fc23379eea77b567af28c17587b273490b0a",
+      "blob": "4a7f5cd8be4a9468211feff570a0404c84baa7e7",
+      "sha256": "1e14b0e7ea01af6564fea42860bc434a2127d9eb6181fc5525ee0692eea6a36c",
+      "bytes": 6155,
+      "lines": 55,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/9517fc23379eea77b567af28c17587b273490b0a/research/tok-land/README.md"
+    },
+    {
+      "source_path": "research/tok-land/tok_land_summary.json",
+      "ref": "9517fc23379eea77b567af28c17587b273490b0a",
+      "blob": "5b80a0aaebaa6edb328d442d11a5d096b63ea98e",
+      "sha256": "e6b10a778649b2353621f1537e9b78805768811fa5661b1480885cd7d6a57cc9",
+      "bytes": 2553,
+      "lines": 131,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/9517fc23379eea77b567af28c17587b273490b0a/research/tok-land/tok_land_summary.json"
+    },
+    {
+      "source_path": "research/tok-land/tok_sample_claim_matches.csv",
+      "ref": "9517fc23379eea77b567af28c17587b273490b0a",
+      "blob": "91cfab7b32383a4db19cb64f2a3e71ada5b65fb1",
+      "sha256": "1c508ffcbe7ae4a2924a4e1dad222ade7ea58e09155c91af72ec7c547a8fef55",
+      "bytes": 7608,
+      "lines": 77,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/9517fc23379eea77b567af28c17587b273490b0a/research/tok-land/tok_sample_claim_matches.csv"
+    },
+    {
+      "source_path": "research/tok-land/gold_deal_comparables.csv",
+      "ref": "9517fc23379eea77b567af28c17587b273490b0a",
+      "blob": "62f16a18973aa41268daf701c757646046c756a2",
+      "sha256": "507c369e562c4001f6b8a225906c67004171bf1eeeaf3af4670e6c5340336945",
+      "bytes": 5358,
+      "lines": 11,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/9517fc23379eea77b567af28c17587b273490b0a/research/tok-land/gold_deal_comparables.csv"
+    },
+    {
+      "source_path": "research/tok-land/tok_land_claims.py",
+      "ref": "9517fc23379eea77b567af28c17587b273490b0a",
+      "blob": "23f49120589345769dba67bcb073d163fdd980b0",
+      "sha256": "3c703c2366d40e6c3802ae74cb3d61f68375e468b7ff9fe1efc57eefc28fa7d0",
+      "bytes": 11432,
+      "lines": 222,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/9517fc23379eea77b567af28c17587b273490b0a/research/tok-land/tok_land_claims.py"
+    },
+    {
+      "source_path": "research/nv-az-claims/download_claims.py",
+      "ref": "4fce36c0667365a13dcb585167a78085003b969a",
+      "blob": "4e6d05cf8476bc826653270e4c9abab59c60e654",
+      "sha256": "09a9c5dc136a710b69618736ae92462deb9f37c89feca028c3a4f2968cb775d6",
+      "bytes": 4304,
+      "lines": 110,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/4fce36c0667365a13dcb585167a78085003b969a/research/nv-az-claims/download_claims.py"
+    }
+  ]
+}

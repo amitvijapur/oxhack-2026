@@ -1,5 +1,15 @@
 # OXHack preparation
 
+## Combined gold strategy for team review, 24 October 2026
+
+Owner: Amit for publication and integration; Salman retains decision-engine ownership. Amit requested this publication so Salman can review the synthesis alongside PR #23. Scope is the combined strategy and its research, review, fixture and source manifest.
+
+- [x] Reconcile Salman's foundation at `ab660a9` with amendments A1–A8, preserving his new catalogue and handoffs.
+- [x] Independently review the combined design and verify the purchase/option example, funding and timing cases.
+- [x] Prepare the strategy and all referenced local research dependencies in a clean checkout; verify link closure and publication scope.
+
+Review: [combined strategy](../research/gold-land-strategy.md), [comparison and verification](../research/strategy-amendments/reconciliation.md). The design separates real evidence, assumed cash flows and empirical predictions. Hosted check and publication status are recorded on the PR for `codex/combined-gold-land-strategy`. This document change does not implement the engine or merge Salman's PR.
+
 ## Gold stakeholder swarm on MiroFish (owner: Muhd)
 
 Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).
