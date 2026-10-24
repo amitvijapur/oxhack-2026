@@ -4,10 +4,12 @@
 
 Owner: Amit. Publish the existing branch and a prerelease handoff in the existing private repository. No merge or repository-setting change.
 
-- [ ] Verify local artifact hashes and push the branch with clear team download instructions.
-- [ ] Publish separate A/B ZIPs, the complete source/method handoff and archive manifest as GitHub release assets.
-- [ ] Update draft PR #20 to the gold scope, verify downloaded assets and remote commit, and inspect current CI results.
-- [ ] Record verified access instructions and publication links in Obsidian and the final handoff.
+- [x] Verify local artifact hashes and push the branch with clear team download instructions.
+- [x] Publish separate A/B ZIPs, the complete source/method handoff and archive manifest as GitHub release assets.
+- [x] Update draft PR #20 to the gold scope, verify downloaded assets and remote commit, and inspect current CI results.
+- [x] Record verified access instructions and publication links in Obsidian and the final handoff.
+
+Review: [gold-evidence-v1](https://github.com/amitvijapur/oxhack-2026/releases/tag/gold-evidence-v1) is published with A/B ZIPs, the complete bundle and archives.json. Independent fresh downloads matched all sizes/hashes and 77 internal checksums. A33/B34 coverage and all three teammate accounts' read access were verified. [Draft PR #20](https://github.com/amitvijapur/oxhack-2026/pull/20) describes the gold scope. GitHub reports conflicts with main and no current CI checks; integration remains with the repository-maintenance workstream. No merge or settings change.
 
 ## Build approved Tok River gold A/B packs
 

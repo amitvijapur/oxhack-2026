@@ -49,3 +49,11 @@ All 67 land-template rows are `not_evaluated`, with every contract field blank. 
 - Source and method files are unchanged. The earlier copper extractor, tests, selection and handoff archives are preserved.
 
 The source remains a targeted historical survey. It does not establish undrilled status, land availability, economic deposits or predictive accuracy. No model, MiroFish run, contract lookup, repository-policy change or merge was performed.
+
+## Published team handoff
+
+[Gold A/B data handoff v1](https://github.com/amitvijapur/oxhack-2026/releases/tag/gold-evidence-v1) is published as a prerelease in the existing private repository. [Download instructions](gold-data-downloads.md) cover both browser and GitHub CLI access. The release is pinned to `e01d14f51d5a975425f4e84b296a9e85f8fea408`; later branch changes record publication results only.
+
+Independent downloads verified all three ZIP sizes/hashes, the identical archive manifest and all 77 internal checksums. Standalone and complete-bundle samples match, with A33/B34 and no overlap. All three teammate accounts have repository read/write access, which permits signed-in download of the private release.
+
+Draft PR #20 remains unmerged. GitHub reports conflicts with main and no current CI checks on the publication head. Branch checkout and data downloads are available independently of integration; merge/CI work remains with the repository-maintenance workstream.
