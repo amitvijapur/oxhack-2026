@@ -9,6 +9,7 @@ so the interviews happen against the agents' own memories of the run.
 """
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -111,8 +112,13 @@ def main():
     interviewees = sorted(
         a["agent_id"] for a in config.get("agent_configs", []) if a.get("tier") in (1, 2)
     )
-    meta = {"sim_dir": str(sim_dir), "seed": config.get("seed"), "max_rounds": args.max_rounds,
-            "interviewees": interviewees, "started": now()}
+    git = lambda *a: subprocess.run(["git", "-C", str(MIROFISH_BACKEND.parent), *a],
+                                    capture_output=True, text=True).stdout
+    meta = {"sim_dir": str(sim_dir), "scenario": config.get("scenario"), "seed": config.get("seed"),
+            "max_rounds": args.max_rounds, "interviewees": interviewees, "started": now(),
+            "mirofish_commit": git("rev-parse", "HEAD").strip(),
+            # Hash of every patch on top of upstream MiroFish, so a result can be tied to exact code.
+            "patch_sha256": hashlib.sha256(git("diff", "7657031", "HEAD").encode("utf-8")).hexdigest()}
 
     cmd = ["uv", "run", "python", "scripts/run_parallel_simulation.py", "--config", str(config_path)]
     if args.max_rounds:

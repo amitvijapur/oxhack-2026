@@ -35,6 +35,20 @@ RUN_ORDER = [  # plan section 5: what the checks need comes first
 
 SIM_HOURS = 120  # 5 simulated days
 DAY3_HOUR = 48
+# MiroFish's own default for 61 entities (entities//15, entities//5). Its LLM-written config
+# allowed up to 50 agents a round, roughly 5,000 model calls a run.
+AGENTS_PER_HOUR = (4, 12)
+# MiroFish stores countries in Chinese even when the prompts are English.
+COUNTRY = {"美国": "United States", "加拿大": "Canada", "日本": "Japan", "瑞士": "Switzerland",
+           "英国": "United Kingdom", "中国": "United States", "": "United States", None: "United States"}
+# Personas sometimes describe how the character "would act in a simulation"; an agent that
+# reads that may play itself as simulated, so those sentences are removed.
+META = re.compile(r"\b(simulat\w*|fiction\w*|invented)\b", re.I)
+
+
+def strip_meta(text: str) -> str:
+    sentences = re.split(r"(?<=[.!?])\s+", text or "")
+    return " ".join(s for s in sentences if not META.search(s)).strip()
 
 
 def norm(name: str) -> str:
@@ -98,14 +112,14 @@ def build_society(cast, twitter, reddit, config):
             rd = dict(reddit[old])
             base_cfg = dict(by_id.get(old, {}))
         sentence, activity = TEMPERAMENT[c["temperament"]]
-        persona = f"{rd.get('persona', '').strip()} {sentence}".strip()
-        rd.update({"user_id": new_id, "name": c["name"], "persona": persona})
-        if rd.get("country") in (None, "", "中国"):
-            rd["country"] = "United States"
+        persona = f"{strip_meta(rd.get('persona', ''))} {sentence}".strip()
+        rd.update({"user_id": new_id, "name": c["name"], "persona": persona,
+                   "bio": strip_meta(rd.get("bio", ""))[:150] or c["role"][:150]})
+        rd["country"] = COUNTRY.get(rd.get("country"), rd.get("country"))
         rd_rows.append(rd)
         # The Reddit bio is cut to 150 characters; the Twitter description keeps the full one.
         full_bio = twitter[old].get("description") if old is not None and old < len(twitter) else None
-        bio = (full_bio or rd.get("bio") or c["role"]).replace("\n", " ")
+        bio = strip_meta(full_bio or rd.get("bio") or c["role"]).replace("\n", " ") or c["role"]
         tw_rows.append({"user_id": new_id, "name": c["name"], "username": rd["username"],
                         "user_char": f"{bio} {persona}".replace("\n", " "), "description": bio})
         cfg = {k: v for k, v in base_cfg.items() if k not in ("agent_id",)}
@@ -132,6 +146,7 @@ def write_run(out: Path, config, tw_rows, rd_rows, agent_cfgs, scenarios, scenar
     tc = cfg.setdefault("time_config", {})
     tc["total_simulation_hours"] = SIM_HOURS
     tc["minutes_per_round"] = minutes
+    tc["agents_per_hour_min"], tc["agents_per_hour_max"] = AGENTS_PER_HOUR
     ev = cfg.setdefault("event_config", {})
     ev["initial_posts"] = [{"poster_agent_id": wire, "poster_type": "NewsWire", "content": scenarios["day1"]}]
     day3 = scenarios["day3"].get(scenario)
