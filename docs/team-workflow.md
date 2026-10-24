@@ -14,6 +14,18 @@ protected-branch requirements. A branch-protection readback must confirm this
 policy is enforced; if GitHub plan limits prevent it, record that limitation
 here and in the task list rather than claiming enforcement.
 
+The intended API configuration is versioned in
+[main-branch-protection.json](../.github/main-branch-protection.json).
+Its required check issuer, GitHub Actions App ID `15368`, was read from this
+repository's hosted check runs. A repository administrator can apply it with:
+
+```sh
+gh api --method PUT repos/amitvijapur/oxhack-2026/branches/main/protection \
+  --input .github/main-branch-protection.json
+```
+
+Read the resulting protection back from GitHub before reporting enforcement.
+
 ## Initial CI boundary
 
 `Repository checks` verifies whitespace and workflow validity. `Secret scan`

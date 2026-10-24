@@ -44,6 +44,7 @@
 - [x] Add stack-neutral CI for repository hygiene and secret scanning, with pinned dependencies and minimal permissions. Local positive and negative checks and independent review passed.
 - [ ] Document the PR workflow and configure one approval, required CI, resolved conversations, and protections against force pushes where supported.
 - [ ] Verify CI with both passing runs and a safe deliberate failure, independently review the change, and integrate it.
+- [x] Prove hosted CI rejects a temporary trailing-whitespace defect. Run `40092708257` failed `Repository checks` on that defect and passed `Secret scan`; remove the probe before merge.
 - [ ] Verify the effective GitHub settings and invitation state, then update the plan and Obsidian with any plan limitations.
 
 ## Review
