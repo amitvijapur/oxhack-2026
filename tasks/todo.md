@@ -11,6 +11,17 @@ Owner: Amit for publication and integration. The website source is under `fronte
 
 Delivery branch: `codex/tok-evidence-frontend`. Publication uses a pull request; it does not deploy the site or merge unrelated research. Larger raw/generated packs remain outside Git; the bundled website snapshot is self-contained.
 
+## Vercel hosting and Convex backend scaffold, 25 October 2026
+
+Owner: Salman. Branch `salman/vercel-convex`, stacked on `codex/tok-evidence-frontend`.
+
+- [x] Add an optional Convex backend (`frontend/convex/`) with an empty schema, a `health.ping` query and an add-a-workstream recipe; the site keeps working without it.
+- [x] Add `vercel.json`, a build script that deploys Convex only when a deploy key is present, and CSP/security headers mirrored by `npm run preview`.
+- [x] Install the Convex AI guidelines and agent skills; record cached upstream sources in `.claude/references/cached-sources.md`.
+- [x] Fix phone-width map attribution covering the zoom/compass controls, keep the sample ID visible while scrolling the records table, and de-duplicate timeline labels.
+- [ ] Salman: link the Convex project and Vercel project and add the deploy keys (steps in `frontend/README.md`).
+- [ ] Wire each teammate output into Convex once its display contract is agreed.
+
 ## Gold stakeholder swarm on MiroFish (owner: Muhd)
 
 Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).

@@ -66,8 +66,9 @@ The Arizona soil extractor and its artifacts remain available as the earlier pro
 
 ## Application setup
 
-The Tok River evidence website uses React, Vite and MapLibre. It runs locally;
-deployment remains out of scope. Use Node.js 24.14.0 and npm:
+The Tok River evidence website uses React, Vite and MapLibre, with an optional
+Convex backend for teammate outputs and Vercel hosting configuration. It runs
+locally without either account. Use Node.js 24.14.0 and npm:
 
 ```sh
 cd frontend
@@ -90,7 +91,8 @@ npm run preview -- --port 4173 --strictPort
 
 `Frontend checks` runs the evidence-contract tests and production build in CI.
 The existing `Repository checks` and `Secret scan` job names remain unchanged.
-Hosted results are not established by a local build.
+Hosted results are not established by a local build. Backend and deployment
+steps are in [the frontend guide](frontend/README.md#run-with-the-convex-backend).
 
 ## Open decisions
 

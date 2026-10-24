@@ -26,10 +26,52 @@ tiles. These external context layers need internet access. Attribution remains v
 unavailable, a geographic sample plot preserves point selection and the records
 table remains usable. A basemap service failure is labelled explicitly.
 
+## Run with the Convex backend
+
+The backend is optional. In a second terminal:
+
+```sh
+npm run dev:backend
+```
+
+The first run asks you to log in and create or choose a Convex project, then
+writes `VITE_CONVEX_URL` to the ignored `.env.local`. Restart `npm run dev` to
+pick it up. Without an account,
+`CONVEX_AGENT_MODE=anonymous npx convex dev` runs a local backend on
+`127.0.0.1:3210` instead. The Workstreams section shows "Backend connected" once
+`health.ping` answers, and "Backend not configured" when no URL is set. See
+[the backend guide](convex/README.md) to add a workstream.
+
+## Deploy to Vercel
+
+`vercel.json` holds the build settings and response headers. The build entry is
+`scripts/vercel-build.sh`: with `CONVEX_DEPLOY_KEY` set it runs
+`npx convex deploy --cmd 'npm run build'`, which pushes the Convex functions and
+builds the site with that deployment's `VITE_CONVEX_URL`; without it the static
+site is built alone.
+
+One-time setup, by the account owner:
+
+1. Push the functions once from your machine with `npm run dev:backend`, logged in.
+2. In Vercel, import the GitHub repository and set **Root Directory** to
+   `frontend`. The framework, install and build commands come from `vercel.json`.
+3. In the Convex dashboard, generate a **production deploy key** and add it in
+   Vercel as `CONVEX_DEPLOY_KEY` for the **Production** environment only. For
+   preview deployments, generate a **preview deploy key** and add it as
+   `CONVEX_DEPLOY_KEY` for **Preview** only. Convex refuses a production key in
+   a non-production Vercel build.
+4. Push a branch to get a preview URL; merge to `main` for production.
+
+The Content-Security-Policy allows only this site, OpenFreeMap tiles, the
+Mapzen terrain bucket and `*.convex.cloud`. If you add an external service,
+extend `vercel.json`; `npm run preview` serves the same headers locally, so a
+blocked request shows in the browser console before deployment.
+
 ## Verify and preview a production build
 
 ```sh
 npm test
+npm run typecheck:backend
 npm run build
 npm run preview -- --port 4173 --strictPort
 ```
