@@ -3,8 +3,8 @@
 - [x] Close Discord research at Amit's request. No server messages were accessed.
 - [x] Save Amit's Granola brief and label uncertainties and transcription issues.
 - [x] Inspect local Git tooling and prepare a minimal repository plan.
-- [ ] Review the brief and repository proposal against Amit's notes.
-- [ ] Agree the repository scaffold and main coding harness, then configure the team's Git environment while idea selection continues.
+- [x] Review the brief and repository proposal against Amit's notes.
+- [x] Agree and publish the shared repository scaffold and main coding harness while idea selection continues.
 
 ## Repository and harness discussion
 
@@ -13,7 +13,8 @@
 - [x] Clarify the team setup. Amit uses Codex with Cortex; teammates use Claude Code and shared repository rules.
 - [x] Agree repository owner, name, and initial visibility: `amitvijapur/oxhack-2026`, private. Amit requires public visibility before submission.
 - [ ] Obtain teammate handles and grant the agreed access.
-- [ ] Create the agreed minimal shared scaffold and remote, then verify the remote and teammate access. Once application code exists, verify setup from a fresh clone.
+- [x] Create the agreed minimal shared scaffold and private remote; verify main and the scaffold from a fresh clone.
+- [ ] Verify teammate access after invitations. Once application code exists, verify application setup from a fresh clone.
 
 ## Mixed-tool harness comparison
 
@@ -31,12 +32,12 @@
 - [x] Confirm the workload requiring speed is the project algorithm. Amit wants Rust kept under consideration without selecting a language or framework yet.
 - [ ] Confirm Rust experience if needed when selecting the implementation language.
 - [x] Review shared rules for compatibility and verify the initial files without running package installs. The Claude import and local Markdown links pass; no Cargo or application dependency manifest was created.
-- [ ] Record agreed decisions and remaining questions in the repository plan and Obsidian.
-- [ ] Once owner/name/visibility are supplied, initialize and publish the agreed repository and verify its remote.
+- [x] Record agreed decisions and remaining questions in the repository plan. The existing Obsidian build log is maintained separately.
+- [x] Initialize and publish `amitvijapur/oxhack-2026`; verify its private visibility, main branch, and initial remote commit.
 - [ ] Make the repository public before submission, after reviewing its contents and confirming event repository rules. Exact submission time remains unknown.
 
 ## Review
 
 24 October 2026: Discord was inaccessible and Amit then cancelled that research. The Granola notes are the working event brief. Local Git and author identity are available. GitHub CLI authentication for `amitvijapur` was successfully verified outside the sandbox; the earlier restricted check is superseded and no re-login is needed. The proposal is in `research/repository-plan.md`. The owner, name, initial visibility, and harness are agreed. Teammate handles, stack, data source, and exact submission deadline remain open.
 
-The agreed setup is one shared repository, short task branches, a concise portable `AGENTS.md`, a `CLAUDE.md` compatibility import, and clear file ownership. Amit uses Codex with Cortex and teammates use Claude Code with skills only. Shared files have been created and reviewed. The alternatives are in `research/harness-comparison.md`; no additional workflow installation is required to start. Git setup is proceeding for `amitvijapur/oxhack-2026`, private initially and public before submission. Rust remains a candidate for algorithm runtime performance. Delta onboarding and sponsor eligibility still require confirmation. No application language or framework has been selected.
+The agreed setup is one shared repository, short task branches, a concise portable `AGENTS.md`, a `CLAUDE.md` compatibility import, and clear file ownership. Amit uses Codex with Cortex and teammates use Claude Code with skills only. The private repository is live at https://github.com/amitvijapur/oxhack-2026. The initial commit is `9d518ca`; GitHub confirms `main` as the default branch and private visibility. A fresh clone passed file, import, commit, clean-checkout, and ignore-rule checks. Gitleaks found no leaks in the initial files, and the staged whitespace check passed. No application exists yet, so application execution has not been tested. The repository must become public before submission. Rust remains a candidate for algorithm runtime performance. Teammate invitations await readable usernames; Amit referenced a picture that is unavailable in this chat. Delta onboarding and sponsor eligibility still require confirmation. No application language or framework has been selected.

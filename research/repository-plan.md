@@ -1,6 +1,6 @@
 # Proposed OXHack repository plan
 
-Status: shared harness and repository identity agreed. Create `amitvijapur/oxhack-2026` as private and make it public before submission. Git initialization and remote creation are in progress alongside idea selection.
+Status: the shared harness is published at https://github.com/amitvijapur/oxhack-2026. The repository is private with `main` as its default branch. Make it public before submission. Project ideation and application stack selection continue separately.
 
 ## Decisions we can make now
 
@@ -45,10 +45,11 @@ If the unconventional-data idea is selected, record each observation's availabil
 - [ ] Obtain teammate handles and grant access.
 - [x] Agree the minimal stack-neutral scaffold and main coding harness.
 - [x] Accept the successful external GitHub CLI authentication verification for `amitvijapur` using HTTPS. No re-login is needed.
-- [ ] Initialize the local repository and create or connect the agreed remote.
+- [x] Initialize the local repository and publish the initial commit to the agreed private remote.
 - [x] Add the agreed README, shared instructions, ignore rules, and planning files.
 - [ ] Once the project direction is agreed, select the stack and package manager, then add application files, dependency lockfiles, configuration examples, and setup instructions as needed.
-- [ ] Verify a fresh clone can run the project.
+- [x] Verify the initial shared scaffold from a fresh clone, including instruction imports and ignore rules.
+- [ ] Once executable code exists, verify a fresh clone can run the application.
 - [ ] Verify teammates can access the remote and understand branch/task ownership.
 - [ ] If targeting Delta, onboard at least two teammates and verify collaboration early.
 - [ ] Make the repository public before submission after reviewing its contents and confirming event requirements.
@@ -62,4 +63,4 @@ If the unconventional-data idea is selected, record each observation's availabil
 
 ## Review
 
-The shared harness and private repository identity are agreed. GitHub setup can proceed while language and framework decisions remain open. Collaborator access remains pending teammate handles. Public visibility is required by Amit before submission; the exact submission deadline and event repository requirements remain unknown.
+The private remote and initial commit were verified on GitHub. The fresh clone passed the scaffold checks, and Gitleaks reported no leaks in the initial files. Application execution remains untested because the application has not been selected or built. Collaborator access is pending readable teammate handles. Public visibility is required by Amit before submission; the exact submission deadline and event repository requirements remain unknown.

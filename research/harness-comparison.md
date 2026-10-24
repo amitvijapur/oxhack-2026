@@ -1,6 +1,6 @@
 # OXHack build harness comparison
 
-24 October 2026. Status: Amit accepted Cortex for his own work and shared repository rules for the team. No additional workflow installation is planned. The application stack remains open; repository setup is proceeding separately.
+24 October 2026. Status: Amit accepted Cortex for his own work and shared repository rules for the team. The shared scaffold is published in the private `amitvijapur/oxhack-2026` repository. No additional workflow installation is planned. The application stack remains open.
 
 ## Confirmed team setup
 
