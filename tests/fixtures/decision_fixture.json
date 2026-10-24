@@ -1,0 +1,114 @@
+{
+  "schema_version": "proposal-1",
+  "fixture_id": "one-interest-five-day-option",
+  "status": "hypothetical_scenario",
+  "currency": "USD",
+  "purpose": "Check cash-flow arithmetic and permitted decisions. This is not a priced Tok River property, a mineral forecast or a market valuation.",
+  "interest": {
+    "id": "fictional-interest-01",
+    "fraction": 1.0,
+    "rights_status": "assumed_for_fixture",
+    "sample_or_land_record_match": null,
+    "surface_value_component_usd": null
+  },
+  "information": {
+    "at_day_0": "Contract terms and assumed scenario probabilities are known. The future buyer bid is hidden.",
+    "at_day_5": "An assumed firm, executable buyer bid is observed before the option exercise decision and remains valid through settlement.",
+    "liquidity_and_counterparty_status": "assumed_for_fixture",
+    "uncertainty_not_modelled": ["buyer_default", "title_failure", "unknown_transaction_costs"]
+  },
+  "annual_discount_rate": 0.0,
+  "day_count_basis": 365,
+  "cash_budget_usd": 105000,
+  "allowed_borrowing_usd": 0,
+  "policy": {
+    "objective": "maximise_expected_discounted_net_cashflow",
+    "maximum_loss_within_declared_scenarios_usd": 5000,
+    "tie_break": "SKIP"
+  },
+  "purchase": {
+    "entry_day": 0,
+    "price_usd": 100000,
+    "entry_fee_usd": 2000,
+    "carry_usd": 500,
+    "carry_payment_day": 5,
+    "exit_fee_usd": 2000,
+    "exit_day": 5,
+    "funding_rule": "Fund entry price and entry fee on day 0, then carry on day 5 before buyer receipts; the exit fee is deducted from those receipts."
+  },
+  "purchase_option": {
+    "premium_usd": 3000,
+    "premium_payment_day": 0,
+    "strike_usd": 100000,
+    "exercise_fee_usd": 2000,
+    "exit_fee_usd": 2000,
+    "allowed_exercise_days": [5],
+    "early_exercise_allowed": false,
+    "exercise_deadline_day": 5,
+    "closing_deadline_day": 5,
+    "settlement_delay_days": 0,
+    "exit_day": 5,
+    "funding_rule": "Fund premium, strike and exercise fee before receiving the buyer proceeds; exit fee is deducted from those proceeds."
+  },
+  "scenarios": [
+    {
+      "id": "higher_bid",
+      "probability": 0.6,
+      "probability_status": "assumed",
+      "gross_executable_bid_usd": 130000,
+      "bid_available_day": 5,
+      "bid_status": "assumed"
+    },
+    {
+      "id": "lower_bid",
+      "probability": 0.4,
+      "probability_status": "assumed",
+      "gross_executable_bid_usd": 90000,
+      "bid_available_day": 5,
+      "bid_status": "assumed"
+    }
+  ],
+  "expected_results": {
+    "purchase": {
+      "scenario_net_cashflows_usd": [25500, -14500],
+      "expected_net_cashflow_usd": 9500,
+      "worst_loss_within_scenarios_usd": 14500,
+      "required_cash_before_exit_usd": 102500,
+      "passes_loss_constraint": false
+    },
+    "purchase_option": {
+      "exercise_decisions": ["EXERCISE", "LAPSE"],
+      "scenario_net_cashflows_usd": [23000, -3000],
+      "expected_net_cashflow_usd": 12600,
+      "worst_loss_within_scenarios_usd": 3000,
+      "required_cash_before_exit_usd": 105000,
+      "passes_loss_constraint": true
+    },
+    "skip_expected_net_cashflow_usd": 0,
+    "selected_action": "BUY",
+    "selected_instrument": "purchase_option"
+  },
+  "boundary_cases": [
+    {
+      "change": "purchase_option.premium_usd = 16000",
+      "expected_option_net_cashflow_usd": -400,
+      "expected_selected_action": "SKIP",
+      "reason": "Option has negative expected value and breaches both funding and loss constraints. Purchase still breaches the loss constraint."
+    },
+    {
+      "change": "purchase_option.settlement_delay_days = 1",
+      "expected_selected_action": "SKIP",
+      "reason": "The only permitted exercise is day 5 and settlement would complete on day 6, after the day-5 closing deadline. Purchase still breaches the loss constraint."
+    },
+    {
+      "change": "cash_budget_usd = 104000",
+      "expected_selected_action": "SKIP",
+      "reason": "The option requires 105000 of available cash on its exercise branch. Purchase still breaches the loss constraint."
+    },
+    {
+      "change": "Remove the assumed buyer bids without supplying supported replacements",
+      "expected_status": "insufficient_inputs",
+      "expected_selected_action": null
+    }
+  ]
+}
