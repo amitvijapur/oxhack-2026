@@ -6,7 +6,7 @@
 
 **Mineral intelligence over time.**
 
-[Explore the demo](https://oxhack-land-arbitrage.vercel.app) · [Follow the swarm](https://oxhack-land-arbitrage.vercel.app/swarm) · [Pitch PDF](pitch/orecast/output/orecast-pitch.pdf) · [Editable deck](pitch/orecast/output/orecast-pitch.pptx) · [Run locally](#run-locally)
+[Explore the demo](https://oxhack-land-arbitrage.vercel.app) · [Follow the swarm](https://oxhack-land-arbitrage.vercel.app/swarm) · [Pitch PDF](pitch/orecast/output/orecast-consistent-lot-review.pdf) · [Editable deck](pitch/orecast/output/orecast-consistent-lot-review.pptx) · [Run locally](#run-locally)
 
 Orecast brings geological evidence, simulated stakeholder reactions and time-dependent
 contract economics into one inspectable decision. Explore Tok River, Alaska, follow
@@ -117,7 +117,9 @@ determine exposure. Returns are non-annualized. The [model guide](model/tok-opti
 and [contract-pricing research](research/orecast-contract-pricing/README.md) explain
 the arithmetic and limitations.
 
-The linked deck is the previous published version. The reviewed consistent-lot slides will be published separately after this code merge. Use the [model guide](model/tok-option/README.md) and [results report](research/orecast-contract-pricing/consistent-lot-review.md) for current economics.
+The [approved ten-slide deck and handoff](pitch/orecast/README.md) use this consistent
+synthetic interest. Publication is authorized; the artifact filenames retain
+`consistent-lot-review` and their frozen build-time provenance.
 
 ## Know what each layer means
 
@@ -185,7 +187,7 @@ for numerical checks and [the frontend guide](frontend/README.md) for browser sm
 | [`frontend/`](frontend/README.md) | Next.js, React, TypeScript and Cesium explorer, API routes and optional Convex integration. |
 | [`model/tok-option/`](model/tok-option/README.md) | Shared pure JavaScript evidence, gold, assignment, liquidity and portfolio engine. |
 | [`research/`](research/) | Source contracts, acquisition steps, simulation provenance, experiments and preserved planning history. |
-| [`pitch/orecast/`](pitch/orecast/README.md) | Previous published deck and notes; reviewed replacement follows the code merge. |
+| [`pitch/orecast/`](pitch/orecast/README.md) | Approved ten-slide deck, five-minute notes, source images and archived earlier decks. |
 | [`brand/orecast/`](brand/orecast/BRAND.md) | Orecast wordmarks, DM Sans fonts, palette tokens and usage rules. |
 | [`docs/`](docs/architecture.md) | Architecture, infrastructure, collaboration and remaining work. |
 

@@ -1,10 +1,21 @@
 # Orecast pitch and brand kit
 
-The [current Orecast deck](orecast/README.md) contains updated gold-first algorithm
-figures, a five-minute rehearsal guide and portable model notes. Edit
-[the current PPTX](orecast/output/orecast-pitch.pptx) and use
-[the PDF](orecast/output/orecast-pitch.pdf) as the appearance reference.
+The [approved current Orecast deck](orecast/README.md) defines one synthetic
+whole-contract interest and makes the fee sensitivity and no-sale branch explicit.
+Its seven main slides total five minutes; three appendices support questions.
+Edit [the ten-slide PPTX](orecast/output/orecast-consistent-lot-review.pptx) and use
+[the PDF](orecast/output/orecast-consistent-lot-review.pdf) as the appearance reference.
+Follow [the rehearsal](orecast/rehearsal-consistent-lot-review.md) and
+[portable speaking notes](orecast/slide-notes-consistent-lot-review.json).
 [Brand assets and guidelines](../brand/orecast/BRAND.md) are shared in the repository.
+
+Publication of these reviewed artifacts is authorized. Their `review` filenames
+and build-time local-review statements are retained as provenance. The active
+[handoff guide](orecast/README.md) explains this publication context.
+
+The [earlier nine-slide Orecast PPTX](orecast/output/orecast-pitch.pptx) and
+[PDF](orecast/output/orecast-pitch.pdf) are archived cost-only examples and are not
+the current presentation. The binaries remain unchanged.
 
 ## Earlier neutral-title deck
 
