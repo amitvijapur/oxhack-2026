@@ -42,7 +42,8 @@ Publication review confirmed the approved PPTX/PDF bytes, nine matching note par
 licences and image attribution. Whitespace and redacted directory scans passed.
 The 29 changed paths contain only brand/presentation assets and their index notes.
 
-Integration review: preserved main's new Decide/Land/Crowd panel from PR 48.
+Integration review: preserved main's new Decide/Land/Crowd panel from PR 48
+and the additional Swarm walkthrough tab from PR 49.
 Decide separates observed evidence PASS/FAIL from the canonical whole-lot cash
 decision, keeps live gold separate, and exposes the detailed calculator and
 negative historical validation through disclosures. The financial model,

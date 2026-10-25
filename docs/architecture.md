@@ -14,7 +14,7 @@ horizons. This is a demonstrator; no validated investment edge is established.
    the 67-sample A/B handoff. Source identities and dates stay attached.
 3. `src/components/earth/Earth.tsx` creates the Cesium 1.146.0 viewer. Esri imagery,
    Terrarium terrain and optional Macrostrat geology add geographic context.
-   Land, Ground and Market tabs share selection with the globe.
+   Decide, Land, Crowd and Swarm panels preserve the current explorer navigation.
 4. Decide presents the canonical 90-day baseline separately from the evidence screen.
    Its Detailed hypothetical model disclosure embeds `ModelWorkbench.jsx`. All financial evaluation flows through
    `model/tok-option/workbench.mjs`, also used by the offline demo and export CLI.

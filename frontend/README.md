@@ -1,10 +1,11 @@
 # Tok River application
 
 The Next.js application presents **Orecast**, a Cesium explorer for
-Tok River, Alaska. The side panel has three tabs. Decide (the default) shows the
+Tok River, Alaska. The side panel has four tabs. Decide (the default) shows the
 live gold spot, the observed gold-evidence screen and a separately labelled
 hypothetical whole-contract cash decision. Land lists the sampled plots with a short
-plot card. Crowd charts the judged swarm scenarios. The site opens on today: claims held now and the gold spot, then
+plot card. Crowd charts the judged swarm scenarios, and Swarm explains the
+recorded workflow with a link to the full calculation page. The site opens on today: claims held now and the gold spot, then
 plays the next 12 months forward using the model's descriptive 2020–25 gold
 trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
 the hypothetical demo contract (`projectionHorizons` in `src/lib/canonical-model.js`).
