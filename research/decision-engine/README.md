@@ -110,7 +110,13 @@ python3 scripts/policy_extract.py swarm/records/pilot/interviews.json
 - **Rules fallback:** otherwise a keyword rule answers. On the pilot's 48 answers it labelled 22 review or delay, 13 approve with conditions, 2 tax change and 1 approve, and left 10 unlabelled. That's where Jev would add the most.
 - The label annotates the policy call only and never changes a value.
 
-**Jev as a sentiment labeller.** Against the judge's cold/warm/hot labels on the pilot's 277 on-topic posts, Jev reaches kappa 0.42 (moderate) and a rank correlation of 0.60. It took 8.6 seconds and cost $0.005 for all 296 posts. That makes it a useful, almost free second rater for the scored runs, but not a replacement for the pre-registered judge. See [the Jev sentiment check](jev-sentiment-check.md).
+**Jev as a sentiment labeller.**
+- **Held-out agreement:** on the test half of the pilot's posts, Jev agrees with the judge at weighted kappa about 0.2 (wide intervals: only 16 hot and 3 cold posts).
+- **Prompt redesigns:** none of four beat the simplest version. Dropping the author's role reduces its lean towards "hot".
+- **Day-1 group support:** it ranks the groups like the judge, about 0.5 points higher, so it works as a robustness check on scenario effects.
+- **Gold set:** a blind 91-post human set is ready to score.
+
+See [the Jev sentiment check](jev-sentiment-check.md) and [the gold set](gold-set/README.md).
 
 Observation for the swarm team: in the pilot, several agents doubt the $4,500 premise ("Last I checked it's around $2k/oz"). That's a model knowledge-cutoff effect that may weaken the price calls. The engine doesn't use the swarm's price call.
 

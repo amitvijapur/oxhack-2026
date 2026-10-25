@@ -462,3 +462,62 @@ class SentimentCheckTests(unittest.TestCase):
         answer = sentiment.read_answers(response, 1)[0]
         self.assertEqual(answer["label"], "hot")
         self.assertEqual(answer["p_on_topic"], 0.95)
+
+
+class SentimentResearchTests(unittest.TestCase):
+    def test_gwet_ac2_hand_value(self):
+        self.assertAlmostEqual(sentiment.gwet_ac2([("warm", "warm"), ("warm", "hot")]), 0.8)
+        self.assertAlmostEqual(sentiment.gwet_ac2([("warm", "warm")] * 3), 1.0)
+
+    def test_krippendorff_ordinal_bounds(self):
+        perfect = [("cold", "cold"), ("warm", "warm"), ("hot", "hot")]
+        self.assertAlmostEqual(sentiment.krippendorff_ordinal(perfect), 1.0)
+        near = [("cold", "warm"), ("warm", "warm"), ("hot", "hot")]
+        far = [("cold", "hot"), ("warm", "warm"), ("hot", "hot")]
+        self.assertGreater(sentiment.krippendorff_ordinal(near), sentiment.krippendorff_ordinal(far))
+
+    def test_weighted_kappa_penalises_distant_errors_more(self):
+        base = [("warm", "warm")] * 6 + [("hot", "hot")] * 2 + [("cold", "cold")] * 2
+        near = base + [("cold", "warm")]
+        far = base + [("cold", "hot")]
+        self.assertGreater(sentiment.weighted_kappa(near), sentiment.weighted_kappa(far))
+
+    def test_split_is_stratified_disjoint_and_seeded(self):
+        posts = [{"score": s, "platform": "x", "round": i, "agent_id": i, "text": f"p{i}"}
+                 for i, s in enumerate([2] * 4 + [5] * 20 + [8] * 6 + [None] * 3)]
+        design, test = sentiment.split(posts)
+        self.assertEqual(sentiment.split(posts), (design, test))
+        self.assertFalse({p["text"] for p in design} & {p["text"] for p in test})
+        for label in ("cold", "warm", "hot"):
+            d = sum(sentiment.bucket(p["score"]) == label for p in design)
+            t = sum(sentiment.bucket(p["score"]) == label for p in test)
+            self.assertLessEqual(abs(d - t), 1)
+
+    def test_v3_rules(self):
+        t = {"opposes": 0.7, "strong_support": 0.5, "conditional": 0.85}
+        nouls = lambda o, c, s: {"opposes": o, "concern": 0.5, "conditional": c, "strong_support": s}
+        self.assertEqual(sentiment.v3_label(nouls(0.9, 0.1, 0.1), t), "cold")
+        self.assertEqual(sentiment.v3_label(nouls(0.1, 0.1, 0.9), t), "hot")
+        self.assertEqual(sentiment.v3_label(nouls(0.1, 0.9, 0.9), t), "warm")  # conditional support stays warm
+
+
+GOLD_SPEC = importlib.util.spec_from_file_location("gold_set", ROOT / "scripts/gold_set.py")
+gold = importlib.util.module_from_spec(GOLD_SPEC)
+GOLD_SPEC.loader.exec_module(gold)
+
+
+class GoldSetTests(unittest.TestCase):
+    def test_strata_and_inclusion_probabilities(self):
+        posts = [{"score": s, "text": f"p{i}"} for i, s in enumerate([2, 8, 5, 5, 5, 5, None])]
+        labels = ["warm", "warm", "hot", "warm", "warm", "warm", "warm"]
+        chosen = gold.strata(posts, labels, both_warm=2)
+        by = {}
+        for post, stratum, pi in chosen:
+            by.setdefault(stratum, []).append(pi)
+        self.assertEqual(sorted(by), ["both_warm", "jev_extreme", "judge_cold", "judge_hot"])
+        self.assertEqual(by["both_warm"], [2 / 3, 2 / 3])  # 2 of the 3 posts both call warm
+        self.assertEqual(by["judge_cold"], [1.0])
+
+    def test_weighted_agreement_upweights_sampled_items(self):
+        rows = [("warm", "warm", 3.0), ("hot", "warm", 1.0)]
+        self.assertEqual(gold.weighted_agreement(rows)["accuracy"], 0.75)

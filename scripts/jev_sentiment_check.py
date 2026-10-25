@@ -1,34 +1,43 @@
 #!/usr/bin/env python3
-"""Can Jev label the Tok society's posts cold / warm / hot as well as the swarm's judge?
+"""How well can Jev label the Tok society's posts cold / warm / hot, and which labeller design is best?
 
 Reads the pilot's judged posts (`swarm/records/pilot/scores.jsonl` on ahmed/gold-society-plan): each
 has the gpt-5.4-mini judge's 0-10 support score (cold 0-3, warm 4-6, hot 7-10, or n/a when off topic).
-Muhd's hand scores for 30 of them (`swarm/records/judge-check/`) are the human reference.
+The judge is a reference, not ground truth; a human gold set (scripts/gold_set.py) settles that.
 
-For every post Jev answers two typed questions in one request batch: a Score over three levels that
-mirror the judge prompt's own definitions, and a Noul for "is this about gold mining at Tok?".
-Agreement is measured with accuracy, macro-F1 and Cohen's kappa (the labels are mostly "warm", so an
-always-warm baseline is shown too), plus rank correlation with the 0-10 score. Responses are cached
-under data/generated/jev_sentiment/ (ignored by Git), so a rerun costs nothing.
+To avoid tuning to the test set, the judged posts are split 50/50 by a seeded draw stratified by the
+judge's label. Boundary examples (variant V2) and thresholds (V3, V4) come only from the design half;
+every variant is scored once on the test half and logged. Variants:
+  V0  baseline: the post and its author's role in each question; three plain levels
+  V1  the same without the author's role (the judge rubric forbids inferring stance from role)
+  V2  structured levels with boundary examples and a not_for note; stance, not tone
+  V2r V2 with the levels listed in reverse order (an order-bias check; labels mapped back)
+  V3  five atomic yes/no questions combined by fixed rules with design-half thresholds
+  V4  escalation: keep the V1 label when its top probability is at least tau, else send to the judge
+Metrics: quadratic and linear weighted kappa, Gwet's AC2, ordinal Krippendorff alpha, accuracy,
+macro-F1, recall per judge class, and MAE and signed bias on the 0-10 scale, with bootstrap CIs.
+Responses are cached under data/generated/jev_sentiment/ (ignored by Git), so a rerun costs nothing.
 
 Usage: python3 scripts/jev_sentiment_check.py SCORES_JSONL [--human-sample CSV --human-key CSV]
-       [--batch 25] [--dry-run]
+       [--batch 25] [--dry-run] [--output JSON]
 Needs TYPESAFE_API_KEY in the environment or a local .env, unless --dry-run.
 """
 from __future__ import annotations
 
 import argparse
-from collections import Counter
+from collections import Counter, defaultdict
 import csv
 import hashlib
 import json
 import os
 from pathlib import Path
+import random
 import time
+import urllib.error
 import urllib.request
 
 JEV_URL = "https://api.typesafe.ai/v1/systemone"
-MODEL = "jev-latest"
+MODEL = "jev-1.14.0"  # pinned, as TypeSafe advises once questions are tuned
 LABELS = ("cold", "warm", "hot")
 LEVELS = [  # the judge prompt's definitions, as situations (swarm/judge_prompt.txt)
     "cold: the author is against gold mining at Tok; wants it blocked, stopped, taxed away, sold or avoided",
@@ -39,6 +48,15 @@ CONTEXT = ("Posts from a simulated social network about gold mining near Tok, Al
            "mines, the ore haul and mining approvals. For investors, appetite to buy gold or gold-mining "
            "exposure counts as support, and wanting to sell or avoid it counts as opposition. Judge each "
            "author's own stance, not that of people they quote; read sarcasm as its intended meaning.")
+STANCE_NOTE = ("Judge the author's stance on gold mining at Tok, not their tone: polite, practical or constructive "
+               "wording is not support, and worried or critical wording is not opposition unless the author "
+               "takes a side.")
+ATOMIC = {  # V3: one judgment per question, combined in code
+    "opposes": "Does the author say gold mining at Tok, or investing in gold, should be stopped, blocked, taxed away, sold or avoided?",
+    "concern": "Does the author raise a concern or doubt about gold mining at Tok, its effects, or the gold price claim?",
+    "conditional": "Does the author make their support depend on conditions being met, such as safety, roads, water or proof?",
+    "strong_support": "Does the author clearly want mining at Tok approved or expanded, or say they are buying gold or gold-mining exposure?",
+}
 PRICE_PER_MILLION_INPUT_TOKENS = 0.042  # USD, TypeSafe's published price; output tokens are free
 CACHE = Path("data/generated/jev_sentiment/cache.jsonl")
 
@@ -62,17 +80,98 @@ def api_key():
     return None
 
 
-def build_request(posts):
-    """One request for a batch: a Score and a Noul per post, each with the post in its own instructions."""
+# --------------------------------------------------------------------------- split and examples
+
+
+def split(posts, seed=2026):
+    """Seeded 50/50 split of judged posts, stratified by the judge's label: (design, test)."""
+    by_label = defaultdict(list)
+    for p in posts:
+        if p["score"] is not None:
+            by_label[bucket(p["score"])].append(p)
+    rng = random.Random(seed)
+    design, test = [], []
+    for label in LABELS:
+        group = sorted(by_label[label], key=lambda p: (p["platform"], p["round"], p["agent_id"], p["text"]))
+        rng.shuffle(group)
+        half = (len(group) + 1) // 2
+        design += group[:half]
+        test += group[half:]
+    return design, test
+
+
+def boundary_examples(design, per_level=2, length=220):
+    """Real design-half posts nearest each boundary: cold 2-3, warm 4 and 6, hot 7-8 (judge scores)."""
+    pick = lambda scores: [p["text"][:length] for p in design if p["score"] in scores][:per_level]
+    return {"cold": pick((3, 2)), "warm": pick((6,))[:1] + pick((4,))[:1], "hot": pick((7, 8))}
+
+
+# --------------------------------------------------------------------------- requests per variant
+
+
+def quoted(post, role=True):
+    who = f'Author: {post["name"]} ({post["group"]})\n' if role else ""
+    return f'{who}Post: """{post["text"]}"""'
+
+
+def build_request(posts, variant="V0", examples=None):
+    """One request for a batch of posts under a labeller design."""
     questions = {}
     for i, post in enumerate(posts):
-        quoted = f'Author: {post["name"]} ({post["group"]})\nPost: """{post["text"]}"""'
-        questions[f"support_{i}"] = {"type": "score", "criteria": LEVELS,
-                                     "instructions": f"How much does the author support gold mining at Tok?\n{quoted}"}
+        role = variant == "V0"
+        text = quoted(post, role)
+        if variant in ("V0", "V1"):
+            questions[f"support_{i}"] = {"type": "score", "criteria": LEVELS,
+                                         "instructions": f"How much does the author support gold mining at Tok?\n{text}"}
+        elif variant in ("V2", "V2r"):
+            levels = [
+                {"what": LEVELS[0], "examples": examples["cold"]},
+                {"what": LEVELS[1], "examples": examples["warm"],
+                 "includes": "practical suggestions, conditional or cautious support, questions about a source"},
+                {"what": LEVELS[2], "examples": examples["hot"],
+                 "not_for": "conditional or cautious support, or constructive talk about doing it safely; those are warm"},
+            ]
+            if variant == "V2r":
+                levels = levels[::-1]
+            questions[f"support_{i}"] = {"type": "score", "criteria": levels,
+                                         "instructions": f"How much does the author support gold mining at Tok?\n{text}"}
+        elif variant == "V3":
+            for name, ask in ATOMIC.items():
+                questions[f"{name}_{i}"] = {"type": "noul", "instructions": f"{ask}\n{text}"}
         questions[f"on_topic_{i}"] = {"type": "noul", "instructions":
                                       "Does this post say anything that bears on gold mining at Tok, gold-mining "
-                                      f"investment or the gold price?\n{quoted}"}
-    return {"model": MODEL, "state": {"context": CONTEXT}, "questions": questions}
+                                      f"investment or the gold price?\n{text}"}
+    context = CONTEXT if variant in ("V0", "V1") else f"{CONTEXT} {STANCE_NOTE}"
+    return {"model": MODEL, "state": {"context": context}, "questions": questions}
+
+
+def read_answers(response, n, variant="V0"):
+    out = []
+    for i in range(n):
+        row = {"p_on_topic": response["answers"][f"on_topic_{i}"]["noul"]}
+        if variant == "V3":
+            row["nouls"] = {name: response["answers"][f"{name}_{i}"]["noul"] for name in ATOMIC}
+        else:
+            support = response["answers"][f"support_{i}"]
+            order = LABELS[::-1] if variant == "V2r" else LABELS
+            probs = {order[int(k)]: v for k, v in support["probabilities"].items()}
+            row.update(label=max(probs, key=probs.get), probabilities=probs,
+                       score_0_10=5 * sum(LABELS.index(l) * v for l, v in probs.items()),
+                       confidence=support.get("confidence"))
+        out.append(row)
+    return out
+
+
+def v3_label(nouls, t):
+    """Fixed rule order: clear opposition is cold; strong support without conditions is hot; else warm."""
+    if nouls["opposes"] >= t["opposes"] and nouls["strong_support"] < 0.5:
+        return "cold"
+    if nouls["strong_support"] >= t["strong_support"] and nouls["conditional"] < t["conditional"]:
+        return "hot"
+    return "warm"
+
+
+# --------------------------------------------------------------------------- calling Jev
 
 
 def ask(request, key):
@@ -105,15 +204,22 @@ def cached_ask(request, key):
     return response, seconds, False
 
 
-def read_answers(response, n):
-    out = []
-    for i in range(n):
-        support = response["answers"][f"support_{i}"]
-        probs = {LABELS[int(k)]: v for k, v in support["probabilities"].items()}
-        out.append({"label": max(probs, key=probs.get), "probabilities": probs, "score_0_2": support["score"],
-                    "confidence": support.get("confidence"),
-                    "p_on_topic": response["answers"][f"on_topic_{i}"]["noul"]})
-    return out
+def run_variant(posts, variant, key, batch, examples=None):
+    answers, stats = [], {"requests": 0, "cached": 0, "seconds": [], "input_tokens": 0}
+    for start in range(0, len(posts), batch):
+        chunk = posts[start:start + batch]
+        response, took, hit = cached_ask(build_request(chunk, variant, examples), key)
+        answers += read_answers(response, len(chunk), variant)
+        stats["requests"] += 1
+        stats["cached"] += hit
+        stats["seconds"].append(took)
+        stats["input_tokens"] += response.get("usage", {}).get("input_tokens", 0)
+    stats["seconds_per_request_median"] = round(sorted(stats.pop("seconds"))[stats["requests"] // 2], 3)
+    stats["cost_usd"] = round(stats["input_tokens"] / 1e6 * PRICE_PER_MILLION_INPUT_TOKENS, 6)
+    return answers, stats
+
+
+# --------------------------------------------------------------------------- metrics
 
 
 def agreement(pairs):
@@ -138,23 +244,108 @@ def agreement(pairs):
                                                  for a in LABELS}}
 
 
-def spearman(xs, ys):
-    def ranks(v):
-        order = sorted(range(len(v)), key=lambda i: v[i])
-        r = [0.0] * len(v)
-        i = 0
-        while i < len(v):
-            j = i
-            while j + 1 < len(v) and v[order[j + 1]] == v[order[i]]:
-                j += 1
-            for k in range(i, j + 1):
-                r[order[k]] = (i + j) / 2
-            i = j + 1
-        return r
-    rx, ry = ranks(xs), ranks(ys)
-    mx, my = sum(rx) / len(rx), sum(ry) / len(ry)
-    cov = sum((a - mx) * (b - my) for a, b in zip(rx, ry))
-    return cov / (sum((a - mx) ** 2 for a in rx) * sum((b - my) ** 2 for b in ry)) ** 0.5
+def weighted_kappa(pairs, quadratic=True):
+    """Cohen's weighted kappa with linear or quadratic disagreement weights."""
+    n, k, ix = len(pairs), len(LABELS), {l: i for i, l in enumerate(LABELS)}
+    observed = [[0] * k for _ in range(k)]
+    for a, b in pairs:
+        observed[ix[a]][ix[b]] += 1
+    rows = [sum(r) for r in observed]
+    cols = [sum(observed[i][j] for i in range(k)) for j in range(k)]
+    weight = lambda i, j: ((i - j) ** 2 / (k - 1) ** 2) if quadratic else abs(i - j) / (k - 1)
+    disagree = sum(weight(i, j) * observed[i][j] for i in range(k) for j in range(k))
+    expected = sum(weight(i, j) * rows[i] * cols[j] / n for i in range(k) for j in range(k))
+    return 1 - disagree / expected if expected else None
+
+
+def gwet_ac2(pairs):
+    """Gwet's AC2 with quadratic agreement weights; robust to the kappa paradox under imbalance."""
+    n, k, ix = len(pairs), len(LABELS), {l: i for i, l in enumerate(LABELS)}
+    weight = lambda i, j: 1 - (i - j) ** 2 / (k - 1) ** 2
+    pa = sum(weight(ix[a], ix[b]) for a, b in pairs) / n
+    share = [(sum(a == l for a, _ in pairs) + sum(b == l for _, b in pairs)) / (2 * n) for l in LABELS]
+    total_weight = sum(weight(i, j) for i in range(k) for j in range(k))
+    pe = total_weight / (k * (k - 1)) * sum(s * (1 - s) for s in share)
+    return (pa - pe) / (1 - pe)
+
+
+def krippendorff_ordinal(pairs):
+    """Krippendorff's alpha for two coders with the ordinal metric (no missing values)."""
+    ix = {l: i for i, l in enumerate(LABELS)}
+    counts = Counter()
+    for a, b in pairs:
+        counts[ix[a]] += 1
+        counts[ix[b]] += 1
+    total = 2 * len(pairs)
+
+    def delta(c, k):
+        lo, hi = min(c, k), max(c, k)
+        return (sum(counts[g] for g in range(lo, hi + 1)) - (counts[lo] + counts[hi]) / 2) ** 2
+
+    observed = sum(2 * delta(ix[a], ix[b]) for a, b in pairs) / total
+    expected = sum(counts[c] * counts[k] * delta(c, k) for c in range(3) for k in range(3)) / (total * (total - 1))
+    return 1 - observed / expected if expected else None
+
+
+def full_metrics(pairs, scores=None, draws=2000, seed=0):
+    """All agreement metrics for (reference, predicted) labels, with bootstrap CIs for the ordinal ones.
+
+    ``scores`` (optional) are (reference 0-10, predicted 0-10) pairs for MAE and signed bias."""
+    out = agreement(pairs)
+    out.update(weighted_kappa_quadratic=round(weighted_kappa(pairs), 4),
+               weighted_kappa_linear=round(weighted_kappa(pairs, False), 4),
+               gwet_ac2=round(gwet_ac2(pairs), 4), krippendorff_alpha_ordinal=round(krippendorff_ordinal(pairs), 4),
+               recall_by_reference={l: (round(sum(a == b == l for a, b in pairs) / c, 4) if (c := sum(a == l for a, _ in pairs)) else None)
+                                    for l in LABELS})
+    rng = random.Random(seed)
+    boots = {"weighted_kappa_quadratic": [], "gwet_ac2": []}
+    for _ in range(draws):
+        sample = [rng.choice(pairs) for _ in pairs]
+        if len({a for a, _ in sample} | {b for _, b in sample}) > 1:
+            boots["weighted_kappa_quadratic"].append(weighted_kappa(sample) or 0.0)
+            boots["gwet_ac2"].append(gwet_ac2(sample))
+    for name, values in boots.items():
+        values.sort()
+        out[f"{name}_95ci"] = [round(values[int(0.025 * len(values))], 4), round(values[int(0.975 * len(values)) - 1], 4)]
+    if scores:
+        out["mae_0_10"] = round(sum(abs(p - r) for r, p in scores) / len(scores), 3)
+        out["signed_bias_0_10"] = round(sum(p - r for r, p in scores) / len(scores), 3)
+    return out
+
+
+def tune_v3(design_posts, design_answers):
+    """Grid-search V3's thresholds on the design half by quadratic weighted kappa."""
+    best, best_t = None, None
+    grid = (0.3, 0.5, 0.7, 0.85)
+    for o in grid:
+        for s in grid:
+            for c in grid:
+                t = {"opposes": o, "strong_support": s, "conditional": c}
+                pairs = [(bucket(p["score"]), v3_label(a["nouls"], t)) for p, a in zip(design_posts, design_answers)]
+                k = weighted_kappa(pairs) if len({b for _, b in pairs}) > 1 else -1
+                if best is None or k > best:
+                    best, best_t = k, t
+    return best_t, round(best, 4)
+
+
+def escalation(test_posts, answers, tau):
+    """Keep Jev's label when its top probability is at least tau; otherwise the post goes to the judge."""
+    kept = [(bucket(p["score"]), a["label"]) for p, a in zip(test_posts, answers) if max(a["probabilities"].values()) >= tau]
+    return {"tau": tau, "share_escalated": round(1 - len(kept) / len(test_posts), 4),
+            "agreement_on_posts_jev_keeps": agreement(kept)}
+
+
+def daily_support(posts, answers):
+    """Mean 0-10 support per group per simulated day under Jev's labels, like score.py's daily table."""
+    table = defaultdict(lambda: defaultdict(list))
+    for p, a in zip(posts, answers):
+        if a.get("p_on_topic", 1) >= 0.5 and "score_0_10" in a:
+            table[p["group"]][p.get("day", 1)].append(a["score_0_10"])
+    return {g: {str(d): {"support": round(sum(v) / len(v), 3), "posts": len(v)} for d, v in sorted(days.items())}
+            for g, days in table.items()}
+
+
+# --------------------------------------------------------------------------- main
 
 
 def main():
@@ -164,47 +355,64 @@ def main():
     parser.add_argument("--human-key", type=Path)
     parser.add_argument("--batch", type=int, default=25)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--output", type=Path, default=Path("data/generated/jev_sentiment/report.json"))
     args = parser.parse_args()
     posts = [json.loads(line) for line in args.scores.read_text().splitlines() if line.strip()]
     judged = [p for p in posts if p["score"] is not None]
-    report = {"posts": len(posts), "on_topic_by_judge": len(judged),
+    design, test = split(posts)
+    examples = boundary_examples(design)
+    report = {"model": MODEL, "posts": len(posts), "judged": len(judged),
               "judge_labels": dict(Counter(bucket(p["score"]) for p in judged)),
-              "always_warm_baseline": agreement([(bucket(p["score"]), "warm") for p in judged])}
-    batches = [posts[i:i + args.batch] for i in range(0, len(posts), args.batch)]
+              "split": {"design": dict(Counter(bucket(p["score"]) for p in design)),
+                        "test": dict(Counter(bucket(p["score"]) for p in test))},
+              "always_warm_on_test": full_metrics([(bucket(p["score"]), "warm") for p in test], draws=200)}
     key = None if args.dry_run else api_key()
     if key is None:
-        report["jev"] = ("dry run: no calls made" if args.dry_run else "TYPESAFE_API_KEY not set; no calls made")
-        report["requests_planned"] = len(batches)
-        report["example_request"] = build_request(batches[0][:1])
+        report["jev"] = "dry run: no calls made" if args.dry_run else "TYPESAFE_API_KEY not set; no calls made"
+        report["example_requests"] = {v: build_request(test[:1], v, examples) for v in ("V0", "V1", "V2", "V3")}
         print(json.dumps(report, indent=2))
         return
-    answers, seconds, tokens, cached = [], [], 0, 0
-    for batch in batches:
-        response, took, hit = cached_ask(build_request(batch), key)
-        answers += read_answers(response, len(batch))
-        seconds.append(took)
-        tokens += response.get("usage", {}).get("input_tokens", 0)
-        cached += hit
-    on_topic_pairs = [(p, a) for p, a in zip(posts, answers) if p["score"] is not None]
-    report["jev_vs_judge"] = agreement([(bucket(p["score"]), a["label"]) for p, a in on_topic_pairs])
-    report["jev_vs_judge"]["spearman_with_0_10_score"] = round(
-        spearman([a["score_0_2"] for _, a in on_topic_pairs], [p["score"] for p, _ in on_topic_pairs]), 4)
-    off = [(p["score"] is None, a["p_on_topic"] < 0.5) for p, a in zip(posts, answers)]
-    report["off_topic_detection"] = {"judge_off_topic": sum(j for j, _ in off), "jev_off_topic": sum(k for _, k in off),
-                                     "both": sum(j and k for j, k in off)}
-    report["speed_and_cost"] = {"requests": len(batches), "cached": cached,
-                                "seconds_per_request_median": round(sorted(seconds)[len(seconds) // 2], 3),
-                                "posts_per_request": args.batch, "input_tokens": tokens,
-                                "cost_usd": round(tokens / 1e6 * PRICE_PER_MILLION_INPUT_TOKENS, 6)}
+    results, cost = {}, {}
+    for variant in ("V0", "V1", "V2", "V2r"):
+        answers, stats = run_variant(test, variant, key, args.batch, examples)
+        cost[variant] = stats
+        pairs = [(bucket(p["score"]), a["label"]) for p, a in zip(test, answers)]
+        scores = [(p["score"], a["score_0_10"]) for p, a in zip(test, answers)]
+        results[variant] = full_metrics(pairs, scores)
+        if variant == "V2":
+            v2_answers = answers
+        if variant == "V1":
+            v1_answers = answers
+            # tau for V4 from the design half
+            design_answers, _ = run_variant(design, "V1", key, args.batch, examples)
+            taus = {}
+            for tau in (0.6, 0.7, 0.8, 0.9):
+                kept = [(bucket(p["score"]), a["label"]) for p, a in zip(design, design_answers)
+                        if max(a["probabilities"].values()) >= tau]
+                taus[tau] = (weighted_kappa(kept) if len({b for _, b in kept}) > 1 else 0, len(kept) / len(design))
+            tau = max((t for t in taus if taus[t][1] >= 0.6), key=lambda t: taus[t][0], default=0.8)
+    design_v3, _ = run_variant(design, "V3", key, args.batch)
+    thresholds, design_kappa = tune_v3(design, design_v3)
+    test_v3, cost["V3"] = run_variant(test, "V3", key, args.batch)
+    results["V3"] = full_metrics([(bucket(p["score"]), v3_label(a["nouls"], thresholds)) for p, a in zip(test, test_v3)])
+    results["V3"]["thresholds_from_design_half"] = thresholds
+    results["V3"]["design_half_weighted_kappa"] = design_kappa
+    results["V4"] = escalation(test, v1_answers, tau)
+    order_agree = sum(a["label"] == b["label"] for a, b in zip(v2_answers, run_variant(test, "V2r", key, args.batch, examples)[0]))
+    report.update(variants_on_test_half=results, cost=cost, boundary_examples_from_design_half=examples,
+                  v2_order_check={"same_label_when_levels_reversed": round(order_agree / len(test), 4)})
+    all_v1, _ = run_variant(posts, "V1", key, args.batch, examples)
+    report["daily_support_v1_all_posts"] = daily_support(posts, all_v1)
+    off = [(p["score"] is None, a["p_on_topic"] < 0.5) for p, a in zip(posts, all_v1)]
+    report["off_topic_v1_all_posts"] = {"judge_off_topic": sum(j for j, _ in off),
+                                        "jev_off_topic": sum(k for _, k in off), "both": sum(j and k for j, k in off)}
     if args.human_sample and args.human_key:
         texts = {row["text"]: row for row in csv.DictReader(args.human_sample.open(encoding="utf-8-sig"))}
-        by_text = {p["text"]: a for p, a in zip(posts, answers)}
-        judge_by_id = {row["id"]: row for row in csv.DictReader(args.human_key.open(encoding="utf-8-sig"))}
-        human = [(bucket(row["muhd_score"]), by_text[t]["label"], bucket(judge_by_id[row["id"]]["judge_score"]))
-                 for t, row in texts.items() if t in by_text and bucket(row["muhd_score"])]
-        report["vs_muhd_hand_scores"] = {"jev": agreement([(h, j) for h, j, _ in human]),
-                                         "gpt_judge": agreement([(h, g) for h, _, g in human if g])}
-    report["model"] = MODEL
+        by_text = {p["text"]: a for p, a in zip(posts, all_v1)}
+        report["vs_muhd_hand_scores_v1"] = agreement([(bucket(r["muhd_score"]), by_text[t]["label"])
+                                                     for t, r in texts.items() if t in by_text and bucket(r["muhd_score"])])
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 
