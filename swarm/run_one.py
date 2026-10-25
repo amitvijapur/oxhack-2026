@@ -1,7 +1,7 @@
 """Run one prepared MiroFish simulation folder headless, then interview it.
 
 Usage:
-    python swarm/run_one.py <sim_dir> [--max-rounds N] [--timeout-hours H]
+    python swarm/run_one.py <sim_dir> [--max-rounds N] [--timeout-hours H] [--provider openai|glm]
 
 The runner keeps its environment open after the last round and takes interview
 commands as JSON files (MiroFish run_parallel_simulation.py, ParallelIPCHandler),
@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -32,6 +33,22 @@ MODEL_ENV = {
     # OASIS swallows agent API errors and MiroFish mutes that logger; the client's own
     # request lines are the only record of rate limits or rejected calls.
     "OPENAI_LOG": "info",
+}
+
+# Z.ai's GLM coding plan, used after the OpenAI budget ran out (runs 04-09, 25 Oct). The key is read
+# from MiroFish's .env (GLM_API_KEY) and passed to the runner only; run_meta records these settings.
+GLM_ENV = {
+    "LLM_BASE_URL": "https://api.z.ai/api/coding/paas/v4",
+    "LLM_MODEL_NAME": "glm-5.3",
+    "LLM_TIER1_MODEL": "glm-5.3",
+    "LLM_TIER2_MODEL": "glm-5.3-flash",
+    "LLM_TIER3_MODEL": "glm-5.3-flash",
+    "LLM_BOOST_API_KEY": "",
+    "OPENAI_LOG": "info",
+    # Uncapped Reddit memories reached 277k tokens on OpenAI; cap them and show 10 comments per post.
+    "AGENT_MEMORY_TOKEN_LIMIT": "100000",
+    "MAX_COMMENTS_PER_POST": "10",
+    "LLM_SEMAPHORE": "10",
 }
 
 # Fixed before any scored run (plan section 6); changing it breaks comparability.
@@ -85,6 +102,27 @@ def wait_response(sim_dir: Path, command_id: str, proc, timeout_s: float):
     raise TimeoutError(f"no response to {command_id} after {timeout_s:.0f}s")
 
 
+def glm_key() -> str:
+    for line in (MIROFISH_BACKEND.parent / ".env").read_text(encoding="utf-8").splitlines():
+        if line.startswith("GLM_API_KEY="):
+            return line.split("=", 1)[1].strip()
+    raise RuntimeError("GLM_API_KEY is missing from MiroFish's .env")
+
+
+def count_api_errors(log_path: Path, state: dict) -> int:
+    """Running count of rate-limit and server errors in the runner log. OASIS swallows agent API
+    errors, so without this a run that ran out of quota would carry on with silent agents."""
+    try:
+        with open(log_path, "rb") as f:
+            f.seek(state["pos"])
+            chunk = f.read()
+    except OSError:
+        return state["n"]
+    state["pos"] += len(chunk)
+    state["n"] += len(re.findall(rb"HTTP/1\.1 (?:429|5\d\d)", chunk))
+    return state["n"]
+
+
 def kill_tree(proc):
     # uv starts python as a child; on Windows terminate() would leave it running.
     if os.name == "nt":
@@ -98,7 +136,10 @@ def main():
     parser.add_argument("sim_dir", type=Path)
     parser.add_argument("--max-rounds", type=int, default=None)
     parser.add_argument("--timeout-hours", type=float, default=4.0)
+    parser.add_argument("--provider", choices=["openai", "glm"], default="openai")
     args = parser.parse_args()
+    model_env = GLM_ENV if args.provider == "glm" else MODEL_ENV
+    secret_env = {"LLM_API_KEY": glm_key()} if args.provider == "glm" else {}
 
     sim_dir = args.sim_dir.resolve()
     config_path = sim_dir / "simulation_config.json"
@@ -126,13 +167,17 @@ def main():
         cmd += ["--max-rounds", str(args.max_rounds)]
     log = open(sim_dir / "runner.log", "w", encoding="utf-8")
     proc = subprocess.Popen(cmd, cwd=MIROFISH_BACKEND, stdout=log, stderr=subprocess.STDOUT,
-                            env={**os.environ, **MODEL_ENV})
-    meta["models"] = MODEL_ENV
+                            env={**os.environ, **model_env, **secret_env})
+    meta["provider"] = args.provider
+    meta["models"] = model_env
     t0 = time.time()
 
     try:
         deadline = t0 + args.timeout_hours * 3600
+        errors = {"pos": 0, "n": 0}
         while read_status(sim_dir) != "alive":
+            if count_api_errors(sim_dir / "runner.log", errors) > 50:
+                raise RuntimeError(f"{errors['n']} rate-limit or server errors from the API; quota may be used up")
             if proc.poll() is not None:
                 raise RuntimeError(f"runner exited (code {proc.returncode}) before the simulation finished")
             if time.time() > deadline:

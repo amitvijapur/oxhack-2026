@@ -27,6 +27,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("root", type=Path)
     p.add_argument("--parallel", type=int, default=3)
+    p.add_argument("--provider", choices=["openai", "glm"], default="openai")
     a = p.parse_args()
     here = Path(__file__).resolve().parent
     todo = [n for n in ORDER if (a.root / n).exists() and not done(a.root / n)]
@@ -34,7 +35,8 @@ def main():
     for i in range(0, len(todo), a.parallel):
         wave = todo[i:i + a.parallel]
         print(time.strftime("%H:%M"), "wave:", wave, flush=True)
-        procs = [(n, subprocess.Popen([sys.executable, "-u", str(here / "run_one.py"), str(a.root / n)],
+        procs = [(n, subprocess.Popen([sys.executable, "-u", str(here / "run_one.py"), str(a.root / n),
+                                       "--provider", a.provider],
                                       stdout=open(a.root / f"{n}.out", "w", encoding="utf-8"),
                                       stderr=subprocess.STDOUT)) for n in wave]
         for n, proc in procs:
