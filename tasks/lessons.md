@@ -65,3 +65,5 @@
 - Amit now explicitly requires a local result and slide review before any further Orecast publication. No push, PR creation, merge or deployment is authorized for the consistent-lot revision. Freeze illustrative economic exposure once; never make valuation increase automatically when the user raises an entry premium.
 
 - When Amit specifies code before slides, isolate publication into separate PRs and complete the code merge before pushing slide changes. A prior local-review hold is superseded only by explicit publication authorization, which Amit has now given.
+
+- A beautiful public README must still lead with the visitor’s goals: what the product helps them do, how to try it and the first few interactions. Keep model arithmetic, architecture, CI, deployment and research detail in linked technical documentation. Branding and a long internal runbook do not make the front page user focused.
