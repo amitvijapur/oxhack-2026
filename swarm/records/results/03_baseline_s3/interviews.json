@@ -1,0 +1,299 @@
+{
+  "command_id": "batch_interview_1792888295815",
+  "status": "completed",
+  "result": {
+    "interviews_count": 48,
+    "results": {
+      "twitter_0": {
+        "agent_id": 0,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"The Alaska state government will continue agency review of transportation safety data, community testimony, fiscal impacts, and enforceable mitigation conditions for gold mining and ore hauling near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The strongest fact I know is that opposition was raised at 2024 public meetings about the Manh Choh ore haul near Tok, especially around truck traffic, winter road safety, subsistence access, and whether affected communities have real accountability.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_1": {
+        "agent_id": 1,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0,\n  \"state_next_move\": \"DNR will continue reviewing the Tok-area mining record, including public comments, inspection information, reclamation obligations, and any transportation or land-use concerns before making a decision.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"After refreshing, I saw no existing posts, so I have no new public information beyond the known pending DNR review and existing mix of local opposition, jobs arguments, transportation concerns, and inspection-related information.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_2": {
+        "agent_id": 2,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"The Alaska state government will continue the formal review and public-record process for the relevant mining matter, asking for additional factual input if needed before making any determination.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 224 asked locals near the Manh Choh/Fort Knox haul routes to share truck counts, escorting details, dust or noise complaints, and meeting minutes, which suggests the issue is still being documented rather than decided.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_3": {
+        "agent_id": 3,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"The Alaska state government will likely continue permit review, request or publish supporting documentation, and hold the decision until the record on haul routes, water monitoring, and local impacts is complete.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 129 added specific Tok concerns like a complaint contact, road maintenance funding, school-bus windows, and local-hire timelines, which suggests the issue is still being worked through rather than settled.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_4": {
+        "agent_id": 4,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":3,\"state_next_move\":\"The Alaska state government will keep reviewing the record, ask for more permit and road-impact details, and avoid a final public commitment until the agency findings and community testimony are reconciled.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"I saw repeated posts asking for permit application numbers, haul-route studies, truck counts, road maintenance funding, water-monitoring plans, and EIS links, which suggests the record is still being assembled rather than settled.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_5": {
+        "agent_id": 5,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The state will likely continue collecting public comments and technical information on permits, haul routes, monitoring, and reclamation before any policy or tax change is considered.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 309 shows a local parent supportive of jobs but asking for clear haul-route, truck-timing, road maintenance, water monitoring, and emergency-response details before backing increased hauling.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_6": {
+        "agent_id": 6,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The Alaska state government will keep the project under review, asking for measurable haul-route, maintenance, safety, and permitting details before making any further commitments.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The checklist post on haul routes, daily truck trips, maintenance funding, dust and water monitoring, emergency response, and permit timelines suggests the discussion is still centered on review and accountability rather than a clear go-ahead or shutdown.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_7": {
+        "agent_id": 7,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"The Alaska state government will likely continue its formal water-quality review, request or incorporate additional monitoring details if needed, and keep the record open until the permit or project docket is ready for a documented decision.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Based on the profile and the lack of any current posts, the strongest signal is that water questions near Tok are being handled through documented review and public process rather than an immediate decision.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_10": {
+        "agent_id": 10,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"Alaska will likely keep the Tok-area mining discussion in the permitting and coordination lane, with agencies pointing people to public filings, haul-route information, and community meeting opportunities rather than making a sudden policy shift.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 111 asked for haul routes, daily truck trips, road maintenance responsibility, water-monitoring plans, permit timelines, haulage studies, and community meeting dates before treating Manh Choh haulage risk as a solved issue.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_11": {
+        "agent_id": 11,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"Alaska state agencies will likely continue permit and haul-route review and point people to public filings rather than make a sudden new decision.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 111 asked for proposed haul routes, daily truck trips, road maintenance funding, water-monitoring plans, permit timelines, and public filings before treating Manh Choh as a solved story.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_12": {
+        "agent_id": 12,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":3,\"state_next_move\":\"The Alaska state government will likely keep the process moving by asking for more public input, route and monitoring details, and permit documentation before making any firm decision on mining near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 224 stood out: it asked for recent truck counts, escorting details, dust or noise complaints, and meeting minutes from locals along the Manh Choh/Fort Knox haul routes, which shows the conversation is still focused on practical impacts and not a settled answer.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_13": {
+        "agent_id": 13,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 2.0,\n  \"state_next_move\": \"The Alaska state government will likely keep the project operating while tightening oversight on haul-route safety, complaints, and permit compliance rather than ordering a shutdown.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 224 showed locals asking for truck counts, escorting details, dust/noise complaints, and meeting minutes, which tells me the main pressure point is scrutiny and mitigation, not an immediate stop.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_23": {
+        "agent_id": 23,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":3,\"state_next_move\":\"The state will likely keep reviewing filings, gather public comments, and ask for more specifics on haul routes, road maintenance, and monitoring before making any decision near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 111 asked for proposed haul routes, daily truck trips, road maintenance funding, water-monitoring plans, permit timeline, and haulage studies, which shows the decision is still being framed around unresolved details rather than a settled outcome.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_24": {
+        "agent_id": 24,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":8,\"state_next_move\":\"The Alaska state government will likely keep the haul project moving while saying it is reviewing safety concerns and expecting more monitoring or procedural updates rather than a major policy change.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The recurring fact I saw was the scale of the haul: about 60 round trips a day by 95-foot ore trucks near homes, which keeps the local conversation focused on safety, oversight, and whether trucking should be tighter or reduced.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_25": {
+        "agent_id": 25,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"I think the Alaska state government will keep the process moving with more review and public comment on mining near Tok, while trying to frame it as a permit-and-mitigation issue rather than a hard stop.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The strongest signal I saw was the practical, local checklist around Manh Choh haulage: proposed haul routes, daily truck trips, road maintenance funding, water monitoring, permit timeline, and haul studies all still need to be laid out clearly before anyone calls it settled.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_30": {
+        "agent_id": 30,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 2.5,\n  \"state_next_move\": \"Alaska officials will likely keep the project moving while asking for more haul-route documentation, monitoring details, and public-facing clarification on truck traffic and safety near Tok.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 224 asked locals near the Manh Choh / Fort Knox haul routes for truck counts, escort details, dust or noise complaints, community meeting minutes, and haul studies, which suggests the key issue is operational haulage risk rather than a settled pro- or anti-mining consensus.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_31": {
+        "agent_id": 31,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.4,\n  \"state_next_move\": \"The Alaska state government will likely continue permit and haulage review, with attention to route details, road maintenance responsibility, water monitoring, and public meeting records.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 111 specifically flagged Manh Choh haulage risk and asked for proposed haul routes, daily truck trips, road maintenance funding, water-monitoring plans, permit timelines, and public filings before changing any allocation view.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_32": {
+        "agent_id": 32,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":1.5,\"state_next_move\":\"Keep collecting haul-road, permit, and community input before making any fresh decision on mining logistics near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The posts focused on practical haulage risk, maintenance responsibility, permitting timelines, and community meeting minutes, which suggests the operating debate is still open rather than settled.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_33": {
+        "agent_id": 33,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"Alaska will likely keep the Redpoll Ridge and related Tok-area mining files moving through review with conditions and more public process rather than issue an abrupt reversal.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Posts 193 and 231 both emphasize enforceable reclamation funding, haul-road maintenance, dust and water monitoring, emergency response, and appeal windows; that reads to me as a process-focused jurisdictional test rather than a clean pro- or anti-mining signal.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_34": {
+        "agent_id": 34,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":2.5,\"state_next_move\":\"I expect Alaska to keep the issue in review, likely asking for more documentation or public input before any firm move on permitting or fiscal terms near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 111 showed an investor asking for haul routes, truck trips, maintenance responsibility, fuel sensitivity, water monitoring, permit timing, and EIS links — that is a sign the core risk is still operational and regulatory, not fully resolved.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_35": {
+        "agent_id": 35,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":2.5,\"state_next_move\":\"The Alaska state government will likely keep the project moving while asking for more monitoring, route, and compliance detail rather than making a major new policy shift.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 41 emphasized that Tok residents want jobs but also concrete answers on truck routes, scheduling, road maintenance, and water monitoring before feeling comfortable.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_36": {
+        "agent_id": 36,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"The Alaska state government will probably continue permitting and review work, while seeking more operational detail and community input rather than making an abrupt policy change.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 111 and 116 focused on haul routes, truck trips, maintenance, monitoring, and permit timing, which signals an ongoing due-diligence process rather than an imminent state decision.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_37": {
+        "agent_id": 37,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":3,\"state_next_move\":\"The Alaska state government will likely keep the process moving through review and permitting rather than make an abrupt policy change, while asking for more documentation on haulage, monitoring, and road impacts near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The strongest signal I saw was the Alaska-focused checklist post on Manh Choh haulage risk asking for haul routes, truck trips, road maintenance funding, water monitoring, and permit timelines; that points to scrutiny, not a clean green light or a full stop.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_38": {
+        "agent_id": 38,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":0.8,\"state_next_move\":\"The Alaska state government will likely keep the issue in the review-and-permit lane, asking for more technical detail and public input before making any decisive move near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 111 is the clearest signal: the focus is still on haul routes, truck trips, road maintenance, water monitoring and permit timing, which suggests unresolved operational and social-license risk rather than a settled approval.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "reddit_0": {
+        "agent_id": 0,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"Alaska will have DOT&PF and DNR identify the proper contacts for the Tok briefing and clarify expectations for written haul schedules, school-district coordination, road-safety measures, dust, creek crossings, pavement wear, and complaint follow-up before any material change in haul activity.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 10, from a Tok store owner, organized a Friday 9 a.m. briefing and asked mine or DOT representatives to bring written haul-schedule examples, a named complaint contact, dust/creek/pavement mitigation plans, and a verified gold-price source.\"\n}",
+        "timestamp": "2026-10-26 21:10:40.803433",
+        "platform": "reddit"
+      },
+      "reddit_1": {
+        "agent_id": 1,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.0,\n  \"state_next_move\": \"The state will verify whether there is any actual operational change, coordinate DNR and DOT&PF contacts for the Tok briefing request, and ask that any haul-schedule, road-safety, dust, creek-crossing, and complaint-response commitments be put in writing.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 8 from Heather, a Tok mother, said Manh Choh jobs matter but asked companies and DOT to publish haul schedules, coordinate with the school district, protect creek crossings and access, and keep children on bus routes safe.\"\n}",
+        "timestamp": "2026-10-26 21:10:48.214393",
+        "platform": "reddit"
+      },
+      "reddit_2": {
+        "agent_id": 2,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The state will continue the technical review process, request any needed additional information from the applicant, and keep public comments in the administrative record before making any decision.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The most relevant fact is that the pending Redpoll Ridge Project application is still under DNR review, and the division has not prejudged the outcome; that points to process continuing rather than an immediate state action.\"}",
+        "timestamp": "2026-10-26 21:07:31.657513",
+        "platform": "reddit"
+      },
+      "reddit_3": {
+        "agent_id": 3,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0,\n  \"state_next_move\": \"The Alaska state government will likely wait for a verified exchange quote and then keep the focus on haul schedules, permits, road safety, and community notice before treating any higher gold price as an operating change.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 4 was the clearest summary: it said a futures headline is not the same as spot gold, miner cash flow, or ETF flows, and that any real operating impact still runs through permits, schedules, road safety, and community notice.\"\n}",
+        "timestamp": "2026-10-26 21:07:42.609013",
+        "platform": "reddit"
+      },
+      "reddit_4": {
+        "agent_id": 4,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 2.5,\n  \"state_next_move\": \"The Alaska state government will keep it procedural for now: verify the tape, demand written haul schedules and a named local contact, and push any decision through the briefing and official notice process before changing operations near Tok.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"The strongest signal was the repeated local call for written haul schedules, bus-window coordination, and a named contact, especially in the Tok briefing thread (post 10 and follow-ups), which shows support for work but only with safety and notice in writing.\"\n}",
+        "timestamp": "2026-10-26 21:09:38.769493",
+        "platform": "reddit"
+      },
+      "reddit_5": {
+        "agent_id": 5,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The state will likely keep asking for verified market quotes and written haul-schedule/mitigation plans before any operational or policy response, and will treat the price chatter as unverified until the record is confirmed.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 10 and the Tok briefing thread: multiple local commenters asked for a timestamped exchange quote and written haul schedules, while also emphasizing school-bus windows, pullouts, creek crossings, and community notice; that reads as cautious, not a clear pro-ramp-up signal.\"}",
+        "timestamp": "2026-10-26 21:09:04.831333",
+        "platform": "reddit"
+      },
+      "reddit_6": {
+        "agent_id": 6,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 2.5,\n  \"state_next_move\": \"The Alaska state government will ask for a verified exchange quote and then push for written haul schedules, named contacts, and documented road-safety and community-notice commitments before any operational change near Tok.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 6 and the follow-up briefing posts: locals repeatedly asked for a verified contract month/timestamp plus written haul schedules, school-district notice, pullouts, creek protections, and a named contact before anyone treats the gold-price chatter as real.\"\n}",
+        "timestamp": "2026-10-26 21:08:50.299993",
+        "platform": "reddit"
+      },
+      "reddit_7": {
+        "agent_id": 7,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The state will likely ask for a verified exchange source and then continue with written review and community notice expectations before any operational changes are treated as real.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Several posts on the Tok/Manh Choh threads repeatedly asked for the contract, exchange, timestamp, and volume/open interest before accepting the $4,500 gold print, and the local comments focused on haul schedules, school-district notice, creek crossings, and written mitigation rather than assuming a confirmed operational change.\"}",
+        "timestamp": "2026-10-26 21:08:38.006593",
+        "platform": "reddit"
+      },
+      "reddit_10": {
+        "agent_id": 10,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"Alaska agencies will likely identify proper DOT&PF/DNR contacts and ask for written haul, safety, dust, creek-crossing, and complaint-response information before treating any price chatter as operationally relevant.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 10 organized a Friday 9 a.m. Tok briefing asking mine/DOT representatives for written haul schedules, named contacts, and dust/creek/pavement plans, while state-side comment 199 said Alaska would not treat an unverified gold-price headline as a basis for operational changes.\"\n}",
+        "timestamp": "2026-10-26 21:11:27.919453",
+        "platform": "reddit"
+      },
+      "reddit_11": {
+        "agent_id": 11,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0,\n  \"state_next_move\": \"The state will likely ask DOT and DNR contacts to coordinate written information on haul schedules, school-district notice, road safety, dust, creek crossings, and complaint response before treating any price headline as operationally meaningful.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 15 said there is a Friday 9 a.m. Tok briefing and asked DOT or mine reps to bring written haul-schedule examples, a named local contact, and dust/creek-protection plans, while also asking for a timestamped exchange screenshot before anyone treats the gold-price claim as real.\"\n}",
+        "timestamp": "2026-10-26 21:10:25.748233",
+        "platform": "reddit"
+      },
+      "reddit_12": {
+        "agent_id": 12,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 3.0,\n  \"state_next_move\": \"The Alaska state government will likely ask for a verified exchange quote, then coordinate with DOT, DNR, and the school district on haul schedules, road safety, and community notice before treating any price move as operationally meaningful.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Multiple Tok-area comments, especially on post 8, consistently said jobs matter but haul schedules, bus windows, creek crossings, and written notice have to come first; that points to cautious support rather than a blank check.\"\n}",
+        "timestamp": "2026-10-26 21:08:25.327273",
+        "platform": "reddit"
+      },
+      "reddit_13": {
+        "agent_id": 13,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":3,\"state_next_move\":\"The Alaska state government will push for a verified market quote first, then keep haul activity under written notice, school-district coordination, and road-safety controls if the price move looks real.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 6 repeatedly asked for a verified exchange/contract timestamp before anyone treated the $4k-$4.5k gold print as real, while also saying any sustained move would mean more activity at Manh Choh and more ore-haul through Tok.\"}",
+        "timestamp": "2026-10-26 21:08:13.033753",
+        "platform": "reddit"
+      },
+      "reddit_23": {
+        "agent_id": 23,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.0,\n  \"state_next_move\": \"The Alaska state government will keep asking for verified tape, written haul schedules, and documented community notice before making any operational or permitting decisions near Tok.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 10 and the many replies to it show Tok residents and workers asking for written haul schedules, named contacts, bus-window coordination, and proof of the price move before changing plans, which suggests the discussion is still unverified and the community is divided.\"\n}",
+        "timestamp": "2026-10-26 21:08:43.056613",
+        "platform": "reddit"
+      },
+      "reddit_24": {
+        "agent_id": 24,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":4,\"state_next_move\":\"The Alaska state government will keep asking for verified market data and then push for written haul schedules, named contacts, and written notice to Tok, the school district, and affected communities before any change in truck activity.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 17 said that if no timestamped exchange quote appears, the gold print remains unverified, while Post 4 and Post 15 show people around Tok focusing on written haul schedules, bus windows, and community notice rather than taking the headline at face value.\"}",
+        "timestamp": "2026-10-26 21:08:26.801533",
+        "platform": "reddit"
+      },
+      "reddit_25": {
+        "agent_id": 25,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":8,\"state_next_move\":\"The state will ask for more written detail and likely hold the line on written notice, haul schedules, and safety/protection conditions before allowing any operational change to be treated as settled.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 18 and the repeated Tok briefing requests: people are asking for timestamped exchange quotes first, then written haul schedules, named contacts, bus-window coordination, and creek/pavement protections before any extra runs are assumed.\"}",
+        "timestamp": "2026-10-26 21:08:16.322293",
+        "platform": "reddit"
+      },
+      "reddit_30": {
+        "agent_id": 30,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"Alaska will have DOT&PF and DNR identify the proper contacts for the Tok briefing and reiterate that any material haul change needs written notice, school-district coordination, road-safety measures, and a reviewable record.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 17: the Tok store/lodge briefing is set for Friday 9 a.m., asking DOT or mine reps to bring written haul schedules, named contacts, dust/creek/pavement plans, and a timestamped exchange screenshot before anyone changes plans.\"\n}",
+        "timestamp": "2026-10-26 21:11:01.867333",
+        "platform": "reddit"
+      },
+      "reddit_31": {
+        "agent_id": 31,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"Alaska will likely have DOT&PF and DNR identify proper contacts and respond to the Tok briefing request with process-focused guidance on haul schedules, school coordination, road safety, dust, creek crossings, and complaint records rather than treating the unverified price headline as an operating trigger.\",\n  \"state_move_timing\": \"days\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Comment 199 on post 10 said the state had asked DOT&PF and DNR to identify proper contacts for Friday or provide information in writing, while explicitly saying an unverified gold-price headline would not be treated as a basis for operational changes.\"\n}",
+        "timestamp": "2026-10-26 21:12:03.230713",
+        "platform": "reddit"
+      },
+      "reddit_32": {
+        "agent_id": 32,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 4,\n  \"state_next_move\": \"The Alaska state government will likely keep tightening scrutiny around haul-safety, community notice, and inspection follow-up rather than rushing to approve anything on the basis of a price headline.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 17 and the related Tok comments consistently ask for written haul schedules, named contacts, bus-window coordination, and advance notice before any change in truck cadence, which suggests the price move alone is not enough to settle the local response.\"\n}",
+        "timestamp": "2026-10-26 21:08:03.764473",
+        "platform": "reddit"
+      },
+      "reddit_33": {
+        "agent_id": 33,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":3.5,\"state_next_move\":\"Alaska will likely keep the process tight and public: verify the price signal, hold the Tok briefing, and insist on written haul schedules, named contacts, and community notice before any operational change.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 10 and the related replies: local drivers, parents, claim owners, and operators want a Friday briefing with written haul schedules, named contacts, and bus-window coordination, which suggests support for work but only with clear safeguards and notice.\"}",
+        "timestamp": "2026-10-26 21:09:11.335813",
+        "platform": "reddit"
+      },
+      "reddit_34": {
+        "agent_id": 34,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":4.5,\"state_next_move\":\"The Alaska state government will likely require more documented verification and community/road-safety process before signaling any operational change, while keeping the haul-route and permit framework under review.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 10 and 15: locals in Tok are asking for written haul schedules, named contacts, bus-window coordination, and creek/pavement mitigation before any extra runs, which suggests the community wants jobs but not at the expense of safety or notice.\"}",
+        "timestamp": "2026-10-26 21:08:59.905993",
+        "platform": "reddit"
+      },
+      "reddit_35": {
+        "agent_id": 35,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":2.5,\"state_next_move\":\"The Alaska state government will likely push for written haul schedules, advance notice to Tok-area communities and the school district, and tighter coordination on road safety and creek-crossing mitigation before any operational changes.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 13: a Manh Choh operator said they would attend the Friday 9 a.m. briefing and asked for written haul schedules, named contacts, and a timestamped exchange/contract quote before anyone changes road plans.\"}",
+        "timestamp": "2026-10-26 21:08:51.772933",
+        "platform": "reddit"
+      },
+      "reddit_36": {
+        "agent_id": 36,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":1.2,\"state_next_move\":\"The Alaska state government will likely keep treating the gold price as unverified until it gets a timestamped exchange quote, then move to document any haul-schedule or road-safety implications through the proper DOT/DNR channels rather than reacting to the headline.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 6 is the clearest signal: the lodge/front desk post insists on a verified exchange/contract timestamp first, then asks for written haul schedules, school-district notice, pullouts, creek protections, and a local contact line if the print holds. That tells me the market chatter is not yet driving policy, but it is starting to organize local operational planning.\"}",
+        "timestamp": "2026-10-26 21:09:16.421533",
+        "platform": "reddit"
+      },
+      "reddit_37": {
+        "agent_id": 37,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"The state will likely ask for verified exchange data and then keep pushing for written haul schedules, advance community notice, and documented dust/creek/pavement mitigation before any operational change near Tok.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 15 and the surrounding thread: local commenters keep asking for a timestamped exchange/contract screenshot, while also insisting on written haul schedules, named contacts, and bus-window coordination before any response to the price move.\"}",
+        "timestamp": "2026-10-26 21:08:37.855933",
+        "platform": "reddit"
+      },
+      "reddit_38": {
+        "agent_id": 38,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":2.5,\"state_next_move\":\"They will ask for verified exchange/contract data first, then push for written haul schedules, named contacts, and community notice before any operational changes.\",\"state_move_timing\":\"days\",\"local_leaning\":\"split\",\"evidence\":\"Post 17: Tok voices are not rejecting mining, but they are repeatedly demanding written haul schedules, school-district notice, pullout marking, and creek protections before extra runs start.\"}",
+        "timestamp": "2026-10-26 21:08:02.562673",
+        "platform": "reddit"
+      }
+    }
+  },
+  "error": null,
+  "timestamp": "2026-10-25T01:32:39.492826"
+}

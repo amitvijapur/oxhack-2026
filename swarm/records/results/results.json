@@ -1,0 +1,1921 @@
+{
+  "generated": "2026-10-25T03:28:52+00:00",
+  "judge_model": "glm-5.3-flash",
+  "checks": {
+    "placebo": {
+      "status": "fail",
+      "parts": [
+        {
+          "part": "placebo moves no group beyond its band",
+          "status": "fail",
+          "detail": "government +0.61 (band 0.07); land_industry +1.06 (band 0.16); land_community +0.06 (band 0.42); funds +0.29 (band 0.29); retail -0.22 (band 1.00)"
+        },
+        {
+          "part": "mine_approved",
+          "status": "pass",
+          "detail": "funds +0.21 (expected up; band 0.29, placebo 0.29); government -0.03 (expected up; band 0.07, placebo 0.61); land_community -0.52 (expected down; band 0.42, placebo 0.06) qualifies"
+        },
+        {
+          "part": "tax_rise",
+          "status": "not run",
+          "detail": "run missing or not judged"
+        },
+        {
+          "part": "protest",
+          "status": "not run",
+          "detail": "run missing or not judged"
+        },
+        {
+          "part": "court_blocks_mine",
+          "status": "fail",
+          "detail": "funds +1.11 (expected down; band 0.29, placebo 0.29)"
+        },
+        {
+          "part": "gold_back_to_4000",
+          "status": "not run",
+          "detail": "run missing or not judged"
+        }
+      ]
+    },
+    "mirrors": {
+      "status": "fail",
+      "parts": [
+        {
+          "part": "funds move opposite ways after mine approved and court blocks, both beyond the band",
+          "status": "fail",
+          "detail": "mine_approved +0.21, court_blocks_mine +1.11, band 0.29"
+        },
+        {
+          "part": "funds and retail fall beyond their bands when gold drops back",
+          "status": "not run",
+          "detail": "needs run 09 and the three baselines judged"
+        }
+      ]
+    },
+    "stability": {
+      "status": "pass",
+      "parts": [
+        {
+          "part": "price",
+          "status": "pass",
+          "detail": "up / up / up"
+        },
+        {
+          "part": "policy",
+          "status": "pass",
+          "detail": "weeks / weeks / weeks"
+        },
+        {
+          "part": "leaning",
+          "status": "pass",
+          "detail": "split / split / split"
+        }
+      ]
+    },
+    "grounding": {
+      "status": "fail",
+      "parts": [
+        {
+          "part": "20 sampled answers",
+          "status": "fail",
+          "detail": "8 of 20 grounded (needs 14)"
+        }
+      ]
+    }
+  },
+  "chance_band": {
+    "government": 0.07275132275132279,
+    "land_industry": 0.16400995966526377,
+    "land_community": 0.41619042030941333,
+    "funds": 0.2933255415987537,
+    "retail": 1.004322882999353
+  },
+  "effects": {
+    "placebo": {
+      "land_industry": {
+        "effect": 1.0590124737130182,
+        "band": 0.16400995966526377,
+        "beyond_band": true,
+        "expected": null,
+        "timing": 3
+      },
+      "government": {
+        "effect": 0.605820105820106,
+        "band": 0.07275132275132279,
+        "beyond_band": true,
+        "expected": null,
+        "timing": 3
+      },
+      "funds": {
+        "effect": 0.2886050236337354,
+        "band": 0.2933255415987537,
+        "beyond_band": false,
+        "expected": null,
+        "timing": 3
+      },
+      "retail": {
+        "effect": -0.22184065934065966,
+        "band": 1.004322882999353,
+        "beyond_band": false,
+        "expected": null,
+        "timing": "none"
+      },
+      "land_community": {
+        "effect": 0.058475783475783416,
+        "band": 0.41619042030941333,
+        "beyond_band": false,
+        "expected": null,
+        "timing": 3
+      }
+    },
+    "mine_approved": {
+      "land_industry": {
+        "effect": 0.7989874110563768,
+        "band": 0.16400995966526377,
+        "beyond_band": true,
+        "expected": null,
+        "timing": 3
+      },
+      "retail": {
+        "effect": -0.581547619047619,
+        "band": 1.004322882999353,
+        "beyond_band": false,
+        "expected": null,
+        "timing": "none"
+      },
+      "land_community": {
+        "effect": -0.5167887667887672,
+        "band": 0.41619042030941333,
+        "beyond_band": true,
+        "expected": "down",
+        "timing": 4
+      },
+      "funds": {
+        "effect": 0.20519740535292907,
+        "band": 0.2933255415987537,
+        "beyond_band": false,
+        "expected": "up",
+        "timing": 4
+      },
+      "government": {
+        "effect": -0.02777777777777768,
+        "band": 0.07275132275132279,
+        "beyond_band": false,
+        "expected": "up",
+        "timing": 3
+      }
+    },
+    "court_blocks_mine": {
+      "funds": {
+        "effect": 1.10949569874436,
+        "band": 0.2933255415987537,
+        "beyond_band": true,
+        "expected": "down",
+        "timing": 4
+      },
+      "land_industry": {
+        "effect": 1.0258392629082298,
+        "band": 0.16400995966526377,
+        "beyond_band": true,
+        "expected": null,
+        "timing": 3
+      },
+      "government": {
+        "effect": 0.4907407407407405,
+        "band": 0.07275132275132279,
+        "beyond_band": true,
+        "expected": null,
+        "timing": 3
+      },
+      "retail": {
+        "effect": -0.39775733525733514,
+        "band": 1.004322882999353,
+        "beyond_band": false,
+        "expected": null,
+        "timing": 3
+      },
+      "land_community": {
+        "effect": 0.18764388346431726,
+        "band": 0.41619042030941333,
+        "beyond_band": false,
+        "expected": null,
+        "timing": 5
+      }
+    }
+  },
+  "runs": [
+    {
+      "folder": "01_baseline_s1",
+      "scenario": "baseline",
+      "seed": 1,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "models": {
+        "LLM_MODEL_NAME": "gpt-5.5",
+        "LLM_TIER1_MODEL": "gpt-5.5",
+        "LLM_TIER2_MODEL": "gpt-5.4-mini",
+        "LLM_TIER3_MODEL": "gpt-5-mini"
+      },
+      "outcome": "ok",
+      "status": "judged",
+      "daily": {
+        "government": {
+          "1": {
+            "support": 5.0,
+            "heat": 9
+          },
+          "2": {
+            "support": 4.6,
+            "heat": 10
+          },
+          "3": {
+            "support": 4.888888888888889,
+            "heat": 9
+          },
+          "4": {
+            "support": 4.888888888888889,
+            "heat": 9
+          },
+          "5": {
+            "support": 4.75,
+            "heat": 4
+          }
+        },
+        "land_industry": {
+          "1": {
+            "support": 5.111111111111111,
+            "heat": 36
+          },
+          "2": {
+            "support": 5.594594594594595,
+            "heat": 37
+          },
+          "3": {
+            "support": 5.448275862068965,
+            "heat": 29
+          },
+          "4": {
+            "support": 5.333333333333333,
+            "heat": 21
+          },
+          "5": {
+            "support": 5.214285714285714,
+            "heat": 28
+          }
+        },
+        "land_community": {
+          "1": {
+            "support": 4.470588235294118,
+            "heat": 17
+          },
+          "2": {
+            "support": 4.235294117647059,
+            "heat": 17
+          },
+          "3": {
+            "support": 3.95,
+            "heat": 20
+          },
+          "4": {
+            "support": 4.538461538461538,
+            "heat": 13
+          },
+          "5": {
+            "support": 4.133333333333334,
+            "heat": 15
+          }
+        },
+        "funds": {
+          "1": {
+            "support": 5.1875,
+            "heat": 48
+          },
+          "2": {
+            "support": 5.39344262295082,
+            "heat": 61
+          },
+          "3": {
+            "support": 5.517857142857143,
+            "heat": 56
+          },
+          "4": {
+            "support": 5.30188679245283,
+            "heat": 53
+          },
+          "5": {
+            "support": 5.413043478260869,
+            "heat": 46
+          }
+        },
+        "retail": {
+          "1": {
+            "support": 5.444444444444445,
+            "heat": 9
+          },
+          "2": {
+            "support": 5.214285714285714,
+            "heat": 14
+          },
+          "3": {
+            "support": 6.5,
+            "heat": 14
+          },
+          "4": {
+            "support": 6.1875,
+            "heat": 16
+          },
+          "5": {
+            "support": 6.571428571428571,
+            "heat": 14
+          }
+        }
+      },
+      "days3to5": {
+        "government": 4.842592592592593,
+        "land_industry": 5.331964969896004,
+        "land_community": 4.207264957264957,
+        "funds": 5.4109291378569475,
+        "retail": 6.419642857142857
+      },
+      "unmapped_posts": 0,
+      "calls": {
+        "price": {
+          "call": "up",
+          "votes": {
+            "up": 6,
+            "flat": 3
+          },
+          "answers": 9,
+          "median_move_pct": 1.65
+        },
+        "policy": {
+          "call": "weeks",
+          "votes": {
+            "weeks": 8
+          },
+          "answers": 8,
+          "statements": [
+            {
+              "name": "Margaret Halloran",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will continue reviewing DOT/DNR inspection data, haul schedules, and public testimony before taking any further position on gold mining and hauling near Tok."
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DNR will continue building the administrative record, reviewing filings, inspection information, haul-road impacts, public comments, and applicable law before making or clarifying any permit decision near Tok."
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will continue its technical review of the submitted reclamation and permit materials, then request additional information or issue a formal notice based on the administrative record rather than making a public commitment early."
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will likely continue its permitting review and public process, with agencies checking land status, access, water, and other documented impacts before any decision."
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The state will keep reviewing DOT, DNR, and haul-route documentation, keep the project in conditional status, and avoid a final public commitment until it has clearer safety and maintenance findings."
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The state will likely keep collecting documents and technical inputs on the Tok/Manh Choh haul plan before taking any policy or tax action."
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will keep reviewing permit conditions, haul-route impacts, and inspection or maintenance records before taking any formal action."
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will continue documenting comments and reviewing the water-related permit and monitoring record before making any project-specific decision on mining near Tok."
+            }
+          ]
+        },
+        "leaning": {
+          "call": "split",
+          "votes": {
+            "split": 7
+          },
+          "answers": 7
+        }
+      },
+      "unparsed_answers": 0
+    },
+    {
+      "folder": "02_baseline_s2",
+      "scenario": "baseline",
+      "seed": 2,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "models": {
+        "LLM_MODEL_NAME": "gpt-5.5",
+        "LLM_TIER1_MODEL": "gpt-5.5",
+        "LLM_TIER2_MODEL": "gpt-5.4-mini",
+        "LLM_TIER3_MODEL": "gpt-5-mini"
+      },
+      "outcome": "ok",
+      "status": "judged",
+      "daily": {
+        "government": {
+          "1": {
+            "support": 4.7272727272727275,
+            "heat": 11
+          },
+          "2": {
+            "support": 4.9,
+            "heat": 10
+          },
+          "3": {
+            "support": 5.0,
+            "heat": 10
+          },
+          "4": {
+            "support": 4.857142857142857,
+            "heat": 7
+          },
+          "5": {
+            "support": 4.888888888888889,
+            "heat": 9
+          }
+        },
+        "land_industry": {
+          "1": {
+            "support": 5.621621621621622,
+            "heat": 37
+          },
+          "2": {
+            "support": 5.28,
+            "heat": 25
+          },
+          "3": {
+            "support": 5.4324324324324325,
+            "heat": 37
+          },
+          "4": {
+            "support": 5.37037037037037,
+            "heat": 27
+          },
+          "5": {
+            "support": 5.636363636363637,
+            "heat": 33
+          }
+        },
+        "land_community": {
+          "1": {
+            "support": 4.416666666666667,
+            "heat": 24
+          },
+          "2": {
+            "support": 4.363636363636363,
+            "heat": 22
+          },
+          "3": {
+            "support": 4.478260869565218,
+            "heat": 23
+          },
+          "4": {
+            "support": 4.842105263157895,
+            "heat": 19
+          },
+          "5": {
+            "support": 4.55,
+            "heat": 20
+          }
+        },
+        "funds": {
+          "1": {
+            "support": 5.361702127659575,
+            "heat": 47
+          },
+          "2": {
+            "support": 5.549019607843137,
+            "heat": 51
+          },
+          "3": {
+            "support": 5.588235294117647,
+            "heat": 51
+          },
+          "4": {
+            "support": 5.675,
+            "heat": 40
+          },
+          "5": {
+            "support": 5.8,
+            "heat": 40
+          }
+        },
+        "retail": {
+          "1": {
+            "support": 5.785714285714286,
+            "heat": 14
+          },
+          "2": {
+            "support": 5.714285714285714,
+            "heat": 14
+          },
+          "3": {
+            "support": 6.357142857142857,
+            "heat": 14
+          },
+          "4": {
+            "support": 5.75,
+            "heat": 16
+          },
+          "5": {
+            "support": 5.666666666666667,
+            "heat": 12
+          }
+        }
+      },
+      "days3to5": {
+        "government": 4.915343915343915,
+        "land_industry": 5.479722146388813,
+        "land_community": 4.623455377574371,
+        "funds": 5.6877450980392155,
+        "retail": 5.924603174603175
+      },
+      "unmapped_posts": 0,
+      "calls": {
+        "price": {
+          "call": "up",
+          "votes": {
+            "up": 11,
+            "flat": 7
+          },
+          "answers": 18,
+          "median_move_pct": 3.5
+        },
+        "policy": {
+          "call": "weeks",
+          "votes": {
+            "weeks": 14,
+            "days": 2
+          },
+          "answers": 16,
+          "statements": [
+            {
+              "name": "Margaret Halloran",
+              "platform": "reddit",
+              "timing": "days",
+              "next_move": "The Alaska state government will coordinate DOT&PF and DNR to make haul schedules, reporting contacts, permit/inspection materials, road safety information, and water-monitoring details easier for Tok-area residents to review."
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "reddit",
+              "timing": "days",
+              "next_move": "Alaska will likely direct agencies to make current DNR/DOT contacts, monitoring information, haul-related records, and reporting channels easier for Tok-area residents to find while reminding everyone that a price move is not a permit change."
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will keep the current review process moving, ask for any needed technical clarification through formal channels, and avoid any decision until the record, permits, and monitoring information are complete."
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will keep the issue in the permitting and public-process lane, asking for the source, contract, and timestamp behind the price move and keeping hauling, monitoring, and permit details in writing before any operational change is treated as real."
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will likely keep the matter in review, ask for the exact market source and updated haul/monitoring details, and press for a written hauling schedule and road-safety plan before any change in activity."
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The state will keep asking for verified market data and likely publish or request a clearer hauling and monitoring plan before any operational ramp is treated as real policy."
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The state will likely keep the current haul and monitoring framework in place while asking for the market source, confirmed haul schedules, and any updated road and water-monitoring plans before making any operational changes."
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The state will likely keep the review process open, ask for the source and exact timestamp behind the price claim, and wait for documented haul, road, and water-monitoring details before saying anything about changing operations near Tok."
+            },
+            {
+              "name": "Margaret Halloran",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will likely coordinate DOT&PF, DEC, DNR, the school district, local officials, and operators for a public meeting focused on haul-route safety, school-bus timing, road maintenance, water monitoring, and enforceable mitigation near Tok."
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DNR will continue reviewing Redpoll Ridge through the public record, including haul-route impacts, maintenance responsibilities, reclamation bonding, and enforceable permit conditions before any final decision."
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The state will keep the Redpoll Ridge and related Tok-area mining issues in formal technical review, gathering comments and inspection documentation before making any permitting recommendation."
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will continue permitting review and coordination, likely asking for additional documentation and public input before any final decision on mining near Tok."
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will likely keep reviewing the permitting record, inspection findings, and public testimony before making any conditional decision on mining near Tok."
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The state will likely keep the current process moving with technical review and public comment rather than announce any immediate policy change on gold mining near Tok."
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The state will likely keep reviewing haul-road, permitting, and reclamation-bond details while asking for more inspection and maintenance data before making any new enforcement or permit changes."
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will likely continue its formal review and request or publish additional permit, inspection, or monitoring documentation before making any decision on Tok-area mining questions."
+            }
+          ]
+        },
+        "leaning": {
+          "call": "split",
+          "votes": {
+            "split": 14
+          },
+          "answers": 14
+        }
+      },
+      "unparsed_answers": 0
+    },
+    {
+      "folder": "03_baseline_s3",
+      "scenario": "baseline",
+      "seed": 3,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "models": {
+        "LLM_MODEL_NAME": "gpt-5.5",
+        "LLM_TIER1_MODEL": "gpt-5.5",
+        "LLM_TIER2_MODEL": "gpt-5.4-mini",
+        "LLM_TIER3_MODEL": "gpt-5-mini"
+      },
+      "outcome": "ok",
+      "status": "judged",
+      "daily": {
+        "government": {
+          "1": {
+            "support": 5.0,
+            "heat": 8
+          },
+          "2": {
+            "support": 4.75,
+            "heat": 8
+          },
+          "3": {
+            "support": 4.625,
+            "heat": 8
+          },
+          "4": {
+            "support": 5.1,
+            "heat": 10
+          },
+          "5": {
+            "support": 5.0,
+            "heat": 8
+          }
+        },
+        "land_industry": {
+          "1": {
+            "support": 5.666666666666667,
+            "heat": 39
+          },
+          "2": {
+            "support": 5.67741935483871,
+            "heat": 31
+          },
+          "3": {
+            "support": 5.741935483870968,
+            "heat": 31
+          },
+          "4": {
+            "support": 5.382352941176471,
+            "heat": 34
+          },
+          "5": {
+            "support": 5.363636363636363,
+            "heat": 33
+          }
+        },
+        "land_community": {
+          "1": {
+            "support": 4.681818181818182,
+            "heat": 22
+          },
+          "2": {
+            "support": 4.555555555555555,
+            "heat": 18
+          },
+          "3": {
+            "support": 4.235294117647059,
+            "heat": 17
+          },
+          "4": {
+            "support": 4.3076923076923075,
+            "heat": 13
+          },
+          "5": {
+            "support": 4.357142857142857,
+            "heat": 14
+          }
+        },
+        "funds": {
+          "1": {
+            "support": 5.0,
+            "heat": 45
+          },
+          "2": {
+            "support": 5.625,
+            "heat": 64
+          },
+          "3": {
+            "support": 5.5476190476190474,
+            "heat": 42
+          },
+          "4": {
+            "support": 5.2682926829268295,
+            "heat": 41
+          },
+          "5": {
+            "support": 5.36734693877551,
+            "heat": 49
+          }
+        },
+        "retail": {
+          "1": {
+            "support": 5.125,
+            "heat": 24
+          },
+          "2": {
+            "support": 6.75,
+            "heat": 16
+          },
+          "3": {
+            "support": 5.647058823529412,
+            "heat": 17
+          },
+          "4": {
+            "support": 5.214285714285714,
+            "heat": 14
+          },
+          "5": {
+            "support": 5.384615384615385,
+            "heat": 13
+          }
+        }
+      },
+      "days3to5": {
+        "government": 4.908333333333333,
+        "land_industry": 5.495974929561267,
+        "land_community": 4.300043094160741,
+        "funds": 5.394419556440462,
+        "retail": 5.415319974143504
+      },
+      "unmapped_posts": 0,
+      "calls": {
+        "price": {
+          "call": "up",
+          "votes": {
+            "up": 12,
+            "flat": 6
+          },
+          "answers": 18,
+          "median_move_pct": 2.5
+        },
+        "policy": {
+          "call": "weeks",
+          "votes": {
+            "weeks": 11,
+            "days": 5
+          },
+          "answers": 16,
+          "statements": [
+            {
+              "name": "Margaret Halloran",
+              "platform": "reddit",
+              "timing": "days",
+              "next_move": "Alaska will have DOT&PF and DNR identify the proper contacts for the Tok briefing and clarify expectations for written haul schedules, school-district coordination, road-safety measures, dust, creek crossings, pavement wear, and complaint follow-up before any material change in haul activity."
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "reddit",
+              "timing": "days",
+              "next_move": "The state will verify whether there is any actual operational change, coordinate DNR and DOT&PF contacts for the Tok briefing request, and ask that any haul-schedule, road-safety, dust, creek-crossing, and complaint-response commitments be put in writing."
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The state will continue the technical review process, request any needed additional information from the applicant, and keep public comments in the administrative record before making any decision."
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "reddit",
+              "timing": "days",
+              "next_move": "The Alaska state government will likely wait for a verified exchange quote and then keep the focus on haul schedules, permits, road safety, and community notice before treating any higher gold price as an operating change."
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will keep it procedural for now: verify the tape, demand written haul schedules and a named local contact, and push any decision through the briefing and official notice process before changing operations near Tok."
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "reddit",
+              "timing": "days",
+              "next_move": "The state will likely keep asking for verified market quotes and written haul-schedule/mitigation plans before any operational or policy response, and will treat the price chatter as unverified until the record is confirmed."
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "reddit",
+              "timing": "days",
+              "next_move": "The Alaska state government will ask for a verified exchange quote and then push for written haul schedules, named contacts, and documented road-safety and community-notice commitments before any operational change near Tok."
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "reddit",
+              "timing": "weeks",
+              "next_move": "The state will likely ask for a verified exchange source and then continue with written review and community notice expectations before any operational changes are treated as real."
+            },
+            {
+              "name": "Margaret Halloran",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will continue agency review of transportation safety data, community testimony, fiscal impacts, and enforceable mitigation conditions for gold mining and ore hauling near Tok."
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DNR will continue reviewing the Tok-area mining record, including public comments, inspection information, reclamation obligations, and any transportation or land-use concerns before making a decision."
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will continue the formal review and public-record process for the relevant mining matter, asking for additional factual input if needed before making any determination."
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will likely continue permit review, request or publish supporting documentation, and hold the decision until the record on haul routes, water monitoring, and local impacts is complete."
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will keep reviewing the record, ask for more permit and road-impact details, and avoid a final public commitment until the agency findings and community testimony are reconciled."
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The state will likely continue collecting public comments and technical information on permits, haul routes, monitoring, and reclamation before any policy or tax change is considered."
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will keep the project under review, asking for measurable haul-route, maintenance, safety, and permitting details before making any further commitments."
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The Alaska state government will likely continue its formal water-quality review, request or incorporate additional monitoring details if needed, and keep the record open until the permit or project docket is ready for a documented decision."
+            }
+          ]
+        },
+        "leaning": {
+          "call": "split",
+          "votes": {
+            "split": 14
+          },
+          "answers": 14
+        }
+      },
+      "unparsed_answers": 0
+    },
+    {
+      "folder": "04_placebo_s1",
+      "scenario": "placebo",
+      "seed": 1,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "models": {
+        "LLM_MODEL_NAME": "claude-haiku-4-5",
+        "LLM_TIER1_MODEL": "claude-sonnet-5",
+        "LLM_TIER2_MODEL": "claude-haiku-4-5",
+        "LLM_TIER3_MODEL": "claude-haiku-4-5"
+      },
+      "outcome": "ok",
+      "status": "judged",
+      "daily": {
+        "government": {
+          "1": {
+            "support": 4.909090909090909,
+            "heat": 11
+          },
+          "2": {
+            "support": 4.5,
+            "heat": 10
+          },
+          "3": {
+            "support": 5.25,
+            "heat": 12
+          },
+          "4": {
+            "support": 5.428571428571429,
+            "heat": 7
+          },
+          "5": {
+            "support": 5.666666666666667,
+            "heat": 3
+          }
+        },
+        "land_industry": {
+          "1": {
+            "support": 5.838709677419355,
+            "heat": 31
+          },
+          "2": {
+            "support": 6.0,
+            "heat": 28
+          },
+          "3": {
+            "support": 6.315789473684211,
+            "heat": 19
+          },
+          "4": {
+            "support": 6.0,
+            "heat": 13
+          },
+          "5": {
+            "support": 6.857142857142857,
+            "heat": 14
+          }
+        },
+        "land_community": {
+          "1": {
+            "support": 4.111111111111111,
+            "heat": 18
+          },
+          "2": {
+            "support": 4.3076923076923075,
+            "heat": 13
+          },
+          "3": {
+            "support": 4.375,
+            "heat": 16
+          },
+          "4": {
+            "support": 4.222222222222222,
+            "heat": 9
+          },
+          "5": {
+            "support": 4.2,
+            "heat": 10
+          }
+        },
+        "funds": {
+          "1": {
+            "support": 5.276595744680851,
+            "heat": 47
+          },
+          "2": {
+            "support": 5.902439024390244,
+            "heat": 41
+          },
+          "3": {
+            "support": 5.875,
+            "heat": 40
+          },
+          "4": {
+            "support": 5.571428571428571,
+            "heat": 28
+          },
+          "5": {
+            "support": 5.6521739130434785,
+            "heat": 23
+          }
+        },
+        "retail": {
+          "1": {
+            "support": 4.769230769230769,
+            "heat": 13
+          },
+          "2": {
+            "support": 6.285714285714286,
+            "heat": 7
+          },
+          "3": {
+            "support": 6.285714285714286,
+            "heat": 7
+          },
+          "4": {
+            "support": 6.3076923076923075,
+            "heat": 13
+          },
+          "5": {
+            "support": 6.0,
+            "heat": 3
+          }
+        }
+      },
+      "days3to5": {
+        "government": 5.448412698412699,
+        "land_industry": 6.390977443609022,
+        "land_community": 4.265740740740741,
+        "funds": 5.699534161490683,
+        "retail": 6.197802197802197
+      },
+      "unmapped_posts": 0,
+      "calls": {
+        "price": {
+          "call": null,
+          "votes": {},
+          "answers": 18,
+          "median_move_pct": null
+        },
+        "policy": {
+          "call": null,
+          "votes": {},
+          "answers": 16,
+          "statements": [
+            {
+              "name": "Margaret Halloran",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Margaret Halloran",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            }
+          ]
+        },
+        "leaning": {
+          "call": null,
+          "votes": {},
+          "answers": 14
+        }
+      },
+      "unparsed_answers": 48
+    },
+    {
+      "folder": "05_mine_approved_s1",
+      "scenario": "mine_approved",
+      "seed": 1,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "models": {
+        "LLM_MODEL_NAME": "claude-haiku-4-5",
+        "LLM_TIER1_MODEL": "claude-sonnet-5",
+        "LLM_TIER2_MODEL": "claude-haiku-4-5",
+        "LLM_TIER3_MODEL": "claude-haiku-4-5"
+      },
+      "outcome": "ok",
+      "status": "judged",
+      "daily": {
+        "government": {
+          "1": {
+            "support": 5.181818181818182,
+            "heat": 11
+          },
+          "2": {
+            "support": 5.25,
+            "heat": 12
+          },
+          "3": {
+            "support": 4.777777777777778,
+            "heat": 9
+          },
+          "4": {
+            "support": 5.0,
+            "heat": 9
+          },
+          "5": {
+            "support": 4.666666666666667,
+            "heat": 6
+          }
+        },
+        "land_industry": {
+          "1": {
+            "support": 6.0,
+            "heat": 36
+          },
+          "2": {
+            "support": 6.208333333333333,
+            "heat": 24
+          },
+          "3": {
+            "support": 6.142857142857143,
+            "heat": 21
+          },
+          "4": {
+            "support": 5.9375,
+            "heat": 16
+          },
+          "5": {
+            "support": 6.3125,
+            "heat": 16
+          }
+        },
+        "land_community": {
+          "1": {
+            "support": 4.0625,
+            "heat": 16
+          },
+          "2": {
+            "support": 3.823529411764706,
+            "heat": 17
+          },
+          "3": {
+            "support": 4.0,
+            "heat": 16
+          },
+          "4": {
+            "support": 3.5,
+            "heat": 12
+          },
+          "5": {
+            "support": 3.5714285714285716,
+            "heat": 7
+          }
+        },
+        "funds": {
+          "1": {
+            "support": 5.571428571428571,
+            "heat": 42
+          },
+          "2": {
+            "support": 6.029411764705882,
+            "heat": 34
+          },
+          "3": {
+            "support": 5.78125,
+            "heat": 32
+          },
+          "4": {
+            "support": 5.62962962962963,
+            "heat": 27
+          },
+          "5": {
+            "support": 5.4375,
+            "heat": 16
+          }
+        },
+        "retail": {
+          "1": {
+            "support": 5.7,
+            "heat": 10
+          },
+          "2": {
+            "support": 6.222222222222222,
+            "heat": 9
+          },
+          "3": {
+            "support": 6.0,
+            "heat": 8
+          },
+          "4": {
+            "support": 5.8,
+            "heat": 10
+          },
+          "5": {
+            "support": 5.714285714285714,
+            "heat": 7
+          }
+        }
+      },
+      "days3to5": {
+        "government": 4.814814814814815,
+        "land_industry": 6.1309523809523805,
+        "land_community": 3.6904761904761902,
+        "funds": 5.616126543209877,
+        "retail": 5.838095238095238
+      },
+      "unmapped_posts": 0,
+      "calls": {
+        "price": {
+          "call": null,
+          "votes": {},
+          "answers": 18,
+          "median_move_pct": null
+        },
+        "policy": {
+          "call": null,
+          "votes": {},
+          "answers": 16,
+          "statements": [
+            {
+              "name": "Margaret Halloran",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Margaret Halloran",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "twitter",
+              "timing": null,
+              "next_move": null
+            }
+          ]
+        },
+        "leaning": {
+          "call": null,
+          "votes": {},
+          "answers": 14
+        }
+      },
+      "unparsed_answers": 48
+    },
+    {
+      "folder": "06_court_blocks_mine_s1",
+      "scenario": "court_blocks_mine",
+      "seed": 1,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "models": {
+        "LLM_MODEL_NAME": "claude-haiku-4-5",
+        "LLM_TIER1_MODEL": "claude-sonnet-5",
+        "LLM_TIER2_MODEL": "claude-haiku-4-5",
+        "LLM_TIER3_MODEL": "claude-haiku-4-5"
+      },
+      "outcome": "ok",
+      "status": "judged",
+      "daily": {
+        "government": {
+          "1": {
+            "support": 4.75,
+            "heat": 8
+          },
+          "2": {
+            "support": 5.333333333333333,
+            "heat": 12
+          },
+          "3": {
+            "support": 5.0,
+            "heat": 6
+          },
+          "4": {
+            "support": 5.5,
+            "heat": 6
+          },
+          "5": {
+            "support": 5.5,
+            "heat": 6
+          }
+        },
+        "land_industry": {
+          "1": {
+            "support": 5.571428571428571,
+            "heat": 35
+          },
+          "2": {
+            "support": 5.7272727272727275,
+            "heat": 22
+          },
+          "3": {
+            "support": 6.055555555555555,
+            "heat": 18
+          },
+          "4": {
+            "support": 6.375,
+            "heat": 16
+          },
+          "5": {
+            "support": 6.642857142857143,
+            "heat": 14
+          }
+        },
+        "land_community": {
+          "1": {
+            "support": 3.5,
+            "heat": 18
+          },
+          "2": {
+            "support": 3.75,
+            "heat": 16
+          },
+          "3": {
+            "support": 4.2631578947368425,
+            "heat": 19
+          },
+          "4": {
+            "support": 4.333333333333333,
+            "heat": 9
+          },
+          "5": {
+            "support": 4.588235294117647,
+            "heat": 17
+          }
+        },
+        "funds": {
+          "1": {
+            "support": 5.0212765957446805,
+            "heat": 47
+          },
+          "2": {
+            "support": 5.923076923076923,
+            "heat": 39
+          },
+          "3": {
+            "support": 5.352941176470588,
+            "heat": 34
+          },
+          "4": {
+            "support": 6.833333333333333,
+            "heat": 24
+          },
+          "5": {
+            "support": 7.375,
+            "heat": 16
+          }
+        },
+        "retail": {
+          "1": {
+            "support": 5.2,
+            "heat": 10
+          },
+          "2": {
+            "support": 5.714285714285714,
+            "heat": 7
+          },
+          "3": {
+            "support": 5.454545454545454,
+            "heat": 11
+          },
+          "4": {
+            "support": 7.111111111111111,
+            "heat": 9
+          },
+          "5": {
+            "support": 5.5,
+            "heat": 6
+          }
+        }
+      },
+      "days3to5": {
+        "government": 5.333333333333333,
+        "land_industry": 6.3578042328042335,
+        "land_community": 4.394908840729275,
+        "funds": 6.520424836601308,
+        "retail": 6.021885521885522
+      },
+      "unmapped_posts": 0,
+      "calls": {
+        "price": {
+          "call": null,
+          "votes": {},
+          "answers": 18,
+          "median_move_pct": null
+        },
+        "policy": {
+          "call": "weeks",
+          "votes": {
+            "weeks": 8
+          },
+          "answers": 16,
+          "statements": [
+            {
+              "name": "Margaret Halloran",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "reddit",
+              "timing": null,
+              "next_move": null
+            },
+            {
+              "name": "Margaret Halloran",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DNR and DOT&PF will complete and release agency safety and traffic data on the Manh Choh haul route alongside the Redpoll Ridge permitting review before any final decision is announced."
+            },
+            {
+              "name": "Douglas Renfrew",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DNR will continue compiling public comments, inspection findings, and haul-route safety documentation before issuing any permitting decision on Redpoll Ridge."
+            },
+            {
+              "name": "Evelyn Marchetti",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The DNR mining division will continue technical review of the Redpoll Ridge Project application against submitted plans and applicable requirements, pending public input and interagency coordination."
+            },
+            {
+              "name": "Raymond Takahashi",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "Alaska state government will continue permit review for Redpoll Ridge while gathering additional operational compliance data and community input before issuing a final decision."
+            },
+            {
+              "name": "Curtis Lindqvist",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DNR will review whether current permit language for mining haul corridors includes binding compliance monitoring requirements, as I've requested."
+            },
+            {
+              "name": "Naomi Crane",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "The state will convene permitting and safety agencies to establish enforceable haul-route protocols before any further project advancement, driven by documented spacing violations and resident safety concerns on the corridor."
+            },
+            {
+              "name": "Gordon Strand",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DOT will issue clarified permit conditions specifying enforceable truck spacing, real-time monitoring protocols, and winter emergency procedures for the Manh Choh haul corridor before expanding operations."
+            },
+            {
+              "name": "Alicia Mendoza",
+              "platform": "twitter",
+              "timing": "weeks",
+              "next_move": "DEC will continue water-quality review of pending permits and project applications, with focus on baseline data, monitoring networks, and enforceable conditions before any decisions are finalized."
+            }
+          ]
+        },
+        "leaning": {
+          "call": "split",
+          "votes": {
+            "split": 2
+          },
+          "answers": 14
+        }
+      },
+      "unparsed_answers": 38
+    },
+    {
+      "folder": "07_tax_rise_s1",
+      "scenario": "tax_rise",
+      "seed": 1,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "status": "not judged"
+    },
+    {
+      "folder": "08_protest_s1",
+      "scenario": "protest",
+      "seed": 1,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "status": "not judged"
+    },
+    {
+      "folder": "09_gold_back_to_4000_s1",
+      "scenario": "gold_back_to_4000",
+      "seed": 1,
+      "minutes_per_round": 120,
+      "tiers": {
+        "1": 6,
+        "2": 18,
+        "3": 37
+      },
+      "status": "not judged"
+    }
+  ],
+  "grounding_sample": [
+    {
+      "run": "02_baseline_s2",
+      "name": "Priya Raghunathan",
+      "platform": "twitter",
+      "evidence": "Post 132 from Tok emphasized haul-road safety, local pavement costs, clear permits, and enforceable reclamation commitments rather than a simple pro- or anti-mining position.",
+      "grounded": true,
+      "reason": "Matches Tanya Rasmussen's posts on haul costs, safety, reclamation"
+    },
+    {
+      "run": "04_placebo_s1",
+      "name": "Hannah Whitcombe",
+      "platform": "twitter",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "06_court_blocks_mine_s1",
+      "name": "Elena Varnum",
+      "platform": "twitter",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "06_court_blocks_mine_s1",
+      "name": "Gordon Strand",
+      "platform": "twitter",
+      "evidence": "Post 7 from User 24 reported observed truck spacing violations at mile marker 3 in fog conditions with 60 daily round trips—concrete safety data that residents are documenting and regulators cannot ignore without credible response.",
+      "grounded": true,
+      "reason": "Details match Lorraine Pike's post and seed haul facts"
+    },
+    {
+      "run": "02_baseline_s2",
+      "name": "Sharon Delancey",
+      "platform": "twitter",
+      "evidence": "Post 126 showed a Tok mom supporting jobs from Manh Choh but only if there are concrete safety steps first, which matches the broader pattern I saw of people asking for enforceable conditions rather than giving unconditional support.",
+      "grounded": true,
+      "reason": "Matches Heather Moravec's posts about jobs with safety conditions."
+    },
+    {
+      "run": "03_baseline_s3",
+      "name": "Robert Glenning",
+      "platform": "twitter",
+      "evidence": "The strongest signal I saw was the Alaska-focused checklist post on Manh Choh haulage risk asking for haul routes, truck trips, road maintenance funding, water monitoring, and permit timelines; that points to scrutiny, not a clean green light or a full stop.",
+      "grounded": true,
+      "reason": "Answer matches the checklist posts about haulage risk directly."
+    },
+    {
+      "run": "05_mine_approved_s1",
+      "name": "Alicia Mendoza",
+      "platform": "twitter",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "06_court_blocks_mine_s1",
+      "name": "Julian Westbrook",
+      "platform": "twitter",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "06_court_blocks_mine_s1",
+      "name": "Miriam Castellanos",
+      "platform": "reddit",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "04_placebo_s1",
+      "name": "Diane Kessler",
+      "platform": "reddit",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "01_baseline_s1",
+      "name": "Douglas Renfrew",
+      "platform": "twitter",
+      "evidence": "Post 64 framed Redpoll Ridge as more than a yes/no decision, noting that communities experience permits through trucks, hearings, inspections, and reclamation obligations while asking for state documents and credible haul-road monitoring data.",
+      "grounded": true,
+      "reason": "Paraphrases Nadia Kovacs's day 1 post nearly exactly."
+    },
+    {
+      "run": "02_baseline_s2",
+      "name": "Elena Varnum",
+      "platform": "reddit",
+      "evidence": "Post 12 and the Tok comments: multiple residents and operators asked for the exact contract, timestamp, hauling schedule, and water monitoring before drawing conclusions, which suggests the price move is not yet translating into an immediate policy or operational change.",
+      "grounded": false,
+      "reason": "Cites nonexistent 'Post 12', no specific valid post identified"
+    },
+    {
+      "run": "02_baseline_s2",
+      "name": "Lorraine Pike",
+      "platform": "twitter",
+      "evidence": "Post 258 said higher gold could mean more ore to Fort Knox, but only if companies fund road repairs, share realistic haul windows, require driver training, and back promises with enforceable bonds.",
+      "grounded": true,
+      "reason": "Content paraphrases Ingrid Solberg's day-4 post nearly verbatim."
+    },
+    {
+      "run": "04_placebo_s1",
+      "name": "Vernon Ostrander",
+      "platform": "twitter",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "02_baseline_s2",
+      "name": "Diane Kessler",
+      "platform": "twitter",
+      "evidence": "Post 132 from Tok focused on haul-road safety, pavement damage, enforceable reclamation commitments, and the need for DNR inspection IDs or recent filings, which signals practical local concern rather than simple support or opposition.",
+      "grounded": true,
+      "reason": "Matches Tanya Rasmussen's posts about haul-road safety and DNR filings"
+    },
+    {
+      "run": "06_court_blocks_mine_s1",
+      "name": "Sofia Varga",
+      "platform": "reddit",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "01_baseline_s1",
+      "name": "Brent Holloway",
+      "platform": "twitter",
+      "evidence": "Post 180 kept the focus on real-world execution—haul routes, permits, inspection reports, and local meeting minutes—which is the kind of information that usually matters more than headlines for near-term mining and haul decisions.",
+      "grounded": false,
+      "reason": "Cites post 180, not among listed posts, no specific fact."
+    },
+    {
+      "run": "04_placebo_s1",
+      "name": "Victor Hale",
+      "platform": "twitter",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    },
+    {
+      "run": "03_baseline_s3",
+      "name": "Julian Westbrook",
+      "platform": "twitter",
+      "evidence": "Post 224 asked locals near the Manh Choh / Fort Knox haul routes for truck counts, escort details, dust or noise complaints, community meeting minutes, and haul studies, which suggests the key issue is operational haulage risk rather than a settled pro- or anti-mining consensus.",
+      "grounded": true,
+      "reason": "Refers to a post matching Amara Osei's requests in the run"
+    },
+    {
+      "run": "05_mine_approved_s1",
+      "name": "Julian Westbrook",
+      "platform": "twitter",
+      "evidence": null,
+      "grounded": false,
+      "reason": "no evidence given, or the answer was not JSON"
+    }
+  ]
+}

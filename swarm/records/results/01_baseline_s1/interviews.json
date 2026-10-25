@@ -1,0 +1,155 @@
+{
+  "command_id": "batch_interview_1792888170752",
+  "status": "completed",
+  "result": {
+    "interviews_count": 24,
+    "results": {
+      "twitter_0": {
+        "agent_id": 0,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.4,\n  \"state_next_move\": \"The Alaska state government will continue reviewing DOT/DNR inspection data, haul schedules, and public testimony before taking any further position on gold mining and hauling near Tok.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 133 highlighted the Manh Choh haul of roughly 240 miles to Fort Knox, about 60 round trips per day at peak, and emphasized road wear, winter safety, DOT inspections, haul schedules, tonnage, and inspection PDFs.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_1": {
+        "agent_id": 1,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0,\n  \"state_next_move\": \"DNR will continue building the administrative record, reviewing filings, inspection information, haul-road impacts, public comments, and applicable law before making or clarifying any permit decision near Tok.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 64 framed Redpoll Ridge as more than a yes/no decision, noting that communities experience permits through trucks, hearings, inspections, and reclamation obligations while asking for state documents and credible haul-road monitoring data.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_2": {
+        "agent_id": 2,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"The Alaska state government will continue its technical review of the submitted reclamation and permit materials, then request additional information or issue a formal notice based on the administrative record rather than making a public commitment early.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 180 emphasized that DOT inspection reports, DNR permit findings, and local meeting minutes are real inputs, which suggests the review is still active and fact-dependent rather than settled.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_3": {
+        "agent_id": 3,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The Alaska state government will likely continue its permitting review and public process, with agencies checking land status, access, water, and other documented impacts before any decision.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"I have not seen any actual posts in this exchange; the only concrete fact available is that no existing posts were present after refreshing, so there is no new market or policy signal to base a directional call on.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_4": {
+        "agent_id": 4,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"The state will keep reviewing DOT, DNR, and haul-route documentation, keep the project in conditional status, and avoid a final public commitment until it has clearer safety and maintenance findings.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 121 emphasized that refinery maintenance windows, haulage, permits, and local logistics are moving availability more than macro headlines, which points to a cautious, documentation-driven state response rather than a sudden approval or rejection.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_5": {
+        "agent_id": 5,
+        "response": "{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"The state will likely keep collecting documents and technical inputs on the Tok/Manh Choh haul plan before taking any policy or tax action.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 72 says the user is still collecting primary documents on the Tok/Manh Choh haul plan and specifically asks for traffic studies, permit conditions, and road-repair bond amounts before changing any position.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_6": {
+        "agent_id": 6,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The Alaska state government will keep reviewing permit conditions, haul-route impacts, and inspection or maintenance records before taking any formal action.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Posts emphasized route logistics, traffic counts, seasonal limits, pavement condition, and permit language rather than any clear immediate approval or shutdown signal.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_7": {
+        "agent_id": 7,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"The Alaska state government will continue documenting comments and reviewing the water-related permit and monitoring record before making any project-specific decision on mining near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 180 focused on haul routes, permits, and inspection reports for Manh Choh, which reinforces that the near-term state response is still process-driven rather than a clear policy shift.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_10": {
+        "agent_id": 10,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 1.5,\n  \"state_next_move\": \"Alaska will likely keep the Manh Choh/Tok area process moving through DNR/DOT oversight, with attention to permit conditions, road maintenance, inspection records, and safety concerns rather than an immediate halt.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 34 reported frost heaves and rutting around MP 120-134 after heavy ore traffic, with crews scheduled for shoulder repair and a safety reminder to haul drivers.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_11": {
+        "agent_id": 11,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.3,\"state_next_move\":\"Alaska will likely keep the project moving under existing permits while asking for more documentation, inspections, and road-maintenance follow-up on the Tok haul route.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 34 reported frost heaves and rutting around MP 120–134 after heavy ore traffic, with shoulder repair scheduled and a safety reminder for haul drivers.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_12": {
+        "agent_id": 12,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The state will likely keep the permitting and monitoring process moving forward while asking for more documentation and public comment on haul-road impacts and reclamation obligations.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The post about Redpoll Ridge said the decision is a test of process quality and defensibility, and that communities live with trucks, hearings, inspections, and reclamation obligations rather than just a yes/no permit headline.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_13": {
+        "agent_id": 13,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"They’ll keep the haul and permit process under review, ask for more documentation if needed, and avoid making any sudden change without a clear safety or compliance trigger.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 180 kept the focus on real-world execution—haul routes, permits, inspection reports, and local meeting minutes—which is the kind of information that usually matters more than headlines for near-term mining and haul decisions.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_23": {
+        "agent_id": 23,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.0,\"state_next_move\":\"The state will keep the process moving with more permit review, document release, and public comment before making any final decision about the haul route or project conditions.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 122 said traffic counts, DOT inspection reports, DNR permit findings, and local meeting minutes are active inputs, which suggests the decision will hinge on documented review rather than a quick green light.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_24": {
+        "agent_id": 24,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":6,\"state_next_move\":\"The Alaska state government will likely keep the mine and haul route moving under existing permits while asking for more documentation, monitoring, and public reassurance rather than making a sudden change.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 121 saying markets are watching haulage/permits and that local haulage near Manh Choh will move availability more than the headline price.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_25": {
+        "agent_id": 25,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":8,\"state_next_move\":\"The state will keep the process moving with more permit review, public comment handling, and likely a push for conditional approval rather than a clean stop.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"A post noted that DOT inspection reports, DNR permit findings, and local meeting minutes are real inputs for Manh Choh, which tells me the state and market are both watching haul-route execution closely.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_30": {
+        "agent_id": 30,
+        "response": "{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 0.6,\n  \"state_next_move\": \"Alaska will likely continue the permit and inspection process around Tok, with emphasis on haul-road monitoring, DNR filings, and compliance documentation rather than a clean yes/no reversal.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 64 framed the Redpoll Ridge decision as a process-quality issue where markets see a binary permit decision but communities live with trucks, hearings, inspections, and reclamation obligations.\"\n}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_31": {
+        "agent_id": 31,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.3,\"state_next_move\":\"Alaska officials will likely continue handling the Tok/Manh Choh issue through permit oversight, road/haul-route inspection records, and requests for documented traffic or maintenance data rather than an immediate major policy change.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 180 framed Manh Choh near Tok as a live valuation example driven by DOT inspection reports, DNR permit findings, local meeting minutes, traffic counts and haul schedules, which suggests the next meaningful signal is documented state/local oversight rather than rumor.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_32": {
+        "agent_id": 32,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":1.5,\"state_next_move\":\"Keep tightening scrutiny on haul-route safety and permit compliance before making any substantive approval or enforcement call.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The recurring posts focused on Manh Choh haul logistics, road maintenance, inspection findings, and DNR permit language; that suggests the next material swing is more likely to come from operating and regulatory details than from the gold tape.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_33": {
+        "agent_id": 33,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":2.5,\"state_next_move\":\"Alaska will likely keep the Tok-area mining issue under review with additional permit scrutiny and conditions rather than issuing an abrupt reversal.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 180 emphasized that Manh Choh haul-route logistics, DOT inspection reports, DNR permit findings, and local meeting minutes are real valuation inputs, which suggests the next move is more likely procedural and conditional than a clean yes/no decision.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_34": {
+        "agent_id": 34,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":3.5,\"state_next_move\":\"The Alaska state government will likely keep the process moving but add scrutiny through filings, inspections, and public comment before making any clean approval or enforcement step near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"User 64 framed Redpoll Ridge as a process-quality test and explicitly referenced DNR filings, inspection reports, and haul-road impacts, which signals that the next state move is more likely procedural scrutiny than a fast binary decision.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_35": {
+        "agent_id": 35,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":1.8,\"state_next_move\":\"The Alaska state government will likely keep the permit and inspection process moving, while asking for more documentation and staying sensitive to local haul-route concerns near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 180 emphasized real yields, central-bank reserve buys, ETF flows, and Manh Choh haul-route execution as the key inputs, which points to a market that is still being driven by confirmed bullish context rather than a reversal.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_36": {
+        "agent_id": 36,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.5,\"state_next_move\":\"The Alaska state government will most likely continue routine permitting and oversight rather than make a dramatic new move on gold mining near Tok.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The clearest post I saw framed Manh Choh as a supply-chain item driven by haulage, permitting, workforce, and refinery intake, which points to monitoring rather than an immediate policy shift.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_37": {
+        "agent_id": 37,
+        "response": "{\"gold_direction\":\"up\",\"gold_move_pct\":1.5,\"state_next_move\":\"Alaska will likely keep the Tok/Manh Choh issue in the permitting-and-traffic review lane rather than make a sudden policy shift, with more scrutiny on haul-route conditions, maintenance obligations, and seasonal operating limits.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"Post 12 focused on measurable haul-road issues—B-train round trips, pavement-repair obligations, seasonal limits, and permit conditions—which signals the debate is being driven by operational and regulatory details rather than a clear pro- or anti-mining consensus.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      },
+      "twitter_38": {
+        "agent_id": 38,
+        "response": "{\"gold_direction\":\"flat\",\"gold_move_pct\":0.3,\"state_next_move\":\"They will likely continue reviewing permits, haulage, and inspection paperwork rather than making a fresh public commitment, with any decision framed around compliance and logistics rather than price.\",\"state_move_timing\":\"weeks\",\"local_leaning\":\"split\",\"evidence\":\"The repeated emphasis in the posts on Manh Choh haulage, permits, refinery intake windows, and inspection reports suggests the market is watching operational constraints more than a clean supply shock.\"}",
+        "timestamp": 46,
+        "platform": "twitter"
+      }
+    }
+  },
+  "error": null,
+  "timestamp": "2026-10-25T01:30:38.002766"
+}

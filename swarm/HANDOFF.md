@@ -27,6 +27,13 @@ For a Claude session on Muhd's desktop. Written 25 Oct 2026 ~00:35 by the laptop
   `Remove-Item -Recurse -Force C:\Oxhack\swarm-runs\01_baseline_s1; Copy-Item -Recurse swarm\runs\01_baseline_s1 C:\Oxhack\swarm-runs\`
 - When one run works, re-run `powershell -ExecutionPolicy Bypass -File swarm\desktop_run.ps1`. Reset any failed run folders first; finished runs are skipped.
 
+## Status (25 Oct ~03:35, desktop)
+- **Runs 01-03** (baselines): OpenAI (gpt-5.5 / gpt-5.4-mini / gpt-5-mini), agent memory uncapped. Complete with interviews; run 01 lost its Reddit interviews when one agent's memory passed the 272k-token limit. They cost about $54: every call resends the agent's whole memory, and Reddit feeds carry every comment.
+- **Runs 04-06** (placebo, mine approved, court blocks mine): Claude (claude-sonnet-5 tier 1, claude-haiku-4-5 tiers 2-3) through MiroFish's native Anthropic backend, with memory capped at 100k tokens and 10 comments per Reddit post. Simulations complete; interviews mostly lost (0, 0 and 10 of 48) when the Claude credit ran out mid-interview. About $95.
+- **Runs 07-09**: running on GLM (glm-5.3 tier 1, glm-5.3-flash tiers 2-3, same caps), one at a time.
+- **Judge**: glm-5.3-flash scores every run (26 of 30 within 2 points on Muhd's hand check; the pre-registered gpt-5.4-mini was out of budget).
+- **Interim checks (01-06)**: stability pass; placebo, mirrors and grounding fail (`records/results/results.md`). Runs 04-09 differ from the baselines in model and memory caps as well as the news, so their effects against the baselines include that difference; comparing 05-09 with the placebo (04) removes it for the Claude runs. Heat (posts per day) is not comparable across providers: the Claude runs have about 450 posts each, the OpenAI runs about 700.
+
 ## Rules
 - Never print, paste or commit the OpenAI key. It lives only in `C:\Oxhack\MiroFish\.env`.
 - Commit as `Muhammad Ahmed <266575487+meep-boop@users.noreply.github.com>`, on branch `ahmed/gold-society-plan`. Never add AI or co-author trailers.

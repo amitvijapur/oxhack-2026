@@ -1,0 +1,299 @@
+{
+  "command_id": "batch_interview_1792895979434",
+  "status": "completed",
+  "result": {
+    "interviews_count": 48,
+    "results": {
+      "twitter_0": {
+        "agent_id": 0,
+        "response": "{\"gold_direction\": \"flat\", \"gold_move_pct\": 1, \"state_next_move\": \"DNR and DOT&PF will complete and release agency safety and traffic data on the Manh Choh haul route alongside the Redpoll Ridge permitting review before any final decision is announced.\", \"state_move_timing\": \"weeks\", \"local_leaning\": \"split\", \"evidence\": \"The 2024 public meetings where residents described truck noise, winter road conditions, and passing distance near homes along the 240-mile Manh Choh to Fort Knox haul route, alongside industry emphasis on the roughly 300 jobs the operation supports.\"}",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_1": {
+        "agent_id": 1,
+        "response": "{\"gold_direction\": \"flat\", \"gold_move_pct\": 0.5, \"state_next_move\": \"DNR will continue compiling public comments, inspection findings, and haul-route safety documentation before issuing any permitting decision on Redpoll Ridge.\", \"state_move_timing\": \"weeks\", \"local_leaning\": \"split\", \"evidence\": \"Resident-driven haul-route safety reports near mile marker 3 prompted the operator to commit to a log audit, while others are organizing detailed public comments on water and subsistence concerns, showing both support and opposition are active and specific rather than uniform.\"}",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_2": {
+        "agent_id": 2,
+        "response": "```json\n{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0,\n  \"state_next_move\": \"The DNR mining division will continue technical review of the Redpoll Ridge Project application against submitted plans and applicable requirements, pending public input and interagency coordination.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 93 reflects community concern about operational accountability on haul routes—specific, fact-based worry about safety protocols in winter fog near Tok, not blanket opposition or support. This indicates residents are watching performance, not uniformly for or against mining itself.\"\n}\n```",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_3": {
+        "agent_id": 3,
+        "response": "```json\n{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 1.5,\n  \"state_next_move\": \"Alaska state government will continue permit review for Redpoll Ridge while gathering additional operational compliance data and community input before issuing a final decision.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 92 (user_id 10) explicitly commits to auditing specific spacing/compliance reports and distinguishing between isolated events and patterns—this reflects the kind of verifiable, procedural review that state permitting will require, and the fact that both operational and financial analysts are treating compliance monitoring as a credible permitting condition suggests the decision framework is maturing, not that sentiment has solidified either direction.\"\n}\n```",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_4": {
+        "agent_id": 4,
+        "response": "```json\n{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0,\n  \"state_next_move\": \"DNR will review whether current permit language for mining haul corridors includes binding compliance monitoring requirements, as I've requested.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 92 from User 10 stating 'If the audit shows a pattern rather than a one-off, we'll say so and address it, not paper over it' reflects the accountability standard my constituents in Tok deserve and the division I see—some wanting jobs, others wanting proof of road and environmental protection.\"\n}\n```",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_5": {
+        "agent_id": 5,
+        "response": "```json\n{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0.5,\n  \"state_next_move\": \"The state will convene permitting and safety agencies to establish enforceable haul-route protocols before any further project advancement, driven by documented spacing violations and resident safety concerns on the corridor.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 7 from User 24 describing specific haul-corridor observations—60 round trips daily, spacing violations at mile marker 3, fog visibility concerns—demonstrates genuine resident safety concerns that will require state operational response regardless of mining tax policy.\"\n}\n```",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_6": {
+        "agent_id": 6,
+        "response": "```json\n{\n  \"gold_direction\": \"up\",\n  \"gold_move_pct\": 3.5,\n  \"state_next_move\": \"DOT will issue clarified permit conditions specifying enforceable truck spacing, real-time monitoring protocols, and winter emergency procedures for the Manh Choh haul corridor before expanding operations.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"Post 7 from User 24 reported observed truck spacing violations at mile marker 3 in fog conditions with 60 daily round trips—concrete safety data that residents are documenting and regulators cannot ignore without credible response.\"\n}\n```",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_7": {
+        "agent_id": 7,
+        "response": "```json\n{\n  \"gold_direction\": \"flat\",\n  \"gold_move_pct\": 0,\n  \"state_next_move\": \"DEC will continue water-quality review of pending permits and project applications, with focus on baseline data, monitoring networks, and enforceable conditions before any decisions are finalized.\",\n  \"state_move_timing\": \"weeks\",\n  \"local_leaning\": \"split\",\n  \"evidence\": \"I have not seen posts or data in this session that would inform commodity-price forecasting or local political sentiment. My role is water-quality regulation, not financial analysis or political polling. I work from documented records, field observations, and permit files—not from social media speculation.\"\n}\n```",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_10": {
+        "agent_id": 10,
+        "response": "{\"gold_direction\": \"up\", \"gold_move_pct\": 2, \"state_next_move\": \"DNR will continue reviewing Redpoll Ridge permitting while requesting additional data on haul-route compliance monitoring and winter emergency response before any approval decision.\", \"state_move_timing\": \"months\", \"local_leaning\": \"split\", \"evidence\": \"Post from user 24 reporting trucks bunching too close near mile marker 3 in fog, paired with analyst commentary (user 30) treating recurring compliance complaints as a signal serious enough to widen supply-risk assumptions, shows real safety concerns alongside continued investment confidence.\"}",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_11": {
+        "agent_id": 11,
+        "response": "{\"gold_direction\": \"flat\", \"gold_move_pct\": 0.5, \"state_next_move\": \"State transportation and environmental agencies will request documentation and monitoring data from Peak Gold on haul road compliance before taking any formal action.\", \"state_move_timing\": \"weeks\", \"local_leaning\": \"split\", \"evidence\": \"Operators and local businesses reported recurring spacing and compliance concerns on the haul corridor near mile marker 3, while the company response focused on audits and protocols rather than confirmed violations.\"}",
+        "timestamp": 47,
+        "platform": "twitter"
+      },
+      "twitter_12": {
+        "agent_id": 12,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_13": {
+        "agent_id": 13,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_23": {
+        "agent_id": 23,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_24": {
+        "agent_id": 24,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_25": {
+        "agent_id": 25,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_30": {
+        "agent_id": 30,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_31": {
+        "agent_id": 31,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_32": {
+        "agent_id": 32,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_33": {
+        "agent_id": 33,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_34": {
+        "agent_id": 34,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_35": {
+        "agent_id": 35,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_36": {
+        "agent_id": 36,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_37": {
+        "agent_id": 37,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_38": {
+        "agent_id": 38,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "reddit_0": {
+        "agent_id": 0,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_1": {
+        "agent_id": 1,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_2": {
+        "agent_id": 2,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_3": {
+        "agent_id": 3,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_4": {
+        "agent_id": 4,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_5": {
+        "agent_id": 5,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_6": {
+        "agent_id": 6,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_7": {
+        "agent_id": 7,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_10": {
+        "agent_id": 10,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_11": {
+        "agent_id": 11,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_12": {
+        "agent_id": 12,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_13": {
+        "agent_id": 13,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_23": {
+        "agent_id": 23,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_24": {
+        "agent_id": 24,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_25": {
+        "agent_id": 25,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_30": {
+        "agent_id": 30,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_31": {
+        "agent_id": 31,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_32": {
+        "agent_id": 32,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_33": {
+        "agent_id": 33,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_34": {
+        "agent_id": 34,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_35": {
+        "agent_id": 35,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_36": {
+        "agent_id": 36,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_37": {
+        "agent_id": 37,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_38": {
+        "agent_id": 38,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      }
+    }
+  },
+  "error": null,
+  "timestamp": "2026-10-25T02:40:41.103393"
+}

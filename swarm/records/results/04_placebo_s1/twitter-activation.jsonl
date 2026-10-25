@@ -1,0 +1,60 @@
+{"round": 1, "simulated_hour": 0, "agent_ids": []}
+{"round": 2, "simulated_hour": 2, "agent_ids": []}
+{"round": 3, "simulated_hour": 4, "agent_ids": []}
+{"round": 4, "simulated_hour": 6, "agent_ids": [27, 14, 24, 22, 50, 33]}
+{"round": 5, "simulated_hour": 8, "agent_ids": [32, 43, 25, 39, 40, 24, 57, 34]}
+{"round": 6, "simulated_hour": 10, "agent_ids": [35, 39, 10, 6]}
+{"round": 7, "simulated_hour": 12, "agent_ids": [40, 15, 37, 20, 56, 32, 24]}
+{"round": 8, "simulated_hour": 14, "agent_ids": [5, 49, 31, 41, 50]}
+{"round": 9, "simulated_hour": 16, "agent_ids": [9, 48, 40, 45, 44, 11, 8, 34]}
+{"round": 10, "simulated_hour": 18, "agent_ids": [47, 59, 11, 27, 25, 45, 24, 20, 26, 10, 32, 4, 21, 14, 22, 50]}
+{"round": 11, "simulated_hour": 20, "agent_ids": [12, 11, 45, 46, 41, 15, 20, 13, 30, 59, 22, 24, 35, 56, 29, 34]}
+{"round": 12, "simulated_hour": 22, "agent_ids": [27, 26, 43, 51, 35, 17, 39, 23, 22, 19]}
+{"round": 13, "simulated_hour": 0, "agent_ids": []}
+{"round": 14, "simulated_hour": 2, "agent_ids": []}
+{"round": 15, "simulated_hour": 4, "agent_ids": []}
+{"round": 16, "simulated_hour": 6, "agent_ids": [13, 30, 47, 24, 56, 18, 16, 59, 22, 19, 33]}
+{"round": 17, "simulated_hour": 8, "agent_ids": [39, 48, 35, 30, 51, 50, 44, 45, 22, 38, 33, 25, 13]}
+{"round": 18, "simulated_hour": 10, "agent_ids": [52, 36, 49, 10, 33, 41, 6]}
+{"round": 19, "simulated_hour": 12, "agent_ids": [43, 41, 10, 34, 11, 26, 15, 35, 3, 39, 1]}
+{"round": 20, "simulated_hour": 14, "agent_ids": [41, 10, 40, 0, 50, 34, 52, 43, 31, 12, 4]}
+{"round": 21, "simulated_hour": 16, "agent_ids": [45, 9, 40, 51]}
+{"round": 22, "simulated_hour": 18, "agent_ids": [48, 23, 47, 56, 27, 4, 55, 25, 59, 50, 45]}
+{"round": 23, "simulated_hour": 20, "agent_ids": [18, 4, 41, 34, 20, 54, 29, 24, 51, 27, 23, 49, 15, 22, 11, 12]}
+{"round": 24, "simulated_hour": 22, "agent_ids": [50, 19, 16, 57, 28, 26, 15]}
+{"round": 25, "simulated_hour": 0, "agent_ids": []}
+{"round": 26, "simulated_hour": 2, "agent_ids": []}
+{"round": 27, "simulated_hour": 4, "agent_ids": []}
+{"round": 28, "simulated_hour": 6, "agent_ids": [29, 18, 33, 50, 47, 15, 21, 28, 24, 59, 13, 38, 16]}
+{"round": 29, "simulated_hour": 8, "agent_ids": [47, 41, 22, 59, 26, 31, 55, 40, 4, 57, 50, 25]}
+{"round": 30, "simulated_hour": 10, "agent_ids": [49, 6, 0, 4, 40, 53, 3, 45, 33]}
+{"round": 31, "simulated_hour": 12, "agent_ids": [29, 20, 30, 24]}
+{"round": 32, "simulated_hour": 14, "agent_ids": [42, 44, 49, 33]}
+{"round": 33, "simulated_hour": 16, "agent_ids": [9, 57, 43, 39, 51, 1, 40, 50, 13, 28, 48]}
+{"round": 34, "simulated_hour": 18, "agent_ids": [47, 32, 14, 4, 25, 10]}
+{"round": 35, "simulated_hour": 20, "agent_ids": [34, 39, 27, 22, 15, 14, 46, 25, 26, 35, 19, 49, 58, 29, 21, 42, 41]}
+{"round": 36, "simulated_hour": 22, "agent_ids": [27, 56, 24, 22, 17, 55, 39, 57]}
+{"round": 37, "simulated_hour": 0, "agent_ids": []}
+{"round": 38, "simulated_hour": 2, "agent_ids": []}
+{"round": 39, "simulated_hour": 4, "agent_ids": []}
+{"round": 40, "simulated_hour": 6, "agent_ids": [16, 21, 15, 24, 28, 47, 13, 59]}
+{"round": 41, "simulated_hour": 8, "agent_ids": [25, 24, 57, 44, 22, 27, 45, 39, 13, 21, 11, 47, 31, 38]}
+{"round": 42, "simulated_hour": 10, "agent_ids": [0, 9, 31, 49, 42]}
+{"round": 43, "simulated_hour": 12, "agent_ids": [18, 6, 30, 52, 17, 56, 45]}
+{"round": 44, "simulated_hour": 14, "agent_ids": [3, 51, 50, 13, 49, 7, 5, 45]}
+{"round": 45, "simulated_hour": 16, "agent_ids": [39, 7, 49, 5, 50, 43, 52, 11, 33]}
+{"round": 46, "simulated_hour": 18, "agent_ids": [4, 21, 25, 55, 29, 48]}
+{"round": 47, "simulated_hour": 20, "agent_ids": [20, 59, 54, 46, 30, 42, 13]}
+{"round": 48, "simulated_hour": 22, "agent_ids": [18, 22, 27, 43, 54, 57]}
+{"round": 49, "simulated_hour": 0, "agent_ids": []}
+{"round": 50, "simulated_hour": 2, "agent_ids": []}
+{"round": 51, "simulated_hour": 4, "agent_ids": []}
+{"round": 52, "simulated_hour": 6, "agent_ids": [30, 14, 50, 13, 15, 24, 27, 16, 29, 21, 59, 18]}
+{"round": 53, "simulated_hour": 8, "agent_ids": [51, 45, 21, 50, 46, 39, 13, 55]}
+{"round": 54, "simulated_hour": 10, "agent_ids": [41, 52, 59, 40, 39, 54, 58, 3, 2, 42, 1]}
+{"round": 55, "simulated_hour": 12, "agent_ids": [41, 6, 46, 33, 26, 25, 51, 13, 9, 52]}
+{"round": 56, "simulated_hour": 14, "agent_ids": [36, 20, 49, 6, 58, 33, 9, 50, 57]}
+{"round": 57, "simulated_hour": 16, "agent_ids": [10, 50, 20, 11, 45, 9, 49, 31, 7, 28]}
+{"round": 58, "simulated_hour": 18, "agent_ids": [19, 4, 32, 45, 22, 23, 27]}
+{"round": 59, "simulated_hour": 20, "agent_ids": [59, 14, 26, 39, 55, 28]}
+{"round": 60, "simulated_hour": 22, "agent_ids": [24, 40, 55, 25, 57]}

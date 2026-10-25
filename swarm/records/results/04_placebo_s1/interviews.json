@@ -1,0 +1,299 @@
+{
+  "command_id": "batch_interview_1792896089963",
+  "status": "completed",
+  "result": {
+    "interviews_count": 48,
+    "results": {
+      "twitter_0": {
+        "agent_id": 0,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_1": {
+        "agent_id": 1,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_2": {
+        "agent_id": 2,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_3": {
+        "agent_id": 3,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_4": {
+        "agent_id": 4,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_5": {
+        "agent_id": 5,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_6": {
+        "agent_id": 6,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_7": {
+        "agent_id": 7,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_10": {
+        "agent_id": 10,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_11": {
+        "agent_id": 11,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_12": {
+        "agent_id": 12,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_13": {
+        "agent_id": 13,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_23": {
+        "agent_id": 23,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_24": {
+        "agent_id": 24,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_25": {
+        "agent_id": 25,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_30": {
+        "agent_id": 30,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_31": {
+        "agent_id": 31,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_32": {
+        "agent_id": 32,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_33": {
+        "agent_id": 33,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_34": {
+        "agent_id": 34,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_35": {
+        "agent_id": 35,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_36": {
+        "agent_id": 36,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_37": {
+        "agent_id": 37,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "twitter_38": {
+        "agent_id": 38,
+        "response": null,
+        "timestamp": null,
+        "platform": "twitter"
+      },
+      "reddit_0": {
+        "agent_id": 0,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_1": {
+        "agent_id": 1,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_2": {
+        "agent_id": 2,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_3": {
+        "agent_id": 3,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_4": {
+        "agent_id": 4,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_5": {
+        "agent_id": 5,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_6": {
+        "agent_id": 6,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_7": {
+        "agent_id": 7,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_10": {
+        "agent_id": 10,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_11": {
+        "agent_id": 11,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_12": {
+        "agent_id": 12,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_13": {
+        "agent_id": 13,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_23": {
+        "agent_id": 23,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_24": {
+        "agent_id": 24,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_25": {
+        "agent_id": 25,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_30": {
+        "agent_id": 30,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_31": {
+        "agent_id": 31,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_32": {
+        "agent_id": 32,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_33": {
+        "agent_id": 33,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_34": {
+        "agent_id": 34,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_35": {
+        "agent_id": 35,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_36": {
+        "agent_id": 36,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_37": {
+        "agent_id": 37,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      },
+      "reddit_38": {
+        "agent_id": 38,
+        "response": null,
+        "timestamp": null,
+        "platform": "reddit"
+      }
+    }
+  },
+  "error": null,
+  "timestamp": "2026-10-25T02:42:17.023454"
+}
