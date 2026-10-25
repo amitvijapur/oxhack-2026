@@ -3,9 +3,9 @@ import { api } from '../../convex/_generated/api.js';
 import { convexClient } from './client.js';
 
 const LABELS = {
-  offline: 'Backend not configured',
-  connecting: 'Connecting to backend',
-  connected: 'Backend connected',
+  offline: 'Sample data only',
+  connecting: 'Connecting',
+  connected: 'Live data',
 };
 
 function StatusPill({ state }) {
