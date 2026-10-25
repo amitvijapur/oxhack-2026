@@ -2,7 +2,7 @@
 
 import { useEffect, useEffectEvent, useRef, useState } from "react";
 import type * as CesiumNS from "cesium";
-import type { Claims, Geochem, Occurrences, Plots } from "@/lib/showcase";
+import type { Claims, ColorBy, Geochem, Occurrences, Plots } from "@/lib/showcase";
 import { claimState, plotReading } from "@/lib/showcase";
 import { terrariumTerrain } from "./terrarium";
 import "./earth.css";
@@ -25,9 +25,18 @@ const VIEWS: Record<Mode, View> = {
 const GREEN = "#22c55e";
 /** Plot fill by anomaly class (below median, above median, top 10%, top 2%) of the chosen element.
  *  Warm yellow is used only here, where gold is actually measured. */
-const CLASS_FILL: [string, number][] = [["#ffffff", 0.14], ["#facc15", 0.35], ["#facc15", 0.65], ["#fde047", 0.92]];
+const CLASS_FILL: [string, number][] = [["#ffffff", 0.18], ["#facc15", 0.45], ["#facc15", 0.75], ["#fde047", 0.95]];
+
+/** Grey (1977) to green (2025) by the year a claim was staked. */
+function stakedColor(year: number | null | undefined): [string, number] {
+  if (!year) return ["#ffffff", 0];
+  const t = Math.max(0, Math.min(1, (year - 1977) / (2025 - 1977)));
+  const mix = (a: number, b: number) => Math.round(a + (b - a) * t);
+  return [`rgb(${mix(115, 34)}, ${mix(115, 197)}, ${mix(115, 94)})`, 0.35 + 0.5 * t];
+}
 
 type Ring = [number, number][];
+const scale = ([css, alpha]: [string, number], k: number): [string, number] => [css, alpha * k];
 /** Outer rings without the repeated closing point: a zero-length last segment breaks Cesium's ground polylines. */
 const ringsOf = (geometry: Plots["plots"][number]["geometry"]): Ring[] =>
   (geometry.type === "Polygon" ? [geometry.coordinates[0]] : geometry.coordinates.map((poly) => poly[0])).map((ring) => {
@@ -52,9 +61,15 @@ export type EarthProps = {
   occurrences: Occurrences | null;
   /** Bedrock geology and known mines, switched on from the ground tab. */
   bedrock: boolean;
+  colorBy: ColorBy;
+  /** The plot under the pointer, on the map or in the list (plot id, no prefix). */
+  hoverId: string | null;
+  onHover: (id: string | null) => void;
+  /** Approximate ground height at the selected plot, from the same terrain tiles. */
+  onElevation: (metres: number | null) => void;
 };
 
-export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, onReady, geochem, element, occurrences, bedrock }: EarthProps) {
+export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, onReady, geochem, element, occurrences, bedrock, colorBy, hoverId, onHover, onElevation }: EarthProps) {
   const host = useRef<HTMLDivElement>(null);
   const [api, setApi] = useState<{ Cesium: typeof CesiumNS; viewer: CesiumNS.Viewer } | null>(null);
   const claimPrimitive = useRef<CesiumNS.GroundPrimitive | null>(null);
@@ -63,6 +78,9 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
   const plotLines = useRef<CesiumNS.GroundPolylinePrimitive[]>([]);
   const select = useEffectEvent(onSelect);
   const ready = useEffectEvent(onReady);
+  const hover = useEffectEvent(onHover);
+  const elevation = useEffectEvent(onElevation);
+  const plotGlow = useRef<CesiumNS.GroundPolylinePrimitive | null>(null);
 
   // One viewer for the life of the page.
   useEffect(() => {
@@ -115,13 +133,17 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
       handler.setInputAction((event: { position: CesiumNS.Cartesian2 }) => {
         const picked = scene.pick(event.position);
         // Plots are ground-primitive instances (string ids); mines are entities.
-        const id: string | null = picked?.id instanceof Cesium.Entity ? picked.id.id : typeof picked?.id === "string" ? picked.id : null;
+        const raw: string | null = picked?.id instanceof Cesium.Entity ? picked.id.id : typeof picked?.id === "string" ? picked.id : null;
+        const id = raw?.replace(/^label:/, "plot:") ?? null;
         select(id && /^(plot|occ):/.test(id) ? id : null);
       }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
       handler.setInputAction((event: { endPosition: CesiumNS.Cartesian2 }) => {
         const picked = scene.pick(event.endPosition);
-        const id = picked?.id instanceof Cesium.Entity ? picked.id.id : picked?.id;
-        scene.canvas.style.cursor = typeof id === "string" && /^(plot|occ):/.test(id) ? "pointer" : "";
+        const raw = picked?.id instanceof Cesium.Entity ? picked.id.id : picked?.id;
+        // Plot labels are entities named "label:<plot id>"; treat them like the plot itself.
+        const id = typeof raw === "string" ? raw.replace(/^label:/, "plot:") : null;
+        scene.canvas.style.cursor = id && /^(plot|occ):/.test(id) ? "pointer" : "";
+        hover(id?.startsWith("plot:") ? id.slice(5) : null);
       }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
       scene.globe.tileLoadProgressEvent.addEventListener(function first(pending: number) {
@@ -169,27 +191,53 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
     });
     const outline = (kind: "claim" | "open") => new Cesium.GroundPolylinePrimitive({
       geometryInstances: plots.plots.filter((p) => p.kind === kind).flatMap((plot) => ringsOf(plot.geometry).map((ring) => new Cesium.GeometryInstance({
-        geometry: new Cesium.GroundPolylineGeometry({ positions: Cesium.Cartesian3.fromDegreesArray(ring.flat()), width: kind === "claim" ? 2 : 1.6, loop: true }),
+        geometry: new Cesium.GroundPolylineGeometry({ positions: Cesium.Cartesian3.fromDegreesArray(ring.flat()), width: 2, loop: true }),
       }))),
       appearance: new Cesium.PolylineMaterialAppearance({
         material: kind === "claim"
-          ? Cesium.Material.fromType("Color", { color: Cesium.Color.WHITE.withAlpha(0.75) })
-          : Cesium.Material.fromType("PolylineDash", { color: Cesium.Color.WHITE.withAlpha(0.85), dashLength: 10 }),
+          ? Cesium.Material.fromType("Color", { color: Cesium.Color.WHITE.withAlpha(0.9) })
+          : Cesium.Material.fromType("PolylineDash", { color: Cesium.Color.WHITE.withAlpha(0.9), dashLength: 10 }),
       }),
       show: false,
     });
     const lines = [outline("claim"), outline("open")];
+    // A soft halo around the top-10% gold plots, so the best ground stands out from the valley.
+    const best = geochem ? plots.plots.filter((p) => (plotReading(p, geochem, "Au")?.k ?? 0) >= 2) : [];
+    const glow = new Cesium.GroundPolylinePrimitive({
+      geometryInstances: best.flatMap((plot) => ringsOf(plot.geometry).map((ring) => new Cesium.GeometryInstance({
+        geometry: new Cesium.GroundPolylineGeometry({ positions: Cesium.Cartesian3.fromDegreesArray(ring.flat()), width: 10, loop: true }),
+      }))),
+      appearance: new Cesium.PolylineMaterialAppearance({ material: Cesium.Material.fromType("PolylineGlow", { color: Cesium.Color.fromCssColorString("#fde047").withAlpha(0.6), glowPower: 0.35 }) }),
+      show: false,
+    });
+    // ID chips at each plot's centre, readable from about 32 km in.
+    const labels = plots.plots.map((plot) => viewer.entities.add({
+      id: `label:${plot.id}`,
+      position: Cesium.Cartesian3.fromDegrees(...plot.centre),
+      label: {
+        text: plot.label, font: "600 12px ui-monospace, monospace", fillColor: Cesium.Color.WHITE,
+        showBackground: true, backgroundColor: Cesium.Color.fromCssColorString("#0a0a0a").withAlpha(0.78), backgroundPadding: new Cesium.Cartesian2(6, 4),
+        pixelOffset: new Cesium.Cartesian2(0, -16), heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+        disableDepthTestDistance: Number.POSITIVE_INFINITY, distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0, 32_000),
+      },
+      show: false,
+    }));
     viewer.scene.primitives.add(fill);
     lines.forEach((line) => viewer.scene.groundPrimitives.add(line));
+    viewer.scene.groundPrimitives.add(glow);
     plotFill.current = fill;
     plotLines.current = lines;
+    plotGlow.current = glow;
     return () => {
       plotFill.current = null;
       plotLines.current = [];
+      plotGlow.current = null;
       viewer.scene.primitives.remove(fill);
       lines.forEach((line) => viewer.scene.groundPrimitives.remove(line));
+      viewer.scene.groundPrimitives.remove(glow);
+      labels.forEach((label) => viewer.entities.remove(label));
     };
-  }, [api, plots]);
+  }, [api, plots, geochem]);
 
   useEffect(() => {
     const fill = plotFill.current;
@@ -197,11 +245,26 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
     const { Cesium } = api;
     const show = mode === "explore";
     plotLines.current.forEach((line) => { line.show = show; });
+    if (plotGlow.current) plotGlow.current.show = show && colorBy === "gold" && element === "Au";
+    for (const plot of plots.plots) {
+      const label = api.viewer.entities.getById(`label:${plot.id}`);
+      if (!label?.label) continue;
+      const focus = `plot:${plot.id}` === selectedId || plot.id === hoverId;
+      label.show = show;
+      label.label.distanceDisplayCondition = new Cesium.ConstantProperty(focus ? undefined : new Cesium.DistanceDisplayCondition(0, 32_000));
+      label.label.backgroundColor = new Cesium.ConstantProperty(focus ? Cesium.Color.WHITE : Cesium.Color.fromCssColorString("#0a0a0a").withAlpha(0.78));
+      label.label.fillColor = new Cesium.ConstantProperty(focus ? Cesium.Color.BLACK : Cesium.Color.WHITE);
+    }
     const apply = () => {
       for (const plot of plots.plots) {
-        const k = plotReading(plot, geochem, element)?.k ?? 0;
-        const [css, alpha] = CLASS_FILL[k];
-        const color = `plot:${plot.id}` === selectedId ? Cesium.Color.WHITE.withAlpha(0.9) : Cesium.Color.fromCssColorString(css).withAlpha(alpha);
+        const status = plot.kind === "open" ? "open" : plot.status === "active" ? "held" : "lapsed";
+        const [css, alpha] = colorBy === "ownership"
+          ? (status === "held" ? ["#ffffff", 0.6] : status === "lapsed" ? ["#ffffff", 0.2] : ["#ffffff", 0.04]) as [string, number]
+          : colorBy === "staked" ? (plot.kind === "claim" ? stakedColor(plot.start) : ["#ffffff", 0.04] as [string, number])
+          : CLASS_FILL[plotReading(plot, geochem, element)?.k ?? 0];
+        const color = `plot:${plot.id}` === selectedId ? Cesium.Color.WHITE.withAlpha(0.92)
+          : plot.id === hoverId ? Cesium.Color.WHITE.withAlpha(0.7)
+          : Cesium.Color.fromCssColorString(css).withAlpha(alpha);
         const attributes = fill.getGeometryInstanceAttributes(`plot:${plot.id}`);
         if (!attributes) continue;
         attributes.color = Cesium.ColorGeometryInstanceAttribute.toValue(color, attributes.color);
@@ -217,22 +280,38 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
       });
       return remove;
     }
-  }, [api, plots, geochem, element, selectedId, mode]);
+  }, [api, plots, geochem, element, selectedId, mode, colorBy, hoverId]);
 
-  // Bring a chosen plot into view.
+  // Bring a chosen plot into view; closing it returns to the whole valley.
+  const zoomedIn = useRef(false);
   useEffect(() => {
+    if (api && mode === "explore" && !selectedId && zoomedIn.current) {
+      zoomedIn.current = false;
+      const [lon, lat, h, heading, pitch] = VIEWS.explore;
+      api.viewer.camera.flyTo({
+        destination: api.Cesium.Cartesian3.fromDegrees(lon, lat, h),
+        orientation: { heading: api.Cesium.Math.toRadians(heading), pitch: api.Cesium.Math.toRadians(pitch), roll: 0 },
+        duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1.4,
+      });
+    }
     if (!api || !plots || mode !== "explore" || !selectedId?.startsWith("plot:")) return;
+    zoomedIn.current = true;
     const plot = plots.plots.find((p) => `plot:${p.id}` === selectedId);
     if (!plot) return;
-    const ring = ringsOf(plot.geometry)[0];
-    const lon = ring.reduce((a, [x]) => a + x, 0) / ring.length;
-    const lat = ring.reduce((a, [, y]) => a + y, 0) / ring.length;
+    const [lon, lat] = plot.centre;
     const { Cesium, viewer } = api;
+    // A close oblique view, about 4 km out, framed left of the side panel.
     viewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(lon + 0.05, lat - 0.075, 6_500),
-      orientation: { heading: Cesium.Math.toRadians(0), pitch: Cesium.Math.toRadians(-48), roll: 0 },
-      duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1.8,
+      destination: Cesium.Cartesian3.fromDegrees(lon + 0.028, lat - 0.04, 4_200),
+      orientation: { heading: Cesium.Math.toRadians(0), pitch: Cesium.Math.toRadians(-40), roll: 0 },
+      duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1.6,
     });
+    elevation(null);
+    let cancelled = false;
+    Cesium.sampleTerrain(viewer.terrainProvider, 12, [Cesium.Cartographic.fromDegrees(lon, lat)])
+      .then(([point]) => { if (!cancelled) elevation(Number.isFinite(point.height) ? point.height : null); })
+      .catch(() => { if (!cancelled) elevation(null); });
+    return () => { cancelled = true; };
   }, [api, plots, selectedId, mode]);
 
   // Bedrock geology (USGS SIM 3340 via Macrostrat) under the plots, when switched on in the ground tab.
@@ -323,8 +402,9 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
     const { Cesium } = api;
     // The time-lapse: claims staked this year flash green, held ones are white, lapsed ones fade.
     // Exploring the plots, every claim steps back so the sampled plots stand out.
-    const quiet = mode === "explore" && tab !== "market";
+    const quiet = mode === "explore" && tab !== "market" && colorBy === "gold";
     const color = (css: string, alpha: number) => Cesium.ColorGeometryInstanceAttribute.toValue(Cesium.Color.fromCssColorString(css).withAlpha(alpha));
+    const recolour = mode === "explore" && colorBy !== "gold";
     const fresh = color(GREEN, 0.6);
     const active = color("#ffffff", quiet ? 0.1 : 0.24);
     const lapsed = color("#ffffff", quiet ? 0.03 : 0.07);
@@ -336,7 +416,9 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
           const attributes = primitive.getGeometryInstanceAttributes(`claim:${index}:${part}`);
           if (!attributes) continue;
           attributes.show = Cesium.ShowGeometryInstanceAttribute.toValue(state !== "none", attributes.show);
-          attributes.color = state === "active" ? (!quiet && feature.properties.start === year ? fresh : active) : lapsed;
+          attributes.color = recolour
+            ? colorBy === "staked" ? color(...scale(stakedColor(feature.properties.start), 0.55)) : state === "active" ? color("#ffffff", 0.32) : color("#ffffff", 0.08)
+            : state === "active" ? (!quiet && feature.properties.start === year ? fresh : active) : lapsed;
         }
       });
     };
@@ -349,7 +431,7 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
       });
       return remove;
     }
-  }, [api, claims, year, mode, tab]);
+  }, [api, claims, year, mode, tab, colorBy]);
 
   return <div ref={host} className="earth" aria-label="3D map of Alaska and the Tok River valley" role="img" />;
 }

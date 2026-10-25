@@ -94,14 +94,69 @@
 .panel-scroll { flex: 1; overflow: auto; overscroll-behavior: contain; }
 .tab-body { padding: 4px 20px 20px; }
 
-.plot-card { position: relative; margin: 12px 12px 0; padding: 14px 16px; border-radius: 12px; background: var(--raised); border: 1px solid var(--line-2); }
-.plot-card .icon-button { position: absolute; top: 8px; right: 8px; }
-.plot-kind { font-size: 12px; color: var(--ink-3); }
-.plot-name { margin-top: 2px; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
-.plot-facts { display: grid; gap: 6px; margin-top: 10px; font-size: 13px; }
-.plot-facts > div { display: grid; grid-template-columns: 80px 1fr; gap: 8px; }
-.plot-facts dt { color: var(--ink-3); }
-.plot-facts dd { color: var(--ink); }
+/* Land tab: signal line, list tools and the plot list */
+.signal-line { display: flex; align-items: center; gap: 10px; width: 100%; margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: var(--raised); border: 1px solid var(--line); text-align: left; font-size: 13px; color: var(--ink-2); }
+.signal-line:hover { border-color: var(--line-2); }
+.signal-line > span:nth-child(2) { flex: 1; }
+.signal-line.small { margin-top: 12px; padding: 10px 12px; }
+.signal-word { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+.list-tools { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.segmented { display: inline-flex; gap: 2px; padding: 3px; border-radius: 9px; background: var(--raised); border: 1px solid var(--line); }
+.segmented button { height: 26px; padding: 0 10px; border-radius: 6px; font-size: 12.5px; font-weight: 500; color: var(--ink-3); }
+.segmented button:hover { color: var(--ink-2); }
+.segmented button[aria-checked="true"] { background: var(--ink); color: #0a0a0a; }
+.sort { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-3); }
+.sort select { height: 30px; padding: 0 8px; border-radius: 8px; background: var(--raised); border: 1px solid var(--line); color: var(--ink); font-size: 12.5px; }
+.plot-list { display: grid; }
+.plot-list button { display: grid; grid-template-columns: 46px 1fr 96px; align-items: center; gap: 10px; width: 100%; padding: 9px 8px; border-radius: 8px; text-align: left; }
+.plot-list button:hover, .plot-list button[data-hover] { background: var(--raised); }
+.plot-id { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.plot-row-main { display: grid; min-width: 0; }
+.plot-row-name { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plot-row-sub { font-size: 11.5px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plot-row-gold { display: grid; gap: 4px; justify-items: end; font-size: 12px; }
+.gold-bar { width: 100%; height: 4px; border-radius: 2px; background: var(--raised); overflow: hidden; }
+.gold-bar i { display: block; height: 100%; border-radius: 2px; background: rgb(255 255 255 / 0.3); }
+.gold-bar i[data-class="1"] { background: rgb(250 204 21 / 0.5); }
+.gold-bar i[data-class="2"] { background: rgb(250 204 21 / 0.8); }
+.gold-bar i[data-class="3"] { background: #fde047; }
+.status-dot { display: inline-block; width: 8px; height: 8px; flex: none; border-radius: 50%; }
+.status-dot.is-held { background: var(--ink); }
+.status-dot.is-lapsed { background: var(--ink-3); }
+.status-dot.is-open { border: 1.5px dashed var(--ink-2); }
+
+/* The plot sheet */
+.sheet { margin: 12px 12px 0; padding: 16px; border-radius: 12px; background: var(--raised); border: 1px solid var(--line-2); }
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.sheet-kind { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-3); }
+.sheet-title { margin-top: 4px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+.sheet-title .tabular { margin-right: 6px; color: var(--ink-2); font-weight: 600; }
+.sheet-nav { display: flex; align-items: center; gap: 2px; font-size: 12px; color: var(--ink-3); }
+.sheet-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sheet-label { font-size: 11.5px; color: var(--ink-3); }
+.sheet-gold { margin-top: 2px; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: #fde047; }
+.sheet-sub { margin-top: 4px; font-size: 12px; line-height: 1.5; color: var(--ink-3); }
+.sheet-chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
+.mini-chip { padding: 2px 7px; border-radius: 6px; border: 1px solid var(--line-2); font-size: 11.5px; font-weight: 600; font-family: var(--font-plex-mono), monospace; }
+.sheet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; margin-top: 14px; font-size: 13px; }
+.sheet-grid .wide { grid-column: 1 / -1; }
+.sheet-grid dt { font-size: 11.5px; color: var(--ink-3); }
+.sheet-grid dd { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.sheet-grid a { text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--line-2); }
+.icon-button.tiny { width: 24px; height: 24px; }
+.sheet-block { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.owner-line { position: relative; height: 8px; margin-top: 8px; border-radius: 4px; background: var(--bg); }
+.owner-span { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+.owner-span.is-held { background: var(--green); }
+.owner-span.is-lapsed { background: var(--ink-3); }
+.owner-axis { display: flex; justify-content: space-between; margin-top: 4px; font-size: 10.5px; color: var(--ink-3); }
+
+/* Colour-by control on the map, bottom-left */
+.colorby { position: absolute; left: 16px; bottom: 16px; display: grid; gap: 8px; padding: 10px 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(12px); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--ink-2); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 11px; height: 11px; border-radius: 3px; border: 1px solid rgb(255 255 255 / 0.5); }
+.legend i.is-dashed { border-style: dashed; }
 
 .section { padding: 18px 0; border-bottom: 1px solid var(--line); }
 .section h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
@@ -246,6 +301,9 @@
   .tl-readout dd { font-size: 19px; }
   .tl-legend { display: none; }
   .panel { top: 46dvh; right: 0; bottom: 0; width: 100%; border-radius: 14px 14px 0 0; }
+  .colorby { left: 8px; right: 8px; bottom: calc(54dvh + 8px); padding: 8px; }
+  .colorby .legend { display: none; }
+  .sheet-hero, .sheet-grid { grid-template-columns: 1fr; }
   .tabs { gap: 14px; }
   .profile { grid-template-columns: 1fr; }
   .swarm { grid-template-columns: 1fr; }

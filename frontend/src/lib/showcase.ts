@@ -3,7 +3,7 @@
 
 export type Source = { ref: string; commit: string; paths: string[] };
 
-export type ClaimProps = { id: string; status: "active" | "closed"; owner: string; name: string; start: number | null; end: number | null; acres: number };
+export type ClaimProps = { id: string; status: "active" | "closed"; owner: string; name: string; start: number | null; end: number | null; acres: number; mtrs?: string | null };
 type Ring = [number, number][];
 export type Claim = {
   type: "Feature";
@@ -65,7 +65,7 @@ export type Geology = { source: string; source_url: string; license: string; til
 export type Market = {
   sources: Source[];
   land_sales: { year: number; scope: string; parcels: number; median_usd_per_acre: number }[];
-  rent_160ac: { year: number; new: number | null; age_11_plus: number | null }[];
+  rent_160ac: { year: number; new: number | null; age_6_10: number | null; age_11_plus: number | null }[];
   deals: { acquirer: string; target: string; asset_location: string; deal_date: string; price_usd_m: string; stage: string; link_to_tok_sites: string; quality_flag: string; source_url: string }[];
   comparables: { id: string; region: string; date: string; acres: number; usd_per_acre: number; type: string; stage: string; url: string }[];
 };
@@ -145,9 +145,27 @@ export function km(lon1: number, lat1: number, lon2: number, lat2: number) {
 export type Plot = {
   kind: "claim" | "open";
   id: string;
+  /** Short identity shown everywhere: A-01… (west site), B-01… (east site), numbered west to east. */
+  label: string;
+  site: "A" | "B";
   samples: string[];
   geometry: Claim["geometry"];
+  centre: [number, number];
+  km_to_tok: number;
+  km_to_held_claim: number;
+  nearest_gold_site: { name: string; type: string; km: number; url: string };
+  /** Pathfinder elements in the top 10% of the 67 sites in any of this plot's samples. */
+  pathfinders: string[];
+  bedrock: string[];
+  notes: Record<string, string>;
+  mtrs?: string;
+  mtrs_label?: string | null;
 } & Partial<Pick<ClaimProps, "status" | "owner" | "name" | "start" | "end" | "acres">>;
+
+export type ColorBy = "gold" | "ownership" | "staked";
+
+/** Held, lapsed, or open ground with no state claim on record. */
+export const plotStatus = (plot: Plot) => (plot.kind === "open" ? "open" : plot.status === "active" ? "held" : "lapsed");
 export type Plots = { claims_retrieved: string; open_plot_note: string; plots: Plot[] };
 
 /** A plot's strongest reading for one element: the sample, its value and its anomaly class. */

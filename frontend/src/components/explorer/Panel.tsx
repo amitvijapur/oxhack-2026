@@ -2,9 +2,9 @@
 
 import { X } from "lucide-react";
 
-export type Tab = "overview" | "ground" | "market" | "decision";
+export type Tab = "land" | "ground" | "market" | "decision";
 export const TABS: { id: Tab; label: string }[] = [
-  { id: "overview", label: "Overview" },
+  { id: "land", label: "Land" },
   { id: "ground", label: "Ground" },
   { id: "market", label: "Market" },
   { id: "decision", label: "Decision" },

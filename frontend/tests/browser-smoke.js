@@ -17,14 +17,43 @@ async page => {
   check(await page.locator('.tl-year').textContent() === '1990', 'Scrubbing did not move the year');
   await page.screenshot({ path: 'frontend/artifacts/0-timelapse.png' });
 
-  // Explorer: Overview gives the answer first.
+  // Explorer: the Land tab lists every sampled plot, richest first, with the signal on top.
   await page.getByRole('button', { name: /Explore the land/ }).click();
   const panel = page.getByRole('complementary', { name: 'Explorer' });
   await panel.waitFor();
-  check(await page.getByRole('tab', { name: 'Overview' }).getAttribute('aria-selected') === 'true', 'Overview must open first');
-  check((await panel.innerText()).includes('SKIP'), 'Overview must show the signal');
+  check(await page.getByRole('tab', { name: 'Land' }).getAttribute('aria-selected') === 'true', 'Land must open first');
+  check((await panel.innerText()).includes('SKIP'), 'Land tab must show the signal');
   check(await page.getByRole('img', { name: 'OxHack' }).count() === 1, 'OxHack credit missing');
-  await page.screenshot({ path: 'frontend/artifacts/1-overview.png' });
+  const rows = page.locator('.plot-list button');
+  check(await rows.count() === 57, 'Land tab must list 57 plots');
+  check((await rows.first().innerText()).includes('B-19') && (await rows.first().innerText()).includes('>1'), 'Most gold must put B-19 (>1 ppm) first');
+  await rows.nth(1).hover();
+  check(await rows.nth(1).getAttribute('data-hover') !== null, 'Hovering a row must mark it');
+  await page.getByRole('radio', { name: 'Held' }).click();
+  const held = await rows.count();
+  check(held > 0 && held < 57, 'Held filter must narrow the list');
+  await page.getByRole('radio', { name: 'All' }).click();
+
+  // The plot sheet: position, survey, elevation, ownership and value context; ‹ › steps through.
+  await rows.first().click();
+  const sheet = page.getByRole('region', { name: 'Plot B-19' });
+  await sheet.waitFor();
+  const text = await sheet.innerText();
+  for (const part of ['Noah 183', '>1 ppm', 'T16N R11E', 'Ownership', 'Value context', 'Cost to hold', 'not a valuation']) {
+    check(text.includes(part), `Plot sheet missing "${part}"`);
+  }
+  await page.waitForFunction(() => /~[\d,]+ m/.test(document.querySelector('.sheet')?.innerText ?? ''), null, { timeout: 20000 });
+  await page.screenshot({ path: 'frontend/artifacts/1-plot-sheet.png' });
+  await page.getByRole('button', { name: 'Next plot' }).click();
+  await page.getByRole('region', { name: 'Plot B-17' }).waitFor();
+  await page.getByRole('button', { name: 'Close plot' }).click();
+
+  // Colour the land by ownership and by staked year.
+  await page.getByRole('radio', { name: 'Ownership' }).click();
+  check((await page.locator('.colorby .legend').innerText()).includes('Lapsed'), 'Ownership legend missing');
+  await page.getByRole('radio', { name: 'Staked year' }).click();
+  check((await page.locator('.colorby .legend').innerText()).includes('2025'), 'Staked-year legend missing');
+  await page.getByRole('radio', { name: 'Gold', exact: true }).click();
 
   // Ground: the element picker, and what travels with gold.
   await page.getByRole('tab', { name: 'Ground' }).click();

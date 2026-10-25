@@ -8,12 +8,22 @@ A Next.js website on a live 3D map of the Tok River valley, Alaska.
 
 **"Explore the land" opens one side panel with four tabs:**
 
-- **Overview:** today's signal for the Tok Site B contract (SKIP), why, and the three numbers behind it.
+- **Land:**
+  - today's signal for the Site B contract (SKIP)
+  - a list of all 57 sampled 160-acre plots, each with its own ID (A-01…, B-01…), to sort by gold, ID or distance to Tok and filter by held or open
+  - hover a row to light up its plot on the map; click it for the **plot sheet**:
+    - gold and the elements that travel with it
+    - position, MTRS survey reference and approximate elevation
+    - distances to Tok, to a held claim and to the nearest gold site
+    - bedrock
+    - an ownership timeline
+    - value context: rent to hold it, and the comparable-deal range, labelled as context and not a valuation
+    - ‹ › and the arrow keys step through plots
 - **Ground:** the 57 sampled 160-acre plots coloured by any of 49 measured elements, which elements travel with gold, and an optional bedrock map with known mines (USGS).
 - **Market:** gold price, claims staked and held, land prices and claim rent from 1975 to today, who holds the claims, and recent Alaska gold deals.
 - **Decision:** the decision engine's outcome distribution with a buyer-rate slider, its month-by-month sell line, the per-acre arbitrage spread, and the simulated town (61 AI residents) reacting to gold news.
 
-Tap any plot on the map for its card: holder, since when, and the gold found there. A live gold spot price and the time in Tok sit top right. Monochrome, with green only for live data and growth.
+On the map, plots carry ID labels as you zoom in, the richest ones glow, and a control at the bottom left colours the land by gold, ownership or the year it was staked. A live gold spot price and the time in Tok sit top right. Monochrome, with green only for live data and growth.
 
 See [the team improvement guide](CONTRIBUTING.md) for file ownership boundaries.
 

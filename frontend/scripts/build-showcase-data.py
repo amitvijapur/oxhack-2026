@@ -90,7 +90,7 @@ def build_claims():
                                           f="json"))["objectIds"] or [])
         for i in range(0, len(ids), 100):
             chunk = ",".join(map(str, ids[i:i + 100]))
-            page = fetch_json(url, dict(objectIds=chunk, outFields="CASE_ID,CSTMRNM,CLAIM_NAME,NTPSTDT,DATE_ALF,TOT_ACRES",
+            page = fetch_json(url, dict(objectIds=chunk, outFields="CASE_ID,CSTMRNM,CLAIM_NAME,NTPSTDT,DATE_ALF,TOT_ACRES,RFRNCMTRSC",
                                         outSR=4326, f="geojson"))["features"]
             for f in page:
                 p = f["properties"]
@@ -100,7 +100,7 @@ def build_claims():
                 features.append({"type": "Feature", "geometry": geometry, "properties": {
                     "id": p["CASE_ID"], "status": status, "owner": p["CSTMRNM"], "name": p["CLAIM_NAME"],
                     "start": year_of(p["NTPSTDT"]), "end": year_of(p["DATE_ALF"]) if status == "closed" else None,
-                    "acres": float(p["TOT_ACRES"] or 0)}})
+                    "acres": float(p["TOT_ACRES"] or 0), "mtrs": p.get("RFRNCMTRSC")}})
         print(f"claims {status}: {len(ids)}")
     write("claims.geojson", {"type": "FeatureCollection", "retrieved": date.today().isoformat(),
                              "source": CLAIMS_URL, "search_box": SEARCH_BOX,
@@ -270,6 +270,7 @@ def build_market():
                         "median_usd_per_acre": float(r["median_usd_per_acre"])} for r in land if r["scope"] in keep_scope],
         "rent_160ac": [{"year": int(r["mining_year_starting_sep_1"]),
                         "new": float(r["ak_rent_160ac_age_0_5"]) if r["ak_rent_160ac_age_0_5"] else None,
+                        "age_6_10": float(r["ak_rent_160ac_age_6_10"]) if r["ak_rent_160ac_age_6_10"] else None,
                         "age_11_plus": float(r["ak_rent_160ac_age_11_plus"]) if r["ak_rent_160ac_age_11_plus"] else None}
                        for r in rent],
         "deals": [{k: r[k] for k in ("acquirer", "target", "asset_location", "deal_date", "price_usd_m", "stage",
@@ -319,12 +320,79 @@ def build_plots():
             w, e, so, n = s["lon"] - half_lon, s["lon"] + half_lon, s["lat"] - half_lat, s["lat"] + half_lat
             plots.append({"kind": "open", "id": f"open:{s['id']}", "samples": [s["id"]],
                           "geometry": {"type": "Polygon", "coordinates": [[[w, so], [e, so], [e, n], [w, n], [w, so]]]}})
+    describe_plots(plots, claims, samples)
     claimed = sum(p["kind"] == "claim" for p in plots)
     write("plots.json", {"claims_retrieved": json.loads((OUT / "claims.geojson").read_text())["retrieved"],
                          "open_plot_note": "Drawn 160-acre square centred on a sample on ground with no claim on record",
                          "plots": plots})
     print(f"plots: {len(plots)} ({claimed} claims holding {sum(len(p['samples']) for p in plots if p['kind'] == 'claim')} samples, "
           f"{len(plots) - claimed} open)")
+
+
+TOK = (-142.9856, 63.3367)
+MERIDIANS = {"C": "Copper River", "F": "Fairbanks", "K": "Kateel River", "S": "Seward", "U": "Umiat"}
+PATHFINDERS = ["As", "Sb", "Bi", "Te", "W", "Mo", "Cu", "Ag"]
+
+
+def mtrs_label(code):
+    """DNR's MTRS reference, e.g. C017N008E23 -> Copper River Meridian, T17N R8E, Sec. 23."""
+    m = re.fullmatch(r"([A-Z])(\d{3})([NS])(\d{3})([EW])(\d{2})", code or "")
+    if not m:
+        return None
+    mer, t, ns, r, ew, sec = m.groups()
+    return f"{MERIDIANS.get(mer, mer)} Meridian, T{int(t)}{ns} R{int(r)}{ew}, Sec. {int(sec)}"
+
+
+def ring_of(geometry):
+    return geometry["coordinates"][0] if geometry["type"] == "Polygon" else geometry["coordinates"][0][0]
+
+
+def km_between(a, b):
+    lon1, lat1, lon2, lat2 = map(math.radians, (*a, *b))
+    h = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
+    return 2 * 6371.0088 * math.asin(math.sqrt(h))
+
+
+def describe_plots(plots, claims, samples):
+    """Give each plot a short ID (A-01 west site, B-01 east site, numbered west to east), its
+    position, distances, ground summary and bedrock, all from files already in the showcase."""
+    site_of = {}
+    for site in ("a", "b"):
+        for f in json.loads((OUT.parent / f"tok-gold/site-{site}/samples.geojson").read_text())["features"]:
+            site_of[f["properties"]["sample_id"]] = site.upper()
+    geochem = json.loads((OUT / "geochem.json").read_text())
+    units = json.loads((OUT / "geology.json").read_text())["units"]
+    occurrences = json.loads((OUT / "occurrences.json").read_text())["records"]
+    gold_sites = [o for o in occurrences if "Au" in o["commodities"] + o["other"]]
+    held = [c for c in claims if c["properties"]["status"] == "active"]
+    by_sample = {s["id"]: s for s in samples}
+    p90 = {e: geochem["thresholds"][e]["p90"] for e in PATHFINDERS}
+
+    def level(value):
+        return value if isinstance(value, (int, float)) else (value or {}).get("above") if value and "above" in value else None
+
+    for plot in plots:
+        ring = ring_of(plot["geometry"])
+        pts = ring[:-1] if ring[0] == ring[-1] else ring
+        centre = (sum(x for x, _ in pts) / len(pts), sum(y for _, y in pts) / len(pts))
+        plot["site"] = site_of.get(plot["samples"][0], "?")
+        plot["centre"] = [round(centre[0], 5), round(centre[1], 5)]
+        plot["km_to_tok"] = round(km_between(centre, TOK), 1)
+        nearest_held = 0.0 if plot.get("status") == "active" else min(
+            km_between(centre, v) for c in held for v in ring_of(c["geometry"]))
+        plot["km_to_held_claim"] = round(nearest_held, 1)
+        g = min(gold_sites, key=lambda o: km_between(centre, (o["lon"], o["lat"])))
+        plot["nearest_gold_site"] = {"name": g["name"], "type": g["type"], "km": round(km_between(centre, (g["lon"], g["lat"])), 1), "url": g["url"]}
+        plot["pathfinders"] = [e for e in PATHFINDERS
+                               if any((level(by_sample[s]["values"].get(e)) or 0) >= p90[e] for s in plot["samples"])]
+        plot["bedrock"] = sorted({units[s]["name"] for s in plot["samples"] if units.get(s)})
+        plot["notes"] = by_sample[plot["samples"][0]]["notes"]
+        if plot["kind"] == "claim":
+            plot["mtrs_label"] = mtrs_label(plot.get("mtrs"))
+    for site in ("A", "B"):
+        ranked = sorted((p for p in plots if p["site"] == site), key=lambda p: p["centre"][0])
+        for n, plot in enumerate(ranked, 1):
+            plot["label"] = f"{site}-{n:02d}"
 
 
 def histogram(dist, edges):
