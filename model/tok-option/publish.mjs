@@ -2,7 +2,7 @@ import { VERSION, HORIZONS, SCENARIOS, within } from './config.mjs';
 import { diagnoseCash, requiredAssignmentProceeds } from './diagnostics.mjs';
 import { lotContext, exposureContext } from './lot-basis.mjs';
 import { evaluateOpportunity } from './index.mjs';
-import { createDemoCandidate } from './workbench.mjs';
+import { createDemoCandidate, applyScenarioDecisionPolicy } from './workbench.mjs';
 
 /** A projection of the canonical workbench, never a second decision engine. */
 export const OUTPUT_CONTRACT = 'tok-assignment-output-v1';
@@ -99,10 +99,7 @@ function canonicalEconomics(value, controls, expectedSignal, diagnosticOnly) {
   });
   // The workbench deliberately makes a priced placebo diagnostic-only. Preserve
   // that exact policy, rather than accepting caller-supplied gate/action labels.
-  if (diagnosticOnly) canonical = {
-    ...canonical, status: 'diagnostic', entryAction: null,
-    reasons: [...canonical.reasons, 'sports_placebo_is_diagnostic_only'],
-  };
+  if (diagnosticOnly) canonical = applyScenarioDecisionPolicy(canonical, 'sports_placebo');
   for (const key of ['riskGate', 'expiryGate', 'entryAction', 'status', 'reasons']) {
     requireThat(canonicalJson(value[key]) === canonicalJson(canonical[key]), `${key} does not match canonical decision policy`);
   }

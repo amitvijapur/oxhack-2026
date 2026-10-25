@@ -124,3 +124,20 @@ test('publication derives exposure provenance and rejects supplied forged profil
   delete costOnly.exposureContext;
   close(decisionSummary(decisionOutput({ selection, result: costOnly })).selected.mapped.expectedNetCashUsd, -29342.4);
 });
+
+test('fee comparisons retain the workbench diagnostic-only placebo policy in both cases', () => {
+  const imported = JSON.parse(readFileSync(new URL('../example-swarm.json', import.meta.url)));
+  imported.runs[1].scenarioId = 'sports_placebo';
+  const result = runWorkbench({ features, controls: { mode: 'demo', scenarioId: 'sports_placebo' }, swarmRuns: imported });
+  assert.equal(result.mapped.status, 'diagnostic');
+  assert.equal(result.mapped.entryAction, null);
+  const fees = compareFeePolicies({ controls: result.controls, evidenceGate: result.evidence.gate, signal: result.signal.value });
+  for (const value of [fees.fixedFees, fees.proportionalFees]) {
+    assert.equal(value.status, result.mapped.status);
+    assert.equal(value.entryAction, result.mapped.entryAction);
+    assert.equal(value.reasons.filter((reason) => reason === 'sports_placebo_is_diagnostic_only').length, 1);
+  }
+  assert.equal(fees.proportionalFees.riskGate, 'FAIL');
+  assert.ok(fees.proportionalFees.reasons.includes('per_option_risk_exceeded'));
+  assert.deepEqual(fees.fixedFees.reasons, result.mapped.reasons);
+});

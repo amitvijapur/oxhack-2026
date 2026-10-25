@@ -44,6 +44,13 @@ export function createDemoCandidate(controls = DEFAULT_CONTROLS) {
 
 const deltaOf = (baseline, mapped) => ({ assignmentValueUsd: baseline?.assignmentValueUsd != null && mapped?.assignmentValueUsd != null ? mapped.assignmentValueUsd - baseline.assignmentValueUsd : null, expectedNetCashUsd: baseline?.expectedNetCashUsd != null && mapped?.expectedNetCashUsd != null ? mapped.expectedNetCashUsd - baseline.expectedNetCashUsd : null });
 
+/** Shared diagnostic-only decision policy for mapped scenario calculations. */
+export function applyScenarioDecisionPolicy(outcome, scenarioId) {
+  if (!outcome || scenarioId !== 'sports_placebo') return outcome;
+  return { ...outcome, status: 'diagnostic', entryAction: null,
+    reasons: [...new Set([...outcome.reasons, 'sports_placebo_is_diagnostic_only'])] };
+}
+
 function validateControls(c) {
   const errors = [];
   if (!['pending', 'demo', 'real'].includes(c.mode)) errors.push('Choose pending, demo or real mode.');
@@ -82,8 +89,8 @@ export function compareFeePolicies({ controls = {}, evidenceGate = 'PASS', horiz
   if (errors.length || !within(signal, -1, 1) || !['PASS', 'FAIL', 'UNKNOWN'].includes(evidenceGate)) return { ...base, reasons: ['invalid_fee_comparison_inputs'] };
   const evaluate = (entryFeeUsd, exitFeeUsd, feePolicyId) => {
     const candidate = createDemoCandidate({ ...c, entryFeeUsd, exitFeeUsd });
-    const outcome = evaluateOpportunity({ candidate, evidenceGate, horizonDays: c.horizonDays, signal,
-      cap: c.goldResponseCap, exposure: c.eventExposure, retention: c.retention, hazardPer30Days: c.hazardPer30Days });
+    const outcome = applyScenarioDecisionPolicy(evaluateOpportunity({ candidate, evidenceGate, horizonDays: c.horizonDays, signal,
+      cap: c.goldResponseCap, exposure: c.eventExposure, retention: c.retention, hazardPer30Days: c.hazardPer30Days }), c.scenarioId);
     return {
       ...outcome, entryFeeUsd, exitFeeUsd, feePolicyId,
       returnRatio: typeof outcome.expectedNetCashUsd === 'number' && outcome.amountAtRiskUsd > 0 ? outcome.expectedNetCashUsd / outcome.amountAtRiskUsd : null,
@@ -129,8 +136,7 @@ export function runWorkbench({ features = [], controls = {}, swarmRuns = null } 
   const evaluate = (days, value) => evaluateOpportunity({ candidate, evidenceGate: evidence.gate, horizonDays: days, signal: value, exposure: c.eventExposure, retention: c.retention, cap: c.goldResponseCap, hazardPer30Days: c.hazardPer30Days });
   const horizons = HORIZONS.map((days) => {
     const baseline = evaluate(days, 0);
-    let mapped = signal.value === null ? null : evaluate(days, signal.value);
-    if (mapped && c.scenarioId === 'sports_placebo') mapped = { ...mapped, status: 'diagnostic', entryAction: null, reasons: [...mapped.reasons, 'sports_placebo_is_diagnostic_only'] };
+    const mapped = applyScenarioDecisionPolicy(signal.value === null ? null : evaluate(days, signal.value), c.scenarioId);
     return { days, baseline, mapped, delta: deltaOf(baseline, mapped) };
   });
   const selected = horizons.find((row) => row.days === c.horizonDays);
