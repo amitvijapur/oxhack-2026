@@ -14,10 +14,15 @@ horizons. This is a demonstrator; no validated investment edge is established.
    the 67-sample A/B handoff. Source identities and dates stay attached.
 3. `src/components/earth/Earth.tsx` creates the Cesium 1.146.0 viewer. Esri imagery,
    Terrarium terrain and optional Macrostrat geology add geographic context.
-   Decide, Land, Crowd and Swarm panels preserve the current explorer navigation.
-4. Decide presents the canonical 90-day baseline separately from the evidence screen.
-   Its Detailed hypothetical model disclosure embeds `ModelWorkbench.jsx`. All financial evaluation flows through
-   `model/tok-option/workbench.mjs`, also used by the offline demo and export CLI.
+   The Decide, Land, Crowd and Swarm panels share plot selection with the globe.
+   Land keeps a compact grid of all plots beside the selected plot context;
+   desktop uses a wider panel and phones stack the same content.
+4. Decide separates the area-level geological screen from a hypothetical
+   financial decision and cash-risk diagnostics. All financial evaluation flows
+   through `model/tok-option/workbench.mjs`, also used by the offline demo and
+   export CLI. A selected plot inherits its area's screen; it is not individually
+   valued. The Detailed hypothetical model disclosure embeds `ModelWorkbench.jsx`
+   for the selected area. Both views preserve the shared whole-contract lot basis.
 5. The Next.js `src/app/api/[...path]/route.ts` delegates to one server route table
    in `src/server/routes.js`. `GET /api/health` reports runtime status;
    `GET /api/gold-price` exposes cached, attributed XAU data. Neither route runs a

@@ -1,3 +1,16 @@
+# Publish Decide diagnostics and the compact Land overview, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. User explicitly authorized push and squash merge. The frontend worker owns UI conflict resolution; an independent reviewer checks the combined model wiring. Preserve main's Swarm tab, whole-contract pricing, source research and pitch assets.
+
+- [x] Integrate current main, preserving the $30,000 historical initial-payment assumption, separate fees/obligations and current canonical negative decisions.
+- [x] Verify the combined frontend, model, source audit, backend and publisher checks; build and inspect desktop/mobile flows; independently review the final diff.
+- [ ] Push a bounded PR, attach it to the task and wait for all three required checks on its current head.
+- [ ] Squash merge only while up to date with main and conversations resolved, then verify the merged commit and remove the completed remote branch.
+
+The earlier verification sections below are historical records of the two local UI changes before integration. Current economics and detailed-model/history access follow the newer whole-contract implementation on main. Local integration review: preserved main ab66f47 and all canonical model/source/pitch changes. Current default premium is $30,000 plus $50 entry fee, so the compact 90-day synthetic example returns -97.64% and correctly says Skip. The geological screen is a separate eligibility result. Swarm wording distinguishes its frozen 7% response cap from Decide's 1% cap and 50% retention.
+
+Verification on Node 24.14.0: 69 frontend tests, 146 canonical model/event tests, 21 backend tests, 16 publisher tests and 29 specification checks passed. Source audit, frontend/backend typechecks, production build and independent integration review passed. Lint has zero errors and six existing backend warnings. Production checks confirmed four tabs, whole-contract negative outcomes, 30/90-day and recorded comparisons, Site B detailed-model initialization, plot-to-Decide handoff and Swarm access. All 57 Land tiles and selected details fit at 1440x900 and 320x844 with no scroll or horizontal overflow; no browser console errors. The final Swarm wording correction passed 18 focused tests and scoped lint. The legacy browser-smoke script is updated but was not run end to end. Hosted publication results will be recorded on the PR.
+
 # Share Orecast branding and the revised pitch deck
 
 ## Align the whole platform to the Orecast contract lot, 25 October 2026
@@ -58,6 +71,38 @@ The presentation finalizer reports zero findings and warnings. Desktop and mobil
 whole-lot costs, negative expected returns, source/hurdle distinctions and no
 horizontal page overflow. The current deck has nine slides and a 300-second main
 sequence. The protected PR records hosted checks and merge status.
+
+# Streamline Land into a compact plot overview
+
+Owner: Amit. Codex coordinates one layout worker and a separate integration review. User chose all plots in a compact grid with selected details alongside. Preserve the completed Decide financial section and current Orecast styling.
+
+- [x] Replace the long plot list and separate card view with a persistent grid of all 57 plots and a compact selected-plot summary.
+- [x] Give Land a wider desktop layout and an appropriate mobile height so the grid and core details fit together without nested scrolling at normal supported viewport sizes.
+- [x] Preserve map hover/selection, sort/filter, claim/source distinctions, 3D/zoom/DNR actions and the selected area's handoff to Decide.
+- [x] Verify desktop/mobile layout in one batched inspection, fix findings together, then confirm once; run relevant tests/build/lint and the required design detector.
+- [x] Record verified results and refresh the local preview without push or merge.
+
+Acceptance: all plot IDs remain directly reachable in the default grid; selection does not replace or hide the overview. Core gold measurement, claim status/owner, distance and next action are visible together. Supplemental details remain accessible without implying available rights, recoverable gold or a plot-specific valuation. Do not clip content to manufacture a no-scroll result; retain a safe overflow fallback for zoom or unusually short viewports.
+
+Review: Land now keeps all 57 plot identities beside one selected context in an 820px desktop panel; phones stack the same grid and context below the top bar. Repeated owner/claim rows and gold bars were replaced with compact labelled tiles. Selected details retain sediment gold, sample count/class, claim status and owner, distance and the Decide action. Comparable project deals and source context remain expandable. View on map opens the existing selected-plot map view, and Full details returns to the same selection. Filters, order and previous/next share one visible set; an explicit clear selection clears the detail and selected tile together. The 14 held claims and all 67 sample assignments are preserved.
+
+Verification on Node 24.14.0: all 63 frontend tests passed, including four new grid/navigation/source-context tests and the six preceding financial tests. Typecheck and production build passed; full lint has zero errors and four inherited backend warnings. Independent integration review passed. The design detector returned no findings. One batched visual inspection found floating map-control overlap and small short-screen overflow; one fix batch and final production confirmation resolved both. At 1440x900, 1280x720, 390x844 and 320x844 all 57 tiles, default details and footer fit without vertical or horizontal scrolling. Production interaction checks passed for keyboard selection, Held/All counts, sort, previous/next, Escape, unmatched-area caveats, map roundtrip, exact plot/site handoff to Decide and 3D open/close, with no console errors. Expanded disclosures and shorter/zoomed viewports keep accessible overflow. The broader legacy browser-smoke harness was updated but not run end to end. Model/data/dependencies and the completed Decide financial files are unchanged. Production preview refreshed at http://127.0.0.1:5192/. No push, merge or hosted deployment.
+
+# Clarify the geological screen and show financial diagnostics in Decide
+
+Owner: Amit. Codex coordinates a scoped frontend worker and independent review. Build on Muhd's merged Decide/Land/Crowd layout. Keep the canonical model and source datasets unchanged.
+
+- [x] Replace geological BUY/SKIP wording with explicit screen outcomes, including incomplete evidence and the area-level scope of selected plots.
+- [x] Add a visible hypothetical financial section in Decide using the existing canonical engine, selected site, horizon and clearly identified scenario assumptions.
+- [x] Show expected return and baseline delta, probability of no sale and negative net cash, median/worst cash returns, and existing break-even premium/liquidity diagnostics with their units and limitations.
+- [x] Verify A/B, 30/90/180-day and unavailable states through meaningful tests, build/type checks and desktop/mobile browser inspection; independently review the calculation wiring and wording.
+- [x] Record verification and the local preview. No automatic push or merge is part of this change.
+
+Acceptance: geological PASS alone never appears as a buy instruction; economic action comes from canonical entryAction and cannot override a failed screen. Financial inputs remain hypothetical, the live gold quote is separate from the assumed model price, and an unsold mark is never presented as cash. Reuse the existing conservative website preset without changing weights, coefficients or source observations. Recorded scenarios, if exposed, retain their illustrative provenance and unavailable conditions remain unavailable.
+
+Review: Decide now shows Screen passed/failed/incomplete, followed by a separate hypothetical financial decision and risk section. The current site, holding period and labelled synthetic/baseline/recorded scenario feed the canonical engine. Fixed financial assumptions, including the separate USD2,000/oz model price, 1% gold-response cap and 50% retention, are explicit. Crowd and the explanatory story use matching terminology. The full adjustable legacy workbench is not remounted.
+
+Verification on Node 24.14.0: `npm test` passed 59 tests, including six new numerical/rendering tests; canonical model and event tests passed 137; specification validation passed 29 checks; typecheck and production build passed. Full lint has zero errors and four inherited backend warnings. Independent source/arithmetic review passed. Production browser checks at 1440px and 320px confirmed A/B gates, all three horizons, all four scenarios, selected plot B-19 synchronisation, keyboard selection, readable diagnostics, no horizontal overflow and no console errors. Missing evidence and missing scenario states were verified in tests. The broader legacy browser-smoke harness was updated but not run end to end. Canonical model, source data and dependencies are unchanged. Local production preview: http://127.0.0.1:5192/. No push, merge or hosted deployment.
 
 ## Publish and squash merge the verified forecast
 
