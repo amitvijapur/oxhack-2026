@@ -60,3 +60,6 @@ coverage/
 *.tsbuildinfo
 /frontend/next-env.d.ts
 .vercel
+
+# Local design verification captures
+/.impeccable/review/

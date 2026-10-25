@@ -197,6 +197,77 @@ Owner: Salman. Scope: `frontend/` explorer and map only; the model is unchanged.
 - [x] Replace plot dots and drawn squares with a glow per stream sample (gold-ramp by anomaly class), real claim outlines with value-tinted fills, and decluttered value chips.
 - [x] Load smoothly: stills of each view (and of each history year's claims) show at once; the live map fades in only when fully sharp. `scripts/capture-map-snapshots.mjs` regenerates them.
 
+## Publish and merge the swarm workflow frontend
+
+Owner: Amit. Codex publishes the verified workflow page, source-pinned display adapters, navigation cleanup, tests and scoped documentation. Preserve other open model/map work.
+
+- [x] Prepare a bounded commit, independently review its publication scope and update against current main.
+- [ ] Push the frontend branch, create and attach its pull request, and pass the required checks on the current head.
+- [ ] Squash merge through the protected branch, verify main and record the result.
+
+Review: user authorized push and merge. No hosted deployment or repository-policy change is included.
+
+## Clarify workflow layout and primary output
+
+Owner: Amit. Codex owns only the local workflow layout, inspection and verification. Preserve all financial calculations and pinned data.
+
+- [x] Simplify the main graph into a clear progression from swarm signal through gold forecast and option valuation to one model output.
+- [x] Move both research findings into one expandable validation summary, retaining their actual results outside the calculation path.
+- [x] Verify financial values, replay, A/B and horizon changes, keyboard access and responsive layout, then refresh localhost5183 and document the result.
+
+Review: one primary Model output follows the simplified graph, with expected return, upfront-risk denominator and model decision. Both research findings now live in one expandable summary. All 41 tests, Node 24 production build/TypeScript, scoped lint, whitespace and detector passed. Production browser checks passed at five widths; independent source/seven-capture review returned ship. Mobile shows the output first. No model, source, dependency or publishing changes.
+
+## Compare cross-session algorithm and clarify validation status
+
+Owner: Amit. Codex owns the local workflow view; the other session owns algorithm and return-presentation work.
+
+- [x] Compare the latest completed integration revision against the displayed model and identify real flow differences.
+- [x] Refresh the attributed snapshot, add the separate historical-test result, and replace the misleading research lock with source-derived validation status.
+- [x] Verify calculation invariants, validation messaging and desktop/mobile rendering, then refresh localhost5183 and record the result.
+
+Review: the completed 8399adb revision preserves the financial engine and adds the separate historical pilot. The 35-node graph now uses source-derived validation status, with no padlock or validation-to-financial edges. All 41 tests, Node 24 production build/TypeScript, scoped lint, detector and whitespace passed. Production browser checks passed across five widths; fresh independent source/seven-capture review returned ship. In-progress work in the other session was preserved. No push, merge or deployment.
+
+## Align the workflow with the current gold/land algorithm
+
+Owner: Amit. Codex updates the local visualisation only. Authoritative source is the newer local integration clone; preserve its active work and all engine files in this branch.
+
+- [x] Trace the latest canonical model and pin its actual calculation path and provenance.
+- [x] Generate a reproducible calculation snapshot from that engine and update the graph, pairing and inspection details to match.
+- [x] Verify source arithmetic, replay/state boundaries, responsive layout and production build, then document and refresh localhost:5183.
+
+Review: the 34-node graph now reads a reproducible source-pinned v2 calculation snapshot from integration revision 646e5b92. All 39 frontend tests, Node 24 production build/TypeScript, scoped lint, detector and whitespace passed. Production browser checks passed at five widths with exact values, correct pairing, A/B eligibility, horizons and missing states. Fresh independent source/six-capture review returned ship. DESIGN.md and model files are unchanged. Preview refreshed at localhost:5183; no push, merge or hosted deployment.
+
+## Tentative downstream swarm workflow, 25 October 2026
+
+Owner: Amit, with Codex handling the local visual layer. Scope: swarm component/CSS, browser verification and local documentation. Algorithm integration belongs to Amit; preserve all model code and source data.
+
+- [x] Extend the graph with gold quantity assumptions, gold price projection, option/land value projection and a decision output.
+- [x] Clearly label tentative connections and pending algorithm values, with current swarm monetary readiness separate from baseline inputs.
+- [x] Verify replay, node inspection, missing runs, keyboard access and desktop/mobile layout, then update the local build log.
+
+Review: 26-node tentative graph complete. All 31 frontend tests, Node 24 production build/TypeScript, scoped lint, whitespace and detector passed. Production browser checks passed at five widths with no runtime errors or document overflow. Fresh independent source/six-capture review returned ship. Algorithm/source files and DESIGN.md are unchanged. Local preview is port 5183. No push, merge or deployment requested.
+
+
+## Visual network workflow refinement, 25 October 2026
+
+Owner: Amit for visual direction. A bounded UI worker owns frontend/src/components/swarm/; the parent owns the interaction checks, local integration and review. Keep the source adapter, canonical model and existing site styling intact. The supplied node diagram is loose visual inspiration, not a literal model architecture.
+
+- [x] Inspect the supplied image, current workflow, source constraints and style kit; record the clarified visual emphasis.
+- [x] Make a layered animated network the dominant workflow view, with sparse labels and optional node inspection.
+- [x] Verify replay, run changes, absent data, blocked output, reduced motion and desktop/mobile layout; complete independent visual/source review and document the local result.
+
+Review: complete at http://127.0.0.1:5183/swarm. A sparse 22-node animated workflow replaces the dashboard-first composition, with source/context fan-out, stakeholder groups, actual daily scores, same-seed baseline deltas, weighted merge and blocked model boundary. Details open only on node interaction. Recorded playback, pulse motion, pause/reset, scenario choice, news timing, exact source payloads, keyboard focus/pan, missing runs and reduced motion passed in production. Widths 1440/1280/744/390/320 have no document overflow. All 31 frontend tests, Node 24 production build/TypeScript, scoped lint, whitespace and detector passed. A fresh independent six-capture/source review returned ship with no material findings; DESIGN.md remains appropriate and unchanged. Source adapter/model/data are unchanged by this refinement. Prior UI is backed up outside Git. Local only, with no commit, publication or deployment.
+
+## Local swarm workflow page, 25 October 2026
+
+Owner: Amit for direction and integration. This worktree owns the local /swarm page, its pure display adapter/tests and bounded navigation links. A UI worker owns frontend/src/components/swarm/; a data worker owns frontend/src/lib/swarm-workflow.mjs and its tests; the parent owns route/navigation, context, integration and independent verification. Preserve each other's edits. No publish, merge or deployment.
+
+- [x] Check live GitHub status and inspect the actual integrated localhost demo and design kit.
+- [x] Implement a truthful results-led HFT-style replay showing source, simulation, scoring, aggregation, validation and guarded model output.
+- [x] Verify interaction, unavailable/blocked states, desktop/mobile layout and production checks; record independent review and local handoff.
+
+Review: completed at http://127.0.0.1:5183/swarm on local `codex/swarm-workflow`, based on main `57c6f32`. Existing styling preserved. All 31 frontend and 94 canonical-model tests passed; Node 24 production build, TypeScript, source lint, whitespace and the design detector passed. Final production browser checks passed all workflow controls, missing/blocked states, replay chronology, four widths and explorer navigation with zero runtime/hydration exceptions. A bounded Cesium cleanup guard fixes the route-exit error exposed by the new navigation. Independent four-capture/source review returned ship, with no material findings; DESIGN.md remains unchanged after comparison. See frontend/WORKFLOW-VERIFICATION.md. No commit, push, merge or deployment.
+
 ## Canonical application integrated, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. The active app is the Next.js/Cesium

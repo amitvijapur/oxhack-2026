@@ -463,6 +463,8 @@ export function Earth(props: EarthProps) {
       plotFill.current = null;
       plotLines.current = [];
       plotPulse.current = null;
+      // The viewer's owner effect may already have destroyed the scene on route exit.
+      if (viewer.isDestroyed()) return;
       viewer.scene.primitives.remove(fill);
       [...lines, pulse].forEach((line) => viewer.scene.groundPrimitives.remove(line));
       glows.forEach((glow) => viewer.entities.remove(glow));
@@ -521,7 +523,7 @@ export function Earth(props: EarthProps) {
         if (!hit) taken.push(box);
       }
     });
-    return () => { declutter(); chips.forEach((chip) => viewer.entities.remove(chip)); };
+    return () => { declutter(); if (!viewer.isDestroyed()) chips.forEach((chip) => viewer.entities.remove(chip)); };
   }, [api, plots, geochem, element]);
 
   useEffect(() => {
@@ -598,7 +600,7 @@ export function Earth(props: EarthProps) {
       polyline: { positions: Cesium.Cartesian3.fromDegreesArray([...ring, ring[0]].flat()), width: 10, clampToGround: true,
         material: new Cesium.PolylineGlowMaterialProperty({ color: Cesium.Color.WHITE.withAlpha(0.9), glowPower: 0.25, taperPower: 1 }) },
     }));
-    return () => { edges.forEach((edge) => viewer.entities.remove(edge)); };
+    return () => { if (!viewer.isDestroyed()) edges.forEach((edge) => viewer.entities.remove(edge)); };
   }, [api, plots, selectedId, hoverId, zoomTo]);
 
   // Keep the popover anchored to the selected land as the camera moves.
@@ -687,7 +689,7 @@ export function Earth(props: EarthProps) {
       .catch(() => fly(900));
     return () => {
       cancelled = true;
-      added.forEach((entity) => viewer.entities.remove(entity));
+      if (!viewer.isDestroyed()) added.forEach((entity) => viewer.entities.remove(entity));
     };
   }, [api, plots, claims, zoomTo]);
 
@@ -744,7 +746,7 @@ export function Earth(props: EarthProps) {
         show: false,
       });
     });
-    return () => { entities.forEach((entity) => viewer.entities.remove(entity)); };
+    return () => { if (!viewer.isDestroyed()) entities.forEach((entity) => viewer.entities.remove(entity)); };
   }, [api, occurrences]);
 
   useEffect(() => {
@@ -780,7 +782,7 @@ export function Earth(props: EarthProps) {
     claimPrimitive.current = primitive;
     return () => {
       claimPrimitive.current = null;
-      viewer.scene.primitives.remove(primitive);
+      if (!viewer.isDestroyed()) viewer.scene.primitives.remove(primitive);
     };
   }, [api, claims]);
 
