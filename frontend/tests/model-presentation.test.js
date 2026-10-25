@@ -23,8 +23,8 @@ function loadJsx(url) {
 const { default: ModelWorkbench } = loadJsx(new URL('../src/ModelWorkbench.jsx', import.meta.url));
 const { CashDiagnostics } = loadJsx(new URL('../src/ModelDiagnostics.jsx', import.meta.url));
 
-test('small-response preset yields exact capital returns with an explicit synthetic provenance', () => {
-  const r = run();
+test('explicit legacy low-cost fixture retains its exact arithmetic', () => {
+  const r = run({ entryPremiumUsd: 650 });
   close(r.mapped.goldForecast.adjustment, .0025);
   close(r.mapped.expectedNetCashUsd, 10.65);
   close(r.mapped.amountAtRiskUsd, 700);
@@ -61,7 +61,7 @@ test('all upfront obligations enter the denominator and negative returns are not
 
 test('each horizon uses its own evaluated capital and does not annualize', () => {
   const r = run();
-  const expected = [-408.75 / 700, 10.65 / 700, 374.5028 / 700];
+  const expected = [-29758.75 / 30050, -29339.35 / 30050, -28975.4972 / 30050];
   r.horizons.forEach((row, i) => close(cashReturn(row.mapped), expected[i]));
   close(returnDifference({ expectedNetCashUsd: 10, amountAtRiskUsd: 100 }, { expectedNetCashUsd: 30, amountAtRiskUsd: 200 }), .05);
   close(r.mapped.noSaleProbability, .512);
@@ -92,10 +92,11 @@ test('fresh preset states have isolated weights and exact badges disappear after
 
 test('actual workbench renders percentage headlines, synthetic attribution and explicit downside', () => {
   const html = renderToStaticMarkup(React.createElement(ModelWorkbench, { features }));
-  for (const text of ['Small-response synthetic demo', '1.52%', '1.09%', '+0.44 pp', '+0.25%', '51.2%', '−100%', 'premium + entry fee + unavoidable obligations', 'No trading edge is established', 'not verified fair pricing']) assert.ok(html.includes(text), text);
+  for (const text of ['Small-response synthetic demo', '-97.64%', '-97.65%', '+0.01 pp', '+0.25%', '51.2%', '−100%', 'premium + entry fee + unavoidable obligations', 'No trading edge is established', 'not verified fair pricing']) assert.ok(html.includes(text), text);
   assert.ok(html.includes('Gold price assumptions in USD/oz'));
   assert.ok(!html.includes('Gold price change, USD/oz'));
   assert.ok(html.includes('Expected option return by holding period'));
+  for (const text of ['$30,000', '$50', '$30,050', 'whole contract', 'not a current Tok quote', '$1,502,500', '$150,250', '25% expected return', 'target hurdle, not a forecast']) assert.ok(html.includes(text), text);
 });
 
 test('cash diagnostics render median and worst as percentages while a zero denominator remains unavailable', () => {
@@ -105,7 +106,23 @@ test('cash diagnostics render median and worst as percentages while a zero denom
   assert.ok(html.includes('Median cash return on upfront capital'));
   assert.ok(html.includes('-100.00%'));
   assert.ok(html.includes('not necessarily a realized investment loss'));
+  assert.ok(html.includes('$77,022.34'), 'Canonical 25% assignment hurdle is shown');
+  assert.ok(html.includes('$1,506.25'), 'Actual synthetic assignment stays separate');
   const empty = render({ baseline: { amountAtRiskUsd: 0 }, mapped: { amountAtRiskUsd: 0 } });
   assert.ok(empty.includes('Not available'));
   assert.ok(!empty.includes('cash return -100.00%'));
+});
+
+
+test('active preset uses a historical whole-contract scale and preserves the negative entry decision', () => {
+  const r = run();
+  assert.equal(DEFAULT_CONTROLS.entryPremiumUsd, 30000);
+  assert.equal(r.mapped.amountAtRiskUsd, 30050);
+  assert.equal(r.mapped.entryAction, 'SKIP');
+  close(r.mapped.assignmentValueUsd, 1506.25);
+  close(r.baseline.assignmentValueUsd, 1500);
+  close(r.mapped.expectedNetCashUsd, -29339.35);
+  close(cashReturn(r.mapped), -29339.35 / 30050);
+  assert.equal(r.controls.quantity, 500);
+  assert.deepEqual(r.portfolio.selectedIds, []);
 });

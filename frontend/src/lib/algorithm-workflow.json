@@ -1,7 +1,46 @@
 {
   "schemaVersion": 1,
+  "lotBasis": {
+    "id": "regional-initial-payment-whole-contract-v1",
+    "currency": "USD",
+    "unit": "whole_contract",
+    "initialPremiumUsd": 30000,
+    "referenceKind": "selected_historical_initial_payments",
+    "referenceCount": 2,
+    "sources": [
+      {
+        "project": "Tibbs",
+        "label": "Tectonic 2019 Q2 MD&A, pp4–5",
+        "agreementDate": "2017-06",
+        "initialPaymentUsd": 30000,
+        "url": "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606"
+      },
+      {
+        "project": "Northway",
+        "label": "Tectonic audited 2018 statements, pp17–19",
+        "agreementDate": "2018-06",
+        "initialPaymentUsd": 30000,
+        "url": "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+      }
+    ],
+    "limitations": [
+      "Two selected historical initial payments from the same acquirer, not a representative current Tok average or an available assignable option.",
+      "The reference excludes fees, scholarships, exploration work, recurring payments, royalties and other obligations; it is not full contract capital.",
+      "Northway also involved a separate USD 25,000 scholarship and USD 400,000 first-year exploration obligation. These are not included in the initial-payment statistic.",
+      "Comparison areas A and B are sample partitions, not legal parcels. No observed assignment resale price or margin is supplied.",
+      "Use of the historical payment as a hypothetical option premium does not verify equivalent rights, assignment permission, term or current value."
+    ]
+  },
+  "capitalPolicy": {
+    "startingFundUsd": 1502500,
+    "maxRiskPerOptionUsd": 30050,
+    "maxOpenRiskUsd": 150250,
+    "maxWholeCohortCommittedUsd": 150250,
+    "maxPositions": 5,
+    "maximumCandidateCount": 20
+  },
   "source": {
-    "commit": "8399adb6e57ab3fd6a5479fbb3028a3db99ccb0a",
+    "commit": "37991ad5de416e5abf8541264c5f4926a2ec91e8",
     "modelVersion": "tok-option-demo-v2",
     "inputHashes": {
       "frontend/public/data/event-study.json": "c62c41eec95916566620413568c23dce0f4d0f5925acec4f18798241c9eff3ac",
@@ -9,24 +48,25 @@
       "frontend/public/data/tok-gold/site-b/samples.geojson": "e6748813c2225e73cebb6083d428d3aca4ed3cbcbdb75982a7783c3cb73f9c8b",
       "model/tok-option/audit.mjs": "48671fb288c0a503b489df318cfaed45e08e8f4dd1b0436fd0cce23f4729fc7d",
       "model/tok-option/commodities.mjs": "a06f88b0d0711c23fc0fda409fe7a4cbae58a20fb893656c3b83cebdb021aa3d",
-      "model/tok-option/config.mjs": "fe920908a0325816e6a033d3972ea10ca06756cb4ab594a5246c69fb2fc2891a",
-      "model/tok-option/data/land-source.json": "56993c863a235fd707d0d9e5aecc0710dba2724384e5035b671338b80bd3c2cc",
+      "model/tok-option/config.mjs": "71bc46948c42df85d7ad2a3d571ddcefa89132eb7385e92c515ab70338f36186",
+      "model/tok-option/data/land-source.json": "7b02bbf9e22febf8f5d9a75973027556c553cff83e00f38bb7bf4a9177f320ff",
       "model/tok-option/data/swarm-source.json": "057e3c7e00e1d9957305dbd3064be09284a8f60fa75e57fd85ca288eca104164",
       "model/tok-option/demo.mjs": "c7e9bca72dad41d77ffd6c649a8d30f0d5b341c01aa46e72487e9b76dd67f68f",
-      "model/tok-option/diagnostics.mjs": "945b68ecf1858770765874aaf46d4b6e9e53e63589cc156990b58c87f94c190e",
+      "model/tok-option/diagnostics.mjs": "141844752ea8c994e92ba2eb68ba99363ff4f9705840ce22671534cc4f10bb29",
       "model/tok-option/evidence.mjs": "949b6045fafd983cc01bb6f7acedb8a7c61f5f4c19de811f3236ded86a9901a0",
       "model/tok-option/export.mjs": "2faf581c9d1236360d79c2e00a04745d3e9532f65017fe63d3c1d30507c934ec",
       "model/tok-option/gold.mjs": "b907890ccfc5e4023eef16b004a394825b802c12fe6388ec13cd83a134af7611",
       "model/tok-option/illustrative.mjs": "f2233fce19eb483b5687e100f1a3aeeeecd6b40a57666a1d732d3c3c4323957a",
-      "model/tok-option/index.mjs": "5315d3d01d4781a61b70d7701c553c145d5d4c1dd3d6b80c43d80c3c85fdd733",
+      "model/tok-option/index.mjs": "3f01faff4d74b7b8a000ffcf8ffe10b2ed35a9cf63a6878caadcf98789f39c24",
       "model/tok-option/integrations/land.mjs": "7a82a476d112103a21d9999a7238608711348e651e5bd17f1116c4020de37d1a",
       "model/tok-option/integrations/swarm.mjs": "bc93f2daf46e657e002520cc49789d89138a28c0b17b07e3dbc81a70934ba2ca",
       "model/tok-option/liquidity.mjs": "62c8f4e4b83874d35ad4c49ca09408c71708467070178fcb046801547c8747e4",
+      "model/tok-option/lot-basis.mjs": "993ec960fde9aa3f9c09a9073413d49be8a82056d906fe5e8ddb516fee37823d",
       "model/tok-option/portfolio.mjs": "9eaaf96a840918b9477dc6b544f800a999ce581e5204781ecfba93e7b5facf26",
-      "model/tok-option/publish.mjs": "1b5006bad19f592c28c6abffc82fdd7256e2f033cd372d529bbcb0bbd9b6fa2d",
+      "model/tok-option/publish.mjs": "542749016483451521adec950a959ff51b5f315aac6fbcc95b5340a1fef3173c",
       "model/tok-option/swarm.mjs": "6af081fee7b3fd69f3d6669a4c601e94a676c35e6922cfc1e008a8ae3794acde",
       "model/tok-option/valuation.mjs": "99da2222cdab5eded26bafbe06d891ba6f048687ae3c9a4850df7660c3b0fc55",
-      "model/tok-option/workbench.mjs": "28b084e312f53dec419f04b3237c68eca5f1ffec4f9a3d48d9187a38a7ee5085"
+      "model/tok-option/workbench.mjs": "05d9b5abe1092f65b63bc72822514a8a29f2731c21bc7224ef917517fca4b9cb"
     },
     "provenance": "Canonical engine output snapshot",
     "economics": "assumed",
@@ -167,7 +207,7 @@
       "No missing price is forward-filled. The hypothetical closing-entry policy assumes access to a closing execution.",
       "Penny-stock prices may have limited vendor precision. Some NAK evaluation windows are flat at the supplied precision; those zeros are not independently verified at finer precision."
     ],
-    "sourceCommit": "8399adb6e57ab3fd6a5479fbb3028a3db99ccb0a",
+    "sourceCommit": "37991ad5de416e5abf8541264c5f4926a2ec91e8",
     "sourcePath": "frontend/public/data/event-study.json",
     "sourceSha256": "c62c41eec95916566620413568c23dce0f4d0f5925acec4f18798241c9eff3ac"
   },
@@ -378,8 +418,10 @@
       },
       "scenarios": {
         "baseline": {
-          "status": "illustrative",
-          "reasons": [],
+          "status": "ineligible",
+          "reasons": [
+            "nonpositive_expected_cash"
+          ],
           "signal": {
             "status": "ready",
             "value": 0,
@@ -443,8 +485,10 @@
           "horizons": []
         },
         "mine_approval": {
-          "status": "illustrative",
-          "reasons": [],
+          "status": "ineligible",
+          "reasons": [
+            "nonpositive_expected_cash"
+          ],
           "signal": {
             "status": "ready",
             "value": -0.02517925880444946,
@@ -687,11 +731,11 @@
                 },
                 "saleProbability": 0.19999999999999996,
                 "noSaleProbability": 0.8,
-                "expectedNetCashUsd": -410.88127405815567,
-                "conditionalSaleProfitUsd": 745.5936297092217,
+                "expectedNetCashUsd": -29760.881274058156,
+                "conditionalSaleProfitUsd": -28604.406370290777,
                 "weightedNoSaleResidualMarkUsd": 1196.4749037673773,
                 "unweightedNoSaleResidualMarkUsd": 1495.5936297092217,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -730,7 +774,7 @@
               },
               "delta": {
                 "assignmentValueUsd": -4.406370290778341,
-                "expectedNetCashUsd": -0.8812740581556682
+                "expectedNetCashUsd": -0.8812740581561229
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -739,31 +783,33 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "no_sale",
                     "day": 30,
                     "probability": 0.8,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.8,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 745.5936297092217,
-                "expectedCashUsd": -410.88127405815567,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28604.406370290777,
+                "expectedCashUsd": -29760.881274058156,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 239.11872594184433,
-                  "premiumHeadroomUsd": -410.88127405815567,
-                  "minimumSaleProbability": 0.48423013605891696,
-                  "minimumHazardPer30Days": 0.4842301360589169,
-                  "minimumConstantAssignmentValueUsd": 3550.000000000001,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29760.881274058156,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 150300.00000000003,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -779,10 +825,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -792,15 +838,17 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
             {
               "days": 90,
               "mapped": {
-                "status": "illustrative",
-                "reasons": [],
+                "status": "ineligible",
+                "reasons": [
+                  "nonpositive_expected_cash"
+                ],
                 "day": 90,
                 "currency": "USD",
                 "baselineRawMaterialValueUsd": 1000000,
@@ -846,11 +894,11 @@
                 },
                 "saleProbability": 0.4879999999999999,
                 "noSaleProbability": 0.5120000000000001,
-                "expectedNetCashUsd": 5.449691298100333,
-                "conditionalSaleProfitUsd": 745.5936297092217,
+                "expectedNetCashUsd": -29344.5503087019,
+                "conditionalSaleProfitUsd": -28604.406370290777,
                 "weightedNoSaleResidualMarkUsd": 765.7439384111217,
                 "unweightedNoSaleResidualMarkUsd": 1495.5936297092217,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -893,7 +941,7 @@
                 "id": "hypothetical-option-A",
                 "underlyingId": "hypothetical-interest-A",
                 "horizonDays": 90,
-                "entryAction": "BUY_CANDIDATE",
+                "entryAction": "SKIP",
                 "evidenceGate": "PASS",
                 "expiryGate": "PASS",
                 "riskGate": "PASS",
@@ -913,7 +961,7 @@
               },
               "delta": {
                 "assignmentValueUsd": -4.406370290778341,
-                "expectedNetCashUsd": -2.1503087018996894
+                "expectedNetCashUsd": -2.150308701897302
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -922,45 +970,47 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "no_sale",
                     "day": 90,
                     "probability": 0.5120000000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.5120000000000001,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 745.5936297092217,
-                "expectedCashUsd": 5.449691298100106,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28604.406370290777,
+                "expectedCashUsd": -29344.550308701902,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 655.4496912981003,
-                  "premiumHeadroomUsd": 5.449691298100333,
-                  "minimumSaleProbability": 0.48423013605891685,
-                  "minimumHazardPer30Days": 0.1980413286030678,
-                  "minimumConstantAssignmentValueUsd": 1484.4262295081971,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29344.5503087019,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 61627.86885245903,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -969,17 +1019,17 @@
               },
               "portfolio": {
                 "status": "illustrative",
-                "selectedIds": [
-                  "hypothetical-option-A"
+                "selectedIds": [],
+                "totalRiskUsd": 0,
+                "totalExpectedNetCashUsd": 0,
+                "reasons": [
+                  "no_eligible_positive_cash_candidate"
                 ],
-                "totalRiskUsd": 700,
-                "totalExpectedNetCashUsd": 5.449691298100333,
-                "reasons": [],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -989,15 +1039,17 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 9300,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
             {
               "days": 180,
               "mapped": {
-                "status": "illustrative",
-                "reasons": [],
+                "status": "ineligible",
+                "reasons": [
+                  "nonpositive_expected_cash"
+                ],
                 "day": 180,
                 "currency": "USD",
                 "baselineRawMaterialValueUsd": 1000000,
@@ -1043,11 +1095,11 @@
                 },
                 "saleProbability": 0.7378559999999998,
                 "noSaleProbability": 0.2621440000000001,
-                "expectedNetCashUsd": 366.6399332427277,
-                "conditionalSaleProfitUsd": 745.5936297092217,
+                "expectedNetCashUsd": -28983.360066757272,
+                "conditionalSaleProfitUsd": -28604.406370290777,
                 "weightedNoSaleResidualMarkUsd": 392.06089646649434,
                 "unweightedNoSaleResidualMarkUsd": 1495.5936297092217,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -1126,7 +1178,7 @@
                 "id": "hypothetical-option-A",
                 "underlyingId": "hypothetical-interest-A",
                 "horizonDays": 180,
-                "entryAction": "BUY_CANDIDATE",
+                "entryAction": "SKIP",
                 "evidenceGate": "PASS",
                 "expiryGate": "PASS",
                 "riskGate": "PASS",
@@ -1146,7 +1198,7 @@
               },
               "delta": {
                 "assignmentValueUsd": -4.406370290778341,
-                "expectedNetCashUsd": -3.251266757272333
+                "expectedNetCashUsd": -3.2512667572700593
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -1155,66 +1207,68 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 120,
                     "probability": 0.10240000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 150,
                     "probability": 0.08192000000000002,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 180,
                     "probability": 0.06553600000000002,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "no_sale",
                     "day": 180,
                     "probability": 0.2621440000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.2621440000000001,
-                "medianCashUsd": 745.5936297092217,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 745.5936297092217,
-                "expectedCashUsd": 366.6399332427274,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -28604.406370290777,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28604.406370290777,
+                "expectedCashUsd": -28983.360066757275,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 1016.6399332427277,
-                  "premiumHeadroomUsd": 366.6399332427277,
-                  "minimumSaleProbability": 0.48423013605891696,
-                  "minimumHazardPer30Days": 0.10447854777401776,
-                  "minimumConstantAssignmentValueUsd": 998.6945962355801,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -28983.360066757272,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 40776.10373839883,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -1223,17 +1277,17 @@
               },
               "portfolio": {
                 "status": "illustrative",
-                "selectedIds": [
-                  "hypothetical-option-A"
+                "selectedIds": [],
+                "totalRiskUsd": 0,
+                "totalExpectedNetCashUsd": 0,
+                "reasons": [
+                  "no_eligible_positive_cash_candidate"
                 ],
-                "totalRiskUsd": 700,
-                "totalExpectedNetCashUsd": 366.6399332427277,
-                "reasons": [],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -1243,15 +1297,17 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 9300,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             }
           ]
         },
         "mine_blocked": {
-          "status": "illustrative",
-          "reasons": [],
+          "status": "ineligible",
+          "reasons": [
+            "nonpositive_expected_cash"
+          ],
           "signal": {
             "status": "ready",
             "value": 0.030734331593609505,
@@ -1495,11 +1551,11 @@
                 },
                 "saleProbability": 0.19999999999999996,
                 "noSaleProbability": 0.8,
-                "expectedNetCashUsd": -408.9242983942236,
-                "conditionalSaleProfitUsd": 755.3785080288817,
+                "expectedNetCashUsd": -29758.924298394224,
+                "conditionalSaleProfitUsd": -28594.62149197112,
                 "weightedNoSaleResidualMarkUsd": 1204.3028064231055,
                 "unweightedNoSaleResidualMarkUsd": 1505.3785080288817,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -1538,7 +1594,7 @@
               },
               "delta": {
                 "assignmentValueUsd": 5.378508028881697,
-                "expectedNetCashUsd": 1.0757016057763735
+                "expectedNetCashUsd": 1.0757016057759756
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -1547,31 +1603,33 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "no_sale",
                     "day": 30,
                     "probability": 0.8,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.8,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 755.3785080288817,
-                "expectedCashUsd": -408.9242983942237,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28594.62149197112,
+                "expectedCashUsd": -29758.924298394224,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 241.07570160577637,
-                  "premiumHeadroomUsd": -408.9242983942236,
-                  "minimumSaleProbability": 0.4809745342110745,
-                  "minimumHazardPer30Days": 0.48097453421107456,
-                  "minimumConstantAssignmentValueUsd": 3550.000000000001,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29758.924298394224,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 150300.00000000003,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -1587,10 +1645,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -1600,15 +1658,17 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
             {
               "days": 90,
               "mapped": {
-                "status": "illustrative",
-                "reasons": [],
+                "status": "ineligible",
+                "reasons": [
+                  "nonpositive_expected_cash"
+                ],
                 "day": 90,
                 "currency": "USD",
                 "baselineRawMaterialValueUsd": 1000000,
@@ -1654,11 +1714,11 @@
                 },
                 "saleProbability": 0.4879999999999999,
                 "noSaleProbability": 0.5120000000000001,
-                "expectedNetCashUsd": 10.2247119180945,
-                "conditionalSaleProfitUsd": 755.3785080288817,
+                "expectedNetCashUsd": -29339.775288081906,
+                "conditionalSaleProfitUsd": -28594.62149197112,
                 "weightedNoSaleResidualMarkUsd": 770.7537961107876,
                 "unweightedNoSaleResidualMarkUsd": 1505.3785080288817,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -1701,7 +1761,7 @@
                 "id": "hypothetical-option-A",
                 "underlyingId": "hypothetical-interest-A",
                 "horizonDays": 90,
-                "entryAction": "BUY_CANDIDATE",
+                "entryAction": "SKIP",
                 "evidenceGate": "PASS",
                 "expiryGate": "PASS",
                 "riskGate": "PASS",
@@ -1721,7 +1781,7 @@
               },
               "delta": {
                 "assignmentValueUsd": 5.378508028881697,
-                "expectedNetCashUsd": 2.6247119180944765
+                "expectedNetCashUsd": 2.6247119180952723
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -1730,45 +1790,47 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "no_sale",
                     "day": 90,
                     "probability": 0.5120000000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.5120000000000001,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 755.3785080288817,
-                "expectedCashUsd": 10.224711918094215,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28594.62149197112,
+                "expectedCashUsd": -29339.775288081913,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 660.2247119180945,
-                  "premiumHeadroomUsd": 10.2247119180945,
-                  "minimumSaleProbability": 0.4809745342110745,
-                  "minimumHazardPer30Days": 0.19635751304451546,
-                  "minimumConstantAssignmentValueUsd": 1484.4262295081971,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29339.775288081906,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 61627.86885245903,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -1777,17 +1839,17 @@
               },
               "portfolio": {
                 "status": "illustrative",
-                "selectedIds": [
-                  "hypothetical-option-A"
+                "selectedIds": [],
+                "totalRiskUsd": 0,
+                "totalExpectedNetCashUsd": 0,
+                "reasons": [
+                  "no_eligible_positive_cash_candidate"
                 ],
-                "totalRiskUsd": 700,
-                "totalExpectedNetCashUsd": 10.2247119180945,
-                "reasons": [],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -1797,15 +1859,17 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 9300,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
             {
               "days": 180,
               "mapped": {
-                "status": "illustrative",
-                "reasons": [],
+                "status": "ineligible",
+                "reasons": [
+                  "nonpositive_expected_cash"
+                ],
                 "day": 180,
                 "currency": "USD",
                 "baselineRawMaterialValueUsd": 1000000,
@@ -1851,11 +1915,11 @@
                 },
                 "saleProbability": 0.7378559999999998,
                 "noSaleProbability": 0.2621440000000001,
-                "expectedNetCashUsd": 373.85976442015885,
-                "conditionalSaleProfitUsd": 755.3785080288817,
+                "expectedNetCashUsd": -28976.140235579842,
+                "conditionalSaleProfitUsd": -28594.62149197112,
                 "weightedNoSaleResidualMarkUsd": 394.62594360872333,
                 "unweightedNoSaleResidualMarkUsd": 1505.3785080288817,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -1934,7 +1998,7 @@
                 "id": "hypothetical-option-A",
                 "underlyingId": "hypothetical-interest-A",
                 "horizonDays": 180,
-                "entryAction": "BUY_CANDIDATE",
+                "entryAction": "SKIP",
                 "evidenceGate": "PASS",
                 "expiryGate": "PASS",
                 "riskGate": "PASS",
@@ -1954,7 +2018,7 @@
               },
               "delta": {
                 "assignmentValueUsd": 5.378508028881697,
-                "expectedNetCashUsd": 3.9685644201588275
+                "expectedNetCashUsd": 3.9685644201599644
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -1963,66 +2027,68 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 120,
                     "probability": 0.10240000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 150,
                     "probability": 0.08192000000000002,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 180,
                     "probability": 0.06553600000000002,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "no_sale",
                     "day": 180,
                     "probability": 0.2621440000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.2621440000000001,
-                "medianCashUsd": 755.3785080288817,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 755.3785080288817,
-                "expectedCashUsd": 373.85976442015846,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -28594.62149197112,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28594.62149197112,
+                "expectedCashUsd": -28976.14023557985,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 1023.8597644201589,
-                  "premiumHeadroomUsd": 373.85976442015885,
-                  "minimumSaleProbability": 0.4809745342110743,
-                  "minimumHazardPer30Days": 0.10353890940237424,
-                  "minimumConstantAssignmentValueUsd": 998.6945962355801,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -28976.140235579842,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 40776.10373839883,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -2031,17 +2097,17 @@
               },
               "portfolio": {
                 "status": "illustrative",
-                "selectedIds": [
-                  "hypothetical-option-A"
+                "selectedIds": [],
+                "totalRiskUsd": 0,
+                "totalExpectedNetCashUsd": 0,
+                "reasons": [
+                  "no_eligible_positive_cash_candidate"
                 ],
-                "totalRiskUsd": 700,
-                "totalExpectedNetCashUsd": 373.85976442015885,
-                "reasons": [],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -2051,7 +2117,7 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 9300,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             }
@@ -2745,7 +2811,7 @@
         "kappa": 0.02,
         "pGeo": 0.25,
         "remainingBuyerConsiderationUsd": 4000,
-        "entryPremiumUsd": 650,
+        "entryPremiumUsd": 30000,
         "entryFeeUsd": 50,
         "exitFeeUsd": 50,
         "unavoidableAdditionalObligationsUsd": 0,
@@ -2762,10 +2828,48 @@
         }
       },
       "candidate": {
+        "lotContext": {
+          "id": "regional-initial-payment-whole-contract-v1",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "initialPremiumUsd": 30000,
+          "referenceKind": "selected_historical_initial_payments",
+          "referenceCount": 2,
+          "sources": [
+            {
+              "project": "Tibbs",
+              "label": "Tectonic 2019 Q2 MD&A, pp4–5",
+              "agreementDate": "2017-06",
+              "initialPaymentUsd": 30000,
+              "url": "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606"
+            },
+            {
+              "project": "Northway",
+              "label": "Tectonic audited 2018 statements, pp17–19",
+              "agreementDate": "2018-06",
+              "initialPaymentUsd": 30000,
+              "url": "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+            }
+          ],
+          "limitations": [
+            "Two selected historical initial payments from the same acquirer, not a representative current Tok average or an available assignable option.",
+            "The reference excludes fees, scholarships, exploration work, recurring payments, royalties and other obligations; it is not full contract capital.",
+            "Northway also involved a separate USD 25,000 scholarship and USD 400,000 first-year exploration obligation. These are not included in the initial-payment statistic.",
+            "Comparison areas A and B are sample partitions, not legal parcels. No observed assignment resale price or margin is supplied.",
+            "Use of the historical payment as a hypothetical option premium does not verify equivalent rights, assignment permission, term or current value."
+          ],
+          "selectedInitialPremiumUsd": 30000,
+          "selectionKind": "historical_reference_applied_as_assumption",
+          "economicsProvenance": "assumed",
+          "entryFeeUsd": 50,
+          "exitFeeUsd": 50,
+          "unavoidableAdditionalObligationsUsd": 0,
+          "additionalCostProvenance": "assumed"
+        },
         "id": "hypothetical-option-A",
         "underlyingId": "hypothetical-interest-A",
         "provenance": "assumed",
-        "sourceId": "tok-option-fixture-v1",
+        "sourceId": "orecast-whole-contract-demo-v1",
         "materials": [
           {
             "material": "Au",
@@ -2786,7 +2890,7 @@
         "remainingBuyerConsiderationUsd": 4000,
         "resolutionBeforeExercise": true,
         "zeroFailureValue": true,
-        "entryPremiumUsd": 650,
+        "entryPremiumUsd": 30000,
         "entryFeeUsd": 50,
         "exitFeeUsd": 50,
         "unavoidableAdditionalObligationsUsd": 0,
@@ -2851,11 +2955,11 @@
             },
             "saleProbability": 0.19999999999999996,
             "noSaleProbability": 0.8,
-            "expectedNetCashUsd": -410,
-            "conditionalSaleProfitUsd": 750,
+            "expectedNetCashUsd": -29760,
+            "conditionalSaleProfitUsd": -28600,
             "weightedNoSaleResidualMarkUsd": 1200,
             "unweightedNoSaleResidualMarkUsd": 1500,
-            "amountAtRiskUsd": 700,
+            "amountAtRiskUsd": 30050,
             "intervals": [
               {
                 "day": 30,
@@ -2899,31 +3003,33 @@
                 "kind": "sale",
                 "day": 30,
                 "probability": 0.2,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "no_sale",
                 "day": 30,
                 "probability": 0.8,
-                "netCashUsd": -700,
+                "netCashUsd": -30050,
                 "netSaleProceedsUsd": 0
               }
             ],
-            "negativeCashProbability": 0.8,
-            "medianCashUsd": -700,
-            "worstCashUsd": -700,
-            "p05CashUsd": -700,
-            "p95CashUsd": 750,
-            "expectedCashUsd": -410,
+            "negativeCashProbability": 1,
+            "medianCashUsd": -30050,
+            "worstCashUsd": -30050,
+            "p05CashUsd": -30050,
+            "p95CashUsd": -28600,
+            "expectedCashUsd": -29760,
             "breakEven": {
               "maximumEntryPremiumUsd": 240,
-              "premiumHeadroomUsd": -410,
-              "minimumSaleProbability": 0.48275862068965514,
-              "minimumHazardPer30Days": 0.48275862068965514,
-              "minimumConstantAssignmentValueUsd": 3550.000000000001,
-              "hazardThresholdStatus": "ready",
-              "reasons": [],
+              "premiumHeadroomUsd": -29760,
+              "minimumSaleProbability": null,
+              "minimumHazardPer30Days": null,
+              "minimumConstantAssignmentValueUsd": 150300.00000000003,
+              "hazardThresholdStatus": "unattainable",
+              "reasons": [
+                "no_hazard_reaches_break_even"
+              ],
               "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
               "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
             },
@@ -2939,10 +3045,10 @@
               "no_eligible_positive_cash_candidate"
             ],
             "limits": {
-              "startingFundUsd": 100000,
-              "maxRiskPerOptionUsd": 2000,
-              "maxOpenRiskUsd": 10000,
-              "maxWholeCohortCommittedUsd": 10000,
+              "startingFundUsd": 1502500,
+              "maxRiskPerOptionUsd": 30050,
+              "maxOpenRiskUsd": 150250,
+              "maxWholeCohortCommittedUsd": 150250,
               "maxPositions": 5,
               "maximumCandidateCount": 20
             },
@@ -2952,15 +3058,17 @@
               "openPositions": 0,
               "usedUnderlyingIds": []
             },
-            "remainingLifetimeCommitmentUsd": 10000,
+            "remainingLifetimeCommitmentUsd": 150250,
             "allPositionsMayFailTogether": true
           }
         },
         {
           "days": 90,
           "result": {
-            "status": "illustrative",
-            "reasons": [],
+            "status": "ineligible",
+            "reasons": [
+              "nonpositive_expected_cash"
+            ],
             "day": 90,
             "currency": "USD",
             "baselineRawMaterialValueUsd": 1000000,
@@ -3006,11 +3114,11 @@
             },
             "saleProbability": 0.4879999999999999,
             "noSaleProbability": 0.5120000000000001,
-            "expectedNetCashUsd": 7.600000000000023,
-            "conditionalSaleProfitUsd": 750,
+            "expectedNetCashUsd": -29342.4,
+            "conditionalSaleProfitUsd": -28600,
             "weightedNoSaleResidualMarkUsd": 768.0000000000002,
             "unweightedNoSaleResidualMarkUsd": 1500,
-            "amountAtRiskUsd": 700,
+            "amountAtRiskUsd": 30050,
             "intervals": [
               {
                 "day": 30,
@@ -3053,7 +3161,7 @@
             "id": "hypothetical-option-A",
             "underlyingId": "hypothetical-interest-A",
             "horizonDays": 90,
-            "entryAction": "BUY_CANDIDATE",
+            "entryAction": "SKIP",
             "evidenceGate": "PASS",
             "expiryGate": "PASS",
             "riskGate": "PASS",
@@ -3078,45 +3186,47 @@
                 "kind": "sale",
                 "day": 30,
                 "probability": 0.2,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 60,
                 "probability": 0.16000000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 90,
                 "probability": 0.12800000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "no_sale",
                 "day": 90,
                 "probability": 0.5120000000000001,
-                "netCashUsd": -700,
+                "netCashUsd": -30050,
                 "netSaleProceedsUsd": 0
               }
             ],
-            "negativeCashProbability": 0.5120000000000001,
-            "medianCashUsd": -700,
-            "worstCashUsd": -700,
-            "p05CashUsd": -700,
-            "p95CashUsd": 750,
-            "expectedCashUsd": 7.599999999999909,
+            "negativeCashProbability": 1,
+            "medianCashUsd": -30050,
+            "worstCashUsd": -30050,
+            "p05CashUsd": -30050,
+            "p95CashUsd": -28600,
+            "expectedCashUsd": -29342.400000000005,
             "breakEven": {
               "maximumEntryPremiumUsd": 657.6,
-              "premiumHeadroomUsd": 7.600000000000023,
-              "minimumSaleProbability": 0.48275862068965514,
-              "minimumHazardPer30Days": 0.19727937766316583,
-              "minimumConstantAssignmentValueUsd": 1484.4262295081971,
-              "hazardThresholdStatus": "ready",
-              "reasons": [],
+              "premiumHeadroomUsd": -29342.4,
+              "minimumSaleProbability": null,
+              "minimumHazardPer30Days": null,
+              "minimumConstantAssignmentValueUsd": 61627.86885245903,
+              "hazardThresholdStatus": "unattainable",
+              "reasons": [
+                "no_hazard_reaches_break_even"
+              ],
               "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
               "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
             },
@@ -3125,17 +3235,17 @@
           },
           "portfolio": {
             "status": "illustrative",
-            "selectedIds": [
-              "hypothetical-option-A"
+            "selectedIds": [],
+            "totalRiskUsd": 0,
+            "totalExpectedNetCashUsd": 0,
+            "reasons": [
+              "no_eligible_positive_cash_candidate"
             ],
-            "totalRiskUsd": 700,
-            "totalExpectedNetCashUsd": 7.600000000000023,
-            "reasons": [],
             "limits": {
-              "startingFundUsd": 100000,
-              "maxRiskPerOptionUsd": 2000,
-              "maxOpenRiskUsd": 10000,
-              "maxWholeCohortCommittedUsd": 10000,
+              "startingFundUsd": 1502500,
+              "maxRiskPerOptionUsd": 30050,
+              "maxOpenRiskUsd": 150250,
+              "maxWholeCohortCommittedUsd": 150250,
               "maxPositions": 5,
               "maximumCandidateCount": 20
             },
@@ -3145,15 +3255,17 @@
               "openPositions": 0,
               "usedUnderlyingIds": []
             },
-            "remainingLifetimeCommitmentUsd": 9300,
+            "remainingLifetimeCommitmentUsd": 150250,
             "allPositionsMayFailTogether": true
           }
         },
         {
           "days": 180,
           "result": {
-            "status": "illustrative",
-            "reasons": [],
+            "status": "ineligible",
+            "reasons": [
+              "nonpositive_expected_cash"
+            ],
             "day": 180,
             "currency": "USD",
             "baselineRawMaterialValueUsd": 1000000,
@@ -3199,11 +3311,11 @@
             },
             "saleProbability": 0.7378559999999998,
             "noSaleProbability": 0.2621440000000001,
-            "expectedNetCashUsd": 369.8912,
-            "conditionalSaleProfitUsd": 750,
+            "expectedNetCashUsd": -28980.1088,
+            "conditionalSaleProfitUsd": -28600,
             "weightedNoSaleResidualMarkUsd": 393.2160000000001,
             "unweightedNoSaleResidualMarkUsd": 1500,
-            "amountAtRiskUsd": 700,
+            "amountAtRiskUsd": 30050,
             "intervals": [
               {
                 "day": 30,
@@ -3282,7 +3394,7 @@
             "id": "hypothetical-option-A",
             "underlyingId": "hypothetical-interest-A",
             "horizonDays": 180,
-            "entryAction": "BUY_CANDIDATE",
+            "entryAction": "SKIP",
             "evidenceGate": "PASS",
             "expiryGate": "PASS",
             "riskGate": "PASS",
@@ -3307,66 +3419,68 @@
                 "kind": "sale",
                 "day": 30,
                 "probability": 0.2,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 60,
                 "probability": 0.16000000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 90,
                 "probability": 0.12800000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 120,
                 "probability": 0.10240000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 150,
                 "probability": 0.08192000000000002,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 180,
                 "probability": 0.06553600000000002,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "no_sale",
                 "day": 180,
                 "probability": 0.2621440000000001,
-                "netCashUsd": -700,
+                "netCashUsd": -30050,
                 "netSaleProceedsUsd": 0
               }
             ],
-            "negativeCashProbability": 0.2621440000000001,
-            "medianCashUsd": 750,
-            "worstCashUsd": -700,
-            "p05CashUsd": -700,
-            "p95CashUsd": 750,
-            "expectedCashUsd": 369.89119999999997,
+            "negativeCashProbability": 1,
+            "medianCashUsd": -28600,
+            "worstCashUsd": -30050,
+            "p05CashUsd": -30050,
+            "p95CashUsd": -28600,
+            "expectedCashUsd": -28980.108800000005,
             "breakEven": {
               "maximumEntryPremiumUsd": 1019.8912,
-              "premiumHeadroomUsd": 369.8912,
-              "minimumSaleProbability": 0.48275862068965514,
-              "minimumHazardPer30Days": 0.10405322572329437,
-              "minimumConstantAssignmentValueUsd": 998.6945962355801,
-              "hazardThresholdStatus": "ready",
-              "reasons": [],
+              "premiumHeadroomUsd": -28980.1088,
+              "minimumSaleProbability": null,
+              "minimumHazardPer30Days": null,
+              "minimumConstantAssignmentValueUsd": 40776.10373839883,
+              "hazardThresholdStatus": "unattainable",
+              "reasons": [
+                "no_hazard_reaches_break_even"
+              ],
               "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
               "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
             },
@@ -3375,17 +3489,17 @@
           },
           "portfolio": {
             "status": "illustrative",
-            "selectedIds": [
-              "hypothetical-option-A"
+            "selectedIds": [],
+            "totalRiskUsd": 0,
+            "totalExpectedNetCashUsd": 0,
+            "reasons": [
+              "no_eligible_positive_cash_candidate"
             ],
-            "totalRiskUsd": 700,
-            "totalExpectedNetCashUsd": 369.8912,
-            "reasons": [],
             "limits": {
-              "startingFundUsd": 100000,
-              "maxRiskPerOptionUsd": 2000,
-              "maxOpenRiskUsd": 10000,
-              "maxWholeCohortCommittedUsd": 10000,
+              "startingFundUsd": 1502500,
+              "maxRiskPerOptionUsd": 30050,
+              "maxOpenRiskUsd": 150250,
+              "maxWholeCohortCommittedUsd": 150250,
               "maxPositions": 5,
               "maximumCandidateCount": 20
             },
@@ -3395,7 +3509,7 @@
               "openPositions": 0,
               "usedUnderlyingIds": []
             },
-            "remainingLifetimeCommitmentUsd": 9300,
+            "remainingLifetimeCommitmentUsd": 150250,
             "allPositionsMayFailTogether": true
           }
         }
@@ -3617,7 +3731,8 @@
         "baseline": {
           "status": "ineligible",
           "reasons": [
-            "evidence_gate_failed"
+            "evidence_gate_failed",
+            "nonpositive_expected_cash"
           ],
           "signal": {
             "status": "ready",
@@ -3684,7 +3799,8 @@
         "mine_approval": {
           "status": "ineligible",
           "reasons": [
-            "evidence_gate_failed"
+            "evidence_gate_failed",
+            "nonpositive_expected_cash"
           ],
           "signal": {
             "status": "ready",
@@ -3929,11 +4045,11 @@
                 },
                 "saleProbability": 0.19999999999999996,
                 "noSaleProbability": 0.8,
-                "expectedNetCashUsd": -410.88127405815567,
-                "conditionalSaleProfitUsd": 745.5936297092217,
+                "expectedNetCashUsd": -29760.881274058156,
+                "conditionalSaleProfitUsd": -28604.406370290777,
                 "weightedNoSaleResidualMarkUsd": 1196.4749037673773,
                 "unweightedNoSaleResidualMarkUsd": 1495.5936297092217,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -3972,7 +4088,7 @@
               },
               "delta": {
                 "assignmentValueUsd": -4.406370290778341,
-                "expectedNetCashUsd": -0.8812740581556682
+                "expectedNetCashUsd": -0.8812740581561229
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -3981,31 +4097,33 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "no_sale",
                     "day": 30,
                     "probability": 0.8,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.8,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 745.5936297092217,
-                "expectedCashUsd": -410.88127405815567,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28604.406370290777,
+                "expectedCashUsd": -29760.881274058156,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 239.11872594184433,
-                  "premiumHeadroomUsd": -410.88127405815567,
-                  "minimumSaleProbability": 0.48423013605891696,
-                  "minimumHazardPer30Days": 0.4842301360589169,
-                  "minimumConstantAssignmentValueUsd": 3550.000000000001,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29760.881274058156,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 150300.00000000003,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -4021,10 +4139,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -4034,7 +4152,7 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
@@ -4043,7 +4161,8 @@
               "mapped": {
                 "status": "ineligible",
                 "reasons": [
-                  "evidence_gate_failed"
+                  "evidence_gate_failed",
+                  "nonpositive_expected_cash"
                 ],
                 "day": 90,
                 "currency": "USD",
@@ -4090,11 +4209,11 @@
                 },
                 "saleProbability": 0.4879999999999999,
                 "noSaleProbability": 0.5120000000000001,
-                "expectedNetCashUsd": 5.449691298100333,
-                "conditionalSaleProfitUsd": 745.5936297092217,
+                "expectedNetCashUsd": -29344.5503087019,
+                "conditionalSaleProfitUsd": -28604.406370290777,
                 "weightedNoSaleResidualMarkUsd": 765.7439384111217,
                 "unweightedNoSaleResidualMarkUsd": 1495.5936297092217,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -4157,7 +4276,7 @@
               },
               "delta": {
                 "assignmentValueUsd": -4.406370290778341,
-                "expectedNetCashUsd": -2.1503087018996894
+                "expectedNetCashUsd": -2.150308701897302
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -4166,45 +4285,47 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "no_sale",
                     "day": 90,
                     "probability": 0.5120000000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.5120000000000001,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 745.5936297092217,
-                "expectedCashUsd": 5.449691298100106,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28604.406370290777,
+                "expectedCashUsd": -29344.550308701902,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 655.4496912981003,
-                  "premiumHeadroomUsd": 5.449691298100333,
-                  "minimumSaleProbability": 0.48423013605891685,
-                  "minimumHazardPer30Days": 0.1980413286030678,
-                  "minimumConstantAssignmentValueUsd": 1484.4262295081971,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29344.5503087019,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 61627.86885245903,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -4220,10 +4341,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -4233,7 +4354,7 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
@@ -4242,7 +4363,8 @@
               "mapped": {
                 "status": "ineligible",
                 "reasons": [
-                  "evidence_gate_failed"
+                  "evidence_gate_failed",
+                  "nonpositive_expected_cash"
                 ],
                 "day": 180,
                 "currency": "USD",
@@ -4289,11 +4411,11 @@
                 },
                 "saleProbability": 0.7378559999999998,
                 "noSaleProbability": 0.2621440000000001,
-                "expectedNetCashUsd": 366.6399332427277,
-                "conditionalSaleProfitUsd": 745.5936297092217,
+                "expectedNetCashUsd": -28983.360066757272,
+                "conditionalSaleProfitUsd": -28604.406370290777,
                 "weightedNoSaleResidualMarkUsd": 392.06089646649434,
                 "unweightedNoSaleResidualMarkUsd": 1495.5936297092217,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -4392,7 +4514,7 @@
               },
               "delta": {
                 "assignmentValueUsd": -4.406370290778341,
-                "expectedNetCashUsd": -3.251266757272333
+                "expectedNetCashUsd": -3.2512667572700593
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -4401,66 +4523,68 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 120,
                     "probability": 0.10240000000000003,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 150,
                     "probability": 0.08192000000000002,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "sale",
                     "day": 180,
                     "probability": 0.06553600000000002,
-                    "netCashUsd": 745.5936297092217,
+                    "netCashUsd": -28604.406370290777,
                     "netSaleProceedsUsd": 1445.5936297092217
                   },
                   {
                     "kind": "no_sale",
                     "day": 180,
                     "probability": 0.2621440000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.2621440000000001,
-                "medianCashUsd": 745.5936297092217,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 745.5936297092217,
-                "expectedCashUsd": 366.6399332427274,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -28604.406370290777,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28604.406370290777,
+                "expectedCashUsd": -28983.360066757275,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 1016.6399332427277,
-                  "premiumHeadroomUsd": 366.6399332427277,
-                  "minimumSaleProbability": 0.48423013605891696,
-                  "minimumHazardPer30Days": 0.10447854777401776,
-                  "minimumConstantAssignmentValueUsd": 998.6945962355801,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -28983.360066757272,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 40776.10373839883,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -4476,10 +4600,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -4489,7 +4613,7 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             }
@@ -4498,7 +4622,8 @@
         "mine_blocked": {
           "status": "ineligible",
           "reasons": [
-            "evidence_gate_failed"
+            "evidence_gate_failed",
+            "nonpositive_expected_cash"
           ],
           "signal": {
             "status": "ready",
@@ -4744,11 +4869,11 @@
                 },
                 "saleProbability": 0.19999999999999996,
                 "noSaleProbability": 0.8,
-                "expectedNetCashUsd": -408.9242983942236,
-                "conditionalSaleProfitUsd": 755.3785080288817,
+                "expectedNetCashUsd": -29758.924298394224,
+                "conditionalSaleProfitUsd": -28594.62149197112,
                 "weightedNoSaleResidualMarkUsd": 1204.3028064231055,
                 "unweightedNoSaleResidualMarkUsd": 1505.3785080288817,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -4787,7 +4912,7 @@
               },
               "delta": {
                 "assignmentValueUsd": 5.378508028881697,
-                "expectedNetCashUsd": 1.0757016057763735
+                "expectedNetCashUsd": 1.0757016057759756
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -4796,31 +4921,33 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "no_sale",
                     "day": 30,
                     "probability": 0.8,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.8,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 755.3785080288817,
-                "expectedCashUsd": -408.9242983942237,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28594.62149197112,
+                "expectedCashUsd": -29758.924298394224,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 241.07570160577637,
-                  "premiumHeadroomUsd": -408.9242983942236,
-                  "minimumSaleProbability": 0.4809745342110745,
-                  "minimumHazardPer30Days": 0.48097453421107456,
-                  "minimumConstantAssignmentValueUsd": 3550.000000000001,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29758.924298394224,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 150300.00000000003,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -4836,10 +4963,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -4849,7 +4976,7 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
@@ -4858,7 +4985,8 @@
               "mapped": {
                 "status": "ineligible",
                 "reasons": [
-                  "evidence_gate_failed"
+                  "evidence_gate_failed",
+                  "nonpositive_expected_cash"
                 ],
                 "day": 90,
                 "currency": "USD",
@@ -4905,11 +5033,11 @@
                 },
                 "saleProbability": 0.4879999999999999,
                 "noSaleProbability": 0.5120000000000001,
-                "expectedNetCashUsd": 10.2247119180945,
-                "conditionalSaleProfitUsd": 755.3785080288817,
+                "expectedNetCashUsd": -29339.775288081906,
+                "conditionalSaleProfitUsd": -28594.62149197112,
                 "weightedNoSaleResidualMarkUsd": 770.7537961107876,
                 "unweightedNoSaleResidualMarkUsd": 1505.3785080288817,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -4972,7 +5100,7 @@
               },
               "delta": {
                 "assignmentValueUsd": 5.378508028881697,
-                "expectedNetCashUsd": 2.6247119180944765
+                "expectedNetCashUsd": 2.6247119180952723
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -4981,45 +5109,47 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "no_sale",
                     "day": 90,
                     "probability": 0.5120000000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.5120000000000001,
-                "medianCashUsd": -700,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 755.3785080288817,
-                "expectedCashUsd": 10.224711918094215,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -30050,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28594.62149197112,
+                "expectedCashUsd": -29339.775288081913,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 660.2247119180945,
-                  "premiumHeadroomUsd": 10.2247119180945,
-                  "minimumSaleProbability": 0.4809745342110745,
-                  "minimumHazardPer30Days": 0.19635751304451546,
-                  "minimumConstantAssignmentValueUsd": 1484.4262295081971,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -29339.775288081906,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 61627.86885245903,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -5035,10 +5165,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -5048,7 +5178,7 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             },
@@ -5057,7 +5187,8 @@
               "mapped": {
                 "status": "ineligible",
                 "reasons": [
-                  "evidence_gate_failed"
+                  "evidence_gate_failed",
+                  "nonpositive_expected_cash"
                 ],
                 "day": 180,
                 "currency": "USD",
@@ -5104,11 +5235,11 @@
                 },
                 "saleProbability": 0.7378559999999998,
                 "noSaleProbability": 0.2621440000000001,
-                "expectedNetCashUsd": 373.85976442015885,
-                "conditionalSaleProfitUsd": 755.3785080288817,
+                "expectedNetCashUsd": -28976.140235579842,
+                "conditionalSaleProfitUsd": -28594.62149197112,
                 "weightedNoSaleResidualMarkUsd": 394.62594360872333,
                 "unweightedNoSaleResidualMarkUsd": 1505.3785080288817,
-                "amountAtRiskUsd": 700,
+                "amountAtRiskUsd": 30050,
                 "intervals": [
                   {
                     "day": 30,
@@ -5207,7 +5338,7 @@
               },
               "delta": {
                 "assignmentValueUsd": 5.378508028881697,
-                "expectedNetCashUsd": 3.9685644201588275
+                "expectedNetCashUsd": 3.9685644201599644
               },
               "diagnostics": {
                 "status": "illustrative",
@@ -5216,66 +5347,68 @@
                     "kind": "sale",
                     "day": 30,
                     "probability": 0.2,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 60,
                     "probability": 0.16000000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 90,
                     "probability": 0.12800000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 120,
                     "probability": 0.10240000000000003,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 150,
                     "probability": 0.08192000000000002,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "sale",
                     "day": 180,
                     "probability": 0.06553600000000002,
-                    "netCashUsd": 755.3785080288817,
+                    "netCashUsd": -28594.62149197112,
                     "netSaleProceedsUsd": 1455.3785080288817
                   },
                   {
                     "kind": "no_sale",
                     "day": 180,
                     "probability": 0.2621440000000001,
-                    "netCashUsd": -700,
+                    "netCashUsd": -30050,
                     "netSaleProceedsUsd": 0
                   }
                 ],
-                "negativeCashProbability": 0.2621440000000001,
-                "medianCashUsd": 755.3785080288817,
-                "worstCashUsd": -700,
-                "p05CashUsd": -700,
-                "p95CashUsd": 755.3785080288817,
-                "expectedCashUsd": 373.85976442015846,
+                "negativeCashProbability": 1,
+                "medianCashUsd": -28594.62149197112,
+                "worstCashUsd": -30050,
+                "p05CashUsd": -30050,
+                "p95CashUsd": -28594.62149197112,
+                "expectedCashUsd": -28976.14023557985,
                 "breakEven": {
                   "maximumEntryPremiumUsd": 1023.8597644201589,
-                  "premiumHeadroomUsd": 373.85976442015885,
-                  "minimumSaleProbability": 0.4809745342110743,
-                  "minimumHazardPer30Days": 0.10353890940237424,
-                  "minimumConstantAssignmentValueUsd": 998.6945962355801,
-                  "hazardThresholdStatus": "ready",
-                  "reasons": [],
+                  "premiumHeadroomUsd": -28976.140235579842,
+                  "minimumSaleProbability": null,
+                  "minimumHazardPer30Days": null,
+                  "minimumConstantAssignmentValueUsd": 40776.10373839883,
+                  "hazardThresholdStatus": "unattainable",
+                  "reasons": [
+                    "no_hazard_reaches_break_even"
+                  ],
                   "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
                   "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
                 },
@@ -5291,10 +5424,10 @@
                   "no_eligible_positive_cash_candidate"
                 ],
                 "limits": {
-                  "startingFundUsd": 100000,
-                  "maxRiskPerOptionUsd": 2000,
-                  "maxOpenRiskUsd": 10000,
-                  "maxWholeCohortCommittedUsd": 10000,
+                  "startingFundUsd": 1502500,
+                  "maxRiskPerOptionUsd": 30050,
+                  "maxOpenRiskUsd": 150250,
+                  "maxWholeCohortCommittedUsd": 150250,
                   "maxPositions": 5,
                   "maximumCandidateCount": 20
                 },
@@ -5304,7 +5437,7 @@
                   "openPositions": 0,
                   "usedUnderlyingIds": []
                 },
-                "remainingLifetimeCommitmentUsd": 10000,
+                "remainingLifetimeCommitmentUsd": 150250,
                 "allPositionsMayFailTogether": true
               }
             }
@@ -5998,7 +6131,7 @@
         "kappa": 0.02,
         "pGeo": 0.25,
         "remainingBuyerConsiderationUsd": 4000,
-        "entryPremiumUsd": 650,
+        "entryPremiumUsd": 30000,
         "entryFeeUsd": 50,
         "exitFeeUsd": 50,
         "unavoidableAdditionalObligationsUsd": 0,
@@ -6015,10 +6148,48 @@
         }
       },
       "candidate": {
+        "lotContext": {
+          "id": "regional-initial-payment-whole-contract-v1",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "initialPremiumUsd": 30000,
+          "referenceKind": "selected_historical_initial_payments",
+          "referenceCount": 2,
+          "sources": [
+            {
+              "project": "Tibbs",
+              "label": "Tectonic 2019 Q2 MD&A, pp4–5",
+              "agreementDate": "2017-06",
+              "initialPaymentUsd": 30000,
+              "url": "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606"
+            },
+            {
+              "project": "Northway",
+              "label": "Tectonic audited 2018 statements, pp17–19",
+              "agreementDate": "2018-06",
+              "initialPaymentUsd": 30000,
+              "url": "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+            }
+          ],
+          "limitations": [
+            "Two selected historical initial payments from the same acquirer, not a representative current Tok average or an available assignable option.",
+            "The reference excludes fees, scholarships, exploration work, recurring payments, royalties and other obligations; it is not full contract capital.",
+            "Northway also involved a separate USD 25,000 scholarship and USD 400,000 first-year exploration obligation. These are not included in the initial-payment statistic.",
+            "Comparison areas A and B are sample partitions, not legal parcels. No observed assignment resale price or margin is supplied.",
+            "Use of the historical payment as a hypothetical option premium does not verify equivalent rights, assignment permission, term or current value."
+          ],
+          "selectedInitialPremiumUsd": 30000,
+          "selectionKind": "historical_reference_applied_as_assumption",
+          "economicsProvenance": "assumed",
+          "entryFeeUsd": 50,
+          "exitFeeUsd": 50,
+          "unavoidableAdditionalObligationsUsd": 0,
+          "additionalCostProvenance": "assumed"
+        },
         "id": "hypothetical-option-B",
         "underlyingId": "hypothetical-interest-B",
         "provenance": "assumed",
-        "sourceId": "tok-option-fixture-v1",
+        "sourceId": "orecast-whole-contract-demo-v1",
         "materials": [
           {
             "material": "Au",
@@ -6039,7 +6210,7 @@
         "remainingBuyerConsiderationUsd": 4000,
         "resolutionBeforeExercise": true,
         "zeroFailureValue": true,
-        "entryPremiumUsd": 650,
+        "entryPremiumUsd": 30000,
         "entryFeeUsd": 50,
         "exitFeeUsd": 50,
         "unavoidableAdditionalObligationsUsd": 0,
@@ -6105,11 +6276,11 @@
             },
             "saleProbability": 0.19999999999999996,
             "noSaleProbability": 0.8,
-            "expectedNetCashUsd": -410,
-            "conditionalSaleProfitUsd": 750,
+            "expectedNetCashUsd": -29760,
+            "conditionalSaleProfitUsd": -28600,
             "weightedNoSaleResidualMarkUsd": 1200,
             "unweightedNoSaleResidualMarkUsd": 1500,
-            "amountAtRiskUsd": 700,
+            "amountAtRiskUsd": 30050,
             "intervals": [
               {
                 "day": 30,
@@ -6153,31 +6324,33 @@
                 "kind": "sale",
                 "day": 30,
                 "probability": 0.2,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "no_sale",
                 "day": 30,
                 "probability": 0.8,
-                "netCashUsd": -700,
+                "netCashUsd": -30050,
                 "netSaleProceedsUsd": 0
               }
             ],
-            "negativeCashProbability": 0.8,
-            "medianCashUsd": -700,
-            "worstCashUsd": -700,
-            "p05CashUsd": -700,
-            "p95CashUsd": 750,
-            "expectedCashUsd": -410,
+            "negativeCashProbability": 1,
+            "medianCashUsd": -30050,
+            "worstCashUsd": -30050,
+            "p05CashUsd": -30050,
+            "p95CashUsd": -28600,
+            "expectedCashUsd": -29760,
             "breakEven": {
               "maximumEntryPremiumUsd": 240,
-              "premiumHeadroomUsd": -410,
-              "minimumSaleProbability": 0.48275862068965514,
-              "minimumHazardPer30Days": 0.48275862068965514,
-              "minimumConstantAssignmentValueUsd": 3550.000000000001,
-              "hazardThresholdStatus": "ready",
-              "reasons": [],
+              "premiumHeadroomUsd": -29760,
+              "minimumSaleProbability": null,
+              "minimumHazardPer30Days": null,
+              "minimumConstantAssignmentValueUsd": 150300.00000000003,
+              "hazardThresholdStatus": "unattainable",
+              "reasons": [
+                "no_hazard_reaches_break_even"
+              ],
               "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
               "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
             },
@@ -6193,10 +6366,10 @@
               "no_eligible_positive_cash_candidate"
             ],
             "limits": {
-              "startingFundUsd": 100000,
-              "maxRiskPerOptionUsd": 2000,
-              "maxOpenRiskUsd": 10000,
-              "maxWholeCohortCommittedUsd": 10000,
+              "startingFundUsd": 1502500,
+              "maxRiskPerOptionUsd": 30050,
+              "maxOpenRiskUsd": 150250,
+              "maxWholeCohortCommittedUsd": 150250,
               "maxPositions": 5,
               "maximumCandidateCount": 20
             },
@@ -6206,7 +6379,7 @@
               "openPositions": 0,
               "usedUnderlyingIds": []
             },
-            "remainingLifetimeCommitmentUsd": 10000,
+            "remainingLifetimeCommitmentUsd": 150250,
             "allPositionsMayFailTogether": true
           }
         },
@@ -6215,7 +6388,8 @@
           "result": {
             "status": "ineligible",
             "reasons": [
-              "evidence_gate_failed"
+              "evidence_gate_failed",
+              "nonpositive_expected_cash"
             ],
             "day": 90,
             "currency": "USD",
@@ -6262,11 +6436,11 @@
             },
             "saleProbability": 0.4879999999999999,
             "noSaleProbability": 0.5120000000000001,
-            "expectedNetCashUsd": 7.600000000000023,
-            "conditionalSaleProfitUsd": 750,
+            "expectedNetCashUsd": -29342.4,
+            "conditionalSaleProfitUsd": -28600,
             "weightedNoSaleResidualMarkUsd": 768.0000000000002,
             "unweightedNoSaleResidualMarkUsd": 1500,
-            "amountAtRiskUsd": 700,
+            "amountAtRiskUsd": 30050,
             "intervals": [
               {
                 "day": 30,
@@ -6334,45 +6508,47 @@
                 "kind": "sale",
                 "day": 30,
                 "probability": 0.2,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 60,
                 "probability": 0.16000000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 90,
                 "probability": 0.12800000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "no_sale",
                 "day": 90,
                 "probability": 0.5120000000000001,
-                "netCashUsd": -700,
+                "netCashUsd": -30050,
                 "netSaleProceedsUsd": 0
               }
             ],
-            "negativeCashProbability": 0.5120000000000001,
-            "medianCashUsd": -700,
-            "worstCashUsd": -700,
-            "p05CashUsd": -700,
-            "p95CashUsd": 750,
-            "expectedCashUsd": 7.599999999999909,
+            "negativeCashProbability": 1,
+            "medianCashUsd": -30050,
+            "worstCashUsd": -30050,
+            "p05CashUsd": -30050,
+            "p95CashUsd": -28600,
+            "expectedCashUsd": -29342.400000000005,
             "breakEven": {
               "maximumEntryPremiumUsd": 657.6,
-              "premiumHeadroomUsd": 7.600000000000023,
-              "minimumSaleProbability": 0.48275862068965514,
-              "minimumHazardPer30Days": 0.19727937766316583,
-              "minimumConstantAssignmentValueUsd": 1484.4262295081971,
-              "hazardThresholdStatus": "ready",
-              "reasons": [],
+              "premiumHeadroomUsd": -29342.4,
+              "minimumSaleProbability": null,
+              "minimumHazardPer30Days": null,
+              "minimumConstantAssignmentValueUsd": 61627.86885245903,
+              "hazardThresholdStatus": "unattainable",
+              "reasons": [
+                "no_hazard_reaches_break_even"
+              ],
               "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
               "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
             },
@@ -6388,10 +6564,10 @@
               "no_eligible_positive_cash_candidate"
             ],
             "limits": {
-              "startingFundUsd": 100000,
-              "maxRiskPerOptionUsd": 2000,
-              "maxOpenRiskUsd": 10000,
-              "maxWholeCohortCommittedUsd": 10000,
+              "startingFundUsd": 1502500,
+              "maxRiskPerOptionUsd": 30050,
+              "maxOpenRiskUsd": 150250,
+              "maxWholeCohortCommittedUsd": 150250,
               "maxPositions": 5,
               "maximumCandidateCount": 20
             },
@@ -6401,7 +6577,7 @@
               "openPositions": 0,
               "usedUnderlyingIds": []
             },
-            "remainingLifetimeCommitmentUsd": 10000,
+            "remainingLifetimeCommitmentUsd": 150250,
             "allPositionsMayFailTogether": true
           }
         },
@@ -6410,7 +6586,8 @@
           "result": {
             "status": "ineligible",
             "reasons": [
-              "evidence_gate_failed"
+              "evidence_gate_failed",
+              "nonpositive_expected_cash"
             ],
             "day": 180,
             "currency": "USD",
@@ -6457,11 +6634,11 @@
             },
             "saleProbability": 0.7378559999999998,
             "noSaleProbability": 0.2621440000000001,
-            "expectedNetCashUsd": 369.8912,
-            "conditionalSaleProfitUsd": 750,
+            "expectedNetCashUsd": -28980.1088,
+            "conditionalSaleProfitUsd": -28600,
             "weightedNoSaleResidualMarkUsd": 393.2160000000001,
             "unweightedNoSaleResidualMarkUsd": 1500,
-            "amountAtRiskUsd": 700,
+            "amountAtRiskUsd": 30050,
             "intervals": [
               {
                 "day": 30,
@@ -6565,66 +6742,68 @@
                 "kind": "sale",
                 "day": 30,
                 "probability": 0.2,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 60,
                 "probability": 0.16000000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 90,
                 "probability": 0.12800000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 120,
                 "probability": 0.10240000000000003,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 150,
                 "probability": 0.08192000000000002,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "sale",
                 "day": 180,
                 "probability": 0.06553600000000002,
-                "netCashUsd": 750,
+                "netCashUsd": -28600,
                 "netSaleProceedsUsd": 1450
               },
               {
                 "kind": "no_sale",
                 "day": 180,
                 "probability": 0.2621440000000001,
-                "netCashUsd": -700,
+                "netCashUsd": -30050,
                 "netSaleProceedsUsd": 0
               }
             ],
-            "negativeCashProbability": 0.2621440000000001,
-            "medianCashUsd": 750,
-            "worstCashUsd": -700,
-            "p05CashUsd": -700,
-            "p95CashUsd": 750,
-            "expectedCashUsd": 369.89119999999997,
+            "negativeCashProbability": 1,
+            "medianCashUsd": -28600,
+            "worstCashUsd": -30050,
+            "p05CashUsd": -30050,
+            "p95CashUsd": -28600,
+            "expectedCashUsd": -28980.108800000005,
             "breakEven": {
               "maximumEntryPremiumUsd": 1019.8912,
-              "premiumHeadroomUsd": 369.8912,
-              "minimumSaleProbability": 0.48275862068965514,
-              "minimumHazardPer30Days": 0.10405322572329437,
-              "minimumConstantAssignmentValueUsd": 998.6945962355801,
-              "hazardThresholdStatus": "ready",
-              "reasons": [],
+              "premiumHeadroomUsd": -28980.1088,
+              "minimumSaleProbability": null,
+              "minimumHazardPer30Days": null,
+              "minimumConstantAssignmentValueUsd": 40776.10373839883,
+              "hazardThresholdStatus": "unattainable",
+              "reasons": [
+                "no_hazard_reaches_break_even"
+              ],
               "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
               "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
             },
@@ -6640,10 +6819,10 @@
               "no_eligible_positive_cash_candidate"
             ],
             "limits": {
-              "startingFundUsd": 100000,
-              "maxRiskPerOptionUsd": 2000,
-              "maxOpenRiskUsd": 10000,
-              "maxWholeCohortCommittedUsd": 10000,
+              "startingFundUsd": 1502500,
+              "maxRiskPerOptionUsd": 30050,
+              "maxOpenRiskUsd": 150250,
+              "maxWholeCohortCommittedUsd": 150250,
               "maxPositions": 5,
               "maximumCandidateCount": 20
             },
@@ -6653,7 +6832,7 @@
               "openPositions": 0,
               "usedUnderlyingIds": []
             },
-            "remainingLifetimeCommitmentUsd": 10000,
+            "remainingLifetimeCommitmentUsd": 150250,
             "allPositionsMayFailTogether": true
           }
         }

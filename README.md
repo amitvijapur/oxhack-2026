@@ -158,35 +158,48 @@ Returns cover the selected holding period and are not annualized. Changes betwee
 returns use percentage points; gold-price changes use their own price denominator.
 Price/cost inputs and the worked cash arithmetic retain USD units.
 
-The synthetic preset uses a 1% gold-response cap, an invented 0.5 support signal,
-100% exposure, 50% retention and zero baseline growth. It assumes a 0.25% gold
-increase and leaves contract prices, fees, quantities and sale hazard unchanged.
-At 90 days, expected cash return is 1.52% versus a 1.09% baseline, a 0.44 percentage
-point increase. The 51.2% no-sale branch has a -100% cash return on upfront capital;
-an unsold model mark is separate from cash. Thirty-day expected cash return remains
-negative. These muted response assumptions do not establish conservative market
-pricing, forecast accuracy or an empirical edge. The real historical pilot and
-its negative result remain visible.
+The active demo uses one indivisible whole-contract lot with a US$30,000 initial
+payment. This is the scale of two selected historical signing payments, Tibbs
+2017 and Northway 2018, rather than a current Tok quote or full contract cost.
+The [regional pricing workup](research/orecast-contract-pricing/README.md) records
+primary sources, remaining obligations and the comparison limits. An assumed
+US$50 entry fee puts US$30,050 upfront at risk before any additional obligations.
+The assumed exit fee is US$50. Actual scholarship, work, royalty and recurring
+commitments need separate inputs.
 
-The baseline demo assumes 500 recoverable troy ounces at USD2,000/oz and produces
-USD1,500 assignment proceeds, a 48.8% sale probability and USD7.60 expected net
-cash over 90 days. The 51.2% no-sale branch has cash of USD−700. These are
-arithmetic assumptions, not observed resources, contract terms or predictive
-performance. Explicitly applying the descriptive 2020–2025 gold CAGR of 14.22%
-changes the illustrative expectation to about USD32.60.
+Amit selected the existing capital ratios at this lot size. The exact demo fund
+is US$1,502,500, with US$30,050 per option (2%), US$150,250 open and whole-cohort
+committed limits (10%), and at most five indivisible positions. Exits do not
+restore the cohort allowance. This is a demonstration policy, not sourced fund
+capital or a measure of safety.
 
-With the flat 90-day baseline and other defaults unchanged, a USD500 premium
-gives USD157.60 expected cash, USD650 gives USD7.60 and USD800 gives USD-142.40.
-The break-even premium is USD657.60. A positive expectation still includes the
-no-sale branch; it is not a guaranteed positive outcome.
+The valuation remains independent of entry price. The original assumed 500
+recoverable troy ounces at US$2,000/oz still yield US$1,500 conditional assignment
+proceeds. At 90 days, the assumed 48.8% sale probability gives US$-29,342.40
+expected net cash and a -97.65% return, so the model skips the lot. The 51.2%
+no-sale branch has US$-30,050 cash. Its unsold model mark remains separate.
+Increasing the entry basis has not established a higher resale value.
+
+The website's synthetic preset retains its 1% gold-response cap, invented 0.5
+support signal, 100% exposure, 50% retention and zero baseline growth. It changes
+gold by 0.25% and assignment proceeds to US$1,506.25, yielding US$-29,339.35
+expected cash at 90 days. Neither this preset nor the recorded scenarios covers
+the new lot's entry cost. The separate real historical pilot retains its negative
+result.
+
+The workbench separately displays a required assignment hurdle. At the flat
+90-day baseline, cash break-even needs US$61,627.87 in conditional assignment
+proceeds and a 25% expected return needs US$77,022.34. These are target-solving
+calculations using assumed liquidity and costs, not forecast or observed resale
+prices. The earlier US$650 premium, US$700 upfront and US$7.60 expected-cash
+example remains an explicitly historical arithmetic fixture only.
 
 To use the actual saved swarm post scores, open **Decision** and choose
 **Use existing swarm results**. Approval and court blockage compare days 3–5
 with the matching Claude sports-placebo run. The default hypothetical contract
-retains the recorded support signs. Under the canonical 7% cap and other original
-defaults, approval and blockage cash returns are about 0.78% and 1.46%, alongside
-1.09% without a support adjustment. Selecting recorded results from the new preset
-retains the currently displayed pricing and response-cap assumptions; the output
+retains the recorded support signs. Under the canonical 7% cap and current lot
+basis, approval and blockage remain negative and the decision is SKIP. Selecting
+recorded results from the new preset retains the currently displayed pricing and response-cap assumptions; the output
 therefore reflects those controls. Weights, exposure, holding period and contract
 assumptions recalculate through the same engine. Swarm support changes the
 hypothetical gold price first, then mineral value, assignment value and cash.

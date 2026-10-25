@@ -6,6 +6,22 @@ Use this document for the new prototype. The [earlier combined strategy in PR 24
 
 Implementation update, 25 October 2026: the local executable prototype is now in [model/tok-option](../model/tok-option/README.md), with the React workbench and [verification results](../model/tok-option/VERIFICATION.md). The sections below preserve the agreed specification and original consolidation boundary. Actual swarm exports and real market inputs remain pending.
 
+## Current lot and capital amendment
+
+Amit selected a provisional US$30,000 whole-contract initial-payment reference
+from the regional pricing workup and requested platform-wide consistency. The
+active demo adds a separate assumed US$50 entry fee and US$50 exit fee. Its
+US$1,502,500 fund preserves 2% per-option and 10% open/cohort ratios, with five
+indivisible positions. The original US$100k/US$2k/US$10k limits below are historical
+intake decisions, superseded by this amendment.
+
+The historical signing-payment reference excludes the contracts' other substantial
+obligations. It supplies no assignment forecast. The unchanged valuation gives
+US$1,500 assignment proceeds, so the active demo skips the US$30,050 upfront lot.
+The separately solved US$77,022.34 required assignment amount at 90 days is a
+25% expected-return target hurdle, not a model price. See the
+[research and primary sources](orecast-contract-pricing/README.md).
+
 ## Current implementation amendment, gold forecast v2
 
 The user requested completion of the missing swarm-to-gold layer. The canonical engine now applies the weighted support contrast to a hypothetical gold-price forecast, then recomputes mineral-interest and option values before sale-weighted cash. The previous direct option-price markup is superseded. The 7% default now bounds an editable gold response; it does not cap the option movement. This is an uncalibrated hackathon relationship, not a measured predictive edge. See [the current equations and examples](../model/tok-option/README.md). Older discussion below records the original specification.

@@ -101,3 +101,18 @@ publisher schema. Return deltas are percentage points, gold changes use starting
 or baseline gold as labelled, and zero/missing denominators are unavailable. The
 small-response synthetic UI preset is distinct from both recorded swarm inputs
 and the retrospective historical test; selecting it does not alter either source.
+
+## Shared whole-contract lot basis
+
+`model/tok-option/lot-basis.mjs` owns the selected historical US$30,000 initial-payment
+reference. Workbench defaults, publication context and UI consumers share this
+basis. Entry/exit fees and additional obligations remain separately assumed.
+Capital policy preserves 2% per position, 10% open/cohort risk and five whole
+positions using a US$1,502,500 demo fund. Geological quantity, assignment valuation
+and gold responses do not scale merely because entry price changed.
+
+The canonical diagnostics solve a required resale amount separately from the
+valuation output. The 25% target does not feed back into gold, quantity or
+assignment forecasts. The generated Swarm snapshot is rebuilt from committed
+model inputs and retains source hashes. Historical small-dollar arithmetic
+fixtures use explicit fixture controls rather than inheriting current defaults.

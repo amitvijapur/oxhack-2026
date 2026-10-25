@@ -46,7 +46,7 @@ test('source evidence gates differ by area without pretending to establish resou
   const b = frame({ area: 'B' });
   assert.deepEqual([a.evidence.gate, a.evidence.pass, a.evidence.total], ['PASS', 25, 33]);
   assert.deepEqual([b.evidence.gate, b.evidence.pass, b.evidence.total], ['FAIL', 16, 34]);
-  assert.equal(a.mapped.entryAction, 'BUY_CANDIDATE');
+  assert.equal(a.mapped.entryAction, 'SKIP');
   assert.equal(b.mapped.entryAction, 'SKIP');
   assert.ok(b.mapped.reasons.includes('evidence_gate_failed'));
   assert.equal(a.controls.quantity, b.controls.quantity);
@@ -58,10 +58,10 @@ test('cash distinguishes the sale distribution, unsold mark and full upfront exp
   const result = frame();
   near(result.mapped.saleProbability, 0.488);
   near(result.mapped.noSaleProbability, 0.512);
-  near(result.mapped.expectedNetCashUsd, 5.449691298100333);
-  assert.equal(result.mapped.amountAtRiskUsd, 700);
+  near(result.mapped.expectedNetCashUsd, -29344.5503087019);
+  assert.equal(result.mapped.amountAtRiskUsd, 30050);
   assert.equal(result.cashDiagnostics.mapped.outcomes.at(-1).kind, 'no_sale');
-  assert.equal(result.cashDiagnostics.mapped.outcomes.at(-1).netCashUsd, -700);
+  assert.equal(result.cashDiagnostics.mapped.outcomes.at(-1).netCashUsd, -30050);
   assert.notEqual(result.mapped.expectedNetCashUsd, result.mapped.weightedNoSaleResidualMarkUsd);
 });
 
@@ -73,7 +73,7 @@ test('holding horizons return their own canonical sale intervals and entry outco
   assert.deepEqual(medium.mapped.intervals.map((row) => row.day), [30, 60, 90]);
   assert.deepEqual(long.mapped.intervals.map((row) => row.day), [30, 60, 90, 120, 150, 180]);
   assert.equal(short.mapped.entryAction, 'SKIP');
-  assert.equal(medium.mapped.entryAction, 'BUY_CANDIDATE');
+  assert.equal(medium.mapped.entryAction, 'SKIP');
   assert.ok(long.mapped.expectedNetCashUsd > medium.mapped.expectedNetCashUsd);
   assert.equal(short.controls.horizonDays, 30);
   assert.equal(long.controls.horizonDays, 180);
@@ -98,7 +98,7 @@ test('baseline zero is a no-event comparison rather than a measured swarm signal
   assert.equal(result.signal.provenance, 'baseline_comparison');
   assert.equal(result.signal.diagnosticOnly, true);
   near(result.mapped.goldForecast.scenarioPriceUsdPerOz, 2000);
-  near(result.mapped.expectedNetCashUsd, 7.599999999999909);
+  near(result.mapped.expectedNetCashUsd, -29342.4);
   assert.equal(result.cashDiagnostics.mapped.outcomes.length, 4);
 });
 
@@ -128,5 +128,16 @@ test('historical equity evaluation does not become a swarm forecast or option ho
   assert.equal(study.swarmLiftValue, null);
   assert.ok(study.limitations.some((line) => /does not estimate Tok option returns/.test(line)));
   assert.equal(frame().signal.researchReadiness.status, 'fail');
-  near(frame().mapped.expectedNetCashUsd, 5.449691298100333);
+  near(frame().mapped.expectedNetCashUsd, -29344.5503087019);
+});
+
+
+test('snapshot carries the historical whole-contract basis and approved fund policy', () => {
+  assert.equal(snapshot.lotBasis.unit, 'whole_contract');
+  assert.equal(snapshot.lotBasis.initialPremiumUsd, 30000);
+  assert.equal(snapshot.lotBasis.referenceCount, 2);
+  assert.equal(snapshot.lotBasis.sources.length, 2);
+  assert.deepEqual([snapshot.capitalPolicy.startingFundUsd, snapshot.capitalPolicy.maxRiskPerOptionUsd, snapshot.capitalPolicy.maxOpenRiskUsd, snapshot.capitalPolicy.maxWholeCohortCommittedUsd, snapshot.capitalPolicy.maxPositions], [1502500, 30050, 150250, 150250, 5]);
+  assert.equal(frame().controls.entryPremiumUsd, 30000);
+  assert.ok(frame().mapped.reasons.includes('nonpositive_expected_cash'));
 });
