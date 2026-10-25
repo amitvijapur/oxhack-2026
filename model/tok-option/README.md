@@ -18,6 +18,7 @@ The demo reads the shipped 67-sample snapshot, uses the same pure engine as Reac
 
 | File | Responsibility |
 | --- | --- |
+| `lot-basis.mjs` | Shared USD30,000 historical initial-payment reference, source links and limitations; separate assumed transaction costs. |
 | `evidence.mjs` | Read primary Au qualifiers and form conservative fraction bounds. Retests remain separate. |
 | `commodities.mjs` | Compatible, available-at-cutoff historical CAGR and dated price projection. |
 | `gold.mjs` | Bounded, uncalibrated Au response with baseline/scenario prices and explicit timing provenance. |
@@ -34,9 +35,13 @@ The demo reads the shipped 67-sample snapshot, uses the same pure engine as Reac
 
 ## Reproducible numbers
 
-The default fixture uses 500 assumed recoverable troy ounces at USD2,000 per ounce, zero growth, a 50% interest, conversion factor 0.02, assumed success probability 0.25 and remaining buyer consideration USD4,000. This gives conditional assignment proceeds USD1,500. Entry premium USD650 plus fee USD50 puts USD700 at risk. With an assumed 20% conditional sale hazard per 30 days and USD50 exit fee, the 90-day sale probability is 48.8% and expected net cash is USD7.60. The weighted unsold mark USD768 is separate from cash.
+The active whole-contract lot uses a USD30,000 initial-payment reference from two selected historical payments, Tibbs and Northway. It is not a current Tok average, available offer, full contract capital or observed assignment price. Both observations involve the same acquirer. Northway's separate USD25,000 scholarship and USD400,000 first-year work obligation illustrate why the initial payment is not total capital. Demo application of this reference as an option premium remains assumed. Entry fee USD50, exit fee USD50 and zero additional obligations remain separate invented assumptions. See [pricing research](../../research/orecast-contract-pricing/README.md) and `LOT_BASIS` for sources and limitations.
 
-The synthetic group-score file gives signal 0.203, gold adjustment 1.421%, gold USD2,028.42/oz, assignment proceeds USD1,535.525 and expected net cash USD24.93620. These are arithmetic fixtures, not delivered teammate runs or observations. Default evidence A is 25/33 passing samples; B is 16/34 and fails the 50% rule. These areas are longitude partitions, not legal option interests.
+The valuation still uses 500 assumed recoverable troy ounces at USD2,000 per ounce, zero growth, a 50% interest, conversion factor 0.02, assumed success probability 0.25 and remaining buyer consideration USD4,000. These inputs were not scaled to make the larger premium profitable. Assignment proceeds remain USD1,500. Premium USD30,000 plus entry fee USD50 puts USD30,050 at risk. With an assumed 20% conditional sale hazard per 30 days and USD50 exit fee, 30/90/180-day expected cash is USD-29,760 / USD-29,342.40 / USD-28,980.1088. The 90-day expected return is -97.64526%, non-annualized, and all horizons SKIP. The weighted unsold mark USD768 at 90 days remains separate from cash.
+
+The hypothetical fund is USD1,502,500. Limits of USD30,050 per option and USD150,250 open/lifetime commitment preserve 2%/10% ratios and permit at most five whole lots including fees. These limits do not make negative expected cash eligible. `research/tok-option-model/fixtures.json` and `tests/helpers/legacy-fixture.mjs` retain the former USD650 premium / USD700 capital / USD7.60 cash example as explicit historical arithmetic tests, not active defaults.
+
+The synthetic group-score file gives signal 0.203, gold adjustment 1.421%, gold USD2,028.42/oz, assignment proceeds USD1,535.525 and active-lot expected net cash USD-29,325.0638. These are arithmetic scenarios, not delivered teammate runs or observations. Default evidence A is 25/33 passing samples; B is 16/34 and fails the 50% rule. These areas are longitude partitions, not legal option interests.
 
 ## Gold forecast and valuation, model v2
 
@@ -113,7 +118,7 @@ The underlying source remains `simulated`; the output adds an illustrative-use
 policy, method version, comparison run IDs, source revision and original failed
 research status. The sports placebo is not a neutral no-news control, and there
 is only one recorded Claude seed per condition. Default expected 90-day cash is
-USD5.4497 for approval and USD10.2247 for court blockage, versus USD7.60 baseline.
+USD-29,344.5503 for approval and USD-29,339.7753 for court blockage, versus USD-29,342.40 baseline, on USD30,050 upfront capital. All default cases SKIP. Their gold and assignment values are unchanged by the premium revision.
 The surprising signs are preserved. Changing economic controls or weights
 recalculates the same canonical model. Missing event scenarios remain unavailable.
 
@@ -126,9 +131,11 @@ or establish predictive value. No new swarm or judge API calls are needed.
 
 `runWorkbench` also returns `sourceAudit`, `swarmDiagnostics` and `cashDiagnostics`. The pinned land branch at `34eaf1d` joins all 67 sample identities to checked land layers. It supplies 10 heterogeneous deal examples, dated cost schedules, annual gold means and statewide surface sales. These provide context without becoming available option terms or liquidity estimates. See [land integration](../../research/tok-option-model/land-integration.md).
 
-The UI can explicitly apply the 14.2201% descriptive CAGR of complete 2020–2025 annual gold means to a demo. Partial 2026 observations are excluded. With other defaults unchanged, expected 90-day cash becomes USD32.5973 versus USD7.60 at zero growth. Treating historical growth as a forward rate is an assumption, not a forecast or a backtest.
+The UI can explicitly apply the 14.2201% descriptive CAGR of complete 2020–2025 annual gold means to a demo. Partial 2026 observations are excluded. With other defaults unchanged, expected 90-day cash becomes USD-29,317.4027 versus USD-29,342.40 at zero growth. Treating historical growth as a forward rate is an assumption, not a forecast or a backtest.
 
-`diagnoseCash(result, {candidate})` derives exact sale/no-sale cash branches, probability of negative cash, median, worst supported outcome, 5th/95th percentiles and break-even thresholds. The baseline has 51.2% probability of negative cash, median USD-700, maximum break-even premium USD657.60 and minimum constant monthly sale hazard 19.72794%. Unsold marks are excluded. Negative cash while still holding the option need not be a realized economic loss.
+`diagnoseCash(result, {candidate})` derives exact sale/no-sale cash branches, probability of negative cash, median, worst supported outcome, 5th/95th percentiles and break-even thresholds. The active baseline has 100% probability of negative cash, median USD-30,050 and maximum break-even premium USD657.60. With assignment proceeds USD1,500, no hazard reaches cash break-even at the active cost scale. The 51.2% no-sale probability is distinct from negative-cash probability. Unsold marks are excluded. Negative cash while still holding the option need not be a realized economic loss.
+
+`requiredAssignmentProceeds(result, {targetReturnRatio: 0.25})` validates the canonical sale distribution and returns the **constant gross assignment proceeds required** at every sale date to achieve a 25% non-annualized expected return. At 90 days, `U * (1 + r) / q + F` gives USD77,022.3361, while cash break-even requires USD61,627.8689. These are counterfactual hurdles, not forecasts or observed resale prices. The model assignment stays USD1,500. The helper uses actual monthly sale probability, rejects inconsistent distributions/nonconstant exit fees, and leaves return hurdles unavailable with zero sales or no positive upfront capital. The canonical publication summary preserves `lotContext` and `assignmentHurdles` alongside monetary outcomes.
 
 Minimum-hazard thresholds are unavailable for increasing interval proceeds because changing hazard changes sale timing and can make expected receipts non-monotone. The maximum premium remains exact. The flat assignment-value threshold is explicitly a constant-price sensitivity. These thresholds do not override evidence, expiry, terms or risk gates.
 

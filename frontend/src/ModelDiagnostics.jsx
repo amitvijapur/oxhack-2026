@@ -1,5 +1,6 @@
 import { ChevronDown } from 'lucide-react';
 import { capitalRatio } from './model-presentation.mjs';
+import { requiredAssignmentProceeds } from '../../model/tok-option/diagnostics.mjs';
 
 const finite = (x) => typeof x === 'number' && Number.isFinite(x);
 const money = (x) => finite(x) ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(x) : 'Not available';
@@ -49,6 +50,7 @@ export function CashDiagnostics({ diagnostics, controls, evaluations }) {
   const noSale = selected?.outcomes?.find((row) => row.kind === 'no_sale');
   const saleProbability = ready && noSale ? 1 - noSale.probability : null;
   const breakEven = selected?.breakEven;
+  const target = requiredAssignmentProceeds(evaluations?.mapped, { targetReturnRatio: 0.25 });
   const comparisons = [
     ['Probability of negative net cash', 'negativeCashProbability', (value) => percent(value)],
     ['Median cash return on upfront capital', 'medianCashUsd', (value, risk) => percent(capitalRatio(value, risk))],
@@ -63,6 +65,12 @@ export function CashDiagnostics({ diagnostics, controls, evaluations }) {
     <div className="model-table-scroll"><table><caption className="sr-only">Cash return diagnostics on upfront capital, including the no-sale branch.</caption><thead><tr><th scope="col">Measure</th><th scope="col">Baseline</th><th scope="col">Selected scenario</th></tr></thead><tbody>{comparisons.map(([name, key, format]) => <tr key={key}><th scope="row">{name}</th><td>{format(baseline?.[key], evaluations?.baseline?.amountAtRiskUsd)}</td><td>{format(selected?.[key], evaluations?.mapped?.amountAtRiskUsd)}</td></tr>)}</tbody></table></div>
     {!ready && <p className="model-note">Select a complete demo scenario to see its cash distribution and break-even thresholds.</p>}
     {ready && <>
+      <h4>What would a 25% expected return require?</h4>
+      <dl className="model-break-even">
+        <div><dt>Required gross assignment proceeds per contract</dt><dd>{money(target.requiredAssignmentProceedsUsd)}</dd></div>
+        <div><dt>Model assignment at the horizon</dt><dd>{money(evaluations?.mapped?.assignmentValueUsd)}</dd></div>
+      </dl>
+      <p className="model-note">The required proceeds hold the same gross sale price at every sale date, including the assumed chance of no sale and exit fee. This is a target hurdle, not a forecast, quote or model assignment value. The model still reprices its actual hypothetical assignment at each sale date.</p>
       <h4>How much room before expected cash reaches zero?</h4>
       <dl className="model-break-even">
         <div><dt>Maximum entry premium</dt><dd>{money(breakEven?.maximumEntryPremiumUsd)}<small>Current assumption {money(controls.entryPremiumUsd)}</small></dd></div>

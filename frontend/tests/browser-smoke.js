@@ -35,11 +35,11 @@ async page => {
   check(today.includes('Gold, live spot') && headerGold && today.includes(headerGold), 'Today must show the live gold price, the same as the header');
   check(!/months\)/.test(today), 'The part-year 2026 average must not sit beside the live price');
 
-  // Explorer: three tabs, and Decide opens first with each site's evidence-screen call and the header's gold price.
+  // Explorer: four tabs, and Decide opens first with each site's evidence-screen call and the header's gold price.
   await page.getByRole('button', { name: /Explore the land/ }).click();
   const panel = page.getByRole('complementary', { name: 'Explorer' });
   await panel.waitFor();
-  check(await page.getByRole('tab').count() === 3, 'The panel must have exactly three tabs');
+  check((await page.getByRole('tab').allInnerTexts()).join('|') === 'Decide|Land|Crowd|Swarm', 'The panel must have Decide, Land, Crowd and Swarm tabs');
   check(await page.getByRole('tab', { name: 'Decide' }).getAttribute('aria-selected') === 'true', 'Decide must open first');
   const call = page.locator('.decide .answer-signal');
   await page.waitForFunction(() => /^(Screen passed|Screen failed)$/.test(document.querySelector('.decide .answer-signal')?.textContent ?? ''), null, { timeout: 15000 });
@@ -51,23 +51,44 @@ async page => {
   check(!top.includes('BUY') && !top.includes('SKIP'), 'The geological screen must not be a trading instruction');
   for (const part of ['Hypothetical economics', 'Financial decision and cash risk', 'Probability of no sale', 'Probability of negative net cash', 'Maximum entry premium']) check(decide.includes(part), `Decide missing ${part}`);
   const financial = panel.locator('.financial-decision');
-  check((await financial.innerText()).includes('1.52%') && (await financial.innerText()).includes('+0.44 pp'), 'Default financial scenario must use the conservative canonical calculation');
+  check((await financial.innerText()).includes('-97.64%') && (await financial.innerText()).includes('+0.01 pp'), 'Default financial scenario must retain the whole-contract cost and canonical negative return');
   await panel.getByLabel('Holding period').selectOption('30');
-  check((await financial.innerText()).includes('Skip hypothetical contract') && (await financial.innerText()).includes('-58.39%'), '30-day cash risk must change the financial action');
+  check((await financial.innerText()).includes('Skip hypothetical contract') && (await financial.innerText()).includes('-99.03%'), '30-day whole-contract cash return must be recalculated');
   await panel.getByLabel('Holding period').selectOption('180');
-  check((await financial.innerText()).includes('53.50%'), '180-day return must be recalculated');
+  check((await financial.innerText()).includes('-96.42%'), '180-day return must be recalculated');
   await panel.getByLabel('Holding period').selectOption('90');
   await panel.getByLabel('Financial scenario').selectOption('mine_approval');
-  check((await financial.innerText()).includes('-0.02 pp'), 'Recorded approval must retain its negative contrast');
+  check((await financial.innerText()).includes('-0.0005 pp'), 'Recorded approval must retain its negative contrast');
   await panel.getByLabel('Financial scenario').selectOption('synthetic');
+  for (const part of ['Whole contract', '$30,050', '-$29,339.35', '$1,506.25', 'Unattainable']) check((await financial.innerText()).includes(part), `Whole-contract summary missing ${part}`);
+  await financial.getByText('Required resale hurdle for a 25% return', { exact: true }).click();
+  check((await financial.innerText()).includes('$77,022.34'), 'Required proceeds must remain a target hurdle rather than a model assignment price');
+  await financial.getByText('Required resale hurdle for a 25% return', { exact: true }).click();
+  await call.scrollIntoViewIfNeeded();
   const box = await page.locator('.decide').boundingBox();
   check(box && box.y + box.height <= 900, 'The Decide top block must fit without scrolling');
   await page.getByRole('radio', { name: /Site B/ }).click();
   check(await call.innerText() === 'Screen failed', 'Site B must show a failed geological screen');
   check((await page.locator('.decide').innerText()).includes('fails the gold-evidence screen (16 of 34 samples, needs 17)'), 'Site B must give its screen counts');
-  check((await financial.innerText()).includes('Skip hypothetical contract'), 'Site B must fail the economic gate even with positive assumed returns');
+  check((await financial.innerText()).includes('Skip hypothetical contract'), 'Site B must remain ineligible at the whole-contract cost');
   await page.getByRole('radio', { name: /Site A/ }).click();
   await page.screenshot({ path: 'frontend/artifacts/1-decide.png' });
+  await panel.getByText('Detailed hypothetical model', { exact: true }).click();
+  const model = page.locator('#option-model');
+  await model.getByRole('heading', { name: 'Hypothetical option model', exact: true }).waitFor();
+  check(await model.getByLabel('Comparison area').inputValue() === 'A', 'Detailed model starts at active Site A');
+  check(await model.locator('#model-entryPremiumUsd').inputValue() === '30000', 'Detailed controls retain historical whole-contract default');
+  check(await model.locator('.model-total-row td').last().innerText() === '-97.64%', 'Synthetic workbench remains separate from baseline');
+  await model.getByText('Contract economics', { exact: true }).click();
+  await model.locator('#model-entryPremiumUsd').fill('31000');
+  check((await model.locator('.model-total-row td').last().innerText()).startsWith('-'), 'Changing lot cost preserves negative cash');
+  await model.getByRole('button', { name: 'Reset assumptions', exact: true }).click();
+  check(await model.locator('#model-entryPremiumUsd').inputValue() === '30000', 'Reset restores lot default');
+  await page.getByRole('radio', { name: /Site B/ }).click();
+  check(await model.getByLabel('Comparison area').inputValue() === 'B', 'Detailed model follows active site after switching');
+  await page.getByRole('radio', { name: /Site A/ }).click();
+  await panel.getByText('Detailed hypothetical model', { exact: true }).click();
+  check(await panel.getByText('Historical validation · event model did not beat baseline', { exact: true }).count() === 1, 'Negative historical validation stays accessible');
 
   // Land: every sampled plot, richest first; All and Held only.
   await page.getByRole('tab', { name: 'Land' }).click();
@@ -141,6 +162,21 @@ async page => {
   for (const part of ['not run', 'chance band', 'gpt-', 'glm-']) check(!crowd.toLowerCase().includes(part), `Crowd should not show "${part}"`);
   await page.screenshot({ path: 'frontend/artifacts/3-crowd.png' });
 
+  // Swarm: the workflow in six steps, with a link to the full workflow page.
+  await page.getByRole('tab', { name: 'Swarm' }).click();
+  await page.locator('.wf-steps').waitFor();
+  check(await page.locator('.wf-steps > li').count() === 6, 'Swarm tab needs the six workflow steps');
+  const steps = await panel.innerText();
+  check(steps.includes('Weighted signal') && steps.includes('Support scores'), 'Swarm tab must show the scores and the signal');
+  for (const part of ['Effect against baseline', 'chance band', 'Checks from the swarm report', 'gpt-', 'glm-']) check(!steps.includes(part), `Swarm tab should not show "${part}"`);
+  const full = page.getByRole('link', { name: /Open the full swarm workflow/ });
+  check(await full.getAttribute('href') === '/swarm', 'The Swarm tab must link to the full workflow');
+  const workflow = await page.context().newPage();
+  await workflow.goto('http://127.0.0.1:3000/swarm');
+  await workflow.getByTestId('swarm-workflow').waitFor();
+  await workflow.close();
+  await page.screenshot({ path: 'frontend/artifacts/4-swarm.png' });
+
   // Escape clears the selected map context, then returns to the time-lapse.
   await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
@@ -185,5 +221,5 @@ async page => {
   await flat.close();
 
   check(errors.length === 0, `Unexpected runtime errors: ${errors.join('; ')}`);
-  return { result: 'pass', opening: '2016 to today, then gold projected to 2031', history: [2016, 1975], panel: ['Decide', 'Land', 'Crowd'], viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
+  return { result: 'pass', opening: '2016 to today, then gold projected to 2031', history: [2016, 1975], panel: ['Decide', 'Land', 'Crowd', 'Swarm'], viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
 }

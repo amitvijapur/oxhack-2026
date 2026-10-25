@@ -57,3 +57,5 @@
 - For GitHub branch protection, use the source-bound `checks` request format without the legacy `contexts` field. Test the request and read back effective rules before claiming enforcement; some schema combinations are rejected even when their values appear harmless.
 - This hackathon should not require teammate approvals to merge. Keep reviews optional and retain CI and security requirements. Do not reinstate mandatory teammate or latest-push approvals without Amit's request.
 - When adapting a teammate's kit, inspect the actual source first and import only the selected pieces. Keep local hooks and permission profiles opt-in, skills manual, and Cortex authoritative. Do not add review gates or extra workflows.
+
+- When changing the contract-price basis, align every active default, capital limit, export, frozen snapshot and slide to the same whole-lot units. Solve target-return resale hurdles separately from the independent valuation; increasing entry dollars alone cannot establish a stronger margin.

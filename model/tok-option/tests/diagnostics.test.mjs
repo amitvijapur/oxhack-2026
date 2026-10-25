@@ -1,3 +1,4 @@
+import { LEGACY_CONTROLS } from './helpers/legacy-fixture.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateOpportunity, cashOutcomes } from '../index.mjs';
@@ -5,7 +6,7 @@ import { createDemoCandidate, DEFAULT_CONTROLS } from '../workbench.mjs';
 import { diagnoseCash } from '../diagnostics.mjs';
 
 const close = (actual, expected, tolerance = 1e-8) => assert.ok(typeof actual === 'number' && Math.abs(actual - expected) < tolerance, `${actual} should equal ${expected}`);
-const candidate = createDemoCandidate(DEFAULT_CONTROLS);
+const candidate = createDemoCandidate(LEGACY_CONTROLS);
 const evaluate = (overrides = {}) => evaluateOpportunity({ candidate, evidenceGate: 'PASS', horizonDays: 90, hazardPer30Days: 0.2, ...overrides });
 const customCash = (intervalPrices, { hazard = 0.2, premium = 650, entryFee = 50, exitFee = 50, additional = 0 } = {}) => cashOutcomes({
   horizonDays: intervalPrices.length * 30, hazardPer30Days: hazard, entryPremiumUsd: premium,

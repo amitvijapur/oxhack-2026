@@ -1,6 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import ModelWorkbench from "@/ModelWorkbench.jsx";
+import { LOT_BASIS } from "../../../../../model/tok-option/lot-basis.mjs";
+import { EventStudy } from "./EventStudy";
 import { evidenceByArea } from "@/lib/canonical-model.js";
 import { geologicalScreenLabel } from "@/decide-financial.mjs";
 import { anomalyClass, formatAssayValue, plotReading, plotStatus, usd, type Geochem, type Plot, type Plots } from "@/lib/showcase";
@@ -30,6 +33,8 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
   /** The plot sent here from the Land tab, if any. */
   plot: Plot | null;
 }) {
+  const [modelOpen, setModelOpen] = useState(false);
+  const [studyOpen, setStudyOpen] = useState(false);
   const screens = useMemo(() => evidenceByArea(features) as Screen[], [features]);
   const screen = screens[site === "A" ? 0 : 1];
   const needed = Math.ceil(screen.rule.minimumQualifyingFraction * screen.total);
@@ -49,6 +54,8 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
       evidence={[
         { label: gold ? `Gold: ${gold.source}, through /api/gold-price every 30 s` : "Gold: /api/gold-price, connecting" },
         { label: "Gold-evidence screen: canonical Tok option model (model/tok-option), observed samples only" },
+        { label: "Whole-contract economics: hypothetical canonical model; live spot does not set the model gold input" },
+        ...LOT_BASIS.sources.map((source) => ({ label: `${source.project}: selected historical initial payment, ${source.agreementDate}`, href: source.url })),
         { label: "Observed primary-gold samples, Alaska DGGS RDF 2016-10", href: "https://doi.org/10.14509/29688" },
         { label: `Checked Alaska DNR claim snapshot retrieved ${plots.claims_retrieved}` },
       ]}
@@ -105,6 +112,14 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
       </details>
 
       <FinancialDecision features={features} area={site} />
+      <details className="fold" onToggle={(event) => setModelOpen(event.currentTarget.open)}>
+        <summary>Detailed hypothetical model</summary>
+        {modelOpen ? <ModelWorkbench key={site} features={features} initialArea={site} /> : null}
+      </details>
+      <details className="fold" onToggle={(event) => setStudyOpen(event.currentTarget.open)}>
+        <summary>Historical validation · event model did not beat baseline</summary>
+        {studyOpen ? <EventStudy /> : null}
+      </details>
     </TabBody>
   );
 }

@@ -34,9 +34,9 @@ test('explicit post-only demo uses actual approval scores and preserves failed r
   assert.equal(signal.pairwiseConfiguration.status, 'match');
   assert.deepEqual(source, before);
   const result = run();
-  assert.equal(result.status, 'illustrative');
-  close(result.baseline.expectedNetCashUsd, 7.6);
-  close(result.mapped.expectedNetCashUsd, 5.449691298100333);
+  assert.equal(result.status, 'ineligible');
+  close(result.baseline.expectedNetCashUsd, -29342.4);
+  close(result.mapped.expectedNetCashUsd, -29344.5503087019);
   close(result.mapped.assignmentValueUsd, 1495.5936297092217);
   assert.equal(result.sourceAudit.swarm.status, 'fail');
   assert.equal(result.swarmDiagnostics.status, 'fail');
@@ -47,7 +47,7 @@ test('explicit post-only demo uses actual approval scores and preserves failed r
 test('block sign is retained and group means keep actual counts rather than counting aggregate cells', () => {
   const result = run({ scenarioId: 'mine_blocked' });
   close(result.signal.value, 0.030734331593609505);
-  close(result.mapped.expectedNetCashUsd, 10.2247119180945);
+  close(result.mapped.expectedNetCashUsd, -29339.775288081906);
   close(result.mapped.assignmentValueUsd, 1505.3785080288817);
   const funds = result.signal.groups.find((r) => r.group === 'funds');
   assert.ok(funds.delta > 0);
@@ -65,7 +65,7 @@ test('zero and half gold transfer preserve liquidity and the existing downstream
     const zero = run(input);
     close(zero.signal.value, full.signal.value);
     close(zero.signal.adjustment, 0);
-    close(zero.mapped.expectedNetCashUsd, 7.6);
+    close(zero.mapped.expectedNetCashUsd, -29342.4);
     close(zero.mapped.assignmentValueUsd, 1500);
   }
   for (const input of [{ retention: .5 }, { eventExposure: .5 }]) {
@@ -74,7 +74,7 @@ test('zero and half gold transfer preserve liquidity and the existing downstream
     close(half.signal.adjustment, full.signal.adjustment / 2);
     close(half.mapped.saleProbability, full.mapped.saleProbability);
     close(half.mapped.noSaleProbability, full.mapped.noSaleProbability);
-    close(half.mapped.amountAtRiskUsd, 700);
+    close(half.mapped.amountAtRiskUsd, 30050);
     close(half.controls.pGeo, full.controls.pGeo);
   }
 });
@@ -84,7 +84,7 @@ test('default strict behavior and all pending/real money boundaries remain uncha
   const strict = run({ swarmPolicy: 'strict' });
   assert.equal(strict.signal.value, null);
   assert.equal(strict.mapped, null);
-  close(strict.baseline.expectedNetCashUsd, 7.6);
+  close(strict.baseline.expectedNetCashUsd, -29342.4);
   for (const mode of ['pending', 'real']) {
     const result = run({ mode });
     assert.equal(result.baseline, null);
@@ -106,7 +106,7 @@ test('missing conditions never receive a replay and baseline remains a zero-tran
   }
   const baseline = run({ scenarioId: 'baseline' });
   close(baseline.signal.value, 0);
-  close(baseline.mapped.expectedNetCashUsd, 7.6);
+  close(baseline.mapped.expectedNetCashUsd, -29342.4);
 });
 
 test('manual imports cannot become the pinned replay and explicit synthetic behavior stays separate', () => {
@@ -116,11 +116,11 @@ test('manual imports cannot become the pinned replay and explicit synthetic beha
     assert.ok(imported.signal.reasons.includes('illustrative_contrast_requires_bundled_source'));
   }
   const syntheticImport = run({ swarmPolicy: 'strict' }, example);
-  close(syntheticImport.mapped.expectedNetCashUsd, 24.9362);
+  close(syntheticImport.mapped.expectedNetCashUsd, -29325.0638);
   assert.equal(syntheticImport.signal.provenance, 'synthetic');
   assert.equal(syntheticImport.signal.usagePolicy, undefined);
   const scalar = run({ scenarioId: 'synthetic', syntheticSignal: .203 });
-  close(scalar.mapped.expectedNetCashUsd, 24.9362);
+  close(scalar.mapped.expectedNetCashUsd, -29325.0638);
   assert.equal(scalar.signal.provenance, 'synthetic_sensitivity');
   assert.equal(scalar.signal.usagePolicy, undefined);
 });
@@ -129,7 +129,7 @@ test('replay preserves evidence, expiry, risk and positive-cash entry gates', ()
   const cases = [
     [{ area: 'B' }, 'evidence_gate_failed'],
     [{ remainingMaturityDays: 90 }, 'expiry_window_failed'],
-    [{ entryPremiumUsd: 2050 }, 'per_option_risk_exceeded'],
+    [{ entryPremiumUsd: 30001 }, 'per_option_risk_exceeded'],
     [{ entryPremiumUsd: 800 }, 'nonpositive_expected_cash'],
   ];
   for (const [input, reason] of cases) {
@@ -140,7 +140,7 @@ test('replay preserves evidence, expiry, risk and positive-cash entry gates', ()
   }
   const normal = run();
   close(normal.mapped.noSaleProbability, .512);
-  close(normal.cashDiagnostics.mapped.outcomes.find((o) => o.kind === 'no_sale').netCashUsd, -700);
+  close(normal.cashDiagnostics.mapped.outcomes.find((o) => o.kind === 'no_sale').netCashUsd, -30050);
   close(normal.mapped.weightedNoSaleResidualMarkUsd, .512 * normal.mapped.assignmentValueUsd);
 });
 

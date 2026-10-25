@@ -1,8 +1,8 @@
 {
   "name": "Orecast",
   "modelVersion": "tok-option-demo-v2",
-  "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
-  "sourceUrl": "https://github.com/amitvijapur/oxhack-2026/tree/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+  "sourceRevision": "37991ad5de416e5abf8541264c5f4926a2ec91e8",
+  "sourceUrl": "https://github.com/amitvijapur/oxhack-2026/tree/37991ad5de416e5abf8541264c5f4926a2ec91e8",
   "formulas": {
     "support": "s = sum_group(weight_group * (mean_days3to5(event) - mean_days3to5(reference)) / 10)",
     "baselineGold": "P_base(t) = P0 * (1 + g)^(t / 365)",
@@ -16,7 +16,8 @@
     "cash": "E[cash] = sum_j(w_j * (A(30*j) - exitFee)) - premium - entryFee - unavoidableUpfrontObligations",
     "return": "expected option return = E[cash] / upfrontRisk; non-annualized",
     "change": "delta return in percentage points = 100 * (R_scenario - R_baseline)",
-    "expiry": "horizonDays + 15 <= remainingMaturityDays"
+    "expiry": "horizonDays + 15 <= remainingMaturityDays",
+    "requiredAssignment": "required S = upfrontRisk * (1 + targetReturnRatio) / saleProbability + exitFee; constant gross assignment proceeds at each sale date, not a forecast"
   },
   "assumedInputs": {
     "area": "A",
@@ -29,7 +30,7 @@
     "kappa": 0.02,
     "pGeo": 0.25,
     "remainingBuyerConsiderationUsd": 4000,
-    "entryPremiumUsd": 650,
+    "entryPremiumUsd": 30000,
     "entryFeeUsd": 50,
     "exitFeeUsd": 50,
     "unavoidableAdditionalObligationsUsd": 0,
@@ -53,11 +54,12 @@
       "supportContrast": 0,
       "scenarioGoldUsdPerOz": 2000,
       "scenarioAssignmentUsd": 1500,
-      "scenarioExpectedCashUsd": -410,
-      "scenarioOptionReturnPercent": -58.57142857142858,
-      "upfrontRiskUsd": 700,
+      "scenarioExpectedCashUsd": -29760,
+      "scenarioOptionReturnPercent": -99.03494176372712,
+      "upfrontRiskUsd": 30050,
       "saleProbability": 0.19999999999999996,
-      "noSaleProbability": 0.8
+      "noSaleProbability": 0.8,
+      "entryAction": "SKIP"
     },
     {
       "horizonDays": 90,
@@ -66,11 +68,12 @@
       "supportContrast": 0,
       "scenarioGoldUsdPerOz": 2000,
       "scenarioAssignmentUsd": 1500,
-      "scenarioExpectedCashUsd": 7.600000000000023,
-      "scenarioOptionReturnPercent": 1.085714285714289,
-      "upfrontRiskUsd": 700,
+      "scenarioExpectedCashUsd": -29342.4,
+      "scenarioOptionReturnPercent": -97.64525790349418,
+      "upfrontRiskUsd": 30050,
       "saleProbability": 0.4879999999999999,
-      "noSaleProbability": 0.5120000000000001
+      "noSaleProbability": 0.5120000000000001,
+      "entryAction": "SKIP"
     },
     {
       "horizonDays": 180,
@@ -79,11 +82,12 @@
       "supportContrast": 0,
       "scenarioGoldUsdPerOz": 2000,
       "scenarioAssignmentUsd": 1500,
-      "scenarioExpectedCashUsd": 369.8912,
-      "scenarioOptionReturnPercent": 52.8416,
-      "upfrontRiskUsd": 700,
+      "scenarioExpectedCashUsd": -28980.1088,
+      "scenarioOptionReturnPercent": -96.4396299500832,
+      "upfrontRiskUsd": 30050,
       "saleProbability": 0.7378559999999998,
-      "noSaleProbability": 0.2621440000000001
+      "noSaleProbability": 0.2621440000000001,
+      "entryAction": "SKIP"
     }
   ],
   "recordedScenarios": {
@@ -95,11 +99,12 @@
         "supportContrast": -0.02517925880444946,
         "scenarioGoldUsdPerOz": 1996.474903767377,
         "scenarioAssignmentUsd": 1495.5936297092217,
-        "scenarioExpectedCashUsd": -410.88127405815567,
-        "scenarioOptionReturnPercent": -58.69732486545081,
-        "upfrontRiskUsd": 700,
+        "scenarioExpectedCashUsd": -29760.881274058156,
+        "scenarioOptionReturnPercent": -99.03787445610035,
+        "upfrontRiskUsd": 30050,
         "saleProbability": 0.19999999999999996,
-        "noSaleProbability": 0.8
+        "noSaleProbability": 0.8,
+        "entryAction": "SKIP"
       },
       {
         "horizonDays": 90,
@@ -108,11 +113,12 @@
         "supportContrast": -0.02517925880444946,
         "scenarioGoldUsdPerOz": 1996.474903767377,
         "scenarioAssignmentUsd": 1495.5936297092217,
-        "scenarioExpectedCashUsd": 5.449691298100333,
-        "scenarioOptionReturnPercent": 0.7785273283000476,
-        "upfrontRiskUsd": 700,
+        "scenarioExpectedCashUsd": -29344.5503087019,
+        "scenarioOptionReturnPercent": -97.65241367288486,
+        "upfrontRiskUsd": 30050,
         "saleProbability": 0.4879999999999999,
-        "noSaleProbability": 0.5120000000000001
+        "noSaleProbability": 0.5120000000000001,
+        "entryAction": "SKIP"
       },
       {
         "horizonDays": 180,
@@ -121,11 +127,12 @@
         "supportContrast": -0.02517925880444946,
         "scenarioGoldUsdPerOz": 1996.474903767377,
         "scenarioAssignmentUsd": 1495.5936297092217,
-        "scenarioExpectedCashUsd": 366.6399332427277,
-        "scenarioOptionReturnPercent": 52.37713332038967,
-        "upfrontRiskUsd": 700,
+        "scenarioExpectedCashUsd": -28983.360066757272,
+        "scenarioOptionReturnPercent": -96.4504494734019,
+        "upfrontRiskUsd": 30050,
         "saleProbability": 0.7378559999999998,
-        "noSaleProbability": 0.2621440000000001
+        "noSaleProbability": 0.2621440000000001,
+        "entryAction": "SKIP"
       }
     ],
     "mine_blocked": [
@@ -136,11 +143,12 @@
         "supportContrast": 0.030734331593609505,
         "scenarioGoldUsdPerOz": 2004.3028064231053,
         "scenarioAssignmentUsd": 1505.3785080288817,
-        "scenarioExpectedCashUsd": -408.9242983942236,
-        "scenarioOptionReturnPercent": -58.417756913460515,
-        "upfrontRiskUsd": 700,
+        "scenarioExpectedCashUsd": -29758.924298394224,
+        "scenarioOptionReturnPercent": -99.03136205788428,
+        "upfrontRiskUsd": 30050,
         "saleProbability": 0.19999999999999996,
-        "noSaleProbability": 0.8
+        "noSaleProbability": 0.8,
+        "entryAction": "SKIP"
       },
       {
         "horizonDays": 90,
@@ -149,11 +157,12 @@
         "supportContrast": 0.030734331593609505,
         "scenarioGoldUsdPerOz": 2004.3028064231053,
         "scenarioAssignmentUsd": 1505.3785080288817,
-        "scenarioExpectedCashUsd": 10.2247119180945,
-        "scenarioOptionReturnPercent": 1.460673131156357,
-        "upfrontRiskUsd": 700,
+        "scenarioExpectedCashUsd": -29339.775288081906,
+        "scenarioOptionReturnPercent": -97.63652342123763,
+        "upfrontRiskUsd": 30050,
         "saleProbability": 0.4879999999999999,
-        "noSaleProbability": 0.5120000000000001
+        "noSaleProbability": 0.5120000000000001,
+        "entryAction": "SKIP"
       },
       {
         "horizonDays": 180,
@@ -162,11 +171,12 @@
         "supportContrast": 0.030734331593609505,
         "scenarioGoldUsdPerOz": 2004.3028064231053,
         "scenarioAssignmentUsd": 1505.3785080288817,
-        "scenarioExpectedCashUsd": 373.85976442015885,
-        "scenarioOptionReturnPercent": 53.40853777430841,
-        "upfrontRiskUsd": 700,
+        "scenarioExpectedCashUsd": -28976.140235579842,
+        "scenarioOptionReturnPercent": -96.42642341291129,
+        "upfrontRiskUsd": 30050,
         "saleProbability": 0.7378559999999998,
-        "noSaleProbability": 0.2621440000000001
+        "noSaleProbability": 0.2621440000000001,
+        "entryAction": "SKIP"
       }
     ]
   },
@@ -314,6 +324,124 @@
     "Historical pilot is 12 retrospectively selected equity events with five holdout observations, not Tok option returns.",
     "No-change beats both other models on both pilot horizons. No paired historical swarm/financial outcomes exist.",
     "A/B are evidence comparison areas, not legal parcels or available contracts.",
-    "No-sale probability and economic gates are distinct from probability of geological success; unsold marks are not cash."
-  ]
+    "No-sale probability and economic gates are distinct from probability of geological success; unsold marks are not cash.",
+    "Two selected historical initial payments from the same acquirer, not a representative current Tok average or an available assignable option.",
+    "The reference excludes fees, scholarships, exploration work, recurring payments, royalties and other obligations; it is not full contract capital.",
+    "Northway also involved a separate USD 25,000 scholarship and USD 400,000 first-year exploration obligation. These are not included in the initial-payment statistic.",
+    "Comparison areas A and B are sample partitions, not legal parcels. No observed assignment resale price or margin is supplied.",
+    "Use of the historical payment as a hypothetical option premium does not verify equivalent rights, assignment permission, term or current value.",
+    "Conditional assignment valuation remains independent at USD1,500 in the zero-growth baseline. Entry scale is not used to manufacture a profitable exit.",
+    "USD77,022.34 is required conditional assignment proceeds for a 25% expected 90-day return under the assumed liquidity. It is not a forecast, observed resale quote or target validated by historical transactions."
+  ],
+  "lotBasis": {
+    "id": "regional-initial-payment-whole-contract-v1",
+    "currency": "USD",
+    "unit": "whole_contract",
+    "initialPremiumUsd": 30000,
+    "referenceKind": "selected_historical_initial_payments",
+    "referenceCount": 2,
+    "sources": [
+      {
+        "project": "Tibbs",
+        "label": "Tectonic 2019 Q2 MD&A, pp4–5",
+        "agreementDate": "2017-06",
+        "initialPaymentUsd": 30000,
+        "url": "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606"
+      },
+      {
+        "project": "Northway",
+        "label": "Tectonic audited 2018 statements, pp17–19",
+        "agreementDate": "2018-06",
+        "initialPaymentUsd": 30000,
+        "url": "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+      }
+    ],
+    "limitations": [
+      "Two selected historical initial payments from the same acquirer, not a representative current Tok average or an available assignable option.",
+      "The reference excludes fees, scholarships, exploration work, recurring payments, royalties and other obligations; it is not full contract capital.",
+      "Northway also involved a separate USD 25,000 scholarship and USD 400,000 first-year exploration obligation. These are not included in the initial-payment statistic.",
+      "Comparison areas A and B are sample partitions, not legal parcels. No observed assignment resale price or margin is supplied.",
+      "Use of the historical payment as a hypothetical option premium does not verify equivalent rights, assignment permission, term or current value."
+    ]
+  },
+  "assumedCosts": {
+    "entryFeeUsd": 50,
+    "exitFeeUsd": 50,
+    "unavoidableAdditionalObligationsUsd": 0
+  },
+  "capital": {
+    "startingFundUsd": 1502500,
+    "maxRiskPerOptionUsd": 30050,
+    "maxOpenRiskUsd": 150250,
+    "maxWholeCohortCommittedUsd": 150250,
+    "maxPositions": 5,
+    "maximumCandidateCount": 20
+  },
+  "websiteSyntheticPreset": {
+    "horizonDays": 90,
+    "scenarioId": "synthetic",
+    "area": "A",
+    "supportContrast": 0.5,
+    "scenarioGoldUsdPerOz": 2005,
+    "scenarioAssignmentUsd": 1506.25,
+    "scenarioExpectedCashUsd": -29339.35,
+    "scenarioOptionReturnPercent": -97.6351081530782,
+    "upfrontRiskUsd": 30050,
+    "saleProbability": 0.4879999999999999,
+    "noSaleProbability": 0.5120000000000001,
+    "entryAction": "SKIP"
+  },
+  "cashReconciliation90": {
+    "upfrontRiskUsd": 30050,
+    "sale": {
+      "probability": 0.4879999999999999,
+      "netCashUsd": -28600,
+      "weightedCashUsd": -13956.800000000001
+    },
+    "noSale": {
+      "probability": 0.5120000000000001,
+      "netCashUsd": -30050,
+      "weightedCashUsd": -15385.600000000004
+    },
+    "meanCashUsd": -29342.400000000005,
+    "medianCashUsd": -30050,
+    "maximumEntryPremiumUsd": 657.6
+  },
+  "hurdles": {
+    "cashBreakEven": {
+      "status": "illustrative",
+      "kind": "required_assignment_proceeds",
+      "currency": "USD",
+      "horizonDays": 90,
+      "amountAtRiskUsd": 30050,
+      "saleProbability": 0.4879999999999999,
+      "exitFeeUsd": 50,
+      "targetReturnRatio": 0,
+      "requiredAssignmentProceedsUsd": 61627.86885245903,
+      "reasons": [],
+      "assumption": "Required constant gross assignment proceeds at every sale date under the existing assumed liquidity. Non-annualized return on all upfront capital; unsold marks excluded. A hurdle, not a forecast or observed resale price."
+    },
+    "target25Percent": {
+      "status": "illustrative",
+      "kind": "required_assignment_proceeds",
+      "currency": "USD",
+      "horizonDays": 90,
+      "amountAtRiskUsd": 30050,
+      "saleProbability": 0.4879999999999999,
+      "exitFeeUsd": 50,
+      "targetReturnRatio": 0.25,
+      "requiredAssignmentProceedsUsd": 77022.33606557379,
+      "reasons": [],
+      "assumption": "Required constant gross assignment proceeds at every sale date under the existing assumed liquidity. Non-annualized return on all upfront capital; unsold marks excluded. A hurdle, not a forecast or observed resale price."
+    }
+  },
+  "inputHashes": {
+    "model/tok-option/lot-basis.mjs": "993ec960fde9aa3f9c09a9073413d49be8a82056d906fe5e8ddb516fee37823d",
+    "model/tok-option/config.mjs": "71bc46948c42df85d7ad2a3d571ddcefa89132eb7385e92c515ab70338f36186",
+    "model/tok-option/diagnostics.mjs": "141844752ea8c994e92ba2eb68ba99363ff4f9705840ce22671534cc4f10bb29",
+    "model/tok-option/workbench.mjs": "05d9b5abe1092f65b63bc72822514a8a29f2731c21bc7224ef917517fca4b9cb",
+    "model/tok-option/valuation.mjs": "99da2222cdab5eded26bafbe06d891ba6f048687ae3c9a4850df7660c3b0fc55",
+    "model/tok-option/liquidity.mjs": "62c8f4e4b83874d35ad4c49ca09408c71708467070178fcb046801547c8747e4",
+    "model/tok-option/gold.mjs": "b907890ccfc5e4023eef16b004a394825b802c12fe6388ec13cd83a134af7611"
+  }
 }

@@ -1,10 +1,13 @@
 # Tok River application
 
-The Next.js application presents **Land Arbitrage: Gold**, a Cesium explorer for
-Tok River, Alaska. The side panel has three tabs. Decide (the default) shows the
-live gold price and each comparison site's geological screen, followed by a
-separate hypothetical financial decision with percentage returns, cash risks
-and break-even assumptions. Land keeps all sampled plots in a compact grid beside the selected context. Crowd charts the judged swarm scenarios. The site opens on today: claims held now and the gold spot, then
+The Next.js application presents **Orecast**, a Cesium explorer for
+Tok River, Alaska. The side panel has four tabs. Decide (the default) shows the
+live gold spot and each comparison site's geological screen, followed by a
+separate hypothetical whole-contract financial decision with percentage returns,
+cash risks and break-even assumptions. Land keeps all sampled plots in a compact
+grid beside the selected context. Crowd charts the judged swarm scenarios, and
+Swarm explains the recorded workflow with a link to the full calculation page.
+The site opens on today: claims held now and the gold spot, then
 plays the next 12 months forward using the model's descriptive 2020–25 gold
 trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
 the hypothetical demo contract (`projectionHorizons` in `src/lib/canonical-model.js`).
@@ -150,16 +153,26 @@ incomplete, never a buy recommendation. Selecting a land plot uses its area's
 screen, not a plot-specific valuation. `FinancialDecision.jsx` then calls the
 same pure `../model/tok-option/workbench.mjs` engine through the presentation
 adapter `src/decide-financial.mjs`, with the selected site and 30/90/180-day
-horizon. The existing conservative website preset is unchanged. Economic
-action comes from the engine and cannot override a failed evidence gate.
+horizon. The preset inherits the current $30,000 whole-contract historical
+initial-payment reference, plus assumed fees. This does not make the contract
+profitable. Economic action comes from the engine and cannot override a failed
+evidence gate.
 
 The financial section is always hypothetical. It shows expected cash return,
 baseline delta in percentage points, no-sale and negative-net-cash probability,
-median/worst cash returns, and canonical break-even premium and sale-rate
-thresholds. Monetary assumptions retain USD units. The $2,000/oz model input is
-separate from the live spot quote. An unsold mark is not a cash receipt.
-Missing scenarios stay unavailable. The older full `ModelWorkbench.jsx` and
-Decision tab remain in source but are not mounted. The engine's programmatic
+median/worst cash returns, canonical break-even thresholds, and the gross
+assignment proceeds required for a 25% expected cash return. That target hurdle
+is not a forecast or resale quote. Historical payment sources, separate
+obligations and current capital limits remain inspectable in the whole-contract
+cost disclosure. Monetary assumptions retain USD units. The $2,000/oz model
+input is separate from the live spot quote. An unsold mark is not a cash receipt.
+Missing scenarios stay unavailable.
+
+The **Detailed hypothetical model** disclosure embeds `src/ModelWorkbench.jsx`,
+using the same pure engine. Switching sites resets the detailed calculator to
+that area. It opens and resets in hypothetical demo mode only. A separate
+historical-validation disclosure retains the negative event-pilot result.
+The engine's programmatic
 pending/real modes still retain null financial outputs.
 
 Decide's recorded approval/blockage scenarios compare simulated posts with
@@ -177,12 +190,12 @@ configured by this integration.
 
 ### Hypothetical gold forecast
 
-The Decision calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The cap defaults to 7%, affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.
+The Decide calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The compact Decide preset uses a 1% cap and 50% retention; the recorded workflow snapshot states its separate 7% cap. The cap affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.
 
 ### Current algorithm calculation snapshot
 
 The `/swarm` graph now reads a source-pinned snapshot of `tok-option-demo-v2`
-from the newer local integration revision `8399adb6`. It is a display of default
+from committed canonical inputs at `37991ad5de416e5abf8541264c5f4926a2ec91e8`. It is a display of default
 hypothetical calculations, not live synchronization with the explorer's model
 controls. Select A/B and a 30/90/180-day horizon to inspect its recorded output.
 Approval/blockage compare against the matching Claude placebo. The assumed
@@ -212,3 +225,10 @@ pilot errors and unavailable swarm lift. These findings remain separate from
 the financial calculation. The study's trading-session horizon does not change
 the option holding period. Inspection retains full-precision source outputs and
 intermediate valuation formulas.
+
+The active indivisible lot uses the shared US$30,000 historical initial-payment
+reference plus a separately assumed US$50 entry fee. The US$1,502,500 demo fund
+preserves 2% per-option and 10% open/cohort capital ratios with at most five lots.
+The unchanged US$1,500 assignment assumption yields SKIP. The separate US$77,022.34
+90-day assignment hurdle solves a 25% expected return under assumed liquidity; it
+does not replace the forecast. Live spot never overwrites the assumed model gold.

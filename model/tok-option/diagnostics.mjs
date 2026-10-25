@@ -118,3 +118,31 @@ export function diagnoseCash(result, { candidate, horizonDays = result?.horizonD
     definition: 'Net cash received by the horizon after all upfront costs. Unsold option marks are excluded. A cash shortfall while an option is held is not necessarily a realized investment loss.',
   };
 }
+
+/**
+ * Counterfactual constant gross proceeds needed at every possible sale date.
+ * This is a cash hurdle, never a forecast or a replacement for dated valuations.
+ * Validate the full existing distribution, including multi-period sale weights,
+ * before solving q * (S - F) - U = targetReturnRatio * U.
+ */
+export function requiredAssignmentProceeds(result, { targetReturnRatio = 0 } = {}) {
+  const base = {
+    status: 'INSUFFICIENT_DATA', kind: 'required_assignment_proceeds', currency: 'USD',
+    horizonDays: result?.horizonDays ?? (Array.isArray(result?.intervals) ? result.intervals.at(-1)?.day : null) ?? null,
+    amountAtRiskUsd: null, saleProbability: null, exitFeeUsd: null,
+    targetReturnRatio: finite(targetReturnRatio) ? targetReturnRatio : null,
+    requiredAssignmentProceedsUsd: null, reasons: [],
+    assumption: 'Required constant gross assignment proceeds at every sale date under the existing assumed liquidity. Non-annualized return on all upfront capital; unsold marks excluded. A hurdle, not a forecast or observed resale price.',
+  };
+  if (!within(targetReturnRatio, 0)) return { ...base, reasons: ['invalid_target_return'] };
+  const diagnostic = diagnoseCash(result);
+  if (diagnostic.status !== 'illustrative') return { ...base, reasons: diagnostic.reasons };
+  const fields = { amountAtRiskUsd: result.amountAtRiskUsd, saleProbability: result.saleProbability };
+  if (result.amountAtRiskUsd <= 0) return { ...base, ...fields, reasons: ['return_undefined_without_positive_upfront_capital'] };
+  if (result.saleProbability <= 0) return { ...base, ...fields, reasons: ['required_assignment_unavailable_without_sales'] };
+  const exitFeeUsd = result.intervals[0].assignmentValueUsd - result.intervals[0].netSaleProceedsUsd;
+  if (!result.intervals.every((row) => near(row.assignmentValueUsd - row.netSaleProceedsUsd, exitFeeUsd))) return { ...base, ...fields, reasons: ['nonconstant_exit_fees'] };
+  const required = result.amountAtRiskUsd * (1 + targetReturnRatio) / result.saleProbability + exitFeeUsd;
+  if (!finite(required)) return { ...base, ...fields, exitFeeUsd, reasons: ['non_finite_assignment_hurdle'] };
+  return { ...base, ...fields, status: 'illustrative', exitFeeUsd, requiredAssignmentProceedsUsd: required };
+}

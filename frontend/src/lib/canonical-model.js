@@ -43,3 +43,8 @@ export function projectionHorizons(features) {
 export function goldTrend() {
   return inspectIntegratedSources().land.goldTrend;
 }
+
+/** Explicit hypothetical 90-day whole-contract baseline, separate from the live spot quote. */
+export function wholeLotBaseline(features, area) {
+  return runWorkbench({ features, controls: { mode: 'demo', area, scenarioId: 'baseline', horizonDays: 90 } }).baseline;
+}

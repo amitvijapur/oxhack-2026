@@ -2286,7 +2286,7 @@
         "location": "~70 km NE of Tok, Alaska; Alaska state land",
         "dateText": "2022-07-19",
         "priceUsdMillionsText": "1.0",
-        "priceNote": "US$1m cash up front for the option; US$4m more on exercise + US$30m exploration over 8 years; option TERMINATED March 2024, so the US$4m was never paid",
+        "priceNote": "US$1m aggregate staged cash over 8 years, not an upfront premium; separate US$4m exercise/success payment and US$30m exploration. Agreement terminated March 2024. This is not an observed short-term option assignment price.",
         "stage": "exploration (porphyry copper-gold)",
         "relationToTok": "closest priced deal to Tok after Delta (~70 km NE of Tok); size reported as ~45000 ha (2022) and 46173 ha (2024)",
         "sourceQualityNote": "high - company releases",
@@ -2295,9 +2295,22 @@
         "limitations": [
           "terminated_2024",
           "exploration_commitments",
-          "mixed_commodities"
+          "mixed_commodities",
+          "staged_cash_not_upfront",
+          "not_assignment_resale"
         ],
-        "verifiedAvailableTokAssignment": false
+        "verifiedAvailableTokAssignment": false,
+        "fieldCorrection": {
+          "field": "priceNote",
+          "previousDerivedValue": "US$1m cash up front for the option; US$4m more on exercise + US$30m exploration over 8 years; option TERMINATED March 2024, so the US$4m was never paid",
+          "correctedAt": "2026-10-25",
+          "basis": "Primary issuer disclosures reviewed against the upstream derived label. Upstream source identities and hashes above describe the original snapshot, not this correction.",
+          "sourceUrls": [
+            "https://www.kenorlandminerals.com/news/kenorland-minerals-options-the-tanacross-project-to-antofagasta/",
+            "https://fr.kenorlandminerals.com/_resources/financials/2023-Q2-FS.pdf?v=121110",
+            "https://www.kenorlandminerals.com/news/2024/kenorland-minerals-announces-termination-of-tanacross-project-earn-in-agreement-with-antofagasta-plc-and-highlights-exploration-upside-at-south-taurus/"
+          ]
+        }
       },
       {
         "acquirer": "United States Antimony",

@@ -1,58 +1,49 @@
 # Orecast teammate handoff
 
-Orecast is the selected algorithm name. The descriptor **Mineral intelligence over
-time** is proposed copy. The deck keeps the approved Palantir reference style and
-applies the existing white, charcoal and green palette.
+Orecast is the selected algorithm name. **Mineral intelligence over time** is proposed descriptor copy. The deck retains the approved Palantir compositions and the project's white, charcoal and sparse green palette.
 
 ## Start here
 
-- Edit [the PowerPoint](output/orecast-pitch.pptx). Text, diagrams, the cash chart
-  and appendix tables remain editable. Screenshots are images.
-- Use [the PDF](output/orecast-pitch.pdf) as the appearance reference.
-- Follow [the rehearsal guide](rehearsal.md) for the seven-slide, five-minute talk
-  and the exact scenario switch. Two appendix slides support questions.
-- Use [the brand guide](../../brand/orecast/BRAND.md) and its transparent wordmarks,
-  font files, palette tokens and brand board for further materials.
+- Edit [the PowerPoint](output/orecast-pitch.pptx). Text, diagrams, the horizon chart and appendix tables are native editable objects. Screenshots remain images.
+- Use [the PDF](output/orecast-pitch.pdf) as the appearance reference and [preview.png](preview.png) for the nine-slide overview.
+- Follow [the rehearsal guide](rehearsal.md). Seven main slides total 300 seconds; two appendices support questions.
+- Inspect [algorithm-facts.json](algorithm-facts.json) and [slide-notes.json](slide-notes.json) for portable figures, formulas, source references and speaking notes.
+- Use [the brand guide](../../brand/orecast/BRAND.md) for wordmarks, fonts, palette and spacing.
 
-This folder includes source images, portable algorithm facts and public source
-links. Rejected decks and local authoring diagnostics are not part of the package.
-No application code or website identity has been changed by this revision.
+The package contains the current whole-lot revision. The older neutral-title deck remains an archived presentation at `../oxhack-pitch.pptx`; its numerical fixture is not the current default.
 
-## Updated algorithm
+The reviewed source is [`37991ad5de416e5abf8541264c5f4926a2ec91e8`](https://github.com/amitvijapur/oxhack-2026/tree/37991ad5de416e5abf8541264c5f4926a2ec91e8), model `tok-option-demo-v2`.
 
-This revision reflects model `tok-option-demo-v2` on public main
-[`fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7`](https://github.com/amitvijapur/oxhack-2026/tree/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7).
+## Whole-lot basis and fund limits
 
-Recorded support first changes an assumed gold forecast. Orecast then recomputes
-material and mineral-interest value, option assignment proceeds and sale/no-sale
-cash at each possible sale date. Expected option return divides expected cash by
-upfront capital and is non-annualized. The gold response remains uncalibrated.
+The hypothetical premium is **$30,000 per indivisible whole contract**, plus a separate **$50 assumed entry fee**, for **$30,050 upfront capital**. The $30,000 reference is the mean and median of two selected historical initial payments, Tibbs in 2017 and Northway in 2018. Both involved the same acquirer and materially different obligations. This is an initial-payment scale reference, not a current Tok market average, available quote or full contract cost. Assignment permission and comparable resale prices remain unverified. A/B are evidence comparison areas, not legal parcels or fractional traded units.
 
-The recorded 90-day example gives $5.45 expected cash and 0.78% expected option
-return for mine approval, versus $10.22 and 1.46% for court blockage. Both use
-$700 upfront risk. The zero-growth baseline remains $7.60 and 1.09%. These replace
-the earlier deck's direct assignment-markup scenario results.
+The exact simulated starting fund is **$1,502,500**. Per-option risk is capped at **$30,050**. Open risk and lifetime cohort commitments are each capped at **$150,250**, with at most **five positions**. This capacity does not establish five available or eligible contracts; the displayed example is rejected.
 
-The historical equity pilot is separate. Its fitted event adjustment did not
-beat the simple baseline. There are no paired historical swarm outcomes, so
-incremental swarm value and Tok option performance remain unestablished.
+Economic valuation remains independent: 500 assumed recoverable ounces, $2,000/oz gold, 50% ownership, 2% conversion, 25% geological success and $4,000 buyer consideration still yield **$1,500 baseline assignment proceeds**. Entry cost does not scale the exit value to create a margin.
+
+At 90 days the baseline has **−$29,342.40 expected cash**, **−97.65% non-annualized expected option return** and **SKIP**. Recorded approval and blockage produce **−$29,344.55 / −97.65%** and **−$29,339.78 / −97.64%**, respectively. Both remain skips. All returns divide expected cash by the same $30,050 upfront capital; gold-price changes use a different denominator.
+
+## Required return is a hurdle, not a forecast
+
+For a **25% expected 90-day return**, the assumed 48.8% sale probability and $50 exit fee require **$77,022.34 conditional gross assignment proceeds**, held constant at every possible sale date:
+
+`required S = $30,050 × 1.25 / 0.488 + $50`
+
+No such resale price was observed or forecast. The independent model still returns $1,500. The hurdle does not replace valuation, calibrate the sale hazard or justify entry. The $50 fees and zero-additional-obligations setting are assumptions; historical work, scholarships, royalties and recurring payments are not included in the signing-payment statistic.
+
+The rehearsed recorded workflow is at `/swarm`. The **Decide** tab provides the lot summary and expandable full calculator; its synthetic startup preset is a separate example. **Land** and **Crowd** provide supporting context.
+
+## Algorithm and validation
+
+Recorded mining support first changes an assumed gold forecast. Orecast then recomputes material and mineral-interest value, assignment proceeds and dated sale/no-sale cash. The 7% response coefficient is uncalibrated and does not cap investment loss. Failed simulation research checks remain visible.
+
+The historical equity pilot is separate from Tok option returns. Its fitted event adjustment did not beat baseline; no paired historical swarm outcomes establish incremental value. Preserve that negative result and the unavailable measured edge when editing.
 
 ## Editing and presentation
 
-Keep the predominantly white editorial pages, rounded charcoal evidence panels,
-regular/light DM Sans, thin underlined focal numbers and exploded native diagram.
-Use green sparingly. Do not replace them with a generic dark dashboard layout.
+Keep the white editorial pages, rounded charcoal panels, regular/light DM Sans, thin underlined focal numbers and native exploded diagram. Green marks the selected horizon, not a profitable decision.
 
-The primary wordmark is Orecast in DM Sans Regular. The deck's small running folio
-is native metadata. DM Sans Light may need manual mapping to weight 300 in a
-desktop slide editor. WOFF2 files are included as source assets; some editors
-need the equivalent desktop font from the official DM Sans distribution. The PDF
-preserves the approved appearance if fonts substitute. Native PowerPoint opening
-and system font rendering have not been tested.
+DM Sans Light may need manual mapping to weight 300 in a desktop slide editor. WOFF2 source assets are in [the brand kit](../../brand/orecast/fonts/); some editors need equivalent desktop faces from the official DM Sans distribution. The PDF preserves appearance when fonts substitute. Native PowerPoint opening and system font rendering have not been tested.
 
-Captures retain the application's actual name, Land Arbitrage: Gold. Reuse source
-images with their attribution. Keep assumptions, failed research checks, return
-denominators and the historical pilot's negative result when editing the story.
-
-This is the current Orecast deck for team editing. The earlier neutral-title deck
-remains available at `../oxhack-pitch.pptx` from PR 41.
+Current workflow captures show the Orecast website identity. Reused geographic/research captures can retain earlier application labels. Reuse them with [their attribution](assets/README.md). No hosted deployment or trade execution is implied.

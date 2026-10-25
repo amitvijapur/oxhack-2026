@@ -136,9 +136,14 @@ describe("decision runs", () => {
     const decision = (await t.query(api.workstreams.list, {})).find((s) => s.key === "decision")!;
     expect(decision.latest?.summary).toEqual(body.summary);
     if (decision.latest?.summary.kind !== "decision") throw new Error("missing decision summary");
-    expect(decision.latest.summary.selected.mapped?.entryAction).toBe("BUY_CANDIDATE");
-    expect(decision.latest.summary.selected.mapped?.expectedNetCashUsd).toBeCloseTo(7.6);
-    expect(decision.latest.summary.selected.mapped?.negativeCashProbability).toBeCloseTo(0.512);
+    expect(decision.latest.summary.selected.mapped?.entryAction).toBe("SKIP");
+    expect(decision.latest.summary.selected.mapped?.expectedNetCashUsd).toBeCloseTo(-29342.4);
+    expect(decision.latest.summary.selected.mapped?.negativeCashProbability).toBeCloseTo(1);
+    expect(decision.latest.summary.selected.mapped?.amountAtRiskUsd).toBe(30050);
+    if (decision.latest.summary.modelVersion === "tok-option-demo-v2") {
+      expect(decision.latest.summary.lotContext?.initialPremiumUsd).toBe(30000);
+      expect(decision.latest.summary.selected.mapped?.assignmentHurdles?.target25Percent.requiredAssignmentProceedsUsd).toBeCloseTo(77022.33606557378);
+    }
     const stored = await t.run(async (ctx) => {
       const run = await ctx.db.query("runs").first();
       return (await ctx.storage.get(run!.payloadFileId))!.text();
@@ -274,12 +279,13 @@ describe("decision runs", () => {
     const currentSummary = body.summary as Extract<Infer<typeof decisionSummaryValidator>, { modelVersion: "tok-option-demo-v2" }>;
     const withoutForecast = (outcome: typeof currentSummary.selected.mapped) => {
       if (!outcome) return null;
-      const { goldForecast, ...legacy } = outcome;
+      const { goldForecast, assignmentHurdles: _hurdles, ...legacy } = outcome;
       expect(goldForecast.methodVersion).toBe("assumed-gold-response-v1");
       return legacy;
     };
+    const { lotContext: _lotContext, ...historicalFields } = currentSummary;
     const legacySummary = {
-      ...currentSummary,
+      ...historicalFields,
       modelVersion: "tok-option-demo-v1" as const,
       horizons: currentSummary.horizons.map((row) => ({ days: row.days, baseline: withoutForecast(row.baseline), mapped: withoutForecast(row.mapped) })),
       selected: { baseline: withoutForecast(currentSummary.selected.baseline), mapped: withoutForecast(currentSummary.selected.mapped) },

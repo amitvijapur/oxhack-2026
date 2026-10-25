@@ -1,13 +1,14 @@
+import { LEGACY_CONTROLS } from './helpers/legacy-fixture.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { valueOption, evaluateOpportunity, forecastGoldForMaterials, GOLD_FORECAST_METHOD, VERSION } from '../index.mjs';
 import { DEFAULT_CONTROLS, createDemoCandidate, runWorkbench } from '../workbench.mjs';
 
-const candidate = createDemoCandidate(DEFAULT_CONTROLS);
+const candidate = createDemoCandidate(LEGACY_CONTROLS);
 const features = ['a', 'b'].flatMap((area) => JSON.parse(readFileSync(new URL(`../../../frontend/public/data/tok-gold/site-${area}/samples.geojson`, import.meta.url))).features);
 const close = (actual, expected, epsilon = 1e-8) => assert.ok(typeof actual === 'number' && Math.abs(actual - expected) < epsilon, `${actual} != ${expected}`);
-const workbench = (controls = {}) => runWorkbench({ features, controls: { mode: 'demo', scenarioId: 'synthetic', syntheticSignal: .203, ...controls } });
+const workbench = (controls = {}) => runWorkbench({ features, controls: { ...LEGACY_CONTROLS, mode: 'demo', scenarioId: 'synthetic', syntheticSignal: .203, ...controls } });
 
 test('v2 makes one assumed gold response before material value and the option floor', () => {
   assert.equal(VERSION, 'tok-option-demo-v2');

@@ -173,6 +173,9 @@
 .swf-validation-details summary { cursor: pointer; color: #ccc; }
 .swf-validation-details summary:hover { color: #fff; }
 .swf-result-note { margin-top: 0; padding-top: 8px; font-size: 10px; }
+.swf-target { padding: 0 0 10px; font-size: 11px; color: #aaa; line-height: 1.6; }
+.swf-target summary { color: #d6d6d6; cursor: pointer; }
+.swf-target p { margin: 10px 0 0; }
 @media (max-width: 1100px) { .swf-workspace { grid-template-columns: minmax(0, 1fr) 260px; gap: 12px; } .swf-result { padding: 16px; } }
 @media (max-width: 860px) {
   .swf-page { height: auto; min-height: 100dvh; }

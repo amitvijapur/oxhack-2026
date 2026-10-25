@@ -1,4 +1,37 @@
+# Publish Decide diagnostics and the compact Land overview, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. User explicitly authorized push and squash merge. The frontend worker owns UI conflict resolution; an independent reviewer checks the combined model wiring. Preserve main's Swarm tab, whole-contract pricing, source research and pitch assets.
+
+- [x] Integrate current main, preserving the $30,000 historical initial-payment assumption, separate fees/obligations and current canonical negative decisions.
+- [x] Verify the combined frontend, model, source audit, backend and publisher checks; build and inspect desktop/mobile flows; independently review the final diff.
+- [ ] Push a bounded PR, attach it to the task and wait for all three required checks on its current head.
+- [ ] Squash merge only while up to date with main and conversations resolved, then verify the merged commit and remove the completed remote branch.
+
+The earlier verification sections below are historical records of the two local UI changes before integration. Current economics and detailed-model/history access follow the newer whole-contract implementation on main. Local integration review: preserved main ab66f47 and all canonical model/source/pitch changes. Current default premium is $30,000 plus $50 entry fee, so the compact 90-day synthetic example returns -97.64% and correctly says Skip. The geological screen is a separate eligibility result. Swarm wording distinguishes its frozen 7% response cap from Decide's 1% cap and 50% retention.
+
+Verification on Node 24.14.0: 69 frontend tests, 146 canonical model/event tests, 21 backend tests, 16 publisher tests and 29 specification checks passed. Source audit, frontend/backend typechecks, production build and independent integration review passed. Lint has zero errors and six existing backend warnings. Production checks confirmed four tabs, whole-contract negative outcomes, 30/90-day and recorded comparisons, Site B detailed-model initialization, plot-to-Decide handoff and Swarm access. All 57 Land tiles and selected details fit at 1440x900 and 320x844 with no scroll or horizontal overflow; no browser console errors. The final Swarm wording correction passed 18 focused tests and scoped lint. The legacy browser-smoke script is updated but was not run end to end. Hosted publication results will be recorded on the PR.
+
 # Share Orecast branding and the revised pitch deck
+
+## Align the whole platform to the Orecast contract lot, 25 October 2026
+
+Human owner: Amit. Codex owns integration and review. Model worker owns shared
+lot/economics/serialization; UI worker owns consumers; deck worker owns the
+existing Orecast presentation. Amit selected the existing risk ratios at an
+approximately US$1.5m demo fund. The exact fund is US$1,502,500, giving US$30,050
+per option and US$150,250 open/lifetime committed risk for five indivisible lots.
+
+- [x] Define one shared US$30,000 whole-contract initial-payment reference with historical provenance; keep fees and obligations separate.
+- [x] Align model defaults, capital policy, UI, exports and regenerated snapshots. Preserve independent valuation inputs and distinguish return hurdles from forecasts.
+- [x] Refresh active documentation and the approved Orecast deck/handoff without changing its visual language.
+- [x] Run meaningful model, publication, frontend and build checks; inspect the platform and changed slides; independently review the result.
+
+The existing 500oz valuation remains unchanged. At the new entry basis its
+US$1,500 assignment assumption yields a negative expectation and SKIP. A 25%
+expected-return resale hurdle is underwriting arithmetic, not an observed price
+or model forecast. The US$30k reference is two selected historical initial
+payments and excludes full contract commitments.
+
 
 25 October 2026. Human owner: Amit. Integration owner: Codex. User authorized
 push and merge of the completed Orecast package. Scope is presentation and brand
@@ -21,6 +54,23 @@ Publication review confirmed the approved PPTX/PDF bytes, nine matching note par
 300-second main sequence, native chart/workbook and tables, relative links,
 licences and image attribution. Whitespace and redacted directory scans passed.
 The 29 changed paths contain only brand/presentation assets and their index notes.
+
+Integration review: preserved main's new Decide/Land/Crowd panel from PR 48
+and the additional Swarm walkthrough tab from PR 49.
+Decide separates observed evidence PASS/FAIL from the canonical whole-lot cash
+decision, keeps live gold separate, and exposes the detailed calculator and
+negative historical validation through disclosures. The financial model,
+exports, frozen Swarm trace, current deck and documentation share one lot basis.
+An independent review also found and repaired a publisher check that accepted
+forged decision labels despite canonical risk failure.
+
+Verification: 135 model, 58 frontend, 21 backend and 16 publisher tests
+passed, plus 29 specification checks, frontend/backend typechecks and production
+builds. Parent inspected all nine slide renders and refreshed pages after repair.
+The presentation finalizer reports zero findings and warnings. Desktop and mobile browser review passed, including Site B initialization/reset,
+whole-lot costs, negative expected returns, source/hurdle distinctions and no
+horizontal page overflow. The current deck has nine slides and a 300-second main
+sequence. The protected PR records hosted checks and merge status.
 
 # Streamline Land into a compact plot overview
 
@@ -646,3 +696,15 @@ remain to be completed there.
 24 October 2026: Discord was inaccessible and Amit then cancelled that research. The Granola notes are the working event brief. Local Git and author identity are available. GitHub CLI authentication for `amitvijapur` was successfully verified outside the sandbox; the earlier restricted check is superseded and no re-login is needed. The plan is in `research/repository-plan.md`. Repository identity, visibility, harness, and accepted teammate access are confirmed. Stack, data source, and exact submission deadline remain open.
 
 The private repository is live at https://github.com/amitvijapur/oxhack-2026 with the shared Cortex/Codex/Claude Code arrangement and supplied Granola notes. All three teammates from the image have accepted write access. PR #2 added CI, dependency controls, and team documentation; the deliberate whitespace defect was rejected and removed before the clean revision merged. Both required jobs passed on the PR and main. PR #3 merged as `c08a66a`, correcting the stored API payload and recording verification. Main protection now requires zero approving reviews at Amit's request. Stale-review dismissal and latest-push approval are disabled. Current GitHub Actions-issued checks, resolved conversations, linear history, no force pushes/deletions, and admin enforcement remain active and were independently read back from GitHub. No application exists yet, so runtime correctness/performance checks remain pending. Rust is a candidate for algorithm performance. Keep the repo private until the planned review and public transition before submission; exact deadline and event eligibility rules remain open.
+
+
+## Orecast public README, 25 October 2026
+
+Human owner: Amit. Integration and final review: Codex. Scope: root README and new README-specific brand assets; preserve application, model, dependencies and all historical planning files. Work in an isolated checkout of main.
+
+- [x] Verify the current application, brand tokens, demo route, setup and model claims. Owner: repository explorer and Codex.
+- [x] Build a branded cover and a focused GitHub README using existing Orecast assets. Owner: README worker.
+- [x] Check local links, document hygiene, factual consistency and desktop/mobile rendering. Owner: Codex.
+- [x] Record results and prepare a bounded handoff without merging or deploying application changes. Owner: Codex.
+
+Review: the public README now uses the Orecast typography, charcoal cover and temporal ring, with an actual deployed four-tab explorer capture. It links the demo, current deck and preserved source/setup guides, and distinguishes observed samples, simulated runs and assumed contract economics. Independent factual review passed. All 47 local README references resolve; disclosure/fence/anchor checks and git diff --check passed. The cover regenerated byte-for-byte from committed fonts and tokens. Browser review covered light/dark desktop layouts and a 390-pixel viewport, with both images loaded and no page overflow. The screenshot keeps map credits and separate capture provenance. Application, model, dependency and workflow files are unchanged. Hosted CI and publication status are recorded with the PR and external build log.

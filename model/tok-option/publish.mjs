@@ -1,5 +1,6 @@
 import { VERSION, HORIZONS, SCENARIOS, within } from './config.mjs';
-import { diagnoseCash } from './diagnostics.mjs';
+import { diagnoseCash, requiredAssignmentProceeds } from './diagnostics.mjs';
+import { lotContext } from './lot-basis.mjs';
 import { evaluateOpportunity } from './index.mjs';
 import { createDemoCandidate } from './workbench.mjs';
 
@@ -85,17 +86,26 @@ function contrastContext(result, selection) {
   };
 }
 
-function canonicalEconomics(value, controls, expectedSignal) {
+function canonicalEconomics(value, controls, expectedSignal, diagnosticOnly) {
   requireThat(object(controls), 'priced outcomes require their original controls');
   // Re-evaluate using the same candidate factory and engine as the workbench.
   // A self-consistent cash distribution alone does not prove that its sale
   // prices came from the v2 gold-first valuation rather than the old markup.
-  const canonical = evaluateOpportunity({
+  let canonical = evaluateOpportunity({
     candidate: createDemoCandidate(controls), evidenceGate: value.evidenceGate,
     horizonDays: value.horizonDays, signal: expectedSignal,
     cap: controls.goldResponseCap, exposure: controls.eventExposure,
     retention: controls.retention, hazardPer30Days: controls.hazardPer30Days,
   });
+  // The workbench deliberately makes a priced placebo diagnostic-only. Preserve
+  // that exact policy, rather than accepting caller-supplied gate/action labels.
+  if (diagnosticOnly) canonical = {
+    ...canonical, status: 'diagnostic', entryAction: null,
+    reasons: [...canonical.reasons, 'sports_placebo_is_diagnostic_only'],
+  };
+  for (const key of ['riskGate', 'expiryGate', 'entryAction', 'status', 'reasons']) {
+    requireThat(canonicalJson(value[key]) === canonicalJson(canonical[key]), `${key} does not match canonical decision policy`);
+  }
   requireThat(canonicalJson(value.calculation) === canonicalJson(canonical.calculation), 'calculation does not match the canonical controls');
   requireThat(canonicalJson(value.materialTrace) === canonicalJson(canonical.materialTrace), 'material trace does not match the canonical controls');
   for (const key of ['assignmentValueUsd', 'baselineAssignmentValueUsd', 'rawMaterialValueUsd', 'baselineRawMaterialValueUsd',
@@ -151,7 +161,7 @@ function forecastSummary(value, controls, expectedSignal, canonical) {
   };
 }
 
-function outcome(value, mode, horizonDays, evidenceGate, controls, expectedSignal) {
+function outcome(value, mode, horizonDays, evidenceGate, controls, expectedSignal, diagnosticOnly = false) {
   if (value === null) return null;
   requireThat(object(value) && value.version === VERSION && value.horizonDays === horizonDays, 'outcome version or day horizon does not match');
   requireThat(mode === 'demo', 'monetary outcomes require explicit demo mode');
@@ -174,12 +184,13 @@ function outcome(value, mode, horizonDays, evidenceGate, controls, expectedSigna
   // call a cash shortfall a realized investment loss.
   const diagnostic = diagnoseCash(value);
   if (numeric.expectedNetCashUsd !== null) requireThat(diagnostic.status === 'illustrative', 'finite expected cash must pass the canonical cash diagnostic');
-  const canonical = canonicalEconomics(value, controls, expectedSignal);
+  const canonical = canonicalEconomics(value, controls, expectedSignal, diagnosticOnly);
   const goldForecast = forecastSummary(value, controls, expectedSignal, canonical);
   return {
     status: value.status, entryAction: value.entryAction, reasons: strings(value.reasons, 'outcome reasons'),
     ...numeric, negativeCashProbability: diagnostic.negativeCashProbability,
     evidenceGate: value.evidenceGate, expiryGate: value.expiryGate, riskGate: value.riskGate, goldForecast,
+    assignmentHurdles: { breakEven: requiredAssignmentProceeds(value), target25Percent: requiredAssignmentProceeds(value, { targetReturnRatio: 0.25 }) },
   };
 }
 
@@ -207,13 +218,17 @@ export function decisionSummary(output) {
   if (result.mode !== 'demo') requireThat(result.baseline === null && result.horizons.every((row) => row.baseline === null), 'pending and real-data modes cannot carry demo money');
   const selected = result.horizons.find((row) => row.days === selection.horizonDays);
   requireThat(canonicalJson(selected.baseline) === canonicalJson(result.baseline) && canonicalJson(selected.mapped) === canonicalJson(result.mapped), 'selected outcomes do not match the day horizon');
-  const horizons = result.horizons.map((row) => ({ days: row.days, baseline: outcome(row.baseline, result.mode, row.days, result.evidence.gate, result.controls, 0), mapped: outcome(row.mapped, result.mode, row.days, result.evidence.gate, result.controls, result.signal.value) }));
+  const horizons = result.horizons.map((row) => ({ days: row.days, baseline: outcome(row.baseline, result.mode, row.days, result.evidence.gate, result.controls, 0), mapped: outcome(row.mapped, result.mode, row.days, result.evidence.gate, result.controls, result.signal.value, selection.scenarioId === 'sports_placebo') }));
   if (result.mapped) requireThat(result.signal.transferTarget === 'gold_price'
     && (result.mapped.goldForecast.adjustment === null || result.signal.adjustment === result.mapped.goldForecast.adjustment),
     'signal adjustment must identify and match the gold forecast');
   const selectedSummary = horizons.find((row) => row.days === selection.horizonDays);
   const hasEconomics = horizons.some((row) => row.baseline || row.mapped);
   if (hasEconomics) requireThat(result.provenance?.economics === 'assumed' && result.provenance?.liquidity === 'assumed', 'demo economics and liquidity must be labelled assumed');
+  const context = hasEconomics ? lotContext(result.controls) : null;
+  // Older explicitly controlled fixtures may omit this additive metadata.
+  // Supplied context must never relabel a custom amount as an observed price.
+  if (result.lotContext != null) requireThat(canonicalJson(result.lotContext) === canonicalJson(context), 'lot context does not match the canonical entry controls');
   return {
     kind: 'decision', contractVersion: SUMMARY_CONTRACT, modelVersion: VERSION,
     modelMode: result.mode, status: result.status, area: selection.area, horizonDays: selection.horizonDays, scenarioId: selection.scenarioId,
@@ -221,6 +236,7 @@ export function decisionSummary(output) {
     provenance: { evidence: result.evidence.provenance ?? null, economics: hasEconomics ? result.provenance.economics : null, liquidity: hasEconomics ? result.provenance.liquidity : null, signal: result.signal.provenance ?? null },
     reasons: strings(result.reasons, 'reasons'), assumptions: strings(result.assumptions, 'assumptions'),
     horizons, selected: { baseline: selectedSummary.baseline, mapped: selectedSummary.mapped },
+    lotContext: context,
     ...(signalContext ? { signalContext } : {}),
   };
 }

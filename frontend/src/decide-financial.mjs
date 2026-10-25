@@ -1,4 +1,5 @@
 import { runWorkbench } from '../../model/tok-option/workbench.mjs';
+import { requiredAssignmentProceeds } from '../../model/tok-option/diagnostics.mjs';
 import { capitalRatio, cashReturn, returnDifference, createConservativeDemo } from './model-presentation.mjs';
 
 export const DECIDE_SCENARIOS = Object.freeze([
@@ -19,6 +20,7 @@ export function runDecideFinancial({ features = [], area = 'A', horizonDays = 90
   const diagnostics = result.cashDiagnostics.mapped;
   return {
     result, controls,
+    targetResale: requiredAssignmentProceeds(mapped, { targetReturnRatio: 0.25 }),
     action: mapped?.entryAction ?? null,
     expectedReturn: cashReturn(mapped),
     baselineReturn: cashReturn(result.baseline),

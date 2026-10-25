@@ -2,12 +2,14 @@
 
 import { useMemo, useState } from 'react';
 import { DECIDE_SCENARIOS, runDecideFinancial } from '../../../decide-financial.mjs';
+import { ContractLotBasis } from '../../../ContractLotBasis.jsx';
+import { CAPITAL } from '../../../../../model/tok-option/config.mjs';
 
 const finite = (value) => typeof value === 'number' && Number.isFinite(value);
 const number = (value, digits = 2) => finite(value) ? value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits }) : 'Not available';
 const percent = (value, digits = 2) => finite(value) ? `${number(value * 100, digits)}%` : 'Not available';
-const points = (value) => finite(value) ? `${value > 0 ? '+' : ''}${number(value * 100)} pp` : 'Not available';
-const money = (value) => finite(value) ? `$${number(value)}` : 'Not available';
+const points = (value) => finite(value) ? `${value > 0 ? '+' : ''}${number(value * 100, value !== 0 && Math.abs(value * 100) < 0.01 ? 4 : 2)} pp` : 'Not available';
+const money = (value) => finite(value) ? value.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'Not available';
 
 export function FinancialDecisionResult({ view, area }) {
   const { result, controls, action } = view;
@@ -32,7 +34,8 @@ export function FinancialDecisionResult({ view, area }) {
         <div><dt>Change from baseline</dt><dd className="tabular">{points(view.deltaReturn)}</dd></div>
       </dl>
     </div>
-    <p className="note">Returns are net cash ÷ upfront capital over {controls.horizonDays} days, not annualized. Upfront capital is premium + entry fee + unavoidable obligations, {money(mapped?.amountAtRiskUsd)} here. pp means percentage points.</p>
+    <p className="note">Returns are net cash ÷ upfront capital over {controls.horizonDays} days, not annualized. Upfront capital is premium + entry fee + unavoidable obligations, {money(mapped?.amountAtRiskUsd)} per whole contract. pp means percentage points.</p>
+    <p className="note">Selected scenario: {money(mapped?.expectedNetCashUsd)} expected net cash and {money(mapped?.assignmentValueUsd)} modeled assignment proceeds at the horizon. Baseline: {money(result.baseline?.expectedNetCashUsd)} expected net cash and {money(result.baseline?.assignmentValueUsd)} assignment proceeds. Proceeds are not the initial entry payment.</p>
 
     <h4 className="financial-subhead">Cash risk by day {controls.horizonDays}</h4>
     <dl className="mini-stats financial-risks">
@@ -46,9 +49,19 @@ export function FinancialDecisionResult({ view, area }) {
     <h4 className="financial-subhead">What breaks even?</h4>
     <dl className="mini-stats financial-risks">
       <div><dt>Maximum entry premium</dt><dd className="tabular">{money(breakEven?.maximumEntryPremiumUsd)}</dd></div>
-      <div><dt>Minimum sale rate per 30 days</dt><dd className="tabular">{percent(breakEven?.minimumHazardPer30Days)}</dd></div>
+      <div><dt>Minimum sale rate per 30 days</dt><dd className="tabular">{breakEven?.hazardThresholdStatus === 'unattainable' ? 'Unattainable' : percent(breakEven?.minimumHazardPer30Days)}</dd></div>
     </dl>
-    <p className="note">Assumed premium: {money(controls.entryPremiumUsd)}; headroom: {money(breakEven?.premiumHeadroomUsd)}. Assumed sale rate: {percent(controls.hazardPer30Days, 0)} per 30 days while unsold. Break-even sale probability by day {controls.horizonDays}: {percent(breakEven?.minimumSaleProbability)}. Other assumptions stay fixed. These are model thresholds, not market quotes.</p>
+    <p className="note">Assumed premium: {money(controls.entryPremiumUsd)}; headroom: {money(breakEven?.premiumHeadroomUsd)}. Assumed sale rate: {percent(controls.hazardPer30Days, 0)} per 30 days while unsold. Break-even sale probability by day {controls.horizonDays}: {breakEven?.hazardThresholdStatus === 'unattainable' ? 'Unattainable' : percent(breakEven?.minimumSaleProbability)}. Other assumptions stay fixed. These are model thresholds, not market quotes.</p>
+    {breakEven?.hazardThresholdStatus === 'unattainable' && <p className="note">Even a certain sale cannot recover upfront capital at the modeled assignment proceeds. Increasing sale probability alone cannot break even.</p>}
+
+    <details className="fold">
+      <summary>Required resale hurdle for a 25% return</summary>
+      <dl className="mini-stats financial-risks">
+        <div><dt>Required gross assignment proceeds</dt><dd className="tabular">{money(view.targetResale?.requiredAssignmentProceedsUsd)}</dd></div>
+        <div><dt>Model assignment proceeds at horizon</dt><dd className="tabular">{money(mapped?.assignmentValueUsd)}</dd></div>
+      </dl>
+      <p className="note">A 25% expected net cash return on all upfront capital over {controls.horizonDays} days, not annualized. The hurdle holds the same gross resale proceeds at each sale date and includes the assumed chance of no sale and exit fee. It is a target, not a forecast, quote or model assignment value.</p>
+    </details>
 
     <details className="fold">
       <summary>Financial assumptions and signal source</summary>
@@ -78,6 +91,7 @@ export default function FinancialDecision({ features, area }) {
       <label>Holding period<select value={horizonDays} onChange={(event) => setHorizonDays(Number(event.target.value))}>{[30, 90, 180].map((days) => <option key={days} value={days}>{days} days</option>)}</select></label>
       <label>Financial scenario<select value={scenarioId} onChange={(event) => setScenarioId(event.target.value)}>{DECIDE_SCENARIOS.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
     </div>
+    <ContractLotBasis controls={view.controls} capitalPolicy={CAPITAL} compact />
     <FinancialDecisionResult view={view} area={area} />
   </section>;
 }
