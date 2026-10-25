@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0",
+  "title": "Tok River gold evidence",
+  "source": {
+    "id": "alaska_dggs_rdf2016_10",
+    "version": "RDF 2016-10",
+    "publication_url": "https://dggs.alaska.gov/pubs/id/29688",
+    "doi_url": "https://doi.org/10.14509/29688",
+    "catalog_path": "research/gold-source-catalog.json",
+    "assays_sha256": "3833f09686ce03ba823881df5ff662768e24a05f12091ee1c097b1e2ec7c30d1",
+    "handoff_release": "gold-evidence-v1",
+    "release_url": "https://github.com/amitvijapur/oxhack-2026/releases/tag/gold-evidence-v1",
+    "download_instructions_path": "research/gold-data-downloads.md"
+  },
+  "data_state": "historical_snapshot_not_live",
+  "medium": "stream_sediment",
+  "size_fraction": "-200",
+  "area_meaning": "Sampling comparison areas, not parcels, mines or deposits",
+  "coordinates": {
+    "datum": "WGS84",
+    "geojson_order": [
+      "longitude",
+      "latitude"
+    ],
+    "point_bounds_semantics": {
+      "west": "minimum longitude",
+      "east": "maximum longitude",
+      "south": "minimum latitude",
+      "north": "maximum latitude"
+    },
+    "bounds_meaning": "Sampling-point extent only; not an ownership or geological boundary"
+  },
+  "timeline": {
+    "collection_months": [
+      "2016-06",
+      "2016-07"
+    ],
+    "collection_display_precision": "month",
+    "publication": {
+      "value": "2016-11",
+      "precision": "month",
+      "day": null
+    },
+    "per_sample_collection_date": null,
+    "per_observation_available_at": null,
+    "note": "Campaign dates exist in the source catalog; exact per-row dates are unavailable"
+  },
+  "areas": [
+    {
+      "area": "A",
+      "name": "Tok west",
+      "sample_count": 33,
+      "map_view_center": {
+        "latitude": 63.1365055,
+        "longitude": -143.910052,
+        "meaning": "Midpoint of sampling-point bounds, for map framing only"
+      },
+      "point_bounds": {
+        "east": -143.800271,
+        "north": 63.245385,
+        "south": 63.027626,
+        "west": -144.019833
+      },
+      "geojson_path": "data/generated/tok-gold/site-a/samples.geojson",
+      "summary_path": "data/generated/tok-gold/site-a/summary.json",
+      "site_path": "data/generated/tok-gold/site-a/site.json",
+      "measurements": {
+        "gold_primary": {
+          "method": "PGM-MS23",
+          "unit": "ppm",
+          "counts": {
+            "above_detection": 0,
+            "below_detection": 0,
+            "not_analyzed": 0,
+            "quantified": 33
+          },
+          "censored_count": 0,
+          "quantified_only": {
+            "denominator": 33,
+            "maximum_ppm": 0.326,
+            "median_ppm": 0.013,
+            "minimum_ppm": 0.004
+          }
+        },
+        "gold_retest": {
+          "method": "Au-AA25",
+          "unit": "ppm",
+          "counts": {
+            "above_detection": 0,
+            "below_detection": 0,
+            "not_analyzed": 33,
+            "quantified": 0
+          },
+          "censored_count": 0,
+          "quantified_only": {
+            "denominator": 0,
+            "maximum_ppm": null,
+            "median_ppm": null,
+            "minimum_ppm": null
+          }
+        },
+        "lithium_secondary": {
+          "method": "ME-MS61",
+          "unit": "ppm",
+          "counts": {
+            "above_detection": 0,
+            "below_detection": 0,
+            "not_analyzed": 0,
+            "quantified": 33
+          },
+          "censored_count": 0,
+          "quantified_only": {
+            "denominator": 33,
+            "maximum_ppm": 46.8,
+            "median_ppm": 31.6,
+            "minimum_ppm": 13.7
+          }
+        }
+      }
+    },
+    {
+      "area": "B",
+      "name": "Tok east",
+      "sample_count": 34,
+      "map_view_center": {
+        "latitude": 63.1323295,
+        "longitude": -143.444784,
+        "meaning": "Midpoint of sampling-point bounds, for map framing only"
+      },
+      "point_bounds": {
+        "east": -143.096187,
+        "north": 63.218722,
+        "south": 63.045937,
+        "west": -143.793381
+      },
+      "geojson_path": "data/generated/tok-gold/site-b/samples.geojson",
+      "summary_path": "data/generated/tok-gold/site-b/summary.json",
+      "site_path": "data/generated/tok-gold/site-b/site.json",
+      "measurements": {
+        "gold_primary": {
+          "method": "PGM-MS23",
+          "unit": "ppm",
+          "counts": {
+            "above_detection": 1,
+            "below_detection": 0,
+            "not_analyzed": 0,
+            "quantified": 33
+          },
+          "censored_count": 1,
+          "quantified_only": {
+            "denominator": 33,
+            "maximum_ppm": 0.863,
+            "median_ppm": 0.008,
+            "minimum_ppm": 0.003
+          }
+        },
+        "gold_retest": {
+          "method": "Au-AA25",
+          "unit": "ppm",
+          "counts": {
+            "above_detection": 0,
+            "below_detection": 0,
+            "not_analyzed": 33,
+            "quantified": 1
+          },
+          "censored_count": 0,
+          "quantified_only": {
+            "denominator": 1,
+            "maximum_ppm": 1.1,
+            "median_ppm": 1.1,
+            "minimum_ppm": 1.1
+          }
+        },
+        "lithium_secondary": {
+          "method": "ME-MS61",
+          "unit": "ppm",
+          "counts": {
+            "above_detection": 0,
+            "below_detection": 0,
+            "not_analyzed": 0,
+            "quantified": 34
+          },
+          "censored_count": 0,
+          "quantified_only": {
+            "denominator": 34,
+            "maximum_ppm": 41.8,
+            "median_ppm": 21.0,
+            "minimum_ppm": 13.4
+          }
+        }
+      }
+    }
+  ],
+  "pending": {
+    "land_contracts": {
+      "owner": "Arjin",
+      "status": "pending",
+      "data": null
+    },
+    "simulation_prediction": {
+      "owner": "Muhd",
+      "status": "pending",
+      "data": null
+    },
+    "decision": {
+      "owner": "Salman",
+      "status": "planning",
+      "data": null
+    }
+  },
+  "interpretation": [
+    "Statistics use quantified measurements only; censored and blank results are excluded with explicit denominators.",
+    "Primary gold remains separate from Au-AA25 retests. Never replace a primary value or bound with a retest.",
+    "Median differences are not an A/B investment ranking; targeted sampling and laboratory batch mix differ.",
+    "Use sample dots without interpolated heatmaps. There are no verified deposits, contract prices, probabilities or decision scores."
+  ],
+  "overview": {
+    "sample_count": 67,
+    "map_view_center": {
+      "longitude": -143.55801,
+      "latitude": 63.1365055,
+      "meaning": "Midpoint of all sampling-point bounds, for map framing only"
+    },
+    "point_bounds": {
+      "west": -144.019833,
+      "east": -143.096187,
+      "south": 63.027626,
+      "north": 63.245385
+    },
+    "bounds_meaning": "Sampling-point extent only; not a parcel, deposit, catchment or geological boundary"
+  }
+}

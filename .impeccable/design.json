@@ -1,0 +1,530 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T22:14:49Z",
+  "title": "Design System: Tok River evidence surface",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "canvas",
+        "tonalRamp": [
+          "oklch(15.00% 0.02769 260.43)",
+          "oklch(26.43% 0.02769 260.43)",
+          "oklch(37.86% 0.02769 260.43)",
+          "oklch(49.29% 0.02769 260.43)",
+          "oklch(60.71% 0.02769 260.43)",
+          "oklch(72.14% 0.02769 260.43)",
+          "oklch(83.57% 0.02769 260.43)",
+          "oklch(95.00% 0.02769 260.43)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.03494 259.51)",
+          "oklch(26.43% 0.03494 259.51)",
+          "oklch(37.86% 0.03494 259.51)",
+          "oklch(49.29% 0.03494 259.51)",
+          "oklch(60.71% 0.03494 259.51)",
+          "oklch(72.14% 0.03494 259.51)",
+          "oklch(83.57% 0.03494 259.51)",
+          "oklch(95.00% 0.03494 259.51)"
+        ]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "raised",
+        "tonalRamp": [
+          "oklch(15.00% 0.04591 257.84)",
+          "oklch(26.43% 0.04591 257.84)",
+          "oklch(37.86% 0.04591 257.84)",
+          "oklch(49.29% 0.04591 257.84)",
+          "oklch(60.71% 0.04591 257.84)",
+          "oklch(72.14% 0.04591 257.84)",
+          "oklch(83.57% 0.04591 257.84)",
+          "oklch(95.00% 0.04591 257.84)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "border",
+        "tonalRamp": [
+          "oklch(15.00% 0.04773 257.05)",
+          "oklch(26.43% 0.04773 257.05)",
+          "oklch(37.86% 0.04773 257.05)",
+          "oklch(49.29% 0.04773 257.05)",
+          "oklch(60.71% 0.04773 257.05)",
+          "oklch(72.14% 0.04773 257.05)",
+          "oklch(83.57% 0.04773 257.05)",
+          "oklch(95.00% 0.04773 257.05)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "text",
+        "tonalRamp": [
+          "oklch(15.00% 0.00861 264.52)",
+          "oklch(26.43% 0.00861 264.52)",
+          "oklch(37.86% 0.00861 264.52)",
+          "oklch(49.29% 0.00861 264.52)",
+          "oklch(60.71% 0.00861 264.52)",
+          "oklch(72.14% 0.00861 264.52)",
+          "oklch(83.57% 0.00861 264.52)",
+          "oklch(95.00% 0.00861 264.52)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.02824 260.31)",
+          "oklch(26.43% 0.02824 260.31)",
+          "oklch(37.86% 0.02824 260.31)",
+          "oklch(49.29% 0.02824 260.31)",
+          "oklch(60.71% 0.02824 260.31)",
+          "oklch(72.14% 0.02824 260.31)",
+          "oklch(83.57% 0.02824 260.31)",
+          "oklch(95.00% 0.02824 260.31)"
+        ]
+      },
+      "action": {
+        "role": "primary",
+        "displayName": "action",
+        "tonalRamp": [
+          "oklch(15.00% 0.20078 257.05)",
+          "oklch(26.43% 0.20078 257.05)",
+          "oklch(37.86% 0.20078 257.05)",
+          "oklch(49.29% 0.20078 257.05)",
+          "oklch(60.71% 0.20078 257.05)",
+          "oklch(72.14% 0.20078 257.05)",
+          "oklch(83.57% 0.20078 257.05)",
+          "oklch(95.00% 0.20078 257.05)"
+        ]
+      },
+      "action-hover": {
+        "role": "primary",
+        "displayName": "action hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.18571 257.36)",
+          "oklch(26.43% 0.18571 257.36)",
+          "oklch(37.86% 0.18571 257.36)",
+          "oklch(49.29% 0.18571 257.36)",
+          "oklch(60.71% 0.18571 257.36)",
+          "oklch(72.14% 0.18571 257.36)",
+          "oklch(83.57% 0.18571 257.36)",
+          "oklch(95.00% 0.18571 257.36)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "accent",
+        "tonalRamp": [
+          "oklch(15.00% 0.21401 257.10)",
+          "oklch(26.43% 0.21401 257.10)",
+          "oklch(37.86% 0.21401 257.10)",
+          "oklch(49.29% 0.21401 257.10)",
+          "oklch(60.71% 0.21401 257.10)",
+          "oklch(72.14% 0.21401 257.10)",
+          "oklch(83.57% 0.21401 257.10)",
+          "oklch(95.00% 0.21401 257.10)"
+        ]
+      },
+      "link": {
+        "role": "primary",
+        "displayName": "link",
+        "tonalRamp": [
+          "oklch(15.00% 0.10553 253.73)",
+          "oklch(26.43% 0.10553 253.73)",
+          "oklch(37.86% 0.10553 253.73)",
+          "oklch(49.29% 0.10553 253.73)",
+          "oklch(60.71% 0.10553 253.73)",
+          "oklch(72.14% 0.10553 253.73)",
+          "oklch(83.57% 0.10553 253.73)",
+          "oklch(95.00% 0.10553 253.73)"
+        ]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "sage",
+        "tonalRamp": [
+          "oklch(15.00% 0.06910 153.84)",
+          "oklch(26.43% 0.06910 153.84)",
+          "oklch(37.86% 0.06910 153.84)",
+          "oklch(49.29% 0.06910 153.84)",
+          "oklch(60.71% 0.06910 153.84)",
+          "oklch(72.14% 0.06910 153.84)",
+          "oklch(83.57% 0.06910 153.84)",
+          "oklch(95.00% 0.06910 153.84)"
+        ]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "blue",
+        "tonalRamp": [
+          "oklch(15.00% 0.06846 233.90)",
+          "oklch(26.43% 0.06846 233.90)",
+          "oklch(37.86% 0.06846 233.90)",
+          "oklch(49.29% 0.06846 233.90)",
+          "oklch(60.71% 0.06846 233.90)",
+          "oklch(72.14% 0.06846 233.90)",
+          "oklch(83.57% 0.06846 233.90)",
+          "oklch(95.00% 0.06846 233.90)"
+        ]
+      },
+      "amber": {
+        "role": "tertiary",
+        "displayName": "amber",
+        "tonalRamp": [
+          "oklch(15.00% 0.08871 76.71)",
+          "oklch(26.43% 0.08871 76.71)",
+          "oklch(37.86% 0.08871 76.71)",
+          "oklch(49.29% 0.08871 76.71)",
+          "oklch(60.71% 0.08871 76.71)",
+          "oklch(72.14% 0.08871 76.71)",
+          "oklch(83.57% 0.08871 76.71)",
+          "oklch(95.00% 0.08871 76.71)"
+        ]
+      },
+      "marker-a": {
+        "role": "secondary",
+        "displayName": "marker a",
+        "tonalRamp": [
+          "oklch(15.00% 0.05314 154.37)",
+          "oklch(26.43% 0.05314 154.37)",
+          "oklch(37.86% 0.05314 154.37)",
+          "oklch(49.29% 0.05314 154.37)",
+          "oklch(60.71% 0.05314 154.37)",
+          "oklch(72.14% 0.05314 154.37)",
+          "oklch(83.57% 0.05314 154.37)",
+          "oklch(95.00% 0.05314 154.37)"
+        ]
+      },
+      "terrain-ground": {
+        "role": "neutral",
+        "displayName": "terrain ground",
+        "tonalRamp": [
+          "oklch(15.00% 0.05794 130.99)",
+          "oklch(26.43% 0.05794 130.99)",
+          "oklch(37.86% 0.05794 130.99)",
+          "oklch(49.29% 0.05794 130.99)",
+          "oklch(60.71% 0.05794 130.99)",
+          "oklch(72.14% 0.05794 130.99)",
+          "oklch(83.57% 0.05794 130.99)",
+          "oklch(95.00% 0.05794 130.99)"
+        ]
+      },
+      "terrain-water": {
+        "role": "neutral",
+        "displayName": "terrain water",
+        "tonalRamp": [
+          "oklch(15.00% 0.04935 206.39)",
+          "oklch(26.43% 0.04935 206.39)",
+          "oklch(37.86% 0.04935 206.39)",
+          "oklch(49.29% 0.04935 206.39)",
+          "oklch(60.71% 0.04935 206.39)",
+          "oklch(72.14% 0.04935 206.39)",
+          "oklch(83.57% 0.04935 206.39)",
+          "oklch(95.00% 0.04935 206.39)"
+        ]
+      },
+      "terrain-wood": {
+        "role": "neutral",
+        "displayName": "terrain wood",
+        "tonalRamp": [
+          "oklch(15.00% 0.07222 141.46)",
+          "oklch(26.43% 0.07222 141.46)",
+          "oklch(37.86% 0.07222 141.46)",
+          "oklch(49.29% 0.07222 141.46)",
+          "oklch(60.71% 0.07222 141.46)",
+          "oklch(72.14% 0.07222 141.46)",
+          "oklch(83.57% 0.07222 141.46)",
+          "oklch(95.00% 0.07222 141.46)"
+        ]
+      },
+      "terrain-grass": {
+        "role": "neutral",
+        "displayName": "terrain grass",
+        "tonalRamp": [
+          "oklch(15.00% 0.06681 127.49)",
+          "oklch(26.43% 0.06681 127.49)",
+          "oklch(37.86% 0.06681 127.49)",
+          "oklch(49.29% 0.06681 127.49)",
+          "oklch(60.71% 0.06681 127.49)",
+          "oklch(72.14% 0.06681 127.49)",
+          "oklch(83.57% 0.06681 127.49)",
+          "oklch(95.00% 0.06681 127.49)"
+        ]
+      },
+      "terrain-shadow": {
+        "role": "neutral",
+        "displayName": "terrain shadow",
+        "tonalRamp": [
+          "oklch(15.00% 0.04827 152.61)",
+          "oklch(26.43% 0.04827 152.61)",
+          "oklch(37.86% 0.04827 152.61)",
+          "oklch(49.29% 0.04827 152.61)",
+          "oklch(60.71% 0.04827 152.61)",
+          "oklch(72.14% 0.04827 152.61)",
+          "oklch(83.57% 0.04827 152.61)",
+          "oklch(95.00% 0.04827 152.61)"
+        ]
+      },
+      "terrain-highlight": {
+        "role": "neutral",
+        "displayName": "terrain highlight",
+        "tonalRamp": [
+          "oklch(15.00% 0.05721 116.10)",
+          "oklch(26.43% 0.05721 116.10)",
+          "oklch(37.86% 0.05721 116.10)",
+          "oklch(49.29% 0.05721 116.10)",
+          "oklch(60.71% 0.05721 116.10)",
+          "oklch(72.14% 0.05721 116.10)",
+          "oklch(83.57% 0.05721 116.10)",
+          "oklch(95.00% 0.05721 116.10)"
+        ]
+      },
+      "fallback-ground": {
+        "role": "neutral",
+        "displayName": "fallback ground",
+        "tonalRamp": [
+          "oklch(15.00% 0.01655 232.92)",
+          "oklch(26.43% 0.01655 232.92)",
+          "oklch(37.86% 0.01655 232.92)",
+          "oklch(49.29% 0.01655 232.92)",
+          "oklch(60.71% 0.01655 232.92)",
+          "oklch(72.14% 0.01655 232.92)",
+          "oklch(83.57% 0.01655 232.92)",
+          "oklch(95.00% 0.01655 232.92)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "white",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "displayName": "Geometric UI body",
+        "purpose": "DM Sans for controls, geographic context and explanatory text."
+      },
+      "headline": {
+        "displayName": "Desktop title",
+        "purpose": "42px, weight 700 Tok River heading."
+      },
+      "headline-mobile": {
+        "displayName": "Compact title",
+        "purpose": "38px page title at 820px and below."
+      },
+      "section-title": {
+        "displayName": "Section heading",
+        "purpose": "20px bold timeline, workstream and record headings."
+      },
+      "site-title": {
+        "displayName": "Area title",
+        "purpose": "Comparison-area titles inside the evidence panel."
+      },
+      "navigation": {
+        "displayName": "Page navigation",
+        "purpose": "Evidence, Sample records and Workstreams anchors."
+      },
+      "action": {
+        "displayName": "Primary action",
+        "purpose": "Blue filled records and retry controls."
+      },
+      "label": {
+        "displayName": "Evidence label",
+        "purpose": "Units, field labels and supporting context."
+      },
+      "compact-label": {
+        "displayName": "Dense metadata",
+        "purpose": "Retest summaries and compact data annotations."
+      },
+      "measurement": {
+        "displayName": "Primary numeric readout",
+        "purpose": "Plex Mono for actual quantified assay medians."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-panel",
+        "value": "0 14px 38px #0005",
+        "purpose": "Separates the desktop evidence panel from actual surface relief."
+      },
+      {
+        "name": "nearby-chooser",
+        "value": "0 8px 24px #0005",
+        "purpose": "Nearby-sample chooser over the map."
+      },
+      {
+        "name": "sample-dot",
+        "value": "0 1px 3px #0007",
+        "purpose": "Small offset contrast under geographic sample dots."
+      },
+      {
+        "name": "map-controls",
+        "value": "0 1px 5px #0004",
+        "purpose": "MapLibre navigation controls."
+      }
+    ],
+    "motion": [
+      {
+        "name": "action-feedback",
+        "value": "background-color 150ms ease-out",
+        "purpose": "Primary-action hover feedback, removed by reduced motion."
+      },
+      {
+        "name": "loading-pulse",
+        "value": "pulse 1.2s ease-in-out infinite alternate",
+        "purpose": "Opacity-only loading feedback, removed by reduced motion."
+      },
+      {
+        "name": "anchor-scroll",
+        "value": "smooth",
+        "purpose": "Working section anchors; reduced motion uses auto."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "medium-gutter-max",
+        "value": "1300px"
+      },
+      {
+        "name": "stacked-panel-max",
+        "value": "1120px"
+      },
+      {
+        "name": "compact-nav-max",
+        "value": "820px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "640px"
+      },
+      {
+        "name": "map-phone-max",
+        "value": "620px"
+      },
+      {
+        "name": "small-header-max",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary records action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Blue rounded anchor with a real sample-record destination.",
+      "html": "<a class=\"ds-primary\" href=\"#sample-records\">View sample records<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></a>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 14px 'DM Sans',sans-serif;background:var(--action,#0070e8);color:#fff;border:0;border-radius:999px;padding:13px 19px;text-decoration:none;transition:background-color 150ms ease-out}.ds-primary:hover{background:var(--action-hover,#0062cf)}.ds-primary:focus-visible{outline:2px solid var(--link,#8cc0ff);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Round icon button",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "Neutral close/control button with a circular hit area.",
+      "html": "<button class=\"ds-icon\" aria-label=\"Close sample details\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"m18 6-12 12M6 6l12 12\"/></svg></button>",
+      "css": ".ds-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid transparent;background:transparent;color:#becbe0;border-radius:50%;padding:0;cursor:pointer}.ds-icon:hover{background:#213450;border-color:#405878;color:#fff}.ds-icon:focus-visible{outline:2px solid var(--link,#8cc0ff);outline-offset:4px}"
+    },
+    {
+      "name": "Area filters",
+      "kind": "chip",
+      "refersTo": "filter-selected",
+      "description": "Pill-shaped All/A/B filters with blue pressed state and visible counts.",
+      "html": "<div class=\"ds-filters\" role=\"group\" aria-label=\"Filter sampling area\"><button aria-pressed=\"true\">All <span>67</span></button><button aria-pressed=\"false\">A <span>33</span></button><button aria-pressed=\"false\">B <span>34</span></button></div>",
+      "css": ".ds-filters{display:inline-flex;gap:3px;padding:4px;border:1px solid #2e4260;background:var(--canvas,#080f1b);border-radius:999px}.ds-filters button{display:inline-flex;align-items:center;gap:9px;font:500 13px 'DM Sans',sans-serif;min-height:33px;border:0;padding:6px 16px;border-radius:999px;background:transparent;color:#c1cce0;cursor:pointer}.ds-filters button span{font-size:11px;opacity:.85;font-variant-numeric:tabular-nums}.ds-filters button[aria-pressed=true]{background:var(--action,#0070e8);color:#fff;font-weight:600}.ds-filters button:hover:not([aria-pressed=true]){background:#213450;color:#fff}.ds-filters button:focus-visible{outline:2px solid var(--link,#8cc0ff);outline-offset:4px}"
+    },
+    {
+      "name": "Sample search",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Rounded search field for actual sample records.",
+      "html": "<label class=\"ds-search\"><span>Find a sample</span><input type=\"search\" placeholder=\"Find a sample\" aria-label=\"Find a sample\"/></label>",
+      "css": ".ds-search{display:inline-flex;align-items:center;border:1px solid #344a67;background:var(--surface,#101a2a);border-radius:999px;padding:12px 16px}.ds-search span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.ds-search input{font:13px 'DM Sans',sans-serif;min-width:0;width:210px;border:0;background:transparent;color:var(--text,#f5f8fe);caret-color:var(--link,#8cc0ff)}.ds-search input::placeholder{color:#c4cee0}.ds-search input:focus-visible{outline:2px solid var(--link,#8cc0ff);outline-offset:8px}"
+    },
+    {
+      "name": "Section navigation",
+      "kind": "nav",
+      "refersTo": "navigation-link",
+      "description": "Working page anchors with a clear blue active underline.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Page sections\"><a href=\"#evidence\" aria-current=\"page\">Evidence</a><a href=\"#sample-records\">Sample records</a><a href=\"#workstreams\">Workstreams</a></nav>",
+      "css": ".ds-nav{display:flex;gap:28px;font:500 14px 'DM Sans',sans-serif}.ds-nav a{display:flex;align-items:center;min-height:60px;padding-top:2px;border-bottom:2px solid transparent;color:var(--muted,#b3bed0);text-decoration:none}.ds-nav a[aria-current]{color:var(--text,#f5f8fe);border-bottom-color:var(--accent,#007afc)}.ds-nav a:hover{color:#fff}.ds-nav a:focus-visible{outline:2px solid var(--link,#8cc0ff);outline-offset:4px}"
+    },
+    {
+      "name": "Pending status",
+      "kind": "chip",
+      "refersTo": "pending-chip",
+      "description": "Amber rounded labels preserve actual Pending and Planning states.",
+      "html": "<span class=\"ds-pending\">Pending</span>",
+      "css": ".ds-pending{display:inline-block;font:11px 'DM Sans',sans-serif;color:#f0ce9c;background:#d7af7912;border:1px solid #d7af7938;border-radius:999px;padding:3px 9px}"
+    },
+    {
+      "name": "Comparison card",
+      "kind": "card",
+      "refersTo": "site-card",
+      "description": "Compact paired gold/lithium readouts, with quantified denominators and separate retests.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-heading\"><span class=\"ds-area\">A</span><h3>Tok west</h3></div><p>33 sample locations</p><div class=\"ds-card-values\"><div><span>Primary gold median</span><strong>0.013 <small>ppm</small></strong><em>n=33</em></div><div><span>Secondary lithium median</span><strong>31.6 <small>ppm</small></strong><em>n=33</em></div></div><p>All primary results quantified</p><div class=\"ds-retest\">Separate gold retests · Au-AA25<br/>None quantified · 33 not analyzed</div></article>",
+      "css": ".ds-card{font-family:'DM Sans',sans-serif;color:var(--text,#f5f8fe);background:transparent;border-top:1px solid var(--border,#2a3b53);padding:12px 0;max-width:290px}.ds-card-heading{display:flex;align-items:center;gap:10px}.ds-area{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border:1px solid #a3d3b15c;border-radius:8px;background:#a3d3b112;color:var(--sage,#a3d3b1);font-size:13px;font-weight:600}.ds-card h3{font-size:20px;letter-spacing:-.03em;font-weight:700;margin:0}.ds-card p{font-size:12px;color:var(--muted,#b3bed0);margin:5px 0 12px}.ds-card-values{display:grid;grid-template-columns:1fr 1fr;gap:14px}.ds-card-values span{display:block;min-height:34px;font-size:12px;line-height:1.4;color:#bdc9dc}.ds-card-values strong{display:block;font:500 25px 'IBM Plex Mono',monospace;letter-spacing:-.04em;white-space:nowrap}.ds-card-values small{font:12px 'DM Sans',sans-serif;letter-spacing:normal;color:var(--muted,#b3bed0)}.ds-card-values em{display:block;font:normal 11px 'DM Sans',sans-serif;color:var(--muted,#b3bed0);margin-top:5px}.ds-retest{border-top:1px solid #2b3c54;margin-top:9px;padding-top:9px;font-size:11px;line-height:1.7;color:#c5d0e1}"
+    },
+    {
+      "name": "Floating evidence panel",
+      "kind": "custom",
+      "refersTo": "floating-panel",
+      "description": "Rounded opaque navy inspector over the desktop map; normal flow at 1120px and below.",
+      "html": "<aside class=\"ds-floating\"><h3>Comparison areas</h3><p>Medians below. Scroll for full details.</p><div class=\"ds-panel-sample\"><strong>Tok west</strong><span>33 sample locations</span></div><div class=\"ds-panel-sample\"><strong>Tok east</strong><span>34 sample locations</span></div></aside>",
+      "css": ".ds-floating{max-width:330px;padding:20px;border:1px solid #42536d;border-radius:16px;background:#101a2af7;box-shadow:0 14px 38px #0005;color:var(--text,#f5f8fe);font-family:'DM Sans',sans-serif}.ds-floating h3{font-size:20px;font-weight:700;letter-spacing:-.03em;margin:0}.ds-floating p{font-size:12px;line-height:1.5;color:var(--muted,#b3bed0);margin:6px 0 10px}.ds-panel-sample{display:flex;flex-direction:column;gap:5px;border-top:1px solid var(--border,#2a3b53);padding:12px 0}.ds-panel-sample strong{font-size:20px;font-weight:700}.ds-panel-sample span{font-size:12px;color:var(--muted,#b3bed0)}"
+    },
+    {
+      "name": "Geographic sample markers",
+      "kind": "custom",
+      "description": "Pale green area A circles and blue area B squares stay legible against green relief.",
+      "html": "<div class=\"ds-markers\"><button class=\"ds-marker ds-marker-a\" aria-label=\"Area A sample\"><span></span></button><button class=\"ds-marker ds-marker-b\" aria-label=\"Area B sample\" aria-pressed=\"true\"><span></span></button></div>",
+      "css": ".ds-markers{display:flex;gap:16px;padding:12px;background:#839772}.ds-marker{width:24px;height:24px;display:grid;place-items:center;border:0;background:transparent;padding:0;cursor:pointer}.ds-marker span{width:10px;height:10px;display:block;background:#d9ffe4;border:2px solid #12201b;border-radius:50%;box-shadow:0 1px 3px #0007}.ds-marker-b span{background:var(--blue,#7baecb);border-radius:2px}.ds-marker:hover span{width:13px;height:13px}.ds-marker[aria-pressed=true] span{width:13px;height:13px;outline:2px solid #ebf0ee;outline-offset:3px}.ds-marker:focus-visible{outline:2px solid #ebf0ee;outline-offset:1px}.ds-marker:focus-visible span{outline:2px solid #ebf0ee;outline-offset:3px}"
+    },
+    {
+      "name": "Month-precision timeline",
+      "kind": "custom",
+      "description": "A rounded continuous strip distinguishes collection and publication without inventing daily observations.",
+      "html": "<section class=\"ds-timeline-shell\"><h3>Evidence timeline</h3><p>Collected June–July 2016; published November 2016</p><ol class=\"ds-timeline\" aria-label=\"Evidence months\"><li class=\"ds-collected\"><span>Collection</span><i></i>Jun</li><li class=\"ds-collected\"><span>Collection</span><i></i>Jul</li><li><span></span><i></i>Aug</li><li><span></span><i></i>Sep</li><li><span></span><i></i>Oct</li><li class=\"ds-published\"><span>Publication</span><i></i>Nov</li></ol></section>",
+      "css": ".ds-timeline-shell{font-family:'DM Sans',sans-serif;padding:25px 28px;border:1px solid var(--border,#2a3b53);border-radius:16px;background:var(--surface,#101a2a);color:var(--text,#f5f8fe)}.ds-timeline-shell h3{font-size:20px;font-weight:700;margin:0}.ds-timeline-shell p{font-size:13px;margin:11px 0 24px}.ds-timeline{display:grid;grid-template-columns:repeat(6,1fr);list-style:none;margin:0;padding:0;min-width:360px;color:#c2ccdc;font-size:12px}.ds-timeline li{position:relative;display:flex;flex-direction:column;gap:13px}.ds-timeline li:after{content:'';position:absolute;left:0;right:0;top:33px;height:2px;background:#334b6a}.ds-timeline li span{min-height:20px;font-size:11px;color:var(--text,#f5f8fe)}.ds-timeline i{position:relative;z-index:1;display:block;width:6px;height:6px;border-radius:50%;background:#6a819e}.ds-collected i{background:#69adff;width:9px;height:9px;margin-top:-1px;margin-bottom:-2px}.ds-published i{background:var(--amber,#e5bd82);width:10px;height:10px;margin-top:-2px;margin-bottom:-2px}.ds-timeline .ds-published span{color:var(--amber,#e5bd82)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Mapbox-inspired evidence workspace",
+    "overview": "This records the implemented website after Amit selected Mapbox as a visual reference and requested green land relief. It extracts the current source rather than asserting final approval of every colour, font or component. The confirmed dark theme translates the reference into deep navy, white geometric typography, blue action emphasis and rounded controls. The name remains the `PROJECT` placeholder.\n\nA full-width geographic workspace carries a floating evidence panel on desktop. OpenFreeMap Liberty cartography and Mapzen Terrarium elevation tiles provide actual surface context; Alaska DGGS supplies the separate historical sediment measurements. No generated terrain illustration from the earlier mockups is used. Modern map context is not a reconstruction of the 2016 collection campaign, and surface relief is not underground geology or mineral value.",
+    "keyCharacteristics": [
+      "A deep navy website around green geographic surface relief.",
+      "Confident DM Sans headings, blue actions and rounded workspace geometry.",
+      "A floating desktop evidence panel that becomes stacked content at narrower widths.",
+      "Pale green area A circles and blue area B squares, with matching labels and legends.",
+      "Explicit assay qualification, separate retests, month precision and pending team workstreams."
+    ],
+    "rules": [],
+    "dos": [
+      "Do preserve the confirmed dark theme, Mapbox-inspired hierarchy and green surface-relief direction.",
+      "Do distinguish action blue from area B markers, and retain area labels and marker shapes.",
+      "Do keep units, quantified denominators, censoring, separate retests and source attribution visible.",
+      "Do preserve the floating-panel and camera-padding relationship above 1120px, and stack below it.",
+      "Do keep exact brand approval open while documenting actual implemented values."
+    ],
+    "donts": [
+      "Don't copy the Mapbox wordmark, Cera Pro files, sales claims or signup flow.",
+      "Don't treat cartographic green, elevation relief or area colour as mineral probability.",
+      "Don't substitute a retest for a primary bound or convert missing measurements to zero.",
+      "Don't obscure map attribution behind the evidence panel.",
+      "Don't populate pending workstreams with simulated forecasts, values or recommendations."
+    ]
+  }
+}

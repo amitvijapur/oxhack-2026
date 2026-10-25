@@ -66,10 +66,31 @@ The Arizona soil extractor and its artifacts remain available as the earlier pro
 
 ## Application setup
 
-The language, framework, dependencies, and deployment approach are pending.
-Rust and Zed are under consideration, with algorithm runtime as the performance
-concern. No application setup or run commands exist yet. Add reproducible setup,
-run, demo, and verification commands here when the stack is agreed.
+The Tok River evidence website uses React, Vite and MapLibre. It runs locally;
+deployment remains out of scope. Use Node.js 24.14.0 and npm:
+
+```sh
+cd frontend
+npm ci --ignore-scripts
+npm run dev -- --port 5173 --strictPort
+```
+
+Open [the localhost website](http://127.0.0.1:5173/). The website binds only to
+the loopback interface. The small verified JSON/GeoJSON snapshot is included
+under `frontend/public/data/`; a fresh clone does not need the ignored full
+data packs to display its 67 samples. Read [the frontend guide](frontend/README.md)
+for provenance, display rules and basemap requirements.
+
+```sh
+cd frontend
+npm test
+npm run build
+npm run preview -- --port 4173 --strictPort
+```
+
+`Frontend checks` runs the evidence-contract tests and production build in CI.
+The existing `Repository checks` and `Secret scan` job names remain unchanged.
+Hosted results are not established by a local build.
 
 ## Open decisions
 

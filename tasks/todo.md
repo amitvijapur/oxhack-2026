@@ -1,5 +1,16 @@
 # OXHack preparation
 
+## Frontend baseline for team improvements, 24 October 2026
+
+Owner: Amit for publication and integration. The website source is under `frontend/`; use [the team guide](../frontend/CONTRIBUTING.md) for bounded file ownership and changes. Land/contracts remains with Arjin, simulation/prediction with Muhd and the decision algorithm with Salman.
+
+- [x] Package the complete React/MapLibre website and its small public display snapshot, preserving A33/B34 measurements, qualification rules, provenance and pending states.
+- [x] Include current design guidance, a desktop preview, setup commands, regression checks and module-level improvement instructions.
+- [x] Add a pinned frontend CI job and npm dependency updates without replacing main's existing checks or optional-tooling verification.
+- [ ] Integrate actual teammate outputs after agreeing their display contracts; keep placeholders pending until then.
+
+Delivery branch: `codex/tok-evidence-frontend`. Publication uses a pull request; it does not deploy the site or merge unrelated research. Larger raw/generated packs remain outside Git; the bundled website snapshot is self-contained.
+
 ## Gold stakeholder swarm on MiroFish (owner: Muhd)
 
 Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).

@@ -1,0 +1,378 @@
+{
+  "area": "B",
+  "batches": {
+    "FA16097684": 3,
+    "FA16097742": 8,
+    "FA16137615": 23
+  },
+  "coordinate_bounds": {
+    "east": -143.096187,
+    "north": 63.218722,
+    "south": 63.045937,
+    "west": -143.793381
+  },
+  "gold_primary_by_batch": {
+    "FA16097684": {
+      "column": "Au_ppm_PGM-MS23",
+      "counts": {
+        "above_detection": 0,
+        "below_detection": 0,
+        "not_analyzed": 0,
+        "quantified": 3
+      },
+      "qualification": "Statistics exclude censored and blank results. No zero, detection-limit or retest substitution.",
+      "quantified_only": {
+        "denominator": 3,
+        "maximum_ppm": 0.619,
+        "median_ppm": 0.178,
+        "minimum_ppm": 0.026
+      },
+      "record_ids_by_status": {
+        "above_detection": [],
+        "below_detection": [],
+        "not_analyzed": [],
+        "quantified": [
+          "16TJN009|-200",
+          "16TJN010|-200",
+          "16TJN011|-200"
+        ]
+      },
+      "unit": "ppm"
+    },
+    "FA16097742": {
+      "column": "Au_ppm_PGM-MS23",
+      "counts": {
+        "above_detection": 1,
+        "below_detection": 0,
+        "not_analyzed": 0,
+        "quantified": 7
+      },
+      "qualification": "Statistics exclude censored and blank results. No zero, detection-limit or retest substitution.",
+      "quantified_only": {
+        "denominator": 7,
+        "maximum_ppm": 0.863,
+        "median_ppm": 0.15,
+        "minimum_ppm": 0.008
+      },
+      "record_ids_by_status": {
+        "above_detection": [
+          "16MBW012|-200"
+        ],
+        "below_detection": [],
+        "not_analyzed": [],
+        "quantified": [
+          "16MBW010|-200",
+          "16MBW011|-200",
+          "16MBW013|-200",
+          "16MBW014|-200",
+          "16TJN012|-200",
+          "16TJN013|-200",
+          "16TJN014|-200"
+        ]
+      },
+      "unit": "ppm"
+    },
+    "FA16137615": {
+      "column": "Au_ppm_PGM-MS23",
+      "counts": {
+        "above_detection": 0,
+        "below_detection": 0,
+        "not_analyzed": 0,
+        "quantified": 23
+      },
+      "qualification": "Statistics exclude censored and blank results. No zero, detection-limit or retest substitution.",
+      "quantified_only": {
+        "denominator": 23,
+        "maximum_ppm": 0.092,
+        "median_ppm": 0.005,
+        "minimum_ppm": 0.003
+      },
+      "record_ids_by_status": {
+        "above_detection": [],
+        "below_detection": [],
+        "not_analyzed": [],
+        "quantified": [
+          "16LL101|-200",
+          "16LL102|-200",
+          "16LL103|-200",
+          "16LL104|-200",
+          "16LL105|-200",
+          "16LL106|-200",
+          "16LL107|-200",
+          "16LL108|-200",
+          "16LL109|-200",
+          "16LL110|-200",
+          "16LL111|-200",
+          "16TJN015|-200",
+          "16TJN016|-200",
+          "16TJN017|-200",
+          "16TJN020|-200",
+          "16TJN021|-200",
+          "16TJN124|-200",
+          "16TJN419|-200",
+          "16TJN420|-200",
+          "16TJN421|-200",
+          "16TJN422|-200",
+          "16TJN423|-200",
+          "16TJN424|-200"
+        ]
+      },
+      "unit": "ppm"
+    }
+  },
+  "interpretation": "Au PGM-MS23 is primary; Au-AA25 results remain separately qualified retests. Lithium ME-MS61 is secondary. Summaries describe stream-sediment measurements, not ore grade, economic deposits, legal land availability or validated predictive skill. No historical availability chronology is inferred from sample IDs.",
+  "methods": {
+    "gold_primary": {
+      "column": "Au_ppm_PGM-MS23",
+      "counts": {
+        "above_detection": 1,
+        "below_detection": 0,
+        "not_analyzed": 0,
+        "quantified": 33
+      },
+      "qualification": "Statistics exclude censored and blank results. No zero, detection-limit or retest substitution.",
+      "quantified_only": {
+        "denominator": 33,
+        "maximum_ppm": 0.863,
+        "median_ppm": 0.008,
+        "minimum_ppm": 0.003
+      },
+      "record_ids_by_status": {
+        "above_detection": [
+          "16MBW012|-200"
+        ],
+        "below_detection": [],
+        "not_analyzed": [],
+        "quantified": [
+          "16LL101|-200",
+          "16LL102|-200",
+          "16LL103|-200",
+          "16LL104|-200",
+          "16LL105|-200",
+          "16LL106|-200",
+          "16LL107|-200",
+          "16LL108|-200",
+          "16LL109|-200",
+          "16LL110|-200",
+          "16LL111|-200",
+          "16MBW010|-200",
+          "16MBW011|-200",
+          "16MBW013|-200",
+          "16MBW014|-200",
+          "16TJN009|-200",
+          "16TJN010|-200",
+          "16TJN011|-200",
+          "16TJN012|-200",
+          "16TJN013|-200",
+          "16TJN014|-200",
+          "16TJN015|-200",
+          "16TJN016|-200",
+          "16TJN017|-200",
+          "16TJN020|-200",
+          "16TJN021|-200",
+          "16TJN124|-200",
+          "16TJN419|-200",
+          "16TJN420|-200",
+          "16TJN421|-200",
+          "16TJN422|-200",
+          "16TJN423|-200",
+          "16TJN424|-200"
+        ]
+      },
+      "unit": "ppm"
+    },
+    "gold_retest": {
+      "column": "Au_ppm_Au-AA25",
+      "counts": {
+        "above_detection": 0,
+        "below_detection": 0,
+        "not_analyzed": 33,
+        "quantified": 1
+      },
+      "qualification": "Statistics exclude censored and blank results. No zero, detection-limit or retest substitution.",
+      "quantified_only": {
+        "denominator": 1,
+        "maximum_ppm": 1.1,
+        "median_ppm": 1.1,
+        "minimum_ppm": 1.1
+      },
+      "record_ids_by_status": {
+        "above_detection": [],
+        "below_detection": [],
+        "not_analyzed": [
+          "16LL101|-200",
+          "16LL102|-200",
+          "16LL103|-200",
+          "16LL104|-200",
+          "16LL105|-200",
+          "16LL106|-200",
+          "16LL107|-200",
+          "16LL108|-200",
+          "16LL109|-200",
+          "16LL110|-200",
+          "16LL111|-200",
+          "16MBW010|-200",
+          "16MBW011|-200",
+          "16MBW013|-200",
+          "16MBW014|-200",
+          "16TJN009|-200",
+          "16TJN010|-200",
+          "16TJN011|-200",
+          "16TJN012|-200",
+          "16TJN013|-200",
+          "16TJN014|-200",
+          "16TJN015|-200",
+          "16TJN016|-200",
+          "16TJN017|-200",
+          "16TJN020|-200",
+          "16TJN021|-200",
+          "16TJN124|-200",
+          "16TJN419|-200",
+          "16TJN420|-200",
+          "16TJN421|-200",
+          "16TJN422|-200",
+          "16TJN423|-200",
+          "16TJN424|-200"
+        ],
+        "quantified": [
+          "16MBW012|-200"
+        ]
+      },
+      "unit": "ppm"
+    },
+    "lithium_secondary": {
+      "column": "Li_ppm_ME-MS61",
+      "counts": {
+        "above_detection": 0,
+        "below_detection": 0,
+        "not_analyzed": 0,
+        "quantified": 34
+      },
+      "qualification": "Statistics exclude censored and blank results. No zero, detection-limit or retest substitution.",
+      "quantified_only": {
+        "denominator": 34,
+        "maximum_ppm": 41.8,
+        "median_ppm": 21.0,
+        "minimum_ppm": 13.4
+      },
+      "record_ids_by_status": {
+        "above_detection": [],
+        "below_detection": [],
+        "not_analyzed": [],
+        "quantified": [
+          "16LL101|-200",
+          "16LL102|-200",
+          "16LL103|-200",
+          "16LL104|-200",
+          "16LL105|-200",
+          "16LL106|-200",
+          "16LL107|-200",
+          "16LL108|-200",
+          "16LL109|-200",
+          "16LL110|-200",
+          "16LL111|-200",
+          "16MBW010|-200",
+          "16MBW011|-200",
+          "16MBW012|-200",
+          "16MBW013|-200",
+          "16MBW014|-200",
+          "16TJN009|-200",
+          "16TJN010|-200",
+          "16TJN011|-200",
+          "16TJN012|-200",
+          "16TJN013|-200",
+          "16TJN014|-200",
+          "16TJN015|-200",
+          "16TJN016|-200",
+          "16TJN017|-200",
+          "16TJN020|-200",
+          "16TJN021|-200",
+          "16TJN124|-200",
+          "16TJN419|-200",
+          "16TJN420|-200",
+          "16TJN421|-200",
+          "16TJN422|-200",
+          "16TJN423|-200",
+          "16TJN424|-200"
+        ]
+      },
+      "unit": "ppm"
+    }
+  },
+  "record_count": 34,
+  "record_ids": [
+    "16LL101|-200",
+    "16LL102|-200",
+    "16LL103|-200",
+    "16LL104|-200",
+    "16LL105|-200",
+    "16LL106|-200",
+    "16LL107|-200",
+    "16LL108|-200",
+    "16LL109|-200",
+    "16LL110|-200",
+    "16LL111|-200",
+    "16MBW010|-200",
+    "16MBW011|-200",
+    "16MBW012|-200",
+    "16MBW013|-200",
+    "16MBW014|-200",
+    "16TJN009|-200",
+    "16TJN010|-200",
+    "16TJN011|-200",
+    "16TJN012|-200",
+    "16TJN013|-200",
+    "16TJN014|-200",
+    "16TJN015|-200",
+    "16TJN016|-200",
+    "16TJN017|-200",
+    "16TJN020|-200",
+    "16TJN021|-200",
+    "16TJN124|-200",
+    "16TJN419|-200",
+    "16TJN420|-200",
+    "16TJN421|-200",
+    "16TJN422|-200",
+    "16TJN423|-200",
+    "16TJN424|-200"
+  ],
+  "sample_ids": [
+    "16LL101",
+    "16LL102",
+    "16LL103",
+    "16LL104",
+    "16LL105",
+    "16LL106",
+    "16LL107",
+    "16LL108",
+    "16LL109",
+    "16LL110",
+    "16LL111",
+    "16MBW010",
+    "16MBW011",
+    "16MBW012",
+    "16MBW013",
+    "16MBW014",
+    "16TJN009",
+    "16TJN010",
+    "16TJN011",
+    "16TJN012",
+    "16TJN013",
+    "16TJN014",
+    "16TJN015",
+    "16TJN016",
+    "16TJN017",
+    "16TJN020",
+    "16TJN021",
+    "16TJN124",
+    "16TJN419",
+    "16TJN420",
+    "16TJN421",
+    "16TJN422",
+    "16TJN423",
+    "16TJN424"
+  ],
+  "source_id": "alaska_dggs_rdf2016_10",
+  "unique_coordinate_count": 34,
+  "unique_sample_count": 34
+}
