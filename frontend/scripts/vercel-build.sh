@@ -5,7 +5,8 @@
 set -euo pipefail
 
 if [[ -n "${CONVEX_DEPLOY_KEY:-}" ]]; then
-  npx convex deploy --cmd 'npm run build'
+  # --preview-run only runs for a newly created preview deployment; production ignores it.
+  npx convex deploy --cmd 'npm run build' --preview-run seed:init
 else
   echo "CONVEX_DEPLOY_KEY is not set; building the static site without a backend."
   npm run build
