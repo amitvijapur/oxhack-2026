@@ -7,10 +7,11 @@ async page => {
 
   // Opening: a still of the map at once, then the live map; history plays from 2016 to today,
   // rests on today, and carries on into the five-year gold projection.
-  await page.getByText('Land Arbitrage: Gold').first().waitFor();
+  await page.getByText('Orecast').first().waitFor();
   await page.locator('.map-snapshot img').first().waitFor({ state: 'attached' });
   const opening = page.locator('.timelapse');
   await opening.waitFor({ timeout: 20000 });
+  check(await page.getByRole('link', { name: 'Swarm' }).getAttribute('href') === '/swarm', 'The opening must link to the swarm page');
   const years = page.getByRole('slider', { name: 'Year' });
   check(await years.getAttribute('min') === '2016' && await years.getAttribute('max') === '2031', 'Opening must run 2016 to 2031');
   await page.waitForFunction(() => document.querySelector('.explorer')?.dataset.earth === 'ready', null, { timeout: 60000 });

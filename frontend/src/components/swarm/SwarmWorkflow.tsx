@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Check, CirclePause, FileText, FlaskConical, Gem,
 import type { WorkflowData, WorkflowGroup, WorkflowRun } from "@/lib/swarm-workflow.mjs";
 import { algorithmSnapshot, getAlgorithmFrame } from "@/lib/algorithm-workflow.mjs";
 import "./workflow.css";
+import { SITE_NAME, SITE_PLACE } from "@/lib/copy.js";
 
 export type { WorkflowData } from "@/lib/swarm-workflow.mjs";
 type NodeKind = "input" | "society" | "score" | "delta" | "baseline" | "signal" | "gate" | "response" | "price" | "quantity" | "goldValue" | "economics" | "success" | "model" | "cash" | "decision" | "land" | "liquidity" | "terms" | "study";
@@ -160,7 +161,7 @@ export function SwarmWorkflow({ data }: { data: WorkflowData }) {
   }
 
   return <main className="swf-page" data-playing={activeReplay || undefined} data-testid="swarm-workflow">
-    <header className="swf-header"><Link className="swf-brand" href="/">Land Arbitrage: Gold <span>Tok River, Alaska</span></Link><Link href="/" className="swf-return"><ArrowLeft size={15} /> Back to explorer</Link></header>
+    <header className="swf-header"><Link className="swf-brand" href="/">{SITE_NAME} <span>{SITE_PLACE}</span></Link><Link href="/" className="swf-return"><ArrowLeft size={15} /> Back to explorer</Link></header>
     <div className="swf-topline"><h1>Swarm workflow</h1><div className="swf-statusline"><span className="swf-recorded"><i /> Recorded replay</span><span className="swf-hypothetical">Hypothetical calculation</span><span className="swf-mono">Model {frame.source.commit.slice(0, 8)}</span></div></div>
     <div className="swf-calculation-controls"><label>Evidence area<select aria-label="Evidence area" value={area} onChange={(e) => setArea(e.target.value as "A" | "B")}><option value="A">A · Tok west</option><option value="B">B · Tok east</option></select></label><label>Holding horizon<select aria-label="Holding horizon" value={horizonDays} onChange={(e) => setHorizonDays(Number(e.target.value) as 30 | 90 | 180)}><option value={30}>30 days</option><option value={90}>90 days</option><option value={180}>180 days</option></select></label><span>{day < 5 ? "Calculation appears after the five-day replay" : frame.available ? "Pinned calculation snapshot · assumed economics" : "No illustrative mapping for this scenario"}</span></div>
     <section className="swf-visual-area swf-workspace" aria-label="Recorded workflow and model output">

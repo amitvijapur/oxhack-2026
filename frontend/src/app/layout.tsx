@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { LiveProvider } from "@/lib/live";
 import { Toaster } from "@/components/ui/sonner";
-import { HERO } from "@/lib/copy.js";
+import { HERO, SITE_DESCRIPTOR, SITE_NAME, SITE_PLACE } from "@/lib/copy.js";
 import "./globals.css";
 
 // Pinned local faces keep builds offline and preserve font-src 'self'.
@@ -21,8 +21,8 @@ const plexMono = localFont({ src: [
 ], variable: "--font-plex-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Land Arbitrage: Gold · Tok River, Alaska",
-  description: HERO.lede,
+  title: `${SITE_NAME} · ${SITE_PLACE}`,
+  description: `${SITE_DESCRIPTOR}. ${HERO.lede}`,
   icons: { icon: "/favicon.svg" },
 };
 

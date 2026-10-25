@@ -1,7 +1,10 @@
 // Every user-facing sentence in one place, so wording can change without touching layout.
 
-/** Chosen by Salman on 25 Oct 2026, replacing the blank placeholder (see PRODUCT.md). */
-export const SITE_NAME = 'Land Arbitrage: Gold';
+/** Orecast, Amit's final name (brand/orecast/BRAND.md), replacing "Land Arbitrage: Gold" on 25 Oct 2026. */
+export const SITE_NAME = 'Orecast';
+export const SITE_PLACE = 'Tok River, Alaska';
+/** Draft descriptor (BRAND.md): page metadata only until it is final. */
+export const SITE_DESCRIPTOR = 'Mineral intelligence over time';
 
 export const HERO = {
   question: 'Is there gold worth claiming near Tok, Alaska?',

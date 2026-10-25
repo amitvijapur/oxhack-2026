@@ -95,6 +95,15 @@ Design: baseline P(t)=P0*(1+g)^(t/365); scenario gold P(t)=baseline P(t)*(1+cap*
 
 # OXHack preparation
 
+## Apply the Orecast brand to the website, 25 October 2026
+
+Owner: Salman. Source: Amit's brand kit (#46, `brand/orecast/`). Local only until Salman has tested it.
+
+- [x] Check #46 in depth: deck figures recomputed from the canonical model on main match exactly (baseline 30/90/180 days; mine approval and court blockage at 90 days); every relative link resolves; no app code changed.
+- [x] Rename the site to Orecast (header, page titles, `SITE_NAME`), with the draft descriptor in page metadata only; replace the "LA" favicon with the brand's thin ring and green signal arc.
+- [x] Typography per BRAND.md: no 600–800 weights; headings and the wordmark at DM Sans 400, large metrics at light 300 DM Sans, small emphasis at 500; wordmark at least 100px wide.
+- [ ] Salman tests on localhost, then push and PR.
+
 ## Deploy every passing push to main, 25 October 2026
 
 Owner: Salman. Repository secrets: Amit (owner).
