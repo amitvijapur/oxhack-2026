@@ -1,3 +1,13 @@
+## Prepare forecast changes for push and squash merge
+
+Owner: Amit. Codex prepares the integration branch and an independent reviewer checks its final scope. User requested local staging for publication.
+
+- [ ] Integrate current main while preserving the shared pitch-deck work and all previously verified forecast/demo behavior.
+- [ ] Review the complete branch diff, run relevant integration checks and resolve any failures.
+- [ ] Prepare the pull-request description, verification evidence and squash-merge handoff.
+
+Publication scope includes the swarm-to-gold forecast, hypothetical-only option website, percentage-return synthetic preset and attributed historical event pilot. No historical predictive edge is claimed. Push and protected-main merge remain separate publication steps.
+
 ## Show percentage returns and a conservative synthetic demo
 
 Owner: Amit. Codex integrates; one UI worker owns presentation and preset tests, with separate arithmetic review. Scope is website presentation and an explicitly assumed preset, reusing the canonical engine.
