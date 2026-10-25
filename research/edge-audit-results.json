@@ -1,0 +1,279 @@
+{
+  "auditedAt": "2026-10-25T07:08:59.882519+00:00",
+  "checkoutRevision": "0d296462348528389bf645e4eac1e6926a9f65e6",
+  "swarmRevision": "f2fe2971d9f041a819f7b7ff4a78e10f840884f5",
+  "method": "Read-only local/committed source inventory and canonical demo evaluation. No network, paid API, new simulation, model or UI changes. No historical predictive backtest is claimed.",
+  "realDatedFeatureOutcomePairs": 0,
+  "whyNoPairs": [
+    "Day-1 gold breakout is explicitly a scenario assumption. Redpoll Ridge is explicitly fictional.",
+    "Day-3 means 48 simulated hours, not the date of an observed real-world event.",
+    "Source knowledge cutoff is null; commit, generation and retrieval times are not information availability.",
+    "No realized gold/land/assignment outcomes are linked to these simulated conditions.",
+    "Interview answers are simulated expectations, not subsequent realized outcomes."
+  ],
+  "simulationCounts": {
+    "plannedConditions": 7,
+    "plannedRuns": 9,
+    "completedRuns": 6,
+    "openAiBaselineRuns": 3,
+    "openAiBaselineSeeds": [
+      1,
+      2,
+      3
+    ],
+    "matchingClaudeConditions": [
+      "sports_placebo",
+      "mine_approval",
+      "mine_blocked"
+    ],
+    "matchingClaudeRuns": 3,
+    "matchingClaudeSeedsPerCondition": 1,
+    "eventContrastsSharingOnePlacebo": 2,
+    "independentObservedMarketEvents": 0,
+    "scoredPostRows": 3499,
+    "numericOnTopicPostRows": 3121,
+    "warning": "Repeated posts from the same agents and a shared placebo do not become independent financial event samples."
+  },
+  "dataInventory": {
+    "observedAssays": {
+      "count": 67,
+      "collectedYear": 2016,
+      "resourceOrDepositOutcomeLabels": 0
+    },
+    "modelAnnualGold": {
+      "rows": 7,
+      "completeCalendarYears": 6,
+      "years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "knownPublicationTimestamps": 0,
+      "partial2026Months": 9
+    },
+    "showcaseGoldClaimsHistory": {
+      "rows": 57,
+      "startYear": 1970,
+      "endYear": 2026,
+      "fullGoldYears": 56,
+      "claimDateField": "NTPSTDT, meaning unconfirmed",
+      "claimHistoricalCompletenessVerified": false,
+      "historicalAvailabilityVerified": false,
+      "source": {
+        "ref": "origin/arjin/tok-land-data",
+        "commit": "34eaf1d6e87fedd54c46b04dec093b0cc2b18581",
+        "paths": [
+          "research/tok-land/alaska_claims_vs_gold.csv"
+        ]
+      }
+    },
+    "surfaceSalesModelContext": {
+      "rows": 12,
+      "scopeCounts": {
+        "Statewide": 7,
+        "Richardson, Alaska Highways": 5
+      },
+      "knownPublicationTimestamps": 0,
+      "mineralPriceSeries": false
+    },
+    "surfaceSalesShowcase": {
+      "rows": 55,
+      "scopeCounts": {
+        "Statewide": 31,
+        "Richardson, Alaska Highways": 24
+      },
+      "startYear": 1996,
+      "endYear": 2026,
+      "warning": "Year/scope aggregates and changing sold-parcel mix, not a panel of repeated mineral interests."
+    },
+    "alaskaDealExamples": {
+      "count": 10,
+      "dateTexts": [
+        "2026-09-08 (close expected Q4 2026)",
+        "2020-09-30",
+        "2018-08-30 (closed 2018-09-28)",
+        "2025-04 (closed 2025-06)",
+        "2024-05-01 (signed)",
+        "2016-01 (announced)",
+        "2021-06-15",
+        "2024-05-02 (closed 2024-08-06)",
+        "2022-07-19",
+        "2025-01-21"
+      ],
+      "standardizedTokAssignmentReturnLabels": 0,
+      "warning": "Heterogeneous commodities, project stages, interests, announcement/closing dates and contingent consideration. No paired resales or unsold duration."
+    },
+    "olderBidComparables": {
+      "count": 17,
+      "regions": {
+        "NV": 11,
+        "AZ": 4,
+        "AK": 2
+      },
+      "standardizedTokAssignmentReturnLabels": 0
+    }
+  },
+  "chronologicalTestFeasibility": {
+    "strictPointInTimeGoldBaseline": false,
+    "strictPointInTimeClaimsBaseline": false,
+    "reason": "Verified observation availability and historical-vintage records are absent. Annual gold rows can support a descriptive retrospective series calculation, but annual means are not tradable endpoint prices and source availability is unverified. Claim-date semantics and older closed-layer completeness are also unverified.",
+    "whatWouldBeNeeded": "Document historical releases/vintages and a dated forecast cutoff before evaluating a simple chronological gold baseline. Even a successful gold benchmark would not validate swarm forecasts or mineral-option assignment returns.",
+    "diagnosticRunInstead": "Canonical cash sensitivity to +/-0.01 assumed monthly sale hazard and the break-even entry premium, preserving all actual source failures."
+  },
+  "economicSensitivity": [
+    {
+      "scenarioId": "baseline",
+      "hazardPer30Days": 0.19,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": 0,
+      "goldPriceUsdPerOz": 2000,
+      "assignmentValueUsd": 1500,
+      "saleProbability": 0.46855899999999995,
+      "expectedCashUsd": -20.589449999999943,
+      "scenarioCashDeltaUsd": 0,
+      "maximumEntryPremiumUsd": 629.4105500000001,
+      "premiumHeadroomUsd": -20.589449999999943,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.531441,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "baseline",
+      "hazardPer30Days": 0.2,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": 0,
+      "goldPriceUsdPerOz": 2000,
+      "assignmentValueUsd": 1500,
+      "saleProbability": 0.4879999999999999,
+      "expectedCashUsd": 7.600000000000023,
+      "scenarioCashDeltaUsd": 0,
+      "maximumEntryPremiumUsd": 657.6,
+      "premiumHeadroomUsd": 7.600000000000023,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.5120000000000001,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "baseline",
+      "hazardPer30Days": 0.21,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": 0,
+      "goldPriceUsdPerOz": 2000,
+      "assignmentValueUsd": 1500,
+      "saleProbability": 0.506961,
+      "expectedCashUsd": 35.09344999999996,
+      "scenarioCashDeltaUsd": 0,
+      "maximumEntryPremiumUsd": 685.09345,
+      "premiumHeadroomUsd": 35.09344999999996,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.49303900000000006,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "mine_approval",
+      "hazardPer30Days": 0.19,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": -0.02517925880444946,
+      "goldPriceUsdPerOz": 1996.474903767377,
+      "assignmentValueUsd": 1495.5936297092217,
+      "saleProbability": 0.46855899999999995,
+      "expectedCashUsd": -22.65409445707678,
+      "scenarioCashDeltaUsd": -2.064644457076838,
+      "maximumEntryPremiumUsd": 627.3459055429232,
+      "premiumHeadroomUsd": -22.65409445707678,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.531441,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "mine_approval",
+      "hazardPer30Days": 0.2,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": -0.02517925880444946,
+      "goldPriceUsdPerOz": 1996.474903767377,
+      "assignmentValueUsd": 1495.5936297092217,
+      "saleProbability": 0.4879999999999999,
+      "expectedCashUsd": 5.449691298100333,
+      "scenarioCashDeltaUsd": -2.1503087018996894,
+      "maximumEntryPremiumUsd": 655.4496912981003,
+      "premiumHeadroomUsd": 5.449691298100333,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.5120000000000001,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "mine_approval",
+      "hazardPer30Days": 0.21,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": -0.02517925880444946,
+      "goldPriceUsdPerOz": 1996.474903767377,
+      "assignmentValueUsd": 1495.5936297092217,
+      "saleProbability": 0.506961,
+      "expectedCashUsd": 32.85959211101681,
+      "scenarioCashDeltaUsd": -2.2338578889831524,
+      "maximumEntryPremiumUsd": 682.8595921110168,
+      "premiumHeadroomUsd": 32.85959211101681,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.49303900000000006,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "mine_blocked",
+      "hazardPer30Days": 0.19,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": 0.030734331593609505,
+      "goldPriceUsdPerOz": 2004.3028064231053,
+      "assignmentValueUsd": 1505.3785080288817,
+      "saleProbability": 0.46855899999999995,
+      "expectedCashUsd": -18.0693016564951,
+      "scenarioCashDeltaUsd": 2.520148343504843,
+      "maximumEntryPremiumUsd": 631.9306983435049,
+      "premiumHeadroomUsd": -18.0693016564951,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.531441,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "mine_blocked",
+      "hazardPer30Days": 0.2,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": 0.030734331593609505,
+      "goldPriceUsdPerOz": 2004.3028064231053,
+      "assignmentValueUsd": 1505.3785080288817,
+      "saleProbability": 0.4879999999999999,
+      "expectedCashUsd": 10.2247119180945,
+      "scenarioCashDeltaUsd": 2.6247119180944765,
+      "maximumEntryPremiumUsd": 660.2247119180945,
+      "premiumHeadroomUsd": 10.2247119180945,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.5120000000000001,
+      "sourceResearchReadiness": "fail"
+    },
+    {
+      "scenarioId": "mine_blocked",
+      "hazardPer30Days": 0.21,
+      "modelVersion": "tok-option-demo-v2",
+      "signal": 0.030734331593609505,
+      "goldPriceUsdPerOz": 2004.3028064231053,
+      "assignmentValueUsd": 1505.3785080288817,
+      "saleProbability": 0.506961,
+      "expectedCashUsd": 37.820143808829926,
+      "scenarioCashDeltaUsd": 2.726693808829964,
+      "maximumEntryPremiumUsd": 687.8201438088299,
+      "premiumHeadroomUsd": 37.820143808829926,
+      "noSaleCashUsd": -700,
+      "noSaleProbability": 0.49303900000000006,
+      "sourceResearchReadiness": "fail"
+    }
+  ],
+  "incrementalTestRecommendation": [
+    "First define a measurable target and horizon. A real project announcement with a dated public market response could test a local project-repricing hypothesis, but it is a proxy for land options and must be labelled accordingly.",
+    "Build a small fixed historical event ledger with real event/publication timestamps, pre-event asset price, subsequent outcome and uncontaminated information inputs. Never pair current fictional scenario outputs with past returns.",
+    "Compare a chronological simple baseline and event-only baseline before adding a swarm feature. Repeat simulations with comparable controls only if later authorized; existing six runs cannot provide that measured result.",
+    "For the immediate demo, report actual signed simulated contrasts and the uncalibrated gold response as sensitivities. Keep empirical edge status unestablished."
+  ]
+}

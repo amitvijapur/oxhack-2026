@@ -1,3 +1,13 @@
+## Assess a defensible edge with current data
+
+Owner: Amit. Codex assesses sources and no-budget tests; the application remains unchanged.
+
+- [x] Audit actual market outcome labels, availability dates and independent sample counts, including whether swarm runs can be paired with observed returns.
+- [x] Check the most plausible prediction target and a minimal baseline comparison using existing data and primary sources.
+- [x] Run any valid bounded offline diagnostic, document what it does and does not establish, and state the smallest remaining evidence requirement.
+
+Result: [edge feasibility](../research/edge-feasibility.md) records zero observed feature/outcome pairs, the target mismatch, primary-source support for a local-risk hypothesis and the next empirical test. Offline canonical sensitivity finds liquidity assumptions dominate the current swarm cash deltas. No measured predictive edge or retrospective backtest was claimed; application unchanged.
+
 ## Complete the hypothetical swarm-to-gold forecast
 
 Owner: Amit. Codex coordinates a model worker, UI worker and independent reviewer.

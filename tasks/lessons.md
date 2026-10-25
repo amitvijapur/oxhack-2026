@@ -2,6 +2,8 @@
 
 ## 25 October 2026
 
+- A working predictive calculation is not evidence of a trading edge. Before calling a strategy validated, identify dated realized target labels and compare incremental held-out performance against a simple baseline. Never use a stipulated simulation price as its successful prediction or treat post counts as independent market events.
+
 - Wiring swarm scores to option value is not completion of the requested predictive chain. Trace every promised layer through executable calculations: swarm, gold forecast, material value, option value and cash. Label a hypothetical transfer as uncalibrated and never count it twice.
 
 - The website's option calculator must use hypothetical financial inputs only.
