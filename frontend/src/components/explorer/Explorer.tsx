@@ -26,6 +26,8 @@ import "./explorer.css";
 // Three.js loads only when someone opens a plot's 3D terrain view.
 const PlotBlock = dynamic(() => import("@/components/geo/PlotBlock").then((m) => m.PlotBlock), { ssr: false });
 const Earth = dynamic(() => import("@/components/earth/Earth").then((m) => m.Earth), { ssr: false });
+// The calculation snapshot behind the Swarm tab is large, so it loads only when the tab opens.
+const WorkflowTab = dynamic(() => import("./tabs/WorkflowTab").then((m) => m.WorkflowTab), { ssr: false });
 // The plot card no longer shows elevation, so the map's terrain reading has nowhere to go.
 const ignoreElevation = () => {};
 
@@ -265,6 +267,7 @@ export function Explorer() {
                     hoverId={hoverId} onHover={setHoverId} onPick={select} />
                 ) : null}
                 {tab === "crowd" ? <CrowdTab crowd={data.crowd} /> : null}
+                {tab === "swarm" ? <WorkflowTab /> : null}
               </Panel>
               <ColorBy value={colorBy} onChange={setColorBy} range={stakedRange(data.claims)} />
             </motion.div>

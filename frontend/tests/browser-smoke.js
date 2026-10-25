@@ -39,7 +39,7 @@ async page => {
   await page.getByRole('button', { name: /Explore the land/ }).click();
   const panel = page.getByRole('complementary', { name: 'Explorer' });
   await panel.waitFor();
-  check(await page.getByRole('tab').count() === 3, 'The panel must have exactly three tabs');
+  check((await page.getByRole('tab').allInnerTexts()).join('|') === 'Decide|Land|Crowd|Swarm', 'The panel must have Decide, Land, Crowd and Swarm tabs');
   check(await page.getByRole('tab', { name: 'Decide' }).getAttribute('aria-selected') === 'true', 'Decide must open first');
   const call = page.locator('.decide .answer-signal');
   await page.waitForFunction(() => /^(BUY candidate|SKIP)$/.test(document.querySelector('.decide .answer-signal')?.textContent ?? ''), null, { timeout: 15000 });
@@ -117,6 +117,21 @@ async page => {
   for (const part of ['not run', 'chance band', 'gpt-', 'glm-']) check(!crowd.toLowerCase().includes(part), `Crowd should not show "${part}"`);
   await page.screenshot({ path: 'frontend/artifacts/3-crowd.png' });
 
+  // Swarm: the workflow in six steps, with a link to the full workflow page.
+  await page.getByRole('tab', { name: 'Swarm' }).click();
+  await page.locator('.wf-steps').waitFor();
+  check(await page.locator('.wf-steps > li').count() === 6, 'Swarm tab needs the six workflow steps');
+  const steps = await panel.innerText();
+  check(steps.includes('Weighted signal') && steps.includes('Support scores'), 'Swarm tab must show the scores and the signal');
+  for (const part of ['Effect against baseline', 'chance band', 'Checks from the swarm report', 'gpt-', 'glm-']) check(!steps.includes(part), `Swarm tab should not show "${part}"`);
+  const full = page.getByRole('link', { name: /Open the full swarm workflow/ });
+  check(await full.getAttribute('href') === '/swarm', 'The Swarm tab must link to the full workflow');
+  const workflow = await page.context().newPage();
+  await workflow.goto('http://127.0.0.1:3000/swarm');
+  await workflow.getByTestId('swarm-workflow').waitFor();
+  await workflow.close();
+  await page.screenshot({ path: 'frontend/artifacts/4-swarm.png' });
+
   // Escape returns to the time-lapse.
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: /Explore the land/ }).waitFor();
@@ -160,5 +175,5 @@ async page => {
   await flat.close();
 
   check(errors.length === 0, `Unexpected runtime errors: ${errors.join('; ')}`);
-  return { result: 'pass', opening: '2016 to today, then gold projected to 2031', history: [2016, 1975], panel: ['Decide', 'Land', 'Crowd'], viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
+  return { result: 'pass', opening: '2016 to today, then gold projected to 2031', history: [2016, 1975], panel: ['Decide', 'Land', 'Crowd', 'Swarm'], viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
 }
