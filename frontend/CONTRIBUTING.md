@@ -1,90 +1,56 @@
-# Improve the frontend
+# Improve the application
 
-This branch is the team's runnable frontend baseline. The display snapshot is
-included, so you can start without regenerating the larger data packs.
+Start from updated `main` in a short task branch. Amit owns integration. Agree a
+human owner and bounded module scope in [the task list](../tasks/todo.md) before
+editing shared interfaces or dependency files. Preserve other contributors' work.
 
-The updated model is on `codex/tok-option-model`, based on the frontend branch.
-For the model and source-gap work, check out that branch and open `/#option-model`.
-Read [the integration findings](../research/tok-option-model/integration-review.md)
-before replacing assumptions with new data. Salman's deployment PR 28 is a
-separate sibling change; this model branch does not include its optional backend.
-
-## Start
-
-Check out `codex/tok-option-model` for the updated workbench, then use Node.js 24.14.0:
-
-```sh
-cd frontend
-npm ci --ignore-scripts
-npm run dev -- --port 5173
-```
-
-Open [localhost:5173](http://127.0.0.1:5173/). If the port is occupied, choose
-another port. The basemap/elevation layers need internet access; the evidence
-and fonts are local. The optional browser smoke script assumes port 5173.
+Use Node.js 24, then run `npm ci --ignore-scripts` and `npm run dev` from
+`frontend/`. Open [127.0.0.1:3000](http://127.0.0.1:3000/).
 
 ## Where to work
 
 | Area | Files |
 | --- | --- |
-| Layout, site cards, sample drawer, timeline and pending panels | `src/App.jsx` |
-| Website tokens and responsive styling | `src/styles.css` |
-| Map lifecycle, markers, nearby-sample chooser and fallback | `src/MapView.jsx`, `src/map.css` |
-| Green map treatment, terrain sources and camera defaults | `src/terrain-style.js` |
-| Evidence loader, qualification formatting and asset mapping | `src/evidence.js` |
-| Bundled source snapshot | `public/data/` |
-| Evidence-contract regression checks | `tests/evidence.test.js` |
-| Optional interactive browser checks | `tests/browser-smoke.js` |
-| Model workbench, source coverage and cash diagnostics | `src/ModelWorkbench.jsx`, `src/ModelDiagnostics.jsx`, `src/model-workbench.css` |
-| Pure valuation, liquidity, diagnostics, source adapters and tests | `../model/tok-option/` |
+| Next.js entry, metadata and shared styles | `src/app/page.tsx`, `layout.tsx`, `globals.css` |
+| Explorer state, panel and responsive layout | `src/components/explorer/Explorer.tsx`, `Panel.tsx`, `explorer.css` |
+| Land, ground, market and decision views | `src/components/explorer/tabs/` |
+| Cesium viewer, camera, selection and terrain | `src/components/earth/` |
+| Snapshot loaders and presentation contracts | `src/lib/evidence.js`, `showcase.ts`, `canonical-model.js` |
+| Decision controls and diagnostics | `src/ModelWorkbench.jsx`, `ModelDiagnostics.jsx`, `model-workbench.css` |
+| Sole valuation, liquidity and scenario engine | `../model/tok-option/` |
+| Server API and Next.js catch-all | `src/server/`, `src/app/api/[...path]/route.ts` |
+| Optional attributed storage | `convex/` |
+| Bundled display snapshots | `public/data/` |
+| Evidence, API and presentation tests | `tests/` |
 
-Start with a short task branch from this frontend branch while its PR is open,
-or from updated `main` after it merges. Agree one owner for each file area;
-coordinate changes to `App.jsx`, shared data contracts and package files. Keep
-source data changes distinct from layout work so they can be reviewed clearly.
+Keep data generation changes separate from display changes. The existing dark,
+monochrome and green explorer is documented in [DESIGN.md](../DESIGN.md).
+Older Mapbox reference drafts are historical research.
 
-## Pending integrations
+## Contracts to preserve
 
-The existing `gold-frontend-data.json` has null data for three workstreams:
-
-- Arjin owns land/contracts.
-- Muhd owns MiroFish/simulation/prediction.
-- Salman owns the decision algorithm, currently in planning.
-
-The new model workbench is implemented alongside that original handoff contract.
-Land context and a swarm pilot are supplied, while verified trade inputs and
-completed scenarios remain pending. Do not fill the old null handoff fields with
-demo economics or treat the option model as an executable quote.
-
-Agree each new output shape before wiring it into `Workstreams`. Keep the
-existing Pending/Planning state until an actual output is available. The old
-static mockup's probabilities and payoffs are not fixture data for this website.
-
-Preserve these display contracts during UI changes:
-
-- GeoJSON uses `[longitude, latitude]`; bounds frame sample locations.
-- Primary gold and separate retests retain their own methods and raw values.
-  Sample `16MBW012` is primary `>1 ppm`, with a separate `1.1 ppm` retest.
-- Null and not-analyzed values do not become zero. Quantified-only summaries
-  retain their denominators and visible censoring notes.
-- Collection is June–July 2016 and publication November 2016. No per-sample day
-  or daily playback sequence is available.
-- Keep source attribution visible and avoid presenting sediment measurements
-  as deposits, legal parcels, calibrated probabilities or valuations.
+- GeoJSON uses `[longitude, latitude]`. Source sample bounds and identities remain intact.
+- Primary gold, separate retests, raw values, methods and censoring stay visible.
+  Missing values do not become zero, and summaries keep their denominators.
+- The 2016 evidence has month precision. Claim history and price history use
+  their own dates and do not manufacture sample chronology.
+- Recorded claims, illustrative squares, sediment samples and mineral occurrences
+  retain distinct meanings. None establishes a resource estimate or available contract.
+- All decisions use the canonical shared engine. Do not add a second solver,
+  reuse old monthly/exercise outputs or treat historical stored runs as live controls.
+- Demo economics and synthetic swarm imports stay explicit. Failed simulation
+  diagnostics cannot become monetary signals.
 
 ## Check and share
 
-```sh
-npm test
-npm run build
-```
+Run the commands in [the frontend guide](README.md), including the separate
+canonical model suite. For a manual check, exercise the time slider, map and list
+selection, all four tabs, primary/retest details and narrow-screen bottom sheet.
+In Decision, confirm pending mode has no financial quote, explicit demo reproduces
+USD7.60 expected 90-day cash, and source diagnostics remain visible. Check keyboard
+focus, scrolling, API failure labels and map attribution.
 
-Follow [the shared workflow](../docs/team-workflow.md). The PR runs Frontend
-checks alongside the existing Repository checks and Secret scan. Share a small
-PR with the interface change, real validation results and a screenshot when it
-helps. Do not commit dependencies, generated build output, environment secrets
-or local browser state. Publishing this source does not deploy the website.
-
-See [the current preview](docs/preview.png), [the setup/provenance guide](README.md),
-[the implemented design system](../DESIGN.md) and
-[brand draft 02](../design/dashboard/brand-kit-v2-mapbox.md).
+Follow [the team workflow](../docs/team-workflow.md). Share a focused PR with
+actual check results and useful screenshots. Keep credentials, dependencies,
+Cesium copied assets, build output and browser state out of Git. Source publication
+and optional backend setup do not deploy the application.

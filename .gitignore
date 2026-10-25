@@ -54,3 +54,8 @@ coverage/
 
 # Committed publishing placeholders only
 !/.env.publish.example
+
+# Rebuilt SDK assets and TypeScript cache
+/frontend/public/vendor/
+*.tsbuildinfo
+/frontend/next-env.d.ts

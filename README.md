@@ -1,11 +1,10 @@
 # OXHack 2026
 
-A team hackathon project built around the mandatory **TIME** theme. The current
-prototype compares two Tok River, Alaska study areas using measured gold and
-includes an interactive mineral-interest option model. Pinned land context,
-historical gold prices and six swarm score sets are connected. Simulation
-readiness checks and verified option economics remain incomplete; financial outputs
-use explicitly selected hypothetical assumptions.
+A team hackathon project built around the mandatory **TIME** theme. The prototype combines a Tok River, Alaska land and evidence explorer with a
+canonical mineral-interest assignment model. The Cesium globe connects historical
+claims, 67 measured sediment samples, market context and six swarm score sets.
+The Decision tab keeps missing trade inputs and failed simulation diagnostics
+visible. Financial calculations require explicitly selected hypothetical assumptions.
 
 ## Repository and shared workflow
 
@@ -17,7 +16,7 @@ workflow installation is required. Claude Code imports those rules through
 
 Use short task branches, one owner per task, and frequent integration into a
 runnable `main`. Track ownership, plans, and outcomes in [the task list](tasks/todo.md).
-The integration owner and remaining team responsibilities are pending.
+Amit owns integration. Module ownership and remaining work are recorded in the task list.
 
 Team GitHub accounts: [amitvijapur](https://github.com/amitvijapur),
 [meep-boop](https://github.com/meep-boop), [arjn15](https://github.com/arjn15),
@@ -38,8 +37,9 @@ shortlist is in [the idea scores](research/idea-scores.md).
 ## Checks and merging
 
 Follow the [team workflow and security guide](docs/team-workflow.md).
-The initial CI checks repository hygiene, workflow validity, and committed
-secrets. Application build and test checks will be added with the selected stack.
+CI checks repository hygiene, workflow validity, committed secrets, application
+tests, type checks and the production build. See the workflow guide for required
+check names and merge requirements.
 Keep each PR small. Teammate review is optional; merge after the required CI
 checks pass on the current branch and all conversations are resolved.
 
@@ -60,7 +60,8 @@ Amit owns both current packs. [The verified build results](research/gold-evidenc
 
 Use Python 3 with the standard library. No framework is required. The contract's commands generate `data/generated/tok-gold/site-a` and `site-b` and run the focused gold tests. Each pack includes original records, normalized CSV, GeoJSON points, separately qualified primary/retest gold assays, secondary lithium, source provenance and an unevaluated land-match template.
 
-Raw sources and generated packs are ignored by Git. A pull supplies code and documentation; transfer the portable handoff or download the pinned source separately. MiroFish remains a separate workstream. No land contracts have been fetched or matched.
+Raw sources and generated packs are ignored by Git. A pull supplies code and documentation; transfer the portable handoff or download the pinned source separately. Pinned land-source context and MiroFish outputs are integrated separately.
+Checked claim overlaps do not establish available contracts or mineral rights.
 
 ### Earlier copper prototype
 
@@ -68,53 +69,74 @@ The Arizona soil extractor and its artifacts remain available as the earlier pro
 
 ## Application setup
 
-The Tok River evidence website uses React, Vite and MapLibre. It runs locally;
-deployment remains out of scope. Use Node.js 24.14.0 and npm:
+The current application uses Next.js 16.4.3, React 19.3.1 and Cesium 1.146.0.
+Use Node.js 24 and the committed npm lockfile:
 
 ```sh
 cd frontend
 npm ci --ignore-scripts
-npm run dev -- --port 5173 --strictPort
+npm run dev
 ```
 
-Open [the localhost website](http://127.0.0.1:5173/). The website binds only to
-the loopback interface. The small verified JSON/GeoJSON snapshot is included
-under `frontend/public/data/`; a fresh clone does not need the ignored full
-data packs to display its 67 samples. Read [the frontend guide](frontend/README.md)
-for provenance, display rules and basemap requirements.
+Open [the local application](http://127.0.0.1:3000/). Development and production
+servers bind to loopback. The bundled evidence and showcase snapshots support a
+fresh clone without the ignored full packs or a Convex account. Satellite imagery,
+terrain, optional geology tiles and the live gold-price observation require
+network access. No map key is required for the default globe. See the
+[frontend guide](frontend/README.md) for optional configuration and source limits.
+
+From `frontend/`, run the application checks:
 
 ```sh
-cd frontend
 npm test
+node --test ../model/tok-option/tests/*.test.mjs
+npm run test:backend
+npm run typecheck:backend
+npm run typecheck
 npm run build
-npm run preview -- --port 4173 --strictPort
+npm start
 ```
 
-`Frontend checks` runs the evidence-contract and Tok model tests and production build in CI.
-The existing `Repository checks` and `Secret scan` job names remain unchanged.
-Hosted results are not established by a local build.
-
-## Tok option model and remaining gaps
-
-Open `/#option-model` to inspect source coverage, choose the hypothetical demo,
-and adjust weights, economics and holding periods. Cash-outcome probabilities,
-break-even thresholds and swarm diagnostics keep uncertainty visible.
-
-Read the [model guide](model/tok-option/README.md) and
-[integration findings and gaps](research/tok-option-model/integration-review.md).
-The main missing inputs are completed swarm runs, verified available Tok option
-terms, recoverable resources, assignment liquidity and predictive validation.
-
-From the repository root, reproduce the source audit and illustrative results:
+From the repository root, check the publisher and inspect canonical outputs:
 
 ```sh
+python3 -m unittest tests/test_publish_run.py
 node model/tok-option/audit.mjs
 node model/tok-option/demo.mjs
+node model/tok-option/export.mjs > /tmp/tok-pending.json
+python3 scripts/publish_run.py decision /tmp/tok-pending.json --dry-run
 ```
+
+`npm test` covers the frontend evidence, API and presentation contracts. The
+separate model suite exercises the shared decision engine. Backend tests use a
+local Convex mock. `npm start` serves the built Next.js app locally; it does not
+create a hosted deployment. No hosted deployment or credentials are configured
+by this repository integration.
+
+## Model, architecture and remaining work
+
+Use the explorer's **Decision** tab for source readiness, explicit demo controls,
+cash outcomes and swarm diagnostics. `model/tok-option/` is the sole decision
+engine used by the interface and export CLI. It models assignment over 30, 90 or
+180 days, with an explicit no-sale branch. It does not exercise an option or
+execute trades.
+
+The baseline demo assumes 500 recoverable troy ounces at USD2,000/oz and produces
+USD1,500 assignment proceeds, a 48.8% sale probability and USD7.60 expected net
+cash over 90 days. The 51.2% no-sale branch has cash of USD−700. These are
+arithmetic assumptions, not observed resources, contract terms or predictive
+performance. Explicitly applying the descriptive 2020–2025 gold CAGR of 14.22%
+changes the illustrative expectation to about USD32.60.
+
+Read the [model guide](model/tok-option/README.md),
+[architecture](docs/architecture.md), [remaining work](docs/remaining-work.md),
+and [integration findings](research/tok-option-model/integration-review.md).
+[Optional Convex publishing](docs/infrastructure.md) stores attributed outputs;
+it requires separate account configuration and does not fill missing trade inputs.
 
 ## Open decisions
 
-- Agree the MVP, data sources, success criteria, and team responsibilities.
+- Complete the trade-input and validation work in [remaining work](docs/remaining-work.md).
 - Confirm the submission deadline, judging format, repository rules, and exact
   Zed/Delta prize requirements.
 - [ ] Review the repository and switch it to public before submission.

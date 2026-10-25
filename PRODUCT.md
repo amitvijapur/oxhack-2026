@@ -8,44 +8,60 @@ web
 
 ## Stack
 
-React website with Vite and MapLibre GL JS, explicitly chosen by Amit after the referenced skeleton could not be found. Run on localhost only. No deployment is authorised.
+Next.js 16.4.3, React 19.3.1 and Cesium 1.146.0. The app runs locally on loopback
+port 3000. Convex storage and hosting are optional configuration work, with no
+hosted deployment or credentials established by the current integration.
 
 ## Product Purpose
 
-Explore historical Tok River, Alaska stream-sediment evidence through a map, A/B comparison cards, individual sample records and a month-precision evidence timeline. Keep future predictive modelling, algorithm and output work visibly pending until the responsible teammates supply it.
+Explore Tok River, Alaska land history, sediment evidence and market context,
+then inspect an explicitly hypothetical mineral-interest assignment model.
+The TIME theme links historical source dates to holding horizons and the
+consequences of selling or retaining an option.
 
 ## Users
 
-Primary user and final operational workflow are open decisions. A hackathon team demonstration and analysis workflow is the current planning assumption, not confirmed production usage.
-
-## Operating Context
-
-OXHack under the event's TIME theme. The current website uses a historical 2016 evidence snapshot. Collection occurred in June–July 2016 and publication in November 2016; exact per-sample dates are unavailable. The earlier hypothetical two-site proposal and static mockups are separate planning material and must not populate this evidence view with simulated probabilities or decisions.
+The current workflow is a hackathon team demonstration and analysis surface.
+Production users, verified trade inputs and operational responsibilities remain
+open beyond the team's current module owners.
 
 ## Capabilities and Constraints
 
-- Show all 67 supplied sample dots, with area A/Tok west containing 33 and B/Tok east containing 34.
-- Preserve GeoJSON longitude/latitude order and use supplied sampling-point bounds for framing. Centres are not deposits. Do not draw parcel boundaries or interpolated heatmaps.
-- Show primary gold, separate gold retests and secondary lithium with their actual status, method, raw value, units and source reference. Missing is not zero.
-- Primary gold medians are quantified-only: A 0.013 ppm, n=33; B 0.008 ppm, n=33. B has one primary result above detection. Median differences are not investment rankings.
-- Pending land/contracts belongs to Arjin, MiroFish/prediction to Muhd and decision algorithm planning to Salman. Their data is currently null.
-- Preserve the long-term land/modelling/algorithm/output design intent without fabricating pending sections.
-- Local website implementation is authorised by the data handoff and subsequent React/MapLibre choice. Deployment is not authorised.
+- A Cesium globe, historical time slider and Land, Ground, Market and Decision tabs.
+- All 67 supplied sediment samples, split into A33/B34, retain qualification,
+  units, methods, raw values and separate retests. Missing values remain unknown.
+- Collection is June–July 2016 and publication November 2016. Per-sample days are
+  unavailable. Historical claims and annual gold means use their own dates.
+- Claim snapshots, sample squares and mineral occurrences are context. They do
+  not establish recoverable resources, available rights or investable parcels.
+- `model/tok-option/` is the sole decision engine. Pending and real modes retain
+  unavailable financial inputs. Explicit demo mode illustrates 30/90/180-day
+  assignment economics, cash branches and sensitivity.
+- Six supplied simulation score sets remain diagnostically incomplete. Failed
+  checks and unknown input cutoff block monetary signal use.
+- Historical gold CAGR is an optional assumption, not a forecast. Live XAU data
+  is attributed and does not populate model controls automatically.
+- The model does not exercise options, execute trades or establish predictive skill.
 
 ## Brand Commitments
 
-- Dark theme.
-- Use Mapbox as visual inspiration for navigation, typography, controls and the map-first workspace. Keep visible green land and real shaded relief, informed by the earlier reference draft.
-- Project name remains blank or a placeholder, explicitly requested by Amit.
-- Palette, typography, graphic motifs and layout selection remain proposals.
+Retain the current **Land Arbitrage: Gold** explorer and its dark monochrome
+surface, green activity/growth signals, red negative states and yellow measured
+gold. DM Sans carries the interface and IBM Plex Mono carries tabular readouts.
+The implemented system is recorded in `DESIGN.md`; earlier Mapbox drafts remain
+historical reference material. This integration introduces no new visual concept.
 
 ## Evidence on Hand
 
-Display assets live in `frontend/public/data/`, copied unchanged from the supplied verified handoff. Source is Alaska DGGS RDF 2016-10, DOI 10.14509/29688. Keep attribution and transformation notes visible. The repository also contains earlier WA studies and a separate hypothetical proposal; they are not evidence for this Tok River website's pending modelling or decisions.
+The original handoff lives in `frontend/public/data/`; showcase context lives in
+`frontend/public/data/showcase/`. The primary measurement source is Alaska DGGS
+RDF 2016-10, DOI 10.14509/29688. Pinned land and swarm sources retain separate
+provenance. Their presence does not fill missing contracts, resources, liquidity
+or validation. See `docs/architecture.md` and `docs/remaining-work.md`.
 
 ## Product Principles
 
-- Keep land, modelling, algorithm and output linked to the same location and run.
-- Make observations, model estimates and simulated assumptions identifiable.
-- Preserve meaningful data gaps and unsupported results.
-- Treat proposed visual artifacts as planning material until a direction is selected.
+- Link location, source, time and model selection without merging their meanings.
+- Make observations, historical context, simulations and assumptions identifiable.
+- Keep unsupported results unavailable and preserve diagnostic failure states.
+- Treat cash, no-sale outcomes and unsold marks separately.

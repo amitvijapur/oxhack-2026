@@ -11,7 +11,7 @@ export function DataCoverage({ audit, demo, onUseGoldTrend }) {
   const { land, swarm, modelGaps } = audit;
   const summary = land.summary;
   const trend = land.goldTrend;
-  const coverage = [...(land.coverage || []), ...(swarm.coverage || []), ...modelGaps.filter((row) => row.id === 'predictive_validation')];
+  const coverage = [...(land.coverage || []), ...(swarm.coverage || []), ...modelGaps];
   return <section className="model-data-audit" aria-labelledby="model-data-heading">
     <div className="model-section-heading"><div><h3 id="model-data-heading">What the branch data fills</h3><p>Sources are connected. Important economic inputs are still missing.</p></div><span className="model-status model-status-unknown">Partial coverage</span></div>
     <dl className="model-source-facts">

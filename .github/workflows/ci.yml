@@ -44,6 +44,9 @@ jobs:
       - name: Verify evidence display contract
         run: npm test
 
+      - name: Lint application source
+        run: npm run lint
+
       - name: Verify canonical option model independently
         run: node --test ../model/tok-option/tests/*.test.mjs
 
