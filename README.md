@@ -50,6 +50,27 @@ check names and merge requirements.
 Keep each PR small. Teammate review is optional; merge after the required CI
 checks pass on the current branch and all conversations are resolved.
 
+## Deploying
+
+Every push to `main` that passes CI deploys to
+<https://oxhack-land-arbitrage.vercel.app> through
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), whoever pushed.
+Pull requests never deploy and never receive the credentials. To redeploy by
+hand, run **Actions → Deploy → Run workflow** on `main`.
+
+The workflow needs three repository secrets, set once by the repository owner:
+
+```sh
+gh secret set VERCEL_TOKEN -R amitvijapur/oxhack-2026   # paste a Vercel token for iloveclouduks-projects
+gh secret set VERCEL_ORG_ID -R amitvijapur/oxhack-2026 -b team_E7NK1Ow5swOQOAdaFPLPSri1
+gh secret set VERCEL_PROJECT_ID -R amitvijapur/oxhack-2026 -b prj_2XwaSZaMWlOgZ4ULciWz0xAyNyMo
+```
+
+The token comes from <https://vercel.com/account/tokens> (scope
+`iloveclouduks-projects`); share it privately, never in chat or Git. Vercel's
+own Git connection is not used: on the Hobby plan it skips commits by anyone but
+the account owner on a private repository.
+
 ## Optional local tools
 
 The [selected tools from Muhammad's kit](docs/optional-team-kit.md) provide a

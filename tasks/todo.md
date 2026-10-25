@@ -71,6 +71,14 @@ Design: baseline P(t)=P0*(1+g)^(t/365); scenario gold P(t)=baseline P(t)*(1+cap*
 
 # OXHack preparation
 
+## Deploy every passing push to main, 25 October 2026
+
+Owner: Salman. Repository secrets: Amit (owner).
+
+- [x] Deploy current main (39002ac, with #42-#44) to https://oxhack-land-arbitrage.vercel.app and check the opening, Decision tab and /swarm.
+- [x] Add `.github/workflows/deploy.yml`: after CI passes on a push to main, deploy with the Vercel CLI; never on PRs.
+- [ ] Amit sets VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID; confirm the first automatic deploy.
+
 Review: model v2 routes the bounded hypothetical response through Au price before the assignment floor. Independent monthly-growth and recorded-source arithmetic passed. Model tests: 126; frontend: 23; Convex: 21; Python publisher/transport: 16. Type checks, scoped lint, production Webpack build, 29 specification checks and source audit passed. The publication reviewer found and resolved acceptance of old direct-markup cash under a v2 label; horizon and interval traces now match canonical evaluation. Browser checks cover baseline, actual approval/block, zero cap, synthetic positive/negative, missing tax and 320-pixel layout. No browser errors. The production site on local port 5182 runs the new build. No new paid swarm calls, hosted deployment, push or merge.
 
 Default 90-day actual contrasts: approval gold USD1996.47490377, assignment USD1495.59362971, cash USD5.44969130, cash delta USD-2.15030870; block gold USD2004.30280642, assignment USD1505.37850803, cash USD10.22471192, cash delta USD2.62471192. Baseline cash remains USD7.60. Predictions are hypothetical and uncalibrated; original source research checks remain failed.

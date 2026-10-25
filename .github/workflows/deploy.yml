@@ -1,0 +1,53 @@
+name: Deploy
+
+# Every push to main that passes CI goes live at https://oxhack-land-arbitrage.vercel.app.
+# Never runs for pull requests, so PR CI receives no deployment credentials.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Deploys run one at a time, in order; a newer push waits rather than cancelling one mid-upload.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    name: Deploy to Vercel production
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out the commit that passed CI
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.14.0'
+
+      # Vercel builds remotely with the project's settings (root directory frontend/,
+      # frontend/vercel.json) and the repository .vercelignore, as a manual deploy does.
+      - name: Deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          for name in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [[ -z "${!name}" ]]; then echo "::error::Repository secret $name is not set; see README.md, Deploying."; exit 1; fi
+          done
+          npx --yes vercel@65.2.0 deploy --prod --yes --token "$VERCEL_TOKEN"

@@ -73,7 +73,8 @@ The production server is also local at port 3000; an alternate port can be
 selected with `npm start -- --port 5182`. The build script uses Next's Webpack
 builder. DM Sans and IBM Plex Mono WOFF2 files are bundled under `src/app/fonts/`,
 with font licences and a hash manifest, so builds do not fetch Google Fonts.
-`npm run lint` is available for ESLint. Build and runtime success do not establish a hosted deployment.
+`npm run lint` is available for ESLint. Build and runtime success do not establish a hosted deployment;
+production deploys from `main` only (see Deploying in the root README).
 See [the contribution guide](CONTRIBUTING.md) for modules and manual checks.
 
 ## Evidence and interpretation

@@ -3,7 +3,9 @@
 The website can run from bundled evidence and the canonical assignment workbench
 without a backend. Optional Convex storage holds attributed historical publications
 for the land, swarm and decision workstreams. Nothing in this integration deploys
-Convex or Vercel, configures secrets, or writes remote data.
+Convex, configures backend secrets, or writes remote data. The website itself
+deploys to Vercel from `main` (see Deploying in the root README), as a static
+build while no `CONVEX_DEPLOY_KEY` is set.
 
 The decision model is exclusively `model/tok-option/workbench.mjs`, with 30, 90 and
 180 day assignment horizons. The previous monthly engine, exercise policy and NV
