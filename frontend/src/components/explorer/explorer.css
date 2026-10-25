@@ -280,3 +280,10 @@
   .swarm { grid-template-columns: 1fr; }
   .swarm-side .mini-stats { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Entry to the recorded swarm workflow, using the incumbent explorer surfaces. */
+.workflow-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; padding: 12px 14px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--raised); color: var(--ink); }
+.workflow-link strong { display: block; font-size: 14px; font-weight: 600; }
+.workflow-link small { display: block; margin-top: 3px; font-size: 12px; line-height: 1.4; color: var(--ink-2); }
+.workflow-link:hover { background: var(--line); }
+.workflow-link svg { flex: none; }

@@ -25,6 +25,16 @@
   expensive complete reruns a prerequisite for a useful demo, and do not relabel
   real simulated observations as synthetic or claim failed checks have passed.
 
+- A workflow diagram needs a clear primary output. Do not place multiple red research findings as competing endpoints or conditions in the main calculation path. Group validation evidence into one optional summary and keep the forecast, valuation and decision sequence visually clear.
+
+- Research validation is an evidence status, not a locked feature. Derive its display from source checks, distinguish a running hypothetical calculation from predictive validation, and show historical tests on a separate branch. Do not hardcode a padlock that implies all demo calculations are disabled.
+
+- Before diagramming the algorithm, inspect the current integration source. In model v2 the hypothetical swarm effect adjusts Au price before the assignment floor, and illustrative approval/block contrasts use the matched Claude placebo. Do not retain the earlier direct option markup or silently use a stale model checkout.
+
+- Show the downstream consumers of a weighted swarm signal explicitly. Gold quantity and price are separate valuation inputs; swarm joins the option-value adjustment. Label the specific disabled transfer, rather than implying that the entire model or website is blocked.
+
+- Amit wants the swarm workflow to be primarily a visual layered network of recorded data movement, inspired loosely by connected-node diagrams. Keep explanations and tables out of the main view, preserve the existing site styling, and expose optional detail on interaction. Do not present the visualization as actual neural-network weights or training internals.
+
 ## 24 October 2026
 
 - Amit wants gold as the primary commodity and lithium as secondary. Choosing America did not authorise choosing copper. Confirm the target commodity before building its evidence pack; never let a convenient dataset column silently decide the product. The existing soil table has lithium but no gold, so a gold source must be verified before rebuilding gold packs. Copper outputs remain labelled prototypes, never gold proxies.
