@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { loadEvidence } from "@/lib/evidence.js";
+import { SITE_NAME, SITE_PLACE } from "@/lib/copy.js";
 import { loadShowcase, plotReading, stakedRange, type ColorBy as ColorMode, type Showcase as Data } from "@/lib/showcase";
 import type { Evidence } from "@/lib/types";
 import type { MapControl } from "@/components/earth/Earth";
@@ -221,7 +222,7 @@ export function Explorer() {
 
       <header className="bar">
         <button type="button" className="name" onClick={back}>
-          Land Arbitrage: Gold <span>Tok River, Alaska</span>
+          {SITE_NAME} <span>{SITE_PLACE}</span>
         </button>
         <LivePill />
       </header>

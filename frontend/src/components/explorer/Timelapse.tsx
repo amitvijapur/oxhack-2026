@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import { ArrowRight, Crosshair, RotateCcw } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Crosshair, Network, RotateCcw } from "lucide-react";
 import { claimState, usd, type Claims, type History } from "@/lib/showcase";
 import { goldTrend } from "@/lib/canonical-model.js";
 import { projectPrice } from "../../../../model/tok-option/commodities.mjs";
@@ -185,6 +186,7 @@ export function Timelapse({ claims, history, year, onYear, playing, onPlaying, o
           </button>
           {year !== LAST ? <button type="button" className="button secondary" onClick={onNow}>Jump to today</button> : null}
           <button type="button" className="button secondary" onClick={onStory}>How it works</button>
+          <Link href="/swarm" className="button secondary"><Network className="size-4" aria-hidden="true" /> Swarm</Link>
         </div>
       </div>
 

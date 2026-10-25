@@ -1,5 +1,5 @@
 .study { min-width: 0; padding: 20px 0; border-bottom: 1px solid var(--line); font-size: 12px; line-height: 1.55; overflow-wrap: anywhere; }
-.study h2 { font-size: 21px; line-height: 1.2; font-weight: 700; letter-spacing: -.025em; }
+.study h2 { font-size: 21px; line-height: 1.2; font-weight: 400; letter-spacing: -.025em; }
 .heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
 .status { color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 5px; padding: 3px 6px; font-size: 10px; }
 .intro { margin-top: 10px; }
@@ -23,7 +23,7 @@
 .improvement { margin: 12px 0; font-size: 11px; }
 .improvement strong { font-family: var(--font-plex-mono), monospace; font-variant-numeric: tabular-nums; }
 .details { border-top: 1px solid var(--line); margin-top: 10px; }
-.details summary { min-height: 42px; padding: 12px 0; cursor: pointer; font-size: 11px; font-weight: 600; }
+.details summary { min-height: 42px; padding: 12px 0; cursor: pointer; font-size: 11px; font-weight: 500; }
 .scroll { max-width: 100%; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
 .ledger { min-width: 680px; font-size: 10px; }
 .ledger th { text-align: left; font-weight: 500; }

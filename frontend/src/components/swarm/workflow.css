@@ -15,12 +15,12 @@
 .swf-page ::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
 .swf-mono { font-family: var(--font-plex-mono), ui-monospace, monospace; font-variant-numeric: tabular-nums; }
 .swf-header { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 24px; border-bottom: 1px solid var(--swf-line); flex: none; }
-.swf-brand { font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
+.swf-brand { font-size: 28px; line-height: 1; font-weight: 400; letter-spacing: 0; }
 .swf-brand span { color: var(--swf-muted); margin-left: 8px; font-size: 14px; font-weight: 400; }
 .swf-return { display: inline-flex; align-items: center; gap: 8px; color: var(--swf-muted); font-size: 13px; white-space: nowrap; }
 .swf-return:hover { color: #fff; }
 .swf-topline { padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex: none; }
-.swf-topline h1 { font-size: 20px; font-weight: 700; line-height: 1.15; letter-spacing: -.025em; margin: 0; }
+.swf-topline h1 { font-size: 20px; font-weight: 400; line-height: 1.15; letter-spacing: -.025em; margin: 0; }
 .swf-statusline { display: flex; align-items: center; gap: 18px; color: var(--swf-muted); font-size: 12px; }
 .swf-recorded { display: inline-flex; align-items: center; gap: 7px; }
 .swf-recorded i { width: 5px; height: 5px; border-radius: 50%; background: #aaa; }
@@ -61,7 +61,7 @@
 .swf-no-run svg { flex: none; }
 .swf-node-inspector { position: absolute; top: 14px; right: 14px; width: 300px; max-height: calc(100% - 56px); overflow: auto; padding: 16px; background: #171717; border: 1px solid #444; border-radius: 12px; z-index: 2; }
 .swf-inspector-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.swf-inspector-head h2 { font-size: 16px; font-weight: 700; letter-spacing: -.02em; margin: 0; }
+.swf-inspector-head h2 { font-size: 16px; font-weight: 400; letter-spacing: -.02em; margin: 0; }
 .swf-inspector-head p { font-size: 11px; margin: 4px 0 0; color: #aaa; }
 .swf-node-inspector > p { margin: 14px 0; color: #c1c1c1; font-size: 12px; line-height: 1.65; }
 .swf-node-inspector > .swf-blocked { color: #f89191; }
@@ -81,7 +81,7 @@
 .swf-run-select { display: block; flex: 1; min-width: 200px; max-width: 340px; }
 .swf-run-select select, .swf-speed { width: 100%; height: 36px; border: 1px solid #333; background: #1a1a1a; color: #fafafa; border-radius: 8px; padding: 0 10px; max-width: 100%; font-size: 13px !important; }
 .swf-transport { display: flex; align-items: center; gap: 5px; }
-.swf-primary { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 0; min-height: 36px; padding: 0 13px; border-radius: 10px; background: #fafafa; color: #0a0a0a; font-size: 13px !important; font-weight: 600 !important; transition: background .15s; white-space: nowrap; }
+.swf-primary { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 0; min-height: 36px; padding: 0 13px; border-radius: 10px; background: #fafafa; color: #0a0a0a; font-size: 13px !important; font-weight: 500 !important; transition: background .15s; white-space: nowrap; }
 .swf-primary:hover { background: #ddd; }
 .swf-icon-button { display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 8px; background: transparent; color: #aaa; flex: none; }
 .swf-icon-button:hover { color: #fff; background: #262626; }
@@ -103,7 +103,7 @@
 }
 @media (max-width: 520px) {
   .swf-page { min-height: 740px; }
-  .swf-header { min-height: 55px; padding-inline: 14px; } .swf-brand { font-size: 14px; } .swf-return { font-size: 11px; gap: 4px; }
+  .swf-header { min-height: 55px; padding-inline: 14px; } .swf-brand { font-size: 28px; } .swf-return { font-size: 11px; gap: 4px; }
   .swf-topline { padding: 14px; display: block; } .swf-statusline { margin-top: 10px; flex-wrap: wrap; gap: 7px 12px; font-size: 10.5px; }
   .swf-topline h1 { font-size: 19px; } .swf-blocked { font-size: 10.5px; }
   .swf-visual-area { padding: 0 12px 12px; }
@@ -141,7 +141,8 @@
 .swf-result-heading > span { color: #aaa; font-size: 11px; white-space: nowrap; }
 .swf-result-return { margin-top: 30px; }
 .swf-result-return > span { display: block; color: #c9c9c9; font-size: 12px; }
-.swf-result-return > strong { display: block; margin-top: 10px; font-size: 40px; line-height: 1.1; font-weight: 500; letter-spacing: -.035em; }
+/* A large metric: light DM Sans with tabular figures, not the mono readout face (BRAND.md). */
+.swf-result-return > strong { display: block; margin-top: 10px; font-family: var(--font-sans); font-variant-numeric: tabular-nums; font-size: 40px; line-height: 1.1; font-weight: 300; letter-spacing: -.02em; }
 .swf-result-return > strong.is-loss { color: #f89191; }
 .swf-result-return p, .swf-result-evidence, .swf-result-note { margin: 12px 0 0; font-size: 11px; line-height: 1.6; color: #aaa; }
 .swf-result-facts { margin: 24px 0 0; padding: 0; display: grid; gap: 12px; }
@@ -150,7 +151,7 @@
 .swf-result-facts dd { margin: 0; font: 12px var(--font-plex-mono), monospace; font-variant-numeric: tabular-nums; }
 .swf-result-action { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 20px; margin-top: 22px; border-top: 1px solid #333; font-size: 12px; }
 .swf-result-action > span { color: #aaa; }
-.swf-result-action > strong { color: #fafafa; font-weight: 600; }
+.swf-result-action > strong { color: #fafafa; font-weight: 500; }
 .swf-result-action.is-skip > strong { color: #f89191; }
 .swf-result-evidence { margin-top: 10px; }
 .swf-inspect-result { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; margin-top: 18px; min-height: 36px; padding: 0; color: #d6d6d6; background: none; border: 0; font-size: 12px !important; text-align: left; }
@@ -162,7 +163,7 @@
 .swf-validation-details { padding: 0 0 10px; color: #bcbcbc; font-size: 11px; }
 .swf-validation-details > p, .swf-validation-finding p { margin: 0 0 12px; font-size: 11px; line-height: 1.65; color: #aaa; }
 .swf-validation-finding { margin-top: 20px; }
-.swf-validation-finding > strong { display: block; font-size: 12px; font-weight: 600; color: #ddd; }
+.swf-validation-finding > strong { display: block; font-size: 12px; font-weight: 500; color: #ddd; }
 .swf-validation-finding > span { display: block; margin: 5px 0 8px; color: #aaa; }
 .swf-validation-finding > span.is-failed { color: #f89191; }
 .swf-validation-finding dl { margin: 10px 0 0; display: grid; gap: 8px; font-size: 10px; }

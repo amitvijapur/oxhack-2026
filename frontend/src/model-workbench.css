@@ -1,8 +1,8 @@
 /* Canonical workbench inside the existing monochrome and green explorer. */
 .model-workbench { --text: var(--ink); --muted: var(--ink-2); --border: var(--line); padding: 20px 0; font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
-.model-workbench h2 { font-size: 23px; line-height: 1.2; font-weight: 700; letter-spacing: -.025em; }
-.model-workbench h3 { font-size: 15px; line-height: 1.35; font-weight: 700; }
-.model-workbench h4 { font-size: 13px; font-weight: 600; margin: 20px 0 12px; }
+.model-workbench h2 { font-size: 23px; line-height: 1.2; font-weight: 400; letter-spacing: -.025em; }
+.model-workbench h3 { font-size: 15px; line-height: 1.35; font-weight: 500; }
+.model-workbench h4 { font-size: 13px; font-weight: 500; margin: 20px 0 12px; }
 .model-workbench p { max-width: 75ch; }
 .model-heading, .model-section-heading, .model-evidence-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
 .model-heading p, .model-section-heading p { color: var(--ink-2); margin-top: 7px; }
@@ -35,7 +35,7 @@
 .model-evidence-counts dt { color: var(--ink-2); font-size: 11px; }
 .model-evidence-counts dd, .model-workbench td, .model-workbench code, .model-delta strong, .model-source-facts dd, .model-break-even dd { font-family: var(--font-plex-mono),monospace; font-variant-numeric: tabular-nums; }
 .model-detail { border-top: 1px solid var(--line); min-width: 0; }
-.model-detail summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 0; font-size: 12px; font-weight: 600; cursor: pointer; list-style: none; }
+.model-detail summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 0; font-size: 12px; font-weight: 500; cursor: pointer; list-style: none; }
 .model-detail summary::-webkit-details-marker { display: none; }
 .model-detail summary > svg { flex-shrink: 0; width: 15px; transition: transform .16s; }
 .model-detail[open] > summary > svg { transform: rotate(180deg); }
@@ -48,7 +48,7 @@
 .model-trend-action { display: grid; gap: 8px; margin: 16px 0; }
 .model-coverage-list > div, .model-check-list > div { padding: 12px 0; border-bottom: 1px solid var(--line); }
 .model-coverage-list > div > div, .model-check-list > div > div { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-.model-coverage-list strong, .model-check-list strong { font-size: 12px; font-weight: 600; }
+.model-coverage-list strong, .model-check-list strong { font-size: 12px; font-weight: 500; }
 .model-coverage-list p, .model-check-list p, .model-land-facts, .model-source-links { color: var(--ink-2); font-size: 11px; margin-top: 6px; }
 .model-land-facts > div { padding: 8px 0; }
 .model-source-links a { text-decoration: underline; text-underline-offset: 3px; }
@@ -104,7 +104,7 @@
 .model-workbench td { color: var(--ink); }
 .model-workbench caption { text-align: left; color: var(--ink-2); font-size: 11px; padding: 8px 0; }
 .model-workbench .model-total-row { background: var(--raised); }
-.model-workbench .model-total-row th, .model-workbench .model-total-row td { color: var(--ink); font-weight: 600; }
+.model-workbench .model-total-row th, .model-workbench .model-total-row td { color: var(--ink); font-weight: 500; }
 .model-delta { border-bottom: 1px solid var(--line); padding: 14px 0; }
 .model-delta > span { color: var(--ink-2); font-size: 11px; }
 .model-delta > div { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 7px; font-size: 11px; color: var(--ink-2); }
@@ -134,7 +134,7 @@
 .model-workbench > .model-detail:last-of-type { margin-top: 20px; }
 .model-formulas > p { color: var(--ink-2); font-size: 12px; }
 .model-formulas dl { display: grid; gap: 18px; margin: 18px 0; }
-.model-formulas dt { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.model-formulas dt { font-size: 12px; font-weight: 500; margin-bottom: 6px; }
 .model-formulas code { display: block; font-size: 10px; overflow-wrap: anywhere; color: #86efac; }
 .model-formulas dd span { display: block; font-size: 11px; color: var(--ink-2); margin-top: 6px; }
 .model-footer-note { padding-top: 18px; margin-top: 10px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 11px; }
@@ -146,11 +146,11 @@
 .model-existing-swarm { padding: 16px 0; border-top: 1px solid var(--line); }
 .model-existing-swarm > p, .model-existing-context p { color: var(--ink-2); font-size: 12px; line-height: 1.6; }
 .model-source-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 12px 0; }
-.model-source-actions .model-import-button { background: var(--ink); color: var(--bg); font-weight: 600; }
+.model-source-actions .model-import-button { background: var(--ink); color: var(--bg); font-weight: 500; }
 .model-source-actions .model-import-button:hover { background: #e5e5e5; }
 .model-source-actions .model-import-button[aria-pressed="true"] { color: var(--ink); background: var(--raised); border-color: var(--green); }
 .model-existing-context { display: grid; gap: 8px; margin: 10px 0; }
-.model-existing-context strong { color: var(--ink); font-weight: 600; }
+.model-existing-context strong { color: var(--ink); font-weight: 500; }
 .model-existing-swarm .model-land-facts a { text-decoration: underline; text-underline-offset: 3px; }
 .model-existing-cash { padding: 10px 0; border-block: 1px solid var(--line); }
 .model-existing-cash > p, .model-existing-cash dt { font-size: 10px; color: var(--ink-2); }
@@ -167,5 +167,5 @@
 
 /* Return percentages retain an explicit invested-capital denominator. */
 .model-return-summary { padding: 16px 0; border-top: 1px solid var(--line); }
-.model-return-summary .model-gold-values dd { font-size: 22px; font-weight: 600; }
+.model-return-summary .model-gold-values dd { font-size: 22px; font-weight: 300; }
 .model-return-summary > .model-note { margin-top: 10px; }
