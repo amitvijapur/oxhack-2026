@@ -4,11 +4,13 @@
   "labels": {
     "contract": "REAL staged terms of the White Rock option (Elko County, NV, 2020; catalogue row NV-04): $10,000 at signing, then $25,000, $40,000, $50,000 and $125,000 at years 1-4, no work commitments, 2% NSR, $25,000 annual advance minimum royalty after exercise. Applied HYPOTHETICALLY to a 640-acre claim block inside the Tok Site B window; no such offer exists.",
     "carry": "VERIFIED rates (Arjin, research/tok-land/alaska_holding_costs_by_year.csv on arjin/tok-land-data; Alaska session laws 1989 ch. 101 and 2000 ch. 74, DNR Annual Rent fact sheet 11 AAC 86.221). The block is four 160-acre state claims staked 2016-17, so age 6-10: rent 4 x $330 = $1,320 a year, plus annual labour 4 x $400 = $1,600 a year paid in cash instead of work (2000 law; later changes not checked) = $243.33 a month during the option. After exercise the claims are age 11 or more: 4 x $825 + $1,600 = $4,900 a year, plus the $25,000 advance royalty = $2,491.67 a month.",
-    "arrival": "Staking events = distinct owner-days in the Tok Site B window, 2007-2025, from Alaska DNR state claims (NTPSTDT meaning unconfirmed). 2025 is partial: data end 2025-03-05, so its exposure is 63/365 of a year. The belief forgets old years at a rate chosen by one-step-ahead predictive score (only earlier years), averaged over the grid by those scores. Weak starting prior Gamma(0.5, 0.5 years). q (buyers per staking event) is an ASSUMPTION; the engine reports the q at which the decision flips.",
-    "bids": "ASSUMED two-point buyer offers for the full block. For scale only: published Alaska claim packages sold for about $170-205/acre (Avidian 2024; US Antimony 2025, an antimony option), i.e. roughly $109k-131k for 640 acres. Not a Tok price.",
+    "arrival": "Staking events = distinct owner-days in the Tok Site B window, 2007-2025, from Alaska DNR state claims (NTPSTDT meaning unconfirmed). 2025 is partial: data end 2025-03-05, so its exposure is 63/365 of a year. Two models of how the rate moves are averaged by their one-step-ahead predictive scores (only earlier years): the discount model (old years forgotten at a rate averaged over the grid) and the changepoint model (at most one jump, exact posterior). Weak starting prior Gamma(0.5, 0.5 years). q (buyers per staking event) is an ASSUMPTION; the engine reports the q at which the decision flips.",
+    "bids": "FROM DATA: buyer offers for the 640-acre block are drawn from comparable deals (research/decision-engine/bid-comparables.csv: 15 arm's-length NV/AZ gold deals of 100-20,000 acres with a price, and 2 Alaska state-claim packages). Each deal's $/acre is one equally likely offer; the NV/AZ spread is kept and its level is moved to the Alaska mean (home_level), to the Alaska mean shrunk towards NV/AZ (home_pooled, the headline), or left as is (reference). Caveat: these are original deal values, not resale prices of an option position. Replaces the earlier ASSUMED two-point offers ($450k at 35%, $120k at 65%).",
     "acceleration": "ASSUMPTION: the optionee may pay the remaining stages early to complete a sale when a buyer arrives. Not stated in the White Rock release; the engine reports the value with this assumption reversed.",
     "wait": "ASSUMPTION: if we wait 12 months and watch nearby staking, the same terms are still available with probability 0.5. The engine reports the probability at which waiting beats buying now.",
-    "swarm": "Tok society results from swarm/score.py report (branch ahmed/gold-society-plan). Used only for scenarios whose pre-registered checks pass, mapped to engine inputs by the labelled assumptions in swarm-mappings.json."
+    "swarm": "Tok society results from swarm/score.py report (branch ahmed/gold-society-plan). Used only for scenarios whose pre-registered checks pass, mapped to engine inputs by the labelled assumptions in swarm-mappings.json.",
+    "q": "q (buyers per staking event) is not identified by data. Data FLOOR: public NV/AZ claim deals per staking event are about 0.003 (scripts/q_bound.py: 18 deals / 6,600 claimant-days in NV 2017-24; 7 / 2,216 in AZ 2019-24); the catalogue is a sample, not a census, so the true value is higher by an unknown factor. The headline keeps 0.5 (the optimistic end); the robust check spans 0.003-0.5.",
+    "robust": "The signal is the action with the highest expected value across every combination of: arrival model (discount or changepoint, weighted by their one-step-ahead predictive scores), exit-bid source (equal weights), q (equal weights on roughly log-spaced values from the data floor to 0.5) and acceleration (allowed or not, equal weights; White Rock's terms are not public, so it is a term to negotiate). The value of learning each assumption first is reported."
   },
   "q_buyers_per_staking_event": 0.5,
   "contract": {
@@ -42,17 +44,7 @@
     "carry_after_exercise_usd_per_month": 2491.67,
     "exit_fee_usd": 10000,
     "salvage_usd": 0,
-    "annual_discount_rate": 0.08,
-    "bids": [
-      {
-        "usd": 450000,
-        "probability": 0.35
-      },
-      {
-        "usd": 120000,
-        "probability": 0.65
-      }
-    ]
+    "annual_discount_rate": 0.08
   },
   "policy": {
     "budget_usd": 300000,
@@ -159,5 +151,30 @@
   "swarm": {
     "results": "swarm/records/results/results.json",
     "mappings": "research/decision-engine/swarm-mappings.json"
+  },
+  "bid_model": {
+    "comparables": "research/decision-engine/bid-comparables.csv",
+    "acres": 640,
+    "home": "AK",
+    "headline_source": "home_pooled",
+    "report_thresholds_usd": [
+      120000,
+      250000,
+      450000
+    ]
+  },
+  "robust": {
+    "q_values": [
+      0.003,
+      0.03,
+      0.1,
+      0.25,
+      0.5
+    ],
+    "exit_bid_weights": {
+      "reference": 0.3333333333333333,
+      "home_level": 0.3333333333333333,
+      "home_pooled": 0.3333333333333333
+    }
   }
 }

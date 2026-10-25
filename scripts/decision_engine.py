@@ -311,6 +311,55 @@ def changepoint_posterior(years, counts, exposures, a, b, p_change=0.5):
             + top - no_change}
 
 
+def changepoint_components(counts, exposures, a, b, p_change=0.5):
+    """[(posterior weight, alpha, beta_years)] for the rate now, under at most one past change.
+
+    No change: one Gamma posterior on all years. A change before year k: the posterior from
+    years k onward only. Weights are the exact posterior from ``changepoint_posterior``."""
+    years = list(range(len(counts)))
+    post = changepoint_posterior(years, counts, exposures, a, b, p_change)
+    rows = [(post["p_no_change"], a + sum(counts), b + sum(exposures))]
+    for k in range(1, len(counts)):
+        rows.append((post["p_change_by_year"][str(k)], a + sum(counts[k:]), b + sum(exposures[k:])))
+    return rows
+
+
+def changepoint_log_score(counts, exposures, a, b, burn_in, p_change=0.5):
+    """One-step-ahead predictive log score of the changepoint model, using only earlier years."""
+    score = 0.0
+    for t in range(burn_in, len(counts)):
+        rows = changepoint_components(counts[:t], exposures[:t], a, b, p_change)
+        score += math.log(sum(w * math.exp(nb_logpmf(counts[t], al, be, exposures[t])) for w, al, be in rows))
+    return score
+
+
+def log_mean_exp(values):
+    top = max(values)
+    return top + math.log(sum(math.exp(v - top) for v in values) / len(values))
+
+
+def averaged_arrival(history, prior, q, changepoint_prior=(1.0, 1.0)):
+    """Arrival belief averaged over two models of how the staking rate moves.
+
+    The discount model (rate drifts; Bayesian average over forgetting rates) and the changepoint
+    model (at most one jump) are weighted by their one-step-ahead predictive scores on the same
+    years (prequential evidence, Dawid 1984). Both condition on the same burn-in years, so the
+    scores are comparable. Returns the averaged belief, each model alone, and the weights."""
+    counts, exposures = history["events"], history["exposure_years"]
+    discount, profile = arrival_from_history(history, prior, q)
+    a, b = changepoint_prior
+    changepoint = MixtureArrival(tuple((w, GammaArrival(al, be * 12, q))
+                                       for w, al, be in changepoint_components(counts, exposures, a, b) if w > 1e-12))
+    scores = {"discount": log_mean_exp([r["log_score"] for r in profile]),
+              "changepoint": changepoint_log_score(counts, exposures, a, b, prior["burn_in_years"])}
+    top = max(scores.values())
+    raw = {k: math.exp(v - top) for k, v in scores.items()}
+    weights = {k: v / sum(raw.values()) for k, v in raw.items()}
+    combined = MixtureArrival(tuple((weights["discount"] * w, g) for w, g in discount.components)
+                              + tuple((weights["changepoint"] * w, g) for w, g in changepoint.components))
+    return combined, {"discount": discount, "changepoint": changepoint}, {"log_score": scores, "weight": weights}, profile
+
+
 def longest_zero_run(counts):
     best = run = 0
     for n in counts:
@@ -743,6 +792,119 @@ def decide_with_waiting(contract, arrival, budget_usd, loss_limit_usd, p_deal_st
     return out
 
 
+# ---------------------------------------------------------------------------
+# Part 4: exit bids from comparable deals, and decisions that hold across assumptions
+
+
+def load_comparables(path):
+    """{region: [usd per acre, ...]} for the rows marked used in a comparables CSV."""
+    out = {}
+    with open(path, newline="") as handle:
+        for row in csv.DictReader(handle):
+            if row["used"] == "yes":
+                out.setdefault(row["region"], []).append(float(row["usd_per_acre"]))
+    return out
+
+
+def bid_sources(comparables, acres, home="AK", reference=("NV", "AZ")):
+    """Exit-bid distributions for a block of ``acres``, one per view of which deals apply.
+
+    Each is the empirical spread of reference-region deals ($/acre, equally likely, no
+    extrapolation beyond what was observed), moved to a level on the log scale:
+      reference      the reference deals as they are
+      home_level     moved to the mean of the home-region deals
+      home_pooled    moved to the home mean shrunk towards the reference mean (normal-normal
+                     partial pooling, between-region sd set equal to the within-deal sd)
+    The home region has too few deals to give a spread of its own, so it borrows the reference one."""
+    ref = [math.log(v) for r in reference for v in comparables.get(r, [])]
+    own = [math.log(v) for v in comparables.get(home, [])]
+    m_ref, sd = statistics.fmean(ref), statistics.stdev(ref)
+    levels = {"reference": m_ref}
+    if own:
+        m_own, n = statistics.fmean(own), len(own)
+        levels["home_level"] = m_own
+        levels["home_pooled"] = (m_ref / sd ** 2 + n * m_own / sd ** 2) / (1 / sd ** 2 + n / sd ** 2)
+    sources = {}
+    for name, level in levels.items():
+        points = sorted(math.exp(x - m_ref + level) * acres for x in ref)
+        sources[name] = [{"usd": round(p, 2), "probability": 1 / len(points)} for p in points]
+    meta = {"reference_deals": len(ref), "home_deals": len(own), "log_sd": sd,
+            "median_usd_per_acre": {k: math.exp(statistics.median(ref) - m_ref + v) for k, v in levels.items()}}
+    return sources, meta
+
+
+def evppi(values, weights, dims, max_size=2):
+    """Expected value of learning assumptions before deciding (BUY pays ``value``; SKIP pays 0).
+
+    ``values`` and ``weights`` are keyed by tuples of assumption settings, one entry per dimension
+    in ``dims``. Exact by enumeration, for each single assumption and each pair (the partial
+    value of information; Strong and Oakley 2013)."""
+    now = max(0.0, sum(weights[k] * values[k] for k in values))
+    perfect = sum(weights[k] * max(0.0, values[k]) for k in values)
+    out = {"value_deciding_now_usd": now, "evpi_usd": perfect - now, "by_assumption_usd": {}}
+    subsets = [(i,) for i in range(len(dims))]
+    if max_size >= 2:
+        subsets += [(i, j) for i in range(len(dims)) for j in range(i + 1, len(dims))]
+    for subset in subsets:
+        groups = {}
+        for k in values:
+            groups.setdefault(tuple(k[i] for i in subset), []).append(k)
+        gain = sum(max(0.0, sum(weights[k] * values[k] for k in keys)) for keys in groups.values())
+        out["by_assumption_usd"][" + ".join(dims[i] for i in subset)] = gain - now
+    return out
+
+
+def robust_decision(contract, arrivals, bids, q_values, accelerations, budget_usd, loss_limit_usd, weights):
+    """BUY or SKIP under every combination of the named assumptions, with what each is worth knowing.
+
+    ``arrivals`` and ``bids`` map a setting name to a belief or a bid list. ``weights`` gives the
+    prior weight of each setting per dimension (the arrival weights come from the data). The
+    verdict is ROBUST BUY (BUY everywhere), ROBUST SKIP (BUY nowhere), or otherwise the action with
+    assumptions whose value of information is positive."""
+    dims = ("arrival_model", "exit_bids", "q_buyers_per_staking_event", "acceleration_allowed")
+    rows, values, w = [], {}, {}
+    for am, arrival in arrivals.items():
+        for bs, bid_list in bids.items():
+            for q in q_values:
+                for acc in accelerations:
+                    c = dict(contract, bids=bid_list, acceleration_allowed=acc)
+                    d = decide_entry(c, arrival.with_q(q), budget_usd, loss_limit_usd)
+                    value = min(d["value_usd"], 0.0) if d["excluded_because"] else d["value_usd"]  # excluded: cannot buy
+                    key = (am, bs, q, acc)
+                    values[key] = value
+                    w[key] = (weights["arrival_model"][am] * weights["exit_bids"][bs]
+                              * weights["q_buyers_per_staking_event"][str(q)] * weights["acceleration_allowed"][str(acc)])
+                    rows.append(dict(zip(dims, key)) | {"action": d["action"], "value_usd": d["value_usd"],
+                                                         "p_loss": d["outcomes"]["p_loss"]})
+    buys = sum(r["action"] == "BUY" for r in rows)
+    info = evppi(values, w, dims)
+    expected = sum(w[k] * values[k] for k in values)
+    bayes = "BUY" if expected > TOLERANCE else "SKIP"
+    worth = [d for d, v in sorted(info["by_assumption_usd"].items(), key=lambda kv: -kv[1]) if v > TOLERANCE]
+    if buys == len(rows):
+        verdict = "ROBUST BUY"
+    elif buys == 0:
+        verdict = "ROBUST SKIP"
+    else:
+        verdict = f"{bayes} (BUY in {buys} of {len(rows)} combinations of assumptions)"
+
+    def mean_given(i, setting):
+        keys = [k for k in values if k[i] == setting]
+        return sum(w[k] * values[k] for k in keys) / sum(w[k] for k in keys)
+
+    return {"verdict": verdict, "combinations": len(rows), "combinations_buy": buys,
+            "expected_value_usd": expected, "bayes_action": bayes,
+            "worst_value_usd": min(values.values()), "best_value_usd": max(values.values()),
+            "weights": weights, "value_of_information": info,
+            "worth_checking_first": worth,
+            "buy_only_when": [dict(zip(dims, k)) for k in values if values[k] > TOLERANCE],
+            "mean_value_by_setting_usd": {d: {str(s): mean_given(i, s) for s in {k[i] for k in values}}
+                                          for i, d in enumerate(dims)},
+            "acceleration_clause_adds_usd": (mean_given(3, True) - mean_given(3, False)
+                                             if set(accelerations) == {True, False} else None),
+            "table": rows}
+
+
 def apply_gates(result, gates):
     """Gates are checked facts (pass / fail / unknown). A failed gate excludes entry; an unknown one
     keeps the scenario signal but marks the result for manual review."""
@@ -788,6 +950,15 @@ def main():
         print(json.dumps(evaluate_fixture(spec), indent=2, default=str))
         return
     report = {}
+    bid_lists = {}
+    if "bid_model" in spec:  # exit bids from comparable deals instead of assumed points
+        bm = spec["bid_model"]
+        bid_lists, meta = bid_sources(load_comparables(bm["comparables"]), bm["acres"], bm.get("home", "AK"))
+        spec["contract"]["bids"] = bid_lists[bm["headline_source"]]
+        report["bid_model"] = meta | {"headline_source": bm["headline_source"],
+                                      "p_bid_at_least_usd": {name: {str(t): sum(b["probability"] for b in bl if b["usd"] >= t)
+                                                                    for t in bm.get("report_thresholds_usd", [])}
+                                                             for name, bl in bid_lists.items()}}
     if "arrival" in spec:
         arrival = GammaArrival(**spec["arrival"])
     elif "forecast_cells" in spec:  # the measured forecast sets the prior for each named section
@@ -811,7 +982,8 @@ def main():
         return
     else:
         history, prior, q = spec["staking_history"], spec["arrival_prior"], spec["q_buyers_per_staking_event"]
-        arrival, profile = arrival_from_history(history, prior, q)
+        arrival, models, model_weights, profile = averaged_arrival(history, prior, q)
+        report["arrival_models"] = model_weights
         sweep = []
         for row in profile:  # the decision if one forgetting rate were known to be right
             single = GammaArrival(row["posterior_alpha"], row["posterior_beta_years"] * 12, q)
@@ -825,12 +997,24 @@ def main():
         report["pooled_model_check"] = zero_run_check(full, pooled["posterior_alpha"], pooled["posterior_beta_years"])
         latest = max(i for i, n in enumerate(history["events"]) if n > 0)
         trimmed = dict(history, events=[n - (i == latest) for i, n in enumerate(history["events"])])
-        without, _ = arrival_from_history(trimmed, prior, q)
+        without = averaged_arrival(trimmed, prior, q)[0]
         report["latest_event_check"] = {
             "year_of_latest_event": history["years"][latest],
             "value_without_it_usd": solve(spec["contract"], without, spec["policy"]["loss_limit_usd"])}
+    if "robust" in spec:  # every combination of the named assumptions, before the headline run
+        rb = spec["robust"]
+        report["robust"] = robust_decision(
+            spec["contract"], models, bid_lists, rb["q_values"], [True, False],
+            spec["policy"]["budget_usd"], spec["policy"]["loss_limit_usd"],
+            {"arrival_model": model_weights["weight"],
+             "exit_bids": rb["exit_bid_weights"],
+             "q_buyers_per_staking_event": {str(v): 1 / len(rb["q_values"]) for v in rb["q_values"]},
+             "acceleration_allowed": {"True": 0.5, "False": 0.5}})
     result = decide_with_waiting(spec["contract"], arrival, spec["policy"]["budget_usd"],
                                  spec["policy"]["loss_limit_usd"], spec["p_deal_still_open"])
+    if "robust" in report:  # the decision is the one that holds up across the assumptions
+        result["signal_at_headline_assumptions"] = result["signal"]
+        result["signal"] = report["robust"]["bayes_action"]
     result["arrival"] = {"p_buyer_within_12_months": arrival.p_buyer_within(12)}
     result.update(report)
     if "swarm" in spec:
