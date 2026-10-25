@@ -39,8 +39,20 @@ writes `VITE_CONVEX_URL` to the ignored `.env.local`. Restart `npm run dev` to
 pick it up. Without an account,
 `CONVEX_AGENT_MODE=anonymous npx convex dev` runs a local backend on
 `127.0.0.1:3210` instead. The Workstreams section shows "Backend connected" once
-`health.ping` answers, and "Backend not configured" when no URL is set. See
-[the backend guide](convex/README.md) to add a workstream.
+`health.ping` answers, and "Backend not configured" when no URL is set.
+
+Teammates publish their outputs with `scripts/publish_run.py` (from the repository
+root). A published run replaces that workstream's Pending card with a Live summary
+labelled by its mode (measured snapshot, scenario, and so on), and land records appear in
+each sample's details. See [the infrastructure guide](../docs/infrastructure.md) for
+secrets and publish commands, and [the backend guide](convex/README.md) for the data model.
+
+## Server API routes
+
+`api/index.js` is the single Vercel Function behind `/api/*`. Routes live in
+`server/routes.js` (`GET /api/health` today). Server-only secrets are read with
+`requireServerEnv()` from `server/env.js` and set in Vercel without a `VITE_` prefix.
+`npm test` covers the router.
 
 ## Deploy to Vercel
 
@@ -72,6 +84,7 @@ blocked request shows in the browser console before deployment.
 ```sh
 npm test
 npm run typecheck:backend
+npm run test:backend
 npm run build
 npm run preview -- --port 4173 --strictPort
 ```

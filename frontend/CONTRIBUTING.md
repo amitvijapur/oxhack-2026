@@ -27,9 +27,11 @@ and fonts are local. The optional browser smoke script assumes port 5173.
 | Green map treatment, terrain sources and camera defaults | `src/terrain-style.js` |
 | Evidence loader, qualification formatting and asset mapping | `src/evidence.js` |
 | Bundled source snapshot | `public/data/` |
-| Optional backend connection and status | `src/backend/` |
-| Convex schema and functions (see its README) | `convex/` |
-| Vercel build and response headers | `vercel.json`, `scripts/vercel-build.sh` |
+| Optional backend connection, status and live data | `src/backend/`, `src/workstreamSummary.js` |
+| Convex schema, ingest and queries (see its README) | `convex/` |
+| Vercel build, headers, rewrites and function settings | `vercel.json`, `scripts/vercel-build.sh` |
+| Server API routes and secrets | `api/index.js`, `server/` |
+| Workstream publisher and adapters (repository root) | `scripts/publish_run.py`, `scripts/publish_adapters.py` |
 | Evidence-contract regression checks | `tests/evidence.test.js` |
 | Optional interactive browser checks | `tests/browser-smoke.js` |
 
@@ -67,6 +69,7 @@ Preserve these display contracts during UI changes:
 ```sh
 npm test
 npm run typecheck:backend
+npm run test:backend
 npm run build
 ```
 

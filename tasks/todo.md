@@ -22,6 +22,19 @@ Owner: Salman. Branch `salman/vercel-convex`, stacked on `codex/tok-evidence-fro
 - [ ] Salman: link the Convex project and Vercel project and add the deploy keys (steps in `frontend/README.md`).
 - [ ] Wire each teammate output into Convex once its display contract is agreed.
 
+## Workstream publishing and API infrastructure, 25 October 2026
+
+Owner: Salman. Branch `salman/convex-ingest`, stacked on `salman/vercel-convex`. Guide: [docs/infrastructure.md](../docs/infrastructure.md).
+
+- [x] Convex schema for workstreams, runs and land rows; `POST /ingest/<workstream>` with per-workstream secrets, idempotent run ids and stored full outputs; public queries; daily orphan cleanup.
+- [x] `scripts/publish_run.py` with adapters for the decision engine's stdout, the swarm's `results.json` and `research/tok-land/`; tested on fixtures trimmed from real outputs.
+- [x] Live Workstreams cards and per-sample land records, with the static pending view as the offline fallback.
+- [x] Vercel `/api` function with a route table and server-secret helper; the offline `vercel build` check passes.
+- [ ] Salman: create the Convex project, set the three `INGEST_SECRET_*` values on dev and prod, and share each with its owner only.
+- [ ] Arjin: `python3 scripts/publish_run.py land research/tok-land` once `arjin/tok-land-data` merges.
+- [ ] Salman: publish the decision output with the right mode once `salman/decision-engine` merges.
+- [ ] Muhd: `python3 scripts/publish_run.py swarm swarm/records/results/results.json` after the scored runs.
+
 ## Gold stakeholder swarm on MiroFish (owner: Muhd)
 
 Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).

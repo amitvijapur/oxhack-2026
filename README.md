@@ -93,6 +93,9 @@ npm run preview -- --port 4173 --strictPort
 The existing `Repository checks` and `Secret scan` job names remain unchanged.
 Hosted results are not established by a local build. Backend and deployment
 steps are in [the frontend guide](frontend/README.md#run-with-the-convex-backend).
+Teammates publish land, swarm and decision outputs to the website with
+`scripts/publish_run.py`; secrets, publish commands and API routes are in
+[the infrastructure guide](docs/infrastructure.md).
 
 ## Open decisions
 
