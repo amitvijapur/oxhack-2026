@@ -22,6 +22,22 @@ Publication review confirmed the approved PPTX/PDF bytes, nine matching note par
 licences and image attribution. Whitespace and redacted directory scans passed.
 The 29 changed paths contain only brand/presentation assets and their index notes.
 
+# Clarify the geological screen and show financial diagnostics in Decide
+
+Owner: Amit. Codex coordinates a scoped frontend worker and independent review. Build on Muhd's merged Decide/Land/Crowd layout. Keep the canonical model and source datasets unchanged.
+
+- [x] Replace geological BUY/SKIP wording with explicit screen outcomes, including incomplete evidence and the area-level scope of selected plots.
+- [x] Add a visible hypothetical financial section in Decide using the existing canonical engine, selected site, horizon and clearly identified scenario assumptions.
+- [x] Show expected return and baseline delta, probability of no sale and negative net cash, median/worst cash returns, and existing break-even premium/liquidity diagnostics with their units and limitations.
+- [x] Verify A/B, 30/90/180-day and unavailable states through meaningful tests, build/type checks and desktop/mobile browser inspection; independently review the calculation wiring and wording.
+- [x] Record verification and the local preview. No automatic push or merge is part of this change.
+
+Acceptance: geological PASS alone never appears as a buy instruction; economic action comes from canonical entryAction and cannot override a failed screen. Financial inputs remain hypothetical, the live gold quote is separate from the assumed model price, and an unsold mark is never presented as cash. Reuse the existing conservative website preset without changing weights, coefficients or source observations. Recorded scenarios, if exposed, retain their illustrative provenance and unavailable conditions remain unavailable.
+
+Review: Decide now shows Screen passed/failed/incomplete, followed by a separate hypothetical financial decision and risk section. The current site, holding period and labelled synthetic/baseline/recorded scenario feed the canonical engine. Fixed financial assumptions, including the separate USD2,000/oz model price, 1% gold-response cap and 50% retention, are explicit. Crowd and the explanatory story use matching terminology. The full adjustable legacy workbench is not remounted.
+
+Verification on Node 24.14.0: `npm test` passed 59 tests, including six new numerical/rendering tests; canonical model and event tests passed 137; specification validation passed 29 checks; typecheck and production build passed. Full lint has zero errors and four inherited backend warnings. Independent source/arithmetic review passed. Production browser checks at 1440px and 320px confirmed A/B gates, all three horizons, all four scenarios, selected plot B-19 synchronisation, keyboard selection, readable diagnostics, no horizontal overflow and no console errors. Missing evidence and missing scenario states were verified in tests. The broader legacy browser-smoke harness was updated but not run end to end. Canonical model, source data and dependencies are unchanged. Local production preview: http://127.0.0.1:5192/. No push, merge or hosted deployment.
+
 ## Publish and squash merge the verified forecast
 
 Owner: Amit. Codex publishes the already reviewed branch. Amit explicitly authorized push and squash merge after all checks pass.

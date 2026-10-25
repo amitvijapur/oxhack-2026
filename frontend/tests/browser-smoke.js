@@ -42,18 +42,30 @@ async page => {
   check(await page.getByRole('tab').count() === 3, 'The panel must have exactly three tabs');
   check(await page.getByRole('tab', { name: 'Decide' }).getAttribute('aria-selected') === 'true', 'Decide must open first');
   const call = page.locator('.decide .answer-signal');
-  await page.waitForFunction(() => /^(BUY candidate|SKIP)$/.test(document.querySelector('.decide .answer-signal')?.textContent ?? ''), null, { timeout: 15000 });
+  await page.waitForFunction(() => /^(Screen passed|Screen failed)$/.test(document.querySelector('.decide .answer-signal')?.textContent ?? ''), null, { timeout: 15000 });
   const top = await page.locator('.decide').innerText();
   const decideGold = (await page.locator('.live').innerText()).match(/\$[\d,]+/)?.[0];
   check(decideGold && top.includes(decideGold), 'Decide must show the same gold price as the header');
-  check(top.includes('Site A · BUY candidate · passes the gold-evidence screen'), 'Site A must show its call and reason');
+  check(top.includes('Site A · Screen passed · passes the gold-evidence screen'), 'Site A must show its call and reason');
   const decide = await panel.evaluate((el) => el.textContent);
-  for (const pattern of [/\bEV\b/, /P\(loss\)/, /Outlook/, /Inputs missing/, /Not the gold price/]) check(!pattern.test(decide), `Decide should not show ${pattern}`);
+  check(!top.includes('BUY') && !top.includes('SKIP'), 'The geological screen must not be a trading instruction');
+  for (const part of ['Hypothetical economics', 'Financial decision and cash risk', 'Probability of no sale', 'Probability of negative net cash', 'Maximum entry premium']) check(decide.includes(part), `Decide missing ${part}`);
+  const financial = panel.locator('.financial-decision');
+  check((await financial.innerText()).includes('1.52%') && (await financial.innerText()).includes('+0.44 pp'), 'Default financial scenario must use the conservative canonical calculation');
+  await panel.getByLabel('Holding period').selectOption('30');
+  check((await financial.innerText()).includes('Skip hypothetical contract') && (await financial.innerText()).includes('-58.39%'), '30-day cash risk must change the financial action');
+  await panel.getByLabel('Holding period').selectOption('180');
+  check((await financial.innerText()).includes('53.50%'), '180-day return must be recalculated');
+  await panel.getByLabel('Holding period').selectOption('90');
+  await panel.getByLabel('Financial scenario').selectOption('mine_approval');
+  check((await financial.innerText()).includes('-0.02 pp'), 'Recorded approval must retain its negative contrast');
+  await panel.getByLabel('Financial scenario').selectOption('synthetic');
   const box = await page.locator('.decide').boundingBox();
   check(box && box.y + box.height <= 900, 'The Decide top block must fit without scrolling');
   await page.getByRole('radio', { name: /Site B/ }).click();
-  check(await call.innerText() === 'SKIP', 'Site B fails its gold screen, so its call is SKIP');
+  check(await call.innerText() === 'Screen failed', 'Site B must show a failed geological screen');
   check((await page.locator('.decide').innerText()).includes('fails the gold-evidence screen (16 of 34 samples, needs 17)'), 'Site B must give its screen counts');
+  check((await financial.innerText()).includes('Skip hypothetical contract'), 'Site B must fail the economic gate even with positive assumed returns');
   await page.getByRole('radio', { name: /Site A/ }).click();
   await page.screenshot({ path: 'frontend/artifacts/1-decide.png' });
 
@@ -96,7 +108,7 @@ async page => {
   await page.getByRole('button', { name: 'Previous plot' }).click();
   await page.getByRole('button', { name: /Test this plot in Decide/ }).click();
   check((await page.locator('.decide').innerText()).includes('Testing plot B-19'), 'Decide must name the plot it was sent');
-  check(await call.innerText() === 'SKIP', 'B-19 sits in Site B, so Decide must show Site B');
+  check(await call.innerText() === 'Screen failed', 'B-19 sits in Site B, so Decide must show Site B');
   await page.getByRole('tab', { name: 'Land' }).click();
   await page.getByRole('button', { name: 'Close plot' }).click();
 
@@ -113,7 +125,7 @@ async page => {
   check(await page.locator('.crowd-chart').count() === 5, 'Crowd needs one chart per group');
   check(await page.locator('.crowd-chart').first().locator('.crowd-line').count() === 4, 'Each chart needs the four judged scenarios');
   const crowd = await panel.innerText();
-  check(crowd.includes("Exploratory: an unrelated news item moved the mood too, so the call doesn't use the crowd yet."), 'Crowd caveat missing');
+  check(crowd.includes('The geological screen does not use the crowd.') && crowd.includes('the price response is uncalibrated'), 'Crowd caveat missing');
   for (const part of ['not run', 'chance band', 'gpt-', 'glm-']) check(!crowd.toLowerCase().includes(part), `Crowd should not show "${part}"`);
   await page.screenshot({ path: 'frontend/artifacts/3-crowd.png' });
 
@@ -128,7 +140,7 @@ async page => {
   check(storyText.includes('25/33 · PASS') && storyText.includes('16/34 · FAIL'), 'Story must show the model evidence gate');
   check(storyText.includes('An available Tok option and verified terms'), 'Story must list the model gaps');
   check(!storyText.includes('$4,500'), 'The story must not quote the simulated day-1 gold price');
-  check(storyText.includes("A BUY candidate isn't a trade until the real inputs exist."), 'Story must say a BUY candidate is not a trade');
+  check(storyText.includes('A passed geological screen is only the first gate.'), 'Story must distinguish a geological screen from a trade');
   await page.keyboard.press('Escape');
   await story.waitFor({ state: 'detached' });
 

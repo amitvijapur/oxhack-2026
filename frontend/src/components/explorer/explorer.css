@@ -541,9 +541,10 @@
 .sheet-value { margin-top: 2px; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 .sheet-value-sm { margin-top: 4px; font-size: 14px; font-weight: 500; }
 
-/* Decide: the call, its reason and the gold price sit above the fold; the reasons fold away beneath. */
+/* Decide keeps observed geological eligibility separate from hypothetical economics. */
 .decide-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
-.decide .answer-signal span { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.decide .eyebrow, .financial-decision .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-3); text-transform: uppercase; }
+.decide .answer-signal { font-size: clamp(27px, 4vw, 36px); }
 .decide .answer-why { margin: 10px 0 14px; }
 .decide .mini-stats { grid-template-columns: 1fr; }
 .decide .mini-stats dd small { display: block; margin-top: 2px; font-family: var(--font-sans); font-weight: 400; }
@@ -554,6 +555,24 @@
 .fold[open] summary::after { content: "−"; }
 .fold > :last-child { margin-bottom: 16px; }
 .fold-list { display: grid; gap: 8px; padding-left: 16px; list-style: disc; font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+.financial-decision { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
+.financial-decision h3 { margin: 5px 0 8px; font-size: 21px; line-height: 1.25; }
+.financial-controls { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 10px; margin: 18px 0; }
+.financial-controls label { display: grid; gap: 6px; min-width: 0; font-size: 12px; color: var(--ink-2); }
+.financial-controls select { width: 100%; min-width: 0; min-height: 38px; padding: 7px; border: 1px solid var(--line); border-radius: 7px; background: var(--raised); color: var(--ink); font: inherit; }
+.financial-controls select:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.financial-result h4 { margin: 0 0 6px; font-size: 19px; }
+.financial-returns { margin-top: 12px; }
+.financial-decision .mini-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.financial-returns > div:first-child { grid-column: 1 / -1; }
+.financial-returns > div:first-child dd { font-size: 27px; }
+.financial-decision .mini-stats dd { overflow-wrap: anywhere; }
+.financial-subhead { margin: 20px 0 10px; font-size: 14px; }
+.financial-decision .note { margin: 10px 0; }
+.financial-decision a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 380px) {
+  .financial-controls { grid-template-columns: 1fr; }
+}
 
 /* Crowd: one small chart per group on one shared scale. Baseline stays neutral as the reference;
    the three scenarios take the first three categorical hues, checked for colour-blind separation on this surface. */

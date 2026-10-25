@@ -2,8 +2,9 @@
 
 The Next.js application presents **Land Arbitrage: Gold**, a Cesium explorer for
 Tok River, Alaska. The side panel has three tabs. Decide (the default) shows the
-live gold price and each comparison site's call from the canonical gold-evidence
-screen, with no option dollar outputs. Land lists the sampled plots with a short
+live gold price and each comparison site's geological screen, followed by a
+separate hypothetical financial decision with percentage returns, cash risks
+and break-even assumptions. Land lists the sampled plots with a short
 plot card. Crowd charts the judged swarm scenarios. The site opens on today: claims held now and the gold spot, then
 plays the next 12 months forward using the model's descriptive 2020–25 gold
 trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
@@ -129,17 +130,27 @@ browser smoke check. No component holds swarm numbers of its own.
 
 ## Canonical decision model
 
-The Decide tab reads only the gold-evidence screen (`evidenceByArea` in
-`src/lib/canonical-model.js`). The Decision tab component, no longer mounted in the
-panel, embeds `src/ModelWorkbench.jsx`, importing the pure
-`../model/tok-option/workbench.mjs` engine. The website always opens and resets
-in hypothetical demo mode, with no alternative financial modes. Total expected
-cash and change versus baseline are separate, and the current break-even
-premium comes from the canonical cash diagnostics. The engine's programmatic
+The Decide tab presents two distinct layers. The geological screen
+(`evidenceByArea` in `src/lib/canonical-model.js`) reports passed, failed or
+incomplete, never a buy recommendation. Selecting a land plot uses its area's
+screen, not a plot-specific valuation. `FinancialDecision.jsx` then calls the
+same pure `../model/tok-option/workbench.mjs` engine through the presentation
+adapter `src/decide-financial.mjs`, with the selected site and 30/90/180-day
+horizon. The existing conservative website preset is unchanged. Economic
+action comes from the engine and cannot override a failed evidence gate.
+
+The financial section is always hypothetical. It shows expected cash return,
+baseline delta in percentage points, no-sale and negative-net-cash probability,
+median/worst cash returns, and canonical break-even premium and sale-rate
+thresholds. Monetary assumptions retain USD units. The $2,000/oz model input is
+separate from the live spot quote. An unsold mark is not a cash receipt.
+Missing scenarios stay unavailable. The older full `ModelWorkbench.jsx` and
+Decision tab remain in source but are not mounted. The engine's programmatic
 pending/real modes still retain null financial outputs.
 
-**Use existing swarm results** compares the recorded Claude approval/blockage
-posts with matching sports placebo inside hypothetical economics. It retains
+Decide's recorded approval/blockage scenarios compare simulated posts with
+matching sports placebo inside hypothetical economics. They retain the same
+1% response cap and 50% retention as the synthetic preset. They retain
 failed research checks and source identity. Strict source imports still require
 readiness; no missing event is filled with an invented simulation. Historical
 CAGR is an optional assumption, not a forecast.

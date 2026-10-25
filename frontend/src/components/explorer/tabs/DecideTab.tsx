@@ -2,22 +2,24 @@
 
 import { useMemo } from "react";
 import { evidenceByArea } from "@/lib/canonical-model.js";
+import { geologicalScreenLabel } from "@/decide-financial.mjs";
 import { anomalyClass, formatAssayValue, plotReading, plotStatus, usd, type Geochem, type Plot, type Plots } from "@/lib/showcase";
 import type { Sample } from "@/lib/types";
 import type { Gold } from "../LivePill";
 import { TabBody } from "../TabBody";
 import { orderPlots } from "./LandTab";
+import FinancialDecision from "./FinancialDecision";
 
 export type Site = "A" | "B";
 const SITE_NAMES: Record<Site, string> = { A: "Tok west", B: "Tok east" };
 const CLASS_NAMES = ["below typical", "above typical", "in the top 10% of sites", "in the top 2% of sites"] as const;
 
-type Screen = { gate: string; pass: number; total: number; rule: { thresholdPpm: number; minimumClassifiedSamples: number; minimumQualifyingFraction: number } };
+type Screen = { gate: string; pass: number; fail: number; unknown: number; total: number; rule: { thresholdPpm: number; minimumClassifiedSamples: number; minimumQualifyingFraction: number } };
 
 const titleCase = (text: string) => text.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()).replace(/\bLlc\b/g, "LLC");
-const moreSamples = (n: number) => (n === 1 ? "one more qualifying sample" : `${n} more qualifying samples`);
+const moreSamples = (n: number) => (n === 1 ? "one more sample" : `${n} more samples`);
 
-/** The call for one site from the gold-evidence screen, next to the live gold price, then why and what would flip it. */
+/** Area-level geological eligibility followed by separate hypothetical contract economics. */
 export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }: {
   features: Sample[];
   gold: Gold | null;
@@ -33,7 +35,7 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
   const needed = Math.ceil(screen.rule.minimumQualifyingFraction * screen.total);
   const passes = screen.gate === "PASS";
   const fails = screen.gate === "FAIL";
-  const call = passes ? "BUY candidate" : fails ? "SKIP" : "NO CALL";
+  const call = geologicalScreenLabel(screen.gate);
   const reason = passes ? "passes the gold-evidence screen" : fails ? "fails the gold-evidence screen" : "the gold-evidence screen is incomplete";
 
   // The plot sent from Land, or else the site's richest plot, so Why always names real ground.
@@ -51,9 +53,10 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
         { label: `Checked Alaska DNR claim snapshot retrieved ${plots.claims_retrieved}` },
       ]}
     >
-      <section className="answer decide" aria-label="The call">
+      <section className="answer decide" aria-label="Geological screen">
+        <p className="eyebrow">Geological screen</p>
         <div className="decide-head">
-          <p className={`answer-signal${passes ? " is-buy" : ""}`}>{passes ? <>BUY <span>candidate</span></> : call}</p>
+          <p className="answer-signal">{call}</p>
           <div className="segmented" role="radiogroup" aria-label="Site">
             {(["A", "B"] as Site[]).map((s) => (
               <button key={s} type="button" role="radio" aria-checked={site === s} onClick={() => onSite(s)}>
@@ -63,8 +66,8 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
           </div>
         </div>
         <p className="answer-why">
-          Site {site} · {call} · {reason} ({screen.pass} of {screen.total} samples, needs {needed}).
-          {tested ? ` Testing plot ${tested.label}: the call covers all of Site ${site}.` : null}
+          Site {site} · {call} · {reason} {passes || fails ? `(${screen.pass} of ${screen.total} samples, needs ${needed}).` : `(${screen.pass + screen.fail} classified of ${screen.total} samples; at least ${screen.rule.minimumClassifiedSamples} classified and ${screen.rule.minimumQualifyingFraction * 100}% qualifying are required).`}
+          {tested ? ` Testing plot ${tested.label}: this screen covers all of Site ${site}, not this plot alone.` : null}
         </p>
         <dl className="mini-stats">
           <div>
@@ -72,11 +75,11 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
             <dd className="tabular">{gold ? usd(gold.usd_per_oz) : "—"}<small>{gold ? (gold.stale ? "last spot price" : "live spot") : "connecting"}</small></dd>
           </div>
         </dl>
-        <p className="note">The call comes from the gold-evidence screen on the 2016 state stream samples. It doesn&apos;t estimate ounces or value.</p>
+        <p className="note">This is a geological evidence screen on the 2016 state stream samples, not a buy recommendation. It doesn&apos;t estimate ounces or value. Live gold does not change the screen.</p>
       </section>
 
       <details className="fold">
-        <summary>Why</summary>
+        <summary>Why this geological result</summary>
         <ul className="fold-list">
           <li>Gold-evidence screen: {screen.pass} of {screen.total} stream samples at Site {site} carry at least {screen.rule.thresholdPpm} ppm gold, and the screen needs {needed}.</li>
           {focus && reading ? (
@@ -87,19 +90,21 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
               {status === "held" ? `Its claim is held by ${titleCase(focus.owner ?? "")} since ${focus.start}.` : status === "lapsed" ? `Its claim was staked in ${focus.start} and lapsed in ${focus.end}.` : "No overlap in the checked state-claim snapshot. The square isn't a parcel, and the check doesn't establish availability or mineral rights."}
             </li>
           ) : null}
-          <li>{passes ? "A BUY candidate has passed the screen only. Contract terms, recoverable ounces and resale value are still unknown." : "The model doesn't enter a site that fails the screen, whatever the terms."}</li>
-          <li>The crowd simulation doesn&apos;t feed this call yet (see Crowd).</li>
+          <li>{passes ? "Passing makes the area eligible for further evaluation only. Actual contract terms, recoverable ounces and resale value remain unknown." : fails ? "The financial model cannot enter a site that fails this screen, whatever the hypothetical terms." : "No geological eligibility is established until the evidence is sufficient and unambiguous."}</li>
+          <li>The crowd simulation does not feed the geological screen. It can be explored separately in the hypothetical financial scenarios below.</li>
         </ul>
       </details>
 
       <details className="fold">
-        <summary>What would flip it</summary>
+        <summary>What would change the screen</summary>
         <ul className="fold-list">
-          {fails ? <li>Site {site} would pass with {moreSamples(needed - screen.pass)} ({needed} of {screen.total}).</li> : null}
-          {passes ? <li>Site {site} would fall to SKIP only if its qualifying samples dropped below {needed}: it has {screen.pass} of {screen.total}.</li> : null}
-          {!passes && !fails ? <li>The screen needs at least {screen.rule.minimumClassifiedSamples} classified samples.</li> : null}
+          {fails ? <li>With the same {screen.total} samples, Site {site} would pass if {moreSamples(needed - screen.pass)} qualified ({needed} of {screen.total}). New samples also change the denominator.</li> : null}
+          {passes ? <li>With the same sample count, Site {site} would stop passing if fewer than {needed} samples qualified. A definitive failure also requires the unclassified samples to be unable to meet the threshold.</li> : null}
+          {!passes && !fails ? <li>The screen needs at least {screen.rule.minimumClassifiedSamples} classified samples and an unambiguous qualifying fraction of {screen.rule.minimumQualifyingFraction * 100}%. Currently {screen.pass + screen.fail} are classified and {screen.unknown} are unknown.</li> : null}
         </ul>
       </details>
+
+      <FinancialDecision features={features} area={site} />
     </TabBody>
   );
 }
