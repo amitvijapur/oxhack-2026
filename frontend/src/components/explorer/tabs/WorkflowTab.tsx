@@ -9,7 +9,7 @@ import swarmSource from "../../../../../model/tok-option/data/swarm-source.json"
 import { TabBody } from "../TabBody";
 
 const frameFor = (scenarioId: string) => getAlgorithmFrame(algorithmSnapshot, { area: "A", scenarioId, horizonDays: 90 });
-const usd = (value: number | null | undefined, digits = 2) => (value === null || value === undefined ? "—" : `$${value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits })}`);
+const usd = (value: number | null | undefined, digits = 2) => (value === null || value === undefined ? "—" : `${value < 0 ? "−" : ""}$${Math.abs(value).toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits })}`);
 const signed = (value: number | null | undefined) => (value === null || value === undefined ? "—" : `${value > 0 ? "+" : value < 0 ? "−" : ""}${Math.abs(value).toFixed(3)}`);
 
 /**
