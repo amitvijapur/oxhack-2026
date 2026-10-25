@@ -1,0 +1,319 @@
+{
+  "name": "Orecast",
+  "modelVersion": "tok-option-demo-v2",
+  "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+  "sourceUrl": "https://github.com/amitvijapur/oxhack-2026/tree/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+  "formulas": {
+    "support": "s = sum_group(weight_group * (mean_days3to5(event) - mean_days3to5(reference)) / 10)",
+    "baselineGold": "P_base(t) = P0 * (1 + g)^(t / 365)",
+    "goldResponse": "r_Au = goldResponseCap * s * exposure * retention",
+    "scenarioGold": "P_scenario(t) = P_base(t) * (1 + r_Au)",
+    "material": "G(t) = sum_i(Q_i * P_scenario_i(t)); only Au receives the response",
+    "interest": "V_success(t) = ownership * kappa * G(t)",
+    "assignment": "A(t) = pGeo * max(V_success(t) - buyerConsideration, 0)",
+    "saleWeight": "w_j = (1-h)^(j-1) * h; j=1..horizonDays/30",
+    "noSale": "P_no_sale = (1-h)^(horizonDays/30)",
+    "cash": "E[cash] = sum_j(w_j * (A(30*j) - exitFee)) - premium - entryFee - unavoidableUpfrontObligations",
+    "return": "expected option return = E[cash] / upfrontRisk; non-annualized",
+    "change": "delta return in percentage points = 100 * (R_scenario - R_baseline)",
+    "expiry": "horizonDays + 15 <= remainingMaturityDays"
+  },
+  "assumedInputs": {
+    "area": "A",
+    "horizonDays": 90,
+    "goldResponseCap": 0.07,
+    "quantity": 500,
+    "price": 2000,
+    "annualGrowthRate": 0,
+    "ownershipFraction": 0.5,
+    "kappa": 0.02,
+    "pGeo": 0.25,
+    "remainingBuyerConsiderationUsd": 4000,
+    "entryPremiumUsd": 650,
+    "entryFeeUsd": 50,
+    "exitFeeUsd": 50,
+    "unavoidableAdditionalObligationsUsd": 0,
+    "remainingMaturityDays": 365,
+    "hazardPer30Days": 0.2,
+    "eventExposure": 1,
+    "retention": 1,
+    "weights": {
+      "government": 0.1,
+      "industry": 0.4,
+      "community": 0.07,
+      "funds": 0.4,
+      "retail": 0.03
+    }
+  },
+  "baseline": [
+    {
+      "horizonDays": 30,
+      "scenarioId": "baseline",
+      "area": "A",
+      "supportContrast": 0,
+      "scenarioGoldUsdPerOz": 2000,
+      "scenarioAssignmentUsd": 1500,
+      "scenarioExpectedCashUsd": -410,
+      "scenarioOptionReturnPercent": -58.57142857142858,
+      "upfrontRiskUsd": 700,
+      "saleProbability": 0.19999999999999996,
+      "noSaleProbability": 0.8
+    },
+    {
+      "horizonDays": 90,
+      "scenarioId": "baseline",
+      "area": "A",
+      "supportContrast": 0,
+      "scenarioGoldUsdPerOz": 2000,
+      "scenarioAssignmentUsd": 1500,
+      "scenarioExpectedCashUsd": 7.600000000000023,
+      "scenarioOptionReturnPercent": 1.085714285714289,
+      "upfrontRiskUsd": 700,
+      "saleProbability": 0.4879999999999999,
+      "noSaleProbability": 0.5120000000000001
+    },
+    {
+      "horizonDays": 180,
+      "scenarioId": "baseline",
+      "area": "A",
+      "supportContrast": 0,
+      "scenarioGoldUsdPerOz": 2000,
+      "scenarioAssignmentUsd": 1500,
+      "scenarioExpectedCashUsd": 369.8912,
+      "scenarioOptionReturnPercent": 52.8416,
+      "upfrontRiskUsd": 700,
+      "saleProbability": 0.7378559999999998,
+      "noSaleProbability": 0.2621440000000001
+    }
+  ],
+  "recordedScenarios": {
+    "mine_approval": [
+      {
+        "horizonDays": 30,
+        "scenarioId": "mine_approval",
+        "area": "A",
+        "supportContrast": -0.02517925880444946,
+        "scenarioGoldUsdPerOz": 1996.474903767377,
+        "scenarioAssignmentUsd": 1495.5936297092217,
+        "scenarioExpectedCashUsd": -410.88127405815567,
+        "scenarioOptionReturnPercent": -58.69732486545081,
+        "upfrontRiskUsd": 700,
+        "saleProbability": 0.19999999999999996,
+        "noSaleProbability": 0.8
+      },
+      {
+        "horizonDays": 90,
+        "scenarioId": "mine_approval",
+        "area": "A",
+        "supportContrast": -0.02517925880444946,
+        "scenarioGoldUsdPerOz": 1996.474903767377,
+        "scenarioAssignmentUsd": 1495.5936297092217,
+        "scenarioExpectedCashUsd": 5.449691298100333,
+        "scenarioOptionReturnPercent": 0.7785273283000476,
+        "upfrontRiskUsd": 700,
+        "saleProbability": 0.4879999999999999,
+        "noSaleProbability": 0.5120000000000001
+      },
+      {
+        "horizonDays": 180,
+        "scenarioId": "mine_approval",
+        "area": "A",
+        "supportContrast": -0.02517925880444946,
+        "scenarioGoldUsdPerOz": 1996.474903767377,
+        "scenarioAssignmentUsd": 1495.5936297092217,
+        "scenarioExpectedCashUsd": 366.6399332427277,
+        "scenarioOptionReturnPercent": 52.37713332038967,
+        "upfrontRiskUsd": 700,
+        "saleProbability": 0.7378559999999998,
+        "noSaleProbability": 0.2621440000000001
+      }
+    ],
+    "mine_blocked": [
+      {
+        "horizonDays": 30,
+        "scenarioId": "mine_blocked",
+        "area": "A",
+        "supportContrast": 0.030734331593609505,
+        "scenarioGoldUsdPerOz": 2004.3028064231053,
+        "scenarioAssignmentUsd": 1505.3785080288817,
+        "scenarioExpectedCashUsd": -408.9242983942236,
+        "scenarioOptionReturnPercent": -58.417756913460515,
+        "upfrontRiskUsd": 700,
+        "saleProbability": 0.19999999999999996,
+        "noSaleProbability": 0.8
+      },
+      {
+        "horizonDays": 90,
+        "scenarioId": "mine_blocked",
+        "area": "A",
+        "supportContrast": 0.030734331593609505,
+        "scenarioGoldUsdPerOz": 2004.3028064231053,
+        "scenarioAssignmentUsd": 1505.3785080288817,
+        "scenarioExpectedCashUsd": 10.2247119180945,
+        "scenarioOptionReturnPercent": 1.460673131156357,
+        "upfrontRiskUsd": 700,
+        "saleProbability": 0.4879999999999999,
+        "noSaleProbability": 0.5120000000000001
+      },
+      {
+        "horizonDays": 180,
+        "scenarioId": "mine_blocked",
+        "area": "A",
+        "supportContrast": 0.030734331593609505,
+        "scenarioGoldUsdPerOz": 2004.3028064231053,
+        "scenarioAssignmentUsd": 1505.3785080288817,
+        "scenarioExpectedCashUsd": 373.85976442015885,
+        "scenarioOptionReturnPercent": 53.40853777430841,
+        "upfrontRiskUsd": 700,
+        "saleProbability": 0.7378559999999998,
+        "noSaleProbability": 0.2621440000000001
+      }
+    ]
+  },
+  "historicalPilot": {
+    "eventCount": 12,
+    "instruments": [
+      "NG",
+      "NAK"
+    ],
+    "horizons": [
+      {
+        "tradingSessions": 5,
+        "primary": true,
+        "trainCount": 7,
+        "testCount": 5,
+        "trainEventIds": [
+          "NG-20200206-state-authorizations",
+          "NAK-20200724-final-eis",
+          "NAK-20200824-not-permittable",
+          "NAK-20201125-permit-denial",
+          "NAK-20210225-appeal-accepted",
+          "NAK-20220525-epa-proposal",
+          "NAK-20221202-epa-recommendation"
+        ],
+        "testEventIds": [
+          "NAK-20230131-epa-final",
+          "NAK-20230426-appeal-remand",
+          "NAK-20240416-remand-stopped",
+          "NG-20251027-fast41",
+          "NG-20251118-state-court-upholds"
+        ],
+        "metrics": {
+          "goldBaseline": {
+            "maePercentagePoints": 3.129094706562224,
+            "directionHits": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "sampleSize": 5
+          },
+          "eventModel": {
+            "maePercentagePoints": 8.059555218458533,
+            "directionHits": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "sampleSize": 5
+          },
+          "noChange": {
+            "maePercentagePoints": 2.556165327782003,
+            "directionHits": {
+              "numerator": 3,
+              "denominator": 5,
+              "rate": 0.6
+            },
+            "sampleSize": 5
+          }
+        },
+        "eventVersusGoldMaeReductionPercentagePoints": -4.9304605118963085
+      },
+      {
+        "tradingSessions": 20,
+        "primary": false,
+        "trainCount": 6,
+        "testCount": 5,
+        "trainEventIds": [
+          "NG-20200206-state-authorizations",
+          "NAK-20200724-final-eis",
+          "NAK-20200824-not-permittable",
+          "NAK-20201125-permit-denial",
+          "NAK-20210225-appeal-accepted",
+          "NAK-20220525-epa-proposal"
+        ],
+        "testEventIds": [
+          "NAK-20221202-epa-recommendation",
+          "NAK-20230131-epa-final",
+          "NAK-20230426-appeal-remand",
+          "NAK-20240416-remand-stopped",
+          "NG-20251027-fast41"
+        ],
+        "metrics": {
+          "goldBaseline": {
+            "maePercentagePoints": 7.567043516164337,
+            "directionHits": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "sampleSize": 5
+          },
+          "eventModel": {
+            "maePercentagePoints": 14.310828266970665,
+            "directionHits": {
+              "numerator": 0,
+              "denominator": 5,
+              "rate": 0
+            },
+            "sampleSize": 5
+          },
+          "noChange": {
+            "maePercentagePoints": 5.947409162738812,
+            "directionHits": {
+              "numerator": 2,
+              "denominator": 5,
+              "rate": 0.4
+            },
+            "sampleSize": 5
+          }
+        },
+        "eventVersusGoldMaeReductionPercentagePoints": -6.743784750806328
+      }
+    ],
+    "swarmLift": {
+      "status": "unavailable",
+      "value": null,
+      "reason": "Zero historical outcomes are paired with the existing fictional swarm scenarios. Event polarity is not a swarm prediction."
+    },
+    "limitations": [
+      "This is a small source-selected liquid-equity event sample, with repeated issuers and correlated events. Numeric comparisons do not establish broad predictive accuracy.",
+      "Current-vintage adjusted prices lack historical as-of vintages. Adjusted closes are not literal executable fills; the delayed-close policy is hypothetical.",
+      "GLD is a traded gold ETF, not spot gold. Stock-minus-benchmark returns are observed diagnostics, not forecasts or a replicated hedge.",
+      "Favourable events alone enter the long-only diagnostic; adverse/mixed events hold cash. Costs are an assumed stress, not measured execution.",
+      "The pilot does not estimate Tok option returns, mineral resources, assignment liquidity or incremental swarm value.",
+      "This is a bounded, incomplete source sample, not a comprehensive event census.",
+      "Nine Pebble events and three Donlin events are heavily concentrated in two issuers.",
+      "Procedural admissions, environmental review completion, proposed restrictions and final decisions differ in materiality; direction is a coarse document-effect code.",
+      "All timestamps are date-only; several announcements lag actions and may lag first public awareness.",
+      "Donlin adverse and mixed rulings were located in later reports but excluded where contemporaneous qualifying publication could not be verified. This can create direction and source-availability bias.",
+      "Publication dates identify documented availability, not surprise, investor knowledge, or market reaction.",
+      "Issuer and government releases have interested-party framing; direction rationales use procedural effect rather than their promotional claims.",
+      "Current-vintage vendor history may contain later corrections; no archived as-of vintage is claimed.",
+      "GLD is a traded gold ETF proxy, not spot gold or a Tok mineral-interest price.",
+      "Adjusted closes are total-return comparison inputs, not literal executable fill quotes.",
+      "No missing price is forward-filled. The hypothetical closing-entry policy assumes access to a closing execution.",
+      "Penny-stock prices may have limited vendor precision. Some NAK evaluation windows are flat at the supplied precision; those zeros are not independently verified at finer precision."
+    ]
+  },
+  "limits": [
+    "Financial economics, gold response and persistence are uncalibrated assumptions.",
+    "Recorded support is mining_support, not option buyer demand or measured gold returns.",
+    "Strict research readiness remains failed; actual-post what-if calculation does not clear source failures.",
+    "Six scored simulation runs, three absent news scenarios; input knowledge cutoff unknown.",
+    "Historical pilot is 12 retrospectively selected equity events with five holdout observations, not Tok option returns.",
+    "No-change beats both other models on both pilot horizons. No paired historical swarm/financial outcomes exist.",
+    "A/B are evidence comparison areas, not legal parcels or available contracts.",
+    "No-sale probability and economic gates are distinct from probability of geological success; unsold marks are not cash."
+  ]
+}
