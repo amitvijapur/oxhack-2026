@@ -96,7 +96,7 @@ export function PresenceBridge({ focus, onChange }: { focus: string | null; onCh
   const sid = useRef<string | null>(null);
   const me = useRef<string | null>(null);
   const focusRef = useRef(focus);
-  focusRef.current = focus;
+  useEffect(() => { focusRef.current = focus; }, [focus]);
 
   useEffect(() => {
     sid.current ??= tabId();

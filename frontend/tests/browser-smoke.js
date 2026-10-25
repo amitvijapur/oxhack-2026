@@ -3,9 +3,12 @@ async page => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('http://127.0.0.1:5173/');
+  await page.goto('http://127.0.0.1:3000/');
   await page.getByRole('heading', { name: 'Compare the two areas' }).waitFor();
-  await page.waitForFunction(() => document.querySelector('.evidence-map-frame')?.dataset.mapStatus === 'ready');
+  await page.waitForFunction(() => document.querySelector('.globe-frame')?.dataset.mapStatus === 'ready');
+  // The globe flies down to Tok first; sample markers exist only after it lands.
+  await page.getByRole('link', { name: 'Explore the map' }).click();
+  await page.waitForFunction(() => document.querySelector('.globe-frame')?.dataset.arrived === 'true', null, { timeout: 30000 });
   check((await page.locator('h1').innerText()).includes('gold worth claiming near Tok'), 'Hero question missing');
   await page.getByRole('button', { name: 'Browse all 67 samples' }).click();
   await page.evaluate(() => document.fonts.ready);
@@ -67,7 +70,7 @@ async page => {
     check(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `Horizontal overflow at ${width}px`);
     check(await page.locator('[data-sample-id]').count() === 67, 'Mobile lost sample markers');
     await page.waitForFunction(() => {
-      const frame = document.querySelector('.evidence-map-frame').getBoundingClientRect();
+      const frame = document.querySelector('.globe-frame').getBoundingClientRect();
       return [...document.querySelectorAll('[data-sample-id]')].every((marker) => {
         const box = marker.getBoundingClientRect();
         const x = box.x + box.width / 2;
@@ -95,7 +98,7 @@ async page => {
       return String(type).includes('webgl') ? null : original.call(this, type, ...args);
     };
   });
-  await fallbackPage.goto('http://127.0.0.1:5173/');
+  await fallbackPage.goto('http://127.0.0.1:3000/');
   await fallbackPage.locator('.sample-plot').waitFor();
   check(await fallbackPage.locator('[data-sample-id]').count() === 67, 'No-WebGL fallback lost samples');
   await fallbackPage.locator('[data-sample-id="16MBW012"]').focus();

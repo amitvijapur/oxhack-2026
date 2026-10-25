@@ -35,14 +35,16 @@ export type Measurement = {
   unit: string;
   counts: Record<AssayStatus, number>;
   censored_count: number;
-  quantified_only: { denominator: number; median_ppm: number | null; min: number | null; max: number | null };
+  quantified_only: { denominator: number; median_ppm: number | null; minimum_ppm: number | null; maximum_ppm: number | null };
 };
+
+export type MapCenter = { longitude: number; latitude: number; meaning: string };
 
 export type Area = {
   area: AreaKey;
   name: string;
   sample_count: number;
-  map_view_center: [number, number];
+  map_view_center: MapCenter;
   point_bounds: { west: number; south: number; east: number; north: number };
   geojson_path: string;
   measurements: Record<AssayPrefix, Measurement>;
@@ -50,11 +52,11 @@ export type Area = {
 
 export type EvidenceConfig = {
   schema_version: string;
-  source: { id: string; version: string; publication_url: string; doi?: string };
-  timeline: { collection_months: string[]; publication: { value: string } };
+  source: { id: string; version: string; publication_url: string; doi_url?: string };
+  timeline: { collection_months: string[]; publication: { value: string; precision: string } };
   areas: Area[];
-  overview: { sample_count: number; map_view_center: [number, number]; point_bounds: Area["point_bounds"] };
-  pending: Record<string, { owner?: string }>;
+  overview: { sample_count: number; map_view_center: MapCenter; point_bounds: Area["point_bounds"] };
+  pending: Record<string, { owner?: string; status?: string }>;
 };
 
 export type Evidence = { config: EvidenceConfig; features: Sample[] };

@@ -1,0 +1,196 @@
+/*
+ * Everything GlobeMap and SamplePlot draw outside React's styling: the frame,
+ * the beacon over Tok, the sample markers and the map overlays. Colours come
+ * from the tokens in globals.css so a theme change restyles the map too.
+ * A samples are circles, B samples are squares (DESIGN.md), so shape alone
+ * tells the areas apart.
+ */
+
+.globe-frame {
+  position: relative;
+  width: 100%;
+  height: min(78vh, 720px);
+  min-height: 470px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--map-sea);
+}
+.globe-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--map-sky);
+  transition: opacity 1.2s ease;
+}
+.globe-frame[data-stage="tok"][data-arrived="true"] .globe-stars { opacity: 0; }
+.globe-canvas { position: absolute; inset: 0; }
+.maplibregl-canvas:focus-visible { outline: 2px solid var(--ring); outline-offset: -3px; }
+
+/* The beacon: where Tok is while the globe turns. */
+.tok-beacon { width: 16px; height: 16px; pointer-events: none; transition: opacity 0.6s ease; }
+.tok-beacon.is-hidden { visibility: hidden; }
+.tok-beacon-core {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 2px var(--map-ink), 0 0 14px 2px color-mix(in oklab, var(--gold) 70%, transparent);
+}
+.tok-beacon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  animation: var(--animate-pulse-ring);
+}
+.tok-beacon-ring--late { animation-delay: 1.2s; }
+.tok-beacon-label {
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--font-caveat), cursive;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--map-ink);
+  text-shadow: 0 0 6px var(--map-halo), 0 0 2px var(--map-halo);
+}
+
+/* Sample markers: a 28 px target around a small stamp. */
+.sample-marker {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+/* MapLibre positions the marker with `transform`, so only its children animate. */
+.sample-marker > span { grid-area: 1 / 1; animation: marker-in 0.5s var(--enter-delay, 0ms) both cubic-bezier(0.16, 1, 0.3, 1); }
+.sample-marker-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--map-ink);
+  background: var(--area-a);
+  transition: transform 0.2s ease;
+}
+.sample-marker--b .sample-marker-dot { border-radius: 2px; background: var(--area-b); }
+.sample-marker-glow { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle, color-mix(in oklab, var(--gold) 75%, transparent), transparent 70%); opacity: 0; }
+.sample-marker[data-gold="mid"] .sample-marker-glow { opacity: 0.35; }
+.sample-marker[data-gold="high"] .sample-marker-glow { opacity: 0.7; }
+.sample-marker[data-gold="max"] .sample-marker-glow { opacity: 1; }
+.sample-marker[data-gold="high"] .sample-marker-dot,
+.sample-marker[data-gold="max"] .sample-marker-dot { background: var(--gold); }
+.sample-marker-viewers { width: 24px; height: 24px; border-radius: 50%; border: 1.5px dashed var(--accent-ink); opacity: 0; transition: opacity 0.3s ease; }
+.sample-marker[data-viewers] .sample-marker-viewers { opacity: 1; animation: spin-slow 9s linear infinite; }
+.sample-marker:hover .sample-marker-dot,
+.sample-marker.is-selected .sample-marker-dot { transform: scale(1.3); }
+.sample-marker.is-selected .sample-marker-dot { outline: 2px solid var(--map-ink); outline-offset: 3px; }
+.sample-marker:focus-visible { outline: none; }
+.sample-marker:focus-visible .sample-marker-dot { outline: 2px solid var(--ring); outline-offset: 3px; }
+
+/* Overlays. */
+.marker-tip {
+  position: absolute;
+  z-index: var(--z-overlay);
+  transform: translate(-50%, calc(-100% - 10px));
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.marker-tip strong { font-family: var(--font-plex-mono), monospace; font-weight: 600; }
+.marker-tip-live { display: inline-flex; align-items: center; gap: 4px; color: var(--accent-ink); }
+
+.nearby-samples {
+  position: absolute;
+  z-index: var(--z-overlay);
+  left: 16px;
+  top: 16px;
+  width: min(300px, calc(100% - 70px));
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 16px;
+}
+.nearby-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nearby-heading h3 { font-size: 15px; font-weight: 600; outline: none; }
+.nearby-heading button { border: 0; background: transparent; color: inherit; padding: 6px; cursor: pointer; border-radius: 6px; }
+.nearby-samples p { font-size: 12px; color: var(--muted-foreground); margin: 6px 0 10px; line-height: 1.5; }
+.nearby-samples ul { list-style: none; padding: 0; margin: 0; }
+.nearby-samples li + li { border-top: 1px solid var(--border); }
+.nearby-samples li button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 2px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.nearby-samples li button span:last-child { font-family: var(--font-plex-mono), monospace; font-size: 12px; color: var(--muted-foreground); }
+
+.map-status {
+  position: absolute;
+  z-index: var(--z-overlay);
+  left: 16px;
+  right: 16px;
+  top: 16px;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.map-status button { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; padding: 4px 8px; border: 1px solid currentColor; border-radius: 6px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+
+/* Flat fallback plot. */
+.sample-plot { position: absolute; inset: 0; display: grid; align-items: center; background: var(--map-land); }
+.sample-plot svg { width: 100%; max-height: 100%; }
+.plot-grid line { stroke: var(--border); stroke-width: 0.8; }
+.plot-grid text { fill: var(--muted-foreground); font-size: 11px; font-family: var(--font-plex-mono), monospace; }
+.plot-point { cursor: pointer; }
+.plot-point:focus-visible { outline: none; }
+.point-target { fill: transparent; }
+.point-dot { fill: var(--area-a); stroke: var(--map-ink); stroke-width: 1.5; }
+.plot-point--b .point-dot { fill: var(--area-b); }
+.point-ring { fill: none; stroke: var(--map-ink); stroke-width: 2; }
+.plot-point:hover .point-dot,
+.plot-point:focus-visible .point-dot { stroke: var(--ring); stroke-width: 3; }
+
+/* MapLibre controls, in the page's colours. */
+.maplibregl-ctrl-group { background: var(--card-solid); border-radius: 8px; box-shadow: 0 1px 6px rgb(0 0 0 / 0.18); }
+.maplibregl-ctrl-group button + button { border-top-color: var(--border); }
+.maplibregl-ctrl-attrib { font-size: 10px !important; background: var(--card-solid) !important; color: var(--muted-foreground) !important; }
+.maplibregl-ctrl-attrib a { color: var(--foreground) !important; }
+
+@media (min-width: 1024px) {
+  .sample-plot { padding-right: 420px; }
+  .maplibregl-ctrl-bottom-right { right: 420px; }
+}
+@media (max-width: 640px) {
+  .globe-frame { height: 460px; min-height: 380px; }
+  /* Keep the expanded attribution clear of the zoom and compass controls. */
+  .maplibregl-ctrl-bottom-right { left: 52px; display: flex; justify-content: flex-end; }
+}
+
+@keyframes marker-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }

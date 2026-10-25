@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import type { Map as MapLibreMap, Marker } from "maplibre-gl";
 import { Eye, RotateCw, X } from "lucide-react";
 import { formatAssay } from "@/lib/evidence.js";
@@ -79,7 +79,7 @@ export type GlobeMapProps = {
 };
 
 export default function GlobeMap(props: GlobeMapProps) {
-  const { stage, features, bounds, frame, selectedId, medians, viewerFocus, beacon, beaconLabel } = props;
+  const { stage, features, bounds, frame, selectedId, viewerFocus } = props;
   const frameRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
@@ -109,6 +109,7 @@ export default function GlobeMap(props: GlobeMapProps) {
     let spinPausedUntil = 0;
     let visible = true;
     let observer: IntersectionObserver | undefined;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- each attempt starts from a clean slate
     setStatus("loading");
     setFallback(false);
     setReady(false);
@@ -231,6 +232,7 @@ export default function GlobeMap(props: GlobeMapProps) {
     if (!ready || fallback || !map) return;
     const reduced = prefersReducedMotion();
     if (stage === "tok") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- a new flight has not arrived yet
       setArrived(false);
       map.stop();
       map.fitBounds(latest.current.bounds, {
@@ -274,6 +276,17 @@ export default function GlobeMap(props: GlobeMapProps) {
     beaconRef.current?.getElement().classList.toggle("is-hidden", stage === "tok");
   }, [stage, ready]);
 
+  const paintMarkers = useEffectEvent(() => {
+    const { selectedId: selected, viewerFocus: focus } = latest.current;
+    markersRef.current.forEach(({ id, button }) => {
+      button.classList.toggle("is-selected", id === selected);
+      button.setAttribute("aria-pressed", String(id === selected));
+      const viewers = focus.get(id) ?? 0;
+      if (viewers > 0) button.dataset.viewers = String(viewers);
+      else delete button.dataset.viewers;
+    });
+  });
+
   // Sample markers: accessible buttons, only once the camera is at Tok.
   useEffect(() => {
     if (!ready || fallback) return;
@@ -285,7 +298,8 @@ export default function GlobeMap(props: GlobeMapProps) {
     let cancelled = false;
     (async () => {
       const { Marker } = await import("maplibre-gl");
-      if (cancelled || !mapRef.current) return;
+      const target = mapRef.current;
+      if (cancelled || !target) return;
       markersRef.current = features.map((feature, index) => {
         const p = feature.properties;
         const button = document.createElement("button");
@@ -316,27 +330,15 @@ export default function GlobeMap(props: GlobeMapProps) {
           if (neighbours.length > 1) setNearby({ features: neighbours, anchorId: feature.id });
           else latest.current.onSelect(feature);
         });
-        const marker = new Marker({ element: button }).setLngLat(feature.geometry.coordinates).addTo(mapRef.current);
+        const marker = new Marker({ element: button }).setLngLat(feature.geometry.coordinates).addTo(target);
         return { id: feature.id, marker, button };
       });
       paintMarkers();
     })();
     return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- paintMarkers reads refs
   }, [features, ready, fallback, stage, arrived]);
 
-  const paintMarkers = useCallback(() => {
-    const { selectedId: selected, viewerFocus: focus } = latest.current;
-    markersRef.current.forEach(({ id, button }) => {
-      button.classList.toggle("is-selected", id === selected);
-      button.setAttribute("aria-pressed", String(id === selected));
-      const viewers = focus.get(id) ?? 0;
-      if (viewers > 0) button.dataset.viewers = String(viewers);
-      else delete button.dataset.viewers;
-    });
-  }, []);
-
-  useEffect(() => { paintMarkers(); }, [selectedId, viewerFocus, paintMarkers]);
+  useEffect(() => { paintMarkers(); }, [selectedId, viewerFocus]);
 
   useEffect(() => {
     if (nearby) nearbyHeading.current?.focus({ preventScroll: true });
