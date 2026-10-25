@@ -29,9 +29,11 @@ from collections import Counter, defaultdict
 import csv
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import random
+import statistics
 import time
 import urllib.error
 import urllib.request
@@ -313,6 +315,117 @@ def full_metrics(pairs, scores=None, draws=2000, seed=0):
     return out
 
 
+def pearson(xs, ys):
+    mx, my = sum(xs) / len(xs), sum(ys) / len(ys)
+    sxy = sum((x - mx) * (y - my) for x, y in zip(xs, ys))
+    sxx, syy = sum((x - mx) ** 2 for x in xs), sum((y - my) ** 2 for y in ys)
+    return sxy / math.sqrt(sxx * syy) if sxx and syy else None
+
+
+def ranks(xs):
+    """Average ranks (ties share the mean rank), for Spearman's correlation."""
+    order = sorted(range(len(xs)), key=lambda i: xs[i])
+    out = [0.0] * len(xs)
+    i = 0
+    while i < len(order):
+        j = i
+        while j + 1 < len(order) and xs[order[j + 1]] == xs[order[i]]:
+            j += 1
+        for k in range(i, j + 1):
+            out[order[k]] = (i + j) / 2
+        i = j + 1
+    return out
+
+
+def continuous_metrics(reference, predicted, draws=2000, seed=0):
+    """Agreement on the 0-10 scale itself (Jev's expected score), with bootstrap CIs over posts.
+
+    The swarm averages scores, so this is closer to how the labels are used than bucket kappa."""
+    def stats(r, p):
+        return {"pearson": pearson(r, p), "spearman": pearson(ranks(r), ranks(p)),
+                "mae": sum(abs(a - b) for a, b in zip(r, p)) / len(r), "bias": sum(b - a for a, b in zip(r, p)) / len(r)}
+    out = {k: round(v, 4) for k, v in stats(reference, predicted).items()}
+    rng = random.Random(seed)
+    boots = {"pearson": [], "spearman": []}
+    for _ in range(draws):
+        idx = [rng.randrange(len(reference)) for _ in reference]
+        s = stats([reference[i] for i in idx], [predicted[i] for i in idx])
+        for k in boots:
+            if s[k] is not None:
+                boots[k].append(s[k])
+    for k, values in boots.items():
+        values.sort()
+        out[f"{k}_95ci"] = [round(values[int(0.025 * len(values))], 4), round(values[int(0.975 * len(values)) - 1], 4)]
+    return out
+
+
+def fit_group_calibration(groups, predicted, reference):
+    """Least squares reference = a_group + b * predicted: one slope, one intercept per group.
+
+    Fitted on the design half only. Groups unseen there fall back to the pooled intercept."""
+    by = defaultdict(list)
+    for g, x, y in zip(groups, predicted, reference):
+        by[g].append((x, y))
+    sxy = sxx = 0.0
+    for rows in by.values():
+        mx, my = sum(x for x, _ in rows) / len(rows), sum(y for _, y in rows) / len(rows)
+        sxy += sum((x - mx) * (y - my) for x, y in rows)
+        sxx += sum((x - mx) ** 2 for x, _ in rows)
+    b = sxy / sxx if sxx else 1.0
+    a = {g: sum(y for _, y in rows) / len(rows) - b * sum(x for x, _ in rows) / len(rows) for g, rows in by.items()}
+    pooled = sum(reference) / len(reference) - b * sum(predicted) / len(predicted)
+    return {"slope": b, "intercepts": a, "pooled_intercept": pooled}
+
+
+def calibrated(cal, group, x):
+    return cal["intercepts"].get(group, cal["pooled_intercept"]) + cal["slope"] * x
+
+
+def group_means(groups, values):
+    by = defaultdict(list)
+    for g, v in zip(groups, values):
+        by[g].append(v)
+    return {g: sum(v) / len(v) for g, v in sorted(by.items())}
+
+
+def group_level_check(design, design_answers, test, test_answers):
+    """Group mean support on the test half: the judge vs Jev raw vs Jev calibrated on the design half."""
+    cal = fit_group_calibration([p["group"] for p in design], [a["score_0_10"] for a in design_answers],
+                                [p["score"] for p in design])
+    groups = [p["group"] for p in test]
+    judge = group_means(groups, [p["score"] for p in test])
+    raw = group_means(groups, [a["score_0_10"] for a in test_answers])
+    cal_means = group_means(groups, [calibrated(cal, p["group"], a["score_0_10"]) for p, a in zip(test, test_answers)])
+    posts = Counter(groups)
+    summary = lambda m: {"mae_of_group_means": round(sum(abs(m[g] - judge[g]) for g in judge) / len(judge), 4),
+                         "max_abs_error": round(max(abs(m[g] - judge[g]) for g in judge), 4),
+                         "pearson_of_group_means": round(pearson([judge[g] for g in judge], [m[g] for g in judge]), 4)}
+    return {"calibration_from_design_half": {"slope": round(cal["slope"], 4),
+                                             "intercepts": {g: round(v, 4) for g, v in cal["intercepts"].items()}},
+            "by_group": {g: {"posts": posts[g], "judge": round(judge[g], 3), "jev_raw": round(raw[g], 3),
+                             "jev_calibrated": round(cal_means[g], 3)} for g in judge},
+            "jev_raw": summary(raw), "jev_calibrated": summary(cal_means)}
+
+
+Z_TWO_SIDED_5PCT, Z_POWER_80PCT = 1.959964, 0.841621
+
+
+def detectable_effect(sd, posts_per_arm):
+    """Smallest difference in group means (scenario minus baseline, equal posts per arm) detectable at
+    5% two-sided with 80% power, from post-to-post spread only. Run-to-run (seed) spread adds to it."""
+    return (Z_TWO_SIDED_5PCT + Z_POWER_80PCT) * sd * math.sqrt(2 / posts_per_arm)
+
+
+def detectable_effects(posts, values):
+    """Per group: posts, standard deviation of the scores, and the smallest detectable effect."""
+    by = defaultdict(list)
+    for p, v in zip(posts, values):
+        by[p["group"]].append(v)
+    return {g: {"posts": len(v), "sd": round(statistics.stdev(v), 3),
+                "smallest_detectable_effect": round(detectable_effect(statistics.stdev(v), len(v)), 3)}
+            for g, v in sorted(by.items()) if len(v) > 1}
+
+
 def tune_v3(design_posts, design_answers):
     """Grid-search V3's thresholds on the design half by quadratic weighted kappa."""
     best, best_t = None, None
@@ -401,7 +514,16 @@ def main():
     order_agree = sum(a["label"] == b["label"] for a, b in zip(v2_answers, run_variant(test, "V2r", key, args.batch, examples)[0]))
     report.update(variants_on_test_half=results, cost=cost, boundary_examples_from_design_half=examples,
                   v2_order_check={"same_label_when_levels_reversed": round(order_agree / len(test), 4)})
+    test_scores = [p["score"] for p in test]
+    report["continuous_v1_test_half"] = continuous_metrics(test_scores, [a["score_0_10"] for a in v1_answers])
+    report["continuous_v0_test_half"] = continuous_metrics(test_scores, [a["score_0_10"] for a in
+                                                                         run_variant(test, "V0", key, args.batch, examples)[0]])
+    report["group_level_v1_test_half"] = group_level_check(design, design_answers, test, v1_answers)
     all_v1, _ = run_variant(posts, "V1", key, args.batch, examples)
+    judged_v1 = [(p, a) for p, a in zip(posts, all_v1) if p["score"] is not None]
+    report["detectable_effects_all_judged_posts"] = {
+        "judge": detectable_effects([p for p, _ in judged_v1], [p["score"] for p, _ in judged_v1]),
+        "jev_v1": detectable_effects([p for p, _ in judged_v1], [a["score_0_10"] for _, a in judged_v1])}
     report["daily_support_v1_all_posts"] = daily_support(posts, all_v1)
     off = [(p["score"] is None, a["p_on_topic"] < 0.5) for p, a in zip(posts, all_v1)]
     report["off_topic_v1_all_posts"] = {"judge_off_topic": sum(j for j, _ in off),

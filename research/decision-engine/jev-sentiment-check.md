@@ -8,10 +8,26 @@ Data: the pilot run of the Tok society (`swarm/records/pilot/scores.jsonl` on `a
 
 ## Bottom line
 
-1. **Jev agrees with the judge moderately, and it's fast and almost free.** All 296 posts take under a second per batch of 25, for under half a cent per run.
-2. **None of four prompt redesigns beat the simplest version on held-out posts.** Removing the author's role reduced Jev's lean towards "hot" (over-calls 24 → 15, bias +0.85 → +0.60) without changing overall agreement. That's the version to use, because the judge's own rubric forbids inferring stance from role.
-3. **The measurement can't separate the designs.** Only 16 hot and 3 cold posts are in the held-out half, so every interval is wide; weighted kappa runs from about 0.0 to 0.4. The judge is also a reference, not ground truth. **The next step is the human gold set below, not more prompt tuning.**
-4. **For the swarm's scenario effects, Jev already works as a robustness check.** Its day-1 group means rank the groups like the judge's, shifted up about 0.5 points, and a constant shift cancels in scenario-minus-baseline effects.
+1. **At the level the swarm uses, a calibrated Jev tracks the judge closely.** The swarm reads group means and scenario-minus-baseline differences, not single labels. Calibration is a per-group shift plus one slope, fitted on the design half. On the held-out half, Jev's group means then sit **within 0.18 points of the judge's on average (largest error 0.28; r = 0.97)**. Uncalibrated, the average error is 0.58.
+2. **Per post, Jev's 0–10 score correlates with the judge's at r = 0.55** (95% CI 0.43–0.66; Spearman 0.60). The bucket kappa of about 0.2 understates that, because 53% of the judge's scores are exactly 5. A post at 6 against 7 counts as a full miss in buckets but a one-point miss here.
+3. **It's fast and almost free.** It takes under a second per batch of 25 posts and less than half a cent per run.
+4. **None of four prompt redesigns beat the simplest version on held-out posts.** Removing the author's role reduced the lean towards "hot":
+   - over-calls 24 → 15
+   - bias +0.85 → +0.60
+   - per-post MAE 1.07 → 0.87
+
+   That's the version to use. **More prompt tuning can't be measured with this data.**
+5. **The smallest scenario effect one simulated day can show** (80% power, 5% two-sided, post-to-post spread only):
+   - **under the judge:** 0.33 points (Funds), 0.39 (Government), 0.45 (Industry), 0.60 (Community and Retail)
+   - **under Jev:** 0.33–0.88 points
+
+   Smaller effects are noise. Run-to-run spread, measured by the three baseline seeds, adds to this.
+6. **The judge is a reference, not ground truth.** The [human gold set](gold-set/README.md) settles which labeller is right. Once it's scored, `gold_set.py score --scores` corrects either labeller's group means to human-scale estimates with confidence intervals (prediction-powered inference; Angelopoulos et al., *Science* 2023).
+
+**Policy for the nine scored runs:**
+- Report each effect under the judge and under calibrated Jev.
+- Call an effect robust only if it exceeds the detectable effect and keeps its sign under both.
+- Once humans have scored the gold set, report the human-corrected means.
 
 ## Method
 
@@ -61,6 +77,19 @@ The research behind it:
 **Muhd's 30 hand scores** can't separate anything: 27 of the 28 on topic are warm, and Jev is at 82% with kappa −0.06.
 
 **Cost:** each variant on the test half took 6 requests, 0.3–0.4 s median each, and $0.002–0.0045.
+
+## Group-level check on the held-out half (V1, calibrated on the design half)
+
+| Group | Posts | Judge | Jev raw | Jev calibrated |
+|---|---:|---:|---:|---:|
+| Funds | 57 | 5.30 | 5.77 | 5.12 |
+| Government | 11 | 5.18 | 5.20 | 4.90 |
+| Land side: community | 18 | 4.78 | 5.24 | 4.64 |
+| Land side: industry | 34 | 5.88 | 6.65 | 5.95 |
+| Retail | 18 | 5.67 | 6.87 | 5.88 |
+| **Average error of group means** | | | **0.58** | **0.18** |
+
+The fitted slope is 0.50, with intercepts from 2.04 (community) to 2.65 (industry). Raw Jev spreads its scores more widely than the judge and runs about 0.6 higher, so the calibration pulls its scores in and down.
 
 ## Day-1 group support under two labellers
 

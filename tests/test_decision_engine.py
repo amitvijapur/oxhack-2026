@@ -396,33 +396,124 @@ class OutcomeTests(unittest.TestCase):
 
 
 class TokDemoTests(unittest.TestCase):
-    """Pins the demo decision on the real White Rock terms, so the presented numbers stay reproducible.
+    """Pins the Tok demo so any change to its numbers is deliberate.
 
     Re-pinned on 25 Oct 2026 after the PR #25 review fixes: time-aware history (forgetting rate chosen
     out of sample, 2025 counted as 63 days), buyer arrivals in the state, and the loss limit applied
     inside the policy. The earlier pin (+$14,507) pooled all years and ignored declined offers.
     Re-pinned again (+$9,617 -> +$8,219) when the assumed Alaska rent was replaced by Arjin's verified
     rates for claims aged 6-10 plus annual labour.
+    Re-pinned again (+$8,219 -> +$1,499 at the headline assumptions) when the assumed two-point
+    offers ($450k at 35%, $120k at 65%) were replaced by offers drawn from comparable deals, and the
+    changepoint model joined the discount model in the arrival average (it scores better one step
+    ahead, weight 0.74). Across all assumptions the decision is now SKIP; see test_robust_skip.
     """
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         spec = json.loads((ROOT / "research/decision-engine/tok-demo.json").read_text())
-        self.arrival, self.rows = engine.arrival_from_history(spec["staking_history"], spec["arrival_prior"],
-                                                              spec["q_buyers_per_staking_event"])
-        self.spec = spec
+        bm = spec["bid_model"]
+        cls.bids, cls.meta = engine.bid_sources(engine.load_comparables(ROOT / bm["comparables"]), bm["acres"])
+        spec["contract"]["bids"] = cls.bids[bm["headline_source"]]
+        cls.arrival, cls.models, cls.model_weights, cls.rows = engine.averaged_arrival(
+            spec["staking_history"], spec["arrival_prior"], spec["q_buyers_per_staking_event"])
+        cls.spec = spec
 
-    def test_demo_decision(self):
+    def test_demo_decision_at_headline_assumptions(self):
         result = engine.analyse(self.spec["contract"], self.arrival, self.spec["policy"]["budget_usd"],
                                 self.spec["policy"]["loss_limit_usd"])
         self.assertEqual(result["action"], "BUY")
-        self.assertAlmostEqual(result["value_usd"], 8219.0, delta=1.0)
+        self.assertAlmostEqual(result["value_usd"], 1499.0, delta=1.0)
         self.assertGreaterEqual(result["worst_outcome_usd"], -self.spec["policy"]["loss_limit_usd"])
         self.assertIn("the acceleration assumption alone flips the sign of the value", result["fragile"])
-        self.assertEqual([m for m in result["policy"] if m["action"] == "LAPSE"][0]["month"], 12)
+
+    def test_robust_skip(self):
+        rb = self.spec["robust"]
+        policy = self.spec["policy"]
+        out = engine.robust_decision(
+            self.spec["contract"], self.models, self.bids, rb["q_values"], [True, False], policy["budget_usd"],
+            policy["loss_limit_usd"],
+            {"arrival_model": self.model_weights["weight"], "exit_bids": rb["exit_bid_weights"],
+             "q_buyers_per_staking_event": {str(v): 1 / len(rb["q_values"]) for v in rb["q_values"]},
+             "acceleration_allowed": {"True": 0.5, "False": 0.5}})
+        self.assertEqual(out["bayes_action"], "SKIP")
+        self.assertEqual((out["combinations"], out["combinations_buy"]), (60, 5))
+        self.assertAlmostEqual(out["expected_value_usd"], -9877.0, delta=1.0)
+        self.assertTrue(all(b["acceleration_allowed"] and b["q_buyers_per_staking_event"] >= 0.25
+                            for b in out["buy_only_when"]))
 
     def test_best_forgetting_rate(self):
         best = max(self.rows, key=lambda r: r["weight"])
         self.assertEqual(best["forget"], 0.75)
+
+    def test_changepoint_model_scores_better(self):
+        w = self.model_weights["weight"]
+        self.assertAlmostEqual(sum(w.values()), 1.0)
+        self.assertAlmostEqual(w["changepoint"], 0.739, places=3)
+
+
+class BidAndRobustTests(unittest.TestCase):
+    def test_bid_sources_hand_values(self):
+        # Reference deals at $100 and $400 an acre (log mean = log 200); one home deal at $50.
+        bids, meta = engine.bid_sources({"NV": [100.0, 400.0], "AK": [50.0]}, acres=10)
+        self.assertEqual([b["usd"] for b in bids["reference"]], [1000.0, 4000.0])
+        self.assertEqual([b["usd"] for b in bids["home_level"]], [250.0, 1000.0])  # moved by 50/200
+        # Pooled level: (log 200 + 1 * log 50) / 2 = log 100, so moved by 100/200.
+        self.assertEqual([b["usd"] for b in bids["home_pooled"]], [500.0, 2000.0])
+        self.assertTrue(all(b["probability"] == 0.5 for b in bids["reference"]))
+
+    def test_evppi_hand_values(self):
+        dims = ("a", "b")
+        values = {("x", 1): 10.0, ("x", 2): -30.0, ("y", 1): 10.0, ("y", 2): -30.0}
+        weights = {k: 0.25 for k in values}
+        info = engine.evppi(values, weights, dims)
+        self.assertEqual(info["value_deciding_now_usd"], 0.0)  # E = -10, so SKIP now
+        self.assertEqual(info["evpi_usd"], 5.0)  # 0.5 * 10
+        self.assertEqual(info["by_assumption_usd"]["a"], 0.0)  # the action never depends on a
+        self.assertEqual(info["by_assumption_usd"]["b"], 5.0)
+        self.assertEqual(info["by_assumption_usd"]["a + b"], 5.0)
+
+    def test_evppi_never_negative(self):
+        rng = random.Random(3)
+        dims = ("a", "b", "c")
+        for _ in range(50):
+            keys = list(itertools.product((0, 1), (0, 1, 2), (0, 1)))
+            values = {k: rng.uniform(-10, 10) for k in keys}
+            weights = {k: 1 / len(keys) for k in keys}
+            info = engine.evppi(values, weights, dims)
+            self.assertGreaterEqual(info["evpi_usd"], -1e-9)
+            for v in info["by_assumption_usd"].values():
+                self.assertGreaterEqual(v, -1e-9)
+                self.assertLessEqual(v, info["evpi_usd"] + 1e-9)
+
+    def test_robust_buy_when_every_combination_buys(self):
+        contract = one_period_option(premium=1000)
+        arrivals = {"fast": engine.GammaArrival(50.0, 10.0), "faster": engine.GammaArrival(100.0, 10.0)}
+        out = engine.robust_decision(contract, arrivals, {"only": BIDS}, [1.0], [True], 1e6, 1e6,
+                                     {"arrival_model": {"fast": 0.5, "faster": 0.5}, "exit_bids": {"only": 1.0},
+                                      "q_buyers_per_staking_event": {"1.0": 1.0}, "acceleration_allowed": {"True": 1.0}})
+        self.assertEqual(out["verdict"], "ROBUST BUY")
+        self.assertEqual(out["value_of_information"]["evpi_usd"], 0.0)
+
+    def test_changepoint_components_are_a_distribution(self):
+        rows = engine.changepoint_components([3, 4, 3, 0, 0, 0], [1.0] * 6, 1.0, 1.0)
+        self.assertAlmostEqual(sum(w for w, _, _ in rows), 1.0)
+        # The most likely split is before the fourth year: its belief uses only the three zeros.
+        w, alpha, beta = max(rows, key=lambda r: r[0])
+        self.assertEqual((alpha, beta), (1.0, 4.0))
+
+    def test_q_floor_counts_deals_per_claimant_day(self):
+        q_spec = importlib.util.spec_from_file_location("q_bound", ROOT / "scripts/q_bound.py")
+        q_bound = importlib.util.module_from_spec(q_spec)
+        q_spec.loader.exec_module(q_bound)
+        claims = [{"AdminState": "NV", "Location_Date": d, "Claimant": c} for d, c in (
+            ("2020-01-02", "ABC LLC"), ("2020-01-02", "ABC, LLC"),  # one claimant-day after normalising
+            ("2020-03-01", "ABC LLC"), ("2021-05-05", "XYZ INC"), ("2025-01-01", "XYZ INC"))]
+        deals = [{"region": "NV", "announce_date": d, "why_not_used": why} for d, why in (
+            ("2020-06", ""), ("2021-02-01", "no total price or no acreage"),
+            ("2021-03-01", "royalty or other non-land row (catalogue flag)"), ("2025-01", ""))]
+        out = q_bound.floor(q_bound.staking_events(claims), q_bound.public_deals(deals), last_full_year=2024)
+        self.assertEqual((out["NV"]["public_deals"], out["NV"]["staking_events"]), (2, 3))
 
 
 if __name__ == "__main__":
@@ -521,3 +612,36 @@ class GoldSetTests(unittest.TestCase):
     def test_weighted_agreement_upweights_sampled_items(self):
         rows = [("warm", "warm", 3.0), ("hot", "warm", 1.0)]
         self.assertEqual(gold.weighted_agreement(rows)["accuracy"], 0.75)
+
+    def test_ppi_mean_hand_values(self):
+        # Labeller mean over all posts is 5; on the gold set humans sit 1.0 and 0.5 above it.
+        out = gold.ppi_mean([4.0, 6.0], [(6.0, 5.0, 1.0), (7.0, 6.5, 1.0)])
+        self.assertEqual((out["correction"], out["estimate"]), (0.75, 5.75))
+        weighted = gold.ppi_mean([4.0, 6.0], [(6.0, 5.0, 3.0), (7.0, 6.5, 1.0)])  # 1/pi weights
+        self.assertEqual(weighted["correction"], 0.875)
+
+    def test_ppi_removes_a_constant_bias(self):
+        rng = random.Random(5)
+        truth = [rng.uniform(3, 8) for _ in range(400)]
+        labeller = [t + 0.8 for t in truth]  # always 0.8 too high
+        gold_rows = [(truth[i], labeller[i], 1.0) for i in rng.sample(range(400), 40)]
+        out = gold.ppi_mean(labeller, gold_rows)
+        self.assertAlmostEqual(out["estimate"], sum(truth) / len(truth), delta=0.0005)  # reported to 3 places
+
+
+class LabellerGroupLevelTests(unittest.TestCase):
+    def test_continuous_metrics(self):
+        out = sentiment.continuous_metrics([1.0, 2.0, 3.0, 4.0], [2.0, 3.0, 4.0, 5.0], draws=50)
+        self.assertEqual((out["pearson"], out["spearman"], out["mae"], out["bias"]), (1.0, 1.0, 1.0, 1.0))
+        self.assertEqual(sentiment.ranks([5, 1, 5, 3]), [2.5, 0.0, 2.5, 1.0])
+
+    def test_group_calibration_hand_values(self):
+        # Group A: (1, 2), (3, 4). Group B: (2, 5), (4, 9). Pooled within-group slope = (2 + 4) / (2 + 2).
+        cal = sentiment.fit_group_calibration(["A", "A", "B", "B"], [1.0, 3.0, 2.0, 4.0], [2.0, 4.0, 5.0, 9.0])
+        self.assertEqual(cal["slope"], 1.5)
+        self.assertEqual(cal["intercepts"], {"A": 0.0, "B": 2.5})
+        self.assertEqual(sentiment.calibrated(cal, "B", 3.0), 7.0)
+
+    def test_detectable_effect_hand_value(self):
+        # (1.96 + 0.84) * sd * sqrt(2 / n) with sd = 1, n = 8.
+        self.assertAlmostEqual(sentiment.detectable_effect(1.0, 8), 2.801585 * 0.5, places=6)
