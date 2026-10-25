@@ -1,0 +1,56 @@
+[
+  {
+    "file": "dm-sans-300.woff2",
+    "package": "@fontsource/dm-sans",
+    "version": "5.3.0",
+    "sha256": "80f13c410ec41f210a5553e7f420f8a51f459180019274df0b3faea314916f90"
+  },
+  {
+    "file": "dm-sans-400.woff2",
+    "package": "@fontsource/dm-sans",
+    "version": "5.3.0",
+    "sha256": "4ab51eb2cd7305d177187908d6397474d4520663f6c6e572feb0a64f4fa80006"
+  },
+  {
+    "file": "dm-sans-500.woff2",
+    "package": "@fontsource/dm-sans",
+    "version": "5.3.0",
+    "sha256": "19bf1984956517c35c2bd35b6cdedac12a21d6fcd3596c614ecdfb88b648909d"
+  },
+  {
+    "file": "dm-sans-600.woff2",
+    "package": "@fontsource/dm-sans",
+    "version": "5.3.0",
+    "sha256": "6bb2b2645ba5eeaecf56322c543fa3a75b87b927977b9c03b1dabc4205089120"
+  },
+  {
+    "file": "dm-sans-700.woff2",
+    "package": "@fontsource/dm-sans",
+    "version": "5.3.0",
+    "sha256": "35c5efa0e5daa52ee5c6500f5be354bf751fb65c4e49e1d6806c6eb5883e8fe9"
+  },
+  {
+    "file": "ibm-plex-mono-400.woff2",
+    "package": "@fontsource/ibm-plex-mono",
+    "version": "5.3.0",
+    "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+  },
+  {
+    "file": "ibm-plex-mono-500.woff2",
+    "package": "@fontsource/ibm-plex-mono",
+    "version": "5.3.0",
+    "sha256": "01d285447409c8a588692162439a038b8cbd7871309ee20267b0d2d91c6e8e22"
+  },
+  {
+    "file": "ibm-plex-mono-600.woff2",
+    "package": "@fontsource/ibm-plex-mono",
+    "version": "5.3.0",
+    "sha256": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83"
+  },
+  {
+    "file": "dm-sans-800.woff2",
+    "package": "@fontsource/dm-sans",
+    "version": "5.3.0",
+    "sha256": "094c859b70f10e1e010d293381f5cd032ef9929380e2dca97d12a574c2ef5c0a"
+  }
+]

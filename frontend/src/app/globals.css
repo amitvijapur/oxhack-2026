@@ -1,0 +1,181 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * Tok River design system: an Alaska night. Deep slate canvas, gold as the one
+ * signal colour (measured gold, the answer, live activity), glacier teal for
+ * interaction, and the sage/blue A/B pair carried over from DESIGN.md.
+ * Dark only: the globe, terrain and glow are built for it.
+ */
+
+@theme inline {
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-gold: var(--gold);
+  --color-glacier: var(--glacier);
+  --color-area-a: var(--area-a);
+  --color-area-b: var(--area-b);
+  --color-warn: var(--warn);
+  --color-ok: var(--ok);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-accent-ink: var(--accent-ink);
+  --color-card-solid: var(--card-solid);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 10px);
+
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  --animate-live-dot: live-dot 2s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.8s linear infinite;
+}
+
+:root {
+  color-scheme: dark;
+  --radius: 0.875rem;
+
+  --background: #060a12;
+  --foreground: #eef3fb;
+  --surface: #0b1220;
+  --raised: #111b2e;
+  --card: rgb(13 21 36 / 0.72);
+  --card-foreground: #eef3fb;
+  --popover: #0d1524;
+  --popover-foreground: #eef3fb;
+  --primary: #e8b04b;
+  --primary-foreground: #1a1204;
+  --secondary: #16223a;
+  --secondary-foreground: #dbe5f5;
+  --muted: #121c30;
+  --muted-foreground: #9aa8bf;
+  --accent: #15283a;
+  --accent-foreground: #b8f1e9;
+  --destructive: #f07167;
+  --border: rgb(148 178 220 / 0.14);
+  --input: rgb(148 178 220 / 0.2);
+  --ring: #5ed3c4;
+
+  --gold: #e8b04b;
+  --glacier: #5ed3c4;
+  --area-a: #a3d3b1;
+  --area-b: #7baecb;
+  --warn: #f2c46d;
+  --ok: #7fdca4;
+  --accent-ink: #5ed3c4;
+  --card-solid: #0d1524;
+
+  /* Map surfaces (globe.css). */
+  --map-sea: #060a12;
+  --map-sky: radial-gradient(1px 1px at 20% 30%, #fff8 50%, transparent), radial-gradient(1px 1px at 70% 60%, #fff6 50%, transparent), radial-gradient(1.5px 1.5px at 40% 80%, #fff5 50%, transparent), #060a12;
+  --map-land: #0b1220;
+  --map-ink: #0b1220;
+  --map-halo: #060a12;
+
+  /* z-index map: map controls < overlays < header < popovers/dialogs (Radix) */
+  --z-map-ui: 10;
+  --z-overlay: 20;
+  --z-header: 40;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: clip;
+  }
+  ::selection {
+    background: rgb(232 176 75 / 0.32);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Frosted panels floating over the map. */
+@utility glass {
+  background: linear-gradient(160deg, rgb(20 32 54 / 0.78), rgb(9 15 27 / 0.82));
+  border: 1px solid rgb(148 178 220 / 0.14);
+  box-shadow:
+    0 1px 0 0 rgb(255 255 255 / 0.05) inset,
+    0 24px 60px -20px rgb(0 0 0 / 0.65);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+/* Gold text with a slow sheen, for the one number that matters most. */
+@utility text-gold-sheen {
+  background: linear-gradient(100deg, #f6d48e 10%, #e8b04b 40%, #fff1cf 50%, #e8b04b 60%, #c98f2c 90%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-shimmer);
+}
+
+/* Film grain over the whole page: adds depth to flat dark surfaces. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@keyframes live-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@keyframes shimmer {
+  0% { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
