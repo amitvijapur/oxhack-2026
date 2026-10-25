@@ -41,7 +41,7 @@ GLM_ENV = {
     "LLM_BASE_URL": "https://api.z.ai/api/coding/paas/v4",
     "LLM_MODEL_NAME": "glm-5.3",
     "LLM_TIER1_MODEL": "glm-5.3",
-    "LLM_TIER2_MODEL": "glm-5.3-flash",
+    "LLM_TIER2_MODEL": "glm-5.3",
     "LLM_TIER3_MODEL": "glm-5.3-flash",
     "LLM_BOOST_API_KEY": "",
     "OPENAI_LOG": "info",
@@ -103,10 +103,12 @@ def wait_response(sim_dir: Path, command_id: str, proc, timeout_s: float):
 
 
 def glm_key() -> str:
-    for line in (MIROFISH_BACKEND.parent / ".env").read_text(encoding="utf-8").splitlines():
-        if line.startswith("GLM_API_KEY="):
-            return line.split("=", 1)[1].strip()
-    raise RuntimeError("GLM_API_KEY is missing from MiroFish's .env")
+    env = dict(line.split("=", 1) for line in (MIROFISH_BACKEND.parent / ".env").read_text(encoding="utf-8-sig").splitlines()
+               if "=" in line and not line.lstrip().startswith("#"))
+    key = (env.get("GLM_API_KEY") or env.get("LLM_API_KEY") or "").strip()
+    if not key or key.startswith("sk-"):
+        raise RuntimeError("no Z.ai key in MiroFish's .env (GLM_API_KEY, or LLM_API_KEY without the OpenAI sk- prefix)")
+    return key
 
 
 def count_api_errors(log_path: Path, state: dict) -> int:
