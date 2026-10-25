@@ -46,7 +46,6 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
   const call = baseline?.entryAction === "SKIP" ? "SKIP" : baseline?.entryAction === "BUY_CANDIDATE" ? "DEMO CANDIDATE" : "NO CALL";
   const expectedReturn = typeof baseline?.expectedNetCashUsd === "number" && typeof baseline?.amountAtRiskUsd === "number" && baseline.amountAtRiskUsd > 0 ? baseline.expectedNetCashUsd / baseline.amountAtRiskUsd : null;
   const evidenceLabel = passes ? "Evidence passes" : fails ? "Evidence fails" : "Evidence incomplete";
-  const reason = passes ? "passes the gold-evidence screen" : fails ? "fails the gold-evidence screen" : "the gold-evidence screen is incomplete";
 
   // The plot sent from Land, or else the site's richest plot, so Why always names real ground.
   const tested = plot && plot.site === site ? plot : null;
@@ -77,7 +76,7 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
           </div>
         </div>
         <p className="answer-why">
-          Site {site} · {evidenceLabel} · {reason} ({screen.pass} of {screen.total} samples, needs {needed}).
+          Site {site} · {evidenceLabel} ({screen.pass} of {screen.total} samples, needs {needed}).
           {tested ? ` Testing plot ${tested.label}: the call covers all of Site ${site}.` : null}
         </p>
         <dl className="mini-stats">
@@ -103,7 +102,7 @@ export function DecideTab({ features, gold, plots, geochem, site, onSite, plot }
               {status === "held" ? `Its claim is held by ${titleCase(focus.owner ?? "")} since ${focus.start}.` : status === "lapsed" ? `Its claim was staked in ${focus.start} and lapsed in ${focus.end}.` : "No overlap in the checked state-claim snapshot. The square isn't a parcel, and the check doesn't establish availability or mineral rights."}
             </li>
           ) : null}
-          <li>{passes ? "Passing evidence does not establish a profitable contract. The hypothetical whole lot still fails its cash test." : "A failed evidence screen independently rejects entry, whatever the hypothetical economics."}</li>
+          <li>{passes ? "Passing evidence does not establish a profitable contract. The hypothetical whole lot still fails its cash test." : fails ? "A failed evidence screen independently rejects entry, whatever the hypothetical economics." : "The evidence screen is incomplete. More classified samples are needed before it can pass or fail."}</li>
           <li>Recoverable ounces, contract terms and assignment liquidity remain assumptions. Other upfront obligations are set to zero in this demo, not verified absent from a real agreement.</li>
           <li>Hypothetical fund {usd(CAPITAL.startingFundUsd)}. Limits are {usd(CAPITAL.maxRiskPerOptionUsd)} per contract, {usd(CAPITAL.maxOpenRiskUsd)} open risk, {usd(CAPITAL.maxWholeCohortCommittedUsd)} lifetime cohort commitments and {CAPITAL.maxPositions} positions.</li>
           <li>The crowd simulation does not adjust this no-event baseline. Recorded hypothetical comparisons remain available in <a href="/swarm">the swarm workflow</a>.</li>

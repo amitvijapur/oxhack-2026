@@ -36,7 +36,7 @@ const { DecideTab } = loadComponent(new URL('components/explorer/tabs/DecideTab.
 const features = ['a', 'b'].flatMap(area => JSON.parse(readFileSync(new URL(`../public/data/tok-gold/site-${area}/samples.geojson`, import.meta.url))).features);
 const plots = JSON.parse(readFileSync(new URL('../public/data/showcase/plots.json', import.meta.url)));
 const geochem = JSON.parse(readFileSync(new URL('../public/data/showcase/geochem.json', import.meta.url)));
-const render = (site) => renderToStaticMarkup(React.createElement(DecideTab, { features, plots, geochem, site, onSite() {}, plot: null, gold: { usd_per_oz: 9999, source: 'test spot', stale: false } }));
+const render = (site, selectedFeatures = features) => renderToStaticMarkup(React.createElement(DecideTab, { features: selectedFeatures, plots, geochem, site, onSite() {}, plot: null, gold: { usd_per_oz: 9999, source: 'test spot', stale: false } }));
 
 test('Decide keeps evidence eligibility distinct from whole-contract economic rejection', () => {
   const a = render('A');
@@ -50,4 +50,12 @@ test('Decide keeps evidence eligibility distinct from whole-contract economic re
   assert.ok(b.includes('Evidence fails'));
   assert.ok(b.includes('16 of 34'));
   assert.ok(!a.includes('id="option-model"'), 'Detailed synthetic controls remain collapsed on entry');
+});
+
+
+test('an incomplete evidence screen is never described as a failed screen', () => {
+  const html = render('A', []);
+  assert.ok(html.includes('Evidence incomplete'));
+  assert.ok(html.includes('More classified samples are needed before it can pass or fail'));
+  assert.ok(!html.includes('A failed evidence screen independently rejects entry'));
 });

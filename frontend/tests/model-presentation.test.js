@@ -126,3 +126,18 @@ test('active preset uses a historical whole-contract scale and preserves the neg
   assert.equal(r.controls.quantity, 500);
   assert.deepEqual(r.portfolio.selectedIds, []);
 });
+
+
+test('Site B retains the exact synthetic preset badge on initial and reset assumptions', () => {
+  const initial = { ...createConservativeDemo(), area: 'B' };
+  assert.ok(isConservativeDemo(initial));
+  assert.ok(!isConservativeDemo({ ...initial, entryPremiumUsd: 31000 }));
+  const reset = { ...createConservativeDemo(), area: 'B' };
+  assert.ok(isConservativeDemo(reset));
+  for (const area of ['C', '', null, undefined]) assert.ok(!isConservativeDemo({ ...reset, area }));
+  const html = renderToStaticMarkup(React.createElement(ModelWorkbench, { features, initialArea: 'B' }));
+  assert.ok(html.includes('Small-response synthetic demo'));
+  assert.ok(!html.includes('Custom synthetic sensitivity'));
+  assert.match(html, /aria-pressed="true"[^>]*>Use conservative synthetic demo/);
+  assert.match(html, /<option value="B" selected="">/);
+});

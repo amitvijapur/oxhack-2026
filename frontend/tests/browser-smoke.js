@@ -46,7 +46,7 @@ async page => {
   const top = await page.locator('.decide').innerText();
   const decideGold = (await page.locator('.live').innerText()).match(/\$[\d,]+/)?.[0];
   check(decideGold && top.includes(decideGold), 'Decide must show the same gold price as the header');
-  check(top.includes('Site A · Evidence passes · passes the gold-evidence screen'), 'Site A must show its call and reason');
+  check(top.includes('Site A · Evidence passes'), 'Site A must show its call and reason');
   for (const part of ['$30,000', '$50', '$30,050', '-97.65%', 'expected net cash', 'Live spot is separate', 'Not a current quote']) check(top.includes(part), `Whole-contract summary missing ${part}`);
   check(!top.includes('BUY'), 'Evidence PASS must not become a financial BUY');
   const decide = await panel.evaluate((el) => el.textContent);
@@ -55,7 +55,7 @@ async page => {
   check(box && box.y + box.height <= 900, 'The Decide top block must fit without scrolling');
   await page.getByRole('radio', { name: /Site B/ }).click();
   check((await call.innerText()).startsWith('SKIP'), 'Site B fails its gold screen, so its call is SKIP');
-  check((await page.locator('.decide').innerText()).includes('fails the gold-evidence screen (16 of 34 samples, needs 17)'), 'Site B must give its screen counts');
+  check((await page.locator('.decide').innerText()).includes('Evidence fails (16 of 34 samples, needs 17)'), 'Site B must give its screen counts');
   await page.getByRole('radio', { name: /Site A/ }).click();
   await page.screenshot({ path: 'frontend/artifacts/1-decide.png' });
   await panel.getByText('Detailed hypothetical model', { exact: true }).click();

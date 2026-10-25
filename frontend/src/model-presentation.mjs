@@ -39,8 +39,8 @@ export function createConservativeDemo() {
 
 export function isConservativeDemo(controls) {
   const preset = createConservativeDemo();
-  return !!controls && Object.entries(preset).every(([key, value]) => key === 'weights'
+  return !!controls && ['A', 'B'].includes(controls.area) && Object.entries(preset).every(([key, value]) => key === 'area' || (key === 'weights'
     ? Object.keys(controls.weights ?? {}).length === Object.keys(value).length
       && Object.entries(value).every(([group, weight]) => controls.weights[group] === weight)
-    : controls[key] === value);
+    : controls[key] === value));
 }
