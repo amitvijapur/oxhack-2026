@@ -40,16 +40,28 @@ function EvidenceScreen({ evidence, area }) {
   </div>;
 }
 
+function GoldForecast({ result, controls, onCapChange }) {
+  const baseline = result.baseline?.goldForecast;
+  const scenario = result.mapped?.goldForecast;
+  return <section className="model-gold-forecast" aria-labelledby="model-gold-heading">
+    <div className="model-section-heading"><h3 id="model-gold-heading">Hypothetical gold price at {controls.horizonDays} days</h3><span className="model-status">Uncalibrated</span></div>
+    <dl className="model-gold-values" aria-live="polite" aria-atomic="true"><div><dt>Baseline gold, USD/oz</dt><dd>{money(baseline?.baselinePriceUsdPerOz)}</dd></div><div><dt>Scenario gold, USD/oz</dt><dd>{money(scenario?.scenarioPriceUsdPerOz)}</dd></div><div><dt>Gold price change, USD/oz</dt><dd>{signedMoney(scenario?.priceDeltaUsdPerOz)}</dd></div><div><dt>Gold return vs baseline</dt><dd>{percent(scenario?.adjustment, 3)}</dd></div></dl>
+    <p className="model-note">Starting gold is an editable model assumption, separate from the live quote in the header.</p>
+    <NumericField label="Gold response cap" name="goldResponseCap" value={controls.goldResponseCap} onChange={onCapChange} unit="%" min={0} max={7} step={0.5} scale={100} hint="Assumed mining-support-to-gold response, adjustable from 0% to 7%. Not a calibrated forecast or a probability." />
+    <p className="model-note">The cap bounds gold only. Option sensitivity can exceed 7%. The response changes material value before the option is repriced, with no second option markup. Contract risk and the assumed chance of no sale are unchanged by this response alone.</p>
+  </section>;
+}
+
 function Flow({ result, controls }) {
-  const baseline = result.baseline;
   const mapped = result.mapped;
   const existing = result.signal?.usagePolicy === 'illustrative_contrast';
   const steps = [
     { title: 'Evidence screen', value: result.evidence?.gate || 'UNKNOWN', text: 'Primary gold samples determine eligibility.' },
-    { title: 'Material assumption', value: money(baseline?.rawMaterialValueUsd), text: 'Assumed ounces × price grown to the horizon.' },
-    { title: 'Contract mapping', value: money(baseline?.assignmentValueUsd), text: 'Ownership, value conversion, success probability and buyer consideration.' },
-    { title: existing ? 'Assumed price transfer' : 'Swarm adjustment', value: percent(result.signal?.adjustment, 2), text: existing ? 'Recorded support contrast × assumed 7% transfer × exposure × retention.' : 'Stakeholder signal × assumed 7% transfer × exposure × retention.' },
-    { title: 'Sale-adjusted cash', value: money(mapped?.expectedNetCashUsd), text: `Sale timing and costs over ${controls.horizonDays} days, including no sale.` },
+    { title: 'Support signal', value: number(result.signal?.value, 6), text: existing ? 'Recorded event support compared with the matching Claude sports placebo.' : controls.scenarioId === 'baseline' ? 'Zero support response in the unadjusted baseline.' : 'The selected simulated or invented stakeholder signal.' },
+    { title: 'Hypothetical gold response', value: money(mapped?.goldForecast?.scenarioPriceUsdPerOz), text: `USD/oz after the uncalibrated response; gold return ${percent(mapped?.goldForecast?.adjustment, 3)}.` },
+    { title: 'Material value', value: money(mapped?.rawMaterialValueUsd), text: 'Assumed quantities × scenario material prices. Other materials are unchanged.' },
+    { title: 'Option assignment', value: money(mapped?.assignmentValueUsd), text: 'Recomputed from material value, ownership, conversion, success probability and buyer consideration.' },
+    { title: 'Expected net cash', value: money(mapped?.expectedNetCashUsd), text: `Sale timing and costs over ${controls.horizonDays} days, including no sale.` },
   ];
   return <div className="model-flow-wrap"><h3>Follow the calculation</h3><ol className="model-flow">{steps.map((step, index) => <li key={step.title}><div><span>{step.title}</span><strong>{step.value}</strong><p>{step.text}</p></div>{index < steps.length - 1 && <ArrowRight size={17} aria-hidden="true" />}</li>)}</ol></div>;
 }
@@ -72,7 +84,7 @@ function Comparison({ result, controls }) {
     {result.signal?.usagePolicy === 'illustrative_contrast' && <p className="model-note">Baseline cash uses the same hypothetical option with no support adjustment. The score comparison uses the matching Claude sports-placebo run.</p>}
     <div className="model-delta" aria-live="polite" aria-atomic="true"><span>Change versus baseline</span><div><span>Assignment price <strong>{signedMoney(result.delta?.assignmentValueUsd)}</strong></span><span>Expected net cash <strong>{signedMoney(result.delta?.expectedNetCashUsd)}</strong></span></div></div>
     {finite(result.cashDiagnostics?.mapped?.breakEven?.maximumEntryPremiumUsd) && <p className="model-note">Break-even entry premium under these assumptions: <strong>{money(result.cashDiagnostics.mapped.breakEven.maximumEntryPremiumUsd)}</strong>. Current premium: {money(controls.entryPremiumUsd)}.</p>}
-    <p className="model-note">If nothing sells, sale proceeds are $0 and the full upfront commitment can be lost. The ±7% cap limits the price adjustment, not the loss. The unsold contract mark is separate from cash and cannot fund another position. Its unweighted horizon mark is {money(mapped?.unweightedNoSaleResidualMarkUsd)}.</p>
+    <p className="model-note">If nothing sells, sale proceeds are $0 and the full upfront commitment can be lost. The gold response cap does not cap the option-price change or the loss. The unsold contract mark is separate from cash and cannot fund another position. Its unweighted horizon mark is {money(mapped?.unweightedNoSaleResidualMarkUsd)}.</p>
     {mapped?.reasons?.length > 0 && <ul className="model-reasons">{mapped.reasons.map((reason, index) => <li key={index}>{message(reason)}</li>)}</ul>}
   </section>;
 }
@@ -106,16 +118,18 @@ function Horizons({ result }) {
 
 function FormulaTrace({ result, controls }) {
   const baseline = result.baseline;
+  const mapped = result.mapped;
   const existing = result.signal?.usagePolicy === 'illustrative_contrast';
   return <details className="model-detail"><summary>Equations and worked numbers<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content model-formulas">
-    <p>These equations describe the prototype. The quantities, conversion factor, success probability and liquidity assumptions are editable, not measured Tok estimates.</p>
-    <dl><div><dt>Grow the material price first</dt><dd><code>P(t) = P₀ × (1 + g)^(t / 365)</code><span>At the selected horizon, assumed material value is {money(baseline?.rawMaterialValueUsd)}.</span></dd></div>
-      <div><dt>Map material value to the interest</dt><dd><code>Vsuccess = Q × P(t) × ownership × κ</code><span>Success-state interest value is {money(baseline?.successValueUsd)}. κ absorbs omitted development economics in this simple demonstration.</span></dd></div>
-      <div><dt>Map the interest to assignment proceeds</dt><dd><code>A₀(t) = pGeo × max(Vsuccess − K, 0)</code><span>Baseline proceeds are {money(baseline?.assignmentValueUsd)}. The future buyer pays K on exercise. We only assign the option.</span></dd></div>
-      <div><dt>Apply the news scenario once</dt><dd><code>{controls.scenarioId === 'baseline' ? 's = 0 · unadjusted reference' : existing ? 's = Σ weight × (event mean − Claude sports-placebo mean) / 10' : 's = Σ weight × (scenario mean − baseline mean) / 10'}</code><code>A(t) = A₀(t) × (1 + 0.07 × s × exposure × retention)</code><span>The mapped adjustment is {percent(result.signal?.adjustment, 2)}. {existing && 'Means equally weight days 3, 4 and 5. '}The 7% transfer is assumed. The signal is neither a probability nor a gold-price prediction.</span></dd></div>
-      <div><dt>Account for sale timing and no sale</dt><dd><code>wⱼ = (1 − h)^(j − 1) × h</code><code>Expected cash = Σ wⱼ × (A(30j) − exit fee) − upfront risk</code><span>At {controls.horizonDays} days, no-sale probability is {percent(result.mapped?.noSaleProbability)}. No-sale cash proceeds are zero.</span></dd></div></dl>
-    <p className="model-note">The contract proxy omits option time value and assumes geological success or failure resolves before the future buyer exercises. Cash is nominal, with no discounting. Sediment ppm never becomes recoverable ounces.</p>
-    {result.mapped?.intervals?.length > 0 && <div className="model-table-scroll"><table><caption>Expected-cash sale branches</caption><thead><tr><th scope="col">Sale day</th><th scope="col">Branch probability</th><th scope="col">Assignment</th><th scope="col">After exit fee</th></tr></thead><tbody>{result.mapped.intervals.map((row) => <tr key={row.day}><th scope="row">Day {row.day}</th><td>{percent(row.weight, 3)}</td><td>{money(row.assignmentValueUsd)}</td><td>{money(row.netSaleProceedsUsd)}</td></tr>)}</tbody></table></div>}
+    <p>These equations describe an uncalibrated hypothetical relationship from mining support to gold price, then material value, option assignment and cash. Quantities, conversion, success probability and liquidity are assumptions.</p>
+    <dl><div><dt>Grow the baseline gold price</dt><dd><code>Pbase(t) = P₀ × (1 + g)^(t / 365)</code><span>Baseline gold at the selected horizon is {money(baseline?.goldForecast?.baselinePriceUsdPerOz)} USD/oz.</span></dd></div>
+      <div><dt>Compare stakeholder support</dt><dd><code>{controls.scenarioId === 'baseline' ? 's = 0 · unadjusted reference' : existing ? 's = Σ weight × (event mean − Claude sports-placebo mean) / 10' : 's = Σ weight × (scenario mean − baseline mean) / 10'}</code><span>{existing && 'Means equally weight days 3, 4 and 5. '}The support signal is {number(result.signal?.value, 6)}, not a probability.</span></dd></div>
+      <div><dt>Apply the assumed gold response once</dt><dd><code>rAu = gold cap × s × exposure × retention</code><code>PAu,scenario(t) = PAu,base(t) × (1 + rAu)</code><span>At cap {percent(controls.goldResponseCap)}, the assumed gold return is {percent(mapped?.goldForecast?.adjustment, 3)} and scenario gold is {money(mapped?.goldForecast?.scenarioPriceUsdPerOz)} USD/oz. The same retained relative response is applied once to each sale-date baseline, without monthly compounding. Other material prices are unchanged.</span></dd></div>
+      <div><dt>Revalue the material and interest</dt><dd><code>Vmaterial(t) = Σ Qm × Pm,scenario(t)</code><code>Vsuccess(t) = Vmaterial(t) × ownership × κ</code><span>Scenario material value is {money(mapped?.rawMaterialValueUsd)} and success-state interest value is {money(mapped?.successValueUsd)}. κ represents omitted development economics.</span></dd></div>
+      <div><dt>Recompute assignment proceeds</dt><dd><code>A(t) = pGeo × max(Vsuccess(t) − K, 0)</code><span>Scenario assignment proceeds are {money(mapped?.assignmentValueUsd)}. There is no additional swarm markup here. The future buyer pays K on exercise; we only assign the option. The strike can amplify option sensitivity beyond the gold response cap.</span></dd></div>
+      <div><dt>Include sale timing and no sale</dt><dd><code>wⱼ = (1 − h)^(j − 1) × h</code><code>Expected cash = Σ wⱼ × (A(30j) − exit fee) − upfront risk</code><span>At {controls.horizonDays} days, no-sale probability is {percent(mapped?.noSaleProbability)}. The gold response does not change the assumed sale hazard. No-sale cash proceeds are zero.</span></dd></div></dl>
+    <p className="model-note">The contract proxy omits option time value and assumes geological success or failure resolves before the future buyer exercises. Cash is nominal, with no discounting. Sediment ppm never becomes recoverable ounces. The support-to-gold relationship has not demonstrated predictive performance.</p>
+    {mapped?.intervals?.length > 0 && <div className="model-table-scroll"><table><caption>Expected-cash sale branches, each repriced at its sale date.</caption><thead><tr><th scope="col">Sale day</th><th scope="col">Branch probability</th><th scope="col">Assignment</th><th scope="col">After exit fee</th></tr></thead><tbody>{mapped.intervals.map((row) => <tr key={row.day}><th scope="row">Day {row.day}</th><td>{percent(row.weight, 3)}</td><td>{money(row.assignmentValueUsd)}</td><td>{money(row.netSaleProceedsUsd)}</td></tr>)}</tbody></table></div>}
   </div></details>;
 }
 
@@ -136,8 +150,8 @@ function ExistingSwarmResults({ result, selected, horizonDays, onUse, onStrict, 
     <p>Compare the recorded mine-approval or court-block posts with the matching Claude sports-placebo run. No new simulation is needed.</p>
     <div className="model-source-actions"><button type="button" className="model-import-button" aria-pressed={selected} disabled={busy} onClick={onUse}>Use existing swarm results</button>{selected && <button type="button" className="model-text-button" onClick={onStrict}>Use strict source checks</button>}</div>
     {selected && <div className="model-existing-context">
-      <p><strong>Recorded simulated posts, hypothetical economics.</strong> The ±7% transfer is assumed. Exposure and retention start at 100% and stay editable.</p>
-      {usingPosts ? <p>Support contrast <strong className="tabular">{number(signal.value, 6)}</strong>; assumed price adjustment <strong className="tabular">{percent(signal.adjustment, 3)}</strong>. The actual sign is retained.</p> : <p>Actual post-score comparisons are available only for mine approval and mine blocked. Other missing scenarios stay unavailable; baseline remains the unadjusted reference.</p>}
+      <p><strong>Recorded simulated posts, hypothetical economics.</strong> The mining-support-to-gold response is assumed and uncalibrated. Exposure and retention start at 100% and stay editable.</p>
+      {usingPosts ? <p>Support contrast <strong className="tabular">{number(signal.value, 6)}</strong>; hypothetical gold return <strong className="tabular">{percent(result.mapped?.goldForecast?.adjustment, 3)}</strong>. The actual sign is retained.</p> : <p>Actual post-score comparisons are available only for mine approval and mine blocked. Other missing scenarios stay unavailable; baseline remains the unadjusted reference.</p>}
       <div className="model-existing-cash"><p>Expected net cash at {horizonDays} days, including no sale.</p><dl aria-live="polite" aria-atomic="true"><div><dt>Baseline</dt><dd>{money(result.baseline?.expectedNetCashUsd)}</dd></div><div><dt>Selected scenario</dt><dd>{money(result.mapped?.expectedNetCashUsd)}</dd></div><div><dt>Change versus baseline</dt><dd>{signedMoney(result.delta?.expectedNetCashUsd)}</dd></div></dl></div>
       <p className="model-note">Research checks remain {research?.status === 'fail' ? 'failed' : 'incomplete'}. Matching these runs permits illustration only.</p>
     </div>}
@@ -212,8 +226,9 @@ export default function ModelWorkbench({ features }) {
   }
 
   return <section className="model-workbench" id="option-model" aria-labelledby="model-heading">
-    <div className="model-heading"><div><h2 id="model-heading">Hypothetical option model</h2><p>Trace mineral exposure into an assumed contract price, then ask what can actually become cash.</p></div><button type="button" className="model-text-button" onClick={() => setControls({ ...DEFAULT_CONTROLS, mode: 'demo', weights: { ...DEFAULT_CONTROLS.weights } })}><RotateCcw size={14} aria-hidden="true" />Reset assumptions</button></div>
+    <div className="model-heading"><div><h2 id="model-heading">Hypothetical option model</h2><p>Follow simulated support through hypothetical gold price, material value, option assignment and cash.</p></div><button type="button" className="model-text-button" onClick={() => setControls({ ...DEFAULT_CONTROLS, mode: 'demo', weights: { ...DEFAULT_CONTROLS.weights } })}><RotateCcw size={14} aria-hidden="true" />Reset assumptions</button></div>
     <p className="model-mode-note">Samples, land context and recorded simulations are sourced. Contract terms, recoverable ounces, price forecasts and sale probabilities are hypothetical. No investment edge has been demonstrated.</p>
+    <GoldForecast result={result} controls={controls} onCapChange={(value) => set('goldResponseCap', value)} />
     <ExistingSwarmResults result={result} selected={existingSelected} horizonDays={controls.horizonDays} busy={importing} onUse={useExistingResults} onStrict={() => setControls((current) => ({ ...current, mode: 'demo', swarmPolicy: 'strict', scenarioId: 'baseline' }))} />
     <div className="model-toolbar"><label>Comparison area<select value={controls.area} onChange={(event) => set('area', event.target.value)}><option value="A">A · Tok west</option><option value="B">B · Tok east</option></select></label><label>Holding period<select value={controls.horizonDays} onChange={(event) => set('horizonDays', Number(event.target.value))}>{[30, 90, 180].map((days) => <option key={days} value={days}>{days} days{days === 90 ? ' · primary' : ''}</option>)}</select></label><label className="model-scenario-select">Scenario comparison<select value={controls.scenarioId} onChange={(event) => set('scenarioId', event.target.value)}><optgroup label="Reference and sensitivity"><option value="baseline">Baseline reference</option><option value="synthetic">Synthetic sensitivity</option></optgroup><optgroup label={existingSelected ? "Recorded comparisons and unavailable scenarios" : "News scenarios require imported runs"}>{SCENARIOS.map(([id, label]) => <option value={id} key={id}>{label}{existingSelected && !['mine_approval', 'mine_blocked'].includes(id) ? ' · unavailable' : ''}</option>)}</optgroup></select></label></div>
     <EvidenceScreen evidence={result.evidence} area={controls.area} />
@@ -231,7 +246,7 @@ export default function ModelWorkbench({ features }) {
         <details className="model-detail"><summary>Contract economics<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content model-field-grid">
           {input('entryPremiumUsd', 'Option premium', { unit: 'USD', min: 0, step: 10 })}
           {input('quantity', 'Recoverable gold assumption', { unit: 'troy oz', min: 0, step: 10, hint: 'Whole-property quantity conditional on success. Not derived from samples.' })}
-          {input('price', 'Gold price assumption', { unit: 'USD/oz', min: 0, step: 50 })}
+          {input('price', 'Gold price assumption', { unit: 'USD/oz', min: 0, step: 50, hint: 'Editable starting model assumption, separate from the live gold quote in the page header.' })}
           {input('annualGrowthRate', 'Annual price growth', { unit: '% / year', scale: 100, min: -99.9, step: 1, hint: 'Forward assumption. The source section can apply the historical gold CAGR explicitly.' })}
           {input('ownershipFraction', 'Interest ownership', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}
           {input('kappa', 'Material-to-interest conversion', { unit: '%', scale: 100, min: 0, max: 100, step: 0.1 })}
@@ -246,12 +261,12 @@ export default function ModelWorkbench({ features }) {
           {input('unavoidableAdditionalObligationsUsd', 'Other upfront commitments', { unit: 'USD', min: 0, step: 10, hint: 'Later mandatory payments and uncapped obligations are unsupported.' })}
         </div></details>
         <details className="model-detail" open={controls.scenarioId === 'synthetic' ? true : undefined}><summary>Signal and stakeholder weights<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content">
-          {controls.scenarioId === 'synthetic' && <div className="model-synthetic"><label htmlFor="model-signal-range">Synthetic signal <output>{number(controls.syntheticSignal)}</output></label><input id="model-signal-range" aria-label="Synthetic signal sensitivity" type="range" min="-1" max="1" step="0.01" value={finite(controls.syntheticSignal) ? controls.syntheticSignal : 0} onChange={(event) => set('syntheticSignal', Number(event.target.value))} /><div><span>−1 · negative bound</span><span>+1 · positive bound</span></div><p>Made-up sensitivity only. This bypasses stakeholder aggregation to test the maximum ±7% price adjustment.</p></div>}
+          {controls.scenarioId === 'synthetic' && <div className="model-synthetic"><label htmlFor="model-signal-range">Synthetic signal <output>{number(controls.syntheticSignal)}</output></label><input id="model-signal-range" aria-label="Synthetic signal sensitivity" type="range" min="-1" max="1" step="0.01" value={finite(controls.syntheticSignal) ? controls.syntheticSignal : 0} onChange={(event) => set('syntheticSignal', Number(event.target.value))} /><div><span>−1 · negative bound</span><span>+1 · positive bound</span></div><p>Made-up sensitivity only. This bypasses stakeholder aggregation to test the chosen hypothetical gold response cap; the maximum permitted cap is 7%.</p></div>}
           <p className="model-note">{existingSelected ? 'Industry and funds lead the recorded contrast. Each group compares equal-weight means for days 3, 4 and 5 with the matching Claude sports-placebo run.' : 'Industry and funds lead the imported signal. Each group compares its equal-weight mean for days 3, 4 and 5 with baseline seed 1.'} Scores measure simulated support, not price probabilities.</p>
           <div className="model-field-grid model-weights">{GROUPS.map((group) => <NumericField key={group} name={`weight-${group}`} label={group[0].toUpperCase() + group.slice(1)} value={controls.weights[group]} onChange={(value) => changeWeight(group, value)} unit="%" min={0} max={100} step={1} scale={100} />)}</div>
           <div className="model-weight-total"><span>Total <strong>{percent(weightTotal, 2)}</strong></span><button type="button" className="model-text-button" disabled={!finite(weightTotal) || weightTotal <= 0 || Object.values(controls.weights).some((weight) => weight < 0)} onClick={normalizeWeights}>Normalize to 100%</button></div>
-          <div className="model-field-grid">{input('eventExposure', 'Property event exposure', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}{input('retention', 'Signal retained through horizon', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}</div>
-          <p className="model-note">Exposure and retention are assumptions, not measured reliability. Weights apply to the selected post-score comparison. Synthetic sensitivity uses its direct, invented signal instead.</p>
+          <div className="model-field-grid">{input('eventExposure', 'Gold response exposure', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}{input('retention', 'Signal retained through horizon', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}</div>
+          <p className="model-note">Exposure and retention are assumptions, not measured reliability. The support signal changes gold price through the chosen cap, then the option is repriced from material value. Synthetic sensitivity uses an invented signal instead of post scores.</p>
         </div></details>
       </fieldset>
     </aside><div className="model-output"><Comparison result={result} controls={controls} /><CashDiagnostics diagnostics={result.cashDiagnostics} controls={controls} /><Horizons result={result} /><Portfolio portfolio={result.portfolio} controls={controls} /></div></div>

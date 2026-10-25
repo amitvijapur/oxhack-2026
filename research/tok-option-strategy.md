@@ -6,6 +6,10 @@ Use this document for the new prototype. The [earlier combined strategy in PR 24
 
 Implementation update, 25 October 2026: the local executable prototype is now in [model/tok-option](../model/tok-option/README.md), with the React workbench and [verification results](../model/tok-option/VERIFICATION.md). The sections below preserve the agreed specification and original consolidation boundary. Actual swarm exports and real market inputs remain pending.
 
+## Current implementation amendment, gold forecast v2
+
+The user requested completion of the missing swarm-to-gold layer. The canonical engine now applies the weighted support contrast to a hypothetical gold-price forecast, then recomputes mineral-interest and option values before sale-weighted cash. The previous direct option-price markup is superseded. The 7% default now bounds an editable gold response; it does not cap the option movement. This is an uncalibrated hackathon relationship, not a measured predictive edge. See [the current equations and examples](../model/tok-option/README.md). Older discussion below records the original specification.
+
 ## What we are building
 
 An interactive prototype for a simulated fund considering an **assignable option over a specified Tok/Alaska mineral interest**. The intended trade is to acquire the option and sell that option before expiry, without exercising it or operating a mine. No actual available option, buyer, executable quote or liability release has been verified.

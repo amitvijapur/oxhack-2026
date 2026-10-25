@@ -55,7 +55,7 @@ test('complete simulated scores with missing diagnostics cannot move money', () 
 });
 test('synthetic fixture remains available only as an explicit illustrative comparison', () => {
   const r = run({ scenarioId: 'mine_approval' }, example);
-  close(r.mapped.expectedNetCashUsd, 18.00172);
+  close(r.mapped.expectedNetCashUsd, 24.9362);
   assert.equal(r.swarmDiagnostics.status, 'synthetic');
   assert.ok(r.swarmDiagnostics.diagnostics.every((d) => d.status !== 'pass'));
   assert.equal(run({ mode: 'real', scenarioId: 'mine_approval' }, example).signal.value, null);

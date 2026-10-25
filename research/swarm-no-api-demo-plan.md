@@ -63,20 +63,23 @@ the baseline is always visible. Any reduced strength is an arbitrary stress
 assumption, not a measured confidence or reliability score. It does not repair
 the underlying experiment.
 
-This remains a direct assignment-value sensitivity. It does not create a fitted
-sentiment-to-gold forecast or a calibrated gold-to-land relationship.
+Version 2 routes the contrast through a hypothetical gold forecast before
+recomputing material value and assignment proceeds. The adjustable 0–7% cap
+bounds the gold response, not the option movement. The effect is held constant
+across monthly sale dates and applied once. This is an uncalibrated
+sentiment-to-gold assumption; source post scores are not financial return labels.
 
-### Results already computed locally
+### Current v2 results
 
 The numeric post scores were re-aggregated directly from the committed JSONL
 files at source `f2fe2971`, with no new API calls. A separate sensitivity adjusts
 for the pre-event days 1–2; it preserves the same aggregate signs.
 
-| Event versus matching placebo | Weighted normalized support contrast | Hypothetical assignment shift at full existing transfer | 90-day demo expected cash |
+| Event versus matching placebo | Weighted normalized support contrast | Hypothetical gold shift at full assumed transfer | 90-day demo expected cash |
 | --- | ---: | ---: | ---: |
 | No monetary transfer | 0 | 0% | USD7.60 |
-| Mine approval | -0.02517926 | -0.17625% | USD6.31 |
-| Court blocks mine | +0.03073433 | +0.21514% | USD9.17 |
+| Mine approval | -0.02517926 | -0.17625% | USD5.45 |
+| Court blocks mine | +0.03073433 | +0.21514% | USD10.22 |
 
 The cash figures use the existing pure canonical model with its default
 USD1,500 assignment proxy, USD700 upfront cash and assumed 48.8% sale probability.

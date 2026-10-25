@@ -1,10 +1,12 @@
 /// <reference types="vite/client" />
 import { convexTest } from "convex-test";
+import type { Infer } from "convex/values";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { api, internal } from "./_generated/api";
 import schema from "./schema";
 import { DEFAULT_CONTROLS, runWorkbench } from "../../model/tok-option/workbench.mjs";
 import { decisionOutput, decisionSummary } from "../../model/tok-option/publish.mjs";
+import { decisionSummary as decisionSummaryValidator } from "./model/validators";
 
 const modules = import.meta.glob("./**/*.ts");
 // A deliberately low-entropy placeholder, so secret scanners do not flag the fixture.
@@ -206,6 +208,11 @@ describe("decision runs", () => {
       expect(summary.signalContext?.referenceRunId).toBe("04_placebo_s1");
       expect(summary.signalContext?.researchReadiness.status).toBe("fail");
       expect(summary.signalContext?.sourceChecks).toContainEqual({ name: "grounding", status: "fail" });
+      if (summary.modelVersion !== "tok-option-demo-v2") throw new Error("missing v2 forecast");
+      expect(summary.selected.mapped?.goldForecast.methodVersion).toBe("assumed-gold-response-v1");
+      expect(summary.selected.mapped?.goldForecast.calibrationStatus).toBe("uncalibrated");
+      expect(summary.selected.mapped?.goldForecast.transferTarget).toBe("gold_price");
+      expect(summary.selected.mapped?.goldForecast.baselinePriceUsdPerOz).toBe(2000);
       const stored = await t.run(async (ctx) => {
         const run = await ctx.db.query("runs").first();
         return (await ctx.storage.get(run!.payloadFileId))!.text();
@@ -226,6 +233,73 @@ describe("decision runs", () => {
     changedSource.payloadJson = JSON.stringify(payload);
     expect((await post(t, changedSource, { path: "/ingest/decision" })).status).toBe(400);
     expect(await t.run((ctx) => ctx.db.system.query("_storage").collect())).toHaveLength(0);
+  });
+
+  test("rejects altered gold forecasts and direct option transfers before storage", async () => {
+    const t = convexTest(schema, modules);
+    for (const change of ["price", "target", "legacy_markup"]) {
+      const body = bodyFor({ scenarioId: "synthetic", syntheticSignal: 0.5 });
+      const payload = JSON.parse(body.payloadJson);
+      if (change === "price") {
+        payload.result.horizons[1].mapped.goldForecast.scenarioPriceUsdPerOz += 100;
+        payload.result.mapped = payload.result.horizons[1].mapped;
+      } else if (change === "target") payload.result.signal.transferTarget = "assignment_value";
+      else {
+        for (const row of payload.result.horizons) {
+          const value = row.mapped;
+          const oldAssignment = value.baselineAssignmentValueUsd * (1 + payload.result.signal.adjustment);
+          value.assignmentValueUsd = oldAssignment;
+          for (const interval of value.intervals) {
+            interval.assignmentValueUsd = oldAssignment;
+            interval.netSaleProceedsUsd = oldAssignment - payload.result.controls.exitFeeUsd;
+          }
+          value.expectedNetCashUsd = value.intervals.reduce((sum: number, interval: { weight: number; netSaleProceedsUsd: number }) => sum + interval.weight * interval.netSaleProceedsUsd, 0) - value.amountAtRiskUsd;
+          value.conditionalSaleProfitUsd = oldAssignment - payload.result.controls.exitFeeUsd - value.amountAtRiskUsd;
+          value.unweightedNoSaleResidualMarkUsd = oldAssignment;
+          value.weightedNoSaleResidualMarkUsd = value.noSaleProbability * oldAssignment;
+        }
+        payload.result.mapped = payload.result.horizons[1].mapped;
+      }
+      body.payloadJson = JSON.stringify(payload);
+      expect((await post(t, body, { path: "/ingest/decision" })).status).toBe(400);
+    }
+    expect(await t.run((ctx) => ctx.db.system.query("_storage").collect())).toHaveLength(0);
+  });
+
+  test("historical v1 summaries remain readable without being relabelled as v2 forecasts", async () => {
+    const t = convexTest(schema, modules);
+    const body = bodyFor();
+    // The pure JS producer widens literal fields; this boundary is checked by
+    // the ingestion tests above and by the stored document validator below.
+    const currentSummary = body.summary as Extract<Infer<typeof decisionSummaryValidator>, { modelVersion: "tok-option-demo-v2" }>;
+    const withoutForecast = (outcome: typeof currentSummary.selected.mapped) => {
+      if (!outcome) return null;
+      const { goldForecast, ...legacy } = outcome;
+      expect(goldForecast.methodVersion).toBe("assumed-gold-response-v1");
+      return legacy;
+    };
+    const legacySummary = {
+      ...currentSummary,
+      modelVersion: "tok-option-demo-v1" as const,
+      horizons: currentSummary.horizons.map((row) => ({ days: row.days, baseline: withoutForecast(row.baseline), mapped: withoutForecast(row.mapped) })),
+      selected: { baseline: withoutForecast(currentSummary.selected.baseline), mapped: withoutForecast(currentSummary.selected.mapped) },
+    };
+    // Existing immutable documents only: new payloads still require the v2
+    // canonical producer and cannot enter through this historical schema arm.
+    await t.run(async (ctx) => {
+      const payloadFileId = await ctx.storage.store(new Blob(["historical v1 fixture"]));
+      const run = await ctx.db.insert("runs", {
+        workstream: "decision", runId: "historical-v1", schemaVersion: 1, mode: "scenario", publishedAt: 1,
+        producer: body.producer, inputs: body.inputs, payloadFileId, payloadSha256: "a".repeat(64), payloadBytes: 21,
+        summary: legacySummary,
+      });
+      await ctx.db.insert("workstreams", { key: "decision", owner: "Amit", status: "live", latestRunId: run, updatedAt: 1 });
+    });
+    const summary = (await t.query(api.workstreams.list, {}))[0].latest!.summary;
+    expect(summary).toEqual(legacySummary);
+    if (summary.kind !== "decision") throw new Error("missing historical summary");
+    expect(summary.modelVersion).toBe("tok-option-demo-v1");
+    expect(summary.selected.mapped).not.toHaveProperty("goldForecast");
   });
 });
 

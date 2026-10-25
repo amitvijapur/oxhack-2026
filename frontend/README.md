@@ -93,3 +93,7 @@ Read [the model guide](../model/tok-option/README.md),
 [Optional Convex storage and publishing](../docs/infrastructure.md) can provide
 attributed workstream publications, but no backend account or secrets are
 configured by this integration.
+
+### Hypothetical gold forecast
+
+The Decision calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The cap defaults to 7%, affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.

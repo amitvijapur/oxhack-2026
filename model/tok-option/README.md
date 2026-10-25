@@ -12,7 +12,7 @@ node model/tok-option/demo.mjs
 node model/tok-option/audit.mjs
 ```
 
-The demo reads the shipped 67-sample snapshot, uses the same pure engine as React, and prints baseline, synthetic boundaries, an imported synthetic group-score example and the failed B evidence screen. It makes no network requests. The UI starts without demo economics enabled; select explicit demo assumptions to calculate.
+The demo reads the shipped 67-sample snapshot, uses the same pure engine as React, and prints baseline, synthetic boundaries, an imported synthetic group-score example and the failed B evidence screen. It makes no network requests. The website opens in hypothetical demo mode; the programmatic API still defaults to pending.
 
 ## Modules
 
@@ -20,7 +20,8 @@ The demo reads the shipped 67-sample snapshot, uses the same pure engine as Reac
 | --- | --- |
 | `evidence.mjs` | Read primary Au qualifiers and form conservative fraction bounds. Retests remain separate. |
 | `commodities.mjs` | Compatible, available-at-cutoff historical CAGR and dated price projection. |
-| `valuation.mjs` | Hypothetical recoverable material exposure, interest fraction, conversion and call-shaped option proxy. |
+| `gold.mjs` | Bounded, uncalibrated Au response with baseline/scenario prices and explicit timing provenance. |
+| `valuation.mjs` | Applies the hypothetical swarm response to gold before material value, interest fraction, conversion and the call-shaped option proxy. |
 | `swarm.mjs` | Versioned import validation, equal-day aggregation and baseline-relative group weights. |
 | `liquidity.mjs` | Dated assumed sales, no-sale branch, conditional fees and separate unsold marks. |
 | `portfolio.mjs` | Exhaustive subset selection for at most 20 indivisible options, cohort ledger and duplicate underlying exclusion. |
@@ -35,7 +36,25 @@ The demo reads the shipped 67-sample snapshot, uses the same pure engine as Reac
 
 The default fixture uses 500 assumed recoverable troy ounces at USD2,000 per ounce, zero growth, a 50% interest, conversion factor 0.02, assumed success probability 0.25 and remaining buyer consideration USD4,000. This gives conditional assignment proceeds USD1,500. Entry premium USD650 plus fee USD50 puts USD700 at risk. With an assumed 20% conditional sale hazard per 30 days and USD50 exit fee, the 90-day sale probability is 48.8% and expected net cash is USD7.60. The weighted unsold mark USD768 is separate from cash.
 
-The synthetic group-score file gives signal 0.203, adjustment 1.421%, assignment proceeds USD1,521.315 and expected net cash USD18.00172. These are arithmetic fixtures, not delivered teammate runs or observations. Default evidence A is 25/33 passing samples; B is 16/34 and fails the 50% rule. These areas are longitude partitions, not legal option interests.
+The synthetic group-score file gives signal 0.203, gold adjustment 1.421%, gold USD2,028.42/oz, assignment proceeds USD1,535.525 and expected net cash USD24.93620. These are arithmetic fixtures, not delivered teammate runs or observations. Default evidence A is 25/33 passing samples; B is 16/34 and fails the 50% rule. These areas are longitude partitions, not legal option interests.
+
+## Gold forecast and valuation, model v2
+
+The live chain is **swarm contrast → hypothetical gold price → material value → mineral-interest value → option assignment → expected cash**. At every 30-day sale date, the engine grows the baseline price, applies the assumed gold response once, and recomputes the contract value. A `goldForecast` trace on every outcome records baseline/scenario USD per ounce, price delta, effect, horizon, method and uncalibrated provenance.
+
+```text
+P_base(t) = P0 * (1 + annualGrowthRate)^(t / 365)
+r_gold = goldResponseCap * signal * exposure * retention
+P_gold(t) = P_base(t) * (1 + r_gold)
+G(t) = sum(quantity_i * scenarioPrice_i(t))
+V_success(t) = ownershipFraction * kappa * G(t)
+A(t) = pGeo * max(V_success(t) - remainingBuyerConsideration, 0)
+EV = sum(saleWeight_j * (A(30*j) - exitFee)) - upfrontCash
+```
+
+Only Au receives this response. The relative effect is held constant across sale dates, not compounded monthly or estimated as decay. `controls.goldResponseCap` defaults to 0.07 and accepts 0 through 0.07. Setting it, exposure, retention or signal to zero restores the baseline. The option can move more than 7% because the fixed buyer consideration creates sensitivity; its zero floor remains intact.
+
+These scores measure mining support. The proportional relationship to future gold returns is an explicit hackathon assumption, not a fitted relationship. No statistical confidence interval, market accuracy or causal effect is implied. The common day-one gold jump is not added again. The editable starting gold price remains separate from the live header quote. Version `tok-option-demo-v2` distinguishes this method from the earlier direct option markup.
 
 ## Swarm handoff schema
 
@@ -86,14 +105,15 @@ The illustrative policy compares the recorded Claude approval or court-block
 run with Claude sports placebo `04_placebo_s1`. It requires matching pairwise
 configurations and complete numeric group/day inputs. The three-day support
 contrast is divided by ten and combined with the selected stakeholder weights.
-The existing 7% transfer, exposure and retention map it into an assumed
-assignment-price sensitivity. This does not change geology or sale hazard.
+The adjustable gold response cap, exposure and retention map it into a
+hypothetical gold-price change. Mineral and option values are then recomputed.
+There is no second direct option multiplier. Geology and sale hazard are unchanged.
 
 The underlying source remains `simulated`; the output adds an illustrative-use
 policy, method version, comparison run IDs, source revision and original failed
 research status. The sports placebo is not a neutral no-news control, and there
 is only one recorded Claude seed per condition. Default expected 90-day cash is
-USD6.3098 for approval and USD9.1748 for court blockage, versus USD7.60 baseline.
+USD5.4497 for approval and USD10.2247 for court blockage, versus USD7.60 baseline.
 The surprising signs are preserved. Changing economic controls or weights
 recalculates the same canonical model. Missing event scenarios remain unavailable.
 
@@ -126,7 +146,7 @@ The workbench shows one explicitly hypothetical contract linked for demonstratio
 
 The exact search allows an empty portfolio, disallows more than 20 candidates and chooses the greatest sum of positive cash expectations within all constraints. Equal objectives prefer lower committed risk. It does not optimize diversification or infer independence; every selected position can fail together.
 
-The first version supports 30, 90 and 180 days, upfront unavoidable obligations, zero discounting and an assumed price-conditional marketing rule that closes at the model price. Below-fee proceeds invalidate the fixed sale policy. Unknown contract terms, later mandatory payments, expiry conflicts and missing liquidity block selection. The cap is 7% for the scenario adjustment, not a maximum investment loss. No exercise, borrowing, automatic execution or reinvestment exists.
+The first version supports 30, 90 and 180 days, upfront unavoidable obligations, zero discounting and an assumed price-conditional marketing rule that closes at the model price. Below-fee proceeds invalidate the fixed sale policy. Unknown contract terms, later mandatory payments, expiry conflicts and missing liquidity block selection. The maximum cap is 7% for the gold-price response, not for the option movement or investment loss. No exercise, borrowing, automatic execution or reinvestment exists.
 
 `growthFromHistory` reports actual window coverage and rejects observations unavailable at the cutoff. A shorter available series is marked incomplete; it is not labelled five-year evidence. The UI's growth field is an explicit assumption and does not fetch prices. Additional materials require compatible quantities/prices and supplied provenance. The current evidence screen only uses Au; Li is not treated as a gold indicator.
 

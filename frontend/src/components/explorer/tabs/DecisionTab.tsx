@@ -12,7 +12,7 @@ export function DecisionTab({ features, town }: { features: Sample[]; town: Town
     <TabBody evidence={[
       { label: "Canonical Tok option model, generated live from the controls" },
       { label: "Observed primary-gold samples, Alaska DGGS RDF 2016-10", href: "https://doi.org/10.14509/29688" },
-      { label: "The animated town is a separate pilot illustration. Price changes require the model's passing simulation diagnostics.", source: town.source },
+      { label: "The animated town is a separate pilot illustration. Recorded scenario posts can be selected under an explicit hypothetical policy; their original research checks remain failed.", source: town.source },
     ]}>
       <ModelWorkbench features={features} />
       <details className="model-detail town-pilot">

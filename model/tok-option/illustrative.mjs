@@ -1,5 +1,6 @@
 import { GROUPS, WEIGHTS, within } from './config.mjs';
 import { parseSwarmImport, validateWeights } from './swarm.mjs';
+import { GOLD_FORECAST_METHOD } from './gold.mjs';
 
 export const ILLUSTRATIVE_CONTRAST_METHOD = 'matched-placebo-post-contrast-v1';
 const REFERENCE_RUN_ID = '04_placebo_s1';
@@ -46,6 +47,7 @@ export function mapIllustrativeContrast({ source, scenarioId, weights = WEIGHTS,
   const empty = {
     status: 'PENDING_SWARM', value: null, adjustment: null, groups: [], reasons: [],
     provenance: 'simulated', usagePolicy: 'illustrative_contrast', methodVersion: ILLUSTRATIVE_CONTRAST_METHOD,
+    transferTarget: 'gold_price',
     comparisonMethod: 'matched_configuration_placebo_contrast', referenceRunId: REFERENCE_RUN_ID,
     baselineRunId: REFERENCE_RUN_ID, scenarioRunId: EVENT_RUN_IDS[scenarioId] ?? null, scenarioId,
     sourceId: metadata?.sourceId ?? null, revision: metadata?.revision ?? null,
@@ -84,12 +86,12 @@ export function mapIllustrativeContrast({ source, scenarioId, weights = WEIGHTS,
   return {
     ...empty, status: 'ready', value, adjustment: cap * value * exposure * retention, groups,
     demoEligible: true, pairwiseConfiguration, diagnosticOnly: false,
-    transfer: { cap, exposure, retention, assumed: true },
+    transfer: { target: 'gold_price', methodVersion: GOLD_FORECAST_METHOD, cap, exposure, retention, assumed: true, calibrationStatus: 'uncalibrated' },
     limitations: [
       'Actual simulated post scores are contrasted with the matching Claude sports placebo, not an untreated control. This does not identify a causal news effect.',
       'The original failed or missing research checks and unknown source cutoff remain unchanged. Missing interviews are not imputed.',
       'One seed per condition and dependent posts do not estimate forecast uncertainty. Mining support is not willingness to buy a mineral option.',
-      'The price transfer is a hypothetical assignment-value sensitivity, not a fitted gold-price or land-price prediction. Sale hazard and geology are unchanged.',
+      'The score-to-gold-price response is hypothetical and uncalibrated. Au price is adjusted once before material value, buyer consideration and the assignment floor; there is no second option multiplier. Sale hazard and geology are unchanged.',
     ],
   };
 }

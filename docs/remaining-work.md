@@ -12,9 +12,15 @@ integration cannot supply.
 | Assignment liquidity | Team / collect buyer and resale observations | Calibrated dated sale hazards, fees and proceeds, including no-sale cases |
 | Simulation completion and reruns | Muhd / finish missing scenarios and interviews using comparable configurations | Baseline seeds, all required days/groups and recorded input knowledge cutoff |
 | Simulation readiness | Muhd and Amit / resolve failed placebo, mirror and grounding checks and provider/configuration confounds | Applicable diagnostics pass with attributable outputs; score changes alone are insufficient |
+| Gold-response calibration | Team / replace the adjustable support-to-gold coefficient with a model fitted to dated gold returns | Chronological evaluation against no-change and historical-growth baselines, with untouched test data |
 | Predictive validation | Team / define the decision target and horizon and run chronological evaluation against a simple baseline | Available-at-cutoff data, train-only transformations and measured out-of-sample value |
 | Optional hosting and storage | Account owners / select deployment, configure intended secrets and public URLs, then verify | Hosted health, browser smoke, ingestion and rollback evidence; no deployment is configured by this integration |
 | Submission readiness | Team / confirm event requirements and review repository visibility | Confirmed deadline, demo flow and reviewed public transition if required |
+
+The hypothetical gold forecast is implemented in model v2. Its adjustable
+support-to-gold response is not fitted, and it has no demonstrated prediction
+skill. It propagates through material and option values into cash without a
+second option markup. Model completion does not fill the empirical gaps below.
 
 The current land bundles join sample identities to checked layers and supply
 claims, market examples and cost context. They do not establish available

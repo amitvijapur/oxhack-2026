@@ -65,9 +65,10 @@ The method equally averages days 3–5 per group, subtracts the sports-placebo
 reference and applies the current stakeholder weights after dividing score
 differences by ten. Approval's normalized contrast is -0.0251792588 and court
 blockage's is +0.0307343316. Under the existing hypothetical 7% transfer these
-become -0.17625% and +0.21514% assignment shifts. The default model's expected
-cash becomes USD6.31 and USD9.17, alongside USD7.60 without a support adjustment.
-This is an assumed financial sensitivity, not a prediction or experiment pass.
+become -0.17625% and +0.21514% gold-price shifts. The default model's expected
+cash becomes USD5.45 and USD10.22, alongside USD7.60 without a support adjustment.
+This is a hypothetical gold forecast followed by mineral/option revaluation.
+It is uncalibrated and does not turn the original experiment checks into passes.
 
 Missing interviews are not imputed into this post-only illustration. Tax, protest
 and gold-reversal results remain unavailable. The strict import/default policy

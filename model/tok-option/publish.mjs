@@ -1,5 +1,7 @@
-import { VERSION, HORIZONS, SCENARIOS } from './config.mjs';
+import { VERSION, HORIZONS, SCENARIOS, within } from './config.mjs';
 import { diagnoseCash } from './diagnostics.mjs';
+import { evaluateOpportunity } from './index.mjs';
+import { createDemoCandidate } from './workbench.mjs';
 
 /** A projection of the canonical workbench, never a second decision engine. */
 export const OUTPUT_CONTRACT = 'tok-assignment-output-v1';
@@ -83,7 +85,73 @@ function contrastContext(result, selection) {
   };
 }
 
-function outcome(value, mode, horizonDays, evidenceGate) {
+function canonicalEconomics(value, controls, expectedSignal) {
+  requireThat(object(controls), 'priced outcomes require their original controls');
+  // Re-evaluate using the same candidate factory and engine as the workbench.
+  // A self-consistent cash distribution alone does not prove that its sale
+  // prices came from the v2 gold-first valuation rather than the old markup.
+  const canonical = evaluateOpportunity({
+    candidate: createDemoCandidate(controls), evidenceGate: value.evidenceGate,
+    horizonDays: value.horizonDays, signal: expectedSignal,
+    cap: controls.goldResponseCap, exposure: controls.eventExposure,
+    retention: controls.retention, hazardPer30Days: controls.hazardPer30Days,
+  });
+  requireThat(canonicalJson(value.calculation) === canonicalJson(canonical.calculation), 'calculation does not match the canonical controls');
+  requireThat(canonicalJson(value.materialTrace) === canonicalJson(canonical.materialTrace), 'material trace does not match the canonical controls');
+  for (const key of ['assignmentValueUsd', 'baselineAssignmentValueUsd', 'rawMaterialValueUsd', 'baselineRawMaterialValueUsd',
+    'successValueUsd', 'baselineSuccessValueUsd', 'underlyingExpectedProxyUsd', 'expectedNetCashUsd', 'amountAtRiskUsd',
+    'saleProbability', 'noSaleProbability', 'conditionalSaleProfitUsd', 'unweightedNoSaleResidualMarkUsd', 'weightedNoSaleResidualMarkUsd']) {
+    // Null stays unavailable. Every claimed value must be produced by the
+    // current engine, including its no-sale and liquidity policy.
+    if (value[key] !== null) requireThat(value[key] === canonical[key], `${key} does not match canonical gold-first economics`);
+  }
+  requireThat(Array.isArray(value.intervals), 'canonical sale intervals are required');
+  if (value.intervals.length || value.expectedNetCashUsd !== null) {
+    requireThat(canonicalJson(value.intervals) === canonicalJson(canonical.intervals), 'sale intervals do not match canonical gold-first economics');
+  }
+  return canonical;
+}
+
+function forecastSummary(value, controls, expectedSignal, canonical) {
+  const forecast = value.goldForecast;
+  requireThat(object(forecast), 'v2 outcomes require a gold forecast trace');
+  requireThat(forecast.methodVersion === 'assumed-gold-response-v1' && forecast.transferTarget === 'gold_price'
+    && forecast.provenance === 'assumed' && forecast.calibrationStatus === 'uncalibrated', 'gold forecast method, target and assumed provenance are required');
+  requireThat(['illustrative', 'not_applicable', 'INSUFFICIENT_DATA'].includes(forecast.status), 'unsupported gold forecast status');
+  requireThat(forecast.day === value.horizonDays, 'gold forecast day does not match outcome');
+  requireThat(typeof forecast.timingAssumption === 'string' && forecast.timingAssumption.length <= 4096, 'gold forecast timing assumption must be bounded text');
+  requireThat([null, 'quantity_weighted_au_oz', 'equal_quote_mean_zero_quantity'].includes(forecast.priceBasis), 'unsupported gold forecast price basis');
+  const calculation = value.calculation;
+  requireThat(object(calculation) && calculation.transferTarget === 'gold_price'
+    && calculation.goldForecastMethodVersion === forecast.methodVersion, 'calculation must identify the gold forecast method');
+  for (const [key, control] of [['cap', 'goldResponseCap'], ['exposure', 'eventExposure'], ['retention', 'retention']]) {
+    requireThat(within(forecast[key], 0, key === 'cap' ? 0.07 : 1)
+      && forecast[key] === calculation[key] && forecast[key] === controls?.[control], `gold forecast ${key} does not match calculation controls`);
+  }
+  requireThat(within(forecast.signal, -1, 1) && forecast.signal === expectedSignal && forecast.signal === calculation.signal,
+    'gold forecast signal does not match the selected comparison');
+  for (const key of ['baselinePriceUsdPerOz', 'scenarioPriceUsdPerOz', 'priceDeltaUsdPerOz', 'adjustment']) {
+    requireThat(forecast[key] === null || (typeof forecast[key] === 'number' && Number.isFinite(forecast[key])), `gold forecast ${key} must be finite or null`);
+  }
+  if (forecast.status !== 'INSUFFICIENT_DATA') {
+    requireThat(Array.isArray(value.materialTrace), 'gold forecast requires a material trace');
+    requireThat(canonicalJson(forecast) === canonicalJson(canonical.goldForecast), 'gold forecast does not match the canonical material trace');
+    if (value.assignmentValueUsd !== null) requireThat(value.adjustment === forecast.adjustment, 'outcome adjustment must match its gold forecast');
+  } else {
+    requireThat(value.assignmentValueUsd === null && value.expectedNetCashUsd === null, 'unavailable gold forecast cannot carry money');
+  }
+  return {
+    status: forecast.status, methodVersion: forecast.methodVersion, transferTarget: forecast.transferTarget,
+    provenance: forecast.provenance, calibrationStatus: forecast.calibrationStatus,
+    day: forecast.day, baselinePriceUsdPerOz: forecast.baselinePriceUsdPerOz,
+    scenarioPriceUsdPerOz: forecast.scenarioPriceUsdPerOz, priceDeltaUsdPerOz: forecast.priceDeltaUsdPerOz,
+    adjustment: forecast.adjustment, signal: forecast.signal, cap: forecast.cap,
+    exposure: forecast.exposure, retention: forecast.retention, timingAssumption: forecast.timingAssumption,
+    priceBasis: forecast.priceBasis, reasons: strings(forecast.reasons, 'gold forecast reasons'),
+  };
+}
+
+function outcome(value, mode, horizonDays, evidenceGate, controls, expectedSignal) {
   if (value === null) return null;
   requireThat(object(value) && value.version === VERSION && value.horizonDays === horizonDays, 'outcome version or day horizon does not match');
   requireThat(mode === 'demo', 'monetary outcomes require explicit demo mode');
@@ -106,10 +174,12 @@ function outcome(value, mode, horizonDays, evidenceGate) {
   // call a cash shortfall a realized investment loss.
   const diagnostic = diagnoseCash(value);
   if (numeric.expectedNetCashUsd !== null) requireThat(diagnostic.status === 'illustrative', 'finite expected cash must pass the canonical cash diagnostic');
+  const canonical = canonicalEconomics(value, controls, expectedSignal);
+  const goldForecast = forecastSummary(value, controls, expectedSignal, canonical);
   return {
     status: value.status, entryAction: value.entryAction, reasons: strings(value.reasons, 'outcome reasons'),
     ...numeric, negativeCashProbability: diagnostic.negativeCashProbability,
-    evidenceGate: value.evidenceGate, expiryGate: value.expiryGate, riskGate: value.riskGate,
+    evidenceGate: value.evidenceGate, expiryGate: value.expiryGate, riskGate: value.riskGate, goldForecast,
   };
 }
 
@@ -137,7 +207,10 @@ export function decisionSummary(output) {
   if (result.mode !== 'demo') requireThat(result.baseline === null && result.horizons.every((row) => row.baseline === null), 'pending and real-data modes cannot carry demo money');
   const selected = result.horizons.find((row) => row.days === selection.horizonDays);
   requireThat(canonicalJson(selected.baseline) === canonicalJson(result.baseline) && canonicalJson(selected.mapped) === canonicalJson(result.mapped), 'selected outcomes do not match the day horizon');
-  const horizons = result.horizons.map((row) => ({ days: row.days, baseline: outcome(row.baseline, result.mode, row.days, result.evidence.gate), mapped: outcome(row.mapped, result.mode, row.days, result.evidence.gate) }));
+  const horizons = result.horizons.map((row) => ({ days: row.days, baseline: outcome(row.baseline, result.mode, row.days, result.evidence.gate, result.controls, 0), mapped: outcome(row.mapped, result.mode, row.days, result.evidence.gate, result.controls, result.signal.value) }));
+  if (result.mapped) requireThat(result.signal.transferTarget === 'gold_price'
+    && (result.mapped.goldForecast.adjustment === null || result.signal.adjustment === result.mapped.goldForecast.adjustment),
+    'signal adjustment must identify and match the gold forecast');
   const selectedSummary = horizons.find((row) => row.days === selection.horizonDays);
   const hasEconomics = horizons.some((row) => row.baseline || row.mapped);
   if (hasEconomics) requireThat(result.provenance?.economics === 'assumed' && result.provenance?.liquidity === 'assumed', 'demo economics and liquidity must be labelled assumed');

@@ -1,4 +1,20 @@
+## Complete the hypothetical swarm-to-gold forecast
+
+Owner: Amit. Codex coordinates a model worker, UI worker and independent reviewer.
+Scope: the current website branch, canonical model, focused tests and current docs.
+
+- [x] Replace direct option markup with one explicit hypothetical Au price response, then recompute mineral value, assignment value and interval cash outcomes.
+- [x] Show baseline and scenario gold prices, return, assumptions and downstream deltas in the existing Decision calculator. Keep financial mode hypothetical only.
+- [x] Check positive/negative/zero signals, horizons, absent signals, mixed materials, source provenance and publication boundaries; independently review the math.
+- [x] Run relevant model/frontend/backend checks, rebuild and verify the local website, document results and current limits.
+
+Design: baseline P(t)=P0*(1+g)^(t/365); scenario gold P(t)=baseline P(t)*(1+cap*s*exposure*retention). The editable cap defaults to 0.07 and is bounded by 0.07. Apply once to Au only at each valuation/sale date, with a constant retained relative effect across the modeled holding period. Recompute assignment as pGeo*max(ownership*kappa*sum(Q*scenarioP)-K,0), without any second option multiplier. Industry/funds weights, original failed source checks, null missing scenarios, geology and sale hazard retain their meanings. The forecast is an uncalibrated assumption using mining-support contrasts, not measured market skill; the common day-1 gold jump is not a new return. Version and export metadata must distinguish the changed method.
+
 # OXHack preparation
+
+Review: model v2 routes the bounded hypothetical response through Au price before the assignment floor. Independent monthly-growth and recorded-source arithmetic passed. Model tests: 126; frontend: 23; Convex: 21; Python publisher/transport: 16. Type checks, scoped lint, production Webpack build, 29 specification checks and source audit passed. The publication reviewer found and resolved acceptance of old direct-markup cash under a v2 label; horizon and interval traces now match canonical evaluation. Browser checks cover baseline, actual approval/block, zero cap, synthetic positive/negative, missing tax and 320-pixel layout. No browser errors. The production site on local port 5182 runs the new build. No new paid swarm calls, hosted deployment, push or merge.
+
+Default 90-day actual contrasts: approval gold USD1996.47490377, assignment USD1495.59362971, cash USD5.44969130, cash delta USD-2.15030870; block gold USD2004.30280642, assignment USD1505.37850803, cash USD10.22471192, cash delta USD2.62471192. Baseline cash remains USD7.60. Predictions are hypothetical and uncalibrated; original source research checks remain failed.
 
 ## Make the website option calculator hypothetical-only, 25 October 2026
 

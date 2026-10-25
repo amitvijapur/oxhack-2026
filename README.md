@@ -148,10 +148,12 @@ no-sale branch; it is not a guaranteed positive outcome.
 To use the actual saved swarm post scores, open **Decision** and choose
 **Use existing swarm results**. Approval and court blockage compare days 3–5
 with the matching Claude sports-placebo run. The default hypothetical contract
-returns about USD6.31 and USD9.17 expected cash respectively, alongside USD7.60
+returns about USD5.45 and USD10.22 expected cash respectively, alongside USD7.60
 without a support adjustment. Weights, exposure, holding period and contract
-assumptions recalculate through the same engine. The support-to-price mapping is
-assumed; source research checks remain failed. Missing scenarios and real-input
+assumptions recalculate through the same engine. Swarm support changes the
+hypothetical gold price first, then mineral value, assignment value and cash.
+The adjustable gold response defaults to a 7% maximum at a full-strength signal;
+it is uncalibrated and source research checks remain failed. Missing scenarios and real-input
 financial outputs remain unavailable. No new swarm or judge API call is needed.
 See [the no-API method and handoff](research/swarm-no-api-demo-plan.md).
 

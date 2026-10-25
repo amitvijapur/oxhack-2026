@@ -51,7 +51,7 @@ const signalContext = v.object({
 });
 
 /** Canonical assignment-only output. Cash shortfall is not a realized loss. */
-const decisionOutcome = v.union(v.null(), v.object({
+const decisionOutcomeFields = {
   status: decisionStatus,
   entryAction: v.union(v.literal("BUY_CANDIDATE"), v.literal("SKIP"), v.null()),
   reasons: v.array(v.string()),
@@ -63,13 +63,36 @@ const decisionOutcome = v.union(v.null(), v.object({
   evidenceGate: gate,
   expiryGate: gate,
   riskGate: gate,
-}));
+};
+
+const goldForecast = v.object({
+  status: v.union(v.literal("illustrative"), v.literal("not_applicable"), v.literal("INSUFFICIENT_DATA")),
+  methodVersion: v.literal("assumed-gold-response-v1"),
+  transferTarget: v.literal("gold_price"),
+  provenance: v.literal("assumed"),
+  calibrationStatus: v.literal("uncalibrated"),
+  day: horizonDays,
+  baselinePriceUsdPerOz: nullableNumber,
+  scenarioPriceUsdPerOz: nullableNumber,
+  priceDeltaUsdPerOz: nullableNumber,
+  adjustment: nullableNumber,
+  signal: v.number(),
+  cap: v.number(),
+  exposure: v.number(),
+  retention: v.number(),
+  timingAssumption: v.string(),
+  priceBasis: v.union(v.literal("quantity_weighted_au_oz"), v.literal("equal_quote_mean_zero_quantity"), v.null()),
+  reasons: v.array(v.string()),
+});
+
+const legacyDecisionOutcome = v.union(v.null(), v.object(decisionOutcomeFields));
+const decisionOutcome = v.union(v.null(), v.object({ ...decisionOutcomeFields, goldForecast }));
 
 const outcomePair = { baseline: decisionOutcome, mapped: decisionOutcome };
-export const decisionSummary = v.object({
+const legacyOutcomePair = { baseline: legacyDecisionOutcome, mapped: legacyDecisionOutcome };
+const decisionSummaryFields = {
   kind: v.literal("decision"),
   contractVersion: v.literal("tok-assignment-summary-v1"),
-  modelVersion: v.literal("tok-option-demo-v1"),
   modelMode: v.union(v.literal("pending"), v.literal("demo"), v.literal("real")),
   status: decisionStatus,
   area: v.union(v.literal("A"), v.literal("B")),
@@ -80,9 +103,24 @@ export const decisionSummary = v.object({
   provenance: v.object({ evidence: nullableString, economics: nullableString, liquidity: nullableString, signal: nullableString }),
   reasons: v.array(v.string()),
   assumptions: v.array(v.string()),
-  horizons: v.array(v.object({ days: horizonDays, ...outcomePair })),
-  selected: v.object(outcomePair),
-});
+};
+
+// Preserve immutable v1 summaries already in storage. New ingestion is checked
+// against the canonical v2 producer by decisionPayloadProblem.
+export const decisionSummary = v.union(
+  v.object({
+    ...decisionSummaryFields,
+    modelVersion: v.literal("tok-option-demo-v1"),
+    horizons: v.array(v.object({ days: horizonDays, ...legacyOutcomePair })),
+    selected: v.object(legacyOutcomePair),
+  }),
+  v.object({
+    ...decisionSummaryFields,
+    modelVersion: v.literal("tok-option-demo-v2"),
+    horizons: v.array(v.object({ days: horizonDays, ...outcomePair })),
+    selected: v.object(outcomePair),
+  }),
+);
 
 const checkStatus = v.object({
   placebo: nullableString,

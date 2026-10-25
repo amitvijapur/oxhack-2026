@@ -2,6 +2,8 @@
 
 ## 25 October 2026
 
+- Wiring swarm scores to option value is not completion of the requested predictive chain. Trace every promised layer through executable calculations: swarm, gold forecast, material value, option value and cash. Label a hypothetical transfer as uncalibrated and never count it twice.
+
 - The website's option calculator must use hypothetical financial inputs only.
   Keep recorded data sources available inside that demonstration, but do not
   present real-input/evidence-only modes as alternative website option modes.

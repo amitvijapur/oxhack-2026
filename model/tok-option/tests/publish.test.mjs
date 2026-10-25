@@ -16,7 +16,7 @@ const savedOutput = () => JSON.parse(readFileSync(new URL('../../../tests/fixtur
 
 test('projection preserves canonical oracle, day horizons and cash diagnostic meaning', () => {
   const summary = decisionSummary(outputFor());
-  assert.equal(summary.modelVersion, 'tok-option-demo-v1');
+  assert.equal(summary.modelVersion, 'tok-option-demo-v2');
   assert.deepEqual(summary.horizons.map((row) => row.days), [30, 90, 180]);
   assert.ok(Math.abs(summary.selected.mapped.expectedNetCashUsd - 7.6) < 1e-8);
   assert.ok(Math.abs(summary.selected.mapped.negativeCashProbability - 0.512) < 1e-12);
@@ -156,5 +156,103 @@ test('blocked contrast requests keep pending and real economics unavailable', ()
     assert.equal(summary.selected.mapped, null);
     assert.equal(summary.signalContext, undefined);
     if (controls.mode !== 'demo') assert.equal(summary.selected.baseline, null);
+  }
+});
+
+test('gold forecast projection preserves horizon prices, assumed method and original source failures', () => {
+  const output = outputFor({ scenarioId: 'mine_approval', swarmPolicy: 'illustrative_contrast', goldResponseCap: 0.035 });
+  const summary = decisionSummary(output);
+  assert.equal(summary.readiness.swarmStatus, 'fail');
+  for (const row of summary.horizons) {
+    const forecast = row.mapped.goldForecast;
+    assert.equal(forecast.methodVersion, 'assumed-gold-response-v1');
+    assert.equal(forecast.transferTarget, 'gold_price');
+    assert.equal(forecast.calibrationStatus, 'uncalibrated');
+    assert.equal(forecast.provenance, 'assumed');
+    assert.equal(forecast.cap, 0.035);
+    assert.equal(forecast.day, row.days);
+    assert.equal(forecast.baselinePriceUsdPerOz, 2000);
+    assert.ok(forecast.scenarioPriceUsdPerOz < forecast.baselinePriceUsdPerOz);
+    assert.equal(forecast.signal, output.result.signal.value);
+    assert.equal(row.baseline.goldForecast.scenarioPriceUsdPerOz, 2000);
+  }
+  assert.deepEqual(summary.selected.mapped.goldForecast, summary.horizons[1].mapped.goldForecast);
+});
+
+test('publication rejects altered gold prices, methods, transfer targets and mismatched controls', () => {
+  const fresh = () => JSON.parse(JSON.stringify(outputFor({ scenarioId: 'synthetic', syntheticSignal: 0.5 })));
+  const mutateMapped = (output, fn) => {
+    fn(output.result.horizons[1].mapped);
+    output.result.mapped = output.result.horizons[1].mapped;
+  };
+  const price = fresh(); mutateMapped(price, (row) => { row.goldForecast.scenarioPriceUsdPerOz += 100; });
+  assert.throws(() => decisionSummary(price), /gold forecast.*canonical material trace/);
+  const trace = fresh(); mutateMapped(trace, (row) => { row.materialTrace[0].projectedPrice += 100; });
+  assert.throws(() => decisionSummary(trace), /material trace does not match the canonical controls/);
+  const method = fresh(); mutateMapped(method, (row) => { row.goldForecast.calibrationStatus = 'validated'; });
+  assert.throws(() => decisionSummary(method), /method, target and assumed provenance/);
+  const target = fresh(); target.result.signal.transferTarget = 'assignment_value';
+  assert.throws(() => decisionSummary(target), /signal adjustment.*gold forecast/);
+  const cap = fresh(); cap.result.controls.goldResponseCap = 0.01;
+  assert.throws(() => decisionSummary(cap), /calculation does not match the canonical controls/);
+  const old = fresh(); old.modelVersion = 'tok-option-demo-v1';
+  assert.throws(() => decisionSummary(old), /unsupported contract or model version/);
+});
+
+test('non-finite forecast arithmetic exports an unavailable result without invented cash', () => {
+  const summary = decisionSummary(outputFor({ quantity: Number.MAX_VALUE }));
+  assert.equal(summary.selected.mapped.goldForecast.status, 'INSUFFICIENT_DATA');
+  assert.equal(summary.selected.mapped.goldForecast.scenarioPriceUsdPerOz, null);
+  assert.equal(summary.selected.mapped.assignmentValueUsd, null);
+  assert.equal(summary.selected.mapped.expectedNetCashUsd, null);
+  assert.equal(summary.selected.mapped.entryAction, null);
+});
+
+test('v1 direct option markup cannot be relabelled as a v2 gold-first result', () => {
+  const output = outputFor({ scenarioId: 'synthetic', syntheticSignal: 0.203 });
+  for (const row of output.result.horizons) {
+    const value = row.mapped;
+    const oldAssignment = value.baselineAssignmentValueUsd * (1 + output.result.signal.adjustment);
+    value.assignmentValueUsd = oldAssignment;
+    for (const interval of value.intervals) {
+      interval.assignmentValueUsd = oldAssignment;
+      interval.netSaleProceedsUsd = oldAssignment - output.result.controls.exitFeeUsd;
+    }
+    value.expectedNetCashUsd = value.intervals.reduce((sum, interval) => sum + interval.weight * interval.netSaleProceedsUsd, 0) - value.amountAtRiskUsd;
+    value.conditionalSaleProfitUsd = oldAssignment - output.result.controls.exitFeeUsd - value.amountAtRiskUsd;
+    value.unweightedNoSaleResidualMarkUsd = oldAssignment;
+    value.weightedNoSaleResidualMarkUsd = value.noSaleProbability * oldAssignment;
+  }
+  // Forecast and material traces still correctly show gold at $2,028.42. The
+  // old assignment/cash formula is internally consistent, but is the wrong model.
+  assert.ok(Math.abs(output.result.mapped.goldForecast.scenarioPriceUsdPerOz - 2028.42) < 1e-9);
+  assert.ok(Math.abs(output.result.mapped.expectedNetCashUsd - 18.00172) < 1e-9);
+  assert.throws(() => decisionSummary(output), /assignmentValueUsd does not match canonical gold-first economics/);
+});
+
+test('publication checks earlier sale prices and forecasts, not only the final horizon', () => {
+  const price = outputFor({ scenarioId: 'synthetic', syntheticSignal: 0.5, annualGrowthRate: 0.1 });
+  const value = price.result.horizons[1].mapped;
+  value.intervals[0].assignmentValueUsd += 10;
+  value.intervals[0].netSaleProceedsUsd += 10;
+  value.expectedNetCashUsd += value.intervals[0].weight * 10;
+  assert.throws(() => decisionSummary(price), /canonical gold-first economics/);
+  const forecast = outputFor({ scenarioId: 'synthetic', syntheticSignal: -0.5 });
+  forecast.result.horizons[1].mapped.intervals[0].goldForecast.scenarioPriceUsdPerOz += 10;
+  assert.throws(() => decisionSummary(forecast), /sale intervals do not match canonical gold-first economics/);
+});
+
+test('canonical growth, negative signals, floor and unavailable sale cash still publish', () => {
+  for (const controls of [
+    { scenarioId: 'synthetic', syntheticSignal: 0.8, annualGrowthRate: 0.1 },
+    { scenarioId: 'synthetic', syntheticSignal: -0.8, annualGrowthRate: -0.1 },
+    { scenarioId: 'synthetic', syntheticSignal: 0.8, goldResponseCap: 0 },
+    { remainingBuyerConsiderationUsd: 100000, exitFeeUsd: 0 },
+    { remainingBuyerConsiderationUsd: 100000 },
+  ]) {
+    const output = outputFor(controls);
+    const summary = decisionSummary(output);
+    assert.equal(summary.selected.mapped.assignmentValueUsd, output.result.mapped.assignmentValueUsd);
+    assert.equal(summary.selected.mapped.expectedNetCashUsd, output.result.mapped.expectedNetCashUsd);
   }
 });

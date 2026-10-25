@@ -2,6 +2,20 @@
 
 The executable core, React adapter and workbench implement the accepted hackathon model. These checks establish implementation behavior, not predictive accuracy or a feasible real trade.
 
+## Current gold forecast, model v2
+
+The current method applies the assumed swarm response to Au price first, then recomputes material value, interest, assignment proceeds and every monthly sale outcome. The old direct option markup has been removed. The sections below this one retain earlier v1 results and are historical.
+
+- All 126 model tests pass, including 11 focused gold-chain tests and 16 publication tests. The 23 frontend, 21 Convex and 16 Python publisher/transport tests pass.
+- Frontend and backend type checks, scoped lint, production Webpack build, 29 updated specification consistency checks and source audit pass.
+- Independent direct-equation checks match positive/negative/zero effects, monthly growth, mixed materials and 30/90/180-day calculations. Only Au is affected. No-sale cash, evidence, expiry, risk and original source gates retain their behavior.
+- Publication review caught an old-formula relabeling case. Saved v2 values and every monthly interval now match the canonical evaluator. Regression tests reject both old markup and altered interval forecasts. Existing v1 stored summaries remain readable.
+- Production browser verifies baseline gold USD2000, assignment USD1500 and cash USD7.60. Recorded approval gives gold USD1996.47 and cash USD5.45; recorded blockage gives gold USD2004.30 and cash USD10.22. Zero cap restores baseline.
+- Synthetic +1 yields gold USD2140, assignment USD1675 and cash USD93; synthetic -1 gives gold USD1860, assignment USD1325 and cash USD-77.80/SKIP. Missing tax remains unavailable.
+- The new gold summary fits desktop and 320-pixel mobile layouts. Mobile page and model width checks pass. No browser errors were recorded. The current local production server uses port 5182.
+
+The response coefficient and persistence are uncalibrated assumptions, and source research readiness remains failed. No statistical confidence interval or measured predictive edge is claimed. This implementation makes no paid swarm calls and does not deploy, push or merge itself.
+
 ## Existing swarm results in the current Next.js website
 
 Follow-up: the website now initializes and resets in hypothetical demo mode

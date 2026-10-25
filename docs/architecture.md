@@ -58,8 +58,11 @@ remain inspectable. Synthetic imports are available only as labelled demonstrati
 An explicit **Use existing swarm results** selection enables a separate
 illustrative policy inside demo mode. It compares approval/blockage with the
 matching Claude sports-placebo run, preserves simulated source identities and
-failed research diagnostics, and applies the selected support contrast through
-the same hypothetical assignment/cash engine. Pairwise configuration matching
+failed research diagnostics, and applies the selected support contrast to an assumed gold-price forecast.
+The engine then recomputes material value, mineral-interest value, assignment
+value and every monthly sale outcome. The response is applied once to gold;
+there is no separate option markup. Each outcome retains a `goldForecast` trace
+with baseline/scenario prices and uncalibrated method provenance. Pairwise configuration matching
 establishes demo eligibility only. Strict imports and real mode keep their
 original gates. Exports carry the comparison policy, run IDs, source revision,
 unknown cutoff and research status so stored outputs retain their meaning.

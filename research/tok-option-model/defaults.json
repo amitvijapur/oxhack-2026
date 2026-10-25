@@ -1,6 +1,6 @@
 {
-  "version": "tok-option-demo-v1",
-  "purpose": "Machine-readable proposed specification defaults. This is not a production model or an executable trading engine.",
+  "version": "tok-option-demo-v2",
+  "purpose": "Machine-readable hypothetical specification defaults for the canonical v2 gold-channel model. Not calibrated trading parameters.",
   "mode": "explicit_demo",
   "requiresExplicitDemoSelection": true,
   "currency": "USD",
@@ -55,7 +55,7 @@
     "expiryBufferDays": 15,
     "annualDiscountRate": 0,
     "growthConvention": "P(t)=P0*(1+g)^(t/365); grow material prices before applying ownership, kappa, probability and fixed remaining buyer consideration.",
-    "discountSupport": "Zero only in v1; nonzero discount requests are unsupported until dated discounting is implemented. Cash outputs are not NPV."
+    "discountSupport": "Zero only in v2; nonzero discount requests are unsupported until dated discounting is implemented. Cash outputs are not NPV."
   },
   "swarm": {
     "canonicalGroups": [
@@ -91,8 +91,8 @@
     "priceAdjustmentCap": 0.07,
     "assumedEventExposure": 1,
     "assumedRetention": 1,
-    "retentionConvention": "Constant through the selected horizon; not estimated decay or persistence.",
-    "mapping": "A(t)=A0(t)*(1+priceAdjustmentCap*s*eventExposure*retention(t)); apply once.",
+    "retentionConvention": "Constant relative gold-price effect at every sale date through the selected horizon; no compounding or estimated decay.",
+    "mapping": "P_Au_scenario(t)=P_Au_baseline(t)*(1+priceAdjustmentCap*s*eventExposure*retention); apply once before mineral and option valuation. No direct option multiplier.",
     "entryNewsScenarios": [
       "mine_approval",
       "proposed_tax",
@@ -105,7 +105,9 @@
       "sports_placebo"
     ],
     "diagnosticsSelectableAsEntryNews": false,
-    "boundarySignals": "s=-1 and s=+1 are synthetic sensitivity bounds, not observed swarm runs."
+    "boundarySignals": "s=-1 and s=+1 are synthetic sensitivity bounds, not observed swarm runs.",
+    "transferTarget": "gold_price",
+    "forecastMethod": "assumed-gold-response-v1"
   },
   "valuation": {
     "quantitySource": "Explicitly hypothetical recoverable troy ounces; never derived from sediment ppm.",
@@ -118,7 +120,8 @@
     "proxyLimitation": "This call-shaped proxy omits option time value. It is an illustrative contract mapping, not an option-pricing model.",
     "extraUnexplainedMultiplier": false,
     "entryPremiumInBuyerConsideration": false,
-    "remainingBuyerConsiderationPaidByAssignorOnSale": false
+    "remainingBuyerConsiderationPaidByAssignorOnSale": false,
+    "scenarioAssignmentValue": "A(t)=pGeo*max(scenarioRawMaterialValue(t)*ownershipFraction*kappa-remainingBuyerConsideration,0)"
   },
   "liquidity": {
     "assumedHazardPer30Days": 0.2,
@@ -146,7 +149,7 @@
     "oneUnderlyingAtMostOnce": true,
     "indivisibleContracts": true,
     "riskDefinition": "Entry premium + entry fee + unavoidable additional obligations; reject unknown or uncapped obligations. Exit fees are conditional deductions from assignment proceeds.",
-    "additionalObligationsScope": "Version 1 supports only unavoidable additional obligations paid or reserved upfront. Later mandatory payments are unsupported; do not silently treat them as zero or model their timing with this fixture.",
+    "additionalObligationsScope": "Version 2 supports only unavoidable additional obligations paid or reserved upfront. Later mandatory payments are unsupported; do not silently treat them as zero or model their timing with this fixture.",
     "expiryGate": "remainingMaturityDays >= horizonDays + expiryBufferDays",
     "entryObjective": "Maximize strictly positive expected net cash, subject to evidence, term, expiry, data and capital gates.",
     "actionLabels": [
@@ -167,7 +170,6 @@
       "paths": [
         "evidence.primaryMaterial",
         "evidence.otherMaterials.intendedRoles",
-        "swarm.priceAdjustmentCap",
         "valuation.quantitySource",
         "capital.exercise"
       ],
@@ -205,7 +207,11 @@
         "swarm.assumedRetention",
         "valuation",
         "liquidity",
-        "capital"
+        "capital",
+        "swarm.priceAdjustmentCap",
+        "swarm.transferTarget",
+        "swarm.forecastMethod",
+        "swarm.mapping"
       ],
       "status": "proposed_default",
       "qualification": "Except separately identified user choices. User requested sizing help; the numerical fund/risk limits and all model formulas remain editable prototype proposals."

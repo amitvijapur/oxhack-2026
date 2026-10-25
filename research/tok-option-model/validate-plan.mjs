@@ -20,7 +20,7 @@ const weights = Array.from({ length: b.horizonDays / 30 }, (_, i) => (1 - b.assu
 const probability = weights.reduce((sum, value) => sum + value, 0);
 
 check('versions and explicit provenance', () => {
-  assert.equal(d.version, 'tok-option-demo-v1');
+  assert.equal(d.version, 'tok-option-demo-v2');
   assert.equal(f.version, d.version);
   assert.equal(d.mode, 'explicit_demo');
   assert.equal(b.mode, d.mode);
@@ -48,6 +48,8 @@ check('canonical groups and normalized weights', () => {
   close(Object.values(d.swarm.groupWeights).reduce((a, x) => a + x, 0), 1);
   assert.ok(Object.values(d.swarm.groupWeights).every((x) => x >= 0));
   assert.equal(d.swarm.priceAdjustmentCap, 0.07);
+  assert.equal(d.swarm.transferTarget, 'gold_price');
+  assert.equal(d.swarm.forecastMethod, 'assumed-gold-response-v1');
   assert.deepEqual(d.swarm.groupWeights, { government: 0.1, industry: 0.4, community: 0.07, funds: 0.4, retail: 0.03 });
   assert.deepEqual([d.swarm.scoreMin, d.swarm.scoreMax], [0, 10]);
   assert.equal(d.swarm.comparison.normalizationDivisor, d.swarm.scoreMax - d.swarm.scoreMin);
@@ -64,7 +66,8 @@ check('disjoint interval sale probabilities', () => {
 for (const c of f.cashCases) check(c.id, () => {
   if (c.groupScoreDeltas) close(Object.entries(c.groupScoreDeltas).reduce((sum, [group, delta]) => sum + d.swarm.groupWeights[group] * delta / 10, 0), c.signal);
   assert.ok(c.signal >= -1 && c.signal <= 1);
-  const value = assignment * (1 + d.swarm.priceAdjustmentCap * c.signal * b.eventExposure * b.retention);
+  const goldPrice = b.materialPrice.value * (1 + d.swarm.priceAdjustmentCap * c.signal * b.eventExposure * b.retention);
+  const value = b.pGeo * Math.max(b.quantity.value * goldPrice * b.ownershipFraction * b.kappa - b.remainingBuyerConsiderationUsd, 0);
   const cash = weights.reduce((sum, weight) => sum + weight * (value - b.exitFeeUsd), 0) - risk;
   close(value, c.expected.assignmentValueUsd);
   close(value - b.exitFeeUsd - risk, c.expected.conditionalSaleProfitUsd);

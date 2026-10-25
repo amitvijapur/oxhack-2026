@@ -36,8 +36,8 @@ test('explicit post-only demo uses actual approval scores and preserves failed r
   const result = run();
   assert.equal(result.status, 'illustrative');
   close(result.baseline.expectedNetCashUsd, 7.6);
-  close(result.mapped.expectedNetCashUsd, 6.309814778860073);
-  close(result.mapped.assignmentValueUsd, 1497.3561778255328);
+  close(result.mapped.expectedNetCashUsd, 5.449691298100333);
+  close(result.mapped.assignmentValueUsd, 1495.5936297092217);
   assert.equal(result.sourceAudit.swarm.status, 'fail');
   assert.equal(result.swarmDiagnostics.status, 'fail');
   assert.equal(result.provenance.signal, 'simulated');
@@ -47,8 +47,8 @@ test('explicit post-only demo uses actual approval scores and preserves failed r
 test('block sign is retained and group means keep actual counts rather than counting aggregate cells', () => {
   const result = run({ scenarioId: 'mine_blocked' });
   close(result.signal.value, 0.030734331593609505);
-  close(result.mapped.expectedNetCashUsd, 9.174827150856572);
-  close(result.mapped.assignmentValueUsd, 1503.2271048173288);
+  close(result.mapped.expectedNetCashUsd, 10.2247119180945);
+  close(result.mapped.assignmentValueUsd, 1505.3785080288817);
   const funds = result.signal.groups.find((r) => r.group === 'funds');
   assert.ok(funds.delta > 0);
   assert.deepEqual(funds.baselineCounts, [40, 28, 23]);
@@ -59,7 +59,7 @@ test('block sign is retained and group means keep actual counts rather than coun
   assert.equal(funds.referenceDailyMeans.length, 3);
 });
 
-test('zero and half transfer change only the existing assignment sensitivity', () => {
+test('zero and half gold transfer preserve liquidity and the existing downstream assignment math', () => {
   const full = run();
   for (const input of [{ retention: 0 }, { eventExposure: 0 }]) {
     const zero = run(input);
@@ -116,11 +116,11 @@ test('manual imports cannot become the pinned replay and explicit synthetic beha
     assert.ok(imported.signal.reasons.includes('illustrative_contrast_requires_bundled_source'));
   }
   const syntheticImport = run({ swarmPolicy: 'strict' }, example);
-  close(syntheticImport.mapped.expectedNetCashUsd, 18.00172);
+  close(syntheticImport.mapped.expectedNetCashUsd, 24.9362);
   assert.equal(syntheticImport.signal.provenance, 'synthetic');
   assert.equal(syntheticImport.signal.usagePolicy, undefined);
   const scalar = run({ scenarioId: 'synthetic', syntheticSignal: .203 });
-  close(scalar.mapped.expectedNetCashUsd, 18.00172);
+  close(scalar.mapped.expectedNetCashUsd, 24.9362);
   assert.equal(scalar.signal.provenance, 'synthetic_sensitivity');
   assert.equal(scalar.signal.usagePolicy, undefined);
 });
