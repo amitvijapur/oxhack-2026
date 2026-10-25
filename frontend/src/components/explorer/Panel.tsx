@@ -9,16 +9,15 @@ export const TABS: { id: Tab; label: string }[] = [
   { id: "crowd", label: "Crowd" },
 ];
 
-/** The explorer's one side panel: plain text tabs, an optional plot card, then the tab's content. */
-export function Panel({ tab, onTab, onClose, card, children }: {
+/** The explorer's one side panel: plain text tabs, the selected tab content's content. */
+export function Panel({ tab, onTab, onClose, children }: {
   tab: Tab;
   onTab: (tab: Tab) => void;
   onClose: () => void;
-  card: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
-    <aside className="panel" aria-label="Explorer">
+    <aside className="panel" data-tab={tab} aria-label="Explorer">
       <div className="panel-head">
         <div className="tabs" role="tablist" aria-label="Sections">
           {TABS.map((t) => (
@@ -31,7 +30,6 @@ export function Panel({ tab, onTab, onClose, card, children }: {
       </div>
       {/* Keyed by tab, so each tab opens at its top. */}
       <div key={tab} className="panel-scroll" id="tab-panel" role="tabpanel" aria-labelledby={`tab-${tab}`}>
-        {card}
         {children}
       </div>
     </aside>

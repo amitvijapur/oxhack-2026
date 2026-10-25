@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { loadEvidence } from "@/lib/evidence.js";
 import { SITE_NAME, SITE_PLACE } from "@/lib/copy.js";
-import { loadShowcase, stakedRange, type ColorBy as ColorMode, type Showcase as Data } from "@/lib/showcase";
+import { loadShowcase, plotStatus, stakedRange, type ColorBy as ColorMode, type Showcase as Data, type Plot } from "@/lib/showcase";
 import type { Evidence } from "@/lib/types";
 import type { MapControl } from "@/components/earth/Earth";
 import { PlotPopover } from "./PlotPopover";
@@ -18,9 +18,10 @@ import stills from "./stills.json";
 import { Panel, type Tab } from "./Panel";
 import { PlotSheet } from "./PlotSheet";
 import { ColorBy } from "./ColorBy";
-import { LandTab, orderPlots, type Sort } from "./tabs/LandTab";
+import { LandTab, orderPlots, type Sort, type Filter } from "./tabs/LandTab";
 import { DecideTab, type Site } from "./tabs/DecideTab";
 import { CrowdTab } from "./tabs/CrowdTab";
+import { visiblePlot, nextVisiblePlot } from "@/land-overview.mjs";
 import "./explorer.css";
 
 // Three.js loads only when someone opens a plot's 3D terrain view.
@@ -70,6 +71,7 @@ export function Explorer() {
   const [colorBy, setColorBy] = useState<ColorMode>("gold");
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [sort, setSort] = useState<Sort>("gold");
+  const [filter, setFilter] = useState<Filter>("all");
   const [site, setSite] = useState<Site>("A");
   const gold = useGold();
   const [snapshotGone, setSnapshotGone] = useState(false);
@@ -119,12 +121,17 @@ export function Explorer() {
     return () => window.clearTimeout(t);
   }, [data, earth, snapshot]);
 
-  const explore = useCallback((next: Tab = "decide") => {
+  const explore = useCallback((next: Tab = "decide", chosenId?: string) => {
     setPlaying(false);
     setYear(LAST);
     setTab(next);
     setMode("explore");
-  }, []);
+    if (next === "land" && data) {
+      const available = orderPlots(data.plots.plots, data.geochem, sort, filter);
+      const target = chosenId ?? `plot:${visiblePlot(available, selectedId)?.id ?? ""}`;
+      if (target !== "plot:") setSelectedId(target);
+    }
+  }, [data, sort, filter, selectedId]);
   const close = useCallback(() => { setSelectedId(null); setZoomTo(null); }, []);
   const back = useCallback(() => { close(); setPlaying(false); setYear(LAST); setMode("timelapse"); }, [close]);
 
@@ -134,27 +141,40 @@ export function Explorer() {
     setSelectedId(id);
     if (!id) { setZoomTo(null); return; }
     if (mode !== "explore") setPlaying(false);
-    else if (id.startsWith("plot:")) { setZoomTo(id); setTab("land"); }
-  }, [mode]);
+    else if (id.startsWith("plot:")) {
+      const picked = data?.plots.plots.find((p) => `plot:${p.id}` === id);
+      if (filter === "held" && picked && plotStatus(picked) !== "held") setFilter("all");
+      setZoomTo(id); setTab("land");
+    }
+  }, [mode, data, filter]);
 
   // The plots in list order, so the sheet's ‹ › and the arrow keys follow what the list shows.
-  const ordered = useMemo(() => (data ? orderPlots(data.plots.plots, data.geochem, sort) : []), [data, sort]);
+  const ordered = useMemo(() => (data ? orderPlots(data.plots.plots, data.geochem, sort, filter) : []), [data, sort, filter]);
   const plot = data && selectedId?.startsWith("plot:") ? data.plots.plots.find((p) => `plot:${p.id}` === selectedId) ?? null : null;
-  const index = plot ? ordered.indexOf(plot) : -1;
+  const landPlot = plot && ordered.includes(plot) ? plot : null;
+  const index = landPlot ? ordered.indexOf(landPlot) : -1;
+  const changeFilter = (next: Filter) => {
+    setFilter(next);
+    if (!data) return;
+    const visible = orderPlots(data.plots.plots, data.geochem, sort, next);
+    const retained = visiblePlot(visible, selectedId) as Plot | null;
+    setSelectedId(retained ? `plot:${retained.id}` : null);
+    setZoomTo(retained ? `plot:${retained.id}` : null);
+  };
   // Any state claim on the map can be picked too ("claim:<index>"); some hold a sampled plot.
   const claim = data && selectedId?.startsWith("claim:") ? data.claims.features[Number(selectedId.slice(6))] ?? null : null;
   const claimPlot = claim && data ? data.plots.plots.find((p) => p.kind === "claim" && p.id === claim.properties.id) ?? null : null;
   const step = useCallback((by: number) => {
-    if (!ordered.length) return;
-    const next = ordered[((index < 0 ? -1 : index) + by + ordered.length) % ordered.length];
+    const next = nextVisiblePlot(ordered, landPlot ? `plot:${landPlot.id}` : null, by);
+    if (!next) return;
     setSelectedId(`plot:${next.id}`);
     setZoomTo(`plot:${next.id}`);
-  }, [ordered, index]);
+  }, [ordered, landPlot]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const typing = (event.target as HTMLElement).closest("input, textarea, select, [role=slider]");
-      if (story || below) return; // the story and the block view handle their own keys
+      if (story || below || event.defaultPrevented) return; // the story and the block view handle their own keys
       if (event.key === "Escape") {
         if (selectedId || zoomTo) close();
         else if (mode === "explore") back();
@@ -168,7 +188,7 @@ export function Explorer() {
   }, [mode, tab, selectedId, zoomTo, back, close, step, story, below]);
 
   return (
-    <main className="explorer" data-mode={mode} data-earth={earth} data-snapshot={snapshot ? "true" : undefined}>
+    <main className="explorer" data-mode={mode} data-tab={tab} data-earth={earth} data-snapshot={snapshot ? "true" : undefined}>
       {/* A still of this view shows at once; the live map fades in over it when its tiles are in. */}
       {(earth !== "ready" || !snapshotGone) && portrait !== null ? (() => {
         const box = portrait ? stills.portrait : stills.landscape;
@@ -238,31 +258,32 @@ export function Explorer() {
             <motion.div key="explore" className="layer" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 24 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}>
               <Panel
                 tab={tab}
-                onTab={setTab}
+                onTab={(next) => {
+                  setTab(next);
+                  if (next === "land" && !landPlot) {
+                    const target = visiblePlot(ordered, selectedId) as Plot | null;
+                    if (target) setSelectedId(`plot:${target.id}`);
+                  }
+                }}
                 onClose={back}
-                card={tab === "land" && plot ? (
-                  <PlotSheet
-                    plot={plot}
-                    index={index}
-                    total={ordered.length}
-                    geochem={data.geochem}
-                    market={data.market}
-                    onPrev={() => step(-1)}
-                    onNext={() => step(1)}
-                    onClose={close}
-                    onZoom={() => setZoomTo(`plot:${plot.id}`)}
-                    onBelow={() => setBelow(true)}
-                    onDecide={() => { setSite(plot.site); setTab("decide"); }}
-                  />
-                ) : null}
+
               >
                 {tab === "decide" ? (
                   <DecideTab features={evidence?.features ?? []} gold={gold} plots={data.plots} geochem={data.geochem}
                     site={site} onSite={setSite} plot={plot} />
                 ) : null}
-                {tab === "land" && !plot ? (
-                  <LandTab plots={data.plots} geochem={data.geochem} sort={sort} onSort={setSort}
-                    hoverId={hoverId} onHover={setHoverId} onPick={select} />
+                {tab === "land" ? (
+                  <LandTab plots={data.plots} geochem={data.geochem} rows={ordered} selected={landPlot}
+                    sort={sort} onSort={setSort} filter={filter} onFilter={changeFilter}
+                    hoverId={hoverId} onHover={setHoverId} onPick={select}>
+                    {landPlot ? <PlotSheet
+                      plot={landPlot} index={index} total={ordered.length} geochem={data.geochem} market={data.market}
+                      onPrev={() => step(-1)} onNext={() => step(1)}
+                      onZoom={() => { setSelectedId(`plot:${landPlot.id}`); setZoomTo(`plot:${landPlot.id}`); setPlaying(false); setMode("timelapse"); }}
+                      onBelow={() => { setSelectedId(`plot:${landPlot.id}`); setBelow(true); }}
+                      onDecide={() => { setSelectedId(`plot:${landPlot.id}`); setSite(landPlot.site); setTab("decide"); }}
+                    /> : <p className="land-empty-detail">Select a sampled area to inspect its evidence.</p>}
+                  </LandTab>
                 ) : null}
                 {tab === "crowd" ? <CrowdTab crowd={data.crowd} /> : null}
               </Panel>
@@ -295,8 +316,9 @@ export function Explorer() {
               const target = claimPlot ?? plot;
               if (!target) return;
               setSelectedId(`plot:${target.id}`);
+              if (filter === "held" && plotStatus(target) !== "held") setFilter("all");
               setZoomTo(`plot:${target.id}`);
-              explore("land");
+              explore("land", `plot:${target.id}`);
             }}
             onClose={close}
           />

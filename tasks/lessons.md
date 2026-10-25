@@ -2,6 +2,8 @@
 
 ## 25 October 2026
 
+- Land should provide a compact overview and selected details together. Do not make users scroll a long plot list or replace the overview with a separate detail card when the task is comparison. Fit the normal viewport through hierarchy and layout, while preserving accessible overflow at zoom or short heights.
+
 - Name a geological gate as a screen result, not BUY or SKIP. A financial action must be separately labelled, derived from the canonical economic evaluation, and tied to the selected area's evidence. State when a selected plot inherits its area's screen rather than receiving a plot-specific valuation.
 
 - Lead the website with percentage returns and name the invested-capital denominator. Keep gold-price percentage changes separate from option returns and express differences between returns in percentage points. Monetary assumptions and worked cash arithmetic retain their units.

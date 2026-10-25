@@ -14,7 +14,9 @@ horizons. This is a demonstrator; no validated investment edge is established.
    the 67-sample A/B handoff. Source identities and dates stay attached.
 3. `src/components/earth/Earth.tsx` creates the Cesium 1.146.0 viewer. Esri imagery,
    Terrarium terrain and optional Macrostrat geology add geographic context.
-   The Decide, Land and Crowd panel shares plot selection with the globe.
+   The Decide, Land and Crowd panel shares plot selection with the globe. Land
+   keeps the compact plot grid and selected plot context visible together;
+   desktop uses a wider panel and phones stack the same content.
 4. Decide separates the area-level geological screen from a hypothetical
    financial decision and cash-risk diagnostics. All financial evaluation flows
    through `model/tok-option/workbench.mjs`, also used by the offline demo and

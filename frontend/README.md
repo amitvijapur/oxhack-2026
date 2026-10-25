@@ -4,14 +4,28 @@ The Next.js application presents **Land Arbitrage: Gold**, a Cesium explorer for
 Tok River, Alaska. The side panel has three tabs. Decide (the default) shows the
 live gold price and each comparison site's geological screen, followed by a
 separate hypothetical financial decision with percentage returns, cash risks
-and break-even assumptions. Land lists the sampled plots with a short
-plot card. Crowd charts the judged swarm scenarios. The site opens on today: claims held now and the gold spot, then
+and break-even assumptions. Land keeps all sampled plots in a compact grid beside the selected context. Crowd charts the judged swarm scenarios. The site opens on today: claims held now and the gold spot, then
 plays the next 12 months forward using the model's descriptive 2020–25 gold
 trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
 the hypothetical demo contract (`projectionHorizons` in `src/lib/canonical-model.js`).
 It is labelled as a projection, not a prediction. **History** opens the claims
 time-lapse for the last ten years, or since 1975. Only the current Esri imagery
 is used; dated satellite layers were removed for speed and consistency.
+
+## Land overview
+
+Land displays all 57 plot IDs at once in a compact grid, coloured by the measured
+gold class. The selected context stays alongside on desktop and beneath the grid
+on phones. All/Held and the sort order also control previous/next navigation.
+Arrow keys move within the grid; Enter or Space selects a focused plot. The map,
+selected plot and Decide handoff retain the same identity.
+
+The normal Land layout fits the overview and core evidence without scrolling.
+Expanded source/deal context, enlarged text or short viewports retain a safe
+scroll fallback. **View on map** opens the selected location in the full map;
+its Details action returns to Land. Terrain in 3D and the DNR record remain
+available. Sample squares are not legal parcels, sediment ppm is not a resource
+estimate, and comparable project deals are not option resale evidence.
 
 ## Swarm workflow
 

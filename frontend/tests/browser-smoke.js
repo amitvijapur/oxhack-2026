@@ -74,9 +74,9 @@ async page => {
   check(await page.getByRole('img', { name: 'OxHack' }).count() === 1, 'OxHack credit missing');
   check(await page.getByRole('radio', { name: 'Unmatched' }).count() === 0, 'The Unmatched filter was cut');
   check((await page.getByLabel('Sort plots').locator('option').allInnerTexts()).join('|') === 'Most gold|Nearest Tok', 'Sort keeps only Most gold and Nearest Tok');
-  const rows = page.locator('.plot-list button');
+  const rows = page.locator('.plot-grid button');
   check(await rows.count() === 57, 'Land tab must list 57 plots');
-  check((await rows.first().innerText()).includes('B-19') && (await rows.first().innerText()).includes('>1'), 'Most gold must put B-19 (>1 ppm) first');
+  check((await rows.first().innerText()).includes('B-19') && (await rows.first().getAttribute('aria-label')).includes('>1 ppm'), 'Most gold must put B-19 (>1 ppm) first');
   await rows.nth(1).hover();
   check(await rows.nth(1).getAttribute('data-hover') !== null, 'Hovering a row must mark it');
   await page.getByRole('radio', { name: 'Held' }).click();
@@ -88,8 +88,20 @@ async page => {
   await rows.first().click();
   const sheet = page.getByRole('region', { name: 'Plot B-19' });
   await sheet.waitFor();
+  check(await rows.count() === 57, 'Selecting a plot must retain the complete overview');
+  for (const [width, height] of [[1440, 900], [1280, 720], [390, 844], [320, 844]]) {
+    await page.setViewportSize({ width, height });
+    check(await page.locator('.panel-scroll').evaluate(el => el.scrollHeight <= el.clientHeight + 1), `Default Land must fit without scrolling at ${width}x${height}`);
+    check(await page.locator('.plot-grid button').evaluateAll(buttons => buttons.every(button => {
+      const box = button.getBoundingClientRect();
+      return box.top >= 0 && box.bottom <= innerHeight && box.left >= 0 && box.right <= innerWidth;
+    })), `Every plot tile must remain visible at ${width}x${height}`);
+    check(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `Land must not overflow horizontally at ${width}px`);
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await sheet.getByText('Comparable deals', { exact: true }).click();
   const text = await sheet.innerText();
-  for (const part of ['Noah 183', '>1 ppm', 'To Tok', 'Held by', 'Comparable deals', 'not option resale evidence', 'Test this plot in Decide', 'Zoom to plot', 'DNR record']) {
+  for (const part of ['Noah 183', '>1 ppm', 'To Tok', 'Held by', 'Comparable deals', 'not option resale evidence', 'Test this plot in Decide', 'View on map', 'DNR record']) {
     check(text.includes(part), `Plot card missing "${part}"`);
   }
   for (const part of ['T16N R11E', 'Elevation', 'Bedrock', 'State rent context', 'Travels with it', 'Land records at the sample point', 'Coordinates']) {
@@ -110,7 +122,7 @@ async page => {
   check((await page.locator('.decide').innerText()).includes('Testing plot B-19'), 'Decide must name the plot it was sent');
   check(await call.innerText() === 'Screen failed', 'B-19 sits in Site B, so Decide must show Site B');
   await page.getByRole('tab', { name: 'Land' }).click();
-  await page.getByRole('button', { name: 'Close plot' }).click();
+  check(await rows.count() === 57, 'Returning to Land must retain the overview');
 
   // Colour the land by ownership and by staked year.
   await page.getByRole('radio', { name: 'Ownership' }).click();
@@ -129,7 +141,8 @@ async page => {
   for (const part of ['not run', 'chance band', 'gpt-', 'glm-']) check(!crowd.toLowerCase().includes(part), `Crowd should not show "${part}"`);
   await page.screenshot({ path: 'frontend/artifacts/3-crowd.png' });
 
-  // Escape returns to the time-lapse.
+  // Escape clears the selected map context, then returns to the time-lapse.
+  await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: /Explore the land/ }).waitFor();
 

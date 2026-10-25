@@ -602,3 +602,101 @@
 .workflow-link small { display: block; margin-top: 3px; font-size: 12px; line-height: 1.4; color: var(--ink-2); }
 .workflow-link:hover { background: var(--line); }
 .workflow-link svg { flex: none; }
+
+/* Land overview keeps all plot IDs beside one selected context. */
+.panel[data-tab="land"] { width: min(820px, calc(100% - 24px)); }
+.panel[data-tab="land"] .panel-scroll { min-height: 0; }
+.explorer[data-mode="explore"][data-tab="land"] .map-controls { left: 16px; right: auto; }
+.land-overview { padding: 16px; }
+.land-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 24px; align-items: start; }
+.land-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+.land-heading h3 { font-size: 16px; font-weight: 500; }
+.land-heading > span { font-size: 11px; color: var(--ink-2); }
+.land-picker .list-tools { margin-bottom: 12px; }
+.plot-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
+.plot-grid li { min-width: 0; }
+.plot-tile { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 37px; border-radius: 5px; border: 1px solid #404040; background: #202020; color: #d4d4d4; font-size: 12px; }
+.plot-tile[data-gold="1"] { background: #3c3617; border-color: #6b5c22; color: #fef3c7; }
+.plot-tile[data-gold="2"] { background: #65521a; border-color: #9d822c; color: #fff7d1; }
+.plot-tile[data-gold="3"] { background: #d5b43d; border-color: #e8cb64; color: #161309; }
+.plot-tile:hover, .plot-tile[data-hover] { outline: 1px solid var(--ink); outline-offset: 1px; }
+.plot-tile[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; font-weight: 700; }
+.plot-tile:focus-visible, .plot-actions :is(button, a):focus-visible, .plot-stepper button:focus-visible, .land-overview summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.land-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 12px; font-size: 11px; color: var(--ink-2); }
+.land-legend-swatches { display: inline-flex; gap: 2px; }
+.land-legend-swatches i { width: 11px; height: 8px; background: #404040; }
+.land-legend-swatches i:nth-child(2) { background: #6b5c22; }
+.land-legend-swatches i:nth-child(3) { background: #9d822c; }
+.land-legend-swatches i:nth-child(4) { background: #d5b43d; }
+.plot-detail { min-width: 0; }
+.plot-detail-head { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+.plot-detail-head h2 { font-size: 20px; line-height: 1.2; font-weight: 500; overflow-wrap: anywhere; }
+.plot-detail-head h2 .tabular { display: block; margin-bottom: 4px; color: var(--ink-2); font-size: 12px; }
+.plot-detail-head p { display: flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 12px; color: var(--ink-2); }
+.plot-stepper { display: flex; align-items: center; gap: 1px; font-size: 11px; color: var(--ink-2); flex: none; }
+.plot-stepper .icon-button { width: 27px; height: 29px; }
+.plot-stepper button:disabled { opacity: 0.4; cursor: default; }
+.plot-facts { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; margin: 22px 0 16px; }
+.plot-facts dt, .plot-facts small { font-size: 12px; color: var(--ink-2); }
+.plot-facts dd { margin: 4px 0; font-size: 22px; }
+.plot-facts .plot-assay { color: #fde047; }
+.plot-facts small { display: block; line-height: 1.4; }
+.plot-ownership { font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
+.plot-limit { margin: 9px 0 16px; color: var(--ink-2); font-size: 12px; line-height: 1.4; }
+.plot-decide { width: 100%; justify-content: space-between; }
+.plot-actions { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 14px 0; }
+.plot-actions :is(button, a) { display: inline-flex; align-items: center; gap: 5px; min-height: 28px; font-size: 12px; color: var(--ink-2); }
+.plot-actions :is(button, a):hover { color: var(--ink); }
+.plot-context { padding-top: 10px; border-top: 1px solid var(--line); font-size: 12px; }
+.plot-context summary, .land-sources summary { cursor: pointer; color: var(--ink-2); }
+.plot-context p { margin-top: 8px; color: var(--ink-2); line-height: 1.5; }
+.land-footer { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11px; color: var(--ink-2); }
+.land-sources { flex: 1; min-width: 0; }
+.land-sources > div { max-width: 65ch; margin-top: 8px; line-height: 1.5; }
+.land-sources p + p { margin-top: 6px; }
+.land-credit { display: flex; align-items: center; gap: 6px; flex: none; }
+.land-credit img { width: 18px; height: 18px; }
+.land-empty, .land-empty-detail { padding: 24px 0; color: var(--ink-2); font-size: 13px; }
+@media (max-width: 860px) {
+  .panel[data-tab="land"] { top: 58px; width: 100%; }
+  .explorer[data-mode="explore"][data-tab="land"] .colorby { display: none; }
+  .explorer[data-mode="explore"][data-tab="land"] .map-controls { display: none; }
+  .land-overview { padding: 12px; }
+  .land-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+  .plot-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+  .plot-tile { min-height: 28px; font-size: 11px; }
+}
+@media (max-width: 580px) {
+  .land-layout { grid-template-columns: 1fr; gap: 14px; }
+  .land-heading { margin-bottom: 8px; }
+  .land-heading h3 { font-size: 14px; }
+  .land-picker .list-tools { margin-bottom: 8px; }
+  .plot-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+  .plot-tile { min-height: 25px; font-size: 11px; }
+  .land-legend { margin-top: 8px; font-size: 10px; }
+  .land-keyboard { display: none; }
+  .plot-detail { padding-top: 12px; border-top: 1px solid var(--line); }
+  .plot-detail-head h2 { font-size: 17px; }
+  .plot-detail-head h2 .tabular { display: inline; font-size: inherit; color: var(--ink); margin-right: 5px; }
+  .plot-detail-head p { margin-top: 4px; font-size: 11px; }
+  .plot-facts { margin: 10px 0 8px; }
+  .plot-facts dd { font-size: 20px; margin: 2px 0; }
+  .plot-facts dt, .plot-facts small { font-size: 11px; }
+  .plot-ownership, .plot-limit { font-size: 11px; line-height: 1.35; }
+  .plot-limit { margin: 6px 0 8px; }
+  .plot-decide { min-height: 34px; padding: 8px 10px; font-size: 12px; }
+  .plot-actions { gap: 4px 13px; margin: 6px 0; }
+  .plot-actions :is(button, a) { font-size: 11px; min-height: 24px; }
+  .plot-context { padding-top: 6px; font-size: 11px; }
+  .land-footer { margin-top: 10px; padding-top: 8px; }
+}
+@media (max-width: 350px) {
+  .plot-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .land-overview { padding: 10px; }
+  .plot-detail-head h2 { font-size: 15px; }
+  .plot-stepper .icon-button { width: 24px; }
+}
+
+@media (min-width: 861px) and (max-height: 760px) {
+  .plot-tile { min-height: 34px; }
+}

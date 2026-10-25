@@ -22,6 +22,22 @@ Publication review confirmed the approved PPTX/PDF bytes, nine matching note par
 licences and image attribution. Whitespace and redacted directory scans passed.
 The 29 changed paths contain only brand/presentation assets and their index notes.
 
+# Streamline Land into a compact plot overview
+
+Owner: Amit. Codex coordinates one layout worker and a separate integration review. User chose all plots in a compact grid with selected details alongside. Preserve the completed Decide financial section and current Orecast styling.
+
+- [x] Replace the long plot list and separate card view with a persistent grid of all 57 plots and a compact selected-plot summary.
+- [x] Give Land a wider desktop layout and an appropriate mobile height so the grid and core details fit together without nested scrolling at normal supported viewport sizes.
+- [x] Preserve map hover/selection, sort/filter, claim/source distinctions, 3D/zoom/DNR actions and the selected area's handoff to Decide.
+- [x] Verify desktop/mobile layout in one batched inspection, fix findings together, then confirm once; run relevant tests/build/lint and the required design detector.
+- [x] Record verified results and refresh the local preview without push or merge.
+
+Acceptance: all plot IDs remain directly reachable in the default grid; selection does not replace or hide the overview. Core gold measurement, claim status/owner, distance and next action are visible together. Supplemental details remain accessible without implying available rights, recoverable gold or a plot-specific valuation. Do not clip content to manufacture a no-scroll result; retain a safe overflow fallback for zoom or unusually short viewports.
+
+Review: Land now keeps all 57 plot identities beside one selected context in an 820px desktop panel; phones stack the same grid and context below the top bar. Repeated owner/claim rows and gold bars were replaced with compact labelled tiles. Selected details retain sediment gold, sample count/class, claim status and owner, distance and the Decide action. Comparable project deals and source context remain expandable. View on map opens the existing selected-plot map view, and Full details returns to the same selection. Filters, order and previous/next share one visible set; an explicit clear selection clears the detail and selected tile together. The 14 held claims and all 67 sample assignments are preserved.
+
+Verification on Node 24.14.0: all 63 frontend tests passed, including four new grid/navigation/source-context tests and the six preceding financial tests. Typecheck and production build passed; full lint has zero errors and four inherited backend warnings. Independent integration review passed. The design detector returned no findings. One batched visual inspection found floating map-control overlap and small short-screen overflow; one fix batch and final production confirmation resolved both. At 1440x900, 1280x720, 390x844 and 320x844 all 57 tiles, default details and footer fit without vertical or horizontal scrolling. Production interaction checks passed for keyboard selection, Held/All counts, sort, previous/next, Escape, unmatched-area caveats, map roundtrip, exact plot/site handoff to Decide and 3D open/close, with no console errors. Expanded disclosures and shorter/zoomed viewports keep accessible overflow. The broader legacy browser-smoke harness was updated but not run end to end. Model/data/dependencies and the completed Decide financial files are unchanged. Production preview refreshed at http://127.0.0.1:5192/. No push, merge or hosted deployment.
+
 # Clarify the geological screen and show financial diagnostics in Decide
 
 Owner: Amit. Codex coordinates a scoped frontend worker and independent review. Build on Muhd's merged Decide/Land/Crowd layout. Keep the canonical model and source datasets unchanged.
