@@ -2,11 +2,13 @@
 
 Owner: Amit. Codex prepares the integration branch and an independent reviewer checks its final scope. User requested local staging for publication.
 
-- [ ] Integrate current main while preserving the shared pitch-deck work and all previously verified forecast/demo behavior.
-- [ ] Review the complete branch diff, run relevant integration checks and resolve any failures.
-- [ ] Prepare the pull-request description, verification evidence and squash-merge handoff.
+- [x] Integrate current main while preserving the shared pitch-deck work and all previously verified forecast/demo behavior.
+- [x] Review the complete branch diff, run relevant integration checks and resolve any failures.
+- [x] Prepare the pull-request description, verification evidence and squash-merge handoff.
 
 Publication scope includes the swarm-to-gold forecast, hypothetical-only option website, percentage-return synthetic preset and attributed historical event pilot. No historical predictive edge is claimed. Push and protected-main merge remain separate publication steps.
+
+Preparation review: `codex/gold-forecast-ready` includes main `eef7ac2` and all six feature commits. Only task-log conflicts required resolution; upstream pitch assets and their task section are preserved exactly. Independent integration review passed. Local verification passed 137 model/event, 35 frontend, 21 backend, 16 publisher, 5 scanner and 13 tooling tests, totaling 227, plus 29 specification checks, source audit, backend typecheck, production build, actionlint and redacted Git-history secret scan. Application lint has zero errors and four incumbent warnings. Prior browser checks apply to byte-identical application code. A PR description and publication checklist are prepared locally. This completes staging; push, hosted checks and squash merge have not been performed.
 
 ## Show percentage returns and a conservative synthetic demo
 
