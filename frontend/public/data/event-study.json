@@ -1,0 +1,1818 @@
+{
+  "schemaVersion": 1,
+  "studyId": "alaska-project-event-pilot-v1",
+  "units": {
+    "returns": "fraction",
+    "mae": "percentage_points",
+    "horizons": "trading_sessions"
+  },
+  "status": "evaluated_selected_sample",
+  "errors": [],
+  "method": {
+    "universe": [
+      "NG",
+      "NAK"
+    ],
+    "eventStartDate": "2020-01-01",
+    "eventEndDate": "2025-12-31",
+    "entry": "first_common_session_strictly_after_publication_calendar_date",
+    "horizons": [
+      5,
+      20
+    ],
+    "goldLookbackReturns": 60,
+    "goldPredictorCutoff": "session_strictly_before_entry",
+    "trainingFraction": 0.6,
+    "sameDateRule": "include_entire_boundary_publication_date_in_training",
+    "maturityRule": "training_end_strictly_before_first_test_entry",
+    "overlapRule": "same_issuer_keep_earlier_exclude_including_shared_endpoint",
+    "minimumTrainingEvents": 4,
+    "minimumTestEvents": 3,
+    "residualPriorStrength": 3,
+    "illustrativeRoundTripCost": 0.005,
+    "initialAnnouncementReactionExcluded": true
+  },
+  "sources": {
+    "eventLedger": {
+      "schemaVersion": 1,
+      "frozenAt": "2026-10-25T07:22:05Z",
+      "freezeStatement": "Event membership, public-source dates and direction labels were fixed before the source researcher inspected any stock prices or returns. No stock prices or returns were accessed by the source researcher.",
+      "selectionRule": "NG/Donlin and NAK/Pebble, 2020-01-01 through 2025-12-31; dated primary-source material permitting and regulatory proposals/final actions or actual court/administrative rulings. Exclude financing, earnings, exploration, ownership changes, lobbying, lawsuits merely filed and duplicate coverage.",
+      "publicationDatePolicy": "Conservative date of the directly verified public primary-source announcement; retain earlier action date separately. Earliest dissemination is not proven. Null timestamps explicitly indicate no verified intraday time.",
+      "sourceMethod": "Bounded issuer archive and official agency/court-source search. All qualifying, sufficiently dated events located in this pass retained without viewing prices. Original court publication dates were not inferred from later financial reports.",
+      "coverageLimitations": [
+        "This is a bounded, incomplete source sample, not a comprehensive event census.",
+        "Nine Pebble events and three Donlin events are heavily concentrated in two issuers.",
+        "Procedural admissions, environmental review completion, proposed restrictions and final decisions differ in materiality; direction is a coarse document-effect code.",
+        "All timestamps are date-only; several announcements lag actions and may lag first public awareness.",
+        "Donlin adverse and mixed rulings were located in later reports but excluded where contemporaneous qualifying publication could not be verified. This can create direction and source-availability bias.",
+        "Publication dates identify documented availability, not surprise, investor knowledge, or market reaction.",
+        "Issuer and government releases have interested-party framing; direction rationales use procedural effect rather than their promotional claims."
+      ],
+      "counts": {
+        "events": 12,
+        "NG": 3,
+        "NAK": 9,
+        "favourable": 5,
+        "adverse": 6,
+        "mixedOrUncertain": 1,
+        "primaryAnnouncementUrls": 12,
+        "uniqueSourceUrlsIncludingCorroboration": 18
+      }
+    },
+    "prices": {
+      "provider": "Yahoo Finance",
+      "url": "https://finance.yahoo.com/",
+      "retrievedAt": "2026-10-25T07:16:21.561816+00:00",
+      "adjustment": "split_and_dividend_adjusted_close",
+      "adjustmentDocumentation": "https://in.help.yahoo.com/kb/adjusted-close-sln28256.html",
+      "adjustmentVerified": true,
+      "adjustmentVerificationBasis": "Vendor adjusted-close field is present in all four snapshots; its dividend/split meaning is verified against Yahoo Help. This is not an independent exchange-price audit.",
+      "limitations": [
+        "Current-vintage vendor history may contain later corrections; no archived as-of vintage is claimed.",
+        "GLD is a traded gold ETF proxy, not spot gold or a Tok mineral-interest price.",
+        "Adjusted closes are total-return comparison inputs, not literal executable fill quotes.",
+        "No missing price is forward-filled. The hypothetical closing-entry policy assumes access to a closing execution.",
+        "Penny-stock prices may have limited vendor precision. Some NAK evaluation windows are flat at the supplied precision; those zeros are not independently verified at finer precision."
+      ]
+    },
+    "seriesSources": {
+      "NG": {
+        "ticker": "NG",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/NG?period1=1567296000&period2=1772323200&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "retrievedAt": "2026-10-25T07:16:21.561816+00:00",
+        "sha256": "81fbf2e92849f3b41de385acb7293cf6a36cbf21884b7f59c23648dbc6e83dde",
+        "bytes": 174340,
+        "rows": 1631,
+        "currency": "USD",
+        "exchangeTimezoneName": "America/New_York",
+        "hasAdjustedClose": true,
+        "corporateActionTypes": [],
+        "provider": "Yahoo Finance",
+        "name": "NovaGold Resources Inc.",
+        "exchange": "ASE",
+        "instrumentType": "EQUITY",
+        "historyUrl": "https://finance.yahoo.com/quote/NG/history/",
+        "adjustment": "split_and_dividend_adjusted_close",
+        "field": "indicators.adjclose[0].adjclose",
+        "firstDate": "2019-09-03",
+        "lastDate": "2026-02-27",
+        "missingPriceDates": []
+      },
+      "NAK": {
+        "ticker": "NAK",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/NAK?period1=1567296000&period2=1772323200&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "retrievedAt": "2026-10-25T07:16:21.506867+00:00",
+        "sha256": "9ddb8a286fb1052e4072d4c2a3b8e0ca6827bca6b70226c4f4d8a81f8c6c6e50",
+        "bytes": 182951,
+        "rows": 1631,
+        "currency": "USD",
+        "exchangeTimezoneName": "America/New_York",
+        "hasAdjustedClose": true,
+        "corporateActionTypes": [],
+        "provider": "Yahoo Finance",
+        "name": "Northern Dynasty Minerals Ltd.",
+        "exchange": "ASE",
+        "instrumentType": "EQUITY",
+        "historyUrl": "https://finance.yahoo.com/quote/NAK/history/",
+        "adjustment": "split_and_dividend_adjusted_close",
+        "field": "indicators.adjclose[0].adjclose",
+        "firstDate": "2019-09-03",
+        "lastDate": "2026-02-27",
+        "missingPriceDates": []
+      },
+      "GLD": {
+        "ticker": "GLD",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/GLD?period1=1567296000&period2=1772323200&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "retrievedAt": "2026-10-25T07:16:21.515543+00:00",
+        "sha256": "d41c3314e42877a6e893a580f675b73ff4b9269a1c904b23631409cf5dbf5ecc",
+        "bytes": 179821,
+        "rows": 1631,
+        "currency": "USD",
+        "exchangeTimezoneName": "America/New_York",
+        "hasAdjustedClose": true,
+        "corporateActionTypes": [],
+        "provider": "Yahoo Finance",
+        "name": "SPDR Gold Shares",
+        "exchange": "PCX",
+        "instrumentType": "ETF",
+        "historyUrl": "https://finance.yahoo.com/quote/GLD/history/",
+        "adjustment": "split_and_dividend_adjusted_close",
+        "field": "indicators.adjclose[0].adjclose",
+        "firstDate": "2019-09-03",
+        "lastDate": "2026-02-27",
+        "missingPriceDates": []
+      },
+      "SPY": {
+        "ticker": "SPY",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?period1=1567296000&period2=1772323200&interval=1d&events=div%2Csplits&includeAdjustedClose=true",
+        "retrievedAt": "2026-10-25T07:16:21.549408+00:00",
+        "sha256": "d3bc21a9e8b29cf08d3cf695359cfdb704223c03fb98f6289ed62f8f43f476ee",
+        "bytes": 178833,
+        "rows": 1631,
+        "currency": "USD",
+        "exchangeTimezoneName": "America/New_York",
+        "hasAdjustedClose": true,
+        "corporateActionTypes": [
+          "dividends"
+        ],
+        "provider": "Yahoo Finance",
+        "name": "State Street SPDR S&P 500 ETF Trust",
+        "exchange": "PCX",
+        "instrumentType": "ETF",
+        "historyUrl": "https://finance.yahoo.com/quote/SPY/history/",
+        "adjustment": "split_and_dividend_adjusted_close",
+        "field": "indicators.adjclose[0].adjclose",
+        "firstDate": "2019-09-03",
+        "lastDate": "2026-02-27",
+        "missingPriceDates": []
+      }
+    }
+  },
+  "inputFingerprints": {
+    "ledgerSha256": "05327122fca545c0bebbee6ac44a443eda26cb240aed6bcedace3e72c6a38309",
+    "pricesSha256": "0e4a5ac0063dabc48d62a7aa660de449eb8f87f4868e356694b4cee764a3ec79"
+  },
+  "horizons": [
+    {
+      "days": 5,
+      "primary": true,
+      "status": "evaluated_selected_sample",
+      "scoreReasons": [],
+      "targetTrainingCount": 7,
+      "boundaryPublicationDate": "2022-12-02",
+      "firstTestEntryDate": "2023-02-01",
+      "trainingCandidateIds": [
+        "NG-20200206-state-authorizations",
+        "NAK-20200724-final-eis",
+        "NAK-20200824-not-permittable",
+        "NAK-20201125-permit-denial",
+        "NAK-20210225-appeal-accepted",
+        "NAK-20220525-epa-proposal",
+        "NAK-20221202-epa-recommendation"
+      ],
+      "trainEventIds": [
+        "NG-20200206-state-authorizations",
+        "NAK-20200724-final-eis",
+        "NAK-20200824-not-permittable",
+        "NAK-20201125-permit-denial",
+        "NAK-20210225-appeal-accepted",
+        "NAK-20220525-epa-proposal",
+        "NAK-20221202-epa-recommendation"
+      ],
+      "testEventIds": [
+        "NAK-20230131-epa-final",
+        "NAK-20230426-appeal-remand",
+        "NAK-20240416-remand-stopped",
+        "NG-20251027-fast41",
+        "NG-20251118-state-court-upholds"
+      ],
+      "eligibleEventIds": [
+        "NG-20200206-state-authorizations",
+        "NAK-20200724-final-eis",
+        "NAK-20200824-not-permittable",
+        "NAK-20201125-permit-denial",
+        "NAK-20210225-appeal-accepted",
+        "NAK-20220525-epa-proposal",
+        "NAK-20221202-epa-recommendation",
+        "NAK-20230131-epa-final",
+        "NAK-20230426-appeal-remand",
+        "NAK-20240416-remand-stopped",
+        "NG-20251027-fast41",
+        "NG-20251118-state-court-upholds"
+      ],
+      "fit": {
+        "0": {
+          "count": 1,
+          "meanResidual": -0.09555896552869435,
+          "shrinkage": 0.25,
+          "adjustment": -0.023889741382173587
+        },
+        "1": {
+          "count": 2,
+          "meanResidual": -0.06929689413240424,
+          "shrinkage": 0.4,
+          "adjustment": -0.027718757652961695
+        },
+        "-1": {
+          "count": 4,
+          "meanResidual": 0.19625901919361197,
+          "shrinkage": 0.5714285714285714,
+          "adjustment": 0.11214801096777827
+        }
+      },
+      "metrics": {
+        "goldBaseline": {
+          "maePercentagePoints": 3.129094706562224,
+          "directionHits": {
+            "numerator": 1,
+            "denominator": 5,
+            "rate": 0.2
+          },
+          "sampleSize": 5
+        },
+        "eventModel": {
+          "maePercentagePoints": 8.059555218458533,
+          "directionHits": {
+            "numerator": 1,
+            "denominator": 5,
+            "rate": 0.2
+          },
+          "sampleSize": 5
+        },
+        "noChange": {
+          "maePercentagePoints": 2.556165327782003,
+          "directionHits": {
+            "numerator": 3,
+            "denominator": 5,
+            "rate": 0.6
+          },
+          "sampleSize": 5
+        }
+      },
+      "eventVersusGoldMaeReductionPercentagePoints": -4.9304605118963085,
+      "exclusions": [],
+      "events": [
+        {
+          "id": "NG-20200206-state-authorizations",
+          "ticker": "NG",
+          "project": "Donlin Gold",
+          "publicationDate": "2020-02-06",
+          "eventDate": "2020-01-17",
+          "title": "Donlin receives state pipeline and transportation authorizations",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "permit_approval",
+          "direction": 1,
+          "rationale": "Final state land authorizations remove specified infrastructure permitting barriers; they do not authorize all construction.",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1173420/000117184320000757/exh_991.htm",
+          "sourcePublisher": "NOVAGOLD, issuer release archived by SEC",
+          "sourcePublishedDate": "2020-02-06",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Issuer reports final pipeline right-of-way authorization on January 17 and transportation-related authorizations on January 2.",
+          "dateNotes": "Use the dated February 6 issuer announcement, not the earlier agency action dates. Earlier public agency availability was not established.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "announcement_lag",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 5,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-02-07",
+          "endDate": "2020-02-14",
+          "observedReturns": {
+            "stock": 0.030857195172991014,
+            "gld": 0.008187338580661008,
+            "spy": 0.016255036223222996,
+            "stockMinusGld": 0.022669856592330007,
+            "stockMinusSpy": 0.014602158949768018
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.005877735316831982,
+            "eventModel": -0.021841022336129712,
+            "eventAdjustment": -0.027718757652961695,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": 0.030857195172991014,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": 0.025857195172991013,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20200724-final-eis",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2020-07-24",
+          "eventDate": "2020-07-24",
+          "title": "USACE publishes final Pebble environmental impact statement",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "environmental_review_final",
+          "direction": 0,
+          "rationale": "Completion advances environmental review, but the agency explicitly withholds a permit decision. Net project effect is coded uncertain.",
+          "sourceUrl": "https://www.pod.usace.army.mil/Media/News-Releases/Article/2303902/corps-releases-pebble-final-environmental-impact-statement/",
+          "sourcePublisher": "U.S. Army Corps of Engineers, Alaska District",
+          "sourcePublishedDate": "2020-07-24",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Final EIS was publicly released July 24. Permit authorization remained a separate later decision.",
+          "dateNotes": "",
+          "secondarySourceUrls": [
+            "https://cdxapps.epa.gov/cdx-enepa-II/public/action/eis/details?eisId=301934"
+          ],
+          "uncertaintyFlags": [
+            "review_completion_not_permit"
+          ],
+          "horizonSessions": 5,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-07-27",
+          "endDate": "2020-08-03",
+          "observedReturns": {
+            "stock": -0.08720928701340958,
+            "gld": 0.018712636459739862,
+            "spy": 0.017233172835043442,
+            "stockMinusGld": -0.10592192347314944,
+            "stockMinusSpy": -0.10444245984845302
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.008349678515284776,
+            "eventModel": -0.015540062866888811,
+            "eventAdjustment": -0.023889741382173587,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20200824-not-permittable",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2020-08-24",
+          "eventDate": "2020-08-24",
+          "title": "Army finds proposed Pebble project cannot receive a permit",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "adverse_regulatory_finding",
+          "direction": -1,
+          "rationale": "Agency finds significant adverse impacts and inadequate mitigation, creating a direct barrier to permitting the submitted plan.",
+          "sourceUrl": "https://www.army.mil/article/238426/army_finds_pebble_mine_project_cannot_be_permitted_as_proposed",
+          "sourcePublisher": "U.S. Army Public Affairs",
+          "sourcePublishedDate": "2020-08-24",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Army states the submitted project cannot be permitted under Clean Water Act section 404 because of environmental impacts and inadequate mitigation.",
+          "dateNotes": "",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [],
+          "horizonSessions": 5,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-08-25",
+          "endDate": "2020-09-01",
+          "observedReturns": {
+            "stock": 0.8688523917389137,
+            "gld": 0.021134542573974624,
+            "spy": 0.024642855453443024,
+            "stockMinusGld": 0.8477178491649391,
+            "stockMinusSpy": 0.8442095362854707
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.008813538160404559,
+            "eventModel": 0.12096154912818283,
+            "eventAdjustment": 0.11214801096777827,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20201125-permit-denial",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2020-11-25",
+          "eventDate": "2020-11-25",
+          "title": "USACE denies Pebble permit application",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "permit_denial",
+          "direction": -1,
+          "rationale": "The formal denial blocks the submitted project from obtaining its required federal permit.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2020/northern-dynasty-reacts-to-negative-federal-record-of-decision-on-alaskas-pebble-project/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2020-11-25",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Dated issuer announcement reports receiving formal USACE notification that its federal permit application was denied that day.",
+          "dateNotes": "",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [],
+          "horizonSessions": 5,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-11-27",
+          "endDate": "2020-12-04",
+          "observedReturns": {
+            "stock": 0,
+            "gld": 0.02699811800076124,
+            "spy": 0.016993557415068583,
+            "stockMinusGld": -0.02699811800076124,
+            "stockMinusSpy": -0.016993557415068583
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": -0.007282865929707833,
+            "eventModel": 0.10486514503807043,
+            "eventAdjustment": 0.11214801096777827,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20210225-appeal-accepted",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2021-02-25",
+          "eventDate": "2021-02-24",
+          "title": "USACE accepts administrative appeal of Pebble denial",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "administrative_appeal_admitted",
+          "direction": 1,
+          "rationale": "Agency acceptance opens review of the denial. This is a favourable procedural ruling, not a reversal or permit grant.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2021/northern-dynasty-us-army-corps-of-engineers-accepts-pebble-partnership-request-for-appeal/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2021-02-25",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "A February 24 USACE letter found the appeal request complete and eligible; the issuer announced this February 25.",
+          "dateNotes": "Later verified issuer publication used instead of the letter date.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "procedural_only",
+            "announcement_lag"
+          ],
+          "horizonSessions": 5,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2021-02-26",
+          "endDate": "2021-03-05",
+          "observedReturns": {
+            "stock": -0.16455695151977123,
+            "gld": -0.016500823244734675,
+            "spy": 0.008597201502589469,
+            "stockMinusGld": -0.14805612827503656,
+            "stockMinusSpy": -0.1731541530223607
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": -0.0009837033988037214,
+            "eventModel": -0.028702461051765417,
+            "eventAdjustment": -0.027718757652961695,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": -0.16455695151977123,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": -0.16955695151977124,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20220525-epa-proposal",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2022-05-25",
+          "eventDate": "2022-05-25",
+          "title": "EPA proposes restrictions on Pebble-related discharges",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "regulatory_proposal",
+          "direction": -1,
+          "rationale": "The revised proposal would prohibit or restrict discharges needed for the project if finalized, increasing regulatory obstacles.",
+          "sourceUrl": "https://www.epa.gov/newsreleases/epa-proposes-protect-bristol-bays-salmon-fishery-subsistence-fishing-alaska-natives",
+          "sourcePublisher": "U.S. Environmental Protection Agency",
+          "sourcePublishedDate": "2022-05-25",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "EPA opened a revised section 404(c) proposed determination for public review on May 25.",
+          "dateNotes": "Use press release date; later Federal Register notice is not an independent event.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "proposal_not_final"
+          ],
+          "horizonSessions": 5,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2022-05-26",
+          "endDate": "2022-06-03",
+          "observedReturns": {
+            "stock": 0.0333333002196432,
+            "gld": -0.001041865486827942,
+            "spy": 0.012903635987765893,
+            "stockMinusGld": 0.034375165706471145,
+            "stockMinusSpy": 0.02042966423187731
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": -0.004005509746413479,
+            "eventModel": 0.10814250122136479,
+            "eventAdjustment": 0.11214801096777827,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20221202-epa-recommendation",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2022-12-02",
+          "eventDate": "2022-12-01",
+          "title": "EPA regional recommendation advances Pebble discharge restrictions",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "regulatory_recommendation",
+          "direction": -1,
+          "rationale": "The regional recommendation advances restrictions to headquarters review. Final determination was still pending.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2022/northern-dynasty-pebble-vehemently-pushes-back-against-epas-unprecedented-preemptive-veto-action/",
+          "sourcePublisher": "Northern Dynasty Minerals, corroborated by EPA",
+          "sourcePublishedDate": "2022-12-02",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "The issuer published its response December 2. EPA records identify the December 1 recommendation and subsequent headquarters consultation.",
+          "dateNotes": "December 2 is the verified contemporaneous public issuer response, not a claim of first dissemination. The issuer calls it a veto, but EPA records distinguish recommendation from final action.",
+          "secondarySourceUrls": [
+            "https://www.epa.gov/bristolbay/bristol-bay-404c-timeline",
+            "https://www.epa.gov/system/files/documents/2023-01/Pebble-Deposit-Area-404c-FD-Jan2023.pdf"
+          ],
+          "uncertaintyFlags": [
+            "recommendation_not_final",
+            "announcement_lag",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 5,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2022-12-05",
+          "endDate": "2022-12-12",
+          "observedReturns": {
+            "stock": -0.11538456688971033,
+            "gld": 0.00784715183966389,
+            "spy": -0.0016016800587775881,
+            "stockMinusGld": -0.12323171872937422,
+            "stockMinusSpy": -0.11378288683093274
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.004239885810115456,
+            "eventModel": 0.11638789677789373,
+            "eventAdjustment": 0.11214801096777827,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20230131-epa-final",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2023-01-31",
+          "eventDate": "2023-01-30",
+          "title": "EPA finalizes Pebble discharge prohibitions and restrictions",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "regulatory_final_prohibition",
+          "direction": -1,
+          "rationale": "Final section 404(c) restrictions prevent the submitted development from using specified waters for mine waste discharges.",
+          "sourceUrl": "https://www.epa.gov/newsreleases/biden-harris-administration-announces-action-help-protect-bristol-bay-salmon-fisheries",
+          "sourcePublisher": "U.S. Environmental Protection Agency",
+          "sourcePublishedDate": "2023-01-31",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "EPA describes final prohibitions for the submitted mine plan and restrictions on future proposals with similar or greater impacts.",
+          "dateNotes": "Final-determination page dates issuance January 30. Announcement page is dated by January 31 update and corroborated by same-day issuer archive. Use January 31 conservatively.",
+          "secondarySourceUrls": [
+            "https://www.epa.gov/cwa-404/final-determination-pebble-deposit-area",
+            "https://northerndynastyminerals.com/news/news-releases/2023/"
+          ],
+          "uncertaintyFlags": [
+            "announcement_lag"
+          ],
+          "horizonSessions": 5,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2023-02-01",
+          "endDate": "2023-02-08",
+          "observedReturns": {
+            "stock": 0,
+            "gld": -0.039962539659875285,
+            "spy": -0.00036520403838247173,
+            "stockMinusGld": 0.039962539659875285,
+            "stockMinusSpy": 0.00036520403838247173
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.013695493156591942,
+            "eventModel": 0.1258435041243702,
+            "eventAdjustment": 0.11214801096777827,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20230426-appeal-remand",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2023-04-26",
+          "eventDate": "2023-04-25",
+          "title": "USACE remands Pebble denial for reconsideration",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "administrative_appeal_remand",
+          "direction": 1,
+          "rationale": "Successful appeal grounds reopen specified issues in the denial, while the separate EPA restriction remains in force.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2023/northern-dynasty-u.s-army-corps-sends-pebble-permit-application-back-to-alaska-office-for-more-work/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2023-04-26",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Issuer says the Pacific Ocean Division did not sustain the denial and returned specified issues to the Alaska District.",
+          "dateNotes": "Issuer release April 26 describes an April 25 announcement. Use later directly verified publication date; do not assume a trading time for April 25.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "procedural_only",
+            "announcement_lag"
+          ],
+          "horizonSessions": 5,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2023-04-27",
+          "endDate": "2023-05-04",
+          "observedReturns": {
+            "stock": 0,
+            "gld": 0.030798389398680737,
+            "spy": -0.01765225564156747,
+            "stockMinusGld": -0.030798389398680737,
+            "stockMinusSpy": 0.01765225564156747
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.0027458769968514017,
+            "eventModel": -0.024972880656110294,
+            "eventAdjustment": -0.027718757652961695,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": -0.005,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20240416-remand-stopped",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2024-04-16",
+          "eventDate": "2024-04-16",
+          "title": "USACE declines Pebble remand work while EPA restriction stands",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "administrative_remand_denied",
+          "direction": -1,
+          "rationale": "The agency declines to reconsider the denial while the EPA restriction remains, closing the immediate administrative route.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2024/northern-dynasty-usace-updates-the-pebble-permitting-process-in-light-of-the-epa-veto/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2024-04-16",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Issuer reports USACE declined remand proceedings because of the intervening EPA restriction; decision was without prejudice.",
+          "dateNotes": "Contemporaneous issuer announcement says today; separate underlying document signature date was not independently verified.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "without_prejudice"
+          ],
+          "horizonSessions": 5,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2024-04-17",
+          "endDate": "2024-04-24",
+          "observedReturns": {
+            "stock": 0,
+            "gld": -0.022541996588157254,
+            "spy": 0.009709304606403846,
+            "stockMinusGld": 0.022541996588157254,
+            "stockMinusSpy": -0.009709304606403846
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.013683454187606133,
+            "eventModel": 0.1258314651553844,
+            "eventAdjustment": 0.11214801096777827,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NG-20251027-fast41",
+          "ticker": "NG",
+          "project": "Donlin Gold",
+          "publicationDate": "2025-10-27",
+          "eventDate": "2025-10-27",
+          "title": "Donlin receives FAST-41 federal permitting coordination coverage",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "permitting_program_acceptance",
+          "direction": 1,
+          "rationale": "Formal coverage adds coordinated federal review and public timelines. It does not remove requirements or approve construction.",
+          "sourceUrl": "https://www.permitting.gov/newsroom/press-releases/donlin-gold-project-gains-permitting-councils-fast-41-coverage",
+          "sourcePublisher": "Federal Permitting Improvement Steering Council",
+          "sourcePublishedDate": "2025-10-27",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Agency announced coverage October 27 for the supplemental environmental review following the court remand.",
+          "dateNotes": "The current dashboard records an October 24 project posting. Because that historical page state and coverage status were not archived here, use the explicit October 27 agency announcement; earlier public awareness is possible.",
+          "secondarySourceUrls": [
+            "https://www.permits.performance.gov/permitting-project/fast-41-covered-projects/donlin-gold-project"
+          ],
+          "uncertaintyFlags": [
+            "procedural_only",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 5,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2025-10-28",
+          "endDate": "2025-11-04",
+          "observedReturns": {
+            "stock": -0.05166052526222231,
+            "gld": -0.005653431941898823,
+            "spy": -0.01720366131942297,
+            "stockMinusGld": -0.04600709332032349,
+            "stockMinusSpy": -0.03445686394279934
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.014410508614841066,
+            "eventModel": -0.01330824903812063,
+            "eventAdjustment": -0.027718757652961695,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": -0.05166052526222231,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": -0.05666052526222231,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NG-20251118-state-court-upholds",
+          "ticker": "NG",
+          "project": "Donlin Gold",
+          "publicationDate": "2025-11-18",
+          "eventDate": "2025-11-14",
+          "title": "Alaska Supreme Court upholds Donlin state water and pipeline permits",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "court_permit_upheld",
+          "direction": 1,
+          "rationale": "The court rejects constitutional challenges and sustains the specified state approvals, reducing that legal obstacle.",
+          "sourceUrl": "https://law.alaska.gov/press/releases/2025/111825-Donlin.html",
+          "sourcePublisher": "Alaska Department of Law",
+          "sourcePublishedDate": "2025-11-18",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "State legal department reports the November 14 ruling upheld water appropriation permits and the state-land pipeline right-of-way.",
+          "dateNotes": "Use the verified November 18 government release. Court decision was November 14 and may have been public then; exact earlier publication was not established.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "announcement_lag",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 5,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2025-11-19",
+          "endDate": "2025-11-26",
+          "observedReturns": {
+            "stock": 0.07614774112687783,
+            "gld": 0.021762331576879568,
+            "spy": 0.025730742280684282,
+            "stockMinusGld": 0.054385409549998265,
+            "stockMinusSpy": 0.05041699884619355
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.01588886401687949,
+            "eventModel": -0.011829893636082205,
+            "eventAdjustment": -0.027718757652961695,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": 0.07614774112687783,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": 0.07114774112687783,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        }
+      ]
+    },
+    {
+      "days": 20,
+      "primary": false,
+      "status": "evaluated_selected_sample",
+      "scoreReasons": [],
+      "targetTrainingCount": 6,
+      "boundaryPublicationDate": "2022-05-25",
+      "firstTestEntryDate": "2022-12-05",
+      "trainingCandidateIds": [
+        "NG-20200206-state-authorizations",
+        "NAK-20200724-final-eis",
+        "NAK-20200824-not-permittable",
+        "NAK-20201125-permit-denial",
+        "NAK-20210225-appeal-accepted",
+        "NAK-20220525-epa-proposal"
+      ],
+      "trainEventIds": [
+        "NG-20200206-state-authorizations",
+        "NAK-20200724-final-eis",
+        "NAK-20200824-not-permittable",
+        "NAK-20201125-permit-denial",
+        "NAK-20210225-appeal-accepted",
+        "NAK-20220525-epa-proposal"
+      ],
+      "testEventIds": [
+        "NAK-20221202-epa-recommendation",
+        "NAK-20230131-epa-final",
+        "NAK-20230426-appeal-remand",
+        "NAK-20240416-remand-stopped",
+        "NG-20251027-fast41"
+      ],
+      "eligibleEventIds": [
+        "NG-20200206-state-authorizations",
+        "NAK-20200724-final-eis",
+        "NAK-20200824-not-permittable",
+        "NAK-20201125-permit-denial",
+        "NAK-20210225-appeal-accepted",
+        "NAK-20220525-epa-proposal",
+        "NAK-20221202-epa-recommendation",
+        "NAK-20230131-epa-final",
+        "NAK-20230426-appeal-remand",
+        "NAK-20240416-remand-stopped",
+        "NG-20251027-fast41"
+      ],
+      "fit": {
+        "0": {
+          "count": 1,
+          "meanResidual": -0.5105635587838204,
+          "shrinkage": 0.25,
+          "adjustment": -0.1276408896959551
+        },
+        "1": {
+          "count": 2,
+          "meanResidual": -0.1574899484394352,
+          "shrinkage": 0.4,
+          "adjustment": -0.06299597937577409
+        },
+        "-1": {
+          "count": 3,
+          "meanResidual": 0.15550329239390415,
+          "shrinkage": 0.5,
+          "adjustment": 0.07775164619695207
+        }
+      },
+      "metrics": {
+        "goldBaseline": {
+          "maePercentagePoints": 7.567043516164337,
+          "directionHits": {
+            "numerator": 1,
+            "denominator": 5,
+            "rate": 0.2
+          },
+          "sampleSize": 5
+        },
+        "eventModel": {
+          "maePercentagePoints": 14.310828266970665,
+          "directionHits": {
+            "numerator": 0,
+            "denominator": 5,
+            "rate": 0
+          },
+          "sampleSize": 5
+        },
+        "noChange": {
+          "maePercentagePoints": 5.947409162738812,
+          "directionHits": {
+            "numerator": 2,
+            "denominator": 5,
+            "rate": 0.4
+          },
+          "sampleSize": 5
+        }
+      },
+      "eventVersusGoldMaeReductionPercentagePoints": -6.743784750806328,
+      "exclusions": [
+        {
+          "id": "NG-20251118-state-court-upholds",
+          "ticker": "NG",
+          "publicationDate": "2025-11-18",
+          "entryDate": "2025-11-19",
+          "endDate": "2025-12-18",
+          "reasons": [
+            "overlap_with_NG-20251027-fast41"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "id": "NG-20200206-state-authorizations",
+          "ticker": "NG",
+          "project": "Donlin Gold",
+          "publicationDate": "2020-02-06",
+          "eventDate": "2020-01-17",
+          "title": "Donlin receives state pipeline and transportation authorizations",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "permit_approval",
+          "direction": 1,
+          "rationale": "Final state land authorizations remove specified infrastructure permitting barriers; they do not authorize all construction.",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1173420/000117184320000757/exh_991.htm",
+          "sourcePublisher": "NOVAGOLD, issuer release archived by SEC",
+          "sourcePublishedDate": "2020-02-06",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Issuer reports final pipeline right-of-way authorization on January 17 and transportation-related authorizations on January 2.",
+          "dateNotes": "Use the dated February 6 issuer announcement, not the earlier agency action dates. Earlier public agency availability was not established.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "announcement_lag",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 20,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-02-07",
+          "endDate": "2020-03-09",
+          "observedReturns": {
+            "stock": -0.07999997820172988,
+            "gld": 0.06779893583905539,
+            "spy": -0.1745033792378382,
+            "stockMinusGld": -0.14779891404078527,
+            "stockMinusSpy": 0.09450340103610833
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.02371904134625401,
+            "eventModel": -0.03927693802952008,
+            "eventAdjustment": -0.06299597937577409,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": -0.07999997820172988,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": -0.08499997820172989,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20200724-final-eis",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2020-07-24",
+          "eventDate": "2020-07-24",
+          "title": "USACE publishes final Pebble environmental impact statement",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "environmental_review_final",
+          "direction": 0,
+          "rationale": "Completion advances environmental review, but the agency explicitly withholds a permit decision. Net project effect is coded uncertain.",
+          "sourceUrl": "https://www.pod.usace.army.mil/Media/News-Releases/Article/2303902/corps-releases-pebble-final-environmental-impact-statement/",
+          "sourcePublisher": "U.S. Army Corps of Engineers, Alaska District",
+          "sourcePublishedDate": "2020-07-24",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Final EIS was publicly released July 24. Permit authorization remained a separate later decision.",
+          "dateNotes": "",
+          "secondarySourceUrls": [
+            "https://cdxapps.epa.gov/cdx-enepa-II/public/action/eis/details?eisId=301934"
+          ],
+          "uncertaintyFlags": [
+            "review_completion_not_permit"
+          ],
+          "horizonSessions": 20,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-07-27",
+          "endDate": "2020-08-24",
+          "observedReturns": {
+            "stock": -0.47674420861181754,
+            "gld": -0.006749688615358851,
+            "spy": 0.060949231568228956,
+            "stockMinusGld": -0.4699945199964587,
+            "stockMinusSpy": -0.5376934401800465
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.03381935017200289,
+            "eventModel": -0.09382153952395222,
+            "eventAdjustment": -0.1276408896959551,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20200824-not-permittable",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2020-08-24",
+          "eventDate": "2020-08-24",
+          "title": "Army finds proposed Pebble project cannot receive a permit",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "adverse_regulatory_finding",
+          "direction": -1,
+          "rationale": "Agency finds significant adverse impacts and inadequate mitigation, creating a direct barrier to permitting the submitted plan.",
+          "sourceUrl": "https://www.army.mil/article/238426/army_finds_pebble_mine_project_cannot_be_permitted_as_proposed",
+          "sourcePublisher": "U.S. Army Public Affairs",
+          "sourcePublishedDate": "2020-08-24",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Army states the submitted project cannot be permitted under Clean Water Act section 404 because of environmental impacts and inadequate mitigation.",
+          "dateNotes": "",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [],
+          "horizonSessions": 20,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-08-25",
+          "endDate": "2020-09-23",
+          "observedReturns": {
+            "stock": 0.6557376504553112,
+            "gld": -0.035481778453027246,
+            "spy": -0.05866707547269079,
+            "stockMinusGld": 0.6912194289083384,
+            "stockMinusSpy": 0.714404725928002
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.035722967893096216,
+            "eventModel": 0.11347461409004829,
+            "eventAdjustment": 0.07775164619695207,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20201125-permit-denial",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2020-11-25",
+          "eventDate": "2020-11-25",
+          "title": "USACE denies Pebble permit application",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "permit_denial",
+          "direction": -1,
+          "rationale": "The formal denial blocks the submitted project from obtaining its required federal permit.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2020/northern-dynasty-reacts-to-negative-federal-record-of-decision-on-alaskas-pebble-project/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2020-11-25",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Dated issuer announcement reports receiving formal USACE notification that its federal permit application was denied that day.",
+          "dateNotes": "",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [],
+          "horizonSessions": 20,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2020-11-27",
+          "endDate": "2020-12-28",
+          "observedReturns": {
+            "stock": -0.1315789019632202,
+            "gld": 0.04720194138293077,
+            "spy": 0.027735232596331594,
+            "stockMinusGld": -0.17878084334615096,
+            "stockMinusSpy": -0.1593141345595518
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": -0.028814765225476595,
+            "eventModel": 0.04893688097147548,
+            "eventAdjustment": 0.07775164619695207,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20210225-appeal-accepted",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2021-02-25",
+          "eventDate": "2021-02-24",
+          "title": "USACE accepts administrative appeal of Pebble denial",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "administrative_appeal_admitted",
+          "direction": 1,
+          "rationale": "Agency acceptance opens review of the denial. This is a favourable procedural ruling, not a reversal or permit grant.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2021/northern-dynasty-us-army-corps-of-engineers-accepts-pebble-partnership-request-for-appeal/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2021-02-25",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "A February 24 USACE letter found the appeal request complete and eligible; the issuer announced this February 25.",
+          "dateNotes": "Later verified issuer publication used instead of the letter date.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "procedural_only",
+            "announcement_lag"
+          ],
+          "horizonSessions": 20,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2021-02-26",
+          "endDate": "2021-03-26",
+          "observedReturns": {
+            "stock": -0.21518988869851452,
+            "gld": 0.0026574868120530226,
+            "spy": 0.04447652173732264,
+            "stockMinusGld": -0.21784737551056754,
+            "stockMinusSpy": -0.25966641043583716
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": -0.003929011367628012,
+            "eventModel": -0.0669249907434021,
+            "eventAdjustment": -0.06299597937577409,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": -0.21518988869851452,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": -0.22018988869851452,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20220525-epa-proposal",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2022-05-25",
+          "eventDate": "2022-05-25",
+          "title": "EPA proposes restrictions on Pebble-related discharges",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "regulatory_proposal",
+          "direction": -1,
+          "rationale": "The revised proposal would prohibit or restrict discharges needed for the project if finalized, increasing regulatory obstacles.",
+          "sourceUrl": "https://www.epa.gov/newsreleases/epa-proposes-protect-bristol-bays-salmon-fishery-subsistence-fishing-alaska-natives",
+          "sourcePublisher": "U.S. Environmental Protection Agency",
+          "sourcePublishedDate": "2022-05-25",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "EPA opened a revised section 404(c) proposed determination for public review on May 25.",
+          "dateNotes": "Use press release date; later Federal Register notice is not an independent event.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "proposal_not_final"
+          ],
+          "horizonSessions": 20,
+          "partition": "train",
+          "exclusionReasons": [],
+          "entryDate": "2022-05-26",
+          "endDate": "2022-06-27",
+          "observedReturns": {
+            "stock": -0.06666669978035689,
+            "gld": -0.01655476210517237,
+            "spy": -0.0371108990063822,
+            "stockMinusGld": -0.050111937675184515,
+            "stockMinusSpy": -0.029555800773974683
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": -0.015926031137597954,
+            "eventModel": 0.06182561505935412,
+            "eventAdjustment": 0.07775164619695207,
+            "scope": "in_sample_training_fit"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20221202-epa-recommendation",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2022-12-02",
+          "eventDate": "2022-12-01",
+          "title": "EPA regional recommendation advances Pebble discharge restrictions",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "regulatory_recommendation",
+          "direction": -1,
+          "rationale": "The regional recommendation advances restrictions to headquarters review. Final determination was still pending.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2022/northern-dynasty-pebble-vehemently-pushes-back-against-epas-unprecedented-preemptive-veto-action/",
+          "sourcePublisher": "Northern Dynasty Minerals, corroborated by EPA",
+          "sourcePublishedDate": "2022-12-02",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "The issuer published its response December 2. EPA records identify the December 1 recommendation and subsequent headquarters consultation.",
+          "dateNotes": "December 2 is the verified contemporaneous public issuer response, not a claim of first dissemination. The issuer calls it a veto, but EPA records distinguish recommendation from final action.",
+          "secondarySourceUrls": [
+            "https://www.epa.gov/bristolbay/bristol-bay-404c-timeline",
+            "https://www.epa.gov/system/files/documents/2023-01/Pebble-Deposit-Area-404c-FD-Jan2023.pdf"
+          ],
+          "uncertaintyFlags": [
+            "recommendation_not_final",
+            "announcement_lag",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 20,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2022-12-05",
+          "endDate": "2023-01-04",
+          "observedReturns": {
+            "stock": -0.11538456688971033,
+            "gld": 0.05036802001362051,
+            "spy": -0.035205429624613926,
+            "stockMinusGld": -0.16575258690333083,
+            "stockMinusSpy": -0.0801791372650964
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.017067708229180367,
+            "eventModel": 0.09481935442613244,
+            "eventAdjustment": 0.07775164619695207,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20230131-epa-final",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2023-01-31",
+          "eventDate": "2023-01-30",
+          "title": "EPA finalizes Pebble discharge prohibitions and restrictions",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "regulatory_final_prohibition",
+          "direction": -1,
+          "rationale": "Final section 404(c) restrictions prevent the submitted development from using specified waters for mine waste discharges.",
+          "sourceUrl": "https://www.epa.gov/newsreleases/biden-harris-administration-announces-action-help-protect-bristol-bay-salmon-fisheries",
+          "sourcePublisher": "U.S. Environmental Protection Agency",
+          "sourcePublishedDate": "2023-01-31",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "EPA describes final prohibitions for the submitted mine plan and restrictions on future proposals with similar or greater impacts.",
+          "dateNotes": "Final-determination page dates issuance January 30. Announcement page is dated by January 31 update and corroborated by same-day issuer archive. Use January 31 conservatively.",
+          "secondarySourceUrls": [
+            "https://www.epa.gov/cwa-404/final-determination-pebble-deposit-area",
+            "https://northerndynastyminerals.com/news/news-releases/2023/"
+          ],
+          "uncertaintyFlags": [
+            "announcement_lag"
+          ],
+          "horizonSessions": 20,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2023-02-01",
+          "endDate": "2023-03-02",
+          "observedReturns": {
+            "stock": -0.045454570084564105,
+            "gld": -0.06060436295373939,
+            "spy": -0.03162118660080482,
+            "stockMinusGld": 0.015149792869175283,
+            "stockMinusSpy": -0.013833383483759287
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.05591768226905113,
+            "eventModel": 0.1336693284660032,
+            "eventAdjustment": 0.07775164619695207,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20230426-appeal-remand",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2023-04-26",
+          "eventDate": "2023-04-25",
+          "title": "USACE remands Pebble denial for reconsideration",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "administrative_appeal_remand",
+          "direction": 1,
+          "rationale": "Successful appeal grounds reopen specified issues in the denial, while the separate EPA restriction remains in force.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2023/northern-dynasty-u.s-army-corps-sends-pebble-permit-application-back-to-alaska-office-for-more-work/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2023-04-26",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Issuer says the Pacific Ocean Division did not sustain the denial and returned specified issues to the Alaska District.",
+          "dateNotes": "Issuer release April 26 describes an April 25 announcement. Use later directly verified publication date; do not assume a trading time for April 25.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "procedural_only",
+            "announcement_lag"
+          ],
+          "horizonSessions": 20,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2023-04-27",
+          "endDate": "2023-05-25",
+          "observedReturns": {
+            "stock": 0,
+            "gld": -0.024627892025752662,
+            "spy": 0.005431522725286131,
+            "stockMinusGld": 0.024627892025752662,
+            "stockMinusSpy": -0.005431522725286131
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.011028829901043983,
+            "eventModel": -0.05196714947473011,
+            "eventAdjustment": -0.06299597937577409,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": -0.005,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NAK-20240416-remand-stopped",
+          "ticker": "NAK",
+          "project": "Pebble",
+          "publicationDate": "2024-04-16",
+          "eventDate": "2024-04-16",
+          "title": "USACE declines Pebble remand work while EPA restriction stands",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "administrative_remand_denied",
+          "direction": -1,
+          "rationale": "The agency declines to reconsider the denial while the EPA restriction remains, closing the immediate administrative route.",
+          "sourceUrl": "https://northerndynastyminerals.com/news/news-releases/2024/northern-dynasty-usace-updates-the-pebble-permitting-process-in-light-of-the-epa-veto/",
+          "sourcePublisher": "Northern Dynasty Minerals",
+          "sourcePublishedDate": "2024-04-16",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Issuer reports USACE declined remand proceedings because of the intervening EPA restriction; decision was without prejudice.",
+          "dateNotes": "Contemporaneous issuer announcement says today; separate underlying document signature date was not independently verified.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "without_prejudice"
+          ],
+          "horizonSessions": 20,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2024-04-17",
+          "endDate": "2024-05-15",
+          "observedReturns": {
+            "stock": 0,
+            "gld": 0.005920137863463681,
+            "spy": 0.058395738036766565,
+            "stockMinusGld": -0.005920137863463681,
+            "stockMinusSpy": -0.058395738036766565
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.0558675215103004,
+            "eventModel": 0.13361916770725246,
+            "eventAdjustment": 0.07775164619695207,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": false,
+            "grossReturn": 0,
+            "illustrativeRoundTripCost": 0,
+            "returnAfterIllustrativeCost": 0,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NG-20251027-fast41",
+          "ticker": "NG",
+          "project": "Donlin Gold",
+          "publicationDate": "2025-10-27",
+          "eventDate": "2025-10-27",
+          "title": "Donlin receives FAST-41 federal permitting coordination coverage",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "permitting_program_acceptance",
+          "direction": 1,
+          "rationale": "Formal coverage adds coordinated federal review and public timelines. It does not remove requirements or approve construction.",
+          "sourceUrl": "https://www.permitting.gov/newsroom/press-releases/donlin-gold-project-gains-permitting-councils-fast-41-coverage",
+          "sourcePublisher": "Federal Permitting Improvement Steering Council",
+          "sourcePublishedDate": "2025-10-27",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "Agency announced coverage October 27 for the supplemental environmental review following the court remand.",
+          "dateNotes": "The current dashboard records an October 24 project posting. Because that historical page state and coverage status were not archived here, use the explicit October 27 agency announcement; earlier public awareness is possible.",
+          "secondarySourceUrls": [
+            "https://www.permits.performance.gov/permitting-project/fast-41-covered-projects/donlin-gold-project"
+          ],
+          "uncertaintyFlags": [
+            "procedural_only",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 20,
+          "partition": "test",
+          "exclusionReasons": [],
+          "entryDate": "2025-10-28",
+          "endDate": "2025-11-25",
+          "observedReturns": {
+            "stock": 0.1365313211626662,
+            "gld": 0.04308683648682199,
+            "spy": -0.017523955382956147,
+            "stockMinusGld": 0.09344448467584421,
+            "stockMinusSpy": 0.15405527654562234
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.05890002423829959,
+            "eventModel": -0.004095955137474495,
+            "eventAdjustment": -0.06299597937577409,
+            "scope": "held_out"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": 0.1365313211626662,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": 0.1315313211626662,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        },
+        {
+          "id": "NG-20251118-state-court-upholds",
+          "ticker": "NG",
+          "project": "Donlin Gold",
+          "publicationDate": "2025-11-18",
+          "eventDate": "2025-11-14",
+          "title": "Alaska Supreme Court upholds Donlin state water and pipeline permits",
+          "publicationTimestamp": null,
+          "publicationDatePrecision": "date",
+          "category": "court_permit_upheld",
+          "direction": 1,
+          "rationale": "The court rejects constitutional challenges and sustains the specified state approvals, reducing that legal obstacle.",
+          "sourceUrl": "https://law.alaska.gov/press/releases/2025/111825-Donlin.html",
+          "sourcePublisher": "Alaska Department of Law",
+          "sourcePublishedDate": "2025-11-18",
+          "verifiedAt": "2026-10-25T07:22:05Z",
+          "sourceEvidence": "State legal department reports the November 14 ruling upheld water appropriation permits and the state-land pipeline right-of-way.",
+          "dateNotes": "Use the verified November 18 government release. Court decision was November 14 and may have been public then; exact earlier publication was not established.",
+          "secondarySourceUrls": [],
+          "uncertaintyFlags": [
+            "announcement_lag",
+            "earliest_public_availability_unverified"
+          ],
+          "horizonSessions": 20,
+          "partition": "excluded",
+          "exclusionReasons": [
+            "overlap_with_NG-20251027-fast41"
+          ],
+          "entryDate": "2025-11-19",
+          "endDate": "2025-12-18",
+          "observedReturns": {
+            "stock": 0.07726758754794005,
+            "gld": 0.06296676020691994,
+            "spy": 0.020886344537306645,
+            "stockMinusGld": 0.014300827341020117,
+            "stockMinusSpy": 0.05638124301063341
+          },
+          "predictions": {
+            "noChange": 0,
+            "goldBaseline": 0.065086300756232,
+            "eventModel": null,
+            "eventAdjustment": null,
+            "scope": "unavailable"
+          },
+          "observedProvenance": "calculated_from_attributed_market_closes",
+          "predictionProvenance": {
+            "goldBaseline": "trailing_60_common_gld_log_returns",
+            "eventModel": "matured_training_residuals_by_pre_coded_direction"
+          },
+          "economicDiagnostic": {
+            "policy": "long_favourable_else_cash",
+            "traded": true,
+            "grossReturn": 0.07726758754794005,
+            "illustrativeRoundTripCost": 0.005,
+            "returnAfterIllustrativeCost": 0.07226758754794005,
+            "costProvenance": "fixed_hypothetical_50_basis_points",
+            "executionProvenance": "hypothetical_entry_and_exit_at_adjusted_close",
+            "actualTradingPerformance": false
+          }
+        }
+      ]
+    }
+  ],
+  "swarmLift": {
+    "status": "unavailable",
+    "value": null,
+    "reason": "Zero historical outcomes are paired with the existing fictional swarm scenarios. Event polarity is not a swarm prediction."
+  },
+  "limitations": [
+    "This is a small source-selected liquid-equity event sample, with repeated issuers and correlated events. Numeric comparisons do not establish broad predictive accuracy.",
+    "Current-vintage adjusted prices lack historical as-of vintages. Adjusted closes are not literal executable fills; the delayed-close policy is hypothetical.",
+    "GLD is a traded gold ETF, not spot gold. Stock-minus-benchmark returns are observed diagnostics, not forecasts or a replicated hedge.",
+    "Favourable events alone enter the long-only diagnostic; adverse/mixed events hold cash. Costs are an assumed stress, not measured execution.",
+    "The pilot does not estimate Tok option returns, mineral resources, assignment liquidity or incremental swarm value.",
+    "This is a bounded, incomplete source sample, not a comprehensive event census.",
+    "Nine Pebble events and three Donlin events are heavily concentrated in two issuers.",
+    "Procedural admissions, environmental review completion, proposed restrictions and final decisions differ in materiality; direction is a coarse document-effect code.",
+    "All timestamps are date-only; several announcements lag actions and may lag first public awareness.",
+    "Donlin adverse and mixed rulings were located in later reports but excluded where contemporaneous qualifying publication could not be verified. This can create direction and source-availability bias.",
+    "Publication dates identify documented availability, not surprise, investor knowledge, or market reaction.",
+    "Issuer and government releases have interested-party framing; direction rationales use procedural effect rather than their promotional claims.",
+    "Current-vintage vendor history may contain later corrections; no archived as-of vintage is claimed.",
+    "GLD is a traded gold ETF proxy, not spot gold or a Tok mineral-interest price.",
+    "Adjusted closes are total-return comparison inputs, not literal executable fill quotes.",
+    "No missing price is forward-filled. The hypothetical closing-entry policy assumes access to a closing execution.",
+    "Penny-stock prices may have limited vendor precision. Some NAK evaluation windows are flat at the supplied precision; those zeros are not independently verified at finer precision."
+  ],
+  "priceAdjustmentVerified": true,
+  "generatedAt": "2026-10-25T07:28:33.264Z",
+  "inputFiles": {
+    "events": "events.json",
+    "prices": "prices.json"
+  },
+  "inputFileSha256": {
+    "events": "fcd5cf8dfee08767b9a175597001a17bb9bcb1e4fd4edbe808f44b2a5b9249e0",
+    "prices": "b2c5f13c89806d7a0281ff91999feeec2c1b8be6407db9c582a1ce16d4d60cb9"
+  }
+}

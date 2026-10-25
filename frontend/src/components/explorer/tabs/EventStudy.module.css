@@ -1,0 +1,36 @@
+.study { min-width: 0; padding: 20px 0; border-bottom: 1px solid var(--line); font-size: 12px; line-height: 1.55; overflow-wrap: anywhere; }
+.study h2 { font-size: 21px; line-height: 1.2; font-weight: 700; letter-spacing: -.025em; }
+.heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+.status { color: var(--ink-2); border: 1px solid var(--line-2); border-radius: 5px; padding: 3px 6px; font-size: 10px; }
+.intro { margin-top: 10px; }
+.warning { margin-top: 10px; padding-left: 10px; border-left: 2px solid var(--line-2); color: var(--ink-2); font-size: 11px; }
+.note { margin: 10px 0; color: var(--ink-2); font-size: 11px; }
+.horizons { display: flex; gap: 3px; margin-top: 16px; padding: 3px; border: 1px solid var(--line-2); border-radius: 9px; }
+.horizons button { flex: 1; min-width: 0; min-height: 42px; padding: 7px 5px; border-radius: 6px; font-size: 11px; color: var(--ink-2); }
+.horizons button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.horizons button:hover:not([aria-pressed="true"]) { background: var(--raised); color: var(--ink); }
+.study :is(button, summary, a, [tabindex]):focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.counts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+.counts dt { font-size: 10px; color: var(--ink-2); }
+.counts dd { margin-top: 4px; font: 11px var(--font-plex-mono), monospace; font-variant-numeric: tabular-nums; }
+.study table { width: 100%; border-collapse: collapse; }
+.study caption { text-align: left; color: var(--ink-2); font-size: 10px; margin-bottom: 6px; }
+.study :is(th, td) { padding: 9px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.study thead th { color: var(--ink-2); font-weight: 400; font-size: 10px; }
+.metrics th { text-align: left; font-weight: 500; }
+.metrics td { text-align: right; font: 11px/1.55 var(--font-plex-mono), monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.metrics thead th:not(:first-child) { text-align: right; }
+.improvement { margin: 12px 0; font-size: 11px; }
+.improvement strong { font-family: var(--font-plex-mono), monospace; font-variant-numeric: tabular-nums; }
+.details { border-top: 1px solid var(--line); margin-top: 10px; }
+.details summary { min-height: 42px; padding: 12px 0; cursor: pointer; font-size: 11px; font-weight: 600; }
+.scroll { max-width: 100%; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+.ledger { min-width: 680px; font-size: 10px; }
+.ledger th { text-align: left; font-weight: 500; }
+.ledger tbody th { min-width: 235px; max-width: 300px; }
+.ledger td { min-width: 75px; font-family: var(--font-plex-mono), monospace; font-variant-numeric: tabular-nums; }
+.ledger th span, .ledger small { display: block; color: var(--ink-2); margin-top: 5px; font: 10px/1.5 var(--font-dm-sans), sans-serif; }
+.study a { text-decoration: underline; text-underline-offset: 3px; }
+.limits { padding-left: 16px; list-style: disc; color: var(--ink-2); font-size: 11px; }
+.limits li + li { margin-top: 6px; }
+.sourceLinks { display: grid; gap: 6px; font-size: 10px; color: var(--ink-2); margin: 10px 0; }

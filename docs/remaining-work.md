@@ -50,3 +50,5 @@ monthly solver, exercise policy and deployment commands are not supported by the
 current canonical architecture. Automated dependency-update PR 35 is outside
 this integration scope. Track active ownership and check results in
 [tasks/todo.md](../tasks/todo.md).
+
+A bounded real-announcement equity pilot is now implemented and displayed in the website. Its event adjustment worsened held-out error, so it does not satisfy the predictive-edge requirement. Five test events, source-selection bias, two issuers and absent historical swarm labels remain substantial limits. The [pilot report](../research/event-study/RESULTS.md) records the result before any subsequent model changes.

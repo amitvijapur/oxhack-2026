@@ -172,3 +172,12 @@ it requires separate account configuration and does not fill missing trade input
 
 See [the repository plan](research/repository-plan.md) and
 [the harness comparison](research/harness-comparison.md) for the current approach.
+
+### Historical event test
+
+Decision now includes a real-data Alaska mining-share pilot above the hypothetical option calculator. It compares a gold-only drift forecast, a simple event adjustment and no change using a frozen 12-announcement ledger, delayed entry and chronological holdouts. The event adjustment performed worse in the five-event test set; the website shows this negative result and its limitations. It is not a validated swarm or option-trading edge. Read [results](research/event-study/RESULTS.md) and [reproduction instructions](research/event-study/README.md).
+
+```sh
+node --test research/event-study/evaluate.test.mjs
+node research/event-study/evaluate.mjs
+```

@@ -1,3 +1,14 @@
+## Build a real-data Alaska project event pilot
+
+Owner: Amit. Codex integrates event-source research, a reproducible evaluator, website evidence view and independent review. Prioritise speed with a small fixed scope. No paid swarm reruns.
+
+- [x] Freeze a source-based event ledger before inspecting returns, and obtain attributed daily market data.
+- [x] Evaluate delayed-entry returns against gold-only and simple event-direction baselines, with a chronological held-out set and no simulated swarm labels.
+- [x] Display actual study results, sources, dates, limitations and failed/unsupported comparisons in the existing website.
+- [x] Independently check data timing and arithmetic, run relevant checks and verify the local production page.
+
+Result: 12 frozen real announcements and four attributed daily price series support a reproducible retrospective pilot. Event-model MAE is 8.06pp versus gold-only 3.13pp and no-change 2.56pp on five primary test events. No positive edge was manufactured. UI exposes both horizons, sources, source-selection/precision limits and unavailable swarm lift. Independent verification reproduced inputs, dates and arithmetic. Final build/browser verification is recorded in the pilot report.
+
 ## Assess a defensible edge with current data
 
 Owner: Amit. Codex assesses sources and no-budget tests; the application remains unchanged.

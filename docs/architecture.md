@@ -90,3 +90,7 @@ Historical research and source-branch references remain in `research/`. The
 integrated path retains useful work from PRs 27, 29, 36, 37 and 38 and the latest
 UI source. Superseded solver and deployment proposals are historical context,
 not supported runtime instructions. See [remaining work](remaining-work.md).
+
+## Retrospective event component
+
+`research/event-study/evaluate.mjs` evaluates a frozen primary-source announcement ledger against attributed daily adjusted prices. It writes `frontend/public/data/event-study.json`, loaded by `EventStudy.tsx` in Decision. This is a separate retrospective equity assessment; it neither changes option controls nor supplies a fabricated historical swarm score. Predictions use only pre-entry information and matured earlier training outcomes. The current negative comparison and source limitations remain visible. See [pilot results](../research/event-study/RESULTS.md).
