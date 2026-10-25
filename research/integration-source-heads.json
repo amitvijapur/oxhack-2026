@@ -1,0 +1,35 @@
+{
+  "recordedAt": "2026-10-25T05:06:18.587266+00:00",
+  "canonicalModel": "model/tok-option/workbench.mjs",
+  "excludedRuntimeEnginePr": 26,
+  "preservedOriginalHeads": {
+    "ahmed/gold-society-plan": "f2fe2971d9f041a819f7b7ff4a78e10f840884f5",
+    "ahmed/team-kit-proposal": "d517f31f842f9e8223d72175d797345a783743ef",
+    "arjin/nv-az-claim-data": "4fce36c0667365a13dcb585167a78085003b969a",
+    "arjin/tok-land-data": "34eaf1d6e87fedd54c46b04dec093b0cc2b18581",
+    "codex/combined-gold-land-strategy": "c73602cf7caeedb34f8a44acac67c11653ce775c",
+    "codex/tok-evidence-frontend": "e9d60c86c4416b4f24c6066d8586323e80bd7184",
+    "codex/tok-option-model": "8bcc6304d619f6b2c1ca45a47b9fba1501fdc771",
+    "main": "75d9bd12fc53977f7e8d97213cb2f9032d52f46d",
+    "salman/convex-ingest": "e21afcdfba5ac966387ca05ef3f745555e06a074",
+    "salman/decision-engine": "bfeb3d9bf975446adc32a3c94fa7c739f7c18989",
+    "salman/decision-engine-review": "98547c42bf906d7a983652bf750224545d56077f",
+    "salman/demo-readme": "7f33d436a39f0eedad9c0e54a9ea37ca1cef5934",
+    "salman/gold-algorithm-foundation": "6a207cac61bca22fb978d1a2bd8a07518f4f3f56",
+    "salman/next-globe-ui": "4421d71096758c330fe20118f40322fc1e74cd2d",
+    "salman/showcase-earth": "ff6e9940fc6f115614314eac8318e5fb0728e31b",
+    "salman/ui-simplify": "a88e1012dba38a7592456974ac657babb2e2ff64",
+    "salman/vercel-convex": "b74b0e0de22416645a2a903fe576c1142da32813",
+    "strategy-algorithm": "3a84a2ce77644521229bd1f4d61fea03c7ee1635"
+  },
+  "retainedLaterUiHead": "1ce08e4cfd352a60fd745676473c9a524ab75f19",
+  "integrationPrs": [
+    27,
+    36,
+    29,
+    37,
+    38,
+    39
+  ],
+  "note": "Remote source commits and PRs preserve original research and implementation history. No machine-local runtime dependencies are introduced."
+}

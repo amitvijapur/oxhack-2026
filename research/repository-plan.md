@@ -1,6 +1,6 @@
 # Proposed OXHack repository plan
 
-Status: the shared harness is published at https://github.com/amitvijapur/oxhack-2026. The repository is private with `main` as its default branch. Make it public before submission. Project ideation and application stack selection continue separately.
+Current status, 25 October 2026: the application uses Next.js/React/Cesium and the canonical option-assignment model in `model/tok-option/`. The model, source context, optional publishing backend and land explorer are being consolidated on protected `main`. The repository remains private; a public transition and hosted deployment require their own verification. Read [architecture](../docs/architecture.md), [remaining work](../docs/remaining-work.md) and [the task record](../tasks/todo.md) for the current implementation. The setup decisions below are preserved as historical context rather than open stack-selection questions.
 
 ## Decisions we can make now
 
