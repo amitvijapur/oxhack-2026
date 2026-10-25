@@ -1,3 +1,16 @@
+# Orecast pitch and brand kit
+
+The [current Orecast deck](orecast/README.md) contains updated gold-first algorithm
+figures, a five-minute rehearsal guide and portable model notes. Edit
+[the current PPTX](orecast/output/orecast-pitch.pptx) and use
+[the PDF](orecast/output/orecast-pitch.pdf) as the appearance reference.
+[Brand assets and guidelines](../brand/orecast/BRAND.md) are shared in the repository.
+
+## Earlier neutral-title deck
+
+The materials below preserve the previous version from PR 41. Start with Orecast
+for current team edits.
+
 # Mineral option timing pitch
 
 Approved nine-slide pitch deck for team editing. The first seven slides form a five-minute presentation, with timings of 20, 35, 35, 55, 50, 60 and 45 seconds. The final two slides are appendices for questions.

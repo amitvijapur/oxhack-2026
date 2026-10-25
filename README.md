@@ -25,10 +25,12 @@ write access.
 
 ## Pitch deck
 
-The [five-minute pitch deck and editing guide](pitch/README.md) includes the
-[editable PowerPoint](pitch/oxhack-pitch.pptx), [PDF](pitch/oxhack-pitch.pdf),
-speaker notes, rehearsal flow and source images. Start from the PPTX when
-revising the deck. The algorithm name remains open.
+The algorithm is named **Orecast**. The [current deck and editing guide](pitch/orecast/README.md)
+includes the [editable PowerPoint](pitch/orecast/output/orecast-pitch.pptx),
+[PDF](pitch/orecast/output/orecast-pitch.pdf), speaker notes, rehearsal flow and
+source images. The [brand kit](brand/orecast/BRAND.md) includes transparent wordmarks,
+fonts and palette tokens. The deck reflects the gold-first model and retains
+the approved Palantir presentation style.
 
 ## Event brief
 

@@ -1,0 +1,155 @@
+[
+  {
+    "slide": 1,
+    "title": "Orecast",
+    "seconds": 20,
+    "body": "We are investigating Tok River, Alaska. Orecast brings geological evidence, recorded simulated reactions and the time available to exit an assumed mineral option into one decision that we can inspect. Financial outputs remain hypothetical.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/README.md#gold-forecast-and-valuation-model-v2",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "sourcePage": 1
+  },
+  {
+    "slide": 2,
+    "title": "Time and evidence",
+    "seconds": 30,
+    "body": "These are three distinct clocks. The observed samples were collected in June and July 2016 and published in November 2016. The recorded stakeholder simulations cover five simulated days, with scenario news on day three. Assignment is a separate assumed holding horizon of 30, 90 or 180 days. An assignable option is a temporary contractual interest that a holder could transfer to a buyer under assumed permission and terms. The holding horizon plus the required 15-day closing buffer must fit inside the 365-day maturity.",
+    "sources": [
+      "https://doi.org/10.14509/29688",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/workbench.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/liquidity.mjs"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "sourcePage": 12
+  },
+  {
+    "slide": 3,
+    "title": "Observed evidence",
+    "seconds": 30,
+    "body": "We begin with 67 measured sediment samples from Tok River, Alaska: 33 in Area A and 34 in B. Source provenance stays attached to each observation. Under the proposed gold-assay screen, A passes and B fails. The samples provide observed evidence, not recoverable ounces or geological success probabilities. Those remain separate assumptions. Map claims and illustrative squares provide context; they do not establish available mineral rights or an investment.",
+    "sources": [
+      "https://doi.org/10.14509/29688",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/evidence.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/tree/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "preparation": "Technical Q&A: at the proposed 0.01 ppm primary Au screen, A has 25 of 33 passing and B has 16 of 34. The rule requires at least ten classified observations and a qualifying lower bound of 50%. Preserve primary assay qualifiers and retests separately.",
+    "sourcePage": 5
+  },
+  {
+    "slide": 4,
+    "title": "Gold forecast and assignment",
+    "seconds": 60,
+    "body": "Read the layers from top to bottom. Observed assays screen eligibility. Recorded simulated support is compared with the matching Claude sports-placebo reference. Orecast changes the assumed gold price first, then recomputes gross material value, success-state interest value, option assignment proceeds, and dated sale/no-sale cash and return. Recoverable ounces, ownership, conversion, geological success, buyer consideration, fees and sale hazard are separate assumptions. At each possible sale date the assignment payoff is geological success times the positive part of success-state interest value less buyer consideration. The 7% coefficient is an uncalibrated gold response cap. It is neither a direct assignment markup nor an investment-loss limit. The response is retained across sale dates without monthly compounding. Strict research readiness remains failed; the financial path is explicitly hypothetical. No trade execution occurs.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/README.md#gold-forecast-and-valuation-model-v2",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/gold.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/valuation.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/liquidity.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/illustrative.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/index.mjs",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "sourcePage": 11
+  },
+  {
+    "slide": 5,
+    "title": "Recorded scenario contrast",
+    "seconds": 55,
+    "body": "This comparison uses one identical assumed contract in Area A at 90 days. The mining-support contrast compares recorded posts over days three through five with the matching Claude sports-placebo reference. Mine approval has support minus 0.0251792588, assumed gold 1996.4749038 dollars per ounce, expected cash 5.4496913 dollars and expected option return 0.7785273%. Court blockage has support plus 0.0307343316, assumed gold 2004.3028064 dollars per ounce, cash 10.2247119 dollars and return 1.4606731%. The 7% gold cap, full exposure and full retention are held fixed. Returns divide expected cash by 700 dollars upfront and are not annualized. The recorded signs oppose a simple favourable-headline story; we preserve them. The placebo is not an untreated control. Configuration, interview, placebo, grounding and mirror checks fail. Mining support is not a gold return or buyer quote, and the financial mapping is uncalibrated.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/README.md#gold-forecast-and-valuation-model-v2",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/gold.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/valuation.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/liquidity.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/illustrative.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/frontend/src/components/swarm/SwarmWorkflow.tsx",
+      "https://github.com/amitvijapur/oxhack-2026/tree/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "sourcePage": 13
+  },
+  {
+    "slide": 6,
+    "title": "Time and return",
+    "seconds": 60,
+    "body": "Here the gold assumption stays fixed at 2000 dollars per ounce and annual growth is zero. Assignment proceeds stay 1500 dollars. The baseline 90-day expected option return is 1.0857143%, equal to 7.60 dollars expected cash divided by 700 dollars upfront capital. It is not annualized and is distinct from gold-price change. At 30 days sale probability is 20% and cash is minus 410 dollars; at 90 days it is 48.8% and plus 7.60; at 180 days it is 73.7856% and plus 369.8912. More time accumulates opportunities to sell under an assumed 20% conditional hazard per 30 days. Even with positive expected cash, 51.2% of 90-day paths have no sale and the median cash outcome is minus 700 dollars. An unsold option can remain held, so cash shortfall at the horizon need not be a final realized economic loss. The 180-day horizon plus the 15-day closing buffer fits inside the assumed 365-day maturity.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/README.md#gold-forecast-and-valuation-model-v2",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/gold.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/valuation.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/liquidity.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/diagnostics.mjs"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "sourcePage": 20
+  },
+  {
+    "slide": 7,
+    "title": "Demonstration",
+    "seconds": 45,
+    "body": "On /swarm, compare mine approval with court blockage for Area A at 90 days. Expected option return moves from 0.78% to 1.46%, and expected cash from $5.45 to $10.22. These outputs are hypothetical. Our historical event adjustment did not beat baseline, and paired historical swarm outcomes are unavailable. Next, validate prospective outcomes and real assignment liquidity.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/frontend/src/components/swarm/SwarmWorkflow.tsx",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/frontend/src/model-presentation.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/research/event-study/RESULTS.md",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "preparation": "Allow up to twenty seconds for the live comparison within this 45-second slide. Use the recorded /swarm path, Area A, 90 days, simulated day 5. The separate Decision workbench startup/reset uses a different synthetic preset, so do not switch to it for this recorded comparison. If switching is slow, point to the saved capture and continue.",
+    "sourcePage": 23
+  },
+  {
+    "slide": 8,
+    "title": "Baseline cash calculation",
+    "seconds": 0,
+    "body": "The 90-day sale branch has 1500 dollars assignment proceeds less 50 dollars exit fee and 700 dollars upfront commitment, for plus 750 dollars net cash. No sale has minus 700 dollars cash. The weighted branches are plus 366 and minus 358.40 dollars, summing to plus 7.60. Expected option return is 7.60 divided by 700, or 1.0857143%, over 90 days and not annualized. Break-even premium is 657.60 dollars; equality does not pass the strictly positive-cash gate. A 660 dollar premium produces minus 2.40 dollars and a skip. The baseline uses 500 assumed recoverable troy ounces at 2000 dollars, 50% ownership, 2% conversion, 25% geological success and 4000 dollars remaining buyer consideration: 0.25 times max(0.5 times 0.02 times 500 times 2000 minus 4000, 0) equals 1500 dollars assignment proceeds. Scenario gold is recomputed before this formula, never applied as a direct assignment percentage markup.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/README.md#gold-forecast-and-valuation-model-v2",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/gold.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/valuation.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/liquidity.mjs",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/model/tok-option/diagnostics.mjs"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "sourcePage": 43
+  },
+  {
+    "slide": 9,
+    "title": "Historical pilot",
+    "seconds": 0,
+    "body": "This is a small retrospective equity component test, separate from the Tok option calculation. It uses twelve source-selected 2020–2025 permitting or court events, nine Pebble/Northern Dynasty and three Donlin/NOVAGOLD. Five observations are held out for each horizon, but the five- and twenty-session cohorts differ. Mean absolute error is measured in percentage points; lower is better. No change gives 2.5562 and 5.9474; gold-only gives 3.1291 and 7.5670; gold plus event gives 8.0596 and 14.3108. The event adjustment did not beat the gold baseline, and no change performs best in both selected cohorts. There are no paired historical swarm outcomes. Limitations include repeated issuers, a source-selected incomplete sample, date-only awareness uncertainty, current-vintage adjusted prices, correlated or anticipated events and vendor precision. GLD is an ETF proxy, not spot gold. This pilot does not validate Tok option returns, the assumed support-to-gold response or incremental swarm value. Next validate paired prospective outcomes and assignment liquidity.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/research/event-study/RESULTS.md",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/research/event-study/protocol.md",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/research/event-study/schema.md",
+      "https://github.com/amitvijapur/oxhack-2026/blob/fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7/research/edge-feasibility.md"
+    ],
+    "modelVersion": "tok-option-demo-v2",
+    "sourceRevision": "fee2e0d4a3bf28c7825b2f0e8818d33c541a7ad7",
+    "sourcePage": 44
+  }
+]

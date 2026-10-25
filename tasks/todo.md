@@ -1,3 +1,27 @@
+# Share Orecast branding and the revised pitch deck
+
+25 October 2026. Human owner: Amit. Integration owner: Codex. User authorized
+push and merge of the completed Orecast package. Scope is presentation and brand
+assets plus repository index notes; application code is unchanged.
+
+- [x] Prepare the Orecast brand guide, wordmarks, palette tokens and fonts.
+- [x] Revise the nine-slide deck against the gold-first model and independently review content and renders.
+- [x] Verify editable chart/tables, speaker notes, 300-second main sequence and portable assets.
+- [x] Complete independent publication review and prepare the bounded PR for required CI and squash merge.
+
+Start from [the Orecast guide](../pitch/orecast/README.md) or
+[the brand kit](../brand/orecast/BRAND.md). The earlier neutral deck is retained.
+The deck's frozen source revision is fee2e0d4, with all 26 pinned calculation and
+evaluation inputs unchanged in later main 39002ac. Financial outputs remain
+hypothetical and the separate historical equity pilot did not establish an edge.
+Native PowerPoint opening and system font rendering have not been tested.
+Final hosted checks and merge status are recorded on the publication pull request.
+
+Publication review confirmed the approved PPTX/PDF bytes, nine matching note parts,
+300-second main sequence, native chart/workbook and tables, relative links,
+licences and image attribution. Whitespace and redacted directory scans passed.
+The 29 changed paths contain only brand/presentation assets and their index notes.
+
 ## Publish and squash merge the verified forecast
 
 Owner: Amit. Codex publishes the already reviewed branch. Amit explicitly authorized push and squash merge after all checks pass.
