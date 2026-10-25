@@ -59,6 +59,48 @@ async page => {
   await page.getByText('We may pay the rest early to close a sale').click();
   await page.waitForFunction(() => document.querySelector('.stamp')?.innerText === 'SKIP', null, { timeout: 15000 });
 
+  // Deep dive on the decision: the monthly sell line follows the slider.
+  await page.getByRole('button', { name: 'Deep dive' }).click();
+  await heading('When would we sell, and is there a spread?');
+  const sellAt = async () => page.locator('.sell-chart .chart-note.is-gold').textContent();
+  check((await page.locator('.deep').innerText()).includes("can't be sold until every stage is paid"), 'No-acceleration note missing');
+  await page.getByText('We may pay the rest early to close a sale').click();
+  await page.locator('.sell-chart').waitFor();
+  const before = await sellAt();
+  await page.locator('#q-slider').focus();
+  await page.keyboard.press('Home');
+  await page.waitForFunction((old) => document.querySelector('.sell-chart .chart-note.is-gold')?.textContent !== old, before);
+  check((await page.locator('.log-row').count()) >= 3, 'Arbitrage strip missing');
+  check((await page.locator('.flip-list li').count()) >= 2, 'Break-evens missing');
+  await page.screenshot({ path: 'frontend/artifacts/4-deep-timing.png' });
+  await page.getByRole('button', { name: 'Close deep dive' }).click();
+
+  // Deep dive on the land: every chart follows the year.
+  await page.getByRole('navigation', { name: 'Steps' }).getByRole('button', { name: 'The land' }).click();
+  await heading('Who already owns it?');
+  await page.getByRole('button', { name: 'Deep dive' }).click();
+  await heading('When do people pay, and how much?');
+  await page.getByRole('slider', { name: 'Year' }).fill('2017');
+  check((await page.locator('.deep').innerText()).includes('Showing 2017'), 'Market charts did not follow the year');
+  check(await page.locator('.mini-chart').count() === 6, 'Market timeline needs six series');
+  await page.screenshot({ path: 'frontend/artifacts/2-deep-market.png' });
+  await page.keyboard.press('Escape');
+
+  // Deep dive on the ground: 49 elements, pathfinders, and the element picker.
+  await page.getByRole('navigation', { name: 'Steps' }).getByRole('button', { name: 'The ground' }).click();
+  await heading('Is there gold in the ground?');
+  await page.getByRole('button', { name: /Show the richest sample, 16MBW012/ }).click();
+  await page.getByRole('button', { name: 'Deep dive' }).click();
+  await heading('What else is in the dirt?');
+  const ground = await page.locator('.deep').innerText();
+  check(ground.includes('49 elements') && ground.includes('Sample 16MBW012') && ground.includes('>1 ppm'), 'Geochemistry deep dive incomplete');
+  await page.getByRole('radio', { name: 'As' }).click();
+  check(await page.getByRole('radio', { name: 'As' }).getAttribute('aria-checked') === 'true', 'Element picker did not select arsenic');
+  check(await page.locator('.occ-list li').count() > 0, 'Known mines list empty');
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: 'frontend/artifacts/1-deep-geochem.png' });
+  await page.getByRole('button', { name: 'Close deep dive' }).click();
+
   // Arrow keys move back through the steps; the stepper names each one.
   await page.keyboard.press('Escape');
   await page.locator('body').click({ position: { x: 5, y: 5 } }).catch(() => {});

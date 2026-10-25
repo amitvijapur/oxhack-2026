@@ -15,8 +15,8 @@ const convex = !convexUrl
 // terrain tiles the globe and relief read (src/components/globe/terrain-style.ts).
 const MAP_HOSTS = "https://tiles.openfreemap.org https://s3.amazonaws.com";
 // The showcase Earth (src/components/earth/Earth.tsx): Esri satellite imagery,
-// and Google Photorealistic 3D Tiles when a Maps key is set.
-const EARTH_HOSTS = "https://server.arcgisonline.com https://tile.googleapis.com";
+// Google Photorealistic 3D Tiles when a Maps key is set, and Macrostrat geology tiles.
+const EARTH_HOSTS = "https://server.arcgisonline.com https://tile.googleapis.com https://tiles.macrostrat.org";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },

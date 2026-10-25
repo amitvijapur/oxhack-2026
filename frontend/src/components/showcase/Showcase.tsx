@@ -31,6 +31,10 @@ export function Showcase() {
   const [year, setYear] = useState(2026);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [earth, setEarth] = useState<"loading" | "ready" | "failed">("loading");
+  const [deep, setDeep] = useState(false);
+  const [element, setElement] = useState("Au");
+  const closeDeep = useCallback(() => setDeep(false), []);
+  const depth = { open: deep, onOpen: () => { setTour(false); setDeep(true); }, onClose: closeDeep };
 
   useEffect(() => {
     Promise.all([loadEvidence("/"), loadShowcase()])
@@ -42,6 +46,7 @@ export function Showcase() {
     const clamped = Math.max(0, Math.min(LAST, next)) as Screen;
     if (!fromTour) setTour(false);
     setSelectedId(null);
+    setDeep(false);
     setScreen(clamped);
   }, []);
 
@@ -49,7 +54,7 @@ export function Showcase() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement;
-      if (target.closest("input, textarea, [role=slider], [role=switch]")) return;
+      if (target.closest("input, textarea, [role=slider], [role=switch], [role=radio]")) return;
       if (event.key === "ArrowRight" || event.key === "PageDown") go(screen + 1);
       if (event.key === "ArrowLeft" || event.key === "PageUp") go(screen - 1);
       if (event.key === "Escape") setTour(false);
@@ -71,7 +76,7 @@ export function Showcase() {
   const startTour = () => { setTour(true); setScreen(1); };
 
   return (
-    <main className="showcase">
+    <main className="showcase" data-deep={deep || undefined}>
       <Earth
         screen={screen}
         samples={samples}
@@ -80,6 +85,10 @@ export function Showcase() {
         selectedId={selectedId}
         onSelect={setSelectedId}
         onReady={setEarth}
+        geochem={data?.geochem ?? null}
+        element={element}
+        occurrences={data?.occurrences ?? null}
+        deep={deep}
       />
       <div className="showcase-scrim" data-screen={screen} aria-hidden="true" />
 
@@ -93,7 +102,7 @@ export function Showcase() {
         <Ticker />
       </header>
 
-      {screen > 0 ? <Stepper screen={screen} onGo={go} tour={tour} onStopTour={() => setTour(false)} /> : null}
+      {screen > 0 && !deep ? <Stepper screen={screen} onGo={go} tour={tour} onStopTour={() => setTour(false)} /> : null}
 
       {error ? <p className="showcase-error" role="alert">The data could not be loaded: {error}</p> : null}
       {earth === "failed" ? (
@@ -110,12 +119,26 @@ export function Showcase() {
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: screen === 0 ? 0 : 0.35 }}
         >
           {screen === 0 ? <Arrival ready={!!data && !!evidence} onGo={() => go(1)} onTour={startTour} /> : null}
-          {screen === 1 && evidence ? (
-            <Ground evidence={evidence} selectedId={selectedId} onPick={setSelectedId} onClear={() => setSelectedId(null)} onNext={() => go(2)} />
+          {screen === 1 && evidence && data ? (
+            <Ground
+              evidence={evidence}
+              geochem={data.geochem}
+              geology={data.geology}
+              occurrences={data.occurrences}
+              element={element}
+              onElement={setElement}
+              deep={depth}
+              selectedId={selectedId}
+              onPick={setSelectedId}
+              onClear={() => setSelectedId(null)}
+              onNext={() => go(2)}
+            />
           ) : null}
-          {screen === 2 && data ? <Land claims={data.claims} history={data.history} year={year} onYear={setYear} tour={tour} onNext={() => go(3)} /> : null}
+          {screen === 2 && data ? (
+            <Land claims={data.claims} history={data.history} market={data.market} deep={depth} year={year} onYear={setYear} tour={tour} onNext={() => go(3)} />
+          ) : null}
           {screen === 3 && data ? <Town town={data.town} tour={tour} onNext={() => go(4)} /> : null}
-          {screen === 4 && data ? <Decision decision={data.decision} tour={tour} onRestart={() => go(0)} /> : null}
+          {screen === 4 && data ? <Decision decision={data.decision} market={data.market} deep={depth} tour={tour} onRestart={() => go(0)} /> : null}
         </motion.div>
       </AnimatePresence>
     </main>

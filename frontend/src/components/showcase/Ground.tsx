@@ -3,12 +3,22 @@
 import { X } from "lucide-react";
 import { formatAssay, formatNumber } from "@/lib/evidence.js";
 import type { Evidence } from "@/lib/types";
+import type { Geochem, Geology, Occurrences } from "@/lib/showcase";
 import { Panel } from "./Panel";
+import { GeochemDeep } from "./deep/Geochem";
 
 const isMeasured = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v);
 
-export function Ground({ evidence, selectedId, onPick, onClear, onNext }: {
+export type Depth = { open: boolean; onOpen: () => void; onClose: () => void };
+
+export function Ground({ evidence, geochem, geology, occurrences, element, onElement, deep, selectedId, onPick, onClear, onNext }: {
   evidence: Evidence;
+  geochem: Geochem;
+  geology: Geology;
+  occurrences: Occurrences;
+  element: string;
+  onElement: (element: string) => void;
+  deep: Depth;
   selectedId: string | null;
   onPick: (id: string) => void;
   onClear: () => void;
@@ -26,9 +36,12 @@ export function Ground({ evidence, selectedId, onPick, onClear, onNext }: {
   const richest = features.reduce((best, f) => (level(f) > level(best) ? f : best), features[0]);
   const source = config.source;
 
+  const siteOf = (sampleId: string) => features.find((f) => f.properties.sample_id === sampleId)?.properties.area ?? null;
   return (
+    <>
     <Panel
       step={1}
+      onDeep={deep.onOpen}
       mode="2016 survey"
       title="Is there gold in the ground?"
       lede={<>Alaska&apos;s geological survey sampled {features.length} stream beds here in 2016. Each gold pin is one sample: the taller it stands, the more gold the lab found.</>}
@@ -61,5 +74,19 @@ export function Ground({ evidence, selectedId, onPick, onClear, onNext }: {
         <p className="hint">Tap a pin on the map to read its lab value.</p>
       )}
     </Panel>
+    {deep.open ? (
+      <GeochemDeep
+        geochem={geochem}
+        geology={geology}
+        occurrences={occurrences}
+        element={element}
+        onElement={onElement}
+        sampleId={selected?.properties.sample_id ?? null}
+        occurrenceId={selectedId?.startsWith("occ:") ? selectedId.slice(4) : null}
+        siteOf={siteOf}
+        onClose={deep.onClose}
+      />
+    ) : null}
+    </>
   );
 }

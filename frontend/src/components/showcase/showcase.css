@@ -263,6 +263,128 @@
 
 .showcase-error { position: fixed; left: 50%; top: 72px; transform: translateX(-50%); z-index: 40; padding: 8px 14px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); font-size: 13px; }
 
+/* Deep dive: an opt-in sheet on the right; the map stays live beside it. */
+.deep-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid rgb(232 176 75 / 0.45);
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.deep-button:hover { background: rgb(232 176 75 / 0.1); }
+.deep {
+  position: absolute;
+  top: 76px;
+  right: 16px;
+  bottom: 16px;
+  width: min(560px, calc(100% - 32px));
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px;
+  background: rgb(12 14 18 / 0.94);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 80px -30px rgb(0 0 0 / 0.8);
+  overflow: hidden;
+}
+.deep-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 22px 24px 14px; border-bottom: 1px solid var(--line); }
+.deep-title { margin-top: 10px; font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; }
+.deep-close { display: grid; place-items: center; width: 36px; height: 36px; flex: none; border-radius: 50%; background: rgb(255 255 255 / 0.08); }
+.deep-close:hover { background: rgb(255 255 255 / 0.16); }
+.deep-body { flex: 1; overflow: auto; padding: 4px 24px 8px; overscroll-behavior: contain; }
+.deep-foot { padding: 12px 24px 14px; border-top: 1px solid var(--line); max-height: 34%; overflow: auto; }
+.deep-foot-title { font-size: 12px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
+.deep-section { padding: 20px 0; border-bottom: 1px solid var(--line); }
+.deep-section:last-child { border-bottom: 0; }
+.deep-section h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+.deep-lede { margin: 6px 0 14px; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.deep-lede strong { color: var(--ink); }
+.deep-note { margin-top: 12px; font-size: 12px; line-height: 1.5; color: var(--ink-3); }
+.deep-text { margin: 8px 0 12px; font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+.showcase[data-deep] .scrubber { left: 24px; right: calc(min(560px, 100% - 32px) + 32px); }
+/* The sheet takes over from the panel and the stage; the decision keeps its panel for the slider. */
+.showcase[data-deep] .stage,
+.showcase[data-deep] .panel:not(:has(#q-slider)) { display: none; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { min-width: 40px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 13px; font-weight: 600; font-family: var(--font-plex-mono), monospace; color: var(--ink-2); }
+.chip:hover { color: var(--ink); border-color: rgb(255 255 255 / 0.25); }
+.chip[aria-checked="true"] { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); }
+.class-legend { display: grid; gap: 6px; margin-top: 14px; font-size: 12px; color: var(--ink-2); }
+.class-legend li { display: grid; grid-template-columns: 14px 1fr auto; align-items: center; gap: 8px; }
+.class-legend i { width: 10px; height: 10px; border-radius: 2px; }
+[data-class="0"] i { background: rgb(235 238 242 / 0.35); }
+[data-class="1"] i { background: rgb(235 238 242 / 0.85); }
+[data-class="2"] i { background: var(--gold); }
+[data-class="3"] i { background: #ffd98a; box-shadow: 0 0 0 2px rgb(255 217 138 / 0.25); }
+
+.bar-row { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 5px 0; font-size: 12.5px; }
+.bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+.bar-track { position: relative; height: 8px; border-radius: 4px; background: rgb(255 255 255 / 0.06); overflow: hidden; }
+.bar-fill { position: absolute; inset: 0 auto 0 0; background: rgb(255 255 255 / 0.22); border-radius: 4px; }
+.bar-hi { position: absolute; inset: 0 auto 0 0; background: var(--gold); border-radius: 4px; }
+.bar-value { color: var(--ink-2); font-family: var(--font-plex-mono), monospace; font-size: 11.5px; }
+
+.occ-list { display: grid; gap: 12px; }
+.occ-list li { display: grid; gap: 2px; font-size: 13px; }
+.occ-list a { color: var(--ink); }
+.occ-list a:hover strong { text-decoration: underline; }
+.occ-list .tabular { font-size: 12px; color: var(--ink-2); font-family: var(--font-plex-mono), monospace; }
+.occ-model { font-size: 12px; color: var(--ink-3); }
+
+.deep-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.deep-table th, .deep-table td { padding: 6px 4px; border-bottom: 1px solid var(--line); text-align: right; }
+.deep-table th:first-child { text-align: left; }
+.deep-table thead th { color: var(--ink-3); font-weight: 500; }
+.deep-table td { font-family: var(--font-plex-mono), monospace; }
+
+.profile { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px 16px; }
+.profile li { display: grid; grid-template-columns: 26px 1fr; align-items: baseline; gap: 2px 8px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+.profile li > span:first-child { font-weight: 700; font-family: var(--font-plex-mono), monospace; }
+.profile .profile-class { grid-column: 2; font-size: 11px; color: var(--ink-3); }
+.profile li[data-class="2"] .profile-class, .profile li[data-class="3"] .profile-class { color: var(--gold); }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin-top: 14px; font-size: 12.5px; }
+.facts dt { color: var(--ink-3); }
+
+.mini-stack { display: grid; gap: 10px; }
+.mini-chart figcaption { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--ink-2); }
+.mini-chart figcaption strong { color: var(--ink); font-family: var(--font-plex-mono), monospace; font-weight: 500; }
+.mini-chart svg { display: block; width: 100%; height: 48px; margin-top: 4px; }
+.line-gold { fill: none; stroke: var(--gold); stroke-width: 1.75; }
+.line-ink { fill: none; stroke: rgb(235 238 242 / 0.75); stroke-width: 1.5; }
+.line-cursor { stroke: rgb(255 255 255 / 0.5); stroke-width: 1; stroke-dasharray: 2 3; }
+.mini-axis { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--ink-3); font-family: var(--font-plex-mono), monospace; }
+
+.sell-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.offer-line { stroke: rgb(255 255 255 / 0.14); stroke-width: 1; }
+.offer-line.is-above { stroke: rgb(255 255 255 / 0.5); }
+.sell-line { fill: none; stroke: var(--gold); stroke-width: 2.25; }
+.lapse-line { stroke: rgb(255 255 255 / 0.55); stroke-width: 1; stroke-dasharray: 4 4; }
+.chart-note { fill: var(--ink-2); font-size: 11px; }
+.chart-note.is-gold { fill: var(--gold); font-weight: 600; }
+.chart-axis { fill: var(--ink-3); font-size: 10.5px; font-family: var(--font-plex-mono), monospace; }
+
+.log-strip { display: grid; gap: 10px; }
+.log-row { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 10px; font-size: 12px; }
+.log-label { color: var(--ink-2); }
+.log-track { position: relative; height: 18px; border-radius: 9px; background: rgb(255 255 255 / 0.04); }
+.log-track.is-axis { height: 46px; background: none; border-top: 1px solid var(--line); border-radius: 0; }
+.log-dot { position: absolute; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: rgb(235 238 242 / 0.6); }
+.log-dot.is-gold { background: var(--gold); width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; }
+.log-tick { position: absolute; top: 4px; transform: translateX(-50%); font-size: 10px; color: var(--ink-3); }
+.log-marker { position: absolute; top: -78px; bottom: 26px; width: 0; border-left: 1.5px dashed rgb(232 176 75 / 0.85); }
+.log-marker-label { position: absolute; bottom: -18px; left: 4px; white-space: nowrap; font-size: 10.5px; color: var(--gold); }
+.flip-list { display: grid; gap: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+.flip-list strong { color: var(--ink); }
+
 /* Phones and narrow tablets: the panel becomes a bottom sheet, visuals sit above it. */
 @media (max-width: 900px) {
   .showcase-top { padding: 12px 16px; }
@@ -295,4 +417,9 @@
   .verdict-line { font-size: 12px; }
   .verdict-sub { font-size: 11px; }
   .arrival { bottom: 32px; }
+  /* A tall bottom sheet, leaving the map visible above it. */
+  .deep { top: 38dvh; right: 0; bottom: 0; width: 100%; border-radius: 22px 22px 0 0; }
+  .deep-head { padding-top: 18px; }
+  .log-row { grid-template-columns: 84px 1fr; }
+  .profile { grid-template-columns: 1fr; }
 }

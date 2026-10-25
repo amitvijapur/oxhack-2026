@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Layers } from "lucide-react";
 import type { Source } from "@/lib/showcase";
 
 export const STEPS = ["", "The ground", "The land", "The people", "The decision"] as const;
@@ -9,7 +9,7 @@ export const STEPS = ["", "The ground", "The land", "The people", "The decision"
 export type EvidenceItem = { label: string; href?: string; source?: Source };
 
 /** The one quiet panel each screen gets: step, question, one sentence, its action, then Next. */
-export function Panel({ step, title, lede, children, next, evidence, mode }: {
+export function Panel({ step, title, lede, children, next, evidence, mode, onDeep }: {
   step: 1 | 2 | 3 | 4;
   title: string;
   lede: React.ReactNode;
@@ -18,6 +18,8 @@ export function Panel({ step, title, lede, children, next, evidence, mode }: {
   evidence: EvidenceItem[];
   /** How real the numbers on this screen are. */
   mode: "2016 survey" | "State records" | "Simulated" | "Model";
+  /** Opens this screen's deep-dive sheet, when it has one. */
+  onDeep?: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -30,6 +32,11 @@ export function Panel({ step, title, lede, children, next, evidence, mode }: {
       <h1 id={`${id}-title`} className="panel-title">{title}</h1>
       <p className="panel-lede">{lede}</p>
       {children ? <div className="panel-body">{children}</div> : null}
+      {onDeep ? (
+        <button type="button" className="deep-button" onClick={onDeep}>
+          <Layers className="size-4" aria-hidden="true" /> Deep dive
+        </button>
+      ) : null}
       <div className="panel-foot">
         <button type="button" className="link-button" aria-expanded={open} aria-controls={`${id}-evidence`} onClick={() => setOpen(!open)}>
           {open ? "Hide evidence" : "Evidence"}

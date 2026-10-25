@@ -5,7 +5,11 @@ Writes frontend/public/data/showcase/:
   claims.geojson   Alaska DNR state mining claims (active and closed) in the Tok search box
   history.json     Alaska claims opened per year against the gold price (arjin/tok-land-data)
   town.json        the 61-person Tok society and its scored day-1 pilot posts (ahmed/gold-society-plan)
-  decision.json    the decision engine's verdict and outcome distributions (salman/decision-engine)
+  decision.json    the decision engine's verdict, outcome distributions and monthly sell plan (salman/decision-engine)
+  geochem.json     all 48 elements at the 67 sites with anomaly thresholds (Alaska DGGS RDF 2016-10)
+  occurrences.json known mines, prospects and occurrences near Tok (USGS ARDF)
+  geology.json     the mapped bedrock unit under each sample (USGS SIM 3340 via Macrostrat)
+  market.json      land sales, claim rent, Alaska deals and exit comparables over time
 
 Inputs are read from Git refs with `git show`, so no branch has to be checked out. Every file
 records its source ref and commit. Standard library only. Run from anywhere in the repository:
@@ -16,15 +20,19 @@ from __future__ import annotations
 
 import csv
 from datetime import date, datetime, timezone
+import hashlib
+import html
 import importlib.util
 import io
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
 import urllib.parse
 import urllib.request
+import zipfile
 
 ROOT = Path(subprocess.check_output(["git", "rev-parse", "--show-toplevel"], text=True).strip())
 OUT = ROOT / "frontend/public/data/showcase"
@@ -54,8 +62,14 @@ def write(name, payload):
     print(f"wrote {name}: {(OUT / name).stat().st_size // 1024} KB")
 
 
+def get(url):
+    """Open a URL with a named client; some USGS services refuse Python's default User-Agent."""
+    request = urllib.request.Request(url, headers={"User-Agent": "oxhack-showcase-data/1.0 (github.com/amitvijapur/oxhack-2026)"})
+    return urllib.request.urlopen(request, timeout=120)
+
+
 def fetch_json(url, params):
-    with urllib.request.urlopen(f"{url}?{urllib.parse.urlencode(params)}", timeout=120) as r:
+    with get(f"{url}?{urllib.parse.urlencode(params)}") as r:
         return json.load(r)
 
 
@@ -117,6 +131,153 @@ def build_town():
                         "people": people, "posts": posts})
 
 
+DGGS_ZIP = "https://dggs.alaska.gov/webpubs/data/rdf2016_010_tok-stream-sediment-geochemistry.zip"
+DGGS_ZIP_SHA256 = "2ac0b7eaeeb1bf114172ad80e2afde2065a9af1946a3be163f843cb736e91d86"
+DGGS_TABLE = "tables/rdf2016-10-stream-sed-trace-element.csv"
+DGGS_LIMITS = "tables/rdf2016-10-stream-sed-trace-element-limits.csv"
+# Gold and the elements that commonly travel with it in Alaska's intrusion-related and orogenic
+# gold systems (pathfinders), then base and other metals. The map's element picker uses this order.
+KEY_ELEMENTS = ["Au", "As", "Sb", "Bi", "Te", "W", "Mo", "Cu", "Ag", "Pb", "Zn", "Li"]
+FIELD_NOTES = ("STREAM_WIDTH_METERS", "STREAM_DEPTH_CM", "STREAM_SPEED", "GRAIN_SIZE", "SOURCE", "SED_COLOR", "NUM_SITES")
+
+
+def percentile(sorted_values, p):
+    """Linear-interpolated percentile of an already sorted list."""
+    k = (len(sorted_values) - 1) * p
+    lo, hi = int(k), min(int(k) + 1, len(sorted_values) - 1)
+    return sorted_values[lo] + (sorted_values[hi] - sorted_values[lo]) * (k - lo)
+
+
+def build_geochem():
+    """Every element measured at the 67 sites (−200 mesh), with each lab's limits and the
+    50th/90th/98th percentiles that exploration geochemists use as anomaly thresholds.
+
+    DGGS codes −1 as below the lower detection limit and −2 as above the upper one. Those values
+    are kept as flags, never as numbers; for ranking they sit at their limit."""
+    with get(DGGS_ZIP) as r:
+        blob = r.read()
+    digest = hashlib.sha256(blob).hexdigest()
+    if digest != DGGS_ZIP_SHA256:
+        raise RuntimeError(f"DGGS zip changed: {digest}")
+    archive = zipfile.ZipFile(io.BytesIO(blob))
+    limits = {row["ANALYSIS"]: row for row in csv.DictReader(io.StringIO(archive.read(DGGS_LIMITS).decode("utf-8-sig")))}
+    rows = [r for r in csv.DictReader(io.StringIO(archive.read(DGGS_TABLE).decode("utf-8-sig"))) if r["SIZE_FRACTION"] == "-200"]
+
+    # One column per element; gold uses the primary fire assay (PGM-MS23), as the rest of the site does.
+    columns = {}
+    for analysis, row in limits.items():
+        element = row["CHEMICAL_ABBREV"]
+        if analysis.startswith("Au_") and analysis != "Au_ppm_PGM-MS23":
+            continue
+        if element in ("Pt", "Pd"):
+            continue
+        columns[element] = {"analysis": analysis, "name": row["CHEMICAL"], "unit": "%" if row["UNITS"] == "percent" else "ppm",
+                            "lower": float(row["LOWER_DETECTION_LIMIT"]), "upper": float(row["UPPER_DETECTION_LIMIT"]),
+                            "method": row["LAB_CODE"]}
+    samples, ranked = [], {e: [] for e in columns}
+    for r in rows:
+        values = {}
+        for element, col in columns.items():
+            raw = r[col["analysis"]].strip()
+            if raw == "":
+                values[element] = None
+            elif raw == "-1":
+                values[element] = {"below": col["lower"]}
+                ranked[element].append(col["lower"])
+            elif raw == "-2":
+                values[element] = {"above": col["upper"]}
+                ranked[element].append(col["upper"])
+            else:
+                values[element] = float(raw)
+                ranked[element].append(float(raw))
+        samples.append({"id": r["SAMPLE"], "lon": float(r["LONGITUDE"]), "lat": float(r["LATITUDE"]),
+                        "values": values, "notes": {k.lower(): r[k] for k in FIELD_NOTES if r.get(k)}})
+    thresholds = {}
+    for element, values in ranked.items():
+        values.sort()
+        if len(values) >= 20:
+            thresholds[element] = {f"p{int(p * 100)}": round(percentile(values, p), 6) for p in (0.5, 0.9, 0.98)}
+    order = KEY_ELEMENTS + sorted(e for e in columns if e not in KEY_ELEMENTS)
+    write("geochem.json", {"source": {"url": DGGS_ZIP, "sha256": digest, "doi": "https://doi.org/10.14509/29688",
+                                      "table": DGGS_TABLE, "size_fraction": "-200 mesh"},
+                           "key_elements": KEY_ELEMENTS, "order": order, "elements": columns,
+                           "thresholds": thresholds, "samples": samples})
+    print(f"geochem: {len(samples)} samples, {len(columns)} elements")
+
+
+ARDF_WFS = "https://mrdata.usgs.gov/services/wfs/ardf"
+OCCURRENCE_BOX = (-144.3, 62.85, -142.8, 63.45)  # a little wider than the claims box, to show neighbours
+
+
+def build_occurrences():
+    """Known mines, prospects and occurrences from the USGS Alaska Resource Data File (ARDF)."""
+    west, south, east, north = OCCURRENCE_BOX
+    params = dict(service="WFS", version="1.1.0", request="GetFeature", typeName="ardf", srsName="EPSG:4326",
+                  bbox=f"{south},{west},{north},{east},EPSG:4326")
+    with get(f"{ARDF_WFS}?{urllib.parse.urlencode(params)}") as r:
+        xml = r.read().decode("utf-8")
+    tag = lambda block, name: (re.search(rf"<ms:{name}>(.*?)</ms:{name}>", block, re.S) or [None, ""])[1]
+    records = []
+    for block in re.findall(r"<ms:ardf\b.*?</ms:ardf>", xml, re.S):
+        geology = html.unescape(tag(block, "geol_desc")).split("|")[0]
+        records.append({"id": tag(block, "ardf_num"), "name": html.unescape(tag(block, "site")),
+                        "lon": float(tag(block, "longitude")), "lat": float(tag(block, "latitude")),
+                        "commodities": tag(block, "comm_main").split(";") if tag(block, "comm_main") else [],
+                        "other": tag(block, "comm_other").split(";") if tag(block, "comm_other") else [],
+                        "type": tag(block, "site_type"), "status": tag(block, "status"),
+                        "model": html.unescape(tag(block, "dep_model")), "production": html.unescape(tag(block, "production")),
+                        "geology": geology[:600], "url": html.unescape(tag(block, "url"))})
+    write("occurrences.json", {"source": ARDF_WFS, "retrieved": date.today().isoformat(), "box": OCCURRENCE_BOX,
+                               "records": records})
+    print(f"occurrences: {len(records)}")
+
+
+MACROSTRAT = "https://macrostrat.org/api/v2/geologic_units/map"
+SIM3340_SOURCE_ID = 21  # Macrostrat's copy of the USGS Geologic Map of Alaska (SIM 3340, Wilson and others, 2015)
+
+
+def build_geology():
+    """The mapped bedrock unit under each sample, from SIM 3340 via Macrostrat (CC-BY 4.0)."""
+    units = {}
+    samples = json.loads((OUT / "geochem.json").read_text())["samples"]
+    for s in samples:
+        data = fetch_json(MACROSTRAT, dict(lat=s["lat"], lng=s["lon"], format="json"))["success"]["data"]
+        unit = next((u for u in data if u["source_id"] == SIM3340_SOURCE_ID), None)
+        units[s["id"]] = None if unit is None else {
+            "name": unit["name"], "lith": unit["lith"], "description": unit["descrip"][:300],
+            "age": unit["best_int_name"], "top_ma": unit["t_age"], "bottom_ma": unit["b_age"], "color": unit["color"]}
+    write("geology.json", {"source": "USGS SIM 3340 (Wilson and others, 2015) via Macrostrat",
+                           "source_url": "https://doi.org/10.3133/sim3340", "api": MACROSTRAT, "license": "CC-BY 4.0",
+                           "tiles": "https://tiles.macrostrat.org/carto/{z}/{x}/{y}.png",
+                           "retrieved": date.today().isoformat(), "units": units})
+    print(f"geology: {sum(u is not None for u in units.values())} of {len(units)} samples matched")
+
+
+def build_market():
+    """Land and deal prices over time (Arjin's tables) and the comparable deals the engine prices exits from."""
+    land = list(csv.DictReader(io.StringIO(show(LAND_REF, "research/tok-land/alaska_land_sales_by_year.csv"))))
+    rent = list(csv.DictReader(io.StringIO(show(LAND_REF, "research/tok-land/alaska_holding_costs_by_year.csv"))))
+    deals = list(csv.DictReader(io.StringIO(show(LAND_REF, "research/tok-land/gold_deal_comparables.csv"))))
+    comps = list(csv.DictReader(io.StringIO(show(ENGINE_REF, "research/decision-engine/bid-comparables.csv"))))
+    keep_scope = ("Statewide", "Richardson, Alaska Highways")  # the DNR region that holds Tok
+    write("market.json", {
+        "sources": [source(LAND_REF, "research/tok-land/alaska_land_sales_by_year.csv",
+                           "research/tok-land/alaska_holding_costs_by_year.csv", "research/tok-land/gold_deal_comparables.csv"),
+                    source(ENGINE_REF, "research/decision-engine/bid-comparables.csv")],
+        "land_sales": [{"year": int(r["year"]), "scope": r["scope"], "parcels": int(r["parcels"]),
+                        "median_usd_per_acre": float(r["median_usd_per_acre"])} for r in land if r["scope"] in keep_scope],
+        "rent_160ac": [{"year": int(r["mining_year_starting_sep_1"]),
+                        "new": float(r["ak_rent_160ac_age_0_5"]) if r["ak_rent_160ac_age_0_5"] else None,
+                        "age_11_plus": float(r["ak_rent_160ac_age_11_plus"]) if r["ak_rent_160ac_age_11_plus"] else None}
+                       for r in rent],
+        "deals": [{k: r[k] for k in ("acquirer", "target", "asset_location", "deal_date", "price_usd_m", "stage",
+                                     "link_to_tok_sites", "quality_flag", "source_url")} for r in deals],
+        "comparables": [{"id": r["comp_id"], "region": r["region"], "date": r["announce_date"], "acres": float(r["acres"] or 0),
+                         "usd_per_acre": float(r["usd_per_acre"]), "type": r["contract_type"], "stage": r["stage"],
+                         "url": r["source_url"]} for r in comps if r["used"] == "yes" and r["usd_per_acre"]],
+    })
+
+
 def histogram(dist, edges):
     counts = [0.0] * (len(edges) - 1)
     for cash, prob in dist.items():
@@ -160,7 +321,17 @@ def build_decision():
                 solver = de.Solver(c, arrival.with_q(q), commitment_cap=policy["loss_limit_usd"])
                 dist = solver.outcomes()
                 modal = max(dist.items(), key=lambda kv: kv[1])
-                lapse = next((m["month"] for m in solver.policy() if m["action"] == "LAPSE"), None)
+                plan = solver.policy()
+                lapse = next((m["month"] for m in plan if m["action"] == "LAPSE"), None)
+                checks = de.analyse(c, arrival.with_q(q), policy["budget_usd"], policy["loss_limit_usd"])
+                # Cash put in by each month on the no-buyer path (stages paid plus carry), undiscounted.
+                spent, outlay = float(c["stages"][0]["payment_usd"]), []
+                for m in plan:
+                    if m["action"] == "PAY_STAGE":
+                        spent += m["stage_payment_usd"]
+                    elif m["action"] == "HOLD":
+                        spent += c["carry_usd_per_month"] if m["position"] != "owned" else c["carry_after_exercise_usd_per_month"]
+                        outlay.append(round(spent, 2))
                 rows = [r for r in robust["table"] if r["q_buyers_per_staking_event"] == q and r["acceleration_allowed"] == acc]
                 w = {(r["arrival_model"], r["exit_bids"]): weights["arrival_model"][r["arrival_model"]] * weights["exit_bids"][r["exit_bids"]] for r in rows}
                 ev = sum(w[(r["arrival_model"], r["exit_bids"])] * r["value_usd"] for r in rows) / sum(w.values())
@@ -171,7 +342,12 @@ def build_decision():
                                "histogram": histogram(dist, edges),
                                # The most likely single outcome, and when the no-buyer plan walks away.
                                "modal_outcome_usd": round(modal[0], 2), "p_modal": round(modal[1], 4),
-                               "lapse_month_if_no_buyer": lapse})
+                               "lapse_month_if_no_buyer": lapse,
+                               # The engine's own month-by-month plan: sell if an offer reaches this, else hold.
+                               "sell_if_offer_at_least_usd": [m["sell_if_offer_at_least_usd"] for m in plan if m["action"] == "HOLD"],
+                               "outlay_usd_by_month": outlay,
+                               "break_even": {k: (round(v, 4) if isinstance(v, float) else v) for k, v in checks["break_even"].items()},
+                               "value_if_acceleration_flipped_usd": round(checks["assumption_checks"]["value_if_acceleration_flipped_usd"], 2)})
                 print(f"q={q} acc={acc}: {d['action']} {d['value_usd']:,.0f}")
     write("decision.json", {
         "source": source(ENGINE_REF, "scripts/decision_engine.py", "research/decision-engine/tok-demo.json",
@@ -185,10 +361,14 @@ def build_decision():
                      "acres": bm["acres"], "carry_usd_per_month": spec["contract"]["carry_usd_per_month"],
                      "terms_label": spec["labels"]["contract"]},
         "q_label": spec["labels"]["q"], "histogram_edges_usd": edges, "worlds": worlds,
+        # What buyers might offer for the 640-acre block (the headline bid set), per acre.
+        "exit_offers_usd_per_acre": sorted(round(b["usd"] / bm["acres"], 2) for b in contract["bids"]),
+        "bids_label": spec["labels"]["bids"],
         "gates": {k: v["status"] for k, v in spec["gates"].items()}})
 
 
 if __name__ == "__main__":
-    steps = {"claims": build_claims, "history": build_history, "town": build_town, "decision": build_decision}
+    steps = {"claims": build_claims, "history": build_history, "town": build_town, "decision": build_decision,
+             "geochem": build_geochem, "occurrences": build_occurrences, "geology": build_geology, "market": build_market}
     for name in sys.argv[1:] or steps:
         steps[name]()

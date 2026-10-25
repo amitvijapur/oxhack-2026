@@ -2,17 +2,21 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Pause, Play } from "lucide-react";
-import { claimState, usd, type Claims, type History } from "@/lib/showcase";
+import { claimState, usd, type Claims, type History, type Market } from "@/lib/showcase";
 import { Panel } from "./Panel";
+import type { Depth } from "./Ground";
+import { MarketDeep } from "./deep/Market";
 
 const FIRST = 1975;
 const LAST = 2026;
 const YEARS = Array.from({ length: LAST - FIRST + 1 }, (_, i) => FIRST + i);
 const STEP_MS = 260;
 
-export function Land({ claims, history, year, onYear, tour, onNext }: {
+export function Land({ claims, history, market, deep, year, onYear, tour, onNext }: {
   claims: Claims;
   history: History;
+  market: Market;
+  deep: Depth;
   year: number;
   onYear: (year: number) => void;
   tour: boolean;
@@ -51,6 +55,7 @@ export function Land({ claims, history, year, onYear, tour, onNext }: {
     <>
       <Panel
         step={2}
+        onDeep={deep.onOpen}
         mode="State records"
         title="Who already owns it?"
         lede="Every shape is a real state mining claim: gold while someone holds it, faint once it lapses. Drag through time. The rushes here don't simply follow the gold price, so price alone can't tell us when to buy."
@@ -67,6 +72,7 @@ export function Land({ claims, history, year, onYear, tour, onNext }: {
           <div><dt>Gold that year</dt><dd className="tabular">{gold[i] ? usd(gold[i]!) : "—"}</dd></div>
         </dl>
       </Panel>
+      {deep.open ? <MarketDeep market={market} claims={claims} history={history} year={year} onClose={deep.onClose} /> : null}
       <Scrubber year={year} onYear={(y) => { setPlaying(false); onYear(y); }} held={held} gold={gold} playing={playing} onPlay={play} />
     </>
   );

@@ -29,6 +29,9 @@ export type World = {
   expected_over_other_assumptions_usd: number; buy_in: number; of: number;
   p_loss: number; p_gain: number; histogram: number[];
   modal_outcome_usd: number; p_modal: number; lapse_month_if_no_buyer: number | null;
+  sell_if_offer_at_least_usd: number[]; outlay_usd_by_month: number[];
+  break_even: { buyers_per_staking_event_q: number | null; max_first_payment_usd: number | null; min_high_bid_usd: number | null };
+  value_if_acceleration_flipped_usd: number;
 };
 export type Decision = {
   source: Source;
@@ -38,9 +41,39 @@ export type Decision = {
   contract: { stages: { month: number; payment_usd: number }[]; horizon_months: number; acres: number; carry_usd_per_month: number; terms_label: string };
   q_label: string; histogram_edges_usd: number[]; worlds: World[];
   gates: Record<string, string>;
+  exit_offers_usd_per_acre: number[]; bids_label: string;
 };
 
-export type Showcase = { claims: Claims; history: History; town: Town; decision: Decision };
+/** A measured value, or a lab flag: below the lower limit or above the upper one. */
+export type Assay = number | { below: number } | { above: number } | null;
+export type Element = { analysis: string; name: string; unit: "ppm" | "%"; lower: number; upper: number; method: string };
+export type GeoSample = { id: string; lon: number; lat: number; values: Record<string, Assay>; notes: Record<string, string> };
+export type Geochem = {
+  source: { url: string; sha256: string; doi: string; table: string; size_fraction: string };
+  key_elements: string[]; order: string[];
+  elements: Record<string, Element>;
+  thresholds: Record<string, { p50: number; p90: number; p98: number }>;
+  samples: GeoSample[];
+};
+export type Occurrence = {
+  id: string; name: string; lon: number; lat: number; commodities: string[]; other: string[];
+  type: string; status: string; model: string; production: string; geology: string; url: string;
+};
+export type Occurrences = { source: string; retrieved: string; records: Occurrence[] };
+export type Unit = { name: string; lith: string; description: string; age: string; top_ma: number; bottom_ma: number; color: string };
+export type Geology = { source: string; source_url: string; license: string; tiles: string; retrieved: string; units: Record<string, Unit | null> };
+export type Market = {
+  sources: Source[];
+  land_sales: { year: number; scope: string; parcels: number; median_usd_per_acre: number }[];
+  rent_160ac: { year: number; new: number | null; age_11_plus: number | null }[];
+  deals: { acquirer: string; target: string; asset_location: string; deal_date: string; price_usd_m: string; stage: string; link_to_tok_sites: string; quality_flag: string; source_url: string }[];
+  comparables: { id: string; region: string; date: string; acres: number; usd_per_acre: number; type: string; stage: string; url: string }[];
+};
+
+export type Showcase = {
+  claims: Claims; history: History; town: Town; decision: Decision;
+  geochem: Geochem; occurrences: Occurrences; geology: Geology; market: Market;
+};
 
 async function json<T>(path: string): Promise<T> {
   const response = await fetch(`/data/showcase/${path}`);
@@ -49,10 +82,11 @@ async function json<T>(path: string): Promise<T> {
 }
 
 export async function loadShowcase(): Promise<Showcase> {
-  const [claims, history, town, decision] = await Promise.all([
+  const [claims, history, town, decision, geochem, occurrences, geology, market] = await Promise.all([
     json<Claims>("claims.geojson"), json<History>("history.json"), json<Town>("town.json"), json<Decision>("decision.json"),
+    json<Geochem>("geochem.json"), json<Occurrences>("occurrences.json"), json<Geology>("geology.json"), json<Market>("market.json"),
   ]);
-  return { claims, history, town, decision };
+  return { claims, history, town, decision, geochem, occurrences, geology, market };
 }
 
 /** A claim's state in a given year: not yet staked, held, or lapsed. */
@@ -76,4 +110,32 @@ export function supportColor(score: number) {
   const k = t < 0.5 ? t * 2 : (t - 0.5) * 2;
   const c = from.map((v, i) => Math.round(v + (to[i] - v) * k));
   return `rgb(${c[0]} ${c[1]} ${c[2]})`;
+}
+
+/** A value to rank by: measured, or its limit when the lab only reported a bound. */
+export function assayLevel(value: Assay): number | null {
+  if (value === null) return null;
+  if (typeof value === "number") return value;
+  return "below" in value ? value.below : value.above;
+}
+
+export function formatAssayValue(value: Assay, unit: string) {
+  if (value === null) return "not analysed";
+  if (typeof value === "number") return `${value} ${unit}`;
+  return "below" in value ? `<${value.below} ${unit}` : `>${value.above} ${unit}`;
+}
+
+/** Anomaly class against the 50th/90th/98th percentiles of the 67 sites. */
+export function anomalyClass(value: Assay, t?: { p50: number; p90: number; p98: number }): 0 | 1 | 2 | 3 {
+  const v = assayLevel(value);
+  if (v === null || !t) return 0;
+  if (typeof value === "object" && value && "below" in value) return 0;
+  return v >= t.p98 ? 3 : v >= t.p90 ? 2 : v >= t.p50 ? 1 : 0;
+}
+
+/** Great-circle distance in km. */
+export function km(lon1: number, lat1: number, lon2: number, lat2: number) {
+  const r = Math.PI / 180;
+  const a = Math.sin(((lat2 - lat1) * r) / 2) ** 2 + Math.cos(lat1 * r) * Math.cos(lat2 * r) * Math.sin(((lon2 - lon1) * r) / 2) ** 2;
+  return 2 * 6371.0088 * Math.asin(Math.sqrt(a));
 }

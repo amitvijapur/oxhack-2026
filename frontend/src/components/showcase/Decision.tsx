@@ -3,8 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { RotateCcw } from "lucide-react";
-import { signedUsd, usd, type Decision as DecisionData, type World } from "@/lib/showcase";
+import { signedUsd, usd, type Decision as DecisionData, type Market, type World } from "@/lib/showcase";
 import { Panel } from "./Panel";
+import type { Depth } from "./Ground";
+import { TimingDeep } from "./deep/Timing";
 
 const DOTS = 300;
 const Q_LABELS: Record<string, string> = { "0.003": "1 in 333", "0.03": "1 in 33", "0.1": "1 in 10", "0.25": "1 in 4", "0.5": "1 in 2" };
@@ -22,7 +24,13 @@ function allocate(histogram: number[]) {
   return counts;
 }
 
-export function Decision({ decision, tour, onRestart }: { decision: DecisionData; tour: boolean; onRestart: () => void }) {
+export function Decision({ decision, market, deep, tour, onRestart }: {
+  decision: DecisionData;
+  market: Market;
+  deep: Depth;
+  tour: boolean;
+  onRestart: () => void;
+}) {
   const qs = useMemo(() => [...new Set(decision.worlds.map((w) => w.q))].sort((a, b) => a - b), [decision]);
   const [qIndex, setQIndex] = useState(2);
   const [early, setEarly] = useState(true);
@@ -43,6 +51,7 @@ export function Decision({ decision, tour, onRestart }: { decision: DecisionData
     <>
       <Panel
         step={4}
+        onDeep={deep.onOpen}
         mode="Model"
         title="So, do we buy?"
         lede={<>Every dot is one possible future for a four-year, {usd(stages.reduce((a, s) => a + s.payment_usd, 0))} staged deal on {decision.contract.acres} acres. The algorithm plays each one month by month, and the dots land where the money ends up.</>}
@@ -81,6 +90,7 @@ export function Decision({ decision, tour, onRestart }: { decision: DecisionData
         </label>
       </Panel>
 
+      {deep.open ? <TimingDeep decision={decision} market={market} world={world} onClose={deep.onClose} /> : null}
       <div className="stage stage-decision">
         <Board world={world} edges={decision.histogram_edges_usd} run={run} onSettled={setSettled} />
         <AnimatePresence mode="wait">

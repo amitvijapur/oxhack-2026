@@ -13,6 +13,22 @@ screens with one question each:
    with its SKIP/BUY signal and a buyer-rate slider that flips it at the
    documented point.
 
+Three screens have an opt-in **Deep dive** sheet:
+
+- **The ground: what else is in the dirt?** All 49 elements the lab measured,
+  pins coloured by any element's anomaly class (50th/90th/98th percentile of
+  the 67 sites), which elements travel with gold, the USGS bedrock unit under
+  each sample, and known mines and prospects from the USGS Alaska Resource
+  Data File.
+- **The land: when do people pay, and how much?** Gold price, claims staked
+  and held near Tok, state land sale prices, and claim rent on one 1975–2026
+  timeline that follows the scrubber. It also shows who holds the claims and
+  recent Alaska gold deals.
+- **The decision: when would we sell, and is there a spread?** The engine's
+  month-by-month sell line against the offers buyers might make, cash at risk
+  over time, the per-acre arbitrage spread against comparable deals, and what
+  would flip the answer to BUY.
+
 A live gold spot price and the time in Tok run across the top. Every screen
 labels how real its numbers are (2016 survey, state records, simulated, model)
 and links its sources under "Evidence".
@@ -53,9 +69,14 @@ with `git show`, so nothing is checked out) plus one fetch of DNR claims:
 git fetch origin
 python3 frontend/scripts/build-showcase-data.py            # all four files
 python3 frontend/scripts/build-showcase-data.py decision   # just one
+# steps: claims history town decision geochem occurrences geology market
 ```
 
-Each file records its source ref and commit. Re-run it when
+Each file records its source ref and commit, or its URL, retrieval date and
+hash. `geochem` checks the DGGS zip against its pinned sha256. `occurrences`
+reads the USGS ARDF WFS, and `geology` asks Macrostrat (CC-BY 4.0) which
+SIM 3340 unit lies under each sample. `geology` reads `geochem.json`, so run
+`geochem` first. The map's geology overlay uses Macrostrat's tiles. Re-run it when
 `arjin/tok-land-data`, `ahmed/gold-society-plan` or `salman/decision-engine`
 changes, and commit the result.
 
