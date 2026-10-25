@@ -1,0 +1,66 @@
+{
+  "retrieved": {
+    "active": "2026-10-24",
+    "closed": "2026-10-24"
+  },
+  "claims_source": "https://arcgis.dnr.alaska.gov/arcgis/rest/services/OpenData/NaturalResource_StateMiningClaim/FeatureServer",
+  "search_box_lon_lat": [
+    -144.05,
+    63.0,
+    -143.05,
+    63.28
+  ],
+  "claims_in_search_box": {
+    "active": 706,
+    "closed": 763
+  },
+  "top_owners_active": [
+    [
+      "CONTANGO MINERALS ALASKA, LLC",
+      403
+    ],
+    [
+      "PEAK GOLD, LLC",
+      116
+    ]
+  ],
+  "sites": {
+    "A": {
+      "samples": 33,
+      "samples_inside_active_claim": 2,
+      "samples_inside_closed_claim": 12,
+      "median_m_to_nearest_active_claim": 3427,
+      "owners_of_active_claims_at_samples": {
+        "GREAT LAND MINERALS, LLC.": 2
+      },
+      "claims_overlapping_window_by_ntpstdt_year": {
+        "1977": {
+          "closed": 4
+        },
+        "1995": {
+          "closed": 2
+        }
+      }
+    },
+    "B": {
+      "samples": 34,
+      "samples_inside_active_claim": 20,
+      "samples_inside_closed_claim": 1,
+      "median_m_to_nearest_active_claim": 0.0,
+      "owners_of_active_claims_at_samples": {
+        "CONTANGO MINERALS ALASKA, LLC": 17,
+        "SIBITS, MICHAEL": 2,
+        "PEAK GOLD, LLC": 1
+      },
+      "claims_overlapping_window_by_ntpstdt_year": {
+        "2007": {
+          "active": 7
+        },
+        "2010": {
+          "active": 28,
+          "closed": 4
+        }
+      }
+    }
+  }
+}

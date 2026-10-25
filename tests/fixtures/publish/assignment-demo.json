@@ -1,0 +1,697 @@
+{
+  "contractVersion": "tok-assignment-output-v1",
+  "modelVersion": "tok-option-demo-v1",
+  "selection": {
+    "area": "A",
+    "horizonDays": 90,
+    "scenarioId": "baseline"
+  },
+  "result": {
+    "version": "tok-option-demo-v1",
+    "mode": "demo",
+    "status": "illustrative",
+    "reasons": [],
+    "evidence": {
+      "gate": "PASS",
+      "pass": 25,
+      "fail": 8,
+      "unknown": 0,
+      "total": 33,
+      "lowerFraction": 0.7575757575757576,
+      "upperFraction": 0.7575757575757576,
+      "rule": {
+        "thresholdPpm": 0.01,
+        "minimumClassifiedSamples": 10,
+        "minimumQualifyingFraction": 0.5
+      },
+      "reasons": [],
+      "area": "A",
+      "provenance": "observed",
+      "interpretation": "Comparison-area screen only; not a deposit probability, legal parcel or resource estimate."
+    },
+    "baseline": {
+      "status": "illustrative",
+      "reasons": [],
+      "day": 90,
+      "currency": "USD",
+      "rawMaterialValueUsd": 1000000,
+      "successValueUsd": 10000,
+      "underlyingExpectedProxyUsd": 2500,
+      "baselineAssignmentValueUsd": 1500,
+      "assignmentValueUsd": 1500,
+      "adjustment": 0,
+      "materialTrace": [
+        {
+          "material": "Au",
+          "quantity": 500,
+          "unit": "troy_oz",
+          "priceUnit": "USD/troy_oz",
+          "projectedPrice": 2000,
+          "rawValueUsd": 1000000,
+          "sourceId": "tok-option-fixture-v1",
+          "provenance": "assumed"
+        }
+      ],
+      "saleProbability": 0.4879999999999999,
+      "noSaleProbability": 0.5120000000000001,
+      "expectedNetCashUsd": 7.600000000000023,
+      "conditionalSaleProfitUsd": 750,
+      "weightedNoSaleResidualMarkUsd": 768.0000000000002,
+      "unweightedNoSaleResidualMarkUsd": 1500,
+      "amountAtRiskUsd": 700,
+      "intervals": [
+        {
+          "day": 30,
+          "weight": 0.2,
+          "assignmentValueUsd": 1500,
+          "netSaleProceedsUsd": 1450
+        },
+        {
+          "day": 60,
+          "weight": 0.16000000000000003,
+          "assignmentValueUsd": 1500,
+          "netSaleProceedsUsd": 1450
+        },
+        {
+          "day": 90,
+          "weight": 0.12800000000000003,
+          "assignmentValueUsd": 1500,
+          "netSaleProceedsUsd": 1450
+        }
+      ],
+      "version": "tok-option-demo-v1",
+      "id": "hypothetical-option-A",
+      "underlyingId": "hypothetical-interest-A",
+      "horizonDays": 90,
+      "entryAction": "BUY_CANDIDATE",
+      "evidenceGate": "PASS",
+      "expiryGate": "PASS",
+      "riskGate": "PASS",
+      "termsProvenance": "assumed",
+      "calculation": {
+        "signal": 0,
+        "cap": 0.07,
+        "exposure": 1,
+        "retention": 1,
+        "annualDiscountRate": 0,
+        "hazardPer30Days": 0.2,
+        "expiryBufferDays": 15
+      },
+      "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+    },
+    "mapped": {
+      "status": "illustrative",
+      "reasons": [],
+      "day": 90,
+      "currency": "USD",
+      "rawMaterialValueUsd": 1000000,
+      "successValueUsd": 10000,
+      "underlyingExpectedProxyUsd": 2500,
+      "baselineAssignmentValueUsd": 1500,
+      "assignmentValueUsd": 1500,
+      "adjustment": 0,
+      "materialTrace": [
+        {
+          "material": "Au",
+          "quantity": 500,
+          "unit": "troy_oz",
+          "priceUnit": "USD/troy_oz",
+          "projectedPrice": 2000,
+          "rawValueUsd": 1000000,
+          "sourceId": "tok-option-fixture-v1",
+          "provenance": "assumed"
+        }
+      ],
+      "saleProbability": 0.4879999999999999,
+      "noSaleProbability": 0.5120000000000001,
+      "expectedNetCashUsd": 7.600000000000023,
+      "conditionalSaleProfitUsd": 750,
+      "weightedNoSaleResidualMarkUsd": 768.0000000000002,
+      "unweightedNoSaleResidualMarkUsd": 1500,
+      "amountAtRiskUsd": 700,
+      "intervals": [
+        {
+          "day": 30,
+          "weight": 0.2,
+          "assignmentValueUsd": 1500,
+          "netSaleProceedsUsd": 1450
+        },
+        {
+          "day": 60,
+          "weight": 0.16000000000000003,
+          "assignmentValueUsd": 1500,
+          "netSaleProceedsUsd": 1450
+        },
+        {
+          "day": 90,
+          "weight": 0.12800000000000003,
+          "assignmentValueUsd": 1500,
+          "netSaleProceedsUsd": 1450
+        }
+      ],
+      "version": "tok-option-demo-v1",
+      "id": "hypothetical-option-A",
+      "underlyingId": "hypothetical-interest-A",
+      "horizonDays": 90,
+      "entryAction": "BUY_CANDIDATE",
+      "evidenceGate": "PASS",
+      "expiryGate": "PASS",
+      "riskGate": "PASS",
+      "termsProvenance": "assumed",
+      "calculation": {
+        "signal": 0,
+        "cap": 0.07,
+        "exposure": 1,
+        "retention": 1,
+        "annualDiscountRate": 0,
+        "hazardPer30Days": 0.2,
+        "expiryBufferDays": 15
+      },
+      "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+    },
+    "signal": {
+      "status": "ready",
+      "value": 0,
+      "adjustment": 0,
+      "groups": [
+        {
+          "group": "government",
+          "weight": 0.1,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "industry",
+          "weight": 0.4,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "community",
+          "weight": 0.07,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "funds",
+          "weight": 0.4,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "retail",
+          "weight": 0.03,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        }
+      ],
+      "reasons": [],
+      "provenance": "baseline_comparison",
+      "diagnosticOnly": true
+    },
+    "horizons": [
+      {
+        "days": 30,
+        "baseline": {
+          "status": "ineligible",
+          "reasons": [
+            "nonpositive_expected_cash"
+          ],
+          "day": 30,
+          "currency": "USD",
+          "rawMaterialValueUsd": 1000000,
+          "successValueUsd": 10000,
+          "underlyingExpectedProxyUsd": 2500,
+          "baselineAssignmentValueUsd": 1500,
+          "assignmentValueUsd": 1500,
+          "adjustment": 0,
+          "materialTrace": [
+            {
+              "material": "Au",
+              "quantity": 500,
+              "unit": "troy_oz",
+              "priceUnit": "USD/troy_oz",
+              "projectedPrice": 2000,
+              "rawValueUsd": 1000000,
+              "sourceId": "tok-option-fixture-v1",
+              "provenance": "assumed"
+            }
+          ],
+          "saleProbability": 0.19999999999999996,
+          "noSaleProbability": 0.8,
+          "expectedNetCashUsd": -410,
+          "conditionalSaleProfitUsd": 750,
+          "weightedNoSaleResidualMarkUsd": 1200,
+          "unweightedNoSaleResidualMarkUsd": 1500,
+          "amountAtRiskUsd": 700,
+          "intervals": [
+            {
+              "day": 30,
+              "weight": 0.2,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            }
+          ],
+          "version": "tok-option-demo-v1",
+          "id": "hypothetical-option-A",
+          "underlyingId": "hypothetical-interest-A",
+          "horizonDays": 30,
+          "entryAction": "SKIP",
+          "evidenceGate": "PASS",
+          "expiryGate": "PASS",
+          "riskGate": "PASS",
+          "termsProvenance": "assumed",
+          "calculation": {
+            "signal": 0,
+            "cap": 0.07,
+            "exposure": 1,
+            "retention": 1,
+            "annualDiscountRate": 0,
+            "hazardPer30Days": 0.2,
+            "expiryBufferDays": 15
+          },
+          "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+        },
+        "mapped": {
+          "status": "ineligible",
+          "reasons": [
+            "nonpositive_expected_cash"
+          ],
+          "day": 30,
+          "currency": "USD",
+          "rawMaterialValueUsd": 1000000,
+          "successValueUsd": 10000,
+          "underlyingExpectedProxyUsd": 2500,
+          "baselineAssignmentValueUsd": 1500,
+          "assignmentValueUsd": 1500,
+          "adjustment": 0,
+          "materialTrace": [
+            {
+              "material": "Au",
+              "quantity": 500,
+              "unit": "troy_oz",
+              "priceUnit": "USD/troy_oz",
+              "projectedPrice": 2000,
+              "rawValueUsd": 1000000,
+              "sourceId": "tok-option-fixture-v1",
+              "provenance": "assumed"
+            }
+          ],
+          "saleProbability": 0.19999999999999996,
+          "noSaleProbability": 0.8,
+          "expectedNetCashUsd": -410,
+          "conditionalSaleProfitUsd": 750,
+          "weightedNoSaleResidualMarkUsd": 1200,
+          "unweightedNoSaleResidualMarkUsd": 1500,
+          "amountAtRiskUsd": 700,
+          "intervals": [
+            {
+              "day": 30,
+              "weight": 0.2,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            }
+          ],
+          "version": "tok-option-demo-v1",
+          "id": "hypothetical-option-A",
+          "underlyingId": "hypothetical-interest-A",
+          "horizonDays": 30,
+          "entryAction": "SKIP",
+          "evidenceGate": "PASS",
+          "expiryGate": "PASS",
+          "riskGate": "PASS",
+          "termsProvenance": "assumed",
+          "calculation": {
+            "signal": 0,
+            "cap": 0.07,
+            "exposure": 1,
+            "retention": 1,
+            "annualDiscountRate": 0,
+            "hazardPer30Days": 0.2,
+            "expiryBufferDays": 15
+          },
+          "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+        },
+        "delta": {
+          "assignmentValueUsd": 0,
+          "expectedNetCashUsd": 0
+        }
+      },
+      {
+        "days": 90,
+        "baseline": {
+          "status": "illustrative",
+          "reasons": [],
+          "day": 90,
+          "currency": "USD",
+          "rawMaterialValueUsd": 1000000,
+          "successValueUsd": 10000,
+          "underlyingExpectedProxyUsd": 2500,
+          "baselineAssignmentValueUsd": 1500,
+          "assignmentValueUsd": 1500,
+          "adjustment": 0,
+          "materialTrace": [
+            {
+              "material": "Au",
+              "quantity": 500,
+              "unit": "troy_oz",
+              "priceUnit": "USD/troy_oz",
+              "projectedPrice": 2000,
+              "rawValueUsd": 1000000,
+              "sourceId": "tok-option-fixture-v1",
+              "provenance": "assumed"
+            }
+          ],
+          "saleProbability": 0.4879999999999999,
+          "noSaleProbability": 0.5120000000000001,
+          "expectedNetCashUsd": 7.600000000000023,
+          "conditionalSaleProfitUsd": 750,
+          "weightedNoSaleResidualMarkUsd": 768.0000000000002,
+          "unweightedNoSaleResidualMarkUsd": 1500,
+          "amountAtRiskUsd": 700,
+          "intervals": [
+            {
+              "day": 30,
+              "weight": 0.2,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 60,
+              "weight": 0.16000000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 90,
+              "weight": 0.12800000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            }
+          ],
+          "version": "tok-option-demo-v1",
+          "id": "hypothetical-option-A",
+          "underlyingId": "hypothetical-interest-A",
+          "horizonDays": 90,
+          "entryAction": "BUY_CANDIDATE",
+          "evidenceGate": "PASS",
+          "expiryGate": "PASS",
+          "riskGate": "PASS",
+          "termsProvenance": "assumed",
+          "calculation": {
+            "signal": 0,
+            "cap": 0.07,
+            "exposure": 1,
+            "retention": 1,
+            "annualDiscountRate": 0,
+            "hazardPer30Days": 0.2,
+            "expiryBufferDays": 15
+          },
+          "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+        },
+        "mapped": {
+          "status": "illustrative",
+          "reasons": [],
+          "day": 90,
+          "currency": "USD",
+          "rawMaterialValueUsd": 1000000,
+          "successValueUsd": 10000,
+          "underlyingExpectedProxyUsd": 2500,
+          "baselineAssignmentValueUsd": 1500,
+          "assignmentValueUsd": 1500,
+          "adjustment": 0,
+          "materialTrace": [
+            {
+              "material": "Au",
+              "quantity": 500,
+              "unit": "troy_oz",
+              "priceUnit": "USD/troy_oz",
+              "projectedPrice": 2000,
+              "rawValueUsd": 1000000,
+              "sourceId": "tok-option-fixture-v1",
+              "provenance": "assumed"
+            }
+          ],
+          "saleProbability": 0.4879999999999999,
+          "noSaleProbability": 0.5120000000000001,
+          "expectedNetCashUsd": 7.600000000000023,
+          "conditionalSaleProfitUsd": 750,
+          "weightedNoSaleResidualMarkUsd": 768.0000000000002,
+          "unweightedNoSaleResidualMarkUsd": 1500,
+          "amountAtRiskUsd": 700,
+          "intervals": [
+            {
+              "day": 30,
+              "weight": 0.2,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 60,
+              "weight": 0.16000000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 90,
+              "weight": 0.12800000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            }
+          ],
+          "version": "tok-option-demo-v1",
+          "id": "hypothetical-option-A",
+          "underlyingId": "hypothetical-interest-A",
+          "horizonDays": 90,
+          "entryAction": "BUY_CANDIDATE",
+          "evidenceGate": "PASS",
+          "expiryGate": "PASS",
+          "riskGate": "PASS",
+          "termsProvenance": "assumed",
+          "calculation": {
+            "signal": 0,
+            "cap": 0.07,
+            "exposure": 1,
+            "retention": 1,
+            "annualDiscountRate": 0,
+            "hazardPer30Days": 0.2,
+            "expiryBufferDays": 15
+          },
+          "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+        },
+        "delta": {
+          "assignmentValueUsd": 0,
+          "expectedNetCashUsd": 0
+        }
+      },
+      {
+        "days": 180,
+        "baseline": {
+          "status": "illustrative",
+          "reasons": [],
+          "day": 180,
+          "currency": "USD",
+          "rawMaterialValueUsd": 1000000,
+          "successValueUsd": 10000,
+          "underlyingExpectedProxyUsd": 2500,
+          "baselineAssignmentValueUsd": 1500,
+          "assignmentValueUsd": 1500,
+          "adjustment": 0,
+          "materialTrace": [
+            {
+              "material": "Au",
+              "quantity": 500,
+              "unit": "troy_oz",
+              "priceUnit": "USD/troy_oz",
+              "projectedPrice": 2000,
+              "rawValueUsd": 1000000,
+              "sourceId": "tok-option-fixture-v1",
+              "provenance": "assumed"
+            }
+          ],
+          "saleProbability": 0.7378559999999998,
+          "noSaleProbability": 0.2621440000000001,
+          "expectedNetCashUsd": 369.8912,
+          "conditionalSaleProfitUsd": 750,
+          "weightedNoSaleResidualMarkUsd": 393.2160000000001,
+          "unweightedNoSaleResidualMarkUsd": 1500,
+          "amountAtRiskUsd": 700,
+          "intervals": [
+            {
+              "day": 30,
+              "weight": 0.2,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 60,
+              "weight": 0.16000000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 90,
+              "weight": 0.12800000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 120,
+              "weight": 0.10240000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 150,
+              "weight": 0.08192000000000002,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 180,
+              "weight": 0.06553600000000002,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            }
+          ],
+          "version": "tok-option-demo-v1",
+          "id": "hypothetical-option-A",
+          "underlyingId": "hypothetical-interest-A",
+          "horizonDays": 180,
+          "entryAction": "BUY_CANDIDATE",
+          "evidenceGate": "PASS",
+          "expiryGate": "PASS",
+          "riskGate": "PASS",
+          "termsProvenance": "assumed",
+          "calculation": {
+            "signal": 0,
+            "cap": 0.07,
+            "exposure": 1,
+            "retention": 1,
+            "annualDiscountRate": 0,
+            "hazardPer30Days": 0.2,
+            "expiryBufferDays": 15
+          },
+          "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+        },
+        "mapped": {
+          "status": "illustrative",
+          "reasons": [],
+          "day": 180,
+          "currency": "USD",
+          "rawMaterialValueUsd": 1000000,
+          "successValueUsd": 10000,
+          "underlyingExpectedProxyUsd": 2500,
+          "baselineAssignmentValueUsd": 1500,
+          "assignmentValueUsd": 1500,
+          "adjustment": 0,
+          "materialTrace": [
+            {
+              "material": "Au",
+              "quantity": 500,
+              "unit": "troy_oz",
+              "priceUnit": "USD/troy_oz",
+              "projectedPrice": 2000,
+              "rawValueUsd": 1000000,
+              "sourceId": "tok-option-fixture-v1",
+              "provenance": "assumed"
+            }
+          ],
+          "saleProbability": 0.7378559999999998,
+          "noSaleProbability": 0.2621440000000001,
+          "expectedNetCashUsd": 369.8912,
+          "conditionalSaleProfitUsd": 750,
+          "weightedNoSaleResidualMarkUsd": 393.2160000000001,
+          "unweightedNoSaleResidualMarkUsd": 1500,
+          "amountAtRiskUsd": 700,
+          "intervals": [
+            {
+              "day": 30,
+              "weight": 0.2,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 60,
+              "weight": 0.16000000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 90,
+              "weight": 0.12800000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 120,
+              "weight": 0.10240000000000003,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 150,
+              "weight": 0.08192000000000002,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            },
+            {
+              "day": 180,
+              "weight": 0.06553600000000002,
+              "assignmentValueUsd": 1500,
+              "netSaleProceedsUsd": 1450
+            }
+          ],
+          "version": "tok-option-demo-v1",
+          "id": "hypothetical-option-A",
+          "underlyingId": "hypothetical-interest-A",
+          "horizonDays": 180,
+          "entryAction": "BUY_CANDIDATE",
+          "evidenceGate": "PASS",
+          "expiryGate": "PASS",
+          "riskGate": "PASS",
+          "termsProvenance": "assumed",
+          "calculation": {
+            "signal": 0,
+            "cap": 0.07,
+            "exposure": 1,
+            "retention": 1,
+            "annualDiscountRate": 0,
+            "hazardPer30Days": 0.2,
+            "expiryBufferDays": 15
+          },
+          "assumption": "Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction."
+        },
+        "delta": {
+          "assignmentValueUsd": 0,
+          "expectedNetCashUsd": 0
+        }
+      }
+    ],
+    "assumptions": [
+      "Primary sediment assays and supplied land-source context are observed inputs. A and B remain comparison areas, not verified mineral interests.",
+      "Recoverable ounces, commodity price and growth, contract terms, success probability and conversion factor are hypothetical.",
+      "The success state resolves before buyer exercise and failure interest value is zero. This call-shaped proxy omits option time value.",
+      "Sale hazard is assumed per 30 days. It is unchanged by news or asking price in this controlled comparison.",
+      "The ±7% cap limits one model price adjustment, not investment loss. The full upfront commitment can be lost.",
+      "Unsold model marks are separate from cash and never fund new positions. No exercise, leverage or reinvestment.",
+      "One hypothetical option is screened against the selected comparison area. No available Tok contract is asserted."
+    ],
+    "provenance": {
+      "evidence": "observed",
+      "economics": "assumed",
+      "liquidity": "assumed",
+      "signal": "baseline_comparison"
+    }
+  }
+}

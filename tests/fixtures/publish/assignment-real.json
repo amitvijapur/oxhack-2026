@@ -1,0 +1,119 @@
+{
+  "contractVersion": "tok-assignment-output-v1",
+  "modelVersion": "tok-option-demo-v1",
+  "selection": {
+    "area": "A",
+    "horizonDays": 90,
+    "scenarioId": "baseline"
+  },
+  "result": {
+    "version": "tok-option-demo-v1",
+    "mode": "real",
+    "status": "INSUFFICIENT_DATA",
+    "reasons": [
+      "Land-source context and historical gold prices are connected. Verified Tok option terms, recoverable resources and a supported sale-probability input are still missing."
+    ],
+    "evidence": {
+      "gate": "PASS",
+      "pass": 25,
+      "fail": 8,
+      "unknown": 0,
+      "total": 33,
+      "lowerFraction": 0.7575757575757576,
+      "upperFraction": 0.7575757575757576,
+      "rule": {
+        "thresholdPpm": 0.01,
+        "minimumClassifiedSamples": 10,
+        "minimumQualifyingFraction": 0.5
+      },
+      "reasons": [],
+      "area": "A",
+      "provenance": "observed",
+      "interpretation": "Comparison-area screen only; not a deposit probability, legal parcel or resource estimate."
+    },
+    "baseline": null,
+    "mapped": null,
+    "signal": {
+      "status": "ready",
+      "value": 0,
+      "adjustment": 0,
+      "groups": [
+        {
+          "group": "government",
+          "weight": 0.1,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "industry",
+          "weight": 0.4,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "community",
+          "weight": 0.07,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "funds",
+          "weight": 0.4,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        },
+        {
+          "group": "retail",
+          "weight": 0.03,
+          "baselineMean": null,
+          "scenarioMean": null,
+          "delta": 0,
+          "contribution": 0
+        }
+      ],
+      "reasons": [],
+      "provenance": "baseline_comparison",
+      "diagnosticOnly": true
+    },
+    "horizons": [
+      {
+        "days": 30,
+        "baseline": null,
+        "mapped": null,
+        "delta": {
+          "assignmentValueUsd": null,
+          "expectedNetCashUsd": null
+        }
+      },
+      {
+        "days": 90,
+        "baseline": null,
+        "mapped": null,
+        "delta": {
+          "assignmentValueUsd": null,
+          "expectedNetCashUsd": null
+        }
+      },
+      {
+        "days": 180,
+        "baseline": null,
+        "mapped": null,
+        "delta": {
+          "assignmentValueUsd": null,
+          "expectedNetCashUsd": null
+        }
+      }
+    ],
+    "assumptions": [
+      "Observed samples, land context and imported simulations can be inspected. Demo financial values are not used in real-data mode."
+    ]
+  }
+}

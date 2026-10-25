@@ -51,3 +51,6 @@ coverage/
 .playwright-cli/
 
 /frontend/artifacts/
+
+# Committed publishing placeholders only
+!/.env.publish.example
