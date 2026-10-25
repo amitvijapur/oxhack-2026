@@ -103,6 +103,9 @@ jobs:
             "$archive" | sha256sum --check --strict
           tar -xzf "$archive" -C "$RUNNER_TEMP" gitleaks
 
+      - name: Verify secret-scanner boundaries
+        run: GITLEAKS_BIN="$RUNNER_TEMP/gitleaks" python3 -m unittest discover -s tests -p test_secret_scan_config.py
+
       - name: Scan Git history with secrets redacted
         run: '"$RUNNER_TEMP/gitleaks" git --redact --log-opts="--all" .'
 
