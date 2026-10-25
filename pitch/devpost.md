@@ -26,6 +26,7 @@ Most tools look at one clock. We wanted one decision that takes all three into a
 
 The user is an investor who holds a mineral option and must find a buyer before it expires.
 
+- **Watch time run.** The app opens on a time-lapse from 2016 to today: claims held near Tok and the gold price, year by year. It then continues the 2020–2025 gold trend (14% a year) to 2031. That is a projection, not a prediction.
 - **Explore the land.** A 3D globe of Tok River shows the following, each with its source and date:
   - 67 measured sediment samples
   - the state mining claims around them, with who holds each claim and when it was staked
@@ -34,7 +35,11 @@ The user is an investor who holds a mineral option and must find a buyer before 
   - Area A passes: 25 of 33 samples.
   - Area B fails: 16 of 34.
   - Land records add a time story. Only 2 of A's samples sit in active claims, because its 2011 claims were mostly dropped. 20 of B's samples sit in active claims.
-- **Test a scenario.** Recorded multi-agent simulations show how five stakeholder groups react to news such as a mine approval or a court blockage. The groups are government, industry, community, funds and retail.
+- **Test a scenario.** Recorded multi-agent simulations show how 61 simulated Tok stakeholders, in five groups, react to news such as a gold price jump, a mine approval or a court blockage. The groups are government, industry, community, funds and retail.
+- **Test against history.** A historical event test uses real Alaska project announcements and public share prices: NOVAGOLD (Donlin) and Northern Dynasty (Pebble), with the GLD gold ETF as the gold reference.
+  - The event adjustment is fitted only on earlier events (7 training events) and scored on 5 later, held-out events.
+  - On those 5 events, the forecast with the event adjustment had a mean absolute error of 8.06 percentage points. "Gold-only drift" had 3.13 and "no change" had 2.56.
+  - So the event signal did **not** beat the simple baselines. We show that result instead of hiding it.
 - **Decide in time.** For a hypothetical assignable option, the model computes the chance of finding a buyer within 30, 90 or 180 days, the expected net cash, and a candidate or skip decision, with reasons.
   - At 90 days the example option has **+$7.60** expected net cash, yet **51.2%** of paths never sell.
   - At 30 days the expected cash is −$410; at 180 days it is +$369.89.
@@ -51,7 +56,8 @@ Every result can be traced back to its evidence, its scenario and its timing ass
   - 7,253 state land sales from DNR's Sold Parcel Search.
   - World Bank monthly gold prices.
   - 10 priced Alaska mineral deals.
-- **Simulation.** MiroFish multi-agent social simulations ran five days of posts by stakeholder agents, with news on day 3. They include three baseline seeds, a sports-news placebo, mine-approval and court-blockage runs. Six of the nine planned runs were scored.
+- **Simulation.** MiroFish multi-agent social simulations ran five days of posts by 61 stakeholder agents, with news on day 3. They include three baseline seeds, a sports-news placebo, mine-approval and court-blockage runs. Six of the nine planned runs were scored: 3,121 scored posts, rated 0–10 for support of mining by a judge model.
+- **Event test.** A chronological test on real announcements by Alaska mining companies, using share returns. The model is fitted only on matured earlier events and scored on held-out later ones, against "no change" and "gold-only drift" baselines.
 - **Model.** A pure JavaScript engine (Node 24) does the following:
   - screens evidence with conservative lower bounds
   - values a hypothetical option
@@ -83,6 +89,7 @@ Every result can be traced back to its evidence, its scenario and its timing ass
 - Every number on screen carries its source. Failed checks stay visible.
 - A clear finding about time: the same option loses money if you need a buyer in 30 days and earns money if you can wait 180 days.
 - A dataset we built ourselves: claim histories, holding costs and land-sale prices for Alaska, by year, from official records.
+- A real out-of-sample test against simple baselines. Our event signal lost to them, and the app says so.
 
 ## What we learned
 
@@ -102,8 +109,10 @@ Next.js, React, TypeScript, JavaScript, Node.js, Cesium, Python, Convex, MiroFis
 
 ## Links and media
 
+- **Try it out:** https://oxhack-land-arbitrage.vercel.app. This is the live site; every push to main that passes CI is deployed. The financial figures use hypothetical assumptions.
 - **GitHub:** https://github.com/amitvijapur/oxhack-2026. The repository is private; it must be made public, or access confirmed with the organisers, before judges can open it.
-- **Images:** [preview.png](preview.png), the screenshots in [assets/](assets/), and the land chart [alaska-gold-price-vs-land-price-vs-claim-rent-2000-2025.png](https://github.com/amitvijapur/oxhack-2026/blob/arjin/tok-land-data/research/tok-land/img/alaska-gold-price-vs-land-price-vs-claim-rent-2000-2025.png).
+- **Thumbnail:** the opening screen of the app ("Where could it go from here?"), 1500×1000.
+- **Images:** app screenshots of the land explorer, the claims by staked year, a plot sheet, the Market, Swarm and Decision tabs; [preview.png](preview.png); and the land chart [alaska-gold-price-vs-land-price-vs-claim-rent-2000-2025.png](https://github.com/amitvijapur/oxhack-2026/blob/arjin/tok-land-data/research/tok-land/img/alaska-gold-price-vs-land-price-vs-claim-rent-2000-2025.png).
 - **Video (2–3 minutes):** follow slides 1, 3, 4, 6 and 7 of [rehearsal.md](rehearsal.md), then show the live premium change from $650 to $660.
 
 ## Team
