@@ -29,14 +29,38 @@ async page => {
   await page.screenshot({ path: 'frontend/artifacts/0b-history.png' });
   await page.getByRole('button', { name: 'Jump to today' }).click();
   check(await page.locator('.tl-year').textContent() === '2026', 'Jump to today must land on 2026');
+  const today = await opening.innerText();
+  const headerGold = (await page.locator('.live').innerText()).match(/\$[\d,]+/)?.[0];
+  check(today.includes('Gold, live spot') && headerGold && today.includes(headerGold), 'Today must show the live gold price, the same as the header');
+  check(!/months\)/.test(today), 'The part-year 2026 average must not sit beside the live price');
 
-  // Explorer: the Land tab lists every sampled plot, richest first, with the signal on top.
+  // Explorer: three tabs, and Decide opens first with each site's evidence-screen call and the header's gold price.
   await page.getByRole('button', { name: /Explore the land/ }).click();
   const panel = page.getByRole('complementary', { name: 'Explorer' });
   await panel.waitFor();
-  check(await page.getByRole('tab', { name: 'Land' }).getAttribute('aria-selected') === 'true', 'Land must open first');
-  check((await panel.innerText()).includes('Inputs missing'), 'Land must preserve the canonical real-input gap');
+  check(await page.getByRole('tab').count() === 3, 'The panel must have exactly three tabs');
+  check(await page.getByRole('tab', { name: 'Decide' }).getAttribute('aria-selected') === 'true', 'Decide must open first');
+  const call = page.locator('.decide .answer-signal');
+  await page.waitForFunction(() => /^(BUY candidate|SKIP)$/.test(document.querySelector('.decide .answer-signal')?.textContent ?? ''), null, { timeout: 15000 });
+  const top = await page.locator('.decide').innerText();
+  const decideGold = (await page.locator('.live').innerText()).match(/\$[\d,]+/)?.[0];
+  check(decideGold && top.includes(decideGold), 'Decide must show the same gold price as the header');
+  check(top.includes('Site A · BUY candidate · passes the gold-evidence screen'), 'Site A must show its call and reason');
+  const decide = await panel.evaluate((el) => el.textContent);
+  for (const pattern of [/\bEV\b/, /P\(loss\)/, /Outlook/, /Inputs missing/, /Not the gold price/]) check(!pattern.test(decide), `Decide should not show ${pattern}`);
+  const box = await page.locator('.decide').boundingBox();
+  check(box && box.y + box.height <= 900, 'The Decide top block must fit without scrolling');
+  await page.getByRole('radio', { name: /Site B/ }).click();
+  check(await call.innerText() === 'SKIP', 'Site B fails its gold screen, so its call is SKIP');
+  check((await page.locator('.decide').innerText()).includes('fails the gold-evidence screen (16 of 34 samples, needs 17)'), 'Site B must give its screen counts');
+  await page.getByRole('radio', { name: /Site A/ }).click();
+  await page.screenshot({ path: 'frontend/artifacts/1-decide.png' });
+
+  // Land: every sampled plot, richest first; All and Held only.
+  await page.getByRole('tab', { name: 'Land' }).click();
   check(await page.getByRole('img', { name: 'OxHack' }).count() === 1, 'OxHack credit missing');
+  check(await page.getByRole('radio', { name: 'Unmatched' }).count() === 0, 'The Unmatched filter was cut');
+  check((await page.getByLabel('Sort plots').locator('option').allInnerTexts()).join('|') === 'Most gold|Nearest Tok', 'Sort keeps only Most gold and Nearest Tok');
   const rows = page.locator('.plot-list button');
   check(await rows.count() === 57, 'Land tab must list 57 plots');
   check((await rows.first().innerText()).includes('B-19') && (await rows.first().innerText()).includes('>1'), 'Most gold must put B-19 (>1 ppm) first');
@@ -47,27 +71,25 @@ async page => {
   check(held > 0 && held < 57, 'Held filter must narrow the list');
   await page.getByRole('radio', { name: 'All' }).click();
 
-  // The plot sheet: position, survey, elevation, ownership and value context; ‹ › steps through.
+  // The plot card: gold, claim, distance to Tok and comparable deals only; ‹ › steps through.
   await rows.first().click();
   const sheet = page.getByRole('region', { name: 'Plot B-19' });
   await sheet.waitFor();
   const text = await sheet.innerText();
-  for (const part of ['Noah 183', '>1 ppm', 'T16N R11E', 'Claim record', 'Value context', 'State rent context', 'not option resale evidence']) {
-    check(text.includes(part), `Plot sheet missing "${part}"`);
+  for (const part of ['Noah 183', '>1 ppm', 'To Tok', 'Held by', 'Comparable deals', 'not option resale evidence', 'Test this plot in Decide', 'Zoom to plot', 'DNR record']) {
+    check(text.includes(part), `Plot card missing "${part}"`);
   }
-  await page.waitForFunction(() => /~[\d,]+ m/.test(document.querySelector('.sheet')?.innerText ?? ''), null, { timeout: 20000 });
-  // Team land bundle: the recorded layers at each sample point.
-  check(text.includes('Land records at the sample point') && /ADL \d+/.test(text), 'Plot sheet must list the land records at its samples');
-  await page.screenshot({ path: 'frontend/artifacts/1-plot-sheet.png' });
-  // The 3D terrain view draws only surface samples: nothing invented underground.
-  await page.getByRole('button', { name: 'Terrain and samples in 3D' }).click();
-  const block = page.getByRole('dialog', { name: 'Terrain and samples at plot B-19' });
-  await block.waitFor();
-  check((await block.innerText()).includes('no drilling data'), '3D view must say there is no drilling data');
-  await page.keyboard.press('Escape');
-  await block.waitFor({ state: 'detached' });
+  for (const part of ['T16N R11E', 'Elevation', 'Bedrock', 'State rent context', 'Travels with it', 'Land records at the sample point', 'Terrain and samples in 3D', 'Coordinates']) {
+    check(!text.includes(part), `Plot card should no longer show "${part}"`);
+  }
+  await page.screenshot({ path: 'frontend/artifacts/2-plot-card.png' });
   await page.getByRole('button', { name: 'Next plot' }).click();
   await page.getByRole('region', { name: 'Plot B-17' }).waitFor();
+  await page.getByRole('button', { name: 'Previous plot' }).click();
+  await page.getByRole('button', { name: /Test this plot in Decide/ }).click();
+  check((await page.locator('.decide').innerText()).includes('Testing plot B-19'), 'Decide must name the plot it was sent');
+  check(await call.innerText() === 'SKIP', 'B-19 sits in Site B, so Decide must show Site B');
+  await page.getByRole('tab', { name: 'Land' }).click();
   await page.getByRole('button', { name: 'Close plot' }).click();
 
   // Colour the land by ownership and by staked year.
@@ -76,60 +98,16 @@ async page => {
   await page.getByRole('radio', { name: 'Staked year' }).click();
   check((await page.locator('.colorby .legend').innerText()).includes('2025'), 'Staked-year legend missing');
   await page.getByRole('radio', { name: 'Gold', exact: true }).click();
+  check(await page.getByText('Geology: bedrock map and known mines').count() === 0, 'The bedrock map switch was cut');
 
-  // Ground: the element picker, and what travels with gold.
-  await page.getByRole('tab', { name: 'Ground' }).click();
-  const ground = await panel.innerText();
-  check(ground.includes('49 elements') && ground.includes('What travels with gold here'), 'Ground tab incomplete');
-  await page.getByRole('radio', { name: 'As' }).click();
-  check(await page.getByRole('radio', { name: 'As' }).getAttribute('aria-checked') === 'true', 'Element picker did not select arsenic');
-  check(ground.includes('The gold evidence, area by area') && ground.includes('1.1 ppm') && ground.includes('31.6 ppm'), 'A/B evidence card must show primary, retest and lithium separately');
-  await page.getByText('Show the bedrock map and known mines on the map').click();
-  await page.waitForTimeout(2500);
-  await page.screenshot({ path: 'frontend/artifacts/2-ground.png' });
-
-  // Market: six series that follow the year.
-  await page.getByRole('tab', { name: 'Market' }).click();
-  check(await page.locator('.mini-chart').count() === 6, 'Market timeline needs six series');
-  const market = await panel.innerText();
-  check(market.includes('correlate at 0.19') && market.includes('What mineral ground has cost') && market.includes('Source quality'), 'Market facts must be computed and the land costs shown');
-
-  // Swarm: the pinned MiroFish runs, their spread and the failed checks, as reported.
-  await page.getByRole('tab', { name: 'Swarm' }).click();
-  const swarm = await panel.innerText();
-  for (const part of ['6/9', '26/30', '8 of 20 grounded', 'Court blocks mine', 'not run', 'Effect against baseline']) {
-    check(swarm.includes(part), `Swarm tab missing "${part}"`);
-  }
-  check(await panel.locator('.swarm-chart path.swarm-band').count() === 1, 'Swarm chart must draw the baseline band');
-  await page.getByRole('radio', { name: /Government/ }).click();
-  await page.screenshot({ path: 'frontend/artifacts/2b-swarm.png' });
-
-  // Canonical decision model: explicit synthetic preset, percentages and live recalculation.
-  await page.getByRole('tab', { name: 'Decision' }).click();
-  const model = page.locator('#option-model');
-  await model.getByRole('heading', { name: 'Hypothetical option model' }).waitFor();
-  check(await model.getByLabel('Holding period').inputValue() === '90', 'Primary horizon must be 90 days');
-  check(await model.getByRole('button', { name: 'Use conservative synthetic demo', exact: true }).getAttribute('aria-pressed') === 'true', 'Synthetic preset must be explicit');
-  const expectedReturn = model.locator('.model-total-row td').last();
-  check(await expectedReturn.innerText() === '1.52%', 'Preset return must use all upfront capital');
-  check((await model.locator('.model-delta').innerText()).includes('+0.44 pp'), 'Return lift must use percentage points');
-  await model.getByText('Contract economics', { exact: true }).click();
-  await model.locator('#model-entryPremiumUsd').fill('800');
-  check((await expectedReturn.innerText()).startsWith('-'), 'Higher premium must preserve negative return');
-  check(await model.getByRole('button', { name: 'Use conservative synthetic demo', exact: true }).getAttribute('aria-pressed') === 'false', 'Editing assumptions must clear the exact preset badge');
-  await model.getByText('Simulation source and import', { exact: true }).click();
-  await model.getByRole('button', { name: 'Load synthetic group-score demo', exact: true }).click();
-  check((await model.innerText()).includes('Synthetic fixture loaded'), 'Imported synthetic source must retain attribution');
-  await model.getByRole('button', { name: 'Reset assumptions', exact: true }).click();
-  check(await expectedReturn.innerText() === '1.52%', 'Reset must restore the preset');
-  check(!(await model.innerText()).includes('Synthetic fixture loaded'), 'Reset must clear imported source attribution');
-  await model.getByRole('button', { name: 'Use existing swarm results', exact: true }).click();
-  check((await model.locator('.model-existing-context').innerText()).includes('The actual sign is retained'), 'Recorded source sign must remain explicit');
-  check((await model.locator('.model-delta').innerText()).includes('-0.04 pp'), 'Recorded approval retains its negative return delta at the 1% cap');
-  await model.getByLabel('Scenario comparison').selectOption('proposed_tax');
-  check(await expectedReturn.innerText() === 'Not available', 'Missing recorded scenarios must remain unavailable');
-  await model.getByRole('button', { name: 'Use conservative synthetic demo', exact: true }).click();
-  await page.screenshot({ path: 'frontend/artifacts/3-canonical-model.png' });
+  // Crowd: one chart per group, a line per judged scenario, the headlines and the one honest line.
+  await page.getByRole('tab', { name: 'Crowd' }).click();
+  check(await page.locator('.crowd-chart').count() === 5, 'Crowd needs one chart per group');
+  check(await page.locator('.crowd-chart').first().locator('.crowd-line').count() === 4, 'Each chart needs the four judged scenarios');
+  const crowd = await panel.innerText();
+  check(crowd.includes("Exploratory: an unrelated news item moved the mood too, so the call doesn't use the crowd yet."), 'Crowd caveat missing');
+  for (const part of ['not run', 'chance band', 'gpt-', 'glm-']) check(!crowd.toLowerCase().includes(part), `Crowd should not show "${part}"`);
+  await page.screenshot({ path: 'frontend/artifacts/3-crowd.png' });
 
   // Escape returns to the time-lapse.
   await page.keyboard.press('Escape');
@@ -141,6 +119,7 @@ async page => {
   const storyText = await story.innerText();
   check(storyText.includes('25/33 · PASS') && storyText.includes('16/34 · FAIL'), 'Story must show the model evidence gate');
   check(storyText.includes('An available Tok option and verified terms'), 'Story must list the model gaps');
+  check(!storyText.includes('$4,500'), 'The story must not quote the simulated day-1 gold price');
   await page.keyboard.press('Escape');
   await story.waitFor({ state: 'detached' });
 
@@ -168,9 +147,9 @@ async page => {
   await flat.goto('http://127.0.0.1:3000/');
   await flat.getByText('could not start the 3D map').waitFor({ timeout: 20000 });
   await flat.getByRole('button', { name: /Explore the land/ }).click();
-  await flat.getByRole('tab', { name: 'Decision' }).click();
+  await flat.getByRole('tab', { name: 'Crowd' }).click();
   await flat.close();
 
   check(errors.length === 0, `Unexpected runtime errors: ${errors.join('; ')}`);
-  return { result: 'pass', opening: '2016 to today, then gold projected to 2031', history: [2016, 1975], decision: { default: 'evidence only', demo: 'recalculates', real: 'cash unavailable' }, viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
+  return { result: 'pass', opening: '2016 to today, then gold projected to 2031', history: [2016, 1975], panel: ['Decide', 'Land', 'Crowd'], viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
 }
