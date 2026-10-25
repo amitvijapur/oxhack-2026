@@ -4,6 +4,14 @@ The executable core, React adapter and workbench implement the accepted hackatho
 
 ## Existing swarm results in the current Next.js website
 
+Follow-up: the website now initializes and resets in hypothetical demo mode
+only. Other financial-mode controls were removed, while canonical API defaults
+and real/pending guards were preserved. The production browser reproduces
+USD157.60 cash at a USD500 premium and USD-142.40/SKIP at USD800, then resets to
+USD7.60 and a USD657.60 break-even premium. Recorded approval remains positive
+USD6.31 while its change is USD-1.29. The 23 frontend tests, typecheck/build,
+scoped lint, independent UI/math review and 320-pixel overflow check pass.
+
 The current implementation adds an explicit actual-post illustration to the
 canonical workbench. The sections below this one retain earlier Vite/MapLibre
 verification history.

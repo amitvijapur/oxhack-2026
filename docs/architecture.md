@@ -45,6 +45,11 @@ It neither exercises the option nor borrows, reinvests or executes trades.
 Observed sediment values are an evidence screen, not recoverable ounces.
 Historical gold CAGR can be selected explicitly as an assumption.
 
+The website initializes and resets only hypothetical demo economics. It does
+not expose the shared API's real/pending financial modes. Those API guards
+remain intact for programmatic use. Total expected cash, changes versus baseline
+and the break-even premium retain their distinct meanings.
+
 The six pinned swarm score sets are partial simulated evidence. Missing scenarios,
 incomplete interviews, failed placebo/mirror/grounding checks, provider/configuration
 confounds and unknown input cutoff block strict monetary use. Diagnostic day means

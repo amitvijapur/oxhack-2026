@@ -2,6 +2,12 @@
 
 ## 25 October 2026
 
+- The website's option calculator must use hypothetical financial inputs only.
+  Keep recorded data sources available inside that demonstration, but do not
+  present real-input/evidence-only modes as alternative website option modes.
+  Distinguish total expected net cash from a scenario's delta when discussing
+  positive or negative value; a negative delta can coexist with positive cash.
+
 - Amit means a working feature in the existing website when discussing this
   hackathon demo. Say "Use existing swarm results" and explain the visible
   behavior; avoid "demo replay" without explaining that it recalculates the

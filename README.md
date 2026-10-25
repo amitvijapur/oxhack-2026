@@ -122,11 +122,16 @@ by this repository integration.
 
 ## Model, architecture and remaining work
 
-Use the explorer's **Decision** tab for source readiness, explicit demo controls,
+Use the explorer's **Decision** tab for source readiness, hypothetical controls,
 cash outcomes and swarm diagnostics. `model/tok-option/` is the sole decision
 engine used by the interface and export CLI. It models assignment over 30, 90 or
 180 days, with an explicit no-sale branch. It does not exercise an option or
 execute trades.
+
+The website option calculator always opens and resets in hypothetical demo
+mode. Recorded evidence and simulation scores remain attributed inputs; option
+economics remain assumptions. The interface separates total **Expected net
+cash** from **Change versus baseline** and shows the break-even entry premium.
 
 The baseline demo assumes 500 recoverable troy ounces at USD2,000/oz and produces
 USD1,500 assignment proceeds, a 48.8% sale probability and USD7.60 expected net
@@ -134,6 +139,11 @@ cash over 90 days. The 51.2% no-sale branch has cash of USD−700. These are
 arithmetic assumptions, not observed resources, contract terms or predictive
 performance. Explicitly applying the descriptive 2020–2025 gold CAGR of 14.22%
 changes the illustrative expectation to about USD32.60.
+
+With the flat 90-day baseline and other defaults unchanged, a USD500 premium
+gives USD157.60 expected cash, USD650 gives USD7.60 and USD800 gives USD-142.40.
+The break-even premium is USD657.60. A positive expectation still includes the
+no-sale branch; it is not a guaranteed positive outcome.
 
 To use the actual saved swarm post scores, open **Decision** and choose
 **Use existing swarm results**. Approval and court blockage compare days 3–5

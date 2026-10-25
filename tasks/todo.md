@@ -1,5 +1,26 @@
 # OXHack preparation
 
+## Make the website option calculator hypothetical-only, 25 October 2026
+
+Human owner: Amit. UI owner: Codex, with an independent canonical-math check.
+Scope: the website always uses hypothetical financial inputs. Preserve observed
+evidence and recorded simulation sources, model math and backend boundaries.
+
+- [x] Start and reset the website calculator in hypothetical demo mode; remove other financial-mode choices.
+- [x] Clearly distinguish positive total expected cash from a negative change versus baseline.
+- [x] Verify positive/negative premium cases and exact break-even conditions with the existing model.
+- [x] Verify default/reset/source interactions and responsive production behavior.
+- [x] Record the result and update current instructions.
+
+Result: the website opens and resets in hypothetical mode only. Baseline total
+expected cash is USD7.60, approval USD6.31 and blockage USD9.17. A negative
+approval change of USD-1.29 does not make its total negative. With other flat
+90-day defaults fixed, premium USD500 gives USD157.60, USD800 gives USD-142.40,
+and baseline break-even is USD657.60. The UI reads the break-even figure directly
+from canonical diagnostics. Production browser/default/reset/source cases,
+23 frontend tests, typecheck/build, scoped lint and independent review pass.
+Canonical engine/API defaults, gates and financial math are unchanged.
+
 ## Share the five-minute pitch deck, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. Scope is the approved Palantir-style

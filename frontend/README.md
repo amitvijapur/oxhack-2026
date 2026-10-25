@@ -76,11 +76,17 @@ recoverable resources or an investable opportunity.
 ## Canonical decision model
 
 The Decision tab embeds `src/ModelWorkbench.jsx`, importing the pure
-`../model/tok-option/workbench.mjs` engine. Pending/real modes retain missing
-financial inputs. Only explicit demo mode enables invented economics. Monetary
-swarm adjustments stay blocked by readiness checks; six supplied score sets do
-not constitute completed validated scenarios. Historical CAGR is an optional
-assumption, not a forecast.
+`../model/tok-option/workbench.mjs` engine. The website always opens and resets
+in hypothetical demo mode, with no alternative financial modes. Total expected
+cash and change versus baseline are separate, and the current break-even
+premium comes from the canonical cash diagnostics. The engine's programmatic
+pending/real modes still retain null financial outputs.
+
+**Use existing swarm results** compares the recorded Claude approval/blockage
+posts with matching sports placebo inside hypothetical economics. It retains
+failed research checks and source identity. Strict source imports still require
+readiness; no missing event is filled with an invented simulation. Historical
+CAGR is an optional assumption, not a forecast.
 
 Read [the model guide](../model/tok-option/README.md),
 [architecture](../docs/architecture.md) and [remaining work](../docs/remaining-work.md).

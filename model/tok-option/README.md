@@ -114,6 +114,12 @@ Minimum-hazard thresholds are unavailable for increasing interval proceeds becau
 
 ## API and scope
 
+The website explicitly initializes and resets the workbench with `mode: 'demo'`
+and exposes hypothetical financial controls only. This UI choice does not alter
+the shared API's pending default or its real-mode missing-input guards. Expected
+cash totals and changes versus baseline have distinct labels, and the website's
+break-even premium is read directly from `diagnoseCash`.
+
 `runWorkbench({ features, controls, swarmRuns })` returns the evidence screen, baseline/mapped results, signal contributions, horizon comparisons, live differences, assumption labels and portfolio selection. `DEFAULT_CONTROLS.mode` is `pending`. Only `demo` enables invented financial inputs. `real` preserves observed evidence and eligible imported simulations but has null financial outputs until actual inputs are wired in. Unknown numbers remain null; no `NaN` is rendered. Invalid weight sums are errors and are never silently normalized.
 
 The workbench shows one explicitly hypothetical contract linked for demonstration to the selected evidence area. The independent `optimizePortfolio(candidates, { limits, ledger })` supports multiple already-evaluated candidates. Candidate records require `id`, `underlyingId`, `entryAction`, `amountAtRiskUsd`, `expectedNetCashUsd`. Pass outputs from `evaluateOpportunity`, not unvalidated external BUY labels. The optimizer trusts that prior validation boundary. Its optional ledger has `openRiskUsd`, `lifetimeCommittedUsd`, `openPositions`, `usedUnderlyingIds`. Omitted fields initialize a new zero ledger; explicitly null fields are invalid. Exits never reduce lifetime commitment or erase used underlying IDs. This module has no persistence or execution API.
