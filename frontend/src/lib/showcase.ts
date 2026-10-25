@@ -52,8 +52,16 @@ export type Market = {
   deals: { acquirer: string; target: string; asset_location: string; deal_date: string; price_usd_m: string; stage: string; link_to_tok_sites: string; quality_flag: string; source_url: string }[];
 };
 
+/** Each judged swarm scenario's mean support (0–10) per group and simulated day, and its day-3 news. */
+export type Crowd = {
+  source: Source;
+  groups: string[];
+  days: number[];
+  scenarios: { id: string; runs: string[]; headline: string | null; support: Record<string, (number | null)[]> }[];
+};
+
 export type Showcase = {
-  claims: Claims; history: History; town: Town;
+  claims: Claims; history: History; town: Town; crowd: Crowd;
   geochem: Geochem; occurrences: Occurrences; geology: Geology; market: Market; plots: Plots;
 };
 
@@ -64,12 +72,12 @@ async function json<T>(path: string): Promise<T> {
 }
 
 export async function loadShowcase(): Promise<Showcase> {
-  const [claims, history, town, geochem, occurrences, geology, market, plots] = await Promise.all([
-    json<Claims>("claims.geojson"), json<History>("history.json"), json<Town>("town.json"),
+  const [claims, history, town, crowd, geochem, occurrences, geology, market, plots] = await Promise.all([
+    json<Claims>("claims.geojson"), json<History>("history.json"), json<Town>("town.json"), json<Crowd>("crowd.json"),
     json<Geochem>("geochem.json"), json<Occurrences>("occurrences.json"), json<Geology>("geology.json"), json<Market>("market.json"),
     json<Plots>("plots.json"),
   ]);
-  return { claims, history, town, geochem, occurrences, geology, market, plots };
+  return { claims, history, town, crowd, geochem, occurrences, geology, market, plots };
 }
 
 /** A claim's state in a given year: not yet staked, held, or lapsed. */

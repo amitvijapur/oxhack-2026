@@ -33,29 +33,29 @@ function pastFiveYearRange(history: History): [number, number] | null {
 
 /**
  * Claims held near Tok and the gold price for every year, from the DNR outlines and Arjin's table,
- * then the gold price grown forward from today by the model's 2020–25 trend. No claims projection.
+ * then today's live price grown forward by the model's 2020–25 trend. No claims projection.
+ * Only full-year averages are kept: this year's part-year average would sit beside the live price
+ * as a second gold price for today, so today is the live price and the projection starts from it.
  */
-export function useSeries(claims: Claims, history: History, first = FIRST) {
+export function useSeries(claims: Claims, history: History, first = FIRST, live: number | null = null) {
   return useMemo(() => {
     const YEARS = yearsFrom(first);
-    const gold = new Map(history.rows.map((r) => [Number(r.year), Number(r.gold_usd_per_oz_mean)]));
-    const months = new Map(history.rows.map((r) => [Number(r.year), Number(r.gold_months)]));
+    const gold = new Map(history.rows.filter((r) => Number(r.gold_months) === 12).map((r) => [Number(r.year), Number(r.gold_usd_per_oz_mean)]));
     const trend = goldTrend();
     const growth = trend.annualGrowthRate ?? 0;
     const band = pastFiveYearRange(history);
-    const today = gold.get(LAST) ?? null;
+    const today = live;
     const grow = (rate: number, y: number) => (today === null || y < LAST ? null : projectPrice(today, rate, (y - LAST) * 365));
     return {
       trend,
       band,
-      goldMonths: YEARS.map((y) => months.get(y) ?? null),
       held: YEARS.map((y) => (y > LAST ? null : claims.features.filter((f) => claimState(f.properties, y) === "active").length)),
-      gold: YEARS.map((y) => (y > LAST ? null : gold.get(y) ?? null)),
+      gold: YEARS.map((y) => (y > LAST ? null : y === LAST ? today : gold.get(y) ?? null)),
       projected: YEARS.map((y) => grow(growth, y)),
       low: YEARS.map((y) => (band ? grow(band[0], y) : null)),
       high: YEARS.map((y) => (band ? grow(band[1], y) : null)),
     };
-  }, [claims, history, first]);
+  }, [claims, history, first, live]);
 }
 
 /** A ticker chip: the change from last year, green up, red down, grey flat. */
@@ -92,7 +92,7 @@ function StockLine({ values, upto, max, x, className }: {
  * The opening: the claims and gold price over the last ten years (or since 1975), playing by itself
  * up to today, then the gold price five years on, grown by the model's trend.
  */
-export function Timelapse({ claims, history, year, onYear, playing, onPlaying, onExplore, onStory, follow, onFollow, first, onFirst, onNow }: {
+export function Timelapse({ claims, history, year, onYear, playing, onPlaying, onExplore, onStory, follow, onFollow, first, onFirst, onNow, live }: {
   claims: Claims;
   history: History;
   year: number;
@@ -109,9 +109,11 @@ export function Timelapse({ claims, history, year, onYear, playing, onPlaying, o
   onFirst: (first: number) => void;
   /** Jump to today. */
   onNow: () => void;
+  /** Today's spot price, the same one the header shows; null until it arrives. */
+  live: number | null;
 }) {
   const YEARS = useMemo(() => yearsFrom(first), [first]);
-  const series = useSeries(claims, history, first);
+  const series = useSeries(claims, history, first, live);
   // Driven by elapsed time, not ticks, so a busy frame (map tiles loading) can't speed it up or stall it.
   const startYear = useRef(year);
   useEffect(() => {
@@ -174,7 +176,7 @@ export function Timelapse({ claims, history, year, onYear, playing, onPlaying, o
       <div className="tl-intro">
         <h1 className="tl-title">{future ? "Where could it go from here?" : "How has this area performed?"}</h1>
         <p className="tl-hint">
-          History to {LAST}, then the {trend.startYear}–{trend.endYear} gold trend ({pct(trend.annualGrowthRate ?? 0)} a year) continued to {FUTURE}. A projection, not a prediction.
+          History to {LAST}, then today&apos;s live gold price grown by the {trend.startYear}–{trend.endYear} trend ({pct(trend.annualGrowthRate ?? 0)} a year) to {FUTURE}. A projection, not a prediction.
         </p>
         <div className="segmented tl-range" role="radiogroup" aria-label="History range">
           <button type="button" role="radio" aria-checked={first === RECENT} onClick={() => restart(RECENT)}>Last 10 years</button>
@@ -204,7 +206,7 @@ export function Timelapse({ claims, history, year, onYear, playing, onPlaying, o
             {future ? <span className="tl-sub">no claims projection</span> : <Change now={series.held[i]} then={i ? series.held[back] : null} />}
           </div>
           <div>
-            <dt>{future ? "Gold, projected" : "Gold, yearly average"}{!future && (series.goldMonths[i] ?? 12) < 12 ? <small> ({series.goldMonths[i]} months)</small> : null}</dt>
+            <dt>{future ? "Gold, projected" : year === LAST ? "Gold, live spot" : "Gold, yearly average"}</dt>
             <dd className="tabular is-gold">{gold ? usd(gold) : "—"}</dd>
             {future ? <Change now={gold} then={series.gold[t]} money label="vs today" /> : <Change now={series.gold[i]} then={i ? series.gold[back] : null} money />}
             {future && series.band ? <span className="tl-sub tabular">past runs: {usd(series.low[i]!)}–{usd(series.high[i]!)}</span> : null}

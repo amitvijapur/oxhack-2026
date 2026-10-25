@@ -15,7 +15,8 @@ horizons. This is a demonstrator; no validated investment edge is established.
 3. `src/components/earth/Earth.tsx` creates the Cesium 1.146.0 viewer. Esri imagery,
    Terrarium terrain and optional Macrostrat geology add geographic context.
    Land, Ground and Market tabs share selection with the globe.
-4. Decision embeds `ModelWorkbench.jsx`. All financial evaluation flows through
+4. Decide presents the canonical 90-day baseline separately from the evidence screen.
+   Its Detailed hypothetical model disclosure embeds `ModelWorkbench.jsx`. All financial evaluation flows through
    `model/tok-option/workbench.mjs`, also used by the offline demo and export CLI.
 5. The Next.js `src/app/api/[...path]/route.ts` delegates to one server route table
    in `src/server/routes.js`. `GET /api/health` reports runtime status;
@@ -93,7 +94,7 @@ not supported runtime instructions. See [remaining work](remaining-work.md).
 
 ## Retrospective event component
 
-`research/event-study/evaluate.mjs` evaluates a frozen primary-source announcement ledger against attributed daily adjusted prices. It writes `frontend/public/data/event-study.json`, loaded by `EventStudy.tsx` in Decision. This is a separate retrospective equity assessment; it neither changes option controls nor supplies a fabricated historical swarm score. Predictions use only pre-entry information and matured earlier training outcomes. The current negative comparison and source limitations remain visible. See [pilot results](../research/event-study/RESULTS.md).
+`research/event-study/evaluate.mjs` evaluates a frozen primary-source announcement ledger against attributed daily adjusted prices. It writes `frontend/public/data/event-study.json`, loaded by `EventStudy.tsx` in Decide’s Historical validation disclosure. This is a separate retrospective equity assessment; it neither changes option controls nor supplies a fabricated historical swarm score. Predictions use only pre-entry information and matured earlier training outcomes. The current negative comparison and source limitations remain visible. See [pilot results](../research/event-study/RESULTS.md).
 
 The website return presentation divides canonical cash outputs by positive finite
 upfront capital at risk. It never changes the canonical USD calculation or

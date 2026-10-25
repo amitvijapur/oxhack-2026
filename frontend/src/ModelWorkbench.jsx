@@ -169,8 +169,8 @@ function ExistingSwarmResults({ result, selected, horizonDays, onUse, onStrict, 
   </section>;
 }
 
-export default function ModelWorkbench({ features }) {
-  const [controls, setControls] = useState(createConservativeDemo);
+export default function ModelWorkbench({ features, initialArea = 'A' }) {
+  const [controls, setControls] = useState(() => ({ ...createConservativeDemo(), area: initialArea }));
   const [swarmRuns, setSwarmRuns] = useState(null);
   const [importName, setImportName] = useState('');
   const [importErrors, setImportErrors] = useState([]);
@@ -221,7 +221,7 @@ export default function ModelWorkbench({ features }) {
     setSwarmRuns(null);
     setImportName('');
     setImportErrors([]);
-    setControls(createConservativeDemo());
+    setControls({ ...createConservativeDemo(), area: initialArea });
   }
 
   function useExistingResults() {

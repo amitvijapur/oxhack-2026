@@ -5,6 +5,7 @@ Writes frontend/public/data/showcase/:
   claims.geojson   Alaska DNR state mining claims (active and closed) in the Tok search box
   history.json     Alaska claims opened per year against the gold price (arjin/tok-land-data)
   town.json        the 61-person Tok society and its scored day-1 pilot posts (ahmed/gold-society-plan)
+  crowd.json       each group's daily mood in every scenario run that was judged, and its day-3 news
   geochem.json     all 48 elements at the 67 sites with anomaly thresholds (Alaska DGGS RDF 2016-10)
   occurrences.json known mines, prospects and occurrences near Tok (USGS ARDF)
   geology.json     the mapped bedrock unit under each sample (USGS SIM 3340 via Macrostrat)
@@ -129,6 +130,31 @@ def build_town():
                                 "news": "Gold futures jumped today from about $4,000 to about $4,500 an ounce.",
                                 "judge_check": "27 of 30 posts within 2 points of hand labels"},
                         "people": people, "posts": posts})
+
+
+def build_crowd():
+    """Mean support per group and day for each judged scenario. Only what the Crowd charts draw is kept,
+    so the checks, chance bands and model names in results.json stay out of the site."""
+    results = json.loads(show(SWARM_REF, "swarm/records/results/results.json"))
+    day3 = json.loads(show(SWARM_REF, "swarm/scenarios.json"))["day3"]
+    runs = [r for r in results["runs"] if r.get("status") == "judged" and r.get("daily")]
+    groups = list(runs[0]["daily"])
+    days = sorted({int(d) for r in runs for by_day in r["daily"].values() for d in by_day})
+    scenarios = []
+    # Baseline ran three seeds; its line is their mean, so it isn't one seed's noise.
+    for name in dict.fromkeys(r["scenario"] for r in runs):
+        seeds = [r for r in runs if r["scenario"] == name]
+        support = {}
+        for g in groups:
+            row = []
+            for d in days:
+                values = [r["daily"][g][str(d)]["support"] for r in seeds
+                          if r["daily"].get(g, {}).get(str(d), {}).get("support") is not None]
+                row.append(round(sum(values) / len(values), 3) if values else None)
+            support[g] = row
+        scenarios.append({"id": name, "runs": [r["folder"] for r in seeds], "headline": day3.get(name), "support": support})
+    write("crowd.json", {"source": source(SWARM_REF, "swarm/records/results/results.json", "swarm/scenarios.json"),
+                         "groups": groups, "days": days, "scenarios": scenarios})
 
 
 DGGS_ZIP = "https://dggs.alaska.gov/webpubs/data/rdf2016_010_tok-stream-sediment-geochemistry.zip"
@@ -394,7 +420,7 @@ def describe_plots(plots, claims, samples):
 
 
 if __name__ == "__main__":
-    steps = {"claims": build_claims, "history": build_history, "town": build_town,
+    steps = {"claims": build_claims, "history": build_history, "town": build_town, "crowd": build_crowd,
              "geochem": build_geochem, "occurrences": build_occurrences, "geology": build_geology, "market": build_market,
              "plots": build_plots}
     for name in sys.argv[1:] or steps:

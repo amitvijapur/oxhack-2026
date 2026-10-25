@@ -3,7 +3,7 @@
 A team hackathon project built around the mandatory **TIME** theme. The prototype combines a Tok River, Alaska land and evidence explorer with a
 canonical mineral-interest assignment model. The Cesium globe connects historical
 claims, 67 measured sediment samples, market context and six swarm score sets.
-The Decision tab keeps missing trade inputs and failed simulation diagnostics
+The Decide tab keeps missing trade inputs and failed simulation diagnostics
 visible. Financial calculations require explicitly selected hypothetical assumptions.
 
 ## Repository and shared workflow
@@ -145,7 +145,7 @@ by this repository integration.
 
 ## Model, architecture and remaining work
 
-Use the explorer's **Decision** tab for source readiness, hypothetical controls,
+Use the explorer's **Decide** tab for source readiness, hypothetical controls,
 cash outcomes and swarm diagnostics. `model/tok-option/` is the sole decision
 engine used by the interface and export CLI. It models assignment over 30, 90 or
 180 days, with an explicit no-sale branch. It does not exercise an option or
@@ -194,7 +194,7 @@ calculations using assumed liquidity and costs, not forecast or observed resale
 prices. The earlier US$650 premium, US$700 upfront and US$7.60 expected-cash
 example remains an explicitly historical arithmetic fixture only.
 
-To use the actual saved swarm post scores, open **Decision** and choose
+To use the actual saved swarm post scores, open **Decide**, expand **Detailed hypothetical model** and choose
 **Use existing swarm results**. Approval and court blockage compare days 3–5
 with the matching Claude sports-placebo run. The default hypothetical contract
 retains the recorded support signs. Under the canonical 7% cap and current lot
@@ -226,7 +226,7 @@ See [the repository plan](research/repository-plan.md) and
 
 ### Historical event test
 
-Decision now includes a real-data Alaska mining-share pilot above the hypothetical option calculator. It compares a gold-only drift forecast, a simple event adjustment and no change using a frozen 12-announcement ledger, delayed entry and chronological holdouts. The event adjustment performed worse in the five-event test set; the website shows this negative result and its limitations. It is not a validated swarm or option-trading edge. Read [results](research/event-study/RESULTS.md) and [reproduction instructions](research/event-study/README.md).
+Decide includes a real-data Alaska mining-share pilot in its Historical validation disclosure. It compares a gold-only drift forecast, a simple event adjustment and no change using a frozen 12-announcement ledger, delayed entry and chronological holdouts. The event adjustment performed worse in the five-event test set; the website shows this negative result and its limitations. It is not a validated swarm or option-trading edge. Read [results](research/event-study/RESULTS.md) and [reproduction instructions](research/event-study/README.md).
 
 ```sh
 node --test research/event-study/evaluate.test.mjs
