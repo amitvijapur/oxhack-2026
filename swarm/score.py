@@ -40,7 +40,7 @@ CACHE_FILE = HERE / "records" / "judge_cache.jsonl"
 PREREGISTERED_MODEL = "gpt-5.4-mini"
 # The OpenAI budget ran out on 25 Oct; JUDGE_MODEL=claude-sonnet-5 scores with Claude instead (see Client).
 MODEL = os.environ.get("JUDGE_MODEL", PREREGISTERED_MODEL)
-WORKERS = 8
+WORKERS = int(os.environ.get("JUDGE_WORKERS", 8))  # glm-5.3 accepts about 3 requests at once
 ATTEMPTS = 8
 SEED = 2026  # fixed, so the grounding sample and the human-check sample can be redrawn exactly
 
@@ -203,6 +203,12 @@ class Client:
             self._key = env.get("ANTHROPIC_API_KEY") or (llm_key if llm_key.startswith("sk-ant-") else "")
             self._anthropic = anthropic.Anthropic(api_key=self._key, max_retries=ATTEMPTS)
             return
+        if MODEL.startswith("glm-"):
+            # Z.ai's GLM coding plan: OpenAI-compatible, the same endpoint as run_one.py's GLM provider.
+            llm_key = env.get("LLM_API_KEY", "")
+            self._key = env.get("GLM_API_KEY") or ("" if llm_key.startswith("sk-") else llm_key)
+            self.url = "https://api.z.ai/api/coding/paas/v4/chat/completions"
+            return
         self.url = env["LLM_BASE_URL"].rstrip("/") + "/chat/completions"
         self._key = env["LLM_API_KEY"]
 
@@ -232,10 +238,15 @@ class Client:
     def complete(self, prompt):
         if MODEL.startswith("claude-"):
             return self.complete_claude(prompt)
-        # Low reasoning effort was accepted by gpt-5.4-mini in a test call; a short JSON label needs no more.
-        body = json.dumps({"model": MODEL, "messages": [{"role": "user", "content": prompt}],
-                           "response_format": {"type": "json_object"},
-                           "reasoning_effort": "low"}).encode("utf-8")
+        glm = MODEL.startswith("glm-")
+        request_body = {"model": MODEL, "messages": [{"role": "user", "content": prompt}],
+                        "response_format": {"type": "json_object"}}
+        if glm:
+            request_body["thinking"] = {"type": "disabled"}  # as the pre-registered judge's low effort
+        else:
+            # Low reasoning effort was accepted by gpt-5.4-mini in a test call; a short JSON label needs no more.
+            request_body["reasoning_effort"] = "low"
+        body = json.dumps(request_body).encode("utf-8")
         for attempt in range(ATTEMPTS):
             with self._lock:
                 self.calls += 1
@@ -243,11 +254,16 @@ class Client:
                 "Authorization": f"Bearer {self._key}", "Content-Type": "application/json"})
             try:
                 with urllib.request.urlopen(request, timeout=120) as response:
-                    return json.loads(response.read())["choices"][0]["message"]["content"]
+                    content = json.loads(response.read())["choices"][0]["message"]["content"]
+                    if glm and "{" in content:  # keep only the object if it came in a code fence
+                        content = content[content.find("{"):content.rfind("}") + 1]
+                    return content
             except urllib.error.HTTPError as e:
                 detail = self._redact(e.read().decode("utf-8", "replace"))[:300]
-                # An empty quota comes back as a 429 too, but waiting won't refill it.
-                if e.code in (401, 403, 404) or "insufficient_quota" in detail:
+                # An empty quota comes back as a 429 too, but waiting won't refill it. Z.ai: 1113 no balance,
+                # 1308 and 1310 the plan's 5-hour and weekly quotas (1302, too many requests at once, is retried).
+                if e.code in (401, 403, 404) or "insufficient_quota" in detail or \
+                        any(f'"{code}"' in detail for code in ("1113", "1308", "1310")):
                     raise StopCalls(f"HTTP {e.code}: {detail}") from None
                 if e.code != 429 and e.code < 500:
                     raise RuntimeError(f"HTTP {e.code}: {detail}") from None

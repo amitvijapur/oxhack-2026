@@ -41,14 +41,15 @@ GLM_ENV = {
     "LLM_BASE_URL": "https://api.z.ai/api/coding/paas/v4",
     "LLM_MODEL_NAME": "glm-5.3",
     "LLM_TIER1_MODEL": "glm-5.3",
-    "LLM_TIER2_MODEL": "glm-5.3",
+    # glm-5.3 takes about 3 requests at once on the Lite plan (measured), so only tier 1 uses it.
+    "LLM_TIER2_MODEL": "glm-5.3-flash",
     "LLM_TIER3_MODEL": "glm-5.3-flash",
     "LLM_BOOST_API_KEY": "",
     "OPENAI_LOG": "info",
     # Uncapped Reddit memories reached 277k tokens on OpenAI; cap them and show 10 comments per post.
     "AGENT_MEMORY_TOKEN_LIMIT": "100000",
     "MAX_COMMENTS_PER_POST": "10",
-    "LLM_SEMAPHORE": "10",
+    "LLM_SEMAPHORE": "6",
 }
 
 # Anthropic's native Messages API with prompt caching (MiroFish scripts/anthropic_native.py). The key is
@@ -227,7 +228,9 @@ def main():
         deadline = t0 + args.timeout_hours * 3600
         errors = {"pos": 0, "n": 0}
         while read_status(sim_dir) != "alive":
-            if count_api_errors(sim_dir / "runner.log", errors) > 50:
+            # GLM's concurrency limit gave bursts of 59 retried 429s in a row in a healthy test run;
+            # a run out of quota fails hundreds of calls a minute, so 300 still stops it within a few rounds.
+            if count_api_errors(sim_dir / "runner.log", errors) > 300:
                 raise RuntimeError(f"{errors['n']} failed API calls in a row; quota, spend or rate limit reached")
             if args.budget_usd and claude_cost(usage_log, cost) > args.budget_usd:
                 raise RuntimeError(f"API cost ${cost['usd']:.2f} passed the run budget ${args.budget_usd:.2f}")
