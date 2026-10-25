@@ -102,6 +102,19 @@ const lotContext = v.object({
   economicsProvenance: v.literal("assumed"), entryFeeUsd: v.number(), exitFeeUsd: v.number(),
   unavoidableAdditionalObligationsUsd: v.number(), additionalCostProvenance: v.literal("assumed"),
 });
+const syntheticExposureInputs = {
+  quantity: v.number(), remainingBuyerConsiderationUsd: v.number(), ownershipFraction: v.number(),
+  kappa: v.number(), pGeo: v.number(), price: v.number(), annualGrowthRate: v.number(),
+};
+const exposureContext = v.object({
+  id: v.literal("synthetic-same-interest-whole-contract-v1"), provenance: v.literal("assumed"),
+  currency: v.literal("USD"), unit: v.literal("whole_contract"),
+  referenceUnit: v.object({ initialPremiumUsd: v.number(), quantity: v.number(), remainingBuyerConsiderationUsd: v.number(), entryFeeUsd: v.number(), exitFeeUsd: v.number() }),
+  initialPremiumUsd: v.number(), scaleFactor: v.number(), ...syntheticExposureInputs,
+  quantityUnit: v.literal("troy_oz"), assumption: v.string(), limitations: v.array(v.string()),
+  selectionKind: v.union(v.literal("default_synthetic_profile"), v.literal("custom_assumed_exposure")),
+  selectedInputs: v.object(syntheticExposureInputs),
+});
 const legacyDecisionOutcome = v.union(v.null(), v.object(decisionOutcomeFields));
 const decisionOutcome = v.union(v.null(), v.object({ ...decisionOutcomeFields, goldForecast,
   assignmentHurdles: v.optional(v.object({ breakEven: assignmentHurdle, target25Percent: assignmentHurdle })),
@@ -137,6 +150,7 @@ export const decisionSummary = v.union(
     ...decisionSummaryFields,
     modelVersion: v.literal("tok-option-demo-v2"),
     lotContext: v.optional(v.union(lotContext, v.null())),
+    exposureContext: v.optional(v.union(exposureContext, v.null())),
     horizons: v.array(v.object({ days: horizonDays, ...outcomePair })),
     selected: v.object(outcomePair),
   }),

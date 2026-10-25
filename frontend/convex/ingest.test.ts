@@ -136,12 +136,14 @@ describe("decision runs", () => {
     const decision = (await t.query(api.workstreams.list, {})).find((s) => s.key === "decision")!;
     expect(decision.latest?.summary).toEqual(body.summary);
     if (decision.latest?.summary.kind !== "decision") throw new Error("missing decision summary");
-    expect(decision.latest.summary.selected.mapped?.entryAction).toBe("SKIP");
-    expect(decision.latest.summary.selected.mapped?.expectedNetCashUsd).toBeCloseTo(-29342.4);
-    expect(decision.latest.summary.selected.mapped?.negativeCashProbability).toBeCloseTo(1);
+    expect(decision.latest.summary.selected.mapped?.entryAction).toBe("BUY_CANDIDATE");
+    expect(decision.latest.summary.selected.mapped?.expectedNetCashUsd).toBeCloseTo(3710.215384615396);
+    expect(decision.latest.summary.selected.mapped?.negativeCashProbability).toBeCloseTo(0.512);
     expect(decision.latest.summary.selected.mapped?.amountAtRiskUsd).toBe(30050);
     if (decision.latest.summary.modelVersion === "tok-option-demo-v2") {
       expect(decision.latest.summary.lotContext?.initialPremiumUsd).toBe(30000);
+      expect(decision.latest.summary.exposureContext?.selectionKind).toBe("default_synthetic_profile");
+      expect(decision.latest.summary.exposureContext?.selectedInputs.quantity).toBeCloseTo(23076.923076923078);
       expect(decision.latest.summary.selected.mapped?.assignmentHurdles?.target25Percent.requiredAssignmentProceedsUsd).toBeCloseTo(77022.33606557378);
     }
     const stored = await t.run(async (ctx) => {
@@ -217,7 +219,7 @@ describe("decision runs", () => {
       expect(summary.selected.mapped?.goldForecast.methodVersion).toBe("assumed-gold-response-v1");
       expect(summary.selected.mapped?.goldForecast.calibrationStatus).toBe("uncalibrated");
       expect(summary.selected.mapped?.goldForecast.transferTarget).toBe("gold_price");
-      expect(summary.selected.mapped?.goldForecast.baselinePriceUsdPerOz).toBe(2000);
+      expect(summary.selected.mapped?.goldForecast.baselinePriceUsdPerOz).toBeCloseTo(2000);
       const stored = await t.run(async (ctx) => {
         const run = await ctx.db.query("runs").first();
         return (await ctx.storage.get(run!.payloadFileId))!.text();
@@ -283,7 +285,7 @@ describe("decision runs", () => {
       expect(goldForecast.methodVersion).toBe("assumed-gold-response-v1");
       return legacy;
     };
-    const { lotContext: _lotContext, ...historicalFields } = currentSummary;
+    const { lotContext: _lotContext, exposureContext: _exposureContext, ...historicalFields } = currentSummary;
     const legacySummary = {
       ...historicalFields,
       modelVersion: "tok-option-demo-v1" as const,

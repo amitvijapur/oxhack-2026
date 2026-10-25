@@ -20,12 +20,12 @@ test('pinned branch evidence is visible before selecting demo assumptions', () =
   assert.equal(a.baseline, null);
   assert.equal(a.cashDiagnostics.mapped, null);
 });
-test('whole-contract default preserves valuation while exposing negative cash and median', () => {
+test('synthetic whole-contract profile uses matching exposure while preserving no-sale cash', () => {
   const r = run();
-  close(r.mapped.expectedNetCashUsd, -29342.4);
-  close(r.cashDiagnostics.mapped.negativeCashProbability, 1);
+  close(r.mapped.expectedNetCashUsd, 3710.215384615396);
+  close(r.cashDiagnostics.mapped.negativeCashProbability, 0.512);
   close(r.cashDiagnostics.mapped.medianCashUsd, -30050);
-  close(r.cashDiagnostics.mapped.breakEven.premiumHeadroomUsd, -29342.4);
+  close(r.cashDiagnostics.mapped.breakEven.premiumHeadroomUsd, 3710.215384615396);
 });
 test('failed and confounded source report cannot fill a news scenario with zero or a synthetic score', () => {
   const r = run({ scenarioId: 'mine_approval' });
@@ -34,7 +34,7 @@ test('failed and confounded source report cannot fill a news scenario with zero 
   assert.equal(r.mapped, null);
   assert.equal(r.delta.expectedNetCashUsd, null);
   assert.equal(r.portfolio.totalRiskUsd, null);
-  close(r.baseline.expectedNetCashUsd, -29342.4);
+  close(r.baseline.expectedNetCashUsd, 3710.215384615396);
   for (const id of ['config_comparability', 'interview_coverage', 'grounding', 'placebo']) assert.equal(r.sourceAudit.swarm.diagnostics.find((d) => d.id === id).status, 'fail');
 });
 test('land context never populates real option economics', () => {
@@ -55,7 +55,7 @@ test('complete simulated scores with missing diagnostics cannot move money', () 
 });
 test('synthetic fixture remains available only as an explicit illustrative comparison', () => {
   const r = run({ scenarioId: 'mine_approval' }, example);
-  close(r.mapped.expectedNetCashUsd, -29325.0638);
+  close(r.mapped.expectedNetCashUsd, 4510.347692307703);
   assert.equal(r.swarmDiagnostics.status, 'synthetic');
   assert.ok(r.swarmDiagnostics.diagnostics.every((d) => d.status !== 'pass'));
   assert.equal(run({ mode: 'real', scenarioId: 'mine_approval' }, example).signal.value, null);
@@ -64,13 +64,13 @@ test('historical gold CAGR changes only the explicitly selected demo growth', ()
   const rate = (3441.5 / 1770.25) ** (1 / 5) - 1;
   close(inspectIntegratedSources().land.goldTrend.annualGrowthRate, rate);
   const r = run({ annualGrowthRate: rate });
-  const assignment = (day) => 0.25 * (10000 * (1 + rate) ** (day / 365) - 4000);
+  const assignment = (day) => 0.25 * (10000 * (30000 / 650) * (1 + rate) ** (day / 365) - 4000 * (30000 / 650));
   close(r.mapped.assignmentValueUsd, assignment(90));
   close(r.mapped.expectedNetCashUsd, [30, 60, 90].reduce((sum, day, i) => sum + 0.2 * 0.8 ** i * (assignment(day) - 50), 0) - 30050);
   assert.equal(r.cashDiagnostics.mapped.breakEven.minimumHazardPer30Days, null);
   assert.equal(r.cashDiagnostics.mapped.breakEven.hazardThresholdStatus, 'unsupported');
   assert.equal(run({ area: 'B', annualGrowthRate: rate }).mapped.entryAction, 'SKIP');
-  close(run().mapped.expectedNetCashUsd, -29342.4);
+  close(run().mapped.expectedNetCashUsd, 3710.215384615396);
 });
 test('upstream report imports require explicit metadata rather than inferred source dates', () => {
   const report = { runs: [{ folder: '01_baseline_s1', scenario: 'baseline', seed: 1, status: 'judged', daily: {} }] };

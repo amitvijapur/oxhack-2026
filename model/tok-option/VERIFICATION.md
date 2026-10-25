@@ -2,7 +2,20 @@
 
 The executable core, React adapter and workbench implement the accepted hackathon model. These checks establish implementation behavior, not predictive accuracy or a feasible real trade.
 
-## Current whole-contract lot, 25 October 2026
+## Current local synthetic same-interest review, 25 October 2026
+
+This local profile is `synthetic-same-interest-whole-contract-v1`. The frozen factor 30,000/650 scales both the invented reference quantity and buyer consideration. Quantity is 23,076.9231 assumed troy ounces and remaining buyer consideration is USD184,615.3846; ownership, conversion, geological probability and starting gold price are unchanged. It is not an estimate of resources, fair value or exit proceeds derived from historical contract prices. There is one assumed indivisible interest, not 46.15 tradable contracts. Entry-premium edits do not rescale the interest.
+
+- Model suite: 140 tests passed, including independent Q-and-consideration linearity, premium/assignment invariance, custom exposure provenance, legacy publication compatibility and forged gate/metadata rejection.
+- All 30 specification consistency checks passed. Convex ingestion: 16 tests passed with exposure context and legacy summary compatibility. Backend typecheck passed (`tsc --noEmit`, exit zero). Python publisher adapter tests: 8 passed. Full transport/browser/deck checks are reported by their owners; this lane made no network publication.
+- Fixed fees USD50/50: baseline 90-day assignment USD69,230.7692; expected cash USD3,710.2154; upfront capital USD30,050; non-annualized return 12.3468%. Thirty days SKIP; 90/180 days are hypothetical candidates at Area A. Area B still fails evidence. No-sale probability remains 51.2% and median cash remains USD-30,050.
+- `compareFeePolicies` runs the same selected interest through the existing evaluator. Proportional reference fees USD2,307.6923 each give USD350.7692 expected cash and 1.085714% return, but USD32,307.6923 risk exceeds the approved limit, so this variant SKIPS. The higher fixed-fee return is an assumption effect, not validated economic improvement.
+- The 25% constant-assignment hurdle remains USD77,022.3361, above the selected profile's assignment value. It is neither a forecast nor an inserted target value.
+- Real/pending financial values remain null. Strict failed research checks remain failed. No actual option/assignment outcome, calibrated return, historical-price-based resource mapping or investment edge is claimed.
+
+This review is local only. No push, pull request, merge or deployment was performed by this lane. Earlier cost-only and low-premium checks below are retained as historical checkpoints.
+
+## Historical cost-only whole-contract checkpoint, 25 October 2026
 
 The active shared basis is `regional-initial-payment-whole-contract-v1`: USD30,000 selected historical initial-payment reference, plus separate assumed USD50 entry and USD50 exit fees and zero additional obligations. It is not a current Tok average, complete contract cost or available option. The existing 500-ounce valuation is unchanged and gives USD1,500 assignment proceeds. At 90 days, USD30,050 upfront capital and 48.8% sale probability give USD-29,342.40 expected cash and a SKIP. The approved hypothetical fund is USD1,502,500 with USD30,050 per-option and USD150,250 open/lifetime limits, preserving 2%/10% ratios and five whole lots.
 

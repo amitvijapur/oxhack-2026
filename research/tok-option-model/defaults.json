@@ -228,6 +228,37 @@
     "exitFeeUsd": 50,
     "unavoidableAdditionalObligationsUsd": 0,
     "costProvenance": "assumed",
-    "limitations": "Historical initial-payment scale only, not current Tok average, total contract capital or observed assignment proceeds. Valuation inputs remain unchanged."
+    "limitations": "Historical initial-payment scale only, not current Tok average or full historical contract capital. The syntheticLotProfile separately retains invented reference unit economics; historical pricing does not estimate its resources or assignment value."
+  },
+  "syntheticLotProfile": {
+    "id": "synthetic-same-interest-whole-contract-v1",
+    "provenance": "assumed",
+    "currency": "USD",
+    "unit": "whole_contract",
+    "referenceUnit": {
+      "initialPremiumUsd": 650,
+      "quantity": 500,
+      "remainingBuyerConsiderationUsd": 4000,
+      "entryFeeUsd": 50,
+      "exitFeeUsd": 50
+    },
+    "initialPremiumUsd": 30000,
+    "scaleFactor": 46.15384615384615,
+    "quantity": 23076.923076923078,
+    "quantityUnit": "troy_oz",
+    "remainingBuyerConsiderationUsd": 184615.38461538462,
+    "ownershipFraction": 0.5,
+    "kappa": 0.02,
+    "pGeo": 0.25,
+    "price": 2000,
+    "annualGrowthRate": 0,
+    "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+    "limitations": [
+      "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+      "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+      "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+      "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+      "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+    ]
   }
 }
