@@ -132,7 +132,7 @@ export function PipelineStory({ data, features, onClose, onOpen }: { data: Showc
 
         <section className="story-step" data-step={4}>
           <p className="story-kicker">5 · What the model still needs</p>
-          <h2>No trade until the real inputs exist.</h2>
+          <h2>A BUY candidate isn&apos;t a trade until the real inputs exist.</h2>
           <p className="story-lede">With observed data only, the model returns no money figures. Its 30/90/180-day assignment arithmetic runs only on clearly labelled hypothetical inputs, until these are supplied:</p>
           <ol className="story-flow">
             {gaps.map((g) => <li key={g.id}><strong>{g.label}.</strong> {g.detail}</li>)}

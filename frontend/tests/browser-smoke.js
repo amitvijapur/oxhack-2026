@@ -79,10 +79,17 @@ async page => {
   for (const part of ['Noah 183', '>1 ppm', 'To Tok', 'Held by', 'Comparable deals', 'not option resale evidence', 'Test this plot in Decide', 'Zoom to plot', 'DNR record']) {
     check(text.includes(part), `Plot card missing "${part}"`);
   }
-  for (const part of ['T16N R11E', 'Elevation', 'Bedrock', 'State rent context', 'Travels with it', 'Land records at the sample point', 'Terrain and samples in 3D', 'Coordinates']) {
+  for (const part of ['T16N R11E', 'Elevation', 'Bedrock', 'State rent context', 'Travels with it', 'Land records at the sample point', 'Coordinates']) {
     check(!text.includes(part), `Plot card should no longer show "${part}"`);
   }
   await page.screenshot({ path: 'frontend/artifacts/2-plot-card.png' });
+  // The 3D terrain view draws only surface samples: nothing invented underground.
+  await page.getByRole('button', { name: 'Terrain and samples in 3D' }).click();
+  const block = page.getByRole('dialog', { name: 'Terrain and samples at plot B-19' });
+  await block.waitFor();
+  check((await block.innerText()).includes('no drilling data'), '3D view must say there is no drilling data');
+  await page.keyboard.press('Escape');
+  await block.waitFor({ state: 'detached' });
   await page.getByRole('button', { name: 'Next plot' }).click();
   await page.getByRole('region', { name: 'Plot B-17' }).waitFor();
   await page.getByRole('button', { name: 'Previous plot' }).click();
@@ -120,6 +127,7 @@ async page => {
   check(storyText.includes('25/33 · PASS') && storyText.includes('16/34 · FAIL'), 'Story must show the model evidence gate');
   check(storyText.includes('An available Tok option and verified terms'), 'Story must list the model gaps');
   check(!storyText.includes('$4,500'), 'The story must not quote the simulated day-1 gold price');
+  check(storyText.includes("A BUY candidate isn't a trade until the real inputs exist."), 'Story must say a BUY candidate is not a trade');
   await page.keyboard.press('Escape');
   await story.waitFor({ state: 'detached' });
 
@@ -128,6 +136,9 @@ async page => {
     check(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `Horizontal overflow at ${width}px`);
   }
   await page.screenshot({ path: 'frontend/artifacts/mobile.png' });
+
+  // The /swarm model output page was removed with its $2,000 option figures.
+  check((await page.request.get('http://127.0.0.1:3000/swarm')).status() === 404, 'The /swarm page must be gone');
 
   // Missing data: say so instead of showing a blank page.
   const broken = await page.context().newPage();

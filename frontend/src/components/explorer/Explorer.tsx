@@ -22,6 +22,8 @@ import { DecideTab, type Site } from "./tabs/DecideTab";
 import { CrowdTab } from "./tabs/CrowdTab";
 import "./explorer.css";
 
+// Three.js loads only when someone opens a plot's 3D terrain view.
+const PlotBlock = dynamic(() => import("@/components/geo/PlotBlock").then((m) => m.PlotBlock), { ssr: false });
 const Earth = dynamic(() => import("@/components/earth/Earth").then((m) => m.Earth), { ssr: false });
 // The plot card no longer shows elevation, so the map's terrain reading has nowhere to go.
 const ignoreElevation = () => {};
@@ -58,6 +60,7 @@ export function Explorer() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [zoomTo, setZoomTo] = useState<string | null>(null);
   const [story, setStory] = useState(false);
+  const [below, setBelow] = useState(false);
   const anchor = useRef<HTMLDivElement>(null);
   const hoverChip = useRef<HTMLDivElement>(null);
   // Off by default: a still camera keeps every tile loaded, so the opening plays without re-blurring.
@@ -150,7 +153,7 @@ export function Explorer() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const typing = (event.target as HTMLElement).closest("input, textarea, select, [role=slider]");
-      if (story) return; // the story handles its own keys
+      if (story || below) return; // the story and the block view handle their own keys
       if (event.key === "Escape") {
         if (selectedId || zoomTo) close();
         else if (mode === "explore") back();
@@ -161,7 +164,7 @@ export function Explorer() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [mode, tab, selectedId, zoomTo, back, close, step, story]);
+  }, [mode, tab, selectedId, zoomTo, back, close, step, story, below]);
 
   return (
     <main className="explorer" data-mode={mode} data-earth={earth} data-snapshot={snapshot ? "true" : undefined}>
@@ -247,6 +250,7 @@ export function Explorer() {
                     onNext={() => step(1)}
                     onClose={close}
                     onZoom={() => setZoomTo(`plot:${plot.id}`)}
+                    onBelow={() => setBelow(true)}
                     onDecide={() => { setSite(plot.site); setTab("decide"); }}
                   />
                 ) : null}
@@ -271,6 +275,11 @@ export function Explorer() {
         <>
           <MapControls controls={controls} />
           <div ref={hoverChip} className="hover-chip" data-visible="false" aria-hidden="true" />
+          {below && plot ? (
+            <SafeBoundary fallback={null}>
+              <PlotBlock plot={plot} geochem={data.geochem} geology={data.geology} onClose={() => setBelow(false)} />
+            </SafeBoundary>
+          ) : null}
           {story ? <PipelineStory data={data} features={evidence?.features ?? []} onClose={() => setStory(false)} onOpen={(next) => { setStory(false); explore(next); }} /> : null}
           {/* The popover lives outside the animated layers: the map moves it each frame. */}
           <PlotPopover

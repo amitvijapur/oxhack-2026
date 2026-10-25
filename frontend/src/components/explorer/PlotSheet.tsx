@@ -1,13 +1,13 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, ExternalLink, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, Layers3, Maximize2, X } from "lucide-react";
 import { anomalyClass, formatAssayValue, plotReading, plotStatus, usd, type Geochem, type Market, type Plot } from "@/lib/showcase";
 
 const titleCase = (text: string) => text.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()).replace(/\bLlc\b/g, "LLC");
 const CLASS_NAMES = ["Below typical", "Above typical", "Top 10% of sites", "Top 2% of sites"] as const;
 
 /** One plot, cut to what the call needs: its gold, who holds it, how far it is from Tok, what comparable deals paid, and a way to test it. */
-export function PlotSheet({ plot, index, total, geochem, market, onPrev, onNext, onClose, onZoom, onDecide }: {
+export function PlotSheet({ plot, index, total, geochem, market, onPrev, onNext, onClose, onZoom, onBelow, onDecide }: {
   plot: Plot;
   index: number;
   total: number;
@@ -18,6 +18,8 @@ export function PlotSheet({ plot, index, total, geochem, market, onPrev, onNext,
   onClose: () => void;
   /** Fly into the close, real-ground view of this plot. */
   onZoom: () => void;
+  /** Open the 3D block: terrain on top, bedrock and measured elements below. */
+  onBelow: () => void;
   onDecide: () => void;
 }) {
   const gold = plotReading(plot, geochem, "Au");
@@ -43,6 +45,9 @@ export function PlotSheet({ plot, index, total, geochem, market, onPrev, onNext,
         </div>
       </header>
 
+      <button type="button" className="button primary wide below-button" onClick={onBelow}>
+        <Layers3 className="size-4" aria-hidden="true" /> Terrain and samples in 3D
+      </button>
       <div className="sheet-actions">
         <button type="button" className="button secondary small" onClick={onZoom}><Maximize2 className="size-3.5" aria-hidden="true" /> Zoom to plot</button>
       </div>
