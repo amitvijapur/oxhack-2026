@@ -1,5 +1,5 @@
 /** Versioned prototype constants. Numerical policies are assumptions, not calibration. */
-export const VERSION = 'tok-option-demo-v1';
+export const VERSION = 'tok-option-demo-v2';
 export const GROUPS = Object.freeze(['government', 'industry', 'community', 'funds', 'retail']);
 export const WEIGHTS = Object.freeze({ government: 0.1, industry: 0.4, community: 0.07, funds: 0.4, retail: 0.03 });
 export const NEWS_SCENARIOS = Object.freeze(['mine_approval', 'proposed_tax', 'protest', 'mine_blocked', 'gold_reversal']);

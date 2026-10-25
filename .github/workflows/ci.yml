@@ -48,7 +48,7 @@ jobs:
         run: npm run lint
 
       - name: Verify canonical option model independently
-        run: node --test ../model/tok-option/tests/*.test.mjs
+        run: node --test ../model/tok-option/tests/*.test.mjs ../research/event-study/evaluate.test.mjs
 
       - name: Verify model specification and source audit
         run: |

@@ -45,13 +45,18 @@ class AdapterTests(unittest.TestCase):
         payload, summary, rows = publish_adapters.decision(data)
         self.assertEqual(payload, data)
         self.assertIsNone(rows)
-        self.assertEqual(summary["modelVersion"], "tok-option-demo-v1")
+        self.assertEqual(summary["modelVersion"], "tok-option-demo-v2")
         self.assertEqual([row["days"] for row in summary["horizons"]], [30, 90, 180])
         self.assertEqual(summary["selected"]["mapped"]["entryAction"], "BUY_CANDIDATE")
         self.assertAlmostEqual(summary["selected"]["mapped"]["expectedNetCashUsd"], 7.6)
         self.assertAlmostEqual(summary["selected"]["mapped"]["negativeCashProbability"], 0.512)
         self.assertEqual(summary["provenance"]["economics"], "assumed")
         self.assertNotIn("sections", summary)
+        forecast = summary["selected"]["mapped"]["goldForecast"]
+        self.assertEqual(forecast["methodVersion"], "assumed-gold-response-v1")
+        self.assertEqual(forecast["calibrationStatus"], "uncalibrated")
+        self.assertEqual(forecast["baselinePriceUsdPerOz"], 2000)
+        self.assertEqual(forecast["scenarioPriceUsdPerOz"], 2000)
 
     def test_pending_and_real_decisions_never_fill_missing_money(self):
         for name in ("assignment-pending.json", "assignment-real.json"):

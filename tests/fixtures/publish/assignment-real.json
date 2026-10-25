@@ -1,13 +1,13 @@
 {
   "contractVersion": "tok-assignment-output-v1",
-  "modelVersion": "tok-option-demo-v1",
+  "modelVersion": "tok-option-demo-v2",
   "selection": {
     "area": "A",
     "horizonDays": 90,
     "scenarioId": "baseline"
   },
   "result": {
-    "version": "tok-option-demo-v1",
+    "version": "tok-option-demo-v2",
     "mode": "real",
     "status": "INSUFFICIENT_DATA",
     "reasons": [
@@ -81,7 +81,17 @@
       ],
       "reasons": [],
       "provenance": "baseline_comparison",
-      "diagnosticOnly": true
+      "diagnosticOnly": true,
+      "transferTarget": "gold_price",
+      "transfer": {
+        "target": "gold_price",
+        "methodVersion": "assumed-gold-response-v1",
+        "cap": 0.07,
+        "exposure": 1,
+        "retention": 1,
+        "assumed": true,
+        "calibrationStatus": "uncalibrated"
+      }
     },
     "horizons": [
       {

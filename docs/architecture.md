@@ -45,10 +45,27 @@ It neither exercises the option nor borrows, reinvests or executes trades.
 Observed sediment values are an evidence screen, not recoverable ounces.
 Historical gold CAGR can be selected explicitly as an assumption.
 
+The website initializes and resets only hypothetical demo economics. It does
+not expose the shared API's real/pending financial modes. Those API guards
+remain intact for programmatic use. Total expected cash, changes versus baseline
+and the break-even premium retain their distinct meanings.
+
 The six pinned swarm score sets are partial simulated evidence. Missing scenarios,
 incomplete interviews, failed placebo/mirror/grounding checks, provider/configuration
-confounds and unknown input cutoff block their monetary use. Diagnostic day means
+confounds and unknown input cutoff block strict monetary use. Diagnostic day means
 remain inspectable. Synthetic imports are available only as labelled demonstrations.
+
+An explicit **Use existing swarm results** selection enables a separate
+illustrative policy inside demo mode. It compares approval/blockage with the
+matching Claude sports-placebo run, preserves simulated source identities and
+failed research diagnostics, and applies the selected support contrast to an assumed gold-price forecast.
+The engine then recomputes material value, mineral-interest value, assignment
+value and every monthly sale outcome. The response is applied once to gold;
+there is no separate option markup. Each outcome retains a `goldForecast` trace
+with baseline/scenario prices and uncalibrated method provenance. Pairwise configuration matching
+establishes demo eligibility only. Strict imports and real mode keep their
+original gates. Exports carry the comparison policy, run IDs, source revision,
+unknown cutoff and research status so stored outputs retain their meaning.
 
 ## Publication boundary
 
@@ -73,3 +90,14 @@ Historical research and source-branch references remain in `research/`. The
 integrated path retains useful work from PRs 27, 29, 36, 37 and 38 and the latest
 UI source. Superseded solver and deployment proposals are historical context,
 not supported runtime instructions. See [remaining work](remaining-work.md).
+
+## Retrospective event component
+
+`research/event-study/evaluate.mjs` evaluates a frozen primary-source announcement ledger against attributed daily adjusted prices. It writes `frontend/public/data/event-study.json`, loaded by `EventStudy.tsx` in Decision. This is a separate retrospective equity assessment; it neither changes option controls nor supplies a fabricated historical swarm score. Predictions use only pre-entry information and matured earlier training outcomes. The current negative comparison and source limitations remain visible. See [pilot results](../research/event-study/RESULTS.md).
+
+The website return presentation divides canonical cash outputs by positive finite
+upfront capital at risk. It never changes the canonical USD calculation or
+publisher schema. Return deltas are percentage points, gold changes use starting
+or baseline gold as labelled, and zero/missing denominators are unavailable. The
+small-response synthetic UI preset is distinct from both recorded swarm inputs
+and the retrospective historical test; selecting it does not alter either source.

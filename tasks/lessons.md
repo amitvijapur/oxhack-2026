@@ -1,5 +1,30 @@
 # Session lessons
 
+## 25 October 2026
+
+- Lead the website with percentage returns and name the invested-capital denominator. Keep gold-price percentage changes separate from option returns and express differences between returns in percentage points. Monetary assumptions and worked cash arithmetic retain their units.
+
+- A working predictive calculation is not evidence of a trading edge. Before calling a strategy validated, identify dated realized target labels and compare incremental held-out performance against a simple baseline. Never use a stipulated simulation price as its successful prediction or treat post counts as independent market events.
+
+- Wiring swarm scores to option value is not completion of the requested predictive chain. Trace every promised layer through executable calculations: swarm, gold forecast, material value, option value and cash. Label a hypothetical transfer as uncalibrated and never count it twice.
+
+- The website's option calculator must use hypothetical financial inputs only.
+  Keep recorded data sources available inside that demonstration, but do not
+  present real-input/evidence-only modes as alternative website option modes.
+  Distinguish total expected net cash from a scenario's delta when discussing
+  positive or negative value; a negative delta can coexist with positive cash.
+
+- Amit means a working feature in the existing website when discussing this
+  hackathon demo. Say "Use existing swarm results" and explain the visible
+  behavior; avoid "demo replay" without explaining that it recalculates the
+  actual application from stored simulation data.
+
+- For a hackathon with no remaining swarm API budget, distinguish an explicitly
+  hypothetical demonstration from empirical readiness. Reuse actual scored
+  outputs where possible and make the transfer assumptions visible. Do not make
+  expensive complete reruns a prerequisite for a useful demo, and do not relabel
+  real simulated observations as synthetic or claim failed checks have passed.
+
 ## 24 October 2026
 
 - Amit wants gold as the primary commodity and lithium as secondary. Choosing America did not authorise choosing copper. Confirm the target commodity before building its evidence pack; never let a convenient dataset column silently decide the product. The existing soil table has lithium but no gold, so a gold source must be verified before rebuilding gold packs. Copper outputs remain labelled prototypes, never gold proxies.

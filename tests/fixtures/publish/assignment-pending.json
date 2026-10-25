@@ -1,13 +1,13 @@
 {
   "contractVersion": "tok-assignment-output-v1",
-  "modelVersion": "tok-option-demo-v1",
+  "modelVersion": "tok-option-demo-v2",
   "selection": {
     "area": "A",
     "horizonDays": 90,
     "scenarioId": "baseline"
   },
   "result": {
-    "version": "tok-option-demo-v1",
+    "version": "tok-option-demo-v2",
     "mode": "pending",
     "status": "pending",
     "reasons": [
@@ -76,7 +76,8 @@
       "Recoverable ounces, commodity price and growth, contract terms, success probability and conversion factor are hypothetical.",
       "The success state resolves before buyer exercise and failure interest value is zero. This call-shaped proxy omits option time value.",
       "Sale hazard is assumed per 30 days. It is unchanged by news or asking price in this controlled comparison.",
-      "The ±7% cap limits one model price adjustment, not investment loss. The full upfront commitment can be lost.",
+      "The bounded swarm response changes Au price once before material value and the assignment floor. The cap is a hypothetical gold-price response, not an option-return or investment-loss limit.",
+      "The retained relative gold response is constant at every valuation and sale date; baseline growth is applied separately. It is uncalibrated and does not add the common day-one simulation gold jump again.",
       "Unsold model marks are separate from cash and never fund new positions. No exercise, leverage or reinvestment.",
       "One hypothetical option is screened against the selected comparison area. No available Tok contract is asserted."
     ]

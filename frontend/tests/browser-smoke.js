@@ -69,25 +69,31 @@ async page => {
   await page.getByRole('tab', { name: 'Market' }).click();
   check(await page.locator('.mini-chart').count() === 6, 'Market timeline needs six series');
 
-  // Canonical decision model: explicit demo, 90-day default, live recalculation and real-mode gaps.
+  // Canonical decision model: explicit synthetic preset, percentages and live recalculation.
   await page.getByRole('tab', { name: 'Decision' }).click();
   const model = page.locator('#option-model');
-  await model.getByRole('heading', { name: 'Tok option model' }).waitFor();
+  await model.getByRole('heading', { name: 'Hypothetical option model' }).waitFor();
   check(await model.getByLabel('Holding period').inputValue() === '90', 'Primary horizon must be 90 days');
-  check(await model.getByRole('button', { name: 'Evidence only', exact: true }).getAttribute('aria-pressed') === 'true', 'Evidence-only mode must be explicit');
-  await model.getByRole('button', { name: 'Use hypothetical demo', exact: true }).click();
-  const expectedCash = model.locator('.model-total-row td').last();
-  const baselineCash = await expectedCash.innerText();
-  check(baselineCash !== 'Not available', 'Demo cash must be calculated');
+  check(await model.getByRole('button', { name: 'Use conservative synthetic demo', exact: true }).getAttribute('aria-pressed') === 'true', 'Synthetic preset must be explicit');
+  const expectedReturn = model.locator('.model-total-row td').last();
+  check(await expectedReturn.innerText() === '1.52%', 'Preset return must use all upfront capital');
+  check((await model.locator('.model-delta').innerText()).includes('+0.44 pp'), 'Return lift must use percentage points');
   await model.getByText('Contract economics', { exact: true }).click();
   await model.locator('#model-entryPremiumUsd').fill('800');
-  check(await expectedCash.innerText() !== baselineCash, 'Changing a premium must recalculate cash');
+  check((await expectedReturn.innerText()).startsWith('-'), 'Higher premium must preserve negative return');
+  check(await model.getByRole('button', { name: 'Use conservative synthetic demo', exact: true }).getAttribute('aria-pressed') === 'false', 'Editing assumptions must clear the exact preset badge');
   await model.getByText('Simulation source and import', { exact: true }).click();
   await model.getByRole('button', { name: 'Load synthetic group-score demo', exact: true }).click();
-  check((await model.locator('.model-delta').innerText()).includes('Assignment price'), 'Scenario deltas must remain visible');
-  await model.getByRole('button', { name: 'Real inputs', exact: true }).click();
-  check(await expectedCash.innerText() === 'Not available', 'Real-input cash must remain unavailable');
-  check((await model.innerText()).includes('financial outputs stay unavailable'), 'Real-input gap must be explained');
+  check((await model.innerText()).includes('Synthetic fixture loaded'), 'Imported synthetic source must retain attribution');
+  await model.getByRole('button', { name: 'Reset assumptions', exact: true }).click();
+  check(await expectedReturn.innerText() === '1.52%', 'Reset must restore the preset');
+  check(!(await model.innerText()).includes('Synthetic fixture loaded'), 'Reset must clear imported source attribution');
+  await model.getByRole('button', { name: 'Use existing swarm results', exact: true }).click();
+  check((await model.locator('.model-existing-context').innerText()).includes('The actual sign is retained'), 'Recorded source sign must remain explicit');
+  check((await model.locator('.model-delta').innerText()).includes('-0.04 pp'), 'Recorded approval retains its negative return delta at the 1% cap');
+  await model.getByLabel('Scenario comparison').selectOption('proposed_tax');
+  check(await expectedReturn.innerText() === 'Not available', 'Missing recorded scenarios must remain unavailable');
+  await model.getByRole('button', { name: 'Use conservative synthetic demo', exact: true }).click();
   await page.screenshot({ path: 'frontend/artifacts/3-canonical-model.png' });
 
   // Escape returns to the time-lapse.
