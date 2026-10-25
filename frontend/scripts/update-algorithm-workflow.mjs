@@ -49,9 +49,9 @@ export async function buildAlgorithmSnapshot(sourceRoot) {
       sourceCommit, sourcePath: validationPath, sourceSha256: inputHashes[validationPath],
     };
   }
-  const { LOT_BASIS } = await import(pathToFileURL(join(modelDirectory, 'lot-basis.mjs')).href);
+  const { LOT_BASIS, SYNTHETIC_LOT_PROFILE } = await import(pathToFileURL(join(modelDirectory, 'lot-basis.mjs')).href);
   const { CAPITAL } = await import(pathToFileURL(join(modelDirectory, 'config.mjs')).href);
-  const { runWorkbench, createDemoCandidate } = await import(pathToFileURL(join(modelDirectory, 'workbench.mjs')).href);
+  const { runWorkbench, createDemoCandidate, compareFeePolicies } = await import(pathToFileURL(join(modelDirectory, 'workbench.mjs')).href);
   const features = (await Promise.all(['a', 'b'].map(async (area) => JSON.parse(await readFile(join(root, `frontend/public/data/tok-gold/site-${area}/samples.geojson`), 'utf8')).features))).flat();
   const areas = {};
   let modelVersion;
@@ -72,6 +72,7 @@ export async function buildAlgorithmSnapshot(sourceRoot) {
         horizons: outputs.map((output, index) => ({
           days: HORIZONS[index], baseline: reducedResult(output.baseline), mapped: reducedResult(output.mapped), delta: output.delta,
           cashDiagnostics: output.cashDiagnostics, portfolio: output.portfolio,
+          feeComparison: output.mapped && Number.isFinite(output.signal.value) ? compareFeePolicies({ controls: output.controls, evidenceGate: output.evidence.gate, horizonDays: HORIZONS[index], signal: output.signal.value }) : null,
         })),
       };
     }
@@ -85,18 +86,18 @@ export async function buildAlgorithmSnapshot(sourceRoot) {
     const base = areaData.scenarios.baseline;
     areaData.controls = base.controls;
     areaData.candidate = base.candidate;
-    areaData.baseline = base.horizons.map((row) => ({ days: row.days, result: row.baseline, diagnostics: row.cashDiagnostics.baseline, portfolio: row.portfolio }));
+    areaData.baseline = base.horizons.map((row) => ({ days: row.days, result: row.baseline, diagnostics: row.cashDiagnostics.baseline, portfolio: row.portfolio, feeComparison: row.feeComparison }));
     for (const [scenarioId, scenario] of Object.entries(areaData.scenarios)) {
       delete scenario.controls;
       delete scenario.candidate;
       if (scenario.signal.researchReadiness) delete scenario.signal.researchReadiness.diagnostics;
-      scenario.horizons = scenarioId === 'baseline' ? [] : scenario.horizons.map((row) => ({ days: row.days, mapped: row.mapped, delta: row.delta, diagnostics: row.cashDiagnostics.mapped, portfolio: row.portfolio }));
+      scenario.horizons = scenarioId === 'baseline' ? [] : scenario.horizons.map((row) => ({ days: row.days, mapped: row.mapped, delta: row.delta, diagnostics: row.cashDiagnostics.mapped, portfolio: row.portfolio, feeComparison: row.feeComparison }));
     }
   }
   return {
     schemaVersion: 1,
-    lotBasis: LOT_BASIS, capitalPolicy: CAPITAL,
-    source: { commit: sourceCommit, modelVersion, inputHashes, provenance: 'Canonical engine output snapshot', economics: 'assumed', liquidity: 'assumed', goldResponse: 'uncalibrated assumed relationship', mode: 'demo', researchReadiness: 'failed_or_unknown', note: 'Recorded contrasts can drive hypothetical calculations only; this does not change strict research readiness or supply executable land prices.' },
+    lotBasis: LOT_BASIS, syntheticLotProfile: SYNTHETIC_LOT_PROFILE, capitalPolicy: CAPITAL,
+    source: { commit: sourceCommit, modelVersion, inputHashes, provenance: 'Canonical engine output snapshot', economics: 'assumed', liquidity: 'assumed', goldResponse: 'uncalibrated assumed relationship', mode: 'demo', researchReadiness: 'failed_or_unknown', note: 'Recorded contrasts can drive hypothetical calculations on a frozen synthetic interest only. Historical initial payments do not establish its quantity, assignment value or fees. This does not change strict research readiness or supply executable land prices.' },
     researchDiagnostics, ...(validationStudy ? { validationStudy } : {}), areas,
   };
 }

@@ -15,12 +15,18 @@ US$1,502,500 fund preserves 2% per-option and 10% open/cohort ratios, with five
 indivisible positions. The original US$100k/US$2k/US$10k limits below are historical
 intake decisions, superseded by this amendment.
 
-The historical signing-payment reference excludes the contracts' other substantial
-obligations. It supplies no assignment forecast. The unchanged valuation gives
-US$1,500 assignment proceeds, so the active demo skips the US$30,050 upfront lot.
-The separately solved US$77,022.34 required assignment amount at 90 days is a
-25% expected-return target hurdle, not a model price. See the
-[research and primary sources](orecast-contract-pricing/README.md).
+The historical signing-payment reference excludes substantial other obligations
+and supplies no assignment forecast. The initial entry-only update left the
+old 500oz/US$4k exposure unchanged and produced an inappropriate active demo
+comparison. Amit rejected that result and requires local review of its correction
+before any further publication.
+
+The proposed local profile scales both invented quantity and buyer consideration
+by 30,000/650 once, then freezes them. It is one synthetic interest, not a bundle
+of tradable old contracts. Its US$69,230.77 assignment and 12.35% 90-day expected
+return depend on fixed US$50 fees; proportional reference fees preserve 1.09%
+and fail the current cap. The 25% target hurdle remains separately solved at
+US$77,022.34. See the [local result review](orecast-contract-pricing/consistent-lot-review.md).
 
 ## Current implementation amendment, gold forecast v2
 
@@ -173,6 +179,9 @@ At-risk entry commitment is `entryPremium + entryFee + additionalUpfrontCost`. R
 For at most 20 candidate options, enumerate feasible subsets and choose the subset maximizing the sum of expected net cash under those constraints. This is an exhaustive small-instance optimizer, not greedy ranking. The empty portfolio is allowed. Larger universes need a separately specified solver. Selling or abandoning a position does not replenish the USD10,000 lifetime commitment allowance. All selected positions may fail together.
 
 ### Worked fixture
+
+This section preserves the original small arithmetic fixture. The active local
+review profile and fee comparisons are in the amendment above.
 
 Assume flat commodity growth, USD1,000,000 hypothetical raw gold exposure, a 50% interest, `kappa = 0.02`, `pGeo = 0.25` and `K = USD4,000`. Then success interest value is USD10,000 and baseline conditional assignment proceeds are `0.25 * (10,000 - 4,000) = USD1,500`. Entry premium is USD650, entry fee USD50, exit fee USD50, and no additional commitments. Expiry is 365 days away with a 15-day closing buffer. Exposure and retention equal one.
 

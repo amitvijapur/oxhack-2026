@@ -1,4 +1,4 @@
-import { runWorkbench } from '../../model/tok-option/workbench.mjs';
+import { runWorkbench, compareFeePolicies } from '../../model/tok-option/workbench.mjs';
 import { requiredAssignmentProceeds } from '../../model/tok-option/diagnostics.mjs';
 import { capitalRatio, cashReturn, returnDifference, createConservativeDemo } from './model-presentation.mjs';
 
@@ -21,13 +21,16 @@ export function runDecideFinancial({ features = [], area = 'A', horizonDays = 90
   return {
     result, controls,
     targetResale: requiredAssignmentProceeds(mapped, { targetReturnRatio: 0.25 }),
+    feeComparison: compareFeePolicies({ controls, evidenceGate: result.evidence.gate, horizonDays, signal: result.signal.value }),
+    baselineFeeComparison: compareFeePolicies({ controls, evidenceGate: result.evidence.gate, horizonDays, signal: 0 }),
+    noSaleCashUsd: diagnostics?.outcomes.find((outcome) => outcome.kind === 'no_sale')?.netCashUsd ?? null,
     action: mapped?.entryAction ?? null,
     expectedReturn: cashReturn(mapped),
     baselineReturn: cashReturn(result.baseline),
     deltaReturn: returnDifference(result.baseline, mapped),
     medianReturn: capitalRatio(diagnostics?.medianCashUsd, mapped?.amountAtRiskUsd),
     worstReturn: capitalRatio(diagnostics?.worstCashUsd, mapped?.amountAtRiskUsd),
-    noSaleReturn: capitalRatio(mapped ? -mapped.amountAtRiskUsd : null, mapped?.amountAtRiskUsd),
+    noSaleReturn: capitalRatio(diagnostics?.outcomes.find((outcome) => outcome.kind === 'no_sale')?.netCashUsd, mapped?.amountAtRiskUsd),
   };
 }
 

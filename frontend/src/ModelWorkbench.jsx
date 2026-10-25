@@ -2,11 +2,12 @@
 
 import { useMemo, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, FileUp, RotateCcw } from 'lucide-react';
-import { parseSwarmImport, runWorkbench } from '../../model/tok-option/workbench.mjs';
+import { parseSwarmImport, runWorkbench, compareFeePolicies } from '../../model/tok-option/workbench.mjs';
 import { CAPITAL, EVIDENCE_RULE } from '../../model/tok-option/config.mjs';
 import syntheticSwarmExample from '../../model/tok-option/example-swarm.json';
 import { CashDiagnostics, DataCoverage, SwarmDiagnostics } from './ModelDiagnostics.jsx';
 import { ContractLotBasis } from './ContractLotBasis.jsx';
+import { FeeSensitivity } from './FeeSensitivity.jsx';
 import { capitalRatio, cashReturn, returnDifference, relativeChange, createConservativeDemo, isConservativeDemo } from './model-presentation.mjs';
 import './model-workbench.css';
 
@@ -26,11 +27,11 @@ const percentagePoints = (value) => finite(value) ? `${value > 0 ? '+' : ''}${nu
 const message = (value) => typeof value === 'string' ? value.replaceAll('_', ' ') : value?.message || value?.reason || JSON.stringify(value);
 const actionText = (action) => ({ BUY_CANDIDATE: 'Demo buy candidate', SKIP: 'Skip this contract', INSUFFICIENT_DATA: 'Inputs missing', PENDING_SWARM: 'Swarm output pending' }[action] || 'No entry decision');
 
-function NumericField({ label, name, value, onChange, unit, hint, step = 'any', min, max, scale = 1 }) {
+function NumericField({ label, name, value, onChange, unit, hint, step = 'any', min, max, scale = 1, preservePrecision = false }) {
   const id = `model-${name}`;
   return <label className="model-field" htmlFor={id}>
     <span>{label}</span>
-    <span className="model-input-wrap"><input id={id} type="number" inputMode="decimal" value={finite(value) ? Number((value * scale).toPrecision(12)) : ''} step={step} min={min} max={max} onChange={(event) => onChange(event.target.value === '' ? '' : Number(event.target.value) / scale)} aria-describedby={hint ? `${id}-hint` : undefined} /><span>{unit}</span></span>
+    <span className="model-input-wrap"><input id={id} type="number" inputMode="decimal" value={finite(value) ? preservePrecision ? value * scale : Number((value * scale).toPrecision(12)) : ''} step={step} min={min} max={max} onChange={(event) => onChange(event.target.value === '' ? '' : Number(event.target.value) / scale)} aria-describedby={hint ? `${id}-hint` : undefined} /><span>{unit}</span></span>
     {hint && <small id={`${id}-hint`}>{hint}</small>}
   </label>;
 }
@@ -176,6 +177,7 @@ export default function ModelWorkbench({ features, initialArea = 'A' }) {
   const [importErrors, setImportErrors] = useState([]);
   const [importing, setImporting] = useState(false);
   const result = useMemo(() => runWorkbench({ features, controls, swarmRuns }), [features, controls, swarmRuns]);
+  const feeComparison = useMemo(() => compareFeePolicies({ controls, evidenceGate: result.evidence?.gate, horizonDays: controls.horizonDays, signal: result.signal?.value }), [controls, result.evidence?.gate, result.signal?.value]);
   const existingSelected = controls.swarmPolicy === 'illustrative_contrast';
   const presetSelected = !swarmRuns && isConservativeDemo(controls);
   const syntheticSelected = controls.scenarioId === 'synthetic';
@@ -251,6 +253,7 @@ export default function ModelWorkbench({ features, initialArea = 'A' }) {
       <p className="model-note">{presetSelected ? 'Active preset: invented +0.5 signal, 1% gold response cap, 100% exposure, 50% retention and flat baseline growth produce an assumed +0.25% gold movement.' : syntheticSelected ? 'The selected signal is invented. Edited assumptions recalculate the synthetic example.' : 'The synthetic preset uses an invented signal and is separate from recorded swarm results.'} “Conservative” refers only to the small response assumptions, not verified fair pricing, low risk or demonstrated predictive accuracy. No trading edge is established.</p>
     </section>
     <ContractLotBasis controls={controls} />
+    <FeeSensitivity comparison={feeComparison} />
     <GoldForecast result={result} controls={controls} onCapChange={(value) => set('goldResponseCap', value)} />
     <ExistingSwarmResults result={result} selected={existingSelected} horizonDays={controls.horizonDays} busy={importing} onUse={useExistingResults} onStrict={() => setControls((current) => ({ ...current, mode: 'demo', swarmPolicy: 'strict', scenarioId: 'baseline' }))} />
     <div className="model-toolbar"><label>Comparison area<select value={controls.area} onChange={(event) => set('area', event.target.value)}><option value="A">A · Tok west</option><option value="B">B · Tok east</option></select></label><label>Holding period<select value={controls.horizonDays} onChange={(event) => set('horizonDays', Number(event.target.value))}>{[30, 90, 180].map((days) => <option key={days} value={days}>{days} days{days === 90 ? ' · primary' : ''}</option>)}</select></label><label className="model-scenario-select">Scenario comparison<select value={controls.scenarioId} onChange={(event) => set('scenarioId', event.target.value)}><optgroup label="Reference and sensitivity"><option value="baseline">Baseline reference</option><option value="synthetic">Synthetic sensitivity</option></optgroup><optgroup label={existingSelected ? "Recorded comparisons and unavailable scenarios" : "News scenarios require imported runs"}>{SCENARIOS.map(([id, label]) => <option value={id} key={id}>{label}{existingSelected && !['mine_approval', 'mine_blocked'].includes(id) ? ' · unavailable' : ''}</option>)}</optgroup></select></label></div>
@@ -268,13 +271,13 @@ export default function ModelWorkbench({ features, initialArea = 'A' }) {
         <legend className="sr-only">Hypothetical contract and market assumptions</legend>
         <details className="model-detail"><summary>Contract economics<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content model-field-grid">
           {input('entryPremiumUsd', 'Initial option payment', { unit: 'USD / contract', min: 0, step: 100, hint: 'Whole-contract amount. Starting scale follows selected historical payments, not a current quote.' })}
-          {input('quantity', 'Recoverable gold assumption', { unit: 'troy oz', min: 0, step: 10, hint: 'Whole-property quantity conditional on success. Not derived from samples.' })}
+          {input('quantity', 'Recoverable gold assumption', { unit: 'troy oz', min: 0, step: 'any', preservePrecision: true, hint: 'Synthetic whole-property quantity conditional on success. Not derived from samples or historical signing payments.' })}
           {input('price', 'Gold price assumption', { unit: 'USD/oz', min: 0, step: 50, hint: 'Editable starting model assumption, separate from the live gold quote in the page header.' })}
           {input('annualGrowthRate', 'Annual price growth', { unit: '% / year', scale: 100, min: -99.9, step: 1, hint: 'Forward assumption. The source section can apply the historical gold CAGR explicitly.' })}
           {input('ownershipFraction', 'Interest ownership', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}
           {input('kappa', 'Material-to-interest conversion', { unit: '%', scale: 100, min: 0, max: 100, step: 0.1 })}
           {input('pGeo', 'Geological success assumption', { unit: '%', scale: 100, min: 0, max: 100, step: 5, hint: 'An assumption independent of the evidence qualifying fraction.' })}
-          {input('remainingBuyerConsiderationUsd', 'Future buyer exercise payment', { unit: 'USD', min: 0, step: 100 })}
+          {input('remainingBuyerConsiderationUsd', 'Future buyer exercise payment', { unit: 'USD', min: 0, step: 'any', preservePrecision: true })}
         </div></details>
         <details className="model-detail"><summary>Exit timing and costs<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content model-field-grid">
           {input('hazardPer30Days', 'Sale chance in each 30-day interval', { unit: '%', scale: 100, min: 0, max: 100, step: 1, hint: 'Conditional on not already sold. Assumed constant across price scenarios.' })}

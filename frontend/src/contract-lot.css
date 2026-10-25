@@ -12,3 +12,10 @@
 .contract-lot-compact .contract-lot-costs { grid-template-columns: 1fr; gap: 5px; }
 .contract-lot-compact .contract-lot-costs > div { display: flex; justify-content: space-between; gap: 12px; }
 .contract-lot-compact .contract-lot-costs dd { margin: 0; font-size: 11px; }
+
+.fee-sensitivity-table { overflow-x: auto; margin: 12px 0; }
+.fee-sensitivity table { width: 100%; min-width: 380px; border-collapse: collapse; font-size: 11px; }
+.fee-sensitivity caption { text-align: left; margin-bottom: 8px; color: var(--ink-2, #a3a3a3); }
+.fee-sensitivity th, .fee-sensitivity td { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line, #262626); font-variant-numeric: tabular-nums; }
+.fee-sensitivity th { font-weight: 500; }
+.fee-sensitivity.contract-lot-compact table { min-width: 380px; }

@@ -195,7 +195,8 @@ The Decide calculator exposes model v2 gold forecasts before mineral and option 
 ### Current algorithm calculation snapshot
 
 The `/swarm` graph now reads a source-pinned snapshot of `tok-option-demo-v2`
-from committed canonical inputs at `37991ad5de416e5abf8541264c5f4926a2ec91e8`. It is a display of default
+from the local unpublished canonical input commit
+`69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2`. It is a display of default
 hypothetical calculations, not live synchronization with the explorer's model
 controls. Select A/B and a 30/90/180-day horizon to inspect its recorded output.
 Approval/blockage compare against the matching Claude placebo. The assumed
@@ -229,6 +230,11 @@ intermediate valuation formulas.
 The active indivisible lot uses the shared US$30,000 historical initial-payment
 reference plus a separately assumed US$50 entry fee. The US$1,502,500 demo fund
 preserves 2% per-option and 10% open/cohort capital ratios with at most five lots.
-The unchanged US$1,500 assignment assumption yields SKIP. The separate US$77,022.34
+The frozen synthetic profile scales both original invented quantity and buyer
+consideration together once, yielding US$69,230.77 baseline assignment and a
+12.35% expected 90-day return with fixed fees. A canonical fee comparison shows
+1.09% with proportional fees, which fail the current risk cap. The historical
+initial-payment reference does not establish those exposure or assignment values.
+Later premium edits never resize the interest. The separate US$77,022.34
 90-day assignment hurdle solves a 25% expected return under assumed liquidity; it
 does not replace the forecast. Live spot never overwrites the assumed model gold.

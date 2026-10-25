@@ -38,14 +38,16 @@ const plots = JSON.parse(readFileSync(new URL('../public/data/showcase/plots.jso
 const geochem = JSON.parse(readFileSync(new URL('../public/data/showcase/geochem.json', import.meta.url)));
 const render = (site, selectedFeatures = features) => renderToStaticMarkup(React.createElement(DecideTab, { features: selectedFeatures, plots, geochem, site, onSite() {}, plot: null, gold: { usd_per_oz: 9999, source: 'test spot', stale: false } }));
 
-test('Decide keeps evidence eligibility distinct from whole-contract economic rejection', () => {
+test('Decide keeps the geological screen distinct from synthetic financial decisions', () => {
   const a = render('A');
   const b = render('B');
   for (const html of [a, b]) {
-    for (const text of ['Skip hypothetical contract', 'per whole contract', '$30,000', '$50', '$30,050.00', '-97.65%', '-97.64%', '-$29,342.40', '-$29,339.35', '$1,500.00', '$1,506.25', '$2,000', '$9,999', 'The live gold quote above is not used here', 'not a current Tok quote', 'Detailed hypothetical model', 'event model did not beat baseline', 'Required resale hurdle for a 25% return', '$77,022.34', 'Hypothetical fund', 'lifetime cohort commitments', 'Tibbs', 'Northway']) assert.ok(html.includes(text), text);
+    for (const text of ['per whole contract', '$30,000', '$50', '$30,050.00', '12.35%', '12.82%', '$3,710.22', '$3,850.98', '$69,230.77', '$69,519.23', '$2,000', '$9,999', 'The live gold quote above is not used here', 'not a current Tok quote', 'Detailed hypothetical model', 'event model did not beat baseline', 'Required resale hurdle for a 25% return', '$77,022.34', 'Hypothetical fund', 'lifetime cohort commitments', 'Tibbs', 'Northway', '23,076.9', '$184,615.38', '1.09%', 'FAIL', 'not a predicted edge', '51.2% no sale', '-$30,050.00 cash if unsold by day 90']) assert.ok(html.includes(text), text);
     assert.ok(!html.includes('BUY candidate'));
   }
   assert.ok(a.includes('Screen passed'));
+  assert.ok(a.includes('Demo buy candidate'));
+  assert.ok(b.includes('Skip hypothetical contract'));
   assert.ok(a.includes('25 of 33'));
   assert.ok(b.includes('Screen failed'));
   assert.ok(b.includes('16 of 34'));

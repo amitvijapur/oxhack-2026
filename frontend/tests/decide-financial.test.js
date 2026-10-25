@@ -27,10 +27,10 @@ test('Decide separates geological outcomes from the canonical financial action',
   assert.equal(geologicalScreenLabel('FAIL'), 'Screen failed');
   assert.equal(geologicalScreenLabel('UNKNOWN'), 'Screen incomplete');
   const a = runDecideFinancial({ features });
-  assert.equal(a.action, 'SKIP');
+  assert.equal(a.action, 'BUY_CANDIDATE');
   assert.equal(a.result.evidence.gate, 'PASS');
   assert.equal(a.controls.entryPremiumUsd, 30000);
-  assert.ok(a.expectedReturn < 0);
+  assert.ok(a.expectedReturn > 0);
   const b = runDecideFinancial({ features, area: 'B' });
   assert.equal(b.action, 'SKIP');
   close(b.expectedReturn, a.expectedReturn);
@@ -42,29 +42,38 @@ test('Decide separates geological outcomes from the canonical financial action',
 
 test('90-day panel reproduces known expected cash, denominator, risks and break-even thresholds', () => {
   const view = runDecideFinancial({ features });
-  close(view.expectedReturn, -29339.35 / 30050);
-  close(view.baselineReturn, -29342.4 / 30050);
-  close(view.deltaReturn, 3.05 / 30050);
+  close(view.expectedReturn, 3850.9846153846156 / 30050);
+  close(view.baselineReturn, 3710.215384615396 / 30050);
+  close(view.deltaReturn, 140.76923076921957 / 30050);
   close(view.medianReturn, -1);
   close(view.worstReturn, -1);
   close(view.noSaleReturn, -1);
   close(view.result.mapped.noSaleProbability, .512);
-  close(view.result.cashDiagnostics.mapped.negativeCashProbability, 1);
-  close(view.result.cashDiagnostics.mapped.breakEven.maximumEntryPremiumUsd, 660.65);
-  close(view.result.cashDiagnostics.mapped.breakEven.premiumHeadroomUsd, -29339.35);
-  assert.equal(view.result.cashDiagnostics.mapped.breakEven.hazardThresholdStatus, 'unattainable');
+  close(view.result.cashDiagnostics.mapped.negativeCashProbability, .512);
+  close(view.result.cashDiagnostics.mapped.breakEven.maximumEntryPremiumUsd, 33850.984615384616);
+  close(view.result.cashDiagnostics.mapped.breakEven.premiumHeadroomUsd, 3850.9846153846156);
+  assert.equal(view.result.cashDiagnostics.mapped.breakEven.hazardThresholdStatus, 'ready');
   close(view.targetResale.requiredAssignmentProceedsUsd, 77022.33606557379);
   assert.equal(view.targetResale.targetReturnRatio, .25);
   const html = render(view);
-  assert.ok(html.includes('Break-even sale probability by day 90: Unattainable'));
-  for (const text of ['-97.64%', '-97.65%', '+0.01 pp', '51.2%', '100.0%', '-100.00%', '$660.65', '-$29,339.35', 'Unattainable', '$30,050.00', '$77,022.34', '$1,506.25', '$2,000.00/oz', 'not annualized', 'not necessarily a final realized loss', 'not a measured swarm result']) assert.ok(html.includes(text), text);
+  assert.ok(html.includes('Break-even sale probability by day 90: 43.26%'));
+  close(view.noSaleCashUsd, -30050);
+  close(view.feeComparison.fixedFees.returnRatio, view.expectedReturn);
+  close(view.feeComparison.proportionalFees.returnRatio, .015214285714285585);
+  close(view.baselineFeeComparison.fixedFees.returnRatio, view.baselineReturn);
+  close(view.baselineFeeComparison.proportionalFees.returnRatio, .0108571428571433);
+  assert.equal(view.feeComparison.proportionalFees.riskGate, 'FAIL');
+  assert.equal(view.feeComparison.proportionalFees.entryAction, 'SKIP');
+  for (const text of ['12.82%', '12.35%', '+0.47 pp', '51.2%', '-100.00%', '$33,850.98', '$3,850.98', '$30,050.00', '$77,022.34', '$69,519.23', '$2,000.00/oz', 'not annualized', 'not necessarily a final realized loss', 'not a measured swarm result', '23,076.9', '$184,615.38', '1.09%', '1.52%', 'FAIL', 'not a predicted edge', '-$30,050.00 cash if unsold by day 90']) assert.ok(html.includes(text), text);
 });
 
-test('holding period changes return but does not rescue the current whole-contract cash decision', () => {
-  const cases = [[30, -29758.75 / 30050, 'SKIP', .8], [90, -29339.35 / 30050, 'SKIP', .512], [180, -28975.4972 / 30050, 'SKIP', .262144]];
+test('holding period changes the synthetic return and canonical entry decision', () => {
+  const cases = [[30, -16156.153846153846 / 30050, 'SKIP', .8], [90, 3850.9846153846156 / 30050, 'BUY_CANDIDATE', .512], [180, 21208.288738461546 / 30050, 'BUY_CANDIDATE', .262144]];
   for (const [horizonDays, expected, action, noSale] of cases) {
     const view = runDecideFinancial({ features, horizonDays });
     close(view.expectedReturn, expected);
+    close(view.feeComparison.fixedFees.returnRatio, expected);
+    assert.equal(view.feeComparison.proportionalFees.riskGate, 'FAIL');
     close(view.result.mapped.noSaleProbability, noSale);
     assert.equal(view.action, action);
     assert.ok(render(view).includes(`Cash risk by day ${horizonDays}`));
@@ -74,6 +83,9 @@ test('holding period changes return but does not rescue the current whole-contra
 test('recorded cases retain their observed signs and the same explicit transfer assumptions', () => {
   const approval = runDecideFinancial({ features, scenarioId: 'mine_approval' });
   const blockage = runDecideFinancial({ features, scenarioId: 'mine_blocked' });
+  close(approval.result.mapped.expectedNetCashUsd, 3703.126454828911);
+  close(approval.result.mapped.assignmentValueUsd, 69216.24273530513);
+  close(blockage.result.mapped.expectedNetCashUsd, 3718.8682810486644);
   assert.ok(approval.deltaReturn < 0);
   assert.ok(blockage.deltaReturn > 0);
   for (const view of [approval, blockage]) {
@@ -82,16 +94,18 @@ test('recorded cases retain their observed signs and the same explicit transfer 
     assert.equal(view.result.signal.provenance, 'simulated');
     assert.equal(view.result.signal.usagePolicy, 'illustrative_contrast');
     assert.equal(view.result.sourceAudit.swarm.status, 'fail');
+    close(view.feeComparison.fixedFees.returnRatio, view.expectedReturn);
+    assert.equal(view.feeComparison.proportionalFees.entryAction, 'SKIP');
     assert.ok(render(view).includes('illustrative contrast, not a measured causal effect'));
   }
 });
 
 test('unknown evidence never becomes a buy and missing scenarios never fall back to baseline', () => {
   const unknown = runDecideFinancial({ features: [] });
-  assert.equal(unknown.action, 'SKIP');
+  assert.equal(unknown.action, null);
   assert.equal(unknown.result.evidence.gate, 'UNKNOWN');
-  assert.ok(unknown.expectedReturn < 0);
-  assert.ok(render(unknown).includes('Skip hypothetical contract'));
+  assert.ok(unknown.expectedReturn > 0);
+  assert.ok(render(unknown).includes('No financial decision'));
   assert.ok(render(unknown).includes('incomplete geological evidence'));
   const missing = runDecideFinancial({ features, scenarioId: 'proposed_tax' });
   assert.equal(missing.action, null);
@@ -100,7 +114,10 @@ test('unknown evidence never becomes a buy and missing scenarios never fall back
   assert.equal(missing.deltaReturn, null);
   assert.equal(missing.medianReturn, null);
   assert.equal(missing.noSaleReturn, null);
-  assert.ok(missing.baselineReturn < 0);
+  assert.equal(missing.noSaleCashUsd, null);
+  assert.equal(missing.feeComparison.fixedFees, null);
+  assert.equal(missing.feeComparison.proportionalFees, null);
+  assert.ok(missing.baselineReturn > 0);
   const html = render(missing);
   assert.ok(html.includes('No financial decision'));
   assert.ok(html.includes('Not available'));
@@ -115,8 +132,8 @@ test('default visible financial section exposes labeled controls and source assu
 
 
 test('explicit positive-cash test case still respects failed and unknown evidence gates', () => {
-  // Test-only higher resource assumption. Website inputs and the historical premium stay unchanged.
-  const controls = { ...runDecideFinancial({ features }).controls, quantity: 20000 };
+  // Positive synthetic cash cannot override failed or incomplete geological evidence.
+  const controls = runDecideFinancial({ features }).controls;
   const a = runWorkbench({ features, controls });
   const b = runWorkbench({ features, controls: { ...controls, area: 'B' } });
   const unknown = runWorkbench({ features: [], controls });
@@ -124,5 +141,5 @@ test('explicit positive-cash test case still respects failed and unknown evidenc
   assert.equal(a.mapped.entryAction, 'BUY_CANDIDATE');
   assert.equal(b.mapped.entryAction, 'SKIP');
   assert.equal(unknown.mapped.entryAction, null);
-  assert.equal(runDecideFinancial({ features }).controls.quantity, 500);
+  close(runDecideFinancial({ features }).controls.quantity, 23076.923076923078);
 });

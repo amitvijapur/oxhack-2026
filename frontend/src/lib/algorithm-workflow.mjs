@@ -19,6 +19,7 @@ export function getAlgorithmFrame(data = algorithmSnapshot, { area = 'A', scenar
     candidate: areaData?.candidate ?? null, signal: scenario?.signal ?? null,
     baseline: baseHorizon?.result ?? null, mapped: mapped ?? null,
     delta: horizon?.delta ?? null,
+    feeComparison: scenarioId === 'baseline' && scenario ? baseHorizon?.feeComparison ?? null : horizon?.feeComparison ?? null,
     cashDiagnostics: { baseline: baseHorizon?.diagnostics ?? null, mapped: scenarioId === 'baseline' && scenario ? baseHorizon?.diagnostics ?? null : horizon?.diagnostics ?? null },
     portfolio: scenarioId === 'baseline' && scenario ? baseHorizon?.portfolio ?? null : horizon?.portfolio ?? null,
   };

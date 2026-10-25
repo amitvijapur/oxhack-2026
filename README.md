@@ -21,12 +21,13 @@ Built at **OXHack 2026** for the theme **TIME**.
 
 <p align="center">
   <a href="https://oxhack-land-arbitrage.vercel.app">
-    <img src="brand/orecast/readme/explorer.jpg" alt="Orecast's deployed Tok River explorer with the Decide, Land, Crowd and Swarm tabs. Site A passes the evidence screen while its hypothetical contract receives SKIP." width="100%">
+    <img src="brand/orecast/readme/explorer.jpg" alt="Earlier Orecast Tok River explorer capture with Decide, Land, Crowd and Swarm tabs. The earlier contract fixture shown receives SKIP." width="100%">
   </a>
 </p>
 
-*The deployed explorer. Live spot is capture-time context, separate from the model's
-fixed gold assumption. Imagery: Esri, Maxar and Earthstar Geographics. Terrain: Mapzen.*
+*Earlier deployed explorer capture, showing the previous cost-only SKIP fixture.
+The approved current synthetic exposure is described below. Live spot is capture-time
+context, separate from model gold. Imagery: Esri, Maxar and Earthstar Geographics. Terrain: Mapzen.*
 
 ## A promising sample is only the beginning
 
@@ -79,21 +80,44 @@ holdouts rather than shuffled observations.
 
 ### What the current model actually says
 
-The active whole-contract example uses a **US$30,000 historical initial-payment
-reference**, plus a separately assumed **US$50 entry fee**. The reference comes from
-two selected historical signing payments; current contract quotes and the full cost
-of those agreements have not been established.
+The approved example is **one synthetic whole contract** with **US$30,000 assumed
+premium**, **US$50 entry fee** and **US$50 exit fee**. The initial-payment scale comes
+from two selected historical signing payments, Tibbs and Northway. It is not a
+current Tok market average, available quote or full contract cost.
 
-At the fixed US$2,000/oz model assumption, the no-event 90-day baseline gives US$1,500
-conditional assignment proceeds and **−US$29,342.40 expected net cash**, or **−97.65%**
-on US$30,050 upfront capital. Its decision is **SKIP**, even when geological evidence
-passes. The displayed live gold observation is separate from this assumed input.
+Its exposure is frozen once from the original invented ratio, `s = 30,000 / 650`:
+**23,076.9230769 assumed troy ounces** and **US$184,615.38 remaining buyer
+consideration**. These inputs do not establish measured resources or market value.
+Ownership is 50%, conversion 2% and geological success 25%. Editing the premium
+never resizes the exposure.
 
-The US$77,022.34 assignment amount needed for a 25% expected return is a **target
-hurdle**, separate from the model's valuation. Returns cover the selected holding
-period and are not annualized. The [model guide](model/tok-option/README.md) and
-[contract-pricing research](research/orecast-contract-pricing/README.md) explain the
-arithmetic, capital limits and remaining obligations.
+At US$2,000/oz model gold, zero growth and an assumed 20% sale hazard per 30 days,
+the no-event 90-day baseline gives **US$69,230.77 conditional assignment proceeds**,
+**US$3,710.22 expected net cash** and **12.35% expected option return** on
+US$30,050 upfront capital. Area A is a conditional model candidate; Area B fails
+the evidence screen. Candidate is not a trade or measured edge. The website's
+small-response startup preset is a separate sensitivity case. Live gold is separate
+from these assumed inputs.
+
+At 90 days, **51.2% of paths have no sale**. No-sale cash and median cash are
+**−US$30,050**; an unsold model mark stays separate from cash. The higher headline
+return depends on the fixed US$50 fees. Scaling each reference fee proportionally
+to **US$2,307.69** instead gives **1.09% return** and **US$32,307.69 upfront**, which
+**fails the US$30,050 per-option risk cap**. Neither fee policy is calibrated to
+actual costs.
+
+The assumed fund is US$1,502,500, with US$30,050 per option, US$150,250 open and
+lifetime commitment caps, and at most five whole positions. This capacity does not
+establish available contracts. Actual work, royalty, scholarship and recurring
+obligations need separate inputs.
+
+The **US$77,022.34** assignment amount required for a **25% expected 90-day return**
+is a target hurdle, separate from the US$69,230.77 model valuation. It did not
+determine exposure. Returns are non-annualized. The [model guide](model/tok-option/README.md)
+and [contract-pricing research](research/orecast-contract-pricing/README.md) explain
+the arithmetic and limitations.
+
+The linked deck is the previous published version. The reviewed consistent-lot slides will be published separately after this code merge. Use the [model guide](model/tok-option/README.md) and [results report](research/orecast-contract-pricing/consistent-lot-review.md) for current economics.
 
 ## Know what each layer means
 
@@ -161,7 +185,7 @@ for numerical checks and [the frontend guide](frontend/README.md) for browser sm
 | [`frontend/`](frontend/README.md) | Next.js, React, TypeScript and Cesium explorer, API routes and optional Convex integration. |
 | [`model/tok-option/`](model/tok-option/README.md) | Shared pure JavaScript evidence, gold, assignment, liquidity and portfolio engine. |
 | [`research/`](research/) | Source contracts, acquisition steps, simulation provenance, experiments and preserved planning history. |
-| [`pitch/orecast/`](pitch/orecast/README.md) | Current nine-slide deck, speaker notes, source images and rehearsal guide. |
+| [`pitch/orecast/`](pitch/orecast/README.md) | Previous published deck and notes; reviewed replacement follows the code merge. |
 | [`brand/orecast/`](brand/orecast/BRAND.md) | Orecast wordmarks, DM Sans fonts, palette tokens and usage rules. |
 | [`docs/`](docs/architecture.md) | Architecture, infrastructure, collaboration and remaining work. |
 
