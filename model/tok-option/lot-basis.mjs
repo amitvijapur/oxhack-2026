@@ -22,6 +22,35 @@ export const LOT_BASIS = Object.freeze({
 /** Transaction costs remain separate invented demo assumptions. */
 export const DEMO_ENTRY_COSTS = Object.freeze({ entryFeeUsd: 50, exitFeeUsd: 50, unavoidableAdditionalObligationsUsd: 0 });
 
+const REFERENCE_UNIT = Object.freeze({ initialPremiumUsd: 650, quantity: 500, remainingBuyerConsiderationUsd: 4000, entryFeeUsd: 50, exitFeeUsd: 50 });
+const EXPOSURE_SCALE = 30000 / REFERENCE_UNIT.initialPremiumUsd;
+
+/** Frozen invented exposure, not a valuation inferred from a historical payment. */
+export const SYNTHETIC_LOT_PROFILE = Object.freeze({
+  id: 'synthetic-same-interest-whole-contract-v1', provenance: 'assumed', currency: 'USD', unit: 'whole_contract',
+  referenceUnit: REFERENCE_UNIT, initialPremiumUsd: 30000, scaleFactor: EXPOSURE_SCALE,
+  quantity: REFERENCE_UNIT.quantity * EXPOSURE_SCALE, quantityUnit: 'troy_oz',
+  remainingBuyerConsiderationUsd: REFERENCE_UNIT.remainingBuyerConsiderationUsd * EXPOSURE_SCALE,
+  ownershipFraction: 0.5, kappa: 0.02, pGeo: 0.25, price: 2000, annualGrowthRate: 0,
+  assumption: 'One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.',
+  limitations: Object.freeze([
+    'The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.',
+    'The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.',
+    'The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.',
+    'Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.',
+    'Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile.',
+  ]),
+});
+
+export function exposureContext(controls) {
+  const selectedInputs = Object.fromEntries(['quantity', 'remainingBuyerConsiderationUsd', 'ownershipFraction', 'kappa', 'pGeo', 'price', 'annualGrowthRate'].map((key) => [key, controls[key]]));
+  return {
+    ...SYNTHETIC_LOT_PROFILE,
+    selectionKind: Object.entries(selectedInputs).every(([key, value]) => value === SYNTHETIC_LOT_PROFILE[key]) ? 'default_synthetic_profile' : 'custom_assumed_exposure',
+    selectedInputs,
+  };
+}
+
 export function lotContext(controls) {
   return {
     ...LOT_BASIS,

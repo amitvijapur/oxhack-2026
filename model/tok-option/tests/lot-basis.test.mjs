@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { CAPITAL, LOT_BASIS, DEMO_ENTRY_COSTS, evaluateOpportunity, optimizePortfolio, cashOutcomes, requiredAssignmentProceeds } from '../index.mjs';
+import { CAPITAL, LOT_BASIS, SYNTHETIC_LOT_PROFILE, DEMO_ENTRY_COSTS, evaluateOpportunity, optimizePortfolio, cashOutcomes, requiredAssignmentProceeds } from '../index.mjs';
 import { DEFAULT_CONTROLS, createDemoCandidate, runWorkbench } from '../workbench.mjs';
 import { decisionOutput, decisionSummary } from '../publish.mjs';
 
@@ -21,25 +21,25 @@ test('one whole historical payment reference excludes all assumed transaction co
   assert.ok(Object.isFrozen(LOT_BASIS) && Object.isFrozen(LOT_BASIS.sources[0]));
 });
 
-test('active whole-lot defaults preserve the original economic proxy and correctly skip every horizon', () => {
+test('active whole-lot profile freezes matching synthetic exposure and dated outcomes', () => {
   const result = run();
   assert.equal(result.lotContext.economicsProvenance, 'assumed');
   assert.equal(result.lotContext.selectionKind, 'historical_reference_applied_as_assumption');
-  assert.equal(result.mapped.materialTrace[0].quantity, 500);
+  close(result.mapped.materialTrace[0].quantity, 500 * (30000 / 650));
   assert.equal(createDemoCandidate(DEFAULT_CONTROLS).materials[0].derivedFromPpm, false);
   assert.equal(createDemoCandidate(DEFAULT_CONTROLS).sourceId, 'orecast-whole-contract-demo-v1');
-  const expected = [-29760, -29342.4, -28980.1088];
+  const expected = [-16213.846153846149, 3710.215384615396, 20995.445661538484];
   for (const [i, row] of result.horizons.entries()) {
-    close(row.mapped.assignmentValueUsd, 1500);
+    close(row.mapped.assignmentValueUsd, 69230.76923076925);
     close(row.mapped.amountAtRiskUsd, 30050);
     close(row.mapped.expectedNetCashUsd, expected[i]);
     assert.equal(row.mapped.riskGate, 'PASS');
-    assert.equal(row.mapped.entryAction, 'SKIP');
-    assert.deepEqual(row.mapped.reasons, ['nonpositive_expected_cash']);
+    assert.equal(row.mapped.entryAction, i === 0 ? 'SKIP' : 'BUY_CANDIDATE');
+    assert.deepEqual(row.mapped.reasons, i === 0 ? ['nonpositive_expected_cash'] : []);
   }
-  close(result.cashDiagnostics.mapped.negativeCashProbability, 1);
+  close(result.cashDiagnostics.mapped.negativeCashProbability, 0.512);
   close(result.cashDiagnostics.mapped.medianCashUsd, -30050);
-  assert.deepEqual(result.portfolio.selectedIds, []);
+  assert.deepEqual(result.portfolio.selectedIds, ['hypothetical-option-A']);
 });
 
 test('risk ratios include entry fees and whole lots, with no replenishment after exit', () => {
@@ -70,8 +70,8 @@ test('constant proceeds hurdles reconcile through canonical monthly cash and nev
   }
   close(requiredAssignmentProceeds(result.mapped).requiredAssignmentProceedsUsd, 61627.86885245902);
   close(requiredAssignmentProceeds(result.mapped, { targetReturnRatio: .25 }).requiredAssignmentProceedsUsd, 77022.33606557378);
-  close(result.mapped.assignmentValueUsd, 1500);
-  assert.equal(result.mapped.entryAction, 'SKIP');
+  close(result.mapped.assignmentValueUsd, 69230.76923076925);
+  assert.equal(result.mapped.entryAction, 'BUY_CANDIDATE');
 });
 
 test('hurdles validate distributions and remain unavailable for undefined return or impossible sales', () => {

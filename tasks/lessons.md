@@ -59,3 +59,9 @@
 - When adapting a teammate's kit, inspect the actual source first and import only the selected pieces. Keep local hooks and permission profiles opt-in, skills manual, and Cortex authoritative. Do not add review gates or extra workflows.
 
 - When changing the contract-price basis, align every active default, capital limit, export, frozen snapshot and slide to the same whole-lot units. Solve target-return resale hurdles separately from the independent valuation; increasing entry dollars alone cannot establish a stronger margin.
+
+- A researched initial-payment reference does not establish a matched contract valuation. Before replacing active demo economics, identify the same legal interest, quantity, ownership, conversion and resale basis on both sides, calculate the resulting returns, and resolve any material change to the intended demonstration. Do not ship an unmatched entry/reference comparison as a completed lot-sizing update or force a positive result by tuning valuation.
+
+- Amit now explicitly requires a local result and slide review before any further Orecast publication. No push, PR creation, merge or deployment is authorized for the consistent-lot revision. Freeze illustrative economic exposure once; never make valuation increase automatically when the user raises an entry premium.
+
+- When Amit specifies code before slides, isolate publication into separate PRs and complete the code merge before pushing slide changes. A prior local-review hold is superseded only by explicit publication authorization, which Amit has now given.

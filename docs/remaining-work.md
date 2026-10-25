@@ -40,14 +40,16 @@ validation above are later research work, rather than prerequisites for this
 bounded hackathon demonstration. The default hypothetical demo also remains
 available for arithmetic review.
 
-The active whole-contract demo has a US$30,000 historical initial-payment
-reference, US$50 assumed entry fee and US$50 assumed exit fee. With unchanged
-US$1,500 assignment proceeds and 48.8% sale probability, its 90-day expectation is
-US$-29,342.40, and the model skips it. The US$1,502,500 demo fund preserves the
-2% per-option and 10% open/cohort capital ratios including the entry fee.
-The US$77,022.34 assignment hurdle for a 25% target return is an independently
-labelled requirement, not the forecast. No matched assignment-price evidence
-supports that hurdle. The earlier US$7.60 fixture remains historical test data.
+The local review profile uses one synthetic interest with US$30,000 entry,
+23,076.9230769 conditional ounces and US$184,615.384615 buyer consideration. The
+last two values retain the old invented unit-economics ratio; the historical
+initial payments do not establish them. It gives US$69,230.77 assignment and
+12.35% expected 90-day return with fixed US$50 entry/exit fees. Proportional
+reference fees preserve the original 1.09% return and fail the US$30,050 risk
+cap. This sensitivity is visible beside the example. Median/no-sale cash remains
+US$-30,050 and no observed market margin or predictive edge has been established.
+Amit requires local review before any further publication. See the
+[results comparison](../research/orecast-contract-pricing/consistent-lot-review.md).
 
 Historical research and superseded PRs remain useful provenance. Their old
 monthly solver, exercise policy and deployment commands are not supported by the

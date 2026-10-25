@@ -1,8 +1,8 @@
 import { VERSION, HORIZONS, SCENARIOS, within } from './config.mjs';
 import { diagnoseCash, requiredAssignmentProceeds } from './diagnostics.mjs';
-import { lotContext } from './lot-basis.mjs';
+import { lotContext, exposureContext } from './lot-basis.mjs';
 import { evaluateOpportunity } from './index.mjs';
-import { createDemoCandidate } from './workbench.mjs';
+import { createDemoCandidate, applyScenarioDecisionPolicy } from './workbench.mjs';
 
 /** A projection of the canonical workbench, never a second decision engine. */
 export const OUTPUT_CONTRACT = 'tok-assignment-output-v1';
@@ -99,10 +99,7 @@ function canonicalEconomics(value, controls, expectedSignal, diagnosticOnly) {
   });
   // The workbench deliberately makes a priced placebo diagnostic-only. Preserve
   // that exact policy, rather than accepting caller-supplied gate/action labels.
-  if (diagnosticOnly) canonical = {
-    ...canonical, status: 'diagnostic', entryAction: null,
-    reasons: [...canonical.reasons, 'sports_placebo_is_diagnostic_only'],
-  };
+  if (diagnosticOnly) canonical = applyScenarioDecisionPolicy(canonical, 'sports_placebo');
   for (const key of ['riskGate', 'expiryGate', 'entryAction', 'status', 'reasons']) {
     requireThat(canonicalJson(value[key]) === canonicalJson(canonical[key]), `${key} does not match canonical decision policy`);
   }
@@ -226,9 +223,11 @@ export function decisionSummary(output) {
   const hasEconomics = horizons.some((row) => row.baseline || row.mapped);
   if (hasEconomics) requireThat(result.provenance?.economics === 'assumed' && result.provenance?.liquidity === 'assumed', 'demo economics and liquidity must be labelled assumed');
   const context = hasEconomics ? lotContext(result.controls) : null;
+  const exposure = hasEconomics ? exposureContext(result.controls) : null;
   // Older explicitly controlled fixtures may omit this additive metadata.
   // Supplied context must never relabel a custom amount as an observed price.
   if (result.lotContext != null) requireThat(canonicalJson(result.lotContext) === canonicalJson(context), 'lot context does not match the canonical entry controls');
+  if (result.exposureContext != null) requireThat(canonicalJson(result.exposureContext) === canonicalJson(exposure), 'exposure context does not match the canonical interest controls');
   return {
     kind: 'decision', contractVersion: SUMMARY_CONTRACT, modelVersion: VERSION,
     modelMode: result.mode, status: result.status, area: selection.area, horizonDays: selection.horizonDays, scenarioId: selection.scenarioId,
@@ -237,6 +236,7 @@ export function decisionSummary(output) {
     reasons: strings(result.reasons, 'reasons'), assumptions: strings(result.assumptions, 'assumptions'),
     horizons, selected: { baseline: selectedSummary.baseline, mapped: selectedSummary.mapped },
     lotContext: context,
+    exposureContext: exposure,
     ...(signalContext ? { signalContext } : {}),
   };
 }

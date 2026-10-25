@@ -19,9 +19,9 @@ test('projection preserves canonical oracle, day horizons and cash diagnostic me
   const summary = decisionSummary(outputFor());
   assert.equal(summary.modelVersion, 'tok-option-demo-v2');
   assert.deepEqual(summary.horizons.map((row) => row.days), [30, 90, 180]);
-  assert.ok(Math.abs(summary.selected.mapped.expectedNetCashUsd + 29342.4) < 1e-8);
-  assert.ok(Math.abs(summary.selected.mapped.negativeCashProbability - 1) < 1e-12);
-  assert.equal(summary.selected.mapped.entryAction, 'SKIP');
+  assert.ok(Math.abs(summary.selected.mapped.expectedNetCashUsd - 3710.215384615396) < 1e-8);
+  assert.ok(Math.abs(summary.selected.mapped.negativeCashProbability - 0.512) < 1e-12);
+  assert.equal(summary.selected.mapped.entryAction, 'BUY_CANDIDATE');
   assert.equal(summary.provenance.economics, 'assumed');
   assert.equal(decisionRunMode(summary), 'scenario');
   assert.equal('pLoss' in summary.selected.mapped, false);
@@ -41,12 +41,12 @@ test('missing swarm preserves the baseline, failed evidence preserves SKIP, unkn
   const swarm = decisionSummary(outputFor({ scenarioId: 'mine_approval' }));
   assert.equal(swarm.status, 'PENDING_SWARM');
   assert.equal(swarm.selected.mapped, null);
-  assert.ok(swarm.selected.baseline.expectedNetCashUsd < 0);
+  assert.ok(swarm.selected.baseline.expectedNetCashUsd > 0);
   assert.equal(decisionSummary(outputFor({ area: 'B' })).selected.mapped.entryAction, 'SKIP');
   const controls = { ...DEFAULT_CONTROLS, mode: 'demo' };
   const unknown = decisionSummary(decisionOutput({ selection: { area: 'A', horizonDays: 90, scenarioId: 'baseline' }, result: runWorkbench({ controls }) }));
   assert.equal(unknown.readiness.evidenceGate, 'UNKNOWN');
-  assert.equal(unknown.selected.mapped.entryAction, 'SKIP');
+  assert.equal(unknown.selected.mapped.entryAction, null);
 });
 
 test('selection metadata, model version and quote gates cannot be silently replaced', () => {
@@ -86,7 +86,7 @@ test('saved finite cash must agree with the canonical distribution diagnostic', 
 
 test('unknown monetary fields remain null and non-finite money is rejected', () => {
   // A genuine canonical unavailable result, not a caller-redacted decision.
-  const output = outputFor({ remainingBuyerConsiderationUsd: 100000 });
+  const output = outputFor({ remainingBuyerConsiderationUsd: 1000000000 });
   const mapped = decisionSummary(output).selected.mapped;
   assert.equal(mapped.expectedNetCashUsd, null);
   assert.equal(mapped.negativeCashProbability, null);
@@ -115,8 +115,8 @@ test('publication checks expiry, action, status and reasons against canonical de
   const mutations = [
     ['expiryGate', 'PASS', { quantity: 50000, entryPremiumUsd: 100, remainingMaturityDays: 90 }],
     ['entryAction', null, {}],
-    ['status', 'INSUFFICIENT_DATA', {}],
-    ['reasons', [], {}],
+    ['status', 'INSUFFICIENT_DATA', { quantity: 500, remainingBuyerConsiderationUsd: 4000 }],
+    ['reasons', ['invented_caller_reason'], {}],
   ];
   for (const [key, replacement, controls] of mutations) {
     const output = outputFor(controls);
@@ -211,10 +211,10 @@ test('gold forecast projection preserves horizon prices, assumed method and orig
     assert.equal(forecast.provenance, 'assumed');
     assert.equal(forecast.cap, 0.035);
     assert.equal(forecast.day, row.days);
-    assert.equal(forecast.baselinePriceUsdPerOz, 2000);
+    assert.ok(Math.abs(forecast.baselinePriceUsdPerOz - 2000) < 1e-8);
     assert.ok(forecast.scenarioPriceUsdPerOz < forecast.baselinePriceUsdPerOz);
     assert.equal(forecast.signal, output.result.signal.value);
-    assert.equal(row.baseline.goldForecast.scenarioPriceUsdPerOz, 2000);
+    assert.ok(Math.abs(row.baseline.goldForecast.scenarioPriceUsdPerOz - 2000) < 1e-8);
   }
   assert.deepEqual(summary.selected.mapped.goldForecast, summary.horizons[1].mapped.goldForecast);
 });

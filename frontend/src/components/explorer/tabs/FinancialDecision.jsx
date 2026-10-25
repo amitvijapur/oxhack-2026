@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { DECIDE_SCENARIOS, runDecideFinancial } from '../../../decide-financial.mjs';
 import { ContractLotBasis } from '../../../ContractLotBasis.jsx';
+import { FeeSensitivity } from '../../../FeeSensitivity.jsx';
 import { CAPITAL } from '../../../../../model/tok-option/config.mjs';
 
 const finite = (value) => typeof value === 'number' && Number.isFinite(value);
@@ -29,13 +30,17 @@ export function FinancialDecisionResult({ view, area }) {
       <h4>{decision}</h4>
       <p className="note">{explanation}</p>
       <dl className="mini-stats financial-returns">
-        <div><dt>Expected cash return</dt><dd className="tabular">{percent(view.expectedReturn)}</dd></div>
+        <div><dt>Expected cash return</dt><dd className="tabular">{percent(view.expectedReturn)}{finite(view.noSaleCashUsd) ? <small data-testid="decide-no-sale-risk">{percent(mapped?.noSaleProbability, 1)} no sale · {money(view.noSaleCashUsd)} cash if unsold by day {controls.horizonDays}</small> : null}</dd></div>
         <div><dt>Baseline return</dt><dd className="tabular">{percent(view.baselineReturn)}</dd></div>
         <div><dt>Change from baseline</dt><dd className="tabular">{points(view.deltaReturn)}</dd></div>
       </dl>
     </div>
     <p className="note">Returns are net cash ÷ upfront capital over {controls.horizonDays} days, not annualized. Upfront capital is premium + entry fee + unavoidable obligations, {money(mapped?.amountAtRiskUsd)} per whole contract. pp means percentage points.</p>
     <p className="note">Selected scenario: {money(mapped?.expectedNetCashUsd)} expected net cash and {money(mapped?.assignmentValueUsd)} modeled assignment proceeds at the horizon. Baseline: {money(result.baseline?.expectedNetCashUsd)} expected net cash and {money(result.baseline?.assignmentValueUsd)} assignment proceeds. Proceeds are not the initial entry payment.</p>
+
+    <p className="note">Synthetic exposure: {number(controls.quantity, 1)} assumed oz and {money(controls.remainingBuyerConsiderationUsd)} buyer consideration, frozen once from an invented reference ratio. Historical initial payments do not value this interest. Premium edits do not resize it.</p>
+    {view.baselineFeeComparison?.fixedFees && view.baselineFeeComparison?.proportionalFees ? <p className="note" data-testid="financial-baseline-fees">No-event {controls.horizonDays}-day baseline fee sensitivity: {percent(view.baselineFeeComparison.fixedFees.returnRatio)} with fixed {money(view.baselineFeeComparison.fixedFees.entryFeeUsd)} entry/exit fees versus {percent(view.baselineFeeComparison.proportionalFees.returnRatio)} with proportional reference fees. Proportional-fee risk gate: {view.baselineFeeComparison.proportionalFees.riskGate}. This difference is a fee assumption, not a predicted edge.</p> : null}
+    <FeeSensitivity comparison={view.feeComparison} compact />
 
     <h4 className="financial-subhead">Cash risk by day {controls.horizonDays}</h4>
     <dl className="mini-stats financial-risks">
@@ -68,7 +73,7 @@ export function FinancialDecisionResult({ view, area }) {
       <ul className="fold-list">
         <li>One hypothetical assignable option evaluated against Site {area}&apos;s area-level evidence. These terms do not belong to the selected plot and are not an available offer.</li>
         <li>Model gold starts at {money(controls.price)}/oz, separate from the live quote above. Assumed annual growth: {percent(controls.annualGrowthRate)}. Scenario gold movement versus baseline: {percent(mapped?.goldForecast?.adjustment, 3)}.</li>
-        <li>{number(controls.quantity, 0)} assumed recoverable ounces; {percent(controls.ownershipFraction, 0)} ownership; {percent(controls.kappa, 0)} economic conversion; {percent(controls.pGeo, 0)} geological success probability; {money(controls.remainingBuyerConsiderationUsd)} buyer consideration. Stream-sample ppm does not estimate these inputs.</li>
+        <li>{number(controls.quantity, 1)} assumed recoverable ounces; {percent(controls.ownershipFraction, 0)} ownership; {percent(controls.kappa, 0)} economic conversion; {percent(controls.pGeo, 0)} geological success probability; {money(controls.remainingBuyerConsiderationUsd)} buyer consideration. Stream-sample ppm does not estimate these inputs.</li>
         <li>Entry fee {money(controls.entryFeeUsd)}, exit fee {money(controls.exitFeeUsd)}, unavoidable obligations {money(controls.unavoidableAdditionalObligationsUsd)}. Assignment and release of obligations are assumed; no mining or exercise is modeled.</li>
         <li>{recorded ? 'Recorded simulated support is compared with the matching sports-placebo run over days 3–5. This is an illustrative contrast, not a measured causal effect.' : controls.scenarioId === 'baseline' ? 'Baseline uses zero support adjustment.' : `Synthetic signal: ${controls.syntheticSignal > 0 ? '+' : ''}${number(controls.syntheticSignal)}. This is an invented sensitivity example, not a measured swarm result.`} Gold response cap {percent(controls.goldResponseCap, 0)}, exposure {percent(controls.eventExposure, 0)}, retention {percent(controls.retention, 0)}. The support-to-gold transfer is uncalibrated.</li>
         <li>The existing swarm research checks remain failed or incomplete. <a href="/swarm">Inspect the workflow and validation</a>. No predictive edge has been validated.</li>

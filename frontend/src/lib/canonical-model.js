@@ -1,4 +1,4 @@
-import { inspectIntegratedSources, runWorkbench } from '../../../model/tok-option/workbench.mjs';
+import { inspectIntegratedSources, runWorkbench, compareFeePolicies } from '../../../model/tok-option/workbench.mjs';
 
 /** Inspect source readiness without supplying hypothetical contract economics. */
 export function inspectRealInputs(features) {
@@ -47,4 +47,10 @@ export function goldTrend() {
 /** Explicit hypothetical 90-day whole-contract baseline, separate from the live spot quote. */
 export function wholeLotBaseline(features, area) {
   return runWorkbench({ features, controls: { mode: 'demo', area, scenarioId: 'baseline', horizonDays: 90 } }).baseline;
+}
+
+/** Fee-policy sensitivity for the same explicit synthetic no-event baseline. */
+export function wholeLotFeeComparison(features, area) {
+  const result = runWorkbench({ features, controls: { mode: 'demo', area, scenarioId: 'baseline', horizonDays: 90 } });
+  return compareFeePolicies({ controls: result.controls, evidenceGate: result.evidence.gate, horizonDays: 90, signal: 0 });
 }

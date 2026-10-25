@@ -1,3 +1,17 @@
+# Publish the consistent-lot code before the slides, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. Scope: canonical model, financial UI, serializers, frozen workflow and reproducible results. Amit explicitly authorized push and merge, then required code publication before slides. Earlier review holds below are superseded by that authorization.
+
+- [x] Integrate the latest Land/Decide changes and preserve geological screening separately from financial decisions.
+- [x] Isolate code and result documentation from new slide artifacts and active deck pointers.
+- [x] Verify model, frontend/backend, publisher, build and independent integration review.
+- [ ] Push and protected squash merge the code PR after all required checks pass.
+- [ ] Only after the code merge, publish the approved slides in a separate PR and verify their hashes.
+
+Code review:152 model/event tests,71 frontend tests,21 backend tests,16 publisher tests and30 static specification checks passed. Frontend/backend typechecks and production build passed. Lint has zero errors and seven existing backend warnings. Independent review confirmed24 source hashes and no slide changes. Production UI verified12.35% baseline, fee sensitivity and no-sale cash;30days correctly changes the decision to Skip.
+
+The model source checkpoint is retained through the `orecast-model-inputs-v1` Git tag so clean clones can reproduce the 24 source hashes after squash integration. Current results are US$69,230.77 assignment, US$3,710.22 expected baseline cash and 12.3468% over90days with fixed fees. No-sale probability51.2% and lossUS$30,050 remain explicit. Proportional reference fees produce1.0857% and fail the per-option cap. The default synthetic financial card uses its actual1%response cap/50%retention and returns12.82%, separately from the7%recorded workflow.
+
 # Publish Decide diagnostics and the compact Land overview, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. User explicitly authorized push and squash merge. The frontend worker owns UI conflict resolution; an independent reviewer checks the combined model wiring. Preserve main's Swarm tab, whole-contract pricing, source research and pitch assets.
@@ -12,6 +26,83 @@ The earlier verification sections below are historical records of the two local 
 Verification on Node 24.14.0: 69 frontend tests, 146 canonical model/event tests, 21 backend tests, 16 publisher tests and 29 specification checks passed. Source audit, frontend/backend typechecks, production build and independent integration review passed. Lint has zero errors and six existing backend warnings. Production checks confirmed four tabs, whole-contract negative outcomes, 30/90-day and recorded comparisons, Site B detailed-model initialization, plot-to-Decide handoff and Swarm access. All 57 Land tiles and selected details fit at 1440x900 and 320x844 with no scroll or horizontal overflow; no browser console errors. The final Swarm wording correction passed 18 focused tests and scoped lint. The legacy browser-smoke script is updated but was not run end to end. Hosted publication results will be recorded on the PR.
 
 # Share Orecast branding and the revised pitch deck
+
+## Publish the reviewed consistent-lot revision, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. Amit has reviewed the local results
+and explicitly authorized push and merge. This supersedes the publication hold
+recorded in the earlier local-review phase. Preserve the reviewed model and
+PPTX/PDF bytes, integrate the team's branded README, and make the approved
+consistent-lot deck the active handoff. A separate reviewer checks the final scope.
+
+- [x] Reconfirm the reviewed local revision, source hashes, checks and current main changes.
+- [x] Integrate current main, update active documentation pointers and independently verify the publication scope.
+- [ ] Push a task branch, create and attach a PR, and require all current-head checks to pass.
+- [ ] Squash merge through protected main and verify merged code and approved artifact bytes.
+
+
+Publication review: independent checks confirmed the approved PPTX/PDF bytes,
+24 pinned model/input hashes, matching report/scenario figures, ten slide/note
+parts and 300-second main sequence. Application and model files match the
+reviewed revision exactly. The upstream branded README, cover and explorer image
+are preserved; active handoff links now select the approved consistent-lot deck.
+Frozen local-review labels remain as creation-time provenance and are explained
+by the active guide. No introduced secrets or machine paths were found. Hosted
+checks and protected merge results are recorded on the publication PR.
+
+
+## Local review of a consistent Orecast whole-contract example, 25 October 2026
+
+Human owner: Amit. Codex owns integration and final judgment. Model worker owns
+fixed exposure definition, canonical fee comparison, serializers and tests. UI
+worker owns all active consumers. Deck worker owns the existing approved visual
+system, revised review outputs and portable handoff. Publication is explicitly
+prohibited until Amit reviews the results and gives a new instruction.
+
+- [x] Freeze and disclose one coherent synthetic whole-contract interest, scaling original hypothetical quantity AND remaining buyer consideration together. Keep historical initial-payment sources separate from valuation.
+- [x] Apply the fixed profile consistently to model/UI/snapshot/publication; premium edits must never change quantity or valuation automatically. Expose fixed and proportional fee cases using the canonical cash engine.
+- [x] Produce a local results comparison and revised editable slides/PDF in the approved Orecast/Palantir style, including assumptions, all cost branches, no-sale risk and the negative historical pilot.
+- [x] Independently verify arithmetic, backwards compatibility, tests, browser views and all slide renders. Show local outputs to Amit with no push, merge or deployment.
+
+Working illustrative definition: scale the original invented 500oz / US$4,000
+buyer-consideration fixture by 30,000/650 once. Freeze 23,076.9230769oz conditional
+exposure and US$184,615.384615 buyer consideration for one hypothetical legal
+interest. Ownership50%, conversion2%, pGeo25%, goldUS$2,000/oz and sale hazard20%
+per30days remain unchanged. No mineral resource, real assignment offer or market
+value is inferred from the two historical US$30k payments. The original ratio is
+a disclosed synthetic design choice, not calibration evidence.
+
+Expected baseline90 outputs for review: US$69,230.769231 assignment, US$3,710.215385
+expected cash,12.3468066% return with the existing fixed US$50 entry/exit fees.
+Scaling both fees proportionally instead gives1.0857143%, demonstrating that fee
+assumptions account for the apparent improvement. That case has US$32,307.692308
+upfront and fails the approved US$30,050 per-position cap. The 25% return hurdle
+remains US$77,022.336066 under fixed fees and never supplies the forecast.
+
+
+Review result: fixed-interest baseline assignment is US$69,230.77. With the
+assumed US$50 fixed entry/exit fees, 90-day expected cash is US$3,710.22 and
+return12.3468%. Approval/blockage are12.0165%/12.7499%. Proportional reference
+fees retain1.0857% and fail the current per-option cap. The synthetic nature and
+fee effect are prominent; no market-derived resource or resale valuation is
+claimed. No-sale probability51.2% and cash−US$30,050 are visible beside mean
+return. Premium40000 leaves assignment/Q/K unchanged and correctly SKIPS.
+
+Verification passed:141model,60frontend,21backend,16publisher and30static-spec
+checks, frontend/backend typechecks and production build. Independent model/UI/
+report/deck reviews passed after repairing diagnostic-placebo policy in fee
+comparisons. Desktop browser verified baseline/scenarios, fee risk failure,
+price-edit invariance, reset and SiteB evidence rejection. Mobile390px and320px
+show no horizontal page overflow. All10slide renders were inspected, including
+refreshed pages4/5; seven main slides total300seconds. First-party artifact
+validation has zero findings/warnings with native chart/workbook and tables.
+
+The model input checkpoint is local `69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2`.
+The report verifies24input hashes against both that commit and current files.
+Review files use distinct names and the previously published PPTX/PDF bytes
+remain unchanged. No push, new PR, merge or deployment occurred. Await Amit's
+review and a fresh publication instruction.
+
 
 ## Align the whole platform to the Orecast contract lot, 25 October 2026
 

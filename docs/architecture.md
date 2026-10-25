@@ -114,8 +114,12 @@ and the retrospective historical test; selecting it does not alter either source
 reference. Workbench defaults, publication context and UI consumers share this
 basis. Entry/exit fees and additional obligations remain separately assumed.
 Capital policy preserves 2% per position, 10% open/cohort risk and five whole
-positions using a US$1,502,500 demo fund. Geological quantity, assignment valuation
-and gold responses do not scale merely because entry price changed.
+positions using a US$1,502,500 demo fund. A separate versioned synthetic exposure
+profile freezes quantity and remaining buyer consideration by scaling the original
+invented unit economics together once. The historical initial payment supplies no
+resource or assignment valuation. Later premium edits never change exposure.
+`compareFeePolicies` reuses the canonical evaluator on the same interest with
+fixed and proportional reference fees, including the resulting risk failure.
 
 The canonical diagnostics solve a required resale amount separately from the
 valuation output. The 25% target does not feed back into gold, quantity or

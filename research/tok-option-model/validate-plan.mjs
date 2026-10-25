@@ -171,4 +171,20 @@ check('configuration-only guardrails and fixed scope', () => {
   assert.equal(d.capital.optimizer.maximumCandidateCount, 20);
   assert.ok(d.swarm.diagnosticOnlyScenarios.every((id) => !d.swarm.entryNewsScenarios.includes(id)));
 });
+check('synthetic whole-contract exposure is frozen independently of editable entry premium', () => {
+  const profile = d.syntheticLotProfile;
+  assert.equal(profile.id, 'synthetic-same-interest-whole-contract-v1');
+  assert.equal(profile.provenance, 'assumed');
+  close(profile.scaleFactor, 30000 / 650);
+  close(profile.quantity, b.quantity.value * profile.scaleFactor);
+  close(profile.remainingBuyerConsiderationUsd, b.remainingBuyerConsiderationUsd * profile.scaleFactor);
+  const assignment = profile.pGeo * Math.max(profile.quantity * profile.price * profile.ownershipFraction * profile.kappa - profile.remainingBuyerConsiderationUsd, 0);
+  close(assignment, 69230.76923076925);
+  const fixedCash = probability * (assignment - d.lotBasis.exitFeeUsd) - (d.lotBasis.initialPremiumUsd + d.lotBasis.entryFeeUsd);
+  close(fixedCash, 3710.215384615396);
+  const scaledRisk = 30000 + profile.referenceUnit.entryFeeUsd * profile.scaleFactor;
+  const scaledCash = probability * (assignment - profile.referenceUnit.exitFeeUsd * profile.scaleFactor) - scaledRisk;
+  close(scaledCash / scaledRisk, 7.6 / 700);
+  assert.ok(scaledRisk > d.capital.maxRiskPerOptionUsd);
+});
 console.log(`PASS: ${checks} specification consistency checks. No model engine, optimizer, adapter or real forecast was exercised.`);
