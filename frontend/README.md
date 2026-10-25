@@ -6,6 +6,27 @@ claim context, historical measurements, market sources and the canonical option
 workbench. The opening time slider shows source-derived claim history and annual
 gold context. It does not assign daily dates to the 2016 samples.
 
+## Swarm workflow
+
+Open `/swarm` for a visual replay of the recorded workflow. Connected layers
+show context, stakeholder groups, scores, matched comparisons, gold forecasts
+and option valuation before one model output. The existing kit is preserved. Click or keyboard-select a node
+for optional detail; compact controls choose the run, speed and simulated day.
+On narrow screens, pan inside the labelled graph to follow every layer.
+
+The six scored runs remain recorded simulation output. Three planned runs stay
+unavailable. Strict research readiness retains failed or unknown checks, while
+the labelled hypothetical calculation snapshot remains available. The graph is
+a workflow schematic, not a display of neural-network training or weights. No
+new agents run during playback.
+
+To preview the workflow locally, use `npm run dev -- --port 5183` or a verified
+production build with `npm start -- --port 5183`, then open
+[the workflow](http://127.0.0.1:5183/swarm). The optional browser harness uses
+the origin of its open localhost tab and saves local review captures under
+ignored `.impeccable/review/`. See
+[workflow verification](WORKFLOW-VERIFICATION.md) for the checked scope.
+
 ## Run locally
 
 Use Node.js 24 and npm from this directory:
@@ -97,3 +118,37 @@ configured by this integration.
 ### Hypothetical gold forecast
 
 The Decision calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The cap defaults to 7%, affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.
+
+### Current algorithm calculation snapshot
+
+The `/swarm` graph now reads a source-pinned snapshot of `tok-option-demo-v2`
+from the newer local integration revision `8399adb6`. It is a display of default
+hypothetical calculations, not live synchronization with the explorer's model
+controls. Select A/B and a 30/90/180-day horizon to inspect its recorded output.
+Approval/blockage compare against the matching Claude placebo. The assumed
+response changes Au price once before material and option valuation. Land
+context and assays feed evidence eligibility, not an inferred land price.
+
+Regenerate from a trusted canonical checkout, using Node 24:
+
+```sh
+node scripts/update-algorithm-workflow.mjs /path/to/canonical/checkout
+```
+
+The script verifies executed source/input bytes against that checkout's commit,
+records hashes, calls its actual workbench and checks the inputs again. It does
+not copy financial formulas or modify the source checkout. Unsupported scenarios
+remain unavailable. The snapshot does not validate the assumed price response,
+change the failed research checks, or populate real option terms/resources.
+
+The graph now ends at one Model output panel. It shows expected option return
+(expected net cash divided by upfront amount at risk), the denominator, forecast
+values and the illustrative model action. On mobile the output appears before
+the pannable network. The page opens paused at the completed replay window;
+Play still animates the recorded workflow.
+
+One expandable Validation summary retains simulation checks, historical equity
+pilot errors and unavailable swarm lift. These findings remain separate from
+the financial calculation. The study's trading-session horizon does not change
+the option holding period. Inspection retains full-precision source outputs and
+intermediate valuation formulas.

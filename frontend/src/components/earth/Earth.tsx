@@ -235,6 +235,8 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
       plotFill.current = null;
       plotLines.current = [];
       plotGlow.current = null;
+      // The viewer's owner effect may already have destroyed the scene on route exit.
+      if (viewer.isDestroyed()) return;
       viewer.scene.primitives.remove(fill);
       lines.forEach((line) => viewer.scene.groundPrimitives.remove(line));
       viewer.scene.groundPrimitives.remove(glow);
@@ -357,7 +359,7 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
         show: false,
       });
     });
-    return () => { entities.forEach((entity) => viewer.entities.remove(entity)); };
+    return () => { if (!viewer.isDestroyed()) entities.forEach((entity) => viewer.entities.remove(entity)); };
   }, [api, occurrences]);
 
   useEffect(() => {
@@ -395,7 +397,7 @@ export function Earth({ mode, tab, plots, claims, year, selectedId, onSelect, on
     claimPrimitive.current = primitive;
     return () => {
       claimPrimitive.current = null;
-      viewer.scene.primitives.remove(primitive);
+      if (!viewer.isDestroyed()) viewer.scene.primitives.remove(primitive);
     };
   }, [api, claims]);
 

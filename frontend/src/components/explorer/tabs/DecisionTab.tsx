@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import ModelWorkbench from "@/ModelWorkbench.jsx";
 import type { Sample } from "@/lib/types";
 import type { Town } from "@/lib/showcase";
@@ -16,6 +18,10 @@ export function DecisionTab({ features, town }: { features: Sample[]; town: Town
       { label: "The animated town is a separate pilot illustration. Recorded scenario posts can be selected under an explicit hypothetical policy; their original research checks remain failed.", source: town.source },
     ]}>
       <EventStudy />
+      <Link href="/swarm" className="workflow-link">
+        <span><strong>Swarm workflow</strong><small>Follow the recorded data through scoring and model checks</small></span>
+        <ArrowUpRight size={18} aria-hidden="true" />
+      </Link>
       <ModelWorkbench features={features} />
       <details className="model-detail town-pilot">
         <summary>Watch the separate town pilot</summary>
