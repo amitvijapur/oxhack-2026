@@ -13,6 +13,7 @@ async page => {
   await opening.waitFor({ timeout: 20000 });
   const years = page.getByRole('slider', { name: 'Year' });
   check(await years.getAttribute('min') === '2016' && await years.getAttribute('max') === '2031', 'Opening must run 2016 to 2031');
+  check(await page.getByRole('button', { name: 'Swarm' }).count() === 1, 'The opening must offer the Swarm button');
   await page.waitForFunction(() => document.querySelector('.explorer')?.dataset.earth === 'ready', null, { timeout: 60000 });
   await page.waitForFunction(() => document.querySelector('input[aria-label="Year"]')?.value === '2031', null, { timeout: 60000 });
   const future = await opening.innerText();
@@ -117,6 +118,13 @@ async page => {
   await page.screenshot({ path: 'frontend/artifacts/3-crowd.png' });
 
   // Escape returns to the time-lapse.
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: /Explore the land/ }).waitFor();
+
+  // The opening's Swarm button opens the panel on the Crowd tab.
+  await page.getByRole('button', { name: 'Swarm' }).click();
+  await panel.waitFor();
+  check(await page.getByRole('tab', { name: 'Crowd' }).getAttribute('aria-selected') === 'true', 'The Swarm button must open the Crowd tab');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: /Explore the land/ }).waitFor();
 
