@@ -539,3 +539,43 @@
 .workflow-link small { display: block; margin-top: 3px; font-size: 12px; line-height: 1.4; color: var(--ink-2); }
 .workflow-link:hover { background: var(--line); }
 .workflow-link svg { flex: none; }
+
+/* The plot card's plain values: distance to Tok, claim and comparable deals. */
+.sheet-value { margin-top: 2px; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.sheet-value-sm { margin-top: 4px; font-size: 14px; font-weight: 500; }
+
+/* Decide: the call, its reason and the gold price sit above the fold; the reasons fold away beneath. */
+.decide-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.decide .answer-signal span { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.decide .answer-why { margin: 10px 0 14px; }
+.decide .mini-stats { grid-template-columns: 1fr; }
+.decide .mini-stats dd small { display: block; margin-top: 2px; font-family: var(--font-sans); font-weight: 400; }
+.fold { border-bottom: 1px solid var(--line); }
+.fold summary { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; font-size: 14px; font-weight: 600; cursor: pointer; list-style: none; }
+.fold summary::-webkit-details-marker { display: none; }
+.fold summary::after { content: "+"; font-weight: 400; color: var(--ink-3); }
+.fold[open] summary::after { content: "−"; }
+.fold > :last-child { margin-bottom: 16px; }
+.fold-list { display: grid; gap: 8px; padding-left: 16px; list-style: disc; font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+
+/* Crowd: one small chart per group on one shared scale. Baseline stays neutral as the reference;
+   the three scenarios take the first three categorical hues, checked for colour-blind separation on this surface. */
+.crowd-line[data-s="baseline"], .crowd-legend li[data-s="baseline"] { --s: rgb(250 250 250 / 0.85); }
+.crowd-line[data-s="placebo"], .crowd-legend li[data-s="placebo"] { --s: #3987e5; }
+.crowd-line[data-s="mine_approved"], .crowd-legend li[data-s="mine_approved"] { --s: #d95926; }
+.crowd-line[data-s="court_blocks_mine"], .crowd-legend li[data-s="court_blocks_mine"] { --s: #199e70; }
+.crowd-honest { margin: 0 0 14px; }
+.crowd-legend { display: grid; gap: 8px; margin-bottom: 16px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+.crowd-legend li { display: grid; grid-template-columns: 14px 1fr; gap: 8px; }
+.crowd-legend i { width: 14px; height: 3px; margin-top: 8px; border-radius: 2px; background: var(--s, var(--ink-3)); }
+.crowd-legend strong { font-weight: 600; color: var(--ink); }
+.crowd-grid-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px 16px; }
+.crowd-chart figcaption { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.crowd-chart svg { display: block; width: 100%; height: auto; margin-top: 4px; overflow: visible; }
+.crowd-grid { stroke: var(--line); }
+.crowd-mid { stroke: var(--line-2); }
+.crowd-news { stroke: var(--ink-3); stroke-dasharray: 2 3; }
+.crowd-tick { fill: var(--ink-3); font-size: 9px; font-family: var(--font-plex-mono), monospace; }
+.crowd-line { fill: none; stroke: var(--s, var(--ink-3)); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.crowd-hit { fill: transparent; }
+.crowd-hit:hover { fill: rgb(250 250 250 / 0.18); }

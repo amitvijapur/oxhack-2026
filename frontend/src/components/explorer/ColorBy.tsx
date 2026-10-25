@@ -28,14 +28,11 @@ const legends = ([first, last]: [number, number]): Record<Mode, { label: string;
 });
 
 /** How the land is coloured on the map, with its legend. Sits on the map, bottom-left. */
-export function ColorBy({ value, onChange, bedrock, onBedrock, range }: {
+export function ColorBy({ value, onChange, range }: {
   value: Mode;
   /** First and last staked year in the claims snapshot. */
   range: [number, number];
   onChange: (mode: Mode) => void;
-  /** The USGS bedrock map and known mines layer. */
-  bedrock: boolean;
-  onBedrock: (on: boolean) => void;
 }) {
   return (
     <div className="colorby">
@@ -49,11 +46,6 @@ export function ColorBy({ value, onChange, bedrock, onBedrock, range }: {
           <li key={l.label}><i style={{ background: l.swatch }} />{l.label}</li>
         ))}
       </ul>
-      <label className="switch-row compact">
-        <input type="checkbox" role="switch" checked={bedrock} onChange={(e) => onBedrock(e.target.checked)} />
-        <span className="switch" aria-hidden="true" />
-        Geology: bedrock map and known mines
-      </label>
     </div>
   );
 }
