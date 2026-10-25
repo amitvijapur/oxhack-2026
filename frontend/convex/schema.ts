@@ -31,4 +31,16 @@ export default defineSchema({
     .index("by_payloadFile", ["payloadFileId"]),
 
   landMatches: defineTable({ run: v.id("runs"), ...landMatch.fields }).index("by_run_sample", ["run", "sampleKey"]),
+
+  // Live presence on the map (convex/presence.ts). `people` is read by `here`
+  // and changes only on join, leave or a new focus; heartbeats go to `beats`,
+  // which no query reads. `presenceJoins` only rate-limits joins.
+  people: defineTable({
+    sid: v.string(),
+    pid: v.string(),
+    focus: v.union(v.string(), v.null()),
+    focusedAt: v.number(),
+  }).index("by_sid", ["sid"]),
+  beats: defineTable({ sid: v.string(), seen: v.number() }).index("by_sid", ["sid"]).index("by_seen", ["seen"]),
+  presenceJoins: defineTable({ at: v.number() }).index("by_at", ["at"]),
 });

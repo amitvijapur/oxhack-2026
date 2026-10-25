@@ -17,6 +17,7 @@ import type * as model_auth from "../model/auth.js";
 import type * as model_defaults from "../model/defaults.js";
 import type * as model_envelope from "../model/envelope.js";
 import type * as model_validators from "../model/validators.js";
+import type * as presence from "../presence.js";
 import type * as seed from "../seed.js";
 import type * as workstreams from "../workstreams.js";
 
@@ -36,6 +37,7 @@ declare const fullApi: ApiFromModules<{
   "model/defaults": typeof model_defaults;
   "model/envelope": typeof model_envelope;
   "model/validators": typeof model_validators;
+  presence: typeof presence;
   seed: typeof seed;
   workstreams: typeof workstreams;
 }>;

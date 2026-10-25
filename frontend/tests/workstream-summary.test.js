@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { runMeta, summaryLine } from '../src/workstreamSummary.js';
+import { runMeta, summaryLine } from '../src/lib/workstreamSummary.js';
 
 const site = (samples, insideActiveClaim) => ({ samples, insideActiveClaim, insideClosedClaim: null, medianMToActiveClaim: null });
 
@@ -36,7 +36,7 @@ const tok = {
 };
 
 test('decision view leads with the action, review status and what to check', async () => {
-  const { decisionView } = await import('../src/workstreamSummary.js');
+  const { decisionView } = await import('../src/lib/workstreamSummary.js');
   const view = decisionView({ kind: 'decision', sections: [tok] });
   assert.equal(view.action, 'BUY');
   assert.equal(view.statusLabel, 'Needs review');
@@ -50,7 +50,7 @@ test('decision view leads with the action, review status and what to check', asy
 });
 
 test('decision view names missing values and extra sections', async () => {
-  const { decisionView, planLine } = await import('../src/workstreamSummary.js');
+  const { decisionView, planLine } = await import('../src/lib/workstreamSummary.js');
   const nv = { ...tok, label: '21 0310N 0330E 001', status: null, valueUsd: null, pLoss: null, checks: [], plan: [] };
   const view = decisionView({ kind: 'decision', sections: [nv, nv] });
   assert.equal(view.statusLabel, null);

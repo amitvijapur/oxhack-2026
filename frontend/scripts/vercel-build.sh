@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Vercel build entry point. With a Convex deploy key, push the Convex functions
-# and build the site against that deployment (convex deploy sets VITE_CONVEX_URL).
+# and build the site against that deployment (convex deploy sets NEXT_PUBLIC_CONVEX_URL).
 # Without one, build the static site so previews work before Convex is linked.
 set -euo pipefail
 

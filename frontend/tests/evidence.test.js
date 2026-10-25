@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { assetPath, boundsFor, formatAssay, formatNumber, getVisibleFeatures, loadEvidence, validateEvidence } from '../src/evidence.js';
+import { assetPath, boundsFor, formatAssay, formatNumber, getVisibleFeatures, loadEvidence, validateEvidence } from '../src/lib/evidence.js';
 
 const readFixture = async (path) => JSON.parse(await readFile(new URL(`../public/${path}`, import.meta.url), 'utf8'));
 const config = await readFixture('data/gold-frontend-data.json');
