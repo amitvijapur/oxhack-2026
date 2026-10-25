@@ -21,6 +21,10 @@ Exact original heads are recorded in `integration-source-heads.json`. The source
 PRs and their branches retain historical work; superseded prototypes were not
 silently substituted for the chosen model.
 
+The six implementation squashes and exact resulting revisions are recorded in
+`integration-merges.json`. Superseded PRs 23–26, 28 and 30–34 are closed with links
+to the replacements. The automated dependency update remains separate.
+
 ## What is verified
 
 The consolidated application passes 23 frontend tests, 94 canonical model tests,

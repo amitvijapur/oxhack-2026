@@ -1,0 +1,71 @@
+{
+  "canonicalModel": "model/tok-option/workbench.mjs",
+  "implementationStages": [
+    {
+      "headRefOid": "e9d60c86c4416b4f24c6066d8586323e80bd7184",
+      "mergeCommit": {
+        "oid": "1bb1364fdc3bd4ce8a10d1b02218c2a93087bc4a"
+      },
+      "mergedAt": "2026-10-25T04:12:17Z",
+      "number": 27,
+      "state": "MERGED",
+      "title": "Add Tok River evidence frontend for team iteration",
+      "url": "https://github.com/amitvijapur/oxhack-2026/pull/27"
+    },
+    {
+      "headRefOid": "552087fdaddc6ccf3978d37e41b389747af88a81",
+      "mergeCommit": {
+        "oid": "9dbb98bce7f072ef40af4d45595f00424cd1771c"
+      },
+      "mergedAt": "2026-10-25T04:20:11Z",
+      "number": 36,
+      "state": "MERGED",
+      "title": "Keep full-history secret scanning while recognizing judge-cache hashes",
+      "url": "https://github.com/amitvijapur/oxhack-2026/pull/36"
+    },
+    {
+      "headRefOid": "b91efeaab94afb72052e6bb5a372fb3ec158a6ca",
+      "mergeCommit": {
+        "oid": "95796a8bb84dfb16b02c203d6a4bda97161d33ba"
+      },
+      "mergedAt": "2026-10-25T04:24:12Z",
+      "number": 29,
+      "state": "MERGED",
+      "title": "Make the Tok assignment model the canonical decision engine",
+      "url": "https://github.com/amitvijapur/oxhack-2026/pull/29"
+    },
+    {
+      "headRefOid": "95de921196b750517e8e54f499c79560c172836d",
+      "mergeCommit": {
+        "oid": "0c54878c58315bcd6c1eae0d1152b20c315f7d75"
+      },
+      "mergedAt": "2026-10-25T04:29:50Z",
+      "number": 37,
+      "state": "MERGED",
+      "title": "Refresh swarm evidence while enforcing failed-readiness gates",
+      "url": "https://github.com/amitvijapur/oxhack-2026/pull/37"
+    },
+    {
+      "headRefOid": "70191eb478dedcbe256bff63456bf5dc5f390b50",
+      "mergeCommit": {
+        "oid": "404cd69a64713d786ccb985aac778e012aac738f"
+      },
+      "mergedAt": "2026-10-25T04:35:35Z",
+      "number": 38,
+      "state": "MERGED",
+      "title": "Integrate canonical option publishing and optional backend",
+      "url": "https://github.com/amitvijapur/oxhack-2026/pull/38"
+    },
+    {
+      "headRefOid": "a00339aebce2b49a6eb83834f29b701414dcf0c6",
+      "mergeCommit": {
+        "oid": "eaf0b841308507c02ae73e0fd7c34dd5ce766fc0"
+      },
+      "mergedAt": "2026-10-25T05:07:10Z",
+      "number": 39,
+      "state": "MERGED",
+      "title": "Integrate the land explorer with our canonical option model",
+      "url": "https://github.com/amitvijapur/oxhack-2026/pull/39"
+    }
+  ]
+}
