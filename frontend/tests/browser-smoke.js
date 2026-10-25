@@ -4,8 +4,10 @@ async page => {
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('http://127.0.0.1:5173/');
-  await page.getByRole('heading', { name: 'Comparison areas' }).waitFor();
+  await page.getByRole('heading', { name: 'Compare the two areas' }).waitFor();
   await page.waitForFunction(() => document.querySelector('.evidence-map-frame')?.dataset.mapStatus === 'ready');
+  check((await page.locator('h1').innerText()).includes('gold worth claiming near Tok'), 'Hero question missing');
+  await page.getByRole('button', { name: 'Browse all 67 samples' }).click();
   await page.evaluate(() => document.fonts.ready);
   check(await page.locator('[data-sample-id]').count() === 67, 'All view must contain 67 map markers');
   check(await page.locator('tbody tr').count() === 67, 'Sample table must contain 67 records');
@@ -13,14 +15,17 @@ async page => {
   await page.screenshot({ path: 'frontend/artifacts/desktop.png', fullPage: true });
 
   const filters = page.getByRole('group', { name: 'Filter and frame sampling area' });
-  await filters.getByRole('button', { name: /^B/ }).click();
+  await filters.getByRole('button', { name: /^Tok east/ }).click();
   await page.waitForFunction(() => document.querySelectorAll('[data-sample-id]').length === 34);
-  await page.evaluate(() => window.scrollTo(0, 0));
+  // The map sits below the hero; bring it into view before clicking a marker.
+  await page.locator('.map-shell').evaluate((el) => el.scrollIntoView({ block: 'center' }));
+  await page.waitForTimeout(300);
   const point = await page.locator('[data-sample-id="16MBW012"]').boundingBox();
   await page.mouse.click(point.x + point.width / 2, point.y + point.height / 2);
   await page.getByRole('button', { name: 'Inspect nearby sample 16MBW012', exact: true }).click();
   const drawer = page.locator('.sample-drawer');
   await drawer.getByRole('heading', { name: '16MBW012' }).waitFor();
+  await drawer.getByText('Lab details', { exact: true }).click();
   check(await drawer.getByText('>1 ppm', { exact: true }).count() === 1, 'Qualified primary gold not displayed');
   check(await drawer.getByText('1.1 ppm', { exact: true }).count() === 1, 'Separate retest not displayed');
   check((await drawer.innerText()).includes('PGM-MS23') && (await drawer.innerText()).includes('Au-AA25'), 'Methods must remain separate');
@@ -42,17 +47,18 @@ async page => {
   await page.keyboard.press('Enter');
   await drawer.getByRole('heading', { name: '16MBW012' }).waitFor();
   await page.keyboard.press('Escape');
-  await page.getByRole('heading', { name: 'Comparison areas' }).waitFor();
+  await page.getByRole('heading', { name: 'Compare the two areas' }).waitFor();
   await search.fill('no-such-sample');
   check(await page.locator('tbody tr').count() === 0, 'Empty search should show no records');
   check((await page.locator('.no-records').innerText()).includes('No samples match'), 'Missing empty-search feedback');
   await search.fill('');
 
   const timeline = await page.locator('.timeline-section').innerText();
-  check(timeline.includes('Collected June–July 2016; published November 2016'), 'Timeline must preserve month precision');
+  check(timeline.includes('Jun–Jul 2016') && timeline.includes('Nov 2016'), 'Timeline must preserve month precision');
   const streams = await page.locator('.workstreams').innerText();
-  check(['Arjin', 'Muhd', 'Salman', 'Planning', 'Pending'].every(value => streams.includes(value)), 'Pending owners/statuses missing');
-  check(await page.locator('.workstream').count() === 3, 'Must show three pending workstreams');
+  check(['Amit', 'Arjin', 'Muhd', 'Salman'].every(value => streams.includes(value)), 'Workstream owners missing');
+  check(/Live|Coming soon/.test(streams), 'Workstream statuses missing');
+  check(await page.locator('.workstream').count() === 4, 'Must show the four pieces');
   check((await page.locator('.evidence-footer').innerText()).includes('RDF 2016-10'), 'DGGS attribution missing');
 
   for (const width of [390, 320]) {
@@ -79,7 +85,7 @@ async page => {
   check(await page.getByRole('button', { name: 'Retry loading evidence' }).isVisible(), 'Failed load needs retry');
   await page.unroute('**/data/gold-frontend-data.json');
   await page.getByRole('button', { name: 'Retry loading evidence' }).click();
-  await page.getByRole('heading', { name: 'Comparison areas' }).waitFor();
+  await page.getByRole('heading', { name: 'Compare the two areas' }).waitFor();
   await page.waitForFunction(() => document.querySelectorAll('[data-sample-id]').length === 67);
 
   const fallbackPage = await page.context().newPage();
