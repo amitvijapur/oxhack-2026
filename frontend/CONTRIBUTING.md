@@ -21,7 +21,9 @@ and fonts are local. The optional browser smoke script assumes port 5173.
 
 | Area | Files |
 | --- | --- |
-| Layout, site cards, sample drawer, timeline and pending panels | `src/App.jsx` |
+| Page state, evidence loading and section order | `src/App.jsx` |
+| Sections: header, hero and answer card, map panels, timeline, how it works, data table, footer | `src/components/` |
+| All user-facing wording, the `PROJECT` placeholder name and gate labels | `src/copy.js` |
 | Website tokens and responsive styling | `src/styles.css` |
 | Map lifecycle, markers, nearby-sample chooser and fallback | `src/MapView.jsx`, `src/map.css` |
 | Green map treatment, terrain sources and camera defaults | `src/terrain-style.js` |
@@ -37,7 +39,7 @@ and fonts are local. The optional browser smoke script assumes port 5173.
 
 Start with a short task branch from this frontend branch while its PR is open,
 or from updated `main` after it merges. Agree one owner for each file area;
-coordinate changes to `App.jsx`, shared data contracts and package files. Keep
+coordinate changes to `App.jsx`, `copy.js`, shared data contracts and package files. Keep
 source data changes distinct from layout work so they can be reviewed clearly.
 
 ## Pending integrations

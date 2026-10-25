@@ -90,7 +90,9 @@ python3 scripts/decision_engine.py research/decision-engine/tok-demo.json \
 python3 scripts/publish_run.py swarm swarm/records/results/results.json
 ```
 
-Add `--dry-run` to see exactly what would be sent. Each run records its git commit
+Add `--dry-run` to see exactly what would be sent. For a decision, the summary also
+carries the engine's gates as "check these first" items and its month-by-month policy
+collapsed into plan steps. The website's answer card shows both. Each run records its git commit
 (with `*` for uncommitted changes), the SHA-256 of every input and of the full output, and
 a mode: `measured`, `evidence_only`, `scenario` or `empirical`. The website shows that
 mode next to every live result.

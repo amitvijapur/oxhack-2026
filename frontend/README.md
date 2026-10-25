@@ -97,11 +97,19 @@ Evidence-contract tests verify the actual 67-record fixture, A33/B34 membership,
 coordinate order and bounds, stable identities, assay qualification, separate
 retests, missing values, summary denominators and failed asset loads.
 
-For a manual browser check, filter A/B/all, open sample `16MBW012`, confirm its
-primary gold is `>1 ppm` with raw `-2` and method `PGM-MS23`, and confirm its
-separate retest is `1.1 ppm` with method `Au-AA25`. Search the same sample in the
-records table and use Enter/Escape to open/close details. Check phone-width
-layout, timeline text and all pending owners. No daily playback is defined.
+For a manual browser check:
+
+1. Confirm the first screen shows the question, the answer card (or "Coming soon"
+   without a backend) and the four steps.
+2. Filter All, Tok west (A) and Tok east (B). Open sample `16MBW012` and confirm gold
+   is `>1 ppm` and the separate retest is `1.1 ppm`.
+3. Open "Lab details" and confirm the methods `PGM-MS23` and `Au-AA25` and the primary
+   raw value `-2`.
+4. Open "Browse all 67 samples", search the same sample, and use Enter/Escape to open
+   and close it.
+5. Check the phone-width layout, the month-precision timeline and all four owners.
+
+No daily playback is defined.
 
 Closely spaced map markers open a nearby-sample chooser, preserving the original
 coordinates while allowing an individual record to be selected. Resizing the map
