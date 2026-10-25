@@ -1,3 +1,14 @@
+## Publish and squash merge the verified forecast
+
+Owner: Amit. Codex publishes the already reviewed branch. Amit explicitly authorized push and squash merge after all checks pass.
+
+- [x] Refresh main and verify the prepared branch and prior local validation.
+- [ ] Push the forecast branch and open its pull request with the prepared scope and verification evidence.
+- [ ] Require all current-head hosted checks to pass and resolve any findings before protected squash merge.
+- [ ] Verify the merged main commit and record the publication result.
+
+This publication includes the hypothetical swarm-to-gold forecast, percentage-return synthetic preset and attributed retrospective pilot. No hosted application deployment or actual trade is included. The pull request and build log will record the final check and merge result.
+
 ## Prepare forecast changes for push and squash merge
 
 Owner: Amit. Codex prepares the integration branch and an independent reviewer checks its final scope. User requested local staging for publication.
