@@ -1,9 +1,11 @@
 # OXHack 2026
 
 A team hackathon project built around the mandatory **TIME** theme. The current
-prototype compares two Tok River, Alaska study areas using measured gold, with
-lithium secondary, to support an investigation decision under a budget and
-deadline. Future outcomes and decision probabilities remain explicit scenarios.
+prototype compares two Tok River, Alaska study areas using measured gold and
+includes an interactive mineral-interest option model. Pinned land context,
+historical gold prices and swarm pilot diagnostics are connected. Completed
+swarm scenarios and verified option economics remain missing; financial outputs
+use explicitly selected hypothetical assumptions.
 
 ## Repository and shared workflow
 
@@ -88,9 +90,27 @@ npm run build
 npm run preview -- --port 4173 --strictPort
 ```
 
-`Frontend checks` runs the evidence-contract tests and production build in CI.
+`Frontend checks` runs the evidence-contract and Tok model tests and production build in CI.
 The existing `Repository checks` and `Secret scan` job names remain unchanged.
 Hosted results are not established by a local build.
+
+## Tok option model and remaining gaps
+
+Open `/#option-model` to inspect source coverage, choose the hypothetical demo,
+and adjust weights, economics and holding periods. Cash-outcome probabilities,
+break-even thresholds and swarm diagnostics keep uncertainty visible.
+
+Read the [model guide](model/tok-option/README.md) and
+[integration findings and gaps](research/tok-option-model/integration-review.md).
+The main missing inputs are completed swarm runs, verified available Tok option
+terms, recoverable resources, assignment liquidity and predictive validation.
+
+From the repository root, reproduce the source audit and illustrative results:
+
+```sh
+node model/tok-option/audit.mjs
+node model/tok-option/demo.mjs
+```
 
 ## Open decisions
 

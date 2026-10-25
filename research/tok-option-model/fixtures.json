@@ -1,0 +1,86 @@
+{
+  "version": "tok-option-demo-v1",
+  "purpose": "Static, independently checkable specification examples. All monetary values, quantities, probabilities, contract terms and signals below are invented and are not Tok quotes or a forecast.",
+  "provenance": {
+    "defaultStatus": "hypothetical_fixture",
+    "userChoiceReferences": ["The 0.07 adjustment cap is a user choice, not fitted calibration."],
+    "proposedDefaultReferences": ["All other numerical model settings refer to editable proposals in defaults.json."],
+    "actualSwarmRunsIncluded": false,
+    "actualContractsIncluded": false
+  },
+  "base": {
+    "mode": "explicit_demo",
+    "underlyingId": "invented-interest-001",
+    "quantity": {"value": 500, "unit": "troy_oz", "source": "hypothetical", "derivedFromPpm": false},
+    "materialPrice": {"value": 2000, "unit": "USD/troy_oz", "source": "hypothetical"},
+    "annualGrowthRate": 0,
+    "ownershipFraction": 0.5,
+    "kappa": 0.02,
+    "pGeo": 0.25,
+    "remainingBuyerConsiderationUsd": 4000,
+    "remainingMaturityDays": 365,
+    "horizonDays": 90,
+    "expiryBufferDays": 15,
+    "entryPremiumUsd": 650,
+    "entryFeeUsd": 50,
+    "exitFeeUsd": 50,
+    "unavoidableAdditionalObligationsUsd": 0,
+    "assumedHazardPer30Days": 0.2,
+    "evidenceGate": "PASS",
+    "termsAssumedEligible": true,
+    "eventExposure": 1,
+    "retention": 1,
+    "expected": {
+      "rawMaterialValueUsd": 1000000,
+      "successValueUsd": 10000,
+      "underlyingExpectedProxyUsd": 2500,
+      "baselineAssignmentValueUsd": 1500,
+      "amountAtRiskUsd": 700,
+      "intervalSaleWeights": [0.2, 0.16, 0.128],
+      "saleProbability": 0.488,
+      "noSaleProbability": 0.512
+    }
+  },
+  "cashCases": [
+    {"id": "baseline", "signal": 0, "status": "hypothetical_baseline", "expected": {"assignmentValueUsd": 1500, "conditionalSaleProfitUsd": 750, "expectedNetCashUsd": 7.6, "weightedNoSaleResidualMarkUsd": 768, "entryAction": "BUY_CANDIDATE"}},
+    {"id": "positive_boundary", "signal": 1, "status": "synthetic_boundary_only", "expected": {"assignmentValueUsd": 1605, "conditionalSaleProfitUsd": 855, "expectedNetCashUsd": 58.84, "weightedNoSaleResidualMarkUsd": 821.76, "entryAction": "BUY_CANDIDATE"}},
+    {"id": "negative_boundary", "signal": -1, "status": "synthetic_boundary_only", "expected": {"assignmentValueUsd": 1395, "conditionalSaleProfitUsd": 645, "expectedNetCashUsd": -43.64, "weightedNoSaleResidualMarkUsd": 714.24, "entryAction": "SKIP"}},
+    {"id": "partial_signal", "signal": 0.203, "status": "hypothetical_partial_signal", "groupScoreDeltas": {"government": 1, "industry": 2, "community": -1, "funds": 3, "retail": 0}, "expected": {"assignmentValueUsd": 1521.315, "conditionalSaleProfitUsd": 771.315, "expectedNetCashUsd": 18.00172, "weightedNoSaleResidualMarkUsd": 778.91328, "entryAction": "BUY_CANDIDATE"}}
+  ],
+  "horizonCases": [
+    {"horizonDays": 30, "expectedSaleProbability": 0.2, "expectedNetCashUsd": -410, "expectedWeightedNoSaleResidualMarkUsd": 1200},
+    {"horizonDays": 90, "expectedSaleProbability": 0.488, "expectedNetCashUsd": 7.6, "expectedWeightedNoSaleResidualMarkUsd": 768},
+    {"horizonDays": 180, "expectedSaleProbability": 0.737856, "expectedNetCashUsd": 369.8912, "expectedWeightedNoSaleResidualMarkUsd": 393.216}
+  ],
+  "blockedCases": [
+    {"id": "insufficient_liquidity", "mode": "real", "hazardPer30Days": null, "expected": {"status": "INSUFFICIENT_DATA", "saleProbability": null, "mappedExpectedNetCashUsd": null, "entryAction": null}},
+    {"id": "missing_swarm", "swarm": null, "expected": {"status": "PENDING_SWARM", "baselineExpectedNetCashUsd": 7.6, "mappedAssignmentValueUsd": null, "mappedExpectedNetCashUsd": null, "entryAction": null}},
+    {"id": "over_risk", "entryPremiumUsd": 2000, "entryFeeUsd": 50, "expected": {"amountAtRiskUsd": 2050, "riskGate": "FAIL", "entryAction": "SKIP"}},
+    {"id": "expiry_window_failure", "remainingMaturityDays": 90, "horizonDays": 90, "expiryBufferDays": 15, "expected": {"requiredRemainingMaturityDays": 105, "expiryGate": "FAIL", "entryAction": "SKIP"}}
+  ],
+  "timeCases": [
+    {"id": "one_year_growth_before_contract_mapping", "day": 365, "annualGrowthRate": 0.1, "expectedMaterialPriceUsdPerTroyOz": 2200, "expectedSuccessValueUsd": 11000, "expectedBaselineAssignmentValueUsd": 1750},
+    {"id": "half_year_compounding", "day": 182.5, "annualGrowthRate": 0.1, "expectedMaterialPriceUsdPerTroyOz": 2097.617696340303, "expectedSuccessValueUsd": 10488.088481701516, "expectedBaselineAssignmentValueUsd": 1622.022120425379}
+  ],
+  "evidenceCases": [
+    {"id": "inclusive_fraction_boundary", "pass": 10, "fail": 10, "unknown": 0, "expectedLowerFraction": 0.5, "expectedUpperFraction": 0.5, "expectedGate": "PASS"},
+    {"id": "unknowns_straddle_gate", "pass": 9, "fail": 9, "unknown": 2, "expectedLowerFraction": 0.45, "expectedUpperFraction": 0.55, "expectedGate": "UNKNOWN"},
+    {"id": "fails_even_if_unknowns_pass", "pass": 4, "fail": 14, "unknown": 2, "expectedLowerFraction": 0.2, "expectedUpperFraction": 0.3, "expectedGate": "FAIL"},
+    {"id": "insufficient_classified", "pass": 5, "fail": 4, "unknown": 11, "expectedLowerFraction": 0.25, "expectedUpperFraction": 0.8, "expectedGate": "UNKNOWN"},
+    {"id": "passes_despite_unknowns", "pass": 10, "fail": 0, "unknown": 10, "expectedLowerFraction": 0.5, "expectedUpperFraction": 1, "expectedGate": "PASS"}
+  ],
+  "sampleBoundCases": [
+    {"id": "quantified_at_threshold", "lowerPpm": 0.01, "upperPpm": 0.01, "upperInclusive": true, "expectedClass": "PASS"},
+    {"id": "verified_lower_bound", "lowerPpm": 1, "upperPpm": null, "upperInclusive": false, "expectedClass": "PASS"},
+    {"id": "left_censored_at_threshold", "lowerPpm": 0, "upperPpm": 0.01, "upperInclusive": false, "expectedClass": "FAIL"},
+    {"id": "straddling_threshold", "lowerPpm": 0, "upperPpm": 0.02, "upperInclusive": false, "expectedClass": "UNKNOWN"},
+    {"id": "missing_is_not_zero", "lowerPpm": null, "upperPpm": null, "upperInclusive": false, "expectedClass": "UNKNOWN"}
+  ],
+  "aggregationCase": {
+    "description": "Unequal post counts must not change the equal-day average. All numbers are synthetic.",
+    "dailyScores": [[0, 10], [10], [0, 0, 0]],
+    "expectedDailyMeans": [5, 10, 0],
+    "expectedThreeDayMean": 5
+  },
+  "verificationBoundary": "validate-plan.mjs checks these declared specification examples and constants only. It does not run a model, adapter, optimizer, legal review, calibration, portfolio simulation or real investment decision."
+}

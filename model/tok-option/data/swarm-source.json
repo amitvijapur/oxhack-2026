@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "kind": "tok-swarm-source",
+  "sourceId": "ahmed-gold-society-d7717cd",
+  "provenance": "simulated",
+  "repository": "amitvijapur/oxhack-2026",
+  "branch": "ahmed/gold-society-plan",
+  "commit": "d7717cd459b9e567bd3162a86b84ff55c9b0bfc3",
+  "committedAt": "2026-10-24T23:47:56Z",
+  "retrievedAt": "2026-10-25T00:05:46+00:00",
+  "knowledgeCutoff": null,
+  "eventDefinition": "Gold futures jumped today from about $4,000 to about $4,500 an ounce. This hypothetical day-one news is common to all runs. Distinct day-three conditions are compared against the seed-1 baseline.",
+  "sourceFiles": [
+    {
+      "path": "swarm/HANDOFF.md",
+      "sha256": "88c4722e01d0b293eb78f2f457ff12fcce877b352893b5a853287b68e2d4d482",
+      "bytes": 3592,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/HANDOFF.md"
+    },
+    {
+      "path": "swarm/scenarios.json",
+      "sha256": "186dcc7579dbea3eb3d38d1aae022c00dbd341ee96e3f2fc352aea4b127e38ed",
+      "bytes": 1125,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/scenarios.json"
+    },
+    {
+      "path": "swarm/score.py",
+      "sha256": "e927e2a3c0c26a1dbce36decb86f0d59c719d86c2e4cb267498596487c5a4bc0",
+      "bytes": 40345,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/score.py"
+    },
+    {
+      "path": "swarm/records/ingest.json",
+      "sha256": "2e305bd94c89b7f282fd475579fd9afa4a52f89986da3eaa46bdac0d5b50c70b",
+      "bytes": 83792,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/ingest.json"
+    },
+    {
+      "path": "swarm/records/judge-check/validation.txt",
+      "sha256": "e85661cb2457276a5e9093d646ae477c9c90b9db07c290f24c9a32c484082850",
+      "bytes": 513,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/judge-check/validation.txt"
+    },
+    {
+      "path": "swarm/records/judge-check/sample_key.csv",
+      "sha256": "ada3bf9116a24acbea7d5dd812948737968e68eb28c246fb34534de757cc87a4",
+      "bytes": 2424,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/judge-check/sample_key.csv"
+    },
+    {
+      "path": "swarm/records/pilot/README.md",
+      "sha256": "72bf291cae68a36c5aedcb246abf356950881cb6a5b6e80895eb43813851730c",
+      "bytes": 2250,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/pilot/README.md"
+    },
+    {
+      "path": "swarm/records/pilot/run_meta.json",
+      "sha256": "e7e9f1a780d1ef39cbb03f93d4579b04f3d2fef19fbe76c80f807da729390063",
+      "bytes": 845,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/pilot/run_meta.json"
+    },
+    {
+      "path": "swarm/records/pilot/scores.jsonl",
+      "sha256": "7ed48486ec615720e43784cf673812f97d2159e55eb2f30d74e89a33a3bb07e5",
+      "bytes": 205690,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/pilot/scores.jsonl"
+    },
+    {
+      "path": "swarm/judge_prompt.txt",
+      "sha256": "2f1f58cb4509b472c1688580ef67873bb9f63515d685078933ce199045b9c10f",
+      "bytes": 1081,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/judge_prompt.txt"
+    },
+    {
+      "path": "research/gold-swarm-plan.md",
+      "sha256": "6c1b43934d204024f4408f468c8ad049499b0ea094f0b3fc976bbd0097016f07",
+      "bytes": 20184,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/research/gold-swarm-plan.md"
+    }
+  ],
+  "inventory": {
+    "completeGitTree": true,
+    "plannedConditions": 7,
+    "plannedRuns": 9,
+    "runInputConfigurations": 9,
+    "finalReportPresent": false,
+    "finalReportPath": "swarm/records/results/results.json",
+    "completedScoredScenarioRuns": 0
+  },
+  "pilot": {
+    "isScoredScenarioRun": false,
+    "scenario": "baseline",
+    "seed": 1,
+    "days": [
+      1
+    ],
+    "totalScoredRows": 296,
+    "onTopicPosts": 277,
+    "offTopicPosts": 19,
+    "startedAt": "2026-10-24T21:39:48.780628+00:00",
+    "finishedAt": "2026-10-24T22:14:42.974089+00:00",
+    "groups": [
+      {
+        "group": "government",
+        "onTopicPosts": 23,
+        "meanSupport": 5.043478260869565
+      },
+      {
+        "group": "industry",
+        "onTopicPosts": 67,
+        "meanSupport": 5.791044776119403
+      },
+      {
+        "group": "community",
+        "onTopicPosts": 35,
+        "meanSupport": 4.685714285714286
+      },
+      {
+        "group": "funds",
+        "onTopicPosts": 114,
+        "meanSupport": 5.298245614035087
+      },
+      {
+        "group": "retail",
+        "onTopicPosts": 38,
+        "meanSupport": 5.657894736842105
+      }
+    ],
+    "sourcePath": "swarm/records/pilot/scores.jsonl",
+    "detail": "One-day timing and format pilot only. It has no day-3 intervention or days 3\u20135 observations."
+  },
+  "judgeCheck": {
+    "status": "pass",
+    "withinTolerance": 27,
+    "sampleSize": 30,
+    "minimumRequired": 24,
+    "tolerancePoints": 2,
+    "sourcePath": "swarm/records/judge-check/validation.txt",
+    "scope": "Pilot human agreement with the support-scoring judge, not market prediction validation."
+  },
+  "report": null,
+  "limitations": [
+    "The complete pinned tree contains planned run inputs and the day-1 pilot, but no completed nine-run report.",
+    "The upstream handoff records desktop failures and a batch-size fix; it does not prove the reruns completed.",
+    "Simulation support is not an observed market probability or evidence of predictive trading skill.",
+    "No publication/knowledge cutoff for the scenario input evidence is supplied; retrieval and commit times are not substitutes."
+  ]
+}

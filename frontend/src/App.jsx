@@ -5,6 +5,7 @@ import {
   RotateCcw, Search, X,
 } from 'lucide-react';
 import MapView from './MapView.jsx';
+import ModelWorkbench from './ModelWorkbench.jsx';
 import {
   boundsFor, formatAssay, formatNumber, getVisibleFeatures, loadEvidence,
 } from './evidence.js';
@@ -29,6 +30,7 @@ function Header() {
     </a>
     <nav className="header-nav" aria-label="Page sections">
       <a href="#evidence" aria-current="page">Evidence</a>
+      <a href="#option-model">Option model</a>
       <a href="#sample-records">Sample records</a>
       <a href="#workstreams">Workstreams</a>
     </nav>
@@ -137,7 +139,7 @@ function Workstreams({ pending }) {
   const streams = [
     { key: 'land_contracts', title: 'Land & contracts', description: 'Land records and contract evidence.', icon: FileText },
     { key: 'simulation_prediction', title: 'MiroFish & prediction', description: 'Simulation results and predictive modelling.', icon: Layers },
-    { key: 'decision', title: 'Algorithm & output', description: 'Decision logic and its resulting actions.', icon: Database },
+    { key: 'decision', title: 'Decision validation', description: 'Prototype above; real inputs and predictive validation are pending.', icon: Database },
   ];
   return <section className="workstreams" id="workstreams" aria-labelledby="workstream-heading">
     <div className="section-title"><h2 id="workstream-heading">Connected workstreams</h2><span>Evidence first, team handoffs next</span></div>
@@ -218,6 +220,7 @@ export default function App() {
           <div className="evidence-rail">{selected ? <SampleDrawer feature={selected} source={evidence.config.source} onClose={closeSample} /> : <><div className="rail-heading"><h2>Comparison areas</h2><p>Medians below. Scroll for full details.</p></div>{evidence.config.areas.map((site) => <SiteCard key={site.area} area={site} active={area === site.area} onFrame={() => changeArea(site.area)} />)}<p className="rail-note">Medians include quantified results only. Censored results and retests stay separate.</p></>}</div>
         </section>
         <Timeline timeline={evidence.config.timeline} />
+        <ModelWorkbench features={evidence.features} />
         <Workstreams pending={evidence.config.pending} />
         <SampleRecords features={features} selectedId={selectedId} onSelect={selectSample} />
         <EvidenceFooter source={evidence.config.source} />

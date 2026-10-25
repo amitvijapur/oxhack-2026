@@ -44,7 +44,15 @@ jobs:
       - name: Verify evidence display contract
         run: npm test
 
-      - name: Build React website
+      - name: Verify canonical option model independently
+        run: node --test ../model/tok-option/tests/*.test.mjs
+
+      - name: Verify model specification and source audit
+        run: |
+          node ../research/tok-option-model/validate-plan.mjs
+          node ../model/tok-option/audit.mjs > "$RUNNER_TEMP/tok-model-audit.json"
+
+      - name: Build website
         run: npm run build
 
 

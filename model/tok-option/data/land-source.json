@@ -1,0 +1,2331 @@
+{
+  "version": 1,
+  "sourceId": "arjin-tok-land-34eaf1d",
+  "provenance": "source_derived_observations",
+  "branch": "arjin/tok-land-data",
+  "revision": "34eaf1d6e87fedd54c46b04dec093b0cc2b18581",
+  "retrievedAt": "2026-10-25T00:04:06.553140+00:00",
+  "sourceSnapshotAt": "2026-10-24",
+  "reportDates": {
+    "claimsAndDeals": "2026-10-24",
+    "holdingAndSurfaceCosts": "2026-10-25"
+  },
+  "historicalAvailabilityVerified": false,
+  "expectedSampleCounts": {
+    "A": 33,
+    "B": 34
+  },
+  "assaySource": {
+    "id": "alaska_dggs_rdf2016_10",
+    "sha256": "3833f09686ce03ba823881df5ff662768e24a05f12091ee1c097b1e2ec7c30d1",
+    "samplePeriod": "June/July 2016",
+    "url": "https://doi.org/10.14509/29688"
+  },
+  "sources": [
+    {
+      "path": "research/tok-land/README.md",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/README.md",
+      "sha256": "f95918365e28067b570196d238f46058c18e52cf860d6949620a09bc37f93597",
+      "bytes": 7242
+    },
+    {
+      "path": "research/tok-land/site-a/summary.md",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-a/summary.md",
+      "sha256": "910f2ed346754cff9ea755dce549e6556f37645864432f65ddf96f2268584cfb",
+      "bytes": 1306
+    },
+    {
+      "path": "research/tok-land/site-b/summary.md",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-b/summary.md",
+      "sha256": "bf5e94664aa91f610165d4c08d4b8f277fee2af3051c90a03a71b2c411dbf224",
+      "bytes": 1367
+    },
+    {
+      "path": "research/tok-land/site-a/land_matches.csv",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-a/land_matches.csv",
+      "sha256": "8a26a79ec598c76159fb07d47133e87b46cab02bcf17da66fee524d8fa8d36eb",
+      "bytes": 53486
+    },
+    {
+      "path": "research/tok-land/site-b/land_matches.csv",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-b/land_matches.csv",
+      "sha256": "b30e7b7aad0bf545f2931ce0f64c072c7ff7be9f312944a39152c77c84a5a80b",
+      "bytes": 43463
+    },
+    {
+      "path": "research/tok-land/tok_land_summary.json",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/tok_land_summary.json",
+      "sha256": "e6b10a778649b2353621f1537e9b78805768811fa5661b1480885cd7d6a57cc9",
+      "bytes": 2553
+    },
+    {
+      "path": "research/tok-land/tok_sample_claim_matches.csv",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/tok_sample_claim_matches.csv",
+      "sha256": "1c508ffcbe7ae4a2924a4e1dad222ade7ea58e09155c91af72ec7c547a8fef55",
+      "bytes": 7608
+    },
+    {
+      "path": "research/tok-land/gold_deal_comparables.csv",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/gold_deal_comparables.csv",
+      "sha256": "507c369e562c4001f6b8a225906c67004171bf1eeeaf3af4670e6c5340336945",
+      "bytes": 5358
+    },
+    {
+      "path": "research/tok-land/alaska_land_sales_by_year.csv",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/alaska_land_sales_by_year.csv",
+      "sha256": "662efea99d0feda7070497a2034ebb7bbad92dcff964fc7b524b532802c8bf69",
+      "bytes": 23075
+    },
+    {
+      "path": "research/tok-land/alaska_holding_costs_by_year.csv",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/alaska_holding_costs_by_year.csv",
+      "sha256": "7daee8090f8c2fd484418fa2c7f2b2460bbbf165b19d65c80fd48606cd224734",
+      "bytes": 15867
+    },
+    {
+      "path": "research/tok-land/alaska_claims_vs_gold.csv",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/alaska_claims_vs_gold.csv",
+      "sha256": "9bd5ac46cf82aff64721958d81ec2e62c0c94d5256d0102e3e5becb302c104ea",
+      "bytes": 2269
+    },
+    {
+      "path": "research/tok-land/claims-vs-gold.md",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/claims-vs-gold.md",
+      "sha256": "5c6047e7e3cc3cafdae205777002c7cd0abc57114b44336146e08434f3da53a2",
+      "bytes": 2857
+    },
+    {
+      "path": "research/tok-land/land-costs-by-year.md",
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/land-costs-by-year.md",
+      "sha256": "aa553a14d1693ca0f0290e71cd54fb8581b2f887e55cc3f191ee906fb8605059",
+      "bytes": 9109
+    }
+  ],
+  "samples": [
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW001:-200",
+      "sampleId": "16MBW001",
+      "area": "A",
+      "coordinates": [
+        -143.800913,
+        63.245059
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2302",
+          "boundaryDistanceMetres": 600.0,
+          "geometrySha256": "e108822ffa2fe2bd787ea08d58021eeb25c51b4e42bf972631fcc71357edece2",
+          "statusCode": "TA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 802461",
+          "boundaryDistanceMetres": 204.0,
+          "geometrySha256": "2cc8ff9ba96e7aef23a9d92c64d4c9b82d94a29c1d2d8185db307945931866c1",
+          "recordedHolder": "GREAT LAND MINERALS, LLC.",
+          "claimName": "TSB 19",
+          "ntpstdt": "2024-10-03",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 612897",
+          "boundaryDistanceMetres": 204.0,
+          "geometrySha256": "aac2f77eff6c6c824fccbd769a5817ab10726964fb8639eb24a6b5eb48336221",
+          "recordedHolder": "TUSHTENA RESOURCES INC",
+          "claimName": "AR#1309",
+          "ntpstdt": "2008-05-03",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 729280",
+          "boundaryDistanceMetres": 204.0,
+          "geometrySha256": "394e658c5fe18024bb015a72e171583f9ad1687c7a825aee326609417a01a9c1",
+          "recordedHolder": "HOBACK, JACK R",
+          "claimName": "MELCHIZEDEK 3",
+          "ntpstdt": "2019-02-17",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW002:-200",
+      "sampleId": "16MBW002",
+      "area": "A",
+      "coordinates": [
+        -143.800271,
+        63.245385
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2302",
+          "boundaryDistanceMetres": 552.0,
+          "geometrySha256": "e108822ffa2fe2bd787ea08d58021eeb25c51b4e42bf972631fcc71357edece2",
+          "statusCode": "TA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 802461",
+          "boundaryDistanceMetres": 168.0,
+          "geometrySha256": "2cc8ff9ba96e7aef23a9d92c64d4c9b82d94a29c1d2d8185db307945931866c1",
+          "recordedHolder": "GREAT LAND MINERALS, LLC.",
+          "claimName": "TSB 19",
+          "ntpstdt": "2024-10-03",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 612897",
+          "boundaryDistanceMetres": 168.0,
+          "geometrySha256": "aac2f77eff6c6c824fccbd769a5817ab10726964fb8639eb24a6b5eb48336221",
+          "recordedHolder": "TUSHTENA RESOURCES INC",
+          "claimName": "AR#1309",
+          "ntpstdt": "2008-05-03",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 729280",
+          "boundaryDistanceMetres": 168.0,
+          "geometrySha256": "394e658c5fe18024bb015a72e171583f9ad1687c7a825aee326609417a01a9c1",
+          "recordedHolder": "HOBACK, JACK R",
+          "claimName": "MELCHIZEDEK 3",
+          "ntpstdt": "2019-02-17",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW003:-200",
+      "sampleId": "16MBW003",
+      "area": "A",
+      "coordinates": [
+        -143.998607,
+        63.120277
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2986.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2190",
+          "boundaryDistanceMetres": 371.0,
+          "geometrySha256": "7f00927d4888816e9f61dea384f058a58bdb59ea2fc694d36f15c009c9ae6ccc",
+          "statusCode": "TA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW004:-200",
+      "sampleId": "16MBW004",
+      "area": "A",
+      "coordinates": [
+        -143.946673,
+        63.143545
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 253.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 1927.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 610956",
+          "boundaryDistanceMetres": 253.0,
+          "geometrySha256": "a671fb192cb3156c023abb57660e07932cbea1d69114eaafa9b0da59222fbd2c",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG-15",
+          "ntpstdt": "2007-04-17",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 703504",
+          "boundaryDistanceMetres": 253.0,
+          "geometrySha256": "6c73e9fc4d2d8e0950b82c3cef0764d529574319cca128f43241991af2131aa5",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG-15",
+          "ntpstdt": "2010-07-21",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 800288",
+          "boundaryDistanceMetres": 253.0,
+          "geometrySha256": "41bdc9d23690bb4e66193322824da1fd4a968c02c989866cf48e2c2167a695a0",
+          "recordedHolder": "WHITE ROCK (RM) INC.",
+          "claimName": "WG33",
+          "ntpstdt": "2022-03-14",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW005:-200",
+      "sampleId": "16MBW005",
+      "area": "A",
+      "coordinates": [
+        -143.938536,
+        63.135013
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 1202.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 1875.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 707643",
+          "boundaryDistanceMetres": 22.0,
+          "geometrySha256": "3d4f50f10802756cfaf1f24fd9abdf1d0136696bd5bffde0f1db3c5b59f46abc",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 22",
+          "ntpstdt": "2011-06-29",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW006:-200",
+      "sampleId": "16MBW006",
+      "area": "A",
+      "coordinates": [
+        -143.930613,
+        63.126877
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 1204.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 915.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 708602",
+          "boundaryDistanceMetres": 302.0,
+          "geometrySha256": "277271bf50e522d82eb60a1e63668c1cdbd5254a0739660a74199dacda4639c8",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 42",
+          "ntpstdt": "2011-08-07",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW007:-200",
+      "sampleId": "16MBW007",
+      "area": "A",
+      "coordinates": [
+        -143.862765,
+        63.159887
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 1428.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 3382.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 708627",
+          "boundaryDistanceMetres": 42.0,
+          "geometrySha256": "30142926997b48c91f82a458df7a17bb9a6f7fe4b1e3941d49df274b1d7853bf",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 67",
+          "ntpstdt": "2011-08-07",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW008:-200",
+      "sampleId": "16MBW008",
+      "area": "A",
+      "coordinates": [
+        -143.858516,
+        63.180601
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2794.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 2555.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 622169",
+          "boundaryDistanceMetres": 40.0,
+          "geometrySha256": "2d175702d08eec49766989f86286d60871f02fbbb9f0293356d8dfc441eb396c",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "RY-3",
+          "ntpstdt": "2017-05-18",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 708653",
+          "boundaryDistanceMetres": 40.0,
+          "geometrySha256": "95c49de2340355c7a474de6873ac632aaa89dc05d316b886f3eb96ea8dcd496d",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 93",
+          "ntpstdt": "2011-08-07",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 800258",
+          "boundaryDistanceMetres": 40.0,
+          "geometrySha256": "df77ef205734c6eec851688c7537824102fa863a03eea9669a7c680e193c7857",
+          "recordedHolder": "WHITE ROCK (RM) INC.",
+          "claimName": "WG3",
+          "ntpstdt": "2022-03-14",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN004:-200",
+      "sampleId": "16TJN004",
+      "area": "A",
+      "coordinates": [
+        -143.939833,
+        63.135412
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 1157.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 1934.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 707642",
+          "boundaryDistanceMetres": 43.0,
+          "geometrySha256": "19e09c93cbc5a2e94c3ef23dcc6e208d049cac8ee0d85aab121a6ab6bea74a00",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 21",
+          "ntpstdt": "2011-06-29",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN005:-200",
+      "sampleId": "16TJN005",
+      "area": "A",
+      "coordinates": [
+        -143.923419,
+        63.128534
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 1294.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 1097.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 708602",
+          "boundaryDistanceMetres": 21.0,
+          "geometrySha256": "277271bf50e522d82eb60a1e63668c1cdbd5254a0739660a74199dacda4639c8",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 42",
+          "ntpstdt": "2011-08-07",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN006:-200",
+      "sampleId": "16TJN006",
+      "area": "A",
+      "coordinates": [
+        -143.824201,
+        63.166195
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3427.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 1446.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 708636",
+          "boundaryDistanceMetres": 143.0,
+          "geometrySha256": "3d105dd59b16f1b3581b89ed9bf428ba601da19504768637228fba959ebf800a",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 76",
+          "ntpstdt": "2011-08-07",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN008:-200",
+      "sampleId": "16TJN008",
+      "area": "A",
+      "coordinates": [
+        -143.841905,
+        63.186466
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3822.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 1903.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 708664",
+          "boundaryDistanceMetres": 72.0,
+          "geometrySha256": "cf2f3593ec71df697dfff55e0d373c8f9d4ab1eec981c8faf9243d8e9ee8e7ca",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 104",
+          "ntpstdt": "2011-08-07",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN023:-200",
+      "sampleId": "16TJN023",
+      "area": "A",
+      "coordinates": [
+        -143.840332,
+        63.187351
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3948.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2301",
+          "boundaryDistanceMetres": 1804.0,
+          "geometrySha256": "34a7027f96e893a7302b82ba1647ae70ee633e13c530bdce0b24a0a9861f2d2f",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 708664",
+          "boundaryDistanceMetres": 151.0,
+          "geometrySha256": "cf2f3593ec71df697dfff55e0d373c8f9d4ab1eec981c8faf9243d8e9ee8e7ca",
+          "recordedHolder": "PAXSON RESOURCES (USA) INC",
+          "claimName": "WG 104",
+          "ntpstdt": "2011-08-07",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN086:-200",
+      "sampleId": "16TJN086",
+      "area": "A",
+      "coordinates": [
+        -143.835716,
+        63.052785
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 6918.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 713.0,
+          "geometrySha256": "f6c81a5bf96768561e0acdb28df20cb3c3d0b47330d206aaf4ae95dde101ac3d",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN087:-200",
+      "sampleId": "16TJN087",
+      "area": "A",
+      "coordinates": [
+        -143.835994,
+        63.052072
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 6985.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 792.0,
+          "geometrySha256": "f6c81a5bf96768561e0acdb28df20cb3c3d0b47330d206aaf4ae95dde101ac3d",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN090:-200",
+      "sampleId": "16TJN090",
+      "area": "A",
+      "coordinates": [
+        -143.891346,
+        63.044365
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 7268.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1562.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1562.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN091:-200",
+      "sampleId": "16TJN091",
+      "area": "A",
+      "coordinates": [
+        -143.89113,
+        63.044013
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 7307.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1523.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1523.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN092:-200",
+      "sampleId": "16TJN092",
+      "area": "A",
+      "coordinates": [
+        -143.888825,
+        63.043464
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 7369.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1462.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1462.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN093:-200",
+      "sampleId": "16TJN093",
+      "area": "A",
+      "coordinates": [
+        -143.915242,
+        63.04814
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 6848.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1982.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1982.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN097:-200",
+      "sampleId": "16TJN097",
+      "area": "A",
+      "coordinates": [
+        -143.957411,
+        63.027626
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 9293.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN098:-200",
+      "sampleId": "16TJN098",
+      "area": "A",
+      "coordinates": [
+        -143.985331,
+        63.038844
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 8487.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN099:-200",
+      "sampleId": "16TJN099",
+      "area": "A",
+      "coordinates": [
+        -143.983775,
+        63.039005
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 8441.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 63.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 63.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN100:-200",
+      "sampleId": "16TJN100",
+      "area": "A",
+      "coordinates": [
+        -143.980582,
+        63.054559
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 6788.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 224.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 224.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN102:-200",
+      "sampleId": "16TJN102",
+      "area": "A",
+      "coordinates": [
+        -143.94045,
+        63.105223
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 1015.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1240.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1240.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN103:-200",
+      "sampleId": "16TJN103",
+      "area": "A",
+      "coordinates": [
+        -143.909977,
+        63.087429
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2479.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3136.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3136.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN104:-200",
+      "sampleId": "16TJN104",
+      "area": "A",
+      "coordinates": [
+        -143.911291,
+        63.087302
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2493.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3140.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3140.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN105:-200",
+      "sampleId": "16TJN105",
+      "area": "A",
+      "coordinates": [
+        -143.909038,
+        63.078571
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3464.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3314.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3314.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN106:-200",
+      "sampleId": "16TJN106",
+      "area": "A",
+      "coordinates": [
+        -143.910248,
+        63.078168
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3509.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3332.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 3332.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN109:-200",
+      "sampleId": "16TJN109",
+      "area": "A",
+      "coordinates": [
+        -143.959933,
+        63.093955
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2559.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1263.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 1263.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN110:-200",
+      "sampleId": "16TJN110",
+      "area": "A",
+      "coordinates": [
+        -143.98543,
+        63.095589
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3517.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN115:-200",
+      "sampleId": "16TJN115",
+      "area": "A",
+      "coordinates": [
+        -144.019833,
+        63.090499
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 5326.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN118:-200",
+      "sampleId": "16TJN118",
+      "area": "A",
+      "coordinates": [
+        -143.843834,
+        63.094954
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2887.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 2438.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 2438.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN121:-200",
+      "sampleId": "16TJN121",
+      "area": "A",
+      "coordinates": [
+        -143.845865,
+        63.094798
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2814.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 2463.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        },
+        {
+          "kind": "state_land",
+          "id": "GS 2600",
+          "boundaryDistanceMetres": 2463.0,
+          "geometrySha256": "bb3b29d1e41db37c988ce75c87e084369e4b5db010bb4aba489e89b41fcf346d",
+          "statusCode": "SA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL101:-200",
+      "sampleId": "16LL101",
+      "area": "B",
+      "coordinates": [
+        -143.792336,
+        63.218722
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 1116.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2302",
+          "boundaryDistanceMetres": 575.0,
+          "geometrySha256": "74d8e9bc9f2ae75019713a932ed2f88f3ed111ab36e05aca6b792cd1df62abe1",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL102:-200",
+      "sampleId": "16LL102",
+      "area": "B",
+      "coordinates": [
+        -143.752889,
+        63.213581
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 2429.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL103:-200",
+      "sampleId": "16LL103",
+      "area": "B",
+      "coordinates": [
+        -143.743072,
+        63.185789
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 5426.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 929.0,
+          "geometrySha256": "f607d942de50ff6990a204c974ff4f15a6bb4d62e4db59990bb041c457257566",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL104:-200",
+      "sampleId": "16LL104",
+      "area": "B",
+      "coordinates": [
+        -143.563736,
+        63.152276
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 2108.0,
+          "geometrySha256": "23da5cad0dd47a489c833bbe1969e873010a89aae77a62a73d04d436f2d1440c",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723211",
+          "boundaryDistanceMetres": 86.0,
+          "geometrySha256": "51ee406a11363632cd675aeba324198999020aad90742092f408771ed60ad70c",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 309",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL105:-200",
+      "sampleId": "16LL105",
+      "area": "B",
+      "coordinates": [
+        -143.561881,
+        63.151335
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 2201.0,
+          "geometrySha256": "23da5cad0dd47a489c833bbe1969e873010a89aae77a62a73d04d436f2d1440c",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723211",
+          "boundaryDistanceMetres": 105.0,
+          "geometrySha256": "51ee406a11363632cd675aeba324198999020aad90742092f408771ed60ad70c",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 309",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL106:-200",
+      "sampleId": "16LL106",
+      "area": "B",
+      "coordinates": [
+        -143.49096,
+        63.186952
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 1851.0,
+          "geometrySha256": "23da5cad0dd47a489c833bbe1969e873010a89aae77a62a73d04d436f2d1440c",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723154",
+          "boundaryDistanceMetres": 244.0,
+          "geometrySha256": "38f30ec87ef81595b7f4d66376bbb33b44323324563eddc002819a5fea72d94c",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 252",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL107:-200",
+      "sampleId": "16LL107",
+      "area": "B",
+      "coordinates": [
+        -143.490563,
+        63.186713
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 1878.0,
+          "geometrySha256": "23da5cad0dd47a489c833bbe1969e873010a89aae77a62a73d04d436f2d1440c",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723154",
+          "boundaryDistanceMetres": 271.0,
+          "geometrySha256": "38f30ec87ef81595b7f4d66376bbb33b44323324563eddc002819a5fea72d94c",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 252",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL108:-200",
+      "sampleId": "16LL108",
+      "area": "B",
+      "coordinates": [
+        -143.544301,
+        63.187128
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 1831.0,
+          "geometrySha256": "23da5cad0dd47a489c833bbe1969e873010a89aae77a62a73d04d436f2d1440c",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723150",
+          "boundaryDistanceMetres": 15.0,
+          "geometrySha256": "42c28d982f1f3a6a4253e745b1b0b4e9c899b4a93b6f7badce935c0e1972dcad",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 248",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL109:-200",
+      "sampleId": "16LL109",
+      "area": "B",
+      "coordinates": [
+        -143.67499,
+        63.045937
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 9807.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL110:-200",
+      "sampleId": "16LL110",
+      "area": "B",
+      "coordinates": [
+        -143.675913,
+        63.046737
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 9763.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16LL111:-200",
+      "sampleId": "16LL111",
+      "area": "B",
+      "coordinates": [
+        -143.678031,
+        63.046579
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 9841.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW010:-200",
+      "sampleId": "16MBW010",
+      "area": "B",
+      "coordinates": [
+        -143.403681,
+        63.162439
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 625.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722907",
+          "boundaryDistanceMetres": 149.0,
+          "geometrySha256": "96e2633fb25948ff9f5b6b7dc9ad3d13c19f92ae356732b46c38b93d68e48b4e",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 182",
+          "ntpstdt": "2016-11-19",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW011:-200",
+      "sampleId": "16MBW011",
+      "area": "B",
+      "coordinates": [
+        -143.387974,
+        63.163767
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 1413.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722908",
+          "boundaryDistanceMetres": 89.0,
+          "geometrySha256": "fc1d6a3c8b9e4bc48ef94796c941f64196eb1789c8755d48103d4b32c601f685",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 183",
+          "ntpstdt": "2016-11-19",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW012:-200",
+      "sampleId": "16MBW012",
+      "area": "B",
+      "coordinates": [
+        -143.388173,
+        63.163121
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 1404.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722908",
+          "boundaryDistanceMetres": 99.0,
+          "geometrySha256": "fc1d6a3c8b9e4bc48ef94796c941f64196eb1789c8755d48103d4b32c601f685",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 183",
+          "ntpstdt": "2016-11-19",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW013:-200",
+      "sampleId": "16MBW013",
+      "area": "B",
+      "coordinates": [
+        -143.317255,
+        63.147094
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 2770.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 611334",
+          "boundaryDistanceMetres": 140.0,
+          "geometrySha256": "9f01e0efe51c29d2a692128e72a73f6a5004a048e3e6432aa65c32fd9c488624",
+          "recordedHolder": "SIBITS, MICHAEL",
+          "claimName": "WILD & FREE #4",
+          "ntpstdt": "2007-06-20",
+          "acres": 40.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16MBW014:-200",
+      "sampleId": "16MBW014",
+      "area": "B",
+      "coordinates": [
+        -143.317993,
+        63.146434
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 2707.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 611334",
+          "boundaryDistanceMetres": 66.0,
+          "geometrySha256": "9f01e0efe51c29d2a692128e72a73f6a5004a048e3e6432aa65c32fd9c488624",
+          "recordedHolder": "SIBITS, MICHAEL",
+          "claimName": "WILD & FREE #4",
+          "ntpstdt": "2007-06-20",
+          "acres": 40.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN009:-200",
+      "sampleId": "16TJN009",
+      "area": "B",
+      "coordinates": [
+        -143.406336,
+        63.159484
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 492.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722921",
+          "boundaryDistanceMetres": 88.0,
+          "geometrySha256": "6e56e607ff2859f7b2a490cdd27927de83cdacda79a218eff0daa4fce120ccd3",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 196",
+          "ntpstdt": "2016-11-19",
+          "acres": 160.0
+        },
+        {
+          "kind": "closed_claim",
+          "id": "ADL 702986",
+          "boundaryDistanceMetres": 88.0,
+          "geometrySha256": "ee8343f845ceb36cf30bebea1f63a50179092b1d12c36a1d34fc00a5992b9b1c",
+          "recordedHolder": "HOFFMAN, BARRY L",
+          "claimName": "H1",
+          "ntpstdt": "2010-07-25",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN010:-200",
+      "sampleId": "16TJN010",
+      "area": "B",
+      "coordinates": [
+        -143.397077,
+        63.164182
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 957.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722908",
+          "boundaryDistanceMetres": 183.0,
+          "geometrySha256": "fc1d6a3c8b9e4bc48ef94796c941f64196eb1789c8755d48103d4b32c601f685",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 183",
+          "ntpstdt": "2016-11-19",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN011:-200",
+      "sampleId": "16TJN011",
+      "area": "B",
+      "coordinates": [
+        -143.38292,
+        63.161035
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 1667.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722909",
+          "boundaryDistanceMetres": 85.0,
+          "geometrySha256": "01c9bf3cf6a681faf53e873cf4dcc1bac29bbbab3f0f10fc7003a4e923dc69b0",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 184",
+          "ntpstdt": "2016-11-19",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN012:-200",
+      "sampleId": "16TJN012",
+      "area": "B",
+      "coordinates": [
+        -143.377834,
+        63.157963
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 1923.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722923",
+          "boundaryDistanceMetres": 257.0,
+          "geometrySha256": "6190b83351591d38a8adaa262cfea10a695a6d709847a1786eae6b3b507a11ac",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 198",
+          "ntpstdt": "2016-11-19",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN013:-200",
+      "sampleId": "16TJN013",
+      "area": "B",
+      "coordinates": [
+        -143.35928,
+        63.152987
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 2855.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722938",
+          "boundaryDistanceMetres": 8.0,
+          "geometrySha256": "d9e04b6439c17f3b5f3f9fcdc129d9b8d9d1e53e5ac7b85cf76390e7c9334cdf",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 213",
+          "ntpstdt": "2016-11-18",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN014:-200",
+      "sampleId": "16TJN014",
+      "area": "B",
+      "coordinates": [
+        -143.360177,
+        63.153602
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 2810.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 722924",
+          "boundaryDistanceMetres": 61.0,
+          "geometrySha256": "386143b55c2e242e45885434ce78cc6a61ba72f01b01df700adf2a067bcea341",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 199",
+          "ntpstdt": "2016-11-18",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN015:-200",
+      "sampleId": "16TJN015",
+      "area": "B",
+      "coordinates": [
+        -143.793381,
+        63.136358
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 5024.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 98.0,
+          "geometrySha256": "f607d942de50ff6990a204c974ff4f15a6bb4d62e4db59990bb041c457257566",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN016:-200",
+      "sampleId": "16TJN016",
+      "area": "B",
+      "coordinates": [
+        -143.777111,
+        63.127796
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 5853.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 916.0,
+          "geometrySha256": "f607d942de50ff6990a204c974ff4f15a6bb4d62e4db59990bb041c457257566",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN017:-200",
+      "sampleId": "16TJN017",
+      "area": "B",
+      "coordinates": [
+        -143.764064,
+        63.130239
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 6551.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 1479.0,
+          "geometrySha256": "f607d942de50ff6990a204c974ff4f15a6bb4d62e4db59990bb041c457257566",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN020:-200",
+      "sampleId": "16TJN020",
+      "area": "B",
+      "coordinates": [
+        -143.693109,
+        63.128504
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3900.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 2300",
+          "boundaryDistanceMetres": 1286.0,
+          "geometrySha256": "f607d942de50ff6990a204c974ff4f15a6bb4d62e4db59990bb041c457257566",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN021:-200",
+      "sampleId": "16TJN021",
+      "area": "B",
+      "coordinates": [
+        -143.719395,
+        63.110855
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 6237.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN124:-200",
+      "sampleId": "16TJN124",
+      "area": "B",
+      "coordinates": [
+        -143.690986,
+        63.048673
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 10074.0,
+      "checked": true,
+      "records": []
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN419:-200",
+      "sampleId": "16TJN419",
+      "area": "B",
+      "coordinates": [
+        -143.096187,
+        63.152016
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 882",
+          "boundaryDistanceMetres": 2605.0,
+          "geometrySha256": "f0c688ddd329daac4328918fe471ba81a68c1fcb8dfb1ac0a88c76458761eb65",
+          "statusCode": "TA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 614300",
+          "boundaryDistanceMetres": 116.0,
+          "geometrySha256": "7764c35dd9674abcb7fd03588561e34715cb90c48fa05898049433803a9ca696",
+          "recordedHolder": "PEAK GOLD, LLC",
+          "claimName": "TOK 48",
+          "ntpstdt": "2010-02-17",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN420:-200",
+      "sampleId": "16TJN420",
+      "area": "B",
+      "coordinates": [
+        -143.190124,
+        63.115117
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 205.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 4596",
+          "boundaryDistanceMetres": 202.0,
+          "geometrySha256": "e77983e1c9c1b9bae00fd90c7302aad3f938af8a9bab36bc2071d71dd1ca157a",
+          "statusCode": "RL"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN421:-200",
+      "sampleId": "16TJN421",
+      "area": "B",
+      "coordinates": [
+        -143.253958,
+        63.100186
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 3449.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 882",
+          "boundaryDistanceMetres": 1382.0,
+          "geometrySha256": "d5a2a575d160fe4782204937eed44667a5c849ede6077fc91854da902ff9a554",
+          "statusCode": "PA"
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN422:-200",
+      "sampleId": "16TJN422",
+      "area": "B",
+      "coordinates": [
+        -143.408416,
+        63.131089
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 388.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723275",
+          "boundaryDistanceMetres": 34.0,
+          "geometrySha256": "8570df26a183d938885584065e3b2f835890f91dbe06a99932691ad4bf4d9d4a",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 373",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN423:-200",
+      "sampleId": "16TJN423",
+      "area": "B",
+      "coordinates": [
+        -143.406236,
+        63.131126
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 497.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723275",
+          "boundaryDistanceMetres": 30.0,
+          "geometrySha256": "8570df26a183d938885584065e3b2f835890f91dbe06a99932691ad4bf4d9d4a",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 373",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    },
+    {
+      "sampleKey": "alaska_dggs_rdf2016_10:16TJN424:-200",
+      "sampleId": "16TJN424",
+      "area": "B",
+      "coordinates": [
+        -143.406948,
+        63.129745
+      ],
+      "snapshotAt": "2026-10-24",
+      "nearestActiveClaimMetres": 0.0,
+      "checked": true,
+      "records": [
+        {
+          "kind": "state_land",
+          "id": "GS 881",
+          "boundaryDistanceMetres": 461.0,
+          "geometrySha256": "8d5ef37f44f10adf24401157af369b1da58c31fd82732dbced8d349942180d47",
+          "statusCode": "PA"
+        },
+        {
+          "kind": "active_claim",
+          "id": "ADL 723275",
+          "boundaryDistanceMetres": 184.0,
+          "geometrySha256": "8570df26a183d938885584065e3b2f835890f91dbe06a99932691ad4bf4d9d4a",
+          "recordedHolder": "CONTANGO MINERALS ALASKA, LLC",
+          "claimName": "NOAH 373",
+          "ntpstdt": "2017-02-02",
+          "acres": 160.0
+        }
+      ]
+    }
+  ],
+  "context": {
+    "gold": {
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "metric": "Nominal calendar-year mean of World Bank Pink Sheet monthly gold prices",
+      "observations": [
+        {
+          "year": 2020,
+          "annualMeanUsdPerTroyOz": 1770.25,
+          "months": 12,
+          "availableAt": null
+        },
+        {
+          "year": 2021,
+          "annualMeanUsdPerTroyOz": 1799.58,
+          "months": 12,
+          "availableAt": null
+        },
+        {
+          "year": 2022,
+          "annualMeanUsdPerTroyOz": 1800.75,
+          "months": 12,
+          "availableAt": null
+        },
+        {
+          "year": 2023,
+          "annualMeanUsdPerTroyOz": 1942.75,
+          "months": 12,
+          "availableAt": null
+        },
+        {
+          "year": 2024,
+          "annualMeanUsdPerTroyOz": 2387.58,
+          "months": 12,
+          "availableAt": null
+        },
+        {
+          "year": 2025,
+          "annualMeanUsdPerTroyOz": 3441.5,
+          "months": 12,
+          "availableAt": null
+        },
+        {
+          "year": 2026,
+          "annualMeanUsdPerTroyOz": 4552.0,
+          "months": 9,
+          "availableAt": null
+        }
+      ],
+      "currentSpotPrice": null,
+      "note": "2026 contains January through September only. Historical publication timestamps are absent, so no point-in-time backtest is claimed."
+    },
+    "surfaceSales": {
+      "sourceUrl": "https://dnr.alaska.gov/mlw/landsales/history/sold-parcel-search/",
+      "metric": "Median paid USD per acre of sold state surface parcels, varying parcel mix",
+      "observations": [
+        {
+          "year": 2020,
+          "scope": "Statewide",
+          "parcels": 177,
+          "medianUsdPerAcre": 2618.33,
+          "p25UsdPerAcre": 1549.74,
+          "p75UsdPerAcre": 5686.23,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2020,
+          "scope": "Richardson, Alaska Highways",
+          "parcels": 14,
+          "medianUsdPerAcre": 1628.91,
+          "p25UsdPerAcre": 1482.14,
+          "p75UsdPerAcre": 7433.84,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2021,
+          "scope": "Statewide",
+          "parcels": 204,
+          "medianUsdPerAcre": 2091.05,
+          "p25UsdPerAcre": 1389.15,
+          "p75UsdPerAcre": 6633.18,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2021,
+          "scope": "Richardson, Alaska Highways",
+          "parcels": 12,
+          "medianUsdPerAcre": 2004.0,
+          "p25UsdPerAcre": 1710.43,
+          "p75UsdPerAcre": 7409.97,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2022,
+          "scope": "Statewide",
+          "parcels": 170,
+          "medianUsdPerAcre": 2077.44,
+          "p25UsdPerAcre": 1014.41,
+          "p75UsdPerAcre": 6973.88,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2023,
+          "scope": "Statewide",
+          "parcels": 165,
+          "medianUsdPerAcre": 4062.4,
+          "p25UsdPerAcre": 2385.65,
+          "p75UsdPerAcre": 9431.71,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2023,
+          "scope": "Richardson, Alaska Highways",
+          "parcels": 1,
+          "medianUsdPerAcre": 2500.0,
+          "p25UsdPerAcre": 2500.0,
+          "p75UsdPerAcre": 2500.0,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2024,
+          "scope": "Statewide",
+          "parcels": 147,
+          "medianUsdPerAcre": 6761.27,
+          "p25UsdPerAcre": 2784.28,
+          "p75UsdPerAcre": 13536.42,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2024,
+          "scope": "Richardson, Alaska Highways",
+          "parcels": 2,
+          "medianUsdPerAcre": 2427.03,
+          "p25UsdPerAcre": 1904.18,
+          "p75UsdPerAcre": 2949.89,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2025,
+          "scope": "Statewide",
+          "parcels": 109,
+          "medianUsdPerAcre": 6885.76,
+          "p25UsdPerAcre": 2382.03,
+          "p75UsdPerAcre": 15613.33,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2025,
+          "scope": "Richardson, Alaska Highways",
+          "parcels": 1,
+          "medianUsdPerAcre": 8503.4,
+          "p25UsdPerAcre": 8503.4,
+          "p75UsdPerAcre": 8503.4,
+          "completeYear": true,
+          "availableAt": null
+        },
+        {
+          "year": 2026,
+          "scope": "Statewide",
+          "parcels": 98,
+          "medianUsdPerAcre": 2893.68,
+          "p25UsdPerAcre": 1663.55,
+          "p75UsdPerAcre": 5302.5,
+          "completeYear": false,
+          "availableAt": null
+        }
+      ],
+      "mineralPriceSeries": false,
+      "note": "These are surface parcel sales, not mineral interests. They are neither a Tok mineral-price index nor a guaranteed floor for an option."
+    },
+    "holdingCosts": {
+      "miningYearStarting": "2026-09-01",
+      "state160AcreAnnualRentUsdByAge": {
+        "0_5": 165.0,
+        "6_10": 330.0,
+        "11_plus": 825.0
+      },
+      "sourceDescription": "DNR fact sheet 'Annual Rent' (July 2021), 11 AAC 86.221(b); new rates from the 2020 mining year, which began 1 Sep 2019",
+      "sourceUrl": "https://dnr.alaska.gov/mlw/cdn/pdf/factsheets/annual-rent.pdf",
+      "currentApplicabilityVerified": false,
+      "optionBuyerObligationVerified": false,
+      "annualLabourIncluded": false,
+      "note": "Source schedule is July 2021. This integration has not verified later legal changes, claim age, fee allocation or annual-labour obligations. Federal BLM fees are not assigned to state claims."
+    },
+    "dealComparables": [
+      {
+        "acquirer": "Vizsla Copper",
+        "target": "Delta project (249 state mining claims / 16123 ha) + Helm Bay gold project from Agnico Eagle",
+        "location": "Delta: ~60 km SW of Tok, Interior Alaska; Helm Bay: SE Alaska",
+        "dateText": "2026-09-08 (close expected Q4 2026)",
+        "priceUsdMillionsText": "~23.3",
+        "priceNote": "C$32.0m in shares (25.4m at C$1.26) for BOTH projects + warrants; plus up to C$20m Delta milestones; 2% NSR on Delta; USD figure as reported by mining.com, not converted by us",
+        "stage": "exploration (Delta is polymetallic VMS with gold credit)",
+        "relationToTok": "ADJACENT TO SITE A: all 249 Delta Project LLC claims found in Alaska DNR data; 13 overlap the Site A window; nearest Site A sample 3.0 km, median 9.2 km; Site B median 27.8 km",
+        "sourceQualityNote": "high - SEC filing; claim count matches DNR data",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/0000002809/000110465926106256/tm2625112d1_ex99-1.htm",
+        "status": "signed_closing_expected",
+        "limitations": [
+          "multi_project_price",
+          "mixed_commodities",
+          "not_current_option_offer"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Kinross Gold",
+        "target": "70% of Peak Gold JV (Manh Choh project) from Royal Gold and Contango ORE",
+        "location": "near Tok, Alaska (Tetlin Native land lease)",
+        "dateText": "2020-09-30",
+        "priceUsdMillionsText": "93.7",
+        "priceNote": "cash; 96.9 incl. transaction costs; implied 100% ~133.9 (our arithmetic)",
+        "stage": "development (pre-construction at deal)",
+        "relationToTok": "Contango (the 30% partner) holds most active claims at Site B: 17 of 34 Site B samples sit inside Contango claims; distance from Manh Choh to the sites not measured",
+        "sourceQualityNote": "high - SEC filing",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/701818/000110465921043926/tm2038115d1_ex99-1.htm",
+        "status": "reported_transaction",
+        "limitations": [
+          "partial_interest",
+          "development_project",
+          "not_current_option_offer"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Northern Star Resources",
+        "target": "Pogo gold mine (100%) from Sumitomo Metal Mining (85%) and Sumitomo Corp (15%)",
+        "location": "Goodpaster district, ~145 km SE of Fairbanks, Alaska",
+        "dateText": "2018-08-30 (closed 2018-09-28)",
+        "priceUsdMillionsText": "260",
+        "priceNote": "cash",
+        "stage": "production",
+        "relationToTok": "not measured (different district)",
+        "sourceQualityNote": "medium - price from press; completion from company ASX release",
+        "sourceUrl": "https://announcements.asx.com.au/asxpdf/20181001/pdf/43yv2s0lfxc60z.pdf",
+        "status": "closed_as_reported",
+        "limitations": [
+          "production_project",
+          "different_district"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Novagold + Paulson Advisers",
+        "target": "50% of Donlin Gold from Barrick",
+        "location": "Southwest Alaska",
+        "dateText": "2025-04 (closed 2025-06)",
+        "priceUsdMillionsText": "1000",
+        "priceNote": "cash (Paulson 800 for 40%; Novagold 200 for 10%); implied 100% ~2000 (our arithmetic)",
+        "stage": "development (permitted / pre-construction)",
+        "relationToTok": "not near Tok",
+        "sourceQualityNote": "medium - press coverage",
+        "sourceUrl": "https://www.miningweekly.com/article/barrick-exits-donlin-gold-as-1bn-novagold-paulson-deal-is-wrapped-up-2025-06-04",
+        "status": "closed_as_reported",
+        "limitations": [
+          "partial_interest",
+          "different_region"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Contango ORE",
+        "target": "HighGold Mining (Johnson Tract project)",
+        "location": "Southcentral Alaska",
+        "dateText": "2024-05-01 (signed)",
+        "priceUsdMillionsText": "~37",
+        "priceNote": "all shares (0.019 Contango share per HighGold share); USD value as reported",
+        "stage": "advanced exploration",
+        "relationToTok": "not near Tok; same buyer (Contango) as Site B claim holder",
+        "sourceQualityNote": "medium - press coverage",
+        "sourceUrl": "https://www.miningnewsnorth.com/story/2024/05/03/news/contango-and-highgold-strike-merger-deal/8501.html",
+        "status": "signed_closing_unconfirmed",
+        "limitations": [
+          "share_consideration",
+          "different_region"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Gold Reserve",
+        "target": "LMS claims (36 state mining claims) from Raven Gold Alaska (Corvus Gold)",
+        "location": "Goodpaster district, ~25 km N of Delta Junction, Alaska",
+        "dateText": "2016-01 (announced)",
+        "priceUsdMillionsText": "0.35",
+        "priceNote": "cash at closing; seller kept 3% NSR (precious) / 1% (base); ~US$9700 per claim (our arithmetic); closing not confirmed",
+        "stage": "grassroots exploration",
+        "relationToTok": "not measured (different district)",
+        "sourceQualityNote": "medium - company release; closing unconfirmed",
+        "sourceUrl": "https://www.goldreserveinc.com/news-release-16-01-gold-reserve-to-acquire-certain-alaska-mining-claims/",
+        "status": "announced_closing_unconfirmed",
+        "limitations": [
+          "closing_unconfirmed",
+          "different_district"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Peak Gold JV (Kinross 70% / Contango 30%)",
+        "target": "~13000 acres of state mining claims from Contango Minerals (option exercise)",
+        "location": "Tok area, Alaska (Peak Gold JV property)",
+        "dateText": "2021-06-15",
+        "priceUsdMillionsText": "0.05",
+        "priceNote": "cash; ~US$3.85 per acre (our arithmetic); RELATED-PARTY: Contango owned 30% of the buyer, so not an open-market price",
+        "stage": "exploration",
+        "relationToTok": "Peak Gold holds 116 active claims in our Tok search box; whether these are the same claims is not verified",
+        "sourceQualityNote": "high - SEC filing; related-party",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1502377/000143774921021206/conta20210630b_10k.htm",
+        "status": "related_party_option_exercise",
+        "limitations": [
+          "related_party",
+          "not_arm_length_price",
+          "exact_claim_identity_unverified"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Contango ORE",
+        "target": "Avidian Gold Alaska (Golden Zone ~10690 acres + Amanita NE ~1021 acres of state claims)",
+        "location": "Golden Zone: Valdez Creek district; Amanita NE: Fairbanks district, Alaska",
+        "dateText": "2024-05-02 (closed 2024-08-06)",
+        "priceUsdMillionsText": "2.06",
+        "priceNote": "cash + shares; US$2.06m total purchase price as summarised from Contango SEC filings (press headline: US$2.4m initial); plus US$1m if a production decision is made; ~US$176-205 per acre on 11711 acres (our arithmetic)",
+        "stage": "advanced exploration",
+        "relationToTok": "not near Tok; same buyer (Contango) as Site B claim holder",
+        "sourceQualityNote": "medium - price not re-read in the filing itself; acres from 10-K",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1502377/000095017025039841/ctgo-20241231.htm",
+        "status": "closed_as_reported",
+        "limitations": [
+          "price_not_reread_in_filing",
+          "different_district",
+          "future_milestone"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "Antofagasta",
+        "target": "Option to earn 70% of Tanacross project (Kenorland Minerals)",
+        "location": "~70 km NE of Tok, Alaska; Alaska state land",
+        "dateText": "2022-07-19",
+        "priceUsdMillionsText": "1.0",
+        "priceNote": "US$1m cash up front for the option; US$4m more on exercise + US$30m exploration over 8 years; option TERMINATED March 2024, so the US$4m was never paid",
+        "stage": "exploration (porphyry copper-gold)",
+        "relationToTok": "closest priced deal to Tok after Delta (~70 km NE of Tok); size reported as ~45000 ha (2022) and 46173 ha (2024)",
+        "sourceQualityNote": "high - company releases",
+        "sourceUrl": "https://www.newsfilecorp.com/release/131226",
+        "status": "terminated_option",
+        "limitations": [
+          "terminated_2024",
+          "exploration_commitments",
+          "mixed_commodities"
+        ],
+        "verifiedAvailableTokAssignment": false
+      },
+      {
+        "acquirer": "United States Antimony",
+        "target": "Option on 120 state mining claims (~17900 acres)",
+        "location": "Alaska (location not stated in release)",
+        "dateText": "2025-01-21",
+        "priceUsdMillionsText": "3.0",
+        "priceNote": "staged payments totalling US$3m + US$2.25m exploration over 5.5 years; ~US$25000 per claim / ~US$168 per acre (our arithmetic); ANTIMONY not gold; seller not named",
+        "stage": "exploration",
+        "relationToTok": "not measured",
+        "sourceQualityNote": "medium - company release; commodity differs",
+        "sourceUrl": "https://www.stocktitan.net/news/UAMY/united-states-antimony-corporation-announces-exclusive-option-52tbhj3gfuuz.html",
+        "status": "staged_option_reported",
+        "limitations": [
+          "antimony_not_gold",
+          "location_unspecified",
+          "exploration_commitments"
+        ],
+        "verifiedAvailableTokAssignment": false
+      }
+    ]
+  },
+  "limitations": [
+    "State-claim and state-land snapshots are from 2026; sediment samples were collected in 2016.",
+    "Point-in-polygon matches do not establish mineral ownership, recoverable quantities, availability, assignment authority or the sediment source.",
+    "Federal BLM status and Native corporation ownership are not checked. Native allotments are a separate checked layer.",
+    "Land-status codes and the meaning of NTPSTDT remain unconfirmed.",
+    "Nearest-claim distances use an approximate local projection; record boundary uncertainty is unknown.",
+    "Source summaries are research evidence, not a current legal opinion or an offer to sell an option."
+  ]
+}

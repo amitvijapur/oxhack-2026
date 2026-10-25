@@ -1,0 +1,578 @@
+{
+  "description": "Pinned-source audit. Assumed economics, descriptive historical growth and simulated reactions are not measured predictive edge.",
+  "sources": {
+    "land": {
+      "sourceId": "arjin-tok-land-34eaf1d",
+      "branch": "arjin/tok-land-data",
+      "revision": "34eaf1d6e87fedd54c46b04dec093b0cc2b18581",
+      "retrievedAt": "2026-10-25T00:04:06.553140+00:00",
+      "sourceSnapshotAt": "2026-10-24",
+      "reportDates": {
+        "claimsAndDeals": "2026-10-24",
+        "holdingAndSurfaceCosts": "2026-10-25"
+      },
+      "sourceUrl": "https://github.com/amitvijapur/oxhack-2026/tree/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land",
+      "sources": [
+        {
+          "path": "research/tok-land/README.md",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/README.md",
+          "sha256": "f95918365e28067b570196d238f46058c18e52cf860d6949620a09bc37f93597",
+          "bytes": 7242
+        },
+        {
+          "path": "research/tok-land/site-a/summary.md",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-a/summary.md",
+          "sha256": "910f2ed346754cff9ea755dce549e6556f37645864432f65ddf96f2268584cfb",
+          "bytes": 1306
+        },
+        {
+          "path": "research/tok-land/site-b/summary.md",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-b/summary.md",
+          "sha256": "bf5e94664aa91f610165d4c08d4b8f277fee2af3051c90a03a71b2c411dbf224",
+          "bytes": 1367
+        },
+        {
+          "path": "research/tok-land/site-a/land_matches.csv",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-a/land_matches.csv",
+          "sha256": "8a26a79ec598c76159fb07d47133e87b46cab02bcf17da66fee524d8fa8d36eb",
+          "bytes": 53486
+        },
+        {
+          "path": "research/tok-land/site-b/land_matches.csv",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/site-b/land_matches.csv",
+          "sha256": "b30e7b7aad0bf545f2931ce0f64c072c7ff7be9f312944a39152c77c84a5a80b",
+          "bytes": 43463
+        },
+        {
+          "path": "research/tok-land/tok_land_summary.json",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/tok_land_summary.json",
+          "sha256": "e6b10a778649b2353621f1537e9b78805768811fa5661b1480885cd7d6a57cc9",
+          "bytes": 2553
+        },
+        {
+          "path": "research/tok-land/tok_sample_claim_matches.csv",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/tok_sample_claim_matches.csv",
+          "sha256": "1c508ffcbe7ae4a2924a4e1dad222ade7ea58e09155c91af72ec7c547a8fef55",
+          "bytes": 7608
+        },
+        {
+          "path": "research/tok-land/gold_deal_comparables.csv",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/gold_deal_comparables.csv",
+          "sha256": "507c369e562c4001f6b8a225906c67004171bf1eeeaf3af4670e6c5340336945",
+          "bytes": 5358
+        },
+        {
+          "path": "research/tok-land/alaska_land_sales_by_year.csv",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/alaska_land_sales_by_year.csv",
+          "sha256": "662efea99d0feda7070497a2034ebb7bbad92dcff964fc7b524b532802c8bf69",
+          "bytes": 23075
+        },
+        {
+          "path": "research/tok-land/alaska_holding_costs_by_year.csv",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/alaska_holding_costs_by_year.csv",
+          "sha256": "7daee8090f8c2fd484418fa2c7f2b2460bbbf165b19d65c80fd48606cd224734",
+          "bytes": 15867
+        },
+        {
+          "path": "research/tok-land/alaska_claims_vs_gold.csv",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/alaska_claims_vs_gold.csv",
+          "sha256": "9bd5ac46cf82aff64721958d81ec2e62c0c94d5256d0102e3e5becb302c104ea",
+          "bytes": 2269
+        },
+        {
+          "path": "research/tok-land/claims-vs-gold.md",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/claims-vs-gold.md",
+          "sha256": "5c6047e7e3cc3cafdae205777002c7cd0abc57114b44336146e08434f3da53a2",
+          "bytes": 2857
+        },
+        {
+          "path": "research/tok-land/land-costs-by-year.md",
+          "url": "https://github.com/amitvijapur/oxhack-2026/blob/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land/land-costs-by-year.md",
+          "sha256": "aa553a14d1693ca0f0290e71cd54fb8581b2f887e55cc3f191ee906fb8605059",
+          "bytes": 9109
+        }
+      ],
+      "historicalAvailabilityVerified": false
+    },
+    "swarm": {
+      "type": "simulated",
+      "sourceId": "ahmed-gold-society-d7717cd",
+      "branch": "ahmed/gold-society-plan",
+      "revision": "d7717cd459b9e567bd3162a86b84ff55c9b0bfc3",
+      "sourceUrl": "https://github.com/amitvijapur/oxhack-2026/tree/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm",
+      "commit": "d7717cd459b9e567bd3162a86b84ff55c9b0bfc3",
+      "committedAt": "2026-10-24T23:47:56Z",
+      "retrievedAt": "2026-10-25T00:05:46+00:00",
+      "knowledgeCutoff": null
+    }
+  },
+  "areaContext": [
+    {
+      "area": "A",
+      "totalSamples": 33,
+      "activeClaimSamples": 2,
+      "closedClaimSamples": 12,
+      "stateLandSamples": 29,
+      "noCheckedLayerSamples": 4,
+      "unknownSamples": 0,
+      "medianNearestActiveClaimMetres": 3427,
+      "activeClaimOwners": [
+        {
+          "name": "GREAT LAND MINERALS, LLC.",
+          "sampleCount": 2
+        }
+      ]
+    },
+    {
+      "area": "B",
+      "totalSamples": 34,
+      "activeClaimSamples": 20,
+      "closedClaimSamples": 1,
+      "stateLandSamples": 28,
+      "noCheckedLayerSamples": 6,
+      "unknownSamples": 0,
+      "medianNearestActiveClaimMetres": 0,
+      "activeClaimOwners": [
+        {
+          "name": "CONTANGO MINERALS ALASKA, LLC",
+          "sampleCount": 17
+        },
+        {
+          "name": "SIBITS, MICHAEL",
+          "sampleCount": 2
+        },
+        {
+          "name": "PEAK GOLD, LLC",
+          "sampleCount": 1
+        }
+      ]
+    }
+  ],
+  "goldTrend": {
+    "status": "ready",
+    "annualGrowthRate": 0.14220125803425776,
+    "startYear": 2020,
+    "endYear": 2025,
+    "startPriceUsdPerOz": 1770.25,
+    "endPriceUsdPerOz": 3441.5,
+    "detail": "Descriptive CAGR of nominal annual gold means from 2020 to 2025. Partial years are excluded. Historical publication dates are unverified. Applying this growth to a hypothetical option is an assumption, not a forecast."
+  },
+  "coverage": [
+    {
+      "id": "land_sample_join",
+      "label": "Sample-to-land records",
+      "status": "supplied",
+      "detail": "33 of 33 area A samples matched to the checked-layer snapshot, including explicit no-match rows. Counts are unique samples, not record pairs."
+    },
+    {
+      "id": "mineral_title",
+      "label": "Mineral title and available interest",
+      "status": "missing",
+      "detail": "State records and recorded holders do not establish conveyable mineral rights, an available option, assignment consent or liability release. Federal and Native corporation status remain unchecked."
+    },
+    {
+      "id": "gold_history",
+      "label": "Five-year gold baseline",
+      "status": "supplied",
+      "detail": "Descriptive CAGR of nominal annual gold means from 2020 to 2025. Partial years are excluded. Historical publication dates are unverified. Applying this growth to a hypothetical option is an assumption, not a forecast."
+    },
+    {
+      "id": "commodity_current_quote",
+      "label": "Current commodity quote",
+      "status": "missing",
+      "detail": "Annual means and the partial 2026 mean are not an executable current gold quote."
+    },
+    {
+      "id": "land_prices",
+      "label": "Tok mineral-land price baseline",
+      "status": "partial",
+      "detail": "10 heterogeneous Alaska deals and statewide surface-sale summaries provide context. Surface medians are not a Tok mineral-price index or a guaranteed value floor."
+    },
+    {
+      "id": "holding_costs",
+      "label": "Holding-cost context",
+      "status": "partial",
+      "detail": "A dated state-rent schedule is supplied. Current legal applicability, claim age, labour obligations and which party pays remain unverified; no costs are assigned to the option model."
+    },
+    {
+      "id": "recoverable_resource",
+      "label": "Recoverable resource and success probability",
+      "status": "missing",
+      "detail": "Sediment assays and land overlaps do not supply recoverable ounces, a geological success probability or a conversion factor."
+    },
+    {
+      "id": "available_option",
+      "label": "Available option and executable terms",
+      "status": "missing",
+      "detail": "No verified available Tok assignment quote, premium, buyer exercise consideration, expiry or capped obligation schedule is supplied."
+    },
+    {
+      "id": "sale_probability",
+      "label": "Assignment liquidity",
+      "status": "missing",
+      "detail": "Claim counts, surface auctions and mixed project deals do not calibrate a 30/90/180-day option-assignment sale probability."
+    },
+    {
+      "id": "historical_availability",
+      "label": "Point-in-time evaluation data",
+      "status": "missing",
+      "detail": "Snapshot and retrieval dates are recorded separately. Historical publication times and realized assignment outcomes are not supplied."
+    },
+    {
+      "id": "planned_runs",
+      "label": "Scenario run inputs",
+      "status": "pass",
+      "detail": "9/9 configurations supplied. Configurations are not completed simulations."
+    },
+    {
+      "id": "pilot",
+      "label": "One-day pilot output",
+      "status": "pass",
+      "detail": "One-day timing and format pilot only. It has no day-3 intervention or days 3–5 observations."
+    },
+    {
+      "id": "full_runs",
+      "label": "Completed scored scenario runs",
+      "status": "unknown",
+      "detail": "No final report exists in the pinned branch tree; the day-1 pilot cannot supply day-3 scenario effects."
+    },
+    {
+      "id": "knowledge_cutoff",
+      "label": "Scenario source knowledge cutoff",
+      "status": "unknown",
+      "detail": "Input information availability must be supplied separately from generation, commit and retrieval times."
+    },
+    {
+      "id": "predictive_validation",
+      "label": "Measured predictive edge",
+      "status": "missing",
+      "detail": "No dated Tok option outcomes establish out-of-sample price skill, sale-probability calibration or net trading returns."
+    }
+  ],
+  "swarmDiagnostics": [
+    {
+      "id": "judge",
+      "label": "Human check of scoring judge",
+      "status": "pass",
+      "detail": "27/30 pilot scores within 2 points; threshold 24/30. This does not validate market prediction."
+    },
+    {
+      "id": "baseline_spread",
+      "label": "Three-baseline spread available",
+      "status": "unknown",
+      "detail": "Complete days 3–5 group means from baseline seeds 1, 2 and 3 are required."
+    },
+    {
+      "id": "placebo",
+      "label": "Placebo remains inside baseline bands",
+      "status": "unknown",
+      "detail": "The placebo and three scored baselines are required."
+    },
+    {
+      "id": "baseline_calls",
+      "label": "Baseline interview-call stability",
+      "status": "unknown",
+      "detail": "Upstream check requires at least two of three baseline majority calls to agree."
+    },
+    {
+      "id": "grounding",
+      "label": "Interview evidence grounding",
+      "status": "unknown",
+      "detail": "Requires the upstream sampled-answer grounding check; no market outcome is tested."
+    },
+    {
+      "id": "direction_mine_approval",
+      "label": "mine approval expected response",
+      "status": "unknown",
+      "detail": "At least one pre-registered group must move in the expected direction beyond both its chance band and the placebo effect."
+    },
+    {
+      "id": "mirror_mine_approval",
+      "label": "Approval and court-block mirror",
+      "status": "unknown",
+      "detail": "Fund responses must oppose each other and each exceed the baseline band."
+    },
+    {
+      "id": "direction_proposed_tax",
+      "label": "proposed tax expected response",
+      "status": "unknown",
+      "detail": "At least one pre-registered group must move in the expected direction beyond both its chance band and the placebo effect."
+    },
+    {
+      "id": "direction_protest",
+      "label": "protest expected response",
+      "status": "unknown",
+      "detail": "At least one pre-registered group must move in the expected direction beyond both its chance band and the placebo effect."
+    },
+    {
+      "id": "direction_mine_blocked",
+      "label": "mine blocked expected response",
+      "status": "unknown",
+      "detail": "At least one pre-registered group must move in the expected direction beyond both its chance band and the placebo effect."
+    },
+    {
+      "id": "mirror_mine_blocked",
+      "label": "Approval and court-block mirror",
+      "status": "unknown",
+      "detail": "Fund responses must oppose each other and each exceed the baseline band."
+    },
+    {
+      "id": "direction_gold_reversal",
+      "label": "gold reversal expected response",
+      "status": "unknown",
+      "detail": "At least one pre-registered group must move in the expected direction beyond both its chance band and the placebo effect."
+    },
+    {
+      "id": "mirror_gold_reversal",
+      "label": "Gold-reversal mirror",
+      "status": "unknown",
+      "detail": "Fund and retail support must both fall beyond their baseline bands."
+    }
+  ],
+  "cases": [
+    {
+      "label": "Unchanged demo baseline",
+      "mode": "demo",
+      "status": "illustrative",
+      "evidenceGate": "PASS",
+      "signal": 0,
+      "reasons": [],
+      "assignmentValueUsd": 1500,
+      "expectedNetCashUsd": 7.600000000000023,
+      "action": "BUY_CANDIDATE",
+      "cashDiagnostics": {
+        "status": "illustrative",
+        "outcomes": [
+          {
+            "kind": "sale",
+            "day": 30,
+            "probability": 0.2,
+            "netCashUsd": 750,
+            "netSaleProceedsUsd": 1450
+          },
+          {
+            "kind": "sale",
+            "day": 60,
+            "probability": 0.16000000000000003,
+            "netCashUsd": 750,
+            "netSaleProceedsUsd": 1450
+          },
+          {
+            "kind": "sale",
+            "day": 90,
+            "probability": 0.12800000000000003,
+            "netCashUsd": 750,
+            "netSaleProceedsUsd": 1450
+          },
+          {
+            "kind": "no_sale",
+            "day": 90,
+            "probability": 0.5120000000000001,
+            "netCashUsd": -700,
+            "netSaleProceedsUsd": 0
+          }
+        ],
+        "negativeCashProbability": 0.5120000000000001,
+        "medianCashUsd": -700,
+        "worstCashUsd": -700,
+        "p05CashUsd": -700,
+        "p95CashUsd": 750,
+        "expectedCashUsd": 7.599999999999909,
+        "breakEven": {
+          "maximumEntryPremiumUsd": 657.6,
+          "premiumHeadroomUsd": 7.600000000000023,
+          "minimumSaleProbability": 0.48275862068965514,
+          "minimumHazardPer30Days": 0.19727937766316583,
+          "minimumConstantAssignmentValueUsd": 1484.4262295081971,
+          "hazardThresholdStatus": "ready",
+          "reasons": [],
+          "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
+          "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
+        },
+        "reasons": [],
+        "definition": "Net cash received by the horizon after all upfront costs. Unsold option marks are excluded. A cash shortfall while an option is held is not necessarily a realized investment loss."
+      }
+    },
+    {
+      "label": "Historical annual-mean CAGR applied explicitly as a demo assumption",
+      "mode": "demo",
+      "status": "illustrative",
+      "evidenceGate": "PASS",
+      "signal": 0,
+      "reasons": [],
+      "assignmentValueUsd": 1583.3182881084017,
+      "expectedNetCashUsd": 32.597341501865685,
+      "action": "BUY_CANDIDATE",
+      "cashDiagnostics": {
+        "status": "illustrative",
+        "outcomes": [
+          {
+            "kind": "sale",
+            "day": 30,
+            "probability": 0.2,
+            "netCashUsd": 777.4698207627212,
+            "netSaleProceedsUsd": 1477.4698207627212
+          },
+          {
+            "kind": "sale",
+            "day": 60,
+            "probability": 0.16000000000000003,
+            "netCashUsd": 805.2414779465371,
+            "netSaleProceedsUsd": 1505.241477946537
+          },
+          {
+            "kind": "sale",
+            "day": 90,
+            "probability": 0.12800000000000003,
+            "netCashUsd": 833.3182881084017,
+            "netSaleProceedsUsd": 1533.3182881084017
+          },
+          {
+            "kind": "no_sale",
+            "day": 90,
+            "probability": 0.5120000000000001,
+            "netCashUsd": -700,
+            "netSaleProceedsUsd": 0
+          }
+        ],
+        "negativeCashProbability": 0.5120000000000001,
+        "medianCashUsd": -700,
+        "worstCashUsd": -700,
+        "p05CashUsd": -700,
+        "p95CashUsd": 833.3182881084017,
+        "expectedCashUsd": 32.597341501865515,
+        "breakEven": {
+          "maximumEntryPremiumUsd": 682.5973415018657,
+          "premiumHeadroomUsd": 32.597341501865685,
+          "minimumSaleProbability": null,
+          "minimumHazardPer30Days": null,
+          "minimumConstantAssignmentValueUsd": 1484.4262295081971,
+          "hazardThresholdStatus": "unsupported",
+          "reasons": [
+            "minimum_hazard_unsupported_for_increasing_interval_proceeds"
+          ],
+          "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
+          "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
+        },
+        "reasons": [],
+        "definition": "Net cash received by the horizon after all upfront costs. Unsold option marks are excluded. A cash shortfall while an option is held is not necessarily a realized investment loss."
+      }
+    },
+    {
+      "label": "Actual branch swarm, mine approval remains pending",
+      "mode": "demo",
+      "status": "PENDING_SWARM",
+      "evidenceGate": "PASS",
+      "signal": null,
+      "reasons": [
+        "swarm_import_required"
+      ],
+      "assignmentValueUsd": null,
+      "expectedNetCashUsd": null,
+      "action": null,
+      "cashDiagnostics": {
+        "status": "INSUFFICIENT_DATA",
+        "outcomes": [],
+        "negativeCashProbability": null,
+        "medianCashUsd": null,
+        "worstCashUsd": null,
+        "p05CashUsd": null,
+        "p95CashUsd": null,
+        "expectedCashUsd": null,
+        "breakEven": {
+          "maximumEntryPremiumUsd": null,
+          "premiumHeadroomUsd": null,
+          "minimumSaleProbability": null,
+          "minimumHazardPer30Days": null,
+          "minimumConstantAssignmentValueUsd": null,
+          "hazardThresholdStatus": "unavailable",
+          "reasons": [],
+          "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
+          "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
+        },
+        "reasons": [
+          "cash_outcomes_unavailable"
+        ]
+      }
+    },
+    {
+      "label": "Area B still fails the geological screen",
+      "mode": "demo",
+      "status": "ineligible",
+      "evidenceGate": "FAIL",
+      "signal": 0,
+      "reasons": [
+        "evidence_gate_failed"
+      ],
+      "assignmentValueUsd": 1500,
+      "expectedNetCashUsd": 7.600000000000023,
+      "action": "SKIP",
+      "cashDiagnostics": {
+        "status": "illustrative",
+        "outcomes": [
+          {
+            "kind": "sale",
+            "day": 30,
+            "probability": 0.2,
+            "netCashUsd": 750,
+            "netSaleProceedsUsd": 1450
+          },
+          {
+            "kind": "sale",
+            "day": 60,
+            "probability": 0.16000000000000003,
+            "netCashUsd": 750,
+            "netSaleProceedsUsd": 1450
+          },
+          {
+            "kind": "sale",
+            "day": 90,
+            "probability": 0.12800000000000003,
+            "netCashUsd": 750,
+            "netSaleProceedsUsd": 1450
+          },
+          {
+            "kind": "no_sale",
+            "day": 90,
+            "probability": 0.5120000000000001,
+            "netCashUsd": -700,
+            "netSaleProceedsUsd": 0
+          }
+        ],
+        "negativeCashProbability": 0.5120000000000001,
+        "medianCashUsd": -700,
+        "worstCashUsd": -700,
+        "p05CashUsd": -700,
+        "p95CashUsd": 750,
+        "expectedCashUsd": 7.599999999999909,
+        "breakEven": {
+          "maximumEntryPremiumUsd": 657.6,
+          "premiumHeadroomUsd": 7.600000000000023,
+          "minimumSaleProbability": 0.48275862068965514,
+          "minimumHazardPer30Days": 0.19727937766316583,
+          "minimumConstantAssignmentValueUsd": 1484.4262295081971,
+          "hazardThresholdStatus": "ready",
+          "reasons": [],
+          "basis": "Deterministic sensitivity with other assumptions held fixed. Equality gives zero expected cash and does not pass the positive-cash entry rule. Evidence, contract and risk gates still apply.",
+          "constantAssignmentBasis": "Equivalent assignment value held constant at every sale date, using the current sale probability and exit fee."
+        },
+        "reasons": [],
+        "definition": "Net cash received by the horizon after all upfront costs. Unsold option marks are excluded. A cash shortfall while an option is held is not necessarily a realized investment loss."
+      }
+    },
+    {
+      "label": "Real inputs still incomplete",
+      "mode": "real",
+      "status": "INSUFFICIENT_DATA",
+      "evidenceGate": "PASS",
+      "signal": 0,
+      "reasons": [
+        "Land-source context and historical gold prices are connected. Verified Tok option terms, recoverable resources and a supported sale-probability input are still missing."
+      ],
+      "assignmentValueUsd": null,
+      "expectedNetCashUsd": null,
+      "action": null,
+      "cashDiagnostics": null
+    }
+  ]
+}

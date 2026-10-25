@@ -1,0 +1,214 @@
+{
+  "version": "tok-option-demo-v1",
+  "purpose": "Machine-readable proposed specification defaults. This is not a production model or an executable trading engine.",
+  "mode": "explicit_demo",
+  "requiresExplicitDemoSelection": true,
+  "currency": "USD",
+  "provenanceStatuses": {
+    "user_choice": "Direction explicitly selected in predictive-model-intake.md; not empirical calibration.",
+    "proposed_default": "Editable implementation proposal awaiting team acceptance; not a measured parameter.",
+    "source_context": "Observed source context, not an economic inference.",
+    "hypothetical_fixture": "Invented arithmetic input or output; not a Tok quote, resource, reserve or forecast."
+  },
+  "evidence": {
+    "primaryMaterial": "Au",
+    "thresholdPpm": 0.01,
+    "thresholdInclusive": true,
+    "minimumClassifiedSamples": 10,
+    "minimumQualifyingFraction": 0.5,
+    "snapshotSampleCount": 67,
+    "sampleClassification": {
+      "pass": "A verified lower bound is at least thresholdPpm.",
+      "fail": "A verified upper bound is below thresholdPpm, or equals it and is exclusive.",
+      "unknown": "Missing, invalid, incomparable, unverified censoring semantics, or a bound that straddles the threshold.",
+      "negativeSentinels": "Never interpret negative analytical sentinels as concentrations.",
+      "quantifiedValues": "Equal inclusive lower and upper bounds; a quantified value exactly at threshold passes."
+    },
+    "gate": {
+      "denominator": "All selected samples, including unknowns.",
+      "lowerFraction": "pass / total",
+      "upperFraction": "(pass + unknown) / total",
+      "pass": "classified >= minimumClassifiedSamples and lowerFraction >= minimumQualifyingFraction",
+      "fail": "classified >= minimumClassifiedSamples and upperFraction < minimumQualifyingFraction",
+      "otherwise": "UNKNOWN",
+      "emptySelection": "UNKNOWN; fractions are null.",
+      "meaning": "Prototype eligibility only. Not economic grade, a deposit probability, or a recoverable-quantity estimate."
+    },
+    "otherMaterials": {
+      "enabled": false,
+      "intendedRoles": [
+        "gold_indicators",
+        "additional_assumed_value"
+      ]
+    }
+  },
+  "time": {
+    "historicalLookbackYears": 5,
+    "dayBasis": 365,
+    "horizonsDays": [
+      30,
+      90,
+      180
+    ],
+    "primaryHorizonDays": 90,
+    "exitIntervalDays": 30,
+    "expiryBufferDays": 15,
+    "annualDiscountRate": 0,
+    "growthConvention": "P(t)=P0*(1+g)^(t/365); grow material prices before applying ownership, kappa, probability and fixed remaining buyer consideration.",
+    "discountSupport": "Zero only in v1; nonzero discount requests are unsupported until dated discounting is implemented. Cash outputs are not NPV."
+  },
+  "swarm": {
+    "canonicalGroups": [
+      "government",
+      "industry",
+      "community",
+      "funds",
+      "retail"
+    ],
+    "groupWeights": {
+      "government": 0.1,
+      "industry": 0.4,
+      "community": 0.07,
+      "funds": 0.4,
+      "retail": 0.03
+    },
+    "scoreMin": 0,
+    "scoreMax": 10,
+    "comparison": {
+      "baselineScenario": "baseline",
+      "baselineSeed": 1,
+      "days": [
+        3,
+        4,
+        5
+      ],
+      "aggregation": "Compute one mean per group per day, then equally average the three daily means. Compare each scenario with the matching seed-1 baseline group mean.",
+      "normalizationDivisor": 10,
+      "signal": "s=sum(groupWeight*(scenarioMean-baselineMean)/10), bounded to [-1,1].",
+      "missingGroupDayOrBaseline": "PENDING_SWARM; mapped output null, retain separately computed baseline output.",
+      "rawPostCountsAreWeights": false
+    },
+    "priceAdjustmentCap": 0.07,
+    "assumedEventExposure": 1,
+    "assumedRetention": 1,
+    "retentionConvention": "Constant through the selected horizon; not estimated decay or persistence.",
+    "mapping": "A(t)=A0(t)*(1+priceAdjustmentCap*s*eventExposure*retention(t)); apply once.",
+    "entryNewsScenarios": [
+      "mine_approval",
+      "proposed_tax",
+      "protest",
+      "mine_blocked",
+      "gold_reversal"
+    ],
+    "diagnosticOnlyScenarios": [
+      "baseline",
+      "sports_placebo"
+    ],
+    "diagnosticsSelectableAsEntryNews": false,
+    "boundarySignals": "s=-1 and s=+1 are synthetic sensitivity bounds, not observed swarm runs."
+  },
+  "valuation": {
+    "quantitySource": "Explicitly hypothetical recoverable troy ounces; never derived from sediment ppm.",
+    "rawMaterialValue": "sum(assumedQuantity_i*price_i(t)) with explicit compatible quantity and price units",
+    "successValue": "rawMaterialValue(t)*ownershipFraction*kappa",
+    "underlyingExpectedProxy": "pGeo*successValue(t), separately labelled and not the option quote",
+    "baselineAssignmentValue": "A0(t)=pGeo*max(successValue(t)-remainingBuyerConsideration,0)",
+    "pGeoSource": "Explicitly hypothetical; never the evidence qualifying fraction.",
+    "resolutionAssumption": "Success or failure resolves before the future buyer exercises; the interest has zero value on failure.",
+    "proxyLimitation": "This call-shaped proxy omits option time value. It is an illustrative contract mapping, not an option-pricing model.",
+    "extraUnexplainedMultiplier": false,
+    "entryPremiumInBuyerConsideration": false,
+    "remainingBuyerConsiderationPaidByAssignorOnSale": false
+  },
+  "liquidity": {
+    "assumedHazardPer30Days": 0.2,
+    "hazardStatus": "proposed_default",
+    "newsAdjustsHazard": false,
+    "intervalSaleWeight": "w_j=(1-h)^(j-1)*h, evaluated at t_j=30*j days",
+    "saleProbabilityByHorizon": "P(T<=H)=1-(1-h)^(H/30)",
+    "supportedHorizonsOnly": true,
+    "expectedNetCash": "sum_j(w_j*(A(t_j)-exitFee))-entryPremium-entryFee-unavoidableAdditionalObligations",
+    "noSaleCashProceeds": 0,
+    "noSaleResidualMark": "(1-P(T<=H))*A(H), displayed separately and never added to cash expected value or investable cash",
+    "belowFeeAssignmentPolicy": "If A(t_j) < exitFee in any supported sale interval, retain the price output but set liquidity and expected cash outputs to null with reason no_viable_sale_under_policy. Do not suppress that interval and reuse the unchanged hazard. The declared fixed marketing policy is unsupported in this case.",
+    "realModeMissingLiquidity": "INSUFFICIENT_DATA; probabilities and mapped cash expectation null, entry action disabled. Never replace missing liquidity with zero or a demo assumption.",
+    "sellingPolicy": "At each 30-day interval end, offer assignment at model A(t); a hypothetical completed-sale branch closes at exactly that amount without negotiation. No real buyer quote is implied."
+  },
+  "capital": {
+    "startingFundUsd": 100000,
+    "maxRiskPerOptionUsd": 2000,
+    "maxOpenRiskUsd": 10000,
+    "maxWholeCohortCommittedUsd": 10000,
+    "maxPositions": 5,
+    "leverage": false,
+    "exercise": false,
+    "reinvestment": false,
+    "oneUnderlyingAtMostOnce": true,
+    "indivisibleContracts": true,
+    "riskDefinition": "Entry premium + entry fee + unavoidable additional obligations; reject unknown or uncapped obligations. Exit fees are conditional deductions from assignment proceeds.",
+    "additionalObligationsScope": "Version 1 supports only unavoidable additional obligations paid or reserved upfront. Later mandatory payments are unsupported; do not silently treat them as zero or model their timing with this fixture.",
+    "expiryGate": "remainingMaturityDays >= horizonDays + expiryBufferDays",
+    "entryObjective": "Maximize strictly positive expected net cash, subject to evidence, term, expiry, data and capital gates.",
+    "actionLabels": [
+      "BUY_CANDIDATE",
+      "SKIP",
+      "INSUFFICIENT_DATA",
+      "PENDING_SWARM"
+    ],
+    "optimizer": {
+      "method": "Enumerate feasible subsets",
+      "maximumCandidateCount": 20,
+      "overLimit": "Refuse and request a declared prefilter; do not silently truncate."
+    },
+    "scope": "One nonreplenishing cohort. Portfolio constraints are proposed configuration, not implemented or tested by validate-plan.mjs."
+  },
+  "provenance": [
+    {
+      "paths": [
+        "evidence.primaryMaterial",
+        "evidence.otherMaterials.intendedRoles",
+        "swarm.priceAdjustmentCap",
+        "valuation.quantitySource",
+        "capital.exercise"
+      ],
+      "status": "user_choice",
+      "source": "../predictive-model-intake.md"
+    },
+    {
+      "paths": [
+        "swarm.entryNewsScenarios",
+        "swarm.diagnosticOnlyScenarios"
+      ],
+      "status": "user_choice",
+      "source": "../predictive-model-intake.md",
+      "qualification": "Intended running scenarios confirmed; canonical IDs and exclusion of diagnostic conditions from entry are implementation proposals. No run artifacts inspected."
+    },
+    {
+      "paths": [
+        "evidence.snapshotSampleCount"
+      ],
+      "status": "source_context",
+      "source": "../../README.md"
+    },
+    {
+      "paths": [
+        "evidence.thresholdPpm",
+        "evidence.minimumClassifiedSamples",
+        "evidence.minimumQualifyingFraction",
+        "evidence.sampleClassification",
+        "evidence.gate",
+        "evidence.otherMaterials.enabled",
+        "time",
+        "swarm.groupWeights",
+        "swarm.comparison",
+        "swarm.assumedEventExposure",
+        "swarm.assumedRetention",
+        "valuation",
+        "liquidity",
+        "capital"
+      ],
+      "status": "proposed_default",
+      "qualification": "Except separately identified user choices. User requested sizing help; the numerical fund/risk limits and all model formulas remain editable prototype proposals."
+    }
+  ]
+}
