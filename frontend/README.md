@@ -2,8 +2,10 @@
 
 A local React website for Alaska DGGS RDF 2016-10 stream-sediment evidence.
 It shows all 67 sample locations, A/B descriptive summaries, clickable sample
-details, searchable records and a month-precision timeline. Land/contracts,
-MiroFish/prediction and algorithm/output remain pending team handoffs.
+details, searchable records and a month-precision timeline. The option workbench
+adds hypothetical contract economics, land-source context, historical gold
+growth, cash diagnostics and swarm readiness. Verified contracts, recoverable
+resources, resale data and completed swarm scenarios remain missing.
 
 See [the team improvement guide](CONTRIBUTING.md) for file ownership boundaries,
 pending integrations and the current [desktop preview](docs/preview.png).
@@ -66,6 +68,11 @@ Screenshots are written under ignored `frontend/artifacts/`. The browser tool is
 optional for running the website and is not installed by `npm ci`.
 
 ## Snapshot and provenance
+
+The separate [option model](../model/tok-option/README.md) reads the same observed
+sample snapshot and adds pinned source bundles under `model/tok-option/data/`.
+See the [integration findings](../research/tok-option-model/integration-review.md)
+for what those inputs fill and what still remains assumed.
 
 The following small assets were copied byte-for-byte from the user-supplied
 verified handoff, preserving distinct A/B file names:

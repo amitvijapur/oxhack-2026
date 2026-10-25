@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "provenance": "synthetic",
+  "sourceId": "tok-option-import-example-v1",
+  "knowledgeCutoff": "2026-10-25T00:00:00Z",
+  "eventDefinition": "Invented format example only. Baseline includes the common hypothetical day-one gold breakout, with no extra day-three event. mine_approval adds an invented day-three approval. No actual swarm runs are included.",
+  "scoreMetric": "mining_support",
+  "scoreRange": [
+    0,
+    10
+  ],
+  "runs": [
+    {
+      "scenarioId": "baseline",
+      "seed": 1,
+      "runId": "synthetic-baseline-seed-1",
+      "days": [
+        {
+          "day": 3,
+          "groups": {
+            "government": [
+              5
+            ],
+            "industry": [
+              5
+            ],
+            "community": [
+              5
+            ],
+            "funds": [
+              5
+            ],
+            "retail": [
+              5
+            ]
+          }
+        },
+        {
+          "day": 4,
+          "groups": {
+            "government": [
+              5
+            ],
+            "industry": [
+              5
+            ],
+            "community": [
+              5
+            ],
+            "funds": [
+              5
+            ],
+            "retail": [
+              5
+            ]
+          }
+        },
+        {
+          "day": 5,
+          "groups": {
+            "government": [
+              5
+            ],
+            "industry": [
+              5
+            ],
+            "community": [
+              5
+            ],
+            "funds": [
+              5
+            ],
+            "retail": [
+              5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "scenarioId": "mine_approval",
+      "seed": 1,
+      "runId": "synthetic-mine_approval-seed-1",
+      "days": [
+        {
+          "day": 3,
+          "groups": {
+            "government": [
+              6
+            ],
+            "industry": [
+              7
+            ],
+            "community": [
+              4
+            ],
+            "funds": [
+              8
+            ],
+            "retail": [
+              5
+            ]
+          }
+        },
+        {
+          "day": 4,
+          "groups": {
+            "government": [
+              6
+            ],
+            "industry": [
+              7
+            ],
+            "community": [
+              4
+            ],
+            "funds": [
+              8
+            ],
+            "retail": [
+              5
+            ]
+          }
+        },
+        {
+          "day": 5,
+          "groups": {
+            "government": [
+              6
+            ],
+            "industry": [
+              7
+            ],
+            "community": [
+              4
+            ],
+            "funds": [
+              8
+            ],
+            "retail": [
+              5
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

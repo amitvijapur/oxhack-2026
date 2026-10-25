@@ -1,5 +1,29 @@
 # OXHack preparation
 
+## Publish the Tok option model, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. Scope: pure assignment-only option
+model, minimal frontend integration, pinned source bundles and gap report.
+Publication base: frontend PR 27, commit `e9d60c8`. Salman's deployment PR 28 is
+independent and preserved.
+
+- [x] Implement model, exact cash and break-even diagnostics, and swarm checks.
+- [x] Connect the 67-sample land context, historical gold means and swarm pilot.
+- [x] Document missing option terms, resources, liquidity, completed simulations and measured predictive edge.
+- [x] Verify the exact publication tree and complete independent package review.
+- [x] Prepare `codex/tok-option-model` for publication and team review.
+
+The source branches are pinned at land `34eaf1d` and swarm `d7717cd`. Read
+`research/tok-option-model/integration-review.md` and `model/tok-option/README.md`
+for reproducible checks and the model's limits. This publication does not deploy
+the website, merge other branches or execute trades.
+
+Publication checks: all 93 application/model tests, 29 specification checks,
+production build, model demo and source audit passed in the isolated checkout.
+Independent package review confirmed source/fixture completeness, scoped edits,
+working documentation links and no secret findings. Existing MapLibre chunk-size
+advisory remains. Hosted check results are recorded on the pull request.
+
 ## Frontend baseline for team improvements, 24 October 2026
 
 Owner: Amit for publication and integration. The website source is under `frontend/`; use [the team guide](../frontend/CONTRIBUTING.md) for bounded file ownership and changes. Land/contracts remains with Arjin, simulation/prediction with Muhd and the decision algorithm with Salman.

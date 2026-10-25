@@ -3,9 +3,15 @@
 This branch is the team's runnable frontend baseline. The display snapshot is
 included, so you can start without regenerating the larger data packs.
 
+The updated model is on `codex/tok-option-model`, based on the frontend branch.
+For the model and source-gap work, check out that branch and open `/#option-model`.
+Read [the integration findings](../research/tok-option-model/integration-review.md)
+before replacing assumptions with new data. Salman's deployment PR 28 is a
+separate sibling change; this model branch does not include its optional backend.
+
 ## Start
 
-Check out `codex/tok-evidence-frontend`, then use Node.js 24.14.0:
+Check out `codex/tok-option-model` for the updated workbench, then use Node.js 24.14.0:
 
 ```sh
 cd frontend
@@ -29,6 +35,8 @@ and fonts are local. The optional browser smoke script assumes port 5173.
 | Bundled source snapshot | `public/data/` |
 | Evidence-contract regression checks | `tests/evidence.test.js` |
 | Optional interactive browser checks | `tests/browser-smoke.js` |
+| Model workbench, source coverage and cash diagnostics | `src/ModelWorkbench.jsx`, `src/ModelDiagnostics.jsx`, `src/model-workbench.css` |
+| Pure valuation, liquidity, diagnostics, source adapters and tests | `../model/tok-option/` |
 
 Start with a short task branch from this frontend branch while its PR is open,
 or from updated `main` after it merges. Agree one owner for each file area;
@@ -42,6 +50,11 @@ The existing `gold-frontend-data.json` has null data for three workstreams:
 - Arjin owns land/contracts.
 - Muhd owns MiroFish/simulation/prediction.
 - Salman owns the decision algorithm, currently in planning.
+
+The new model workbench is implemented alongside that original handoff contract.
+Land context and a swarm pilot are supplied, while verified trade inputs and
+completed scenarios remain pending. Do not fill the old null handoff fields with
+demo economics or treat the option model as an executable quote.
 
 Agree each new output shape before wiring it into `Workstreams`. Keep the
 existing Pending/Planning state until an actual output is available. The old
