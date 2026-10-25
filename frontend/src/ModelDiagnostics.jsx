@@ -53,6 +53,8 @@ export function CashDiagnostics({ diagnostics, controls, evaluations }) {
     ['Probability of negative net cash', 'negativeCashProbability', (value) => percent(value)],
     ['Median cash return on upfront capital', 'medianCashUsd', (value, risk) => percent(capitalRatio(value, risk))],
     ['Worst cash return with nonzero probability', 'worstCashUsd', (value, risk) => percent(capitalRatio(value, risk))],
+    ['5th percentile cash return', 'p05CashUsd', (value, risk) => percent(capitalRatio(value, risk))],
+    ['95th percentile cash return', 'p95CashUsd', (value, risk) => percent(capitalRatio(value, risk))],
   ];
   return <section className="model-cash-diagnostics" aria-labelledby="model-cash-diagnostics-heading">
     <h3 id="model-cash-diagnostics-heading">What sits behind the average?</h3>

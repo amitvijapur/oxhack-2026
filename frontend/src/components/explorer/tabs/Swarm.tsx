@@ -27,7 +27,7 @@ function layout(people: Town["people"]) {
   });
 }
 
-/** How the simulated town reacts: 61 AI residents replaying their scored day-1 posts. */
+/** The day-1 pilot: the simulated residents replaying their scored posts, hour by hour. */
 export function Swarm({ town }: { town: Town }) {
   const dots = useMemo(() => layout(town.people), [town]);
   const [hour, setHour] = useState(0);
@@ -49,14 +49,15 @@ export function Swarm({ town }: { town: Town }) {
   const latest = useMemo(() => new Map<string, Post>(seen.map((p) => [p.name, p])), [seen]);
   const mood = seen.length ? seen.reduce((sum, p) => sum + p.score, 0) / seen.length : null;
   const last = seen[seen.length - 1];
+  const residents = dots.length;
 
   return (
     <Section
       title="How the town reacts"
-      lede={<>61 AI residents of Tok hear one piece of news, &ldquo;gold just jumped to $4,500&rdquo;, and post for a day. Each dot is a person, from grey (against mining) to green (for).</>}
+      lede={<>{residents} simulated residents of Tok hear one piece of news, &ldquo;{town.run.news}&rdquo;, and post for {hours} simulated hours. Each dot is a person, from grey (against mining) to green (for).</>}
     >
       <div className="swarm">
-        <svg viewBox={`0 0 ${W} ${H}`} className="swarm-svg" role="img" aria-label={`61 residents; town mood ${mood?.toFixed(1) ?? "not yet known"} out of 10`}>
+        <svg viewBox={`0 0 ${W} ${H}`} className="swarm-svg" role="img" aria-label={`${residents} residents; town mood ${mood?.toFixed(1) ?? "not yet known"} out of 10`}>
           {GROUPS.map((g) => {
             const x = W / 2 + Math.cos((g.angle * Math.PI) / 180) * 120;
             const y = H / 2 + Math.sin((g.angle * Math.PI) / 180) * 88;
@@ -90,7 +91,7 @@ export function Swarm({ town }: { town: Town }) {
           <footer>{last.name} · {GROUPS.find((g) => g.key === last.group)?.label ?? last.group} · {last.score}/10</footer>
         </blockquote>
       ) : null}
-      <p className="note">Separate pilot illustration, not a survey or a pricing input. The workbench above checks attributed scenario runs before allowing a signal to change a demo price.</p>
+      <p className="note">Separate {town.run.kind} run (seed {town.run.seed}), not a survey or a pricing input. Its own judge check: {town.run.judge_check}.</p>
     </Section>
   );
 }

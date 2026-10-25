@@ -5,17 +5,30 @@ async page => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('http://127.0.0.1:3000/');
 
-  // Opening: the time-lapse plays from 1975 to today by itself, and the counters follow.
+  // Opening: a still of the map at once, then the live map; history plays from 2016 to today,
+  // rests on today, and carries on into the five-year gold projection.
   await page.getByText('Land Arbitrage: Gold').first().waitFor();
-  await page.locator('.tl-year').waitFor({ timeout: 20000 });
-  const early = Number(await page.locator('.tl-year').textContent());
-  check(early < 2026, `Time-lapse should start in the past, got ${early}`);
-  await page.waitForFunction(() => document.querySelector('.tl-year')?.textContent === '2026', null, { timeout: 30000 });
-  check((await page.locator('.tl-readout').innerText()).includes('Claims held near Tok'), 'Readout missing');
+  await page.locator('.map-snapshot img').first().waitFor({ state: 'attached' });
+  const opening = page.locator('.timelapse');
+  await opening.waitFor({ timeout: 20000 });
+  const years = page.getByRole('slider', { name: 'Year' });
+  check(await years.getAttribute('min') === '2016' && await years.getAttribute('max') === '2031', 'Opening must run 2016 to 2031');
+  await page.waitForFunction(() => document.querySelector('.explorer')?.dataset.earth === 'ready', null, { timeout: 60000 });
+  await page.waitForFunction(() => document.querySelector('input[aria-label="Year"]')?.value === '2031', null, { timeout: 60000 });
+  const future = await opening.innerText();
+  check(future.includes('not a prediction') && future.includes('Gold, projected') && future.includes('no claims projection'), 'Projection must be labelled and claims must not be projected');
   await page.waitForFunction(() => /\$[\d,]+/.test(document.querySelector('.live')?.innerText ?? ''), null, { timeout: 15000 });
-  await page.getByRole('slider', { name: 'Year' }).fill('1990');
+  await page.screenshot({ path: 'frontend/artifacts/0-projection.png' });
+  await years.fill('2020');
+  check(await page.locator('.tl-year').textContent() === '2020', 'Scrubbing did not move the year');
+  check((await opening.innerText()).includes('Gold, yearly average'), 'History years must show measured gold');
+  await page.getByRole('radio', { name: 'Since 1975' }).click();
+  check(await years.getAttribute('min') === '1975', 'History must reach back to 1975');
+  await years.fill('1990');
   check(await page.locator('.tl-year').textContent() === '1990', 'Scrubbing did not move the year');
-  await page.screenshot({ path: 'frontend/artifacts/0-timelapse.png' });
+  await page.screenshot({ path: 'frontend/artifacts/0b-history.png' });
+  await page.getByRole('button', { name: 'Jump to today' }).click();
+  check(await page.locator('.tl-year').textContent() === '2026', 'Jump to today must land on 2026');
 
   // Explorer: the Land tab lists every sampled plot, richest first, with the signal on top.
   await page.getByRole('button', { name: /Explore the land/ }).click();
@@ -43,7 +56,16 @@ async page => {
     check(text.includes(part), `Plot sheet missing "${part}"`);
   }
   await page.waitForFunction(() => /~[\d,]+ m/.test(document.querySelector('.sheet')?.innerText ?? ''), null, { timeout: 20000 });
+  // Team land bundle: the recorded layers at each sample point.
+  check(text.includes('Land records at the sample point') && /ADL \d+/.test(text), 'Plot sheet must list the land records at its samples');
   await page.screenshot({ path: 'frontend/artifacts/1-plot-sheet.png' });
+  // The 3D terrain view draws only surface samples: nothing invented underground.
+  await page.getByRole('button', { name: 'Terrain and samples in 3D' }).click();
+  const block = page.getByRole('dialog', { name: 'Terrain and samples at plot B-19' });
+  await block.waitFor();
+  check((await block.innerText()).includes('no drilling data'), '3D view must say there is no drilling data');
+  await page.keyboard.press('Escape');
+  await block.waitFor({ state: 'detached' });
   await page.getByRole('button', { name: 'Next plot' }).click();
   await page.getByRole('region', { name: 'Plot B-17' }).waitFor();
   await page.getByRole('button', { name: 'Close plot' }).click();
@@ -61,6 +83,7 @@ async page => {
   check(ground.includes('49 elements') && ground.includes('What travels with gold here'), 'Ground tab incomplete');
   await page.getByRole('radio', { name: 'As' }).click();
   check(await page.getByRole('radio', { name: 'As' }).getAttribute('aria-checked') === 'true', 'Element picker did not select arsenic');
+  check(ground.includes('The gold evidence, area by area') && ground.includes('1.1 ppm') && ground.includes('31.6 ppm'), 'A/B evidence card must show primary, retest and lithium separately');
   await page.getByText('Show the bedrock map and known mines on the map').click();
   await page.waitForTimeout(2500);
   await page.screenshot({ path: 'frontend/artifacts/2-ground.png' });
@@ -68,6 +91,18 @@ async page => {
   // Market: six series that follow the year.
   await page.getByRole('tab', { name: 'Market' }).click();
   check(await page.locator('.mini-chart').count() === 6, 'Market timeline needs six series');
+  const market = await panel.innerText();
+  check(market.includes('correlate at 0.19') && market.includes('What mineral ground has cost') && market.includes('Source quality'), 'Market facts must be computed and the land costs shown');
+
+  // Swarm: the pinned MiroFish runs, their spread and the failed checks, as reported.
+  await page.getByRole('tab', { name: 'Swarm' }).click();
+  const swarm = await panel.innerText();
+  for (const part of ['6/9', '26/30', '8 of 20 grounded', 'Court blocks mine', 'not run', 'Effect against baseline']) {
+    check(swarm.includes(part), `Swarm tab missing "${part}"`);
+  }
+  check(await panel.locator('.swarm-chart path.swarm-band').count() === 1, 'Swarm chart must draw the baseline band');
+  await page.getByRole('radio', { name: /Government/ }).click();
+  await page.screenshot({ path: 'frontend/artifacts/2b-swarm.png' });
 
   // Canonical decision model: explicit synthetic preset, percentages and live recalculation.
   await page.getByRole('tab', { name: 'Decision' }).click();
@@ -100,6 +135,15 @@ async page => {
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: /Explore the land/ }).waitFor();
 
+  // How it works: every step from data or the model, ending on what is still missing.
+  await page.getByRole('button', { name: 'How it works' }).click();
+  const story = page.getByRole('dialog', { name: 'How it works' });
+  const storyText = await story.innerText();
+  check(storyText.includes('25/33 · PASS') && storyText.includes('16/34 · FAIL'), 'Story must show the model evidence gate');
+  check(storyText.includes('An available Tok option and verified terms'), 'Story must list the model gaps');
+  await page.keyboard.press('Escape');
+  await story.waitFor({ state: 'detached' });
+
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: 844 });
     check(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `Horizontal overflow at ${width}px`);
@@ -128,5 +172,5 @@ async page => {
   await flat.close();
 
   check(errors.length === 0, `Unexpected runtime errors: ${errors.join('; ')}`);
-  return { result: 'pass', timelapse: [early, 2026], decision: { default: 'evidence only', demo: 'recalculates', real: 'cash unavailable' }, viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
+  return { result: 'pass', opening: '2016 to today, then gold projected to 2031', history: [2016, 1975], decision: { default: 'evidence only', demo: 'recalculates', real: 'cash unavailable' }, viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
 }

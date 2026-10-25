@@ -4,12 +4,14 @@ import { useMemo } from "react";
 import { ExternalLink } from "lucide-react";
 import { anomalyClass, assayLevel, formatAssayValue, km, type Geochem as GeochemData, type Geology, type Occurrences } from "@/lib/showcase";
 import { Bar } from "../charts";
+import { EvidenceCard } from "./EvidenceCard";
+import type { EvidenceConfig } from "@/lib/types";
 import { Section, TabBody } from "../TabBody";
 
 const CLASS_LABELS = ["Below median", "Above median", "Top 10%", "Top 2%"] as const;
 const PATHFINDERS = ["As", "Sb", "Bi", "Te", "W", "Mo", "Cu", "Ag"];
 
-export function GroundTab({ geochem, geology, occurrences, element, onElement, sampleId, occurrenceId, siteOf, bedrock, onBedrock }: {
+export function GroundTab({ geochem, geology, occurrences, element, onElement, sampleId, occurrenceId, siteOf, bedrock, onBedrock, evidence }: {
   geochem: GeochemData;
   geology: Geology;
   occurrences: Occurrences;
@@ -23,6 +25,8 @@ export function GroundTab({ geochem, geology, occurrences, element, onElement, s
   /** Whether the bedrock geology map and known mines show on the map. */
   bedrock: boolean;
   onBedrock: (on: boolean) => void;
+  /** The validated A/B gold evidence handoff, once loaded. */
+  evidence: EvidenceConfig | null;
 }) {
   const t = geochem.thresholds;
   const info = geochem.elements[element];
@@ -66,9 +70,18 @@ export function GroundTab({ geochem, geology, occurrences, element, onElement, s
     ? occurrences.records.map((o) => ({ o, d: km(sample.lon, sample.lat, o.lon, o.lat) })).sort((a, b) => a.d - b.d)[0]
     : null;
 
+  // The median sample, keeping a lab flag (<limit, >limit) when the middle value is one; with an even
+  // count, the mean of the two middle values when both are measured, otherwise both shown.
   const median = (site: "A" | "B", e: string) => {
-    const values = geochem.samples.filter((s) => siteOf(s.id) === site).map((s) => assayLevel(s.values[e])).filter((v): v is number => v !== null).sort((a, b) => a - b);
-    return values.length ? values[Math.floor(values.length / 2)] : null;
+    const values = geochem.samples.filter((s) => siteOf(s.id) === site).map((s) => s.values[e]).filter((v) => assayLevel(v) !== null)
+      .sort((a, b) => assayLevel(a)! - assayLevel(b)!);
+    if (!values.length) return null;
+    const unit = geochem.elements[e]?.unit ?? "";
+    const k = Math.floor(values.length / 2);
+    if (values.length % 2) return formatAssayValue(values[k], unit);
+    const [a, b] = [values[k - 1], values[k]];
+    if (typeof a === "number" && typeof b === "number") return `${Number(((a + b) / 2).toPrecision(3))} ${unit}`;
+    return `${formatAssayValue(a, unit)} – ${formatAssayValue(b, unit)}`;
   };
 
   return (
@@ -171,7 +184,9 @@ export function GroundTab({ geochem, geology, occurrences, element, onElement, s
         </ul>
       </Section>
 
-      <Section title="West site vs east site" lede="Median of each element across the samples in each area.">
+      {evidence ? <EvidenceCard config={evidence} /> : null}
+
+      <Section title="West site vs east site" lede="Median of each element across the samples in each area; values at a lab limit keep their < or > flag.">
         <table className="deep-table">
           <thead><tr><th scope="col">Element</th><th scope="col">West (A)</th><th scope="col">East (B)</th></tr></thead>
           <tbody>
