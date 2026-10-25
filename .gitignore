@@ -1,6 +1,7 @@
 # Credentials and local environment files
 .env*
 !.env.example
+!.env.publish.example
 
 # OS and editor junk
 .DS_Store

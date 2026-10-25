@@ -1,0 +1,36 @@
+{
+  "action": "BUY",
+  "signal": "BUY",
+  "status": "manual_review",
+  "value_usd": 8218.913702202546,
+  "worst_outcome_usd": -75288.97158782883,
+  "outcomes": {
+    "p_loss": 0.8700375389168251,
+    "p_gain": 0.1299624610831752,
+    "mean_usd": 8218.913702649457,
+    "p05_usd": -38578.196429,
+    "median_usd": -12819.448145,
+    "p95_usd": 182251.475217,
+    "distinct_outcomes": 39,
+    "ev_per_dollar_at_risk": 0.10916490860304448
+  },
+  "fragile": [
+    "the acceleration assumption alone flips the sign of the value",
+    "removing the single most recent staking event flips the sign of the value"
+  ],
+  "conditional_on": [
+    "the acceleration assumption alone flips the sign of the value",
+    "removing the single most recent staking event flips the sign of the value"
+  ],
+  "swarm": {
+    "mappings_version": "1",
+    "used": [],
+    "dropped": {
+      "all": "no swarm results at swarm/records/results/results.json (the scored runs have not finished)"
+    },
+    "without_swarm": {
+      "value_usd": 8218.913702202546,
+      "action": "BUY"
+    }
+  }
+}

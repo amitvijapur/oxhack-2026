@@ -1,0 +1,32 @@
+[
+  {
+    "action": "SKIP",
+    "signal": "SKIP",
+    "value_usd": -1200.5,
+    "worst_outcome_usd": null,
+    "outcomes": {
+      "p_loss": 0.9
+    },
+    "fragile": [],
+    "conditional_on": [],
+    "forecast": {
+      "mtrs": "21 0310N 0330E 001"
+    }
+  },
+  {
+    "action": "BUY",
+    "signal": "WAIT",
+    "value_usd": 340.0,
+    "worst_outcome_usd": -9000.0,
+    "outcomes": {
+      "p_loss": 0.6
+    },
+    "fragile": [
+      "x"
+    ],
+    "conditional_on": [],
+    "forecast": {
+      "mtrs": "21 0040N 0320E 016"
+    }
+  }
+]
