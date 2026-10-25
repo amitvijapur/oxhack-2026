@@ -51,12 +51,32 @@ class AdapterTests(unittest.TestCase):
         self.assertFalse(section["swarmUsed"])
         self.assertEqual(len(section["fragile"]), 2)
 
+    def test_tok_decision_checks_and_plan(self):
+        data = json.loads((FIXTURES / "decision-tok.json").read_text())
+        [section] = publish_adapters.decision(data)[1]["sections"]
+        self.assertEqual([(c["name"], c["status"]) for c in section["checks"]],
+                         [("counterparty", "pass"), ("land_status", "unknown"), ("mineral_rights_conveyed", "unknown")])
+        self.assertTrue(section["checks"][1]["evidence"].startswith("State land status codes"))
+        hold, lapse = section["plan"]
+        self.assertEqual((hold["fromMonth"], hold["toMonth"], hold["action"]), (0, 11, "HOLD"))
+        self.assertAlmostEqual(hold["sellIfOfferAtLeastUsd"], 277661.5)
+        self.assertIsNone(hold["paymentUsd"])
+        self.assertEqual((lapse["fromMonth"], lapse["toMonth"], lapse["action"], lapse["paymentUsd"]), (12, 12, "LAPSE", 25000.0))
+
+    def test_plan_starts_a_new_step_after_a_gap_or_change(self):
+        policy = [{"month": 0, "action": "PAY_STAGE", "stage_payment_usd": 5000},
+                  {"month": 1, "action": "HOLD"}, {"month": 3, "action": "HOLD"}, {"month": "x", "action": "HOLD"}]
+        plan = publish_adapters._plan(policy)
+        self.assertEqual([(p["fromMonth"], p["toMonth"], p["action"]) for p in plan],
+                         [(0, 0, "PAY_STAGE"), (1, 1, "HOLD"), (3, 3, "HOLD")])
+
     def test_nv_decision_sections_use_forecast_cells(self):
         data = json.loads((FIXTURES / "decision-nv.json").read_text())
         _, summary, _ = publish_adapters.decision(data)
         self.assertEqual([s["label"] for s in summary["sections"]], ["21 0310N 0330E 001", "21 0040N 0320E 016"])
         self.assertIsNone(summary["sections"][0]["worstOutcomeUsd"])
         self.assertIsNone(summary["sections"][0]["status"])
+        self.assertEqual((summary["sections"][0]["checks"], summary["sections"][0]["plan"]), ([], []))
 
     def test_decision_rejects_non_records(self):
         for bad in ([], [1], "BUY"):

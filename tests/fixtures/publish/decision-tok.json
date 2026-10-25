@@ -2,6 +2,10 @@
   "action": "BUY",
   "signal": "BUY",
   "status": "manual_review",
+  "manual_review": [
+    "land_status",
+    "mineral_rights_conveyed"
+  ],
   "value_usd": 8218.913702202546,
   "worst_outcome_usd": -75288.97158782883,
   "outcomes": {
@@ -32,5 +36,103 @@
       "value_usd": 8218.913702202546,
       "action": "BUY"
     }
+  },
+  "gates": {
+    "counterparty": {
+      "status": "pass",
+      "evidence": "20 of 34 Site B samples sit inside active state claims, 17 held by Contango Minerals Alaska (Arjin, research/tok-land/site-b/summary.md); a holder exists to grant an option."
+    },
+    "land_status": {
+      "status": "unknown",
+      "evidence": "State land status codes at Site B samples (PA 26, TA 1, RL 1) are not explained by DNR; BLM federal and Native corporation land were not checked (BLM Alaska service down)."
+    },
+    "mineral_rights_conveyed": {
+      "status": "unknown",
+      "evidence": "No agreement exists; what an option would convey (claims only, surface excluded) must be confirmed against the instrument."
+    }
+  },
+  "policy": [
+    {
+      "month": 0,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 277661.5
+    },
+    {
+      "month": 1,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 275218.58
+    },
+    {
+      "month": 2,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 272794.39
+    },
+    {
+      "month": 3,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 270385.64
+    },
+    {
+      "month": 4,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 267989.54
+    },
+    {
+      "month": 5,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 265603.75
+    },
+    {
+      "month": 6,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 263226.27
+    },
+    {
+      "month": 7,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 260855.4
+    },
+    {
+      "month": 8,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 258489.66
+    },
+    {
+      "month": 9,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 256127.78
+    },
+    {
+      "month": 10,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 253768.67
+    },
+    {
+      "month": 11,
+      "action": "HOLD",
+      "position": "option, 1 stages paid",
+      "sell_if_offer_at_least_usd": 251411.37
+    },
+    {
+      "month": 12,
+      "action": "LAPSE",
+      "stage_payment_usd": 25000.0
+    }
+  ],
+  "break_even": {
+    "buyers_per_staking_event_q": 0.2992664137029163,
+    "max_first_payment_usd": 18218.913702202546,
+    "min_high_bid_usd": 373692.47128376307
   }
 }

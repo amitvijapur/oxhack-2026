@@ -11,6 +11,8 @@ from pathlib import Path
 
 DECISION_SECTIONS = 50
 LIST_ITEMS = 50
+DECISION_CHECKS = 10
+PLAN_STEPS = 24
 SWARM_CHECKS = ("placebo", "mirrors", "stability", "grounding")
 SWARM_CALLS = ("price", "policy", "leaning")
 LAND_SITES = ("A", "B")
@@ -38,6 +40,31 @@ def strings(values):
     return [v for v in values if isinstance(v, str)][:LIST_ITEMS] if isinstance(values, list) else []
 
 
+def _checks(gates):
+    """decision_engine.py gates: {name: {status, evidence}}, in the engine's order."""
+    if not isinstance(gates, dict):
+        return []
+    return [{"name": name, "status": text(gate.get("status")) or "unknown", "evidence": text(gate.get("evidence"))}
+            for name, gate in gates.items() if isinstance(gate, dict)][:DECISION_CHECKS]
+
+
+def _plan(policy):
+    """The month-by-month policy collapsed into runs of the same action, first month's amounts kept."""
+    steps = []
+    for entry in policy if isinstance(policy, list) else []:
+        month = number(entry.get("month")) if isinstance(entry, dict) else None
+        action = text(entry.get("action")) if isinstance(entry, dict) else None
+        if month is None or action is None:
+            continue
+        if steps and steps[-1]["action"] == action and steps[-1]["toMonth"] == month - 1:
+            steps[-1]["toMonth"] = month
+            continue
+        steps.append({"fromMonth": month, "toMonth": month, "action": action,
+                      "paymentUsd": number(entry.get("stage_payment_usd")),
+                      "sellIfOfferAtLeastUsd": number(entry.get("sell_if_offer_at_least_usd"))})
+    return steps[:PLAN_STEPS]
+
+
 def _decision_section(record, label):
     outcomes = record.get("outcomes") if isinstance(record.get("outcomes"), dict) else {}
     swarm = record.get("swarm") if isinstance(record.get("swarm"), dict) else {}
@@ -52,6 +79,8 @@ def _decision_section(record, label):
         "fragile": strings(record.get("fragile")),
         "conditionalOn": strings(record.get("conditional_on")),
         "swarmUsed": bool(swarm.get("used")),
+        "checks": _checks(record.get("gates")),
+        "plan": _plan(record.get("policy")),
     }
 
 

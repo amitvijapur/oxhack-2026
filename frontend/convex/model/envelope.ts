@@ -11,6 +11,8 @@ export const LIMITS = {
   decisionSections: 50,
   landMatches: 2000,
   listItems: 50,
+  decisionChecks: 10,
+  planSteps: 24,
 } as const;
 
 const RUN_ID = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
@@ -39,6 +41,9 @@ export function envelopeProblem(envelope: RunEnvelope): string | null {
     }
     if (summary.sections.some((s) => s.fragile.length > LIMITS.listItems || s.conditionalOn.length > LIMITS.listItems)) {
       return `fragile and conditionalOn hold at most ${LIMITS.listItems} items`;
+    }
+    if (summary.sections.some((s) => s.checks.length > LIMITS.decisionChecks || s.plan.length > LIMITS.planSteps)) {
+      return `each section holds at most ${LIMITS.decisionChecks} checks and ${LIMITS.planSteps} plan steps`;
     }
   }
   if (summary.kind === "swarm" && summary.scenarios.length > LIMITS.listItems) return `at most ${LIMITS.listItems} scenarios`;

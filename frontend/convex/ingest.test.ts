@@ -106,6 +106,27 @@ describe("POST /ingest/<workstream>", () => {
   });
 });
 
+describe("decision runs", () => {
+  beforeEach(() => vi.stubEnv("INGEST_SECRET_DECISION", SECRET));
+  afterEach(() => vi.unstubAllEnvs());
+
+  test("keep checks and the plan in the listed summary", async () => {
+    const t = convexTest(schema, modules);
+    const section = {
+      label: "decision", action: "BUY", signal: "BUY", status: "manual_review", valueUsd: 8218.9,
+      worstOutcomeUsd: -75289, pLoss: 0.87, fragile: ["the acceleration assumption alone flips the sign of the value"],
+      conditionalOn: [], swarmUsed: false,
+      checks: [{ name: "land_status", status: "unknown", evidence: null }],
+      plan: [{ fromMonth: 0, toMonth: 11, action: "HOLD", paymentUsd: null, sellIfOfferAtLeastUsd: 277661.5 }],
+    };
+    const body = { ...landBody({ runId: "tok-demo", mode: "scenario", summary: { kind: "decision", sections: [section] } }) };
+    delete (body as Record<string, unknown>).landMatches;
+    expect((await post(t, body, { path: "/ingest/decision" })).status).toBe(201);
+    const decision = (await t.query(api.workstreams.list, {})).find((s) => s.key === "decision")!;
+    expect(decision.latest?.summary).toEqual({ kind: "decision", sections: [section] });
+  });
+});
+
 describe("workstream rows", () => {
   test("seeding is idempotent and list works before any publish", async () => {
     const t = convexTest(schema, modules);

@@ -21,6 +21,18 @@ export const runMode = v.union(
 const nullableString = v.union(v.string(), v.null());
 const nullableNumber = v.union(v.number(), v.null());
 
+/** One decision gate ("check these first"), e.g. land_status: unknown, with its evidence line. */
+const decisionCheck = v.object({ name: v.string(), status: v.string(), evidence: nullableString });
+
+/** The month-by-month policy collapsed into runs of the same action. */
+const planStep = v.object({
+  fromMonth: v.number(),
+  toMonth: v.number(),
+  action: v.string(),
+  paymentUsd: nullableNumber,
+  sellIfOfferAtLeastUsd: nullableNumber,
+});
+
 export const decisionSection = v.object({
   label: v.string(),
   action: nullableString,
@@ -32,6 +44,8 @@ export const decisionSection = v.object({
   fragile: v.array(v.string()),
   conditionalOn: v.array(v.string()),
   swarmUsed: v.boolean(),
+  checks: v.array(decisionCheck),
+  plan: v.array(planStep),
 });
 
 const checkStatus = v.object({
