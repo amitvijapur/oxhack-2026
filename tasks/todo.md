@@ -1,4 +1,193 @@
+## Publish and squash merge the verified forecast
+
+Owner: Amit. Codex publishes the already reviewed branch. Amit explicitly authorized push and squash merge after all checks pass.
+
+- [x] Refresh main and verify the prepared branch and prior local validation.
+- [ ] Push the forecast branch and open its pull request with the prepared scope and verification evidence.
+- [ ] Require all current-head hosted checks to pass and resolve any findings before protected squash merge.
+- [ ] Verify the merged main commit and record the publication result.
+
+This publication includes the hypothetical swarm-to-gold forecast, percentage-return synthetic preset and attributed retrospective pilot. No hosted application deployment or actual trade is included. The pull request and build log will record the final check and merge result.
+
+## Prepare forecast changes for push and squash merge
+
+Owner: Amit. Codex prepares the integration branch and an independent reviewer checks its final scope. User requested local staging for publication.
+
+- [x] Integrate current main while preserving the shared pitch-deck work and all previously verified forecast/demo behavior.
+- [x] Review the complete branch diff, run relevant integration checks and resolve any failures.
+- [x] Prepare the pull-request description, verification evidence and squash-merge handoff.
+
+Publication scope includes the swarm-to-gold forecast, hypothetical-only option website, percentage-return synthetic preset and attributed historical event pilot. No historical predictive edge is claimed. Push and protected-main merge remain separate publication steps.
+
+Preparation review: `codex/gold-forecast-ready` includes main `eef7ac2` and all six feature commits. Only task-log conflicts required resolution; upstream pitch assets and their task section are preserved exactly. Independent integration review passed. Local verification passed 137 model/event, 35 frontend, 21 backend, 16 publisher, 5 scanner and 13 tooling tests, totaling 227, plus 29 specification checks, source audit, backend typecheck, production build, actionlint and redacted Git-history secret scan. Application lint has zero errors and four incumbent warnings. Prior browser checks apply to byte-identical application code. A PR description and publication checklist are prepared locally. This completes staging; push, hosted checks and squash merge have not been performed.
+
+## Show percentage returns and a conservative synthetic demo
+
+Owner: Amit. Codex integrates; one UI worker owns presentation and preset tests, with separate arithmetic review. Scope is website presentation and an explicitly assumed preset, reusing the canonical engine.
+
+- [x] Trace the cash outputs and define return denominators, percentage-point deltas and unavailable states.
+- [x] Present performance summaries, comparisons and holding-period charts as percentages; retain price/cost inputs and detailed cash equations in their actual units.
+- [x] Add a modest positive synthetic demo with explicit pricing, probability and signal assumptions; preserve the historical pilot result and recorded-source provenance.
+- [x] Verify arithmetic, meaningful tests, production build and browser behavior; record results and remaining limits.
+
+The expected return denominator is upfront capital at risk. Gold movement, assignment-price movement and return changes must remain distinct. A synthetic positive expectation is a demonstration, not a measured trading edge.
+
+Review: percentage presentation reuses unchanged canonical cash math. The default/reset synthetic preset has a 1% cap, invented +0.5 signal and 50% retention, giving +0.25% gold, 1.52% 90-day cash return versus 1.09% baseline and +0.44 percentage points. No-sale probability remains 51.2%; positive upfront capital has a -100% no-sale cash return. The 30-day result remains -58.39%. Recorded scores, source failures and negative historical pilot are unchanged.
+
+Verification: 35 frontend tests passed, including eight new arithmetic/actual JSX-render tests; typecheck, scoped lint, production build and whitespace checks passed. Independent review passed. Local browser checks verified preset/default/reset, recorded approval at the current 1% cap, missing scenarios, premium-driven negative returns, zero-capital unavailable percentages, imported-source clearing and 1440/320-pixel layouts without overflow. No browser errors. The local site on port 5182 serves the new build. No push, hosted deployment or new API runs.
+
+## Build a real-data Alaska project event pilot
+
+Owner: Amit. Codex integrates event-source research, a reproducible evaluator, website evidence view and independent review. Prioritise speed with a small fixed scope. No paid swarm reruns.
+
+- [x] Freeze a source-based event ledger before inspecting returns, and obtain attributed daily market data.
+- [x] Evaluate delayed-entry returns against gold-only and simple event-direction baselines, with a chronological held-out set and no simulated swarm labels.
+- [x] Display actual study results, sources, dates, limitations and failed/unsupported comparisons in the existing website.
+- [x] Independently check data timing and arithmetic, run relevant checks and verify the local production page.
+
+Result: 12 frozen real announcements and four attributed daily price series support a reproducible retrospective pilot. Event-model MAE is 8.06pp versus gold-only 3.13pp and no-change 2.56pp on five primary test events. No positive edge was manufactured. UI exposes both horizons, sources, source-selection/precision limits and unavailable swarm lift. Independent verification reproduced inputs, dates and arithmetic. Final build/browser verification is recorded in the pilot report.
+
+## Assess a defensible edge with current data
+
+Owner: Amit. Codex assesses sources and no-budget tests; the application remains unchanged.
+
+- [x] Audit actual market outcome labels, availability dates and independent sample counts, including whether swarm runs can be paired with observed returns.
+- [x] Check the most plausible prediction target and a minimal baseline comparison using existing data and primary sources.
+- [x] Run any valid bounded offline diagnostic, document what it does and does not establish, and state the smallest remaining evidence requirement.
+
+Result: [edge feasibility](../research/edge-feasibility.md) records zero observed feature/outcome pairs, the target mismatch, primary-source support for a local-risk hypothesis and the next empirical test. Offline canonical sensitivity finds liquidity assumptions dominate the current swarm cash deltas. No measured predictive edge or retrospective backtest was claimed; application unchanged.
+
+## Complete the hypothetical swarm-to-gold forecast
+
+Owner: Amit. Codex coordinates a model worker, UI worker and independent reviewer.
+Scope: the current website branch, canonical model, focused tests and current docs.
+
+- [x] Replace direct option markup with one explicit hypothetical Au price response, then recompute mineral value, assignment value and interval cash outcomes.
+- [x] Show baseline and scenario gold prices, return, assumptions and downstream deltas in the existing Decision calculator. Keep financial mode hypothetical only.
+- [x] Check positive/negative/zero signals, horizons, absent signals, mixed materials, source provenance and publication boundaries; independently review the math.
+- [x] Run relevant model/frontend/backend checks, rebuild and verify the local website, document results and current limits.
+
+Design: baseline P(t)=P0*(1+g)^(t/365); scenario gold P(t)=baseline P(t)*(1+cap*s*exposure*retention). The editable cap defaults to 0.07 and is bounded by 0.07. Apply once to Au only at each valuation/sale date, with a constant retained relative effect across the modeled holding period. Recompute assignment as pGeo*max(ownership*kappa*sum(Q*scenarioP)-K,0), without any second option multiplier. Industry/funds weights, original failed source checks, null missing scenarios, geology and sale hazard retain their meanings. The forecast is an uncalibrated assumption using mining-support contrasts, not measured market skill; the common day-1 gold jump is not a new return. Version and export metadata must distinguish the changed method.
+
 # OXHack preparation
+
+Review: model v2 routes the bounded hypothetical response through Au price before the assignment floor. Independent monthly-growth and recorded-source arithmetic passed. Model tests: 126; frontend: 23; Convex: 21; Python publisher/transport: 16. Type checks, scoped lint, production Webpack build, 29 specification checks and source audit passed. The publication reviewer found and resolved acceptance of old direct-markup cash under a v2 label; horizon and interval traces now match canonical evaluation. Browser checks cover baseline, actual approval/block, zero cap, synthetic positive/negative, missing tax and 320-pixel layout. No browser errors. The production site on local port 5182 runs the new build. No new paid swarm calls, hosted deployment, push or merge.
+
+Default 90-day actual contrasts: approval gold USD1996.47490377, assignment USD1495.59362971, cash USD5.44969130, cash delta USD-2.15030870; block gold USD2004.30280642, assignment USD1505.37850803, cash USD10.22471192, cash delta USD2.62471192. Baseline cash remains USD7.60. Predictions are hypothetical and uncalibrated; original source research checks remain failed.
+
+## Make the website option calculator hypothetical-only, 25 October 2026
+
+Human owner: Amit. UI owner: Codex, with an independent canonical-math check.
+Scope: the website always uses hypothetical financial inputs. Preserve observed
+evidence and recorded simulation sources, model math and backend boundaries.
+
+- [x] Start and reset the website calculator in hypothetical demo mode; remove other financial-mode choices.
+- [x] Clearly distinguish positive total expected cash from a negative change versus baseline.
+- [x] Verify positive/negative premium cases and exact break-even conditions with the existing model.
+- [x] Verify default/reset/source interactions and responsive production behavior.
+- [x] Record the result and update current instructions.
+
+Result: the website opens and resets in hypothetical mode only. Baseline total
+expected cash is USD7.60, approval USD6.31 and blockage USD9.17. A negative
+approval change of USD-1.29 does not make its total negative. With other flat
+90-day defaults fixed, premium USD500 gives USD157.60, USD800 gives USD-142.40,
+and baseline break-even is USD657.60. The UI reads the break-even figure directly
+from canonical diagnostics. Production browser/default/reset/source cases,
+23 frontend tests, typecheck/build, scoped lint and independent review pass.
+Canonical engine/API defaults, gates and financial math are unchanged.
+
+## Share the five-minute pitch deck, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. Scope is the approved Palantir-style
+deck, editable presentation objects, PDF, rehearsal notes and supporting assets.
+The earlier local-only limit is superseded by Amit's explicit push-and-merge request.
+
+- [x] Rebuild and visually compare all nine slides with the selected reference compositions.
+- [x] Verify editable chart and tables, nine speaker-note parts, cash arithmetic and the 300-second main sequence.
+- [x] Package the approved deck and portable team handoff, with independent scope review.
+- [x] Prepare an isolated publication branch for the required hosted checks and squash merge.
+
+Seven main slides carry the five-minute talk; two appendix slides support questions.
+The neutral title is Mineral option timing. Naming options remain open. Presentation
+editing, source images and rehearsal instructions are in [pitch/README.md](../pitch/README.md).
+Native PowerPoint opening and its font rendering have not been tested; the PDF
+preserves the approved appearance.
+
+Publication review: the PPTX and PDF match the approved originals byte-for-byte.
+All 16 changed paths belong to the pitch package and its two repository index notes.
+Whitespace, portable documentation links, editable chart/workbook and tables, note
+timings, asset attribution and a redacted secret scan passed. Required hosted
+checks and final merge status are recorded on the publication pull request.
+
+## Connect existing swarm results to the website, 25 October 2026
+
+Human owner: Amit. Source owner: Muhd. Integration owner: Codex.
+Branch: `codex/swarm-website-replay`. No new swarm or judge API calls.
+
+- [x] Add a bounded, explicit illustrative policy to the canonical workbench using matching actual Claude runs.
+- [x] Add website controls, provenance and live recalculation of values/cash/deltas.
+- [x] Preserve failed research checks, null real outputs, unsupported scenarios and source identity.
+- [x] Check publication metadata and run focused model/UI/boundary checks.
+- [x] Independently review and verify the working website on desktop/mobile.
+- [x] Document the result, remaining limitations and reproducible demo instructions.
+
+Result: **Decision > Use existing swarm results** now calculates approval
+USD6.31 and court blockage USD9.17 expected cash versus USD7.60 baseline under
+the default assumptions. Exposure zero restores the baseline; costs and weights
+use the same live model. Source checks remain failed and actual scenarios with
+no results remain unavailable. The current local production website is served
+at `http://127.0.0.1:5182/`. No hosted deployment or Git publication was made.
+
+Verification: 108 model, 23 frontend, 19 Convex and 16 Python publisher tests
+pass, with frontend/backend typechecks, production build, 29 specification
+checks and independent boundary review. Lint has four incumbent warnings and
+no errors. Browser checks cover mode changes, signed deltas, exposure/cost
+recalculation, real/missing-scenario null states and 1440/390/320-pixel layouts.
+
+## Plan a no-new-API swarm demo, 25 October 2026
+
+Human owner: Amit. Simulation source owner: Muhd. Analysis and model-plan owner:
+Codex. Scope: reuse existing results with explicit hackathon assumptions. No new
+simulation/judge calls, algorithm edits or deployment are authorized by this plan.
+
+- [x] Compute same-configuration scenario contrasts and local cash sensitivities.
+- [x] Separate usable post scores, missing interview inputs and failed research checks.
+- [x] Review an explicit exploratory demo path while preserving strict readiness.
+- [x] Write the model integration contract and exact no-cost handoff for Muhd.
+- [x] Record the plan, assumptions, verification and deferred paid work.
+
+Review: `research/swarm-no-api-demo-plan.md` recommends a post-only illustrative
+comparison of the matching Claude runs. Offline weighted signals are -0.02517926
+for approval and +0.03073433 for blockage versus placebo. Full assumed transfer
+gives USD6.31/USD9.17 expected cash versus USD7.60 baseline. Independent review
+passed. Existing strict failures remain; no new paid call or application change.
+
+## Check Muhd's latest swarm data, 25 October 2026
+
+Human owner: Amit. Review owner: Codex. Read-only audit of current remote branches,
+raw run files and the integrated source bundle. Visualization is deferred.
+
+- [x] Verify remote swarm/main heads and recent result-related pushes.
+- [x] Compare report coverage and raw score/interview files with the bundled source.
+- [x] Independently check whether missing runs or readiness evidence exist upstream.
+- [x] Report any omitted data, remaining gaps and the exact reviewed source revision.
+
+Review: `f2fe2971` is still the remote source head. All six scored runs are
+already connected. Full-tree/blob comparison and 36 source fingerprints pass;
+raw recount confirms 3,499 score rows, 3,121 numeric and 130/288 nonempty
+interviews. Runs 07–09 have no committed outputs. The empty interviews and
+readiness failures exist upstream. Read `research/swarm-latest-data-check.md`.
+
+## Visualize the integrated pipeline, 25 October 2026
+
+Human owner: Amit. Integration and review owner: Codex. Scope: local explanatory
+visualization of current main, with no model, publication or deployment changes.
+
+- [x] Audit actual source, browser, model, API and optional publishing connections.
+- [x] Generate checked traces from the canonical engine, including blocked states.
+- [x] Prepare the flow interactively with source types, gates and separate cash/marks.
+- [ ] Finish browser layout checks and show the visualization. Deferred at Amit's request while latest swarm pushes are audited.
+- [ ] Record findings and the remaining real-input gaps in the build log.
 
 ## Homepage: history into a five-year projection, and a smoother map, 25 October 2026
 

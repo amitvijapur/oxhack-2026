@@ -1,0 +1,140 @@
+[
+  {
+    "slide": 1,
+    "title": "Mineral option timing",
+    "seconds": 20,
+    "body": "We are investigating Tok River, Alaska. We built a way to investigate a mineral opportunity and test what could change before you find a buyer. Our prototype brings geological evidence, simulated reactions and exit timing into one decision you can inspect. The title is neutral while our algorithm name remains open.",
+    "sources": [
+      "Current explorer design and terrain capture from the local prototype.",
+      "Satellite terrain is geographic context. Alaska DGGS sediment assays are a separate evidence source.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourcePage": 1,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 2,
+    "title": "The decision has three clocks",
+    "seconds": 35,
+    "body": "Old geological evidence, new events and an eventual buyer arrive on different clocks. Collection happened in June and July 2016; publication followed in November. News changes a hypothetical scenario. A buyer may take 30, 90 or 180 days to arrive. An assignable option is a temporary contractual interest that a holder could transfer to a future buyer under assumed permission and terms. We model assignment, not purchasing a mine or exercising the option.",
+    "sources": [
+      "https://doi.org/10.14509/29688",
+      "model/tok-option/workbench.mjs and liquidity.mjs in the canonical model source."
+    ],
+    "sourcePage": 12,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 3,
+    "title": "The evidence starts with measured samples",
+    "seconds": 35,
+    "body": "These are 67 measured sediment samples from Alaska DGGS. We preserve their primary assay qualification, retests and provenance. A contains 33 samples, B 34, and both have checked land-source context. The canonical Au screen uses 0.01 ppm, at least ten classified samples and a qualifying lower bound of 50%. A has 25/33 passing; B has 16/34 and fails. The screen does not convert concentration into recoverable ounces. Dots, claim overlaps and illustrative squares do not establish a deposit or available investment. The map’s 57 sampled areas are not tradable listings.",
+    "sources": [
+      "https://doi.org/10.14509/29688",
+      "https://arcgis.dnr.alaska.gov/arcgis/rest/services/OpenData/NaturalResource_StateMiningClaim/FeatureServer",
+      "https://github.com/amitvijapur/oxhack-2026/tree/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land",
+      "Screenshot: current local explorer. Basemap attribution remains separate from DGGS.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourcePage": 5,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 4,
+    "title": "One algorithm connects evidence to a cash decision",
+    "seconds": 55,
+    "body": "Read the layers from top to bottom. First, actual assays screen evidence. Next, assumed recoverable resources, prices and contract terms create a baseline option proxy. A scenario contrast can enter an explicitly hypothetical sensitivity transfer capped at plus or minus 7%. That cap limits one price adjustment, not the investment loss. Finally, the engine accounts for sale timing, fees, no sale, expiry, assignability and fund limits. Ounces and success probabilities are separate assumptions, not inferred from sediment concentration. Candidate means the hypothetical opportunity passes those screens. There is no trade execution, exercise, borrowing or reinvestment.",
+    "sources": [
+      "Canonical engine: model/tok-option/evidence.mjs, valuation.mjs, liquidity.mjs, portfolio.mjs, workbench.mjs and illustrative.mjs.",
+      "The model uses a 365-day maturity and requires a 15-day closing buffer.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourcePage": 11,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 5,
+    "title": "Recorded simulations make the assumptions inspectable",
+    "seconds": 50,
+    "body": "We aggregate simulated mining-support scores within five groups and weight days equally. The six scored five-day runs include three baseline seeds, one sports placebo and approval and court-blockage runs. In the explicit what-if lane, actual recorded posts are compared with the matching Claude sports-placebo reference over days 3 through 5. Mine approval has a normalized support contrast of minus 0.0251792588; court blockage has plus 0.0307343316. These signs oppose the simple headline narrative, so we expose the result rather than force a direction. The sports run is not an untreated control. Configuration, interview, placebo, grounding and mirror checks fail, and the input knowledge cutoff is unknown. The strict research lane stays blocked. A financial what-if transfer is an assumption, not a learned market effect.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/tree/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm",
+      "model/tok-option/illustrative.mjs: matching-provider sports-placebo reference.",
+      "Financial transfer: 0.07 × support contrast, capped by the hypothetical policy.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourcePage": 13,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 6,
+    "title": "Time changes the same hypothetical option",
+    "seconds": 60,
+    "body": "At 30 days, the assumed sale chance is 20% and expected net cash is minus $410. At 90 days, sale chance is 48.8% and expected cash is $7.60. At 180 days, sale chance is 73.7856% and expected cash is $369.8912. We held assignment price fixed and annual growth at zero; more time accumulates opportunities to exit. Focus on 90 days. A positive expectation still coexists with 51.2% no sale and a median cash outcome of minus $700. An unsold contract can remain held, so cash shortfall at the horizon is not necessarily a final realized economic loss. The upfront amount is a $650 premium plus $50 entry fee. A $660 premium changes expected cash to minus $2.40 and the action to skip. Use that flip in the live demo if ready.",
+    "sources": [
+      "Canonical engine: model/tok-option/workbench.mjs, liquidity.mjs and diagnostics.mjs.",
+      "Values independently checked by runWorkbench and 0.488 × (1500 − 50) − 700 = 7.60.",
+      "The 180-day horizon plus the required 15-day closing buffer fits within the assumed 365-day maturity."
+    ],
+    "sourcePage": 20,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 7,
+    "title": "The prototype makes each decision traceable",
+    "seconds": 45,
+    "body": "Use up to twenty seconds for a live demonstration, or point to saved slide captures if switching will be slow. In the current local Decision tab, reset Area A to baseline and 90 days. Change the option premium from $650 to $660. Expected cash changes from $7.60 to minus $2.40, and the action changes to skip. Restore the premium. Finish on the takeaway: this working prototype makes the evidence, timing and assumptions visible in a mineral-option decision. Next, test it against dated option prices, completed assignments and unsold cases. Invite questions.",
+    "sources": [
+      "Team app default: http://127.0.0.1:3000/. Captures were made from a newer local prototype; consult rehearsal.md before presenting current main.",
+      "Canonical model and hypothetical demo assumptions.",
+      "The main seven-slide timing totals exactly 300 seconds.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourcePage": 23,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 8,
+    "title": "The 90-day cash calculation",
+    "seconds": 0,
+    "body": "The sale branch yields $1,500 assignment proceeds less a $50 exit fee and $700 upfront commitment, so net cash is plus $750. The no-sale branch has no sale proceeds and $700 committed, so net cash is minus $700. Their probability-weighted average is $7.60. The largest supported branch is no sale, so median cash is minus $700. Break-even premium is $657.60; equality gives zero expected cash and does not pass the strictly positive-cash gate. Default valuation assumptions: 500 recoverable troy ounces at $2,000/oz, zero growth, 50% interest, 2% conversion, 25% geological success, and $4,000 remaining buyer exercise consideration. This gives $1,500 conditional assignment proceeds. Geological success is independent of the sample passing fraction. Maturity is 365 days, closing buffer 15 days.",
+    "sources": [
+      "model/tok-option/valuation.mjs, liquidity.mjs, diagnostics.mjs, workbench.mjs.",
+      "0.488 × 750 + 0.512 × (−700) = 7.60."
+    ],
+    "sourcePage": 43,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  },
+  {
+    "slide": 9,
+    "title": "Evidence, simulations and remaining validation",
+    "seconds": 0,
+    "body": "Current observed inputs provide measurements and source context. They do not establish available rights, executable option terms, recoverable resources or resale liquidity. The recorded simulated runs test stakeholder-response hypotheses and expose failed checks. Mining support is not buyer willingness. Economic quantities, terms, sale hazard and the price transfer remain assumptions. Empirical validation needs dated real option-price observations and completed and unsold assignment outcomes, evaluated chronologically with a simple baseline. We have not measured investment edge or forecast accuracy.",
+    "sources": [
+      "https://doi.org/10.14509/29688",
+      "https://github.com/amitvijapur/oxhack-2026/tree/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land",
+      "https://github.com/amitvijapur/oxhack-2026/tree/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm"
+    ],
+    "sourcePage": 44,
+    "designReference": "https://www.deck.gallery/palantir-q2-business-2021/",
+    "designReferenceUse": "Composition reference only. No Palantir branding or business claims are included."
+  }
+]

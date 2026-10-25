@@ -2,6 +2,7 @@ export * from './config.mjs';
 export * from './evidence.mjs';
 export * from './commodities.mjs';
 export * from './valuation.mjs';
+export * from './gold.mjs';
 export * from './liquidity.mjs';
 export * from './swarm.mjs';
 export * from './portfolio.mjs';
@@ -9,12 +10,16 @@ export * from './portfolio.mjs';
 import { CAPITAL, HORIZONS, VERSION, within, unique } from './config.mjs';
 import { valueOption } from './valuation.mjs';
 import { cashOutcomes } from './liquidity.mjs';
+import { GOLD_FORECAST_METHOD } from './gold.mjs';
 
+/** The public cap parameter is the Au-price response cap used at every date. */
 export function evaluateOpportunity({ candidate, evidenceGate, horizonDays = 90, signal = 0, exposure = 1, retention = 1, cap = 0.07, hazardPer30Days = null, expiryBufferDays = 15, annualDiscountRate = 0, maxRiskPerOptionUsd = CAPITAL.maxRiskPerOptionUsd } = {}) {
   const c = candidate ?? {};
   const valuation = valueOption(c, horizonDays, { signal, exposure, retention, cap });
-  const intervalValues = HORIZONS.includes(horizonDays) ? Array.from({ length: horizonDays / 30 }, (_, i) => valueOption(c, (i + 1) * 30, { signal, exposure, retention, cap }).assignmentValueUsd) : [];
+  const intervalValuations = HORIZONS.includes(horizonDays) ? Array.from({ length: horizonDays / 30 }, (_, i) => valueOption(c, (i + 1) * 30, { signal, exposure, retention, cap })) : [];
+  const intervalValues = intervalValuations.map((row) => row.assignmentValueUsd);
   const cash = cashOutcomes({ horizonDays, hazardPer30Days, entryPremiumUsd: c.entryPremiumUsd, entryFeeUsd: c.entryFeeUsd, additionalUpfrontCostUsd: c.unavoidableAdditionalObligationsUsd, exitFeeUsd: c.exitFeeUsd, intervalPrices: intervalValues, annualDiscountRate });
+  const intervals = cash.intervals.map((row, i) => ({ ...row, goldForecast: intervalValuations[i].goldForecast }));
   const fails = [];
   const unknown = [];
   if (!['assumed', 'observed'].includes(c.provenance) || typeof c.sourceId !== 'string' || !c.sourceId) unknown.push('missing_candidate_provenance');
@@ -35,5 +40,5 @@ export function evaluateOpportunity({ candidate, evidenceGate, horizonDays = 90,
   const reasons = unique([...fails, ...unknown]);
   const entryAction = fails.length ? 'SKIP' : unknown.length ? null : 'BUY_CANDIDATE';
   const status = fails.length ? 'ineligible' : unknown.length ? 'INSUFFICIENT_DATA' : 'illustrative';
-  return { ...valuation, ...cash, version: VERSION, id: c.id ?? null, underlyingId: c.underlyingId ?? null, horizonDays, status, reasons, entryAction, evidenceGate: evidenceGate ?? 'UNKNOWN', expiryGate: reasons.includes('expiry_window_failed') ? 'FAIL' : reasons.includes('expiry_unknown') ? 'UNKNOWN' : 'PASS', riskGate: reasons.includes('per_option_risk_exceeded') ? 'FAIL' : cash.amountAtRiskUsd === null ? 'UNKNOWN' : 'PASS', amountAtRiskUsd: cash.amountAtRiskUsd, termsProvenance: c.provenance ?? 'unavailable', calculation: { signal, cap, exposure, retention, annualDiscountRate, hazardPer30Days, expiryBufferDays }, assumption: 'Conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction.' };
+  return { ...valuation, ...cash, intervals, version: VERSION, id: c.id ?? null, underlyingId: c.underlyingId ?? null, horizonDays, status, reasons, entryAction, evidenceGate: evidenceGate ?? 'UNKNOWN', expiryGate: reasons.includes('expiry_window_failed') ? 'FAIL' : reasons.includes('expiry_unknown') ? 'UNKNOWN' : 'PASS', riskGate: reasons.includes('per_option_risk_exceeded') ? 'FAIL' : cash.amountAtRiskUsd === null ? 'UNKNOWN' : 'PASS', amountAtRiskUsd: cash.amountAtRiskUsd, termsProvenance: c.provenance ?? 'unavailable', calculation: { signal, cap, exposure, retention, transferTarget: 'gold_price', goldForecastMethodVersion: GOLD_FORECAST_METHOD, annualDiscountRate, hazardPer30Days, expiryBufferDays }, assumption: 'Hypothetical gold-price response, conditional assignment proxy and fixed selling policy; not an executable quote or calibrated prediction.' };
 }

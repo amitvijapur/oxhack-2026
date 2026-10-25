@@ -182,7 +182,7 @@ test('workbench preserves baseline when swarm pending and applies observed B fai
 });
 test('workbench delta and scenario imports use the same core', () => {
   const r = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', scenarioId: 'mine_approval' }, swarmRuns: example });
-  close(r.mapped.expectedNetCashUsd, 18.00172); close(r.delta.expectedNetCashUsd, 10.40172); close(r.delta.assignmentValueUsd, 21.315);
+  close(r.mapped.expectedNetCashUsd, 24.9362); close(r.delta.expectedNetCashUsd, 17.3362); close(r.delta.assignmentValueUsd, 35.525);
   const r2 = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', scenarioId: 'synthetic', syntheticSignal: -1 } });
   assert.equal(r2.mapped.entryAction, 'SKIP');
   const r3 = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', pGeo: '' } });

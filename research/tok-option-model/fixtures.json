@@ -1,9 +1,9 @@
 {
-  "version": "tok-option-demo-v1",
+  "version": "tok-option-demo-v2",
   "purpose": "Static, independently checkable specification examples. All monetary values, quantities, probabilities, contract terms and signals below are invented and are not Tok quotes or a forecast.",
   "provenance": {
     "defaultStatus": "hypothetical_fixture",
-    "userChoiceReferences": ["The 0.07 adjustment cap is a user choice, not fitted calibration."],
+    "userChoiceReferences": ["A bounded sensitivity was requested; its v2 use as a gold response is an uncalibrated implementation assumption."],
     "proposedDefaultReferences": ["All other numerical model settings refer to editable proposals in defaults.json."],
     "actualSwarmRunsIncluded": false,
     "actualContractsIncluded": false
@@ -43,9 +43,9 @@
   },
   "cashCases": [
     {"id": "baseline", "signal": 0, "status": "hypothetical_baseline", "expected": {"assignmentValueUsd": 1500, "conditionalSaleProfitUsd": 750, "expectedNetCashUsd": 7.6, "weightedNoSaleResidualMarkUsd": 768, "entryAction": "BUY_CANDIDATE"}},
-    {"id": "positive_boundary", "signal": 1, "status": "synthetic_boundary_only", "expected": {"assignmentValueUsd": 1605, "conditionalSaleProfitUsd": 855, "expectedNetCashUsd": 58.84, "weightedNoSaleResidualMarkUsd": 821.76, "entryAction": "BUY_CANDIDATE"}},
-    {"id": "negative_boundary", "signal": -1, "status": "synthetic_boundary_only", "expected": {"assignmentValueUsd": 1395, "conditionalSaleProfitUsd": 645, "expectedNetCashUsd": -43.64, "weightedNoSaleResidualMarkUsd": 714.24, "entryAction": "SKIP"}},
-    {"id": "partial_signal", "signal": 0.203, "status": "hypothetical_partial_signal", "groupScoreDeltas": {"government": 1, "industry": 2, "community": -1, "funds": 3, "retail": 0}, "expected": {"assignmentValueUsd": 1521.315, "conditionalSaleProfitUsd": 771.315, "expectedNetCashUsd": 18.00172, "weightedNoSaleResidualMarkUsd": 778.91328, "entryAction": "BUY_CANDIDATE"}}
+    {"id": "positive_boundary", "signal": 1, "status": "synthetic_boundary_only", "expected": {"assignmentValueUsd": 1675, "conditionalSaleProfitUsd": 925, "expectedNetCashUsd": 93, "weightedNoSaleResidualMarkUsd": 857.6, "entryAction": "BUY_CANDIDATE"}},
+    {"id": "negative_boundary", "signal": -1, "status": "synthetic_boundary_only", "expected": {"assignmentValueUsd": 1325, "conditionalSaleProfitUsd": 575, "expectedNetCashUsd": -77.8, "weightedNoSaleResidualMarkUsd": 678.4, "entryAction": "SKIP"}},
+    {"id": "partial_signal", "signal": 0.203, "status": "hypothetical_partial_signal", "groupScoreDeltas": {"government": 1, "industry": 2, "community": -1, "funds": 3, "retail": 0}, "expected": {"assignmentValueUsd": 1535.525, "conditionalSaleProfitUsd": 785.525, "expectedNetCashUsd": 24.9362, "weightedNoSaleResidualMarkUsd": 786.1888, "entryAction": "BUY_CANDIDATE"}}
   ],
   "horizonCases": [
     {"horizonDays": 30, "expectedSaleProbability": 0.2, "expectedNetCashUsd": -410, "expectedWeightedNoSaleResidualMarkUsd": 1200},

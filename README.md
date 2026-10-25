@@ -23,6 +23,13 @@ Team GitHub accounts: [amitvijapur](https://github.com/amitvijapur),
 and [iloveclouduk](https://github.com/iloveclouduk). All teammates have accepted
 write access.
 
+## Pitch deck
+
+The [five-minute pitch deck and editing guide](pitch/README.md) includes the
+[editable PowerPoint](pitch/oxhack-pitch.pptx), [PDF](pitch/oxhack-pitch.pdf),
+speaker notes, rehearsal flow and source images. Start from the PPTX when
+revising the deck. The algorithm name remains open.
+
 ## Event brief
 
 Read the [supplied Granola ceremony notes](research/opening-ceremony-notes.md)
@@ -115,11 +122,28 @@ by this repository integration.
 
 ## Model, architecture and remaining work
 
-Use the explorer's **Decision** tab for source readiness, explicit demo controls,
+Use the explorer's **Decision** tab for source readiness, hypothetical controls,
 cash outcomes and swarm diagnostics. `model/tok-option/` is the sole decision
 engine used by the interface and export CLI. It models assignment over 30, 90 or
 180 days, with an explicit no-sale branch. It does not exercise an option or
 execute trades.
+
+The website option calculator opens and resets to a small-response synthetic
+demo. Its headline is **Expected cash return on upfront capital**, calculated as
+expected net cash divided by premium, entry fee and unavoidable commitments.
+Returns cover the selected holding period and are not annualized. Changes between
+returns use percentage points; gold-price changes use their own price denominator.
+Price/cost inputs and the worked cash arithmetic retain USD units.
+
+The synthetic preset uses a 1% gold-response cap, an invented 0.5 support signal,
+100% exposure, 50% retention and zero baseline growth. It assumes a 0.25% gold
+increase and leaves contract prices, fees, quantities and sale hazard unchanged.
+At 90 days, expected cash return is 1.52% versus a 1.09% baseline, a 0.44 percentage
+point increase. The 51.2% no-sale branch has a -100% cash return on upfront capital;
+an unsold model mark is separate from cash. Thirty-day expected cash return remains
+negative. These muted response assumptions do not establish conservative market
+pricing, forecast accuracy or an empirical edge. The real historical pilot and
+its negative result remain visible.
 
 The baseline demo assumes 500 recoverable troy ounces at USD2,000/oz and produces
 USD1,500 assignment proceeds, a 48.8% sale probability and USD7.60 expected net
@@ -127,6 +151,26 @@ cash over 90 days. The 51.2% no-sale branch has cash of USD−700. These are
 arithmetic assumptions, not observed resources, contract terms or predictive
 performance. Explicitly applying the descriptive 2020–2025 gold CAGR of 14.22%
 changes the illustrative expectation to about USD32.60.
+
+With the flat 90-day baseline and other defaults unchanged, a USD500 premium
+gives USD157.60 expected cash, USD650 gives USD7.60 and USD800 gives USD-142.40.
+The break-even premium is USD657.60. A positive expectation still includes the
+no-sale branch; it is not a guaranteed positive outcome.
+
+To use the actual saved swarm post scores, open **Decision** and choose
+**Use existing swarm results**. Approval and court blockage compare days 3–5
+with the matching Claude sports-placebo run. The default hypothetical contract
+retains the recorded support signs. Under the canonical 7% cap and other original
+defaults, approval and blockage cash returns are about 0.78% and 1.46%, alongside
+1.09% without a support adjustment. Selecting recorded results from the new preset
+retains the currently displayed pricing and response-cap assumptions; the output
+therefore reflects those controls. Weights, exposure, holding period and contract
+assumptions recalculate through the same engine. Swarm support changes the
+hypothetical gold price first, then mineral value, assignment value and cash.
+The adjustable gold response is capped at 7%; the website preset starts at 1%.
+It is uncalibrated and source research checks remain failed. Missing scenarios and real-input
+financial outputs remain unavailable. No new swarm or judge API call is needed.
+See [the no-API method and handoff](research/swarm-no-api-demo-plan.md).
 
 Read the [model guide](model/tok-option/README.md),
 [architecture](docs/architecture.md), [remaining work](docs/remaining-work.md),
@@ -143,3 +187,12 @@ it requires separate account configuration and does not fill missing trade input
 
 See [the repository plan](research/repository-plan.md) and
 [the harness comparison](research/harness-comparison.md) for the current approach.
+
+### Historical event test
+
+Decision now includes a real-data Alaska mining-share pilot above the hypothetical option calculator. It compares a gold-only drift forecast, a simple event adjustment and no change using a frozen 12-announcement ledger, delayed entry and chronological holdouts. The event adjustment performed worse in the five-event test set; the website shows this negative result and its limitations. It is not a validated swarm or option-trading edge. Read [results](research/event-study/RESULTS.md) and [reproduction instructions](research/event-study/README.md).
+
+```sh
+node --test research/event-study/evaluate.test.mjs
+node research/event-study/evaluate.mjs
+```

@@ -141,3 +141,31 @@
 .town-pilot { margin-bottom: 18px; }
 @media (max-width: 360px) { .model-field-grid { grid-template-columns: 1fr; } .model-source-facts, .model-break-even { grid-template-columns: 1fr; } .model-workbench table { min-width: 320px; } }
 @media (prefers-reduced-motion: reduce) { .model-detail summary > svg { transition: none; } }
+
+/* Explicit use of the recorded simulation source inside the same Decision panel. */
+.model-existing-swarm { padding: 16px 0; border-top: 1px solid var(--line); }
+.model-existing-swarm > p, .model-existing-context p { color: var(--ink-2); font-size: 12px; line-height: 1.6; }
+.model-source-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 12px 0; }
+.model-source-actions .model-import-button { background: var(--ink); color: var(--bg); font-weight: 600; }
+.model-source-actions .model-import-button:hover { background: #e5e5e5; }
+.model-source-actions .model-import-button[aria-pressed="true"] { color: var(--ink); background: var(--raised); border-color: var(--green); }
+.model-existing-context { display: grid; gap: 8px; margin: 10px 0; }
+.model-existing-context strong { color: var(--ink); font-weight: 600; }
+.model-existing-swarm .model-land-facts a { text-decoration: underline; text-underline-offset: 3px; }
+.model-existing-cash { padding: 10px 0; border-block: 1px solid var(--line); }
+.model-existing-cash > p, .model-existing-cash dt { font-size: 10px; color: var(--ink-2); }
+.model-existing-cash dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 8px; }
+.model-existing-cash dd { margin-top: 3px; color: var(--ink); font: 14px var(--font-plex-mono),monospace; font-variant-numeric: tabular-nums; }
+
+/* The assumed gold-price step precedes material and option valuation. */
+.model-gold-forecast { padding: 16px 0; border-top: 1px solid var(--line); }
+.model-gold-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; margin: 12px 0 16px; }
+.model-gold-values dt { color: var(--ink-2); font-size: 11px; }
+.model-gold-values dd { margin-top: 4px; color: var(--ink); font: 15px var(--font-plex-mono),monospace; font-variant-numeric: tabular-nums; }
+.model-gold-forecast > .model-field { max-width: 220px; }
+.model-gold-forecast > .model-note { margin-top: 12px; }
+
+/* Return percentages retain an explicit invested-capital denominator. */
+.model-return-summary { padding: 16px 0; border-top: 1px solid var(--line); }
+.model-return-summary .model-gold-values dd { font-size: 22px; font-weight: 600; }
+.model-return-summary > .model-note { margin-top: 10px; }

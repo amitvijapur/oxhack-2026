@@ -106,14 +106,24 @@ browser smoke check. No component holds swarm numbers of its own.
 ## Canonical decision model
 
 The Decision tab embeds `src/ModelWorkbench.jsx`, importing the pure
-`../model/tok-option/workbench.mjs` engine. Pending/real modes retain missing
-financial inputs. Only explicit demo mode enables invented economics. Monetary
-swarm adjustments stay blocked by readiness checks; six supplied score sets do
-not constitute completed validated scenarios. Historical CAGR is an optional
-assumption, not a forecast.
+`../model/tok-option/workbench.mjs` engine. The website always opens and resets
+in hypothetical demo mode, with no alternative financial modes. Total expected
+cash and change versus baseline are separate, and the current break-even
+premium comes from the canonical cash diagnostics. The engine's programmatic
+pending/real modes still retain null financial outputs.
+
+**Use existing swarm results** compares the recorded Claude approval/blockage
+posts with matching sports placebo inside hypothetical economics. It retains
+failed research checks and source identity. Strict source imports still require
+readiness; no missing event is filled with an invented simulation. Historical
+CAGR is an optional assumption, not a forecast.
 
 Read [the model guide](../model/tok-option/README.md),
 [architecture](../docs/architecture.md) and [remaining work](../docs/remaining-work.md).
 [Optional Convex storage and publishing](../docs/infrastructure.md) can provide
 attributed workstream publications, but no backend account or secrets are
 configured by this integration.
+
+### Hypothetical gold forecast
+
+The Decision calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The cap defaults to 7%, affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.

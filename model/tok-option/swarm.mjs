@@ -1,4 +1,5 @@
 import { GROUPS, WEIGHTS, SCENARIOS, within, unique } from './config.mjs';
+import { GOLD_FORECAST_METHOD } from './gold.mjs';
 
 export function validateWeights(weights = WEIGHTS) {
   if (!weights || GROUPS.some((g) => !within(weights[g], 0, 1)) || Object.keys(weights).some((g) => !GROUPS.includes(g))) return ['invalid_stakeholder_weights'];
@@ -50,7 +51,7 @@ const groupMean = (run, group) => {
 };
 
 export function mapSwarm({ runs, scenarioId, weights = WEIGHTS, exposure = 1, retention = 1, cap = 0.07 } = {}) {
-  const empty = { status: 'PENDING_SWARM', value: null, adjustment: null, groups: [], reasons: [], provenance: runs?.provenance ?? 'unavailable', sourceId: runs?.sourceId ?? null };
+  const empty = { status: 'PENDING_SWARM', value: null, adjustment: null, groups: [], reasons: [], provenance: runs?.provenance ?? 'unavailable', sourceId: runs?.sourceId ?? null, transferTarget: 'gold_price' };
   const weightErrors = validateWeights(weights);
   if (weightErrors.length || !within(exposure, 0, 1) || !within(retention, 0, 1) || !within(cap, 0, 0.07)) return { ...empty, status: 'INSUFFICIENT_DATA', reasons: [...weightErrors, ...(!within(exposure, 0, 1) || !within(retention, 0, 1) || !within(cap, 0, 0.07) ? ['invalid_scenario_adjustment'] : [])] };
   if (!SCENARIOS.includes(scenarioId)) return { ...empty, status: 'INSUFFICIENT_DATA', reasons: ['unsupported_scenario'] };
@@ -75,5 +76,5 @@ export function mapSwarm({ runs, scenarioId, weights = WEIGHTS, exposure = 1, re
     const means = GROUPS.map((group) => groupMean(run, group));
     return means.some((mean) => mean === null) ? null : { seed: run.seed, weightedSupport: GROUPS.reduce((sum, group, i) => sum + weights[group] * means[i].mean, 0) };
   }).filter(Boolean);
-  return { ...empty, status: 'ready', value, adjustment: cap * value * exposure * retention, groups, reasons: [], scenarioId, baselineRunId: baseline.runId, scenarioRunId: scenario.runId, baselineSeedValues, diagnosticOnly: ['baseline', 'sports_placebo'].includes(scenarioId) };
+  return { ...empty, status: 'ready', value, adjustment: cap * value * exposure * retention, transfer: { target: 'gold_price', methodVersion: GOLD_FORECAST_METHOD, cap, exposure, retention, assumed: true, calibrationStatus: 'uncalibrated' }, groups, reasons: [], scenarioId, baselineRunId: baseline.runId, scenarioRunId: scenario.runId, baselineSeedValues, diagnosticOnly: ['baseline', 'sports_placebo'].includes(scenarioId) };
 }

@@ -2,6 +2,57 @@
 
 The executable core, React adapter and workbench implement the accepted hackathon model. These checks establish implementation behavior, not predictive accuracy or a feasible real trade.
 
+## Current gold forecast, model v2
+
+The current method applies the assumed swarm response to Au price first, then recomputes material value, interest, assignment proceeds and every monthly sale outcome. The old direct option markup has been removed. The sections below this one retain earlier v1 results and are historical.
+
+- All 126 model tests pass, including 11 focused gold-chain tests and 16 publication tests. The 23 frontend, 21 Convex and 16 Python publisher/transport tests pass.
+- Frontend and backend type checks, scoped lint, production Webpack build, 29 updated specification consistency checks and source audit pass.
+- Independent direct-equation checks match positive/negative/zero effects, monthly growth, mixed materials and 30/90/180-day calculations. Only Au is affected. No-sale cash, evidence, expiry, risk and original source gates retain their behavior.
+- Publication review caught an old-formula relabeling case. Saved v2 values and every monthly interval now match the canonical evaluator. Regression tests reject both old markup and altered interval forecasts. Existing v1 stored summaries remain readable.
+- Production browser verifies baseline gold USD2000, assignment USD1500 and cash USD7.60. Recorded approval gives gold USD1996.47 and cash USD5.45; recorded blockage gives gold USD2004.30 and cash USD10.22. Zero cap restores baseline.
+- Synthetic +1 yields gold USD2140, assignment USD1675 and cash USD93; synthetic -1 gives gold USD1860, assignment USD1325 and cash USD-77.80/SKIP. Missing tax remains unavailable.
+- The new gold summary fits desktop and 320-pixel mobile layouts. Mobile page and model width checks pass. No browser errors were recorded. The current local production server uses port 5182.
+
+The response coefficient and persistence are uncalibrated assumptions, and source research readiness remains failed. No statistical confidence interval or measured predictive edge is claimed. This implementation makes no paid swarm calls and does not deploy, push or merge itself.
+
+## Existing swarm results in the current Next.js website
+
+Follow-up: the website now initializes and resets in hypothetical demo mode
+only. Other financial-mode controls were removed, while canonical API defaults
+and real/pending guards were preserved. The production browser reproduces
+USD157.60 cash at a USD500 premium and USD-142.40/SKIP at USD800, then resets to
+USD7.60 and a USD657.60 break-even premium. Recorded approval remains positive
+USD6.31 while its change is USD-1.29. The 23 frontend tests, typecheck/build,
+scoped lint, independent UI/math review and 320-pixel overflow check pass.
+
+The current implementation adds an explicit actual-post illustration to the
+canonical workbench. The sections below this one retain earlier Vite/MapLibre
+verification history.
+
+- Canonical model suite: 108 tests pass, including pairwise configuration,
+  source/provenance, strict/real/pending boundaries and publication regressions.
+- Frontend suite: 23 tests pass. Convex mock suite: 19 pass; backend typecheck
+  passes. Python publisher/transport suite: 16 pass with local mock-server
+  permission. Two initial sandbox socket errors were resolved by rerunning with
+  loopback access.
+- Frontend typecheck and production Webpack build pass. Lint has no errors and
+  four pre-existing backend warnings. All 29 specification checks pass.
+- Independent source/boundary review passes, with 22 targeted model/publication
+  checks. No source research check was promoted to pass.
+- Browser checks reproduce approval USD6.31 and blockage USD9.17 versus baseline
+  USD7.60. Exposure zero gives USD7.60; restoring exposure recalculates the actual
+  contrast. Premium USD800 makes approval USD-143.69 and displays a skip result.
+- Unsupported tax stays unavailable; real mode leaves both cash columns
+  unavailable. Returning to existing results restores approval calculations.
+- The existing-results control and cash summary fit 1440, 390 and 320 pixel
+  layouts without page/panel overflow. No browser errors were recorded.
+
+The price transfer and contract/liquidity inputs remain hypothetical. Source
+run IDs, the Claude sports-placebo reference, unknown cutoff and failed research
+checks remain attached to the calculation and optional publication summary.
+No new swarm or judge API calls were made.
+
 ## Automated checks
 
 - `cd frontend && npm test`: 51 passed, 0 failed. Includes 41 model checks and 10 existing evidence checks.
