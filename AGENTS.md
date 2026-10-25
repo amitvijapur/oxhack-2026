@@ -2,9 +2,13 @@
 
 ## Direction
 
-Build a useful, demonstrable project around the mandatory TIME theme. The idea,
-prediction target, and application stack are still open. Read `README.md`,
-`research/repository-plan.md`, and `tasks/todo.md` before starting work.
+Build the Tok River evidence and option-assignment demonstrator around the
+mandatory TIME theme. The active application is Next.js/React/Cesium in
+`frontend/`. The canonical decision engine is the shared pure model in
+`model/tok-option/`, using 30/90/180-day assignment without exercise. Historical
+monthly/exercise engine prototypes are reference material, not runtime code.
+Read `README.md`, `docs/architecture.md`, `docs/remaining-work.md`,
+`research/tok-option-strategy.md` and `tasks/todo.md` before starting work.
 
 ## Collaboration
 

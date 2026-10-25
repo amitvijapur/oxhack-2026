@@ -1,5 +1,36 @@
 # OXHack preparation
 
+## Canonical application integrated, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. The active app is the Next.js/Cesium
+land explorer with the shared assignment model in `model/tok-option/`.
+
+- [x] Preserve source heads and squash frontend PR 27.
+- [x] Classify prompt-cache scanner false positives and land the narrow, tested correction in PR 36.
+- [x] Replay and squash canonical model PR 29, with explicit model/source CI and three required checks.
+- [x] Refresh actual simulation evidence in PR 37 while preserving failed/incomplete readiness.
+- [x] Consolidate canonical optional backend and publishing in PR 38; reject inconsistent/legacy decision payloads.
+- [x] Consolidate the latest explorer through `1ce08e4` in PR 39; remove the old decision path and verify production behavior.
+- [x] Verify resulting main with Repository checks, Secret scan and Frontend checks all green.
+- [x] Close the ten superseded PRs and prepare the final source/merge handoff record.
+
+Verification: 23 frontend tests, 94 model tests, 17 Convex tests, 16 Python
+publisher/transport tests, typechecks and production build pass. Lint has four
+nonblocking incumbent warnings. Browser checks cover rendered terrain, land
+context, cash recalculation, SKIP, real-mode gaps, synthetic deltas and
+1440/390/320-pixel layouts. Independent source/visual review passed.
+
+Read [architecture](../docs/architecture.md), [remaining work](../docs/remaining-work.md),
+[handoff](../research/integration-handoff.md) and [exact merges](../research/integration-merges.json).
+Real contracts, resources, liquidity and predictive validation remain missing;
+simulation completion/readiness and optional hosting/storage configuration remain
+external work. Automated dependency PR 35 is outside this integration scope.
+
+PRs 23–26, 28 and 30–34 are closed as superseded with replacement links. Their
+source branches are retained. Implementation merge revisions are recorded in
+`research/integration-merges.json`; the final documentation PR records publication
+and its required checks.
+
 ## Publish the Tok option model, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. Scope: pure assignment-only option
