@@ -54,7 +54,7 @@ export function LandTab({ plots, geochem, features, sort, onSort, hoverId, onHov
 
       <Section
         title={`${plots.plots.length} sampled areas`}
-        lede={<>The map shows checked claim polygons and illustrative sample squares. {counts.held} overlap held state claims; {counts.open} have no checked claim overlap. Pick one to inspect its context.</>}
+        lede={<>Each sample glows on the map, brighter where gold runs higher, inside the outline of the checked claim that holds it. {counts.held} overlap held state claims; {counts.open} have no checked claim overlap. Pick one to inspect its context.</>}
       >
         <div className="list-tools">
           <div className="segmented" role="radiogroup" aria-label="Show">
@@ -92,7 +92,7 @@ export function LandTab({ plots, geochem, features, sort, onSort, hoverId, onHov
                   <span className="plot-row-main">
                     <span className="plot-row-name">
                       <i className={`status-dot is-${status}`} aria-hidden="true" />
-                      {plot.kind === "claim" ? titleCase(plot.name ?? "Claim") : "Illustrative square"}
+                      {plot.kind === "claim" ? titleCase(plot.name ?? "Claim") : "Stream sample, no claim"}
                     </span>
                     <span className="plot-row-sub">{status === "held" ? titleCase(plot.owner ?? "") : status === "lapsed" ? `Lapsed ${plot.end ?? ""}` : "No checked overlap"} · {plot.km_to_tok} km from Tok</span>
                   </span>

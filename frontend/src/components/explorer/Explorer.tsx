@@ -1,13 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { loadEvidence } from "@/lib/evidence.js";
-import { loadShowcase, plotReading, type ColorBy as ColorMode, type Showcase as Data } from "@/lib/showcase";
+import { loadShowcase, plotReading, stakedRange, type ColorBy as ColorMode, type Showcase as Data } from "@/lib/showcase";
 import type { Evidence } from "@/lib/types";
+import type { MapControl } from "@/components/earth/Earth";
+import { PlotPopover } from "./PlotPopover";
+import { MapControls } from "./MapControls";
+import { PipelineStory } from "./PipelineStory";
+import { SafeBoundary } from "@/components/SafeBoundary";
 import { LivePill } from "./LivePill";
-import { Timelapse, FIRST, LAST } from "./Timelapse";
+import { Timelapse, LAST, RECENT } from "./Timelapse";
+import stills from "./stills.json";
 import { Panel, type Tab } from "./Panel";
 import { PlotSheet } from "./PlotSheet";
 import { ColorBy } from "./ColorBy";
@@ -15,11 +21,28 @@ import { LandTab, orderPlots, type Sort } from "./tabs/LandTab";
 import { GroundTab } from "./tabs/GroundTab";
 import { MarketTab } from "./tabs/MarketTab";
 import { DecisionTab } from "./tabs/DecisionTab";
+import { SwarmTab } from "./tabs/SwarmTab";
 import "./explorer.css";
 
+// Three.js loads only when someone opens a plot's 3D terrain view.
+const PlotBlock = dynamic(() => import("@/components/geo/PlotBlock").then((m) => m.PlotBlock), { ssr: false });
 const Earth = dynamic(() => import("@/components/earth/Earth").then((m) => m.Earth), { ssr: false });
 
+/** The opening time-lapse (history, today, then the projection) or the explorer panel. */
 export type Mode = "timelapse" | "explore";
+
+/** `?snapshot=timelapse|explore`: the bare map at that view, for scripts/capture-map-snapshots.mjs. */
+const snapshotMode = (): Mode | null => {
+  const view = new URLSearchParams(window.location.search).get("snapshot");
+  return view === "timelapse" || view === "explore" ? view : null;
+};
+
+const noSubscribe = () => () => {};
+const onOrientation = (change: () => void) => {
+  const query = matchMedia("(orientation: portrait)");
+  query.addEventListener("change", change);
+  return () => query.removeEventListener("change", change);
+};
 
 export function Explorer() {
   const [evidence, setEvidence] = useState<Evidence | null>(null);
@@ -27,23 +50,74 @@ export function Explorer() {
   const [error, setError] = useState<string | null>(null);
   const [earth, setEarth] = useState<"loading" | "ready" | "failed">("loading");
 
+  // Read after hydration (the server has no URL), so server and client render the same first.
+  const snapshot = useSyncExternalStore(noSubscribe, snapshotMode, () => null);
   const [mode, setMode] = useState<Mode>("timelapse");
-  const [year, setYear] = useState(FIRST);
+  const [year, setYear] = useState(RECENT);
+  const [first, setFirst] = useState(RECENT);
   const [playing, setPlaying] = useState(false);
   const [tab, setTab] = useState<Tab>("land");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [element, setElement] = useState("Au");
-  const [bedrock, setBedrock] = useState(false);
+  const [bedrock, setBedrock] = useState(true);
+  const [zoomTo, setZoomTo] = useState<string | null>(null);
+  const [story, setStory] = useState(false);
+  const [below, setBelow] = useState(false);
+  const anchor = useRef<HTMLDivElement>(null);
+  const hoverChip = useRef<HTMLDivElement>(null);
+  // Off by default: a still camera keeps every tile loaded, so the opening plays without re-blurring.
+  const [followAction, setFollowAction] = useState(false);
+  const controls = useRef<MapControl>(null);
   const [colorBy, setColorBy] = useState<ColorMode>("gold");
   const [hoverId, setHoverId] = useState<string | null>(null);
   const [elevation, setElevation] = useState<number | null>(null);
   const [sort, setSort] = useState<Sort>("gold");
+  const [snapshotGone, setSnapshotGone] = useState(false);
+  // Capturing: the explore still as the panel opens; the time-lapse stills one per year, on request.
+  useEffect(() => {
+    if (!snapshot) return;
+    const t = window.setTimeout(() => { if (snapshot === "explore") { setYear(LAST); setMode("explore"); } }, 0);
+    const onYear = (event: Event) => setYear((event as CustomEvent<number>).detail);
+    window.addEventListener("snapshot-year", onYear);
+    return () => { window.clearTimeout(t); window.removeEventListener("snapshot-year", onYear); };
+  }, [snapshot]);
+
+  // Until the live map is ready, the opening plays over a still of 2016 with, for each later year,
+  // a patch of the claims as of that year laid on top; a year shows once its patch has arrived.
+  const portrait = useSyncExternalStore(onOrientation, () => matchMedia("(orientation: portrait)").matches, () => null);
+  const [patches, setPatches] = useState<Set<number>>(() => new Set());
+  useEffect(() => {
+    if (snapshot || portrait === null) return;
+    const images = stills.years.slice(1).map((y) => {
+      const image = new Image();
+      image.onload = () => setPatches((have) => new Set(have).add(y));
+      image.src = `/snapshots/timelapse-${y}${portrait ? "-mobile" : ""}.webp`;
+      return image;
+    });
+    return () => images.forEach((image) => { image.onload = null; });
+  }, [snapshot, portrait]);
+  const patchYear = Math.max(0, ...[...patches].filter((y) => y <= Math.min(year, LAST)));
+  // Once the live map has faded in over the still, drop the still.
+  useEffect(() => {
+    if (earth !== "ready") return;
+    const t = window.setTimeout(() => setSnapshotGone(true), 1_000);
+    return () => window.clearTimeout(t);
+  }, [earth]);
 
   useEffect(() => {
     Promise.all([loadEvidence("/"), loadShowcase()])
-      .then(([e, d]) => { setEvidence(e as Evidence); setData(d); setPlaying(true); })
+      .then(([e, d]) => { setEvidence(e as Evidence); setData(d); })
       .catch((cause: Error) => setError(cause.message));
   }, []);
+
+  // Start the time-lapse shortly after the live map fades in, or after a moment over the still if
+  // the map is still loading: the page never sits frozen, and the map joins in, sharp, when ready.
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current || !data || snapshot) return;
+    const t = window.setTimeout(() => { started.current = true; setPlaying(true); }, earth === "loading" ? 2_500 : 900);
+    return () => window.clearTimeout(t);
+  }, [data, earth, snapshot]);
 
   const explore = useCallback((next: Tab = "land") => {
     setPlaying(false);
@@ -51,29 +125,40 @@ export function Explorer() {
     setTab(next);
     setMode("explore");
   }, []);
-  const back = useCallback(() => { setSelectedId(null); setMode("timelapse"); }, []);
+  const close = useCallback(() => { setSelectedId(null); setZoomTo(null); }, []);
+  const back = useCallback(() => { close(); setPlaying(false); setYear(LAST); setMode("timelapse"); }, [close]);
 
-  // Picking a plot on the map opens the explorer on it.
+  // On the time-lapse a plot opens a popover on the map (and pauses); while exploring it opens the
+  // plot sheet and flies into the parcel. Mines open the ground tab.
   const select = useCallback((id: string | null) => {
     setSelectedId(id);
-    if (id && mode === "timelapse") explore(id.startsWith("occ:") ? "ground" : "land");
+    if (!id) { setZoomTo(null); return; }
+    if (mode !== "explore") {
+      setPlaying(false);
+      if (id.startsWith("occ:")) explore("ground");
+    } else if (id.startsWith("plot:")) setZoomTo(id);
   }, [mode, explore]);
 
   // The plots in list order, so the sheet's ‹ › and the arrow keys follow what the list shows.
   const ordered = useMemo(() => (data ? orderPlots(data.plots.plots, data.geochem, sort) : []), [data, sort]);
   const plot = data && selectedId?.startsWith("plot:") ? data.plots.plots.find((p) => `plot:${p.id}` === selectedId) ?? null : null;
   const index = plot ? ordered.indexOf(plot) : -1;
+  // Any state claim on the map can be picked too ("claim:<index>"); some hold a sampled plot.
+  const claim = data && selectedId?.startsWith("claim:") ? data.claims.features[Number(selectedId.slice(6))] ?? null : null;
+  const claimPlot = claim && data ? data.plots.plots.find((p) => p.kind === "claim" && p.id === claim.properties.id) ?? null : null;
   const step = useCallback((by: number) => {
     if (!ordered.length) return;
     const next = ordered[((index < 0 ? -1 : index) + by + ordered.length) % ordered.length];
     setSelectedId(`plot:${next.id}`);
+    setZoomTo(`plot:${next.id}`);
   }, [ordered, index]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const typing = (event.target as HTMLElement).closest("input, textarea, select, [role=slider]");
+      if (story || below) return; // the story and the block view handle their own keys
       if (event.key === "Escape") {
-        if (selectedId) setSelectedId(null);
+        if (selectedId || zoomTo) close();
         else if (mode === "explore") back();
       } else if (!typing && mode === "explore" && tab === "land" && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
         event.preventDefault();
@@ -82,30 +167,56 @@ export function Explorer() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [mode, tab, selectedId, back, step]);
+  }, [mode, tab, selectedId, zoomTo, back, close, step, story, below]);
 
   const siteOf = (sampleId: string) => evidence?.features.find((f) => f.properties.sample_id === sampleId)?.properties.area ?? null;
 
   return (
-    <main className="explorer" data-mode={mode}>
-      <Earth
-        mode={mode}
-        tab={tab}
-        plots={data?.plots ?? null}
-        claims={data?.claims ?? null}
-        year={year}
-        selectedId={selectedId}
-        onSelect={select}
-        onReady={setEarth}
-        geochem={data?.geochem ?? null}
-        element={element}
-        occurrences={data?.occurrences ?? null}
-        bedrock={bedrock}
-        colorBy={colorBy}
-        hoverId={hoverId}
-        onHover={setHoverId}
-        onElevation={setElevation}
-      />
+    <main className="explorer" data-mode={mode} data-earth={earth} data-snapshot={snapshot ? "true" : undefined}>
+      {/* A still of this view shows at once; the live map fades in over it when its tiles are in. */}
+      {(earth !== "ready" || !snapshotGone) && portrait !== null ? (() => {
+        const box = portrait ? stills.portrait : stills.landscape;
+        const variant = portrait ? "-mobile" : "";
+        const pct = (part: number, whole: number) => `${(part / whole) * 100}%`;
+        return (
+          <div className="map-snapshot">
+            {/* eslint-disable @next/next/no-img-element -- pixel-exact stills: resizing would misalign the patches */}
+            <div className="map-still" style={{ aspectRatio: `${box.width} / ${box.height}` }}>
+              <img src={`/snapshots/${mode}${variant}.webp`} alt="" decoding="async" fetchPriority="high" />
+              {mode === "timelapse" && patchYear ? (
+                <img className="map-still-patch" src={`/snapshots/timelapse-${patchYear}${variant}.webp`} alt=""
+                  style={{ left: pct(box.x, box.width), top: pct(box.y, box.height), width: pct(box.w, box.width) }} />
+              ) : null}
+            </div>
+            {/* eslint-enable @next/next/no-img-element */}
+          </div>
+        );
+      })() : null}
+      <SafeBoundary fallback={<p className="toast" role="status">The 3D map stopped working; the data still works.</p>}>
+        <Earth
+          mode={mode === "explore" ? "explore" : "timelapse"}
+          plots={data?.plots ?? null}
+          claims={data?.claims ?? null}
+          year={Math.min(year, LAST)}
+          ahead={mode === "timelapse" ? Math.max(0, year - LAST) : 0}
+          selectedId={selectedId}
+          onSelect={select}
+          onReady={setEarth}
+          geochem={data?.geochem ?? null}
+          element={element}
+          occurrences={data?.occurrences ?? null}
+          bedrock={bedrock}
+          colorBy={colorBy}
+          hoverId={hoverId}
+          onHover={setHoverId}
+          onElevation={setElevation}
+          zoomTo={zoomTo}
+          anchor={anchor}
+          controls={controls}
+          hoverChip={hoverChip}
+          follow={mode === "timelapse" && playing && followAction}
+        />
+      </SafeBoundary>
       <div className="scrim" aria-hidden="true" />
 
       <header className="bar">
@@ -117,13 +228,15 @@ export function Explorer() {
 
       {error ? <p className="toast" role="alert">The data could not be loaded: {error}</p> : null}
       {earth === "failed" ? <p className="toast" role="status">Your browser could not start the 3D map, so the data shows without it.</p> : null}
-      {!data && !error ? <p className="toast" role="status">Loading claims since 1975…</p> : null}
+      {!data && !error ? <p className="toast" role="status">Loading the land and the model…</p> : null}
 
       {data ? (
         <AnimatePresence mode="wait">
           {mode === "timelapse" ? (
             <motion.div key="timelapse" className="layer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-              <Timelapse claims={data.claims} history={data.history} year={year} onYear={setYear} playing={playing} onPlaying={setPlaying} onExplore={() => explore()} />
+              <Timelapse claims={data.claims} history={data.history} year={year} onYear={setYear} playing={playing} onPlaying={setPlaying} onExplore={() => explore()} onStory={() => { setPlaying(false); setStory(true); }}
+                first={first} onFirst={setFirst} onNow={back}
+                follow={followAction} onFollow={setFollowAction} />
             </motion.div>
           ) : (
             <motion.div key="explore" className="layer" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 24 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}>
@@ -141,7 +254,9 @@ export function Explorer() {
                     elevation={elevation}
                     onPrev={() => step(-1)}
                     onNext={() => step(1)}
-                    onClose={() => setSelectedId(null)}
+                    onClose={close}
+                    onZoom={() => setZoomTo(`plot:${plot.id}`)}
+                    onBelow={() => setBelow(true)}
                     onElements={() => setTab("ground")}
                     onDecision={() => setTab("decision")}
                   />
@@ -149,7 +264,7 @@ export function Explorer() {
               >
                 {tab === "land" && !plot ? (
                   <LandTab plots={data.plots} geochem={data.geochem} features={evidence?.features ?? []} sort={sort} onSort={setSort}
-                    hoverId={hoverId} onHover={setHoverId} onPick={setSelectedId} onDecision={() => setTab("decision")} />
+                    hoverId={hoverId} onHover={setHoverId} onPick={select} onDecision={() => setTab("decision")} />
                 ) : null}
                 {tab === "ground" ? (
                   <GroundTab
@@ -163,17 +278,50 @@ export function Explorer() {
                     siteOf={siteOf}
                     bedrock={bedrock}
                     onBedrock={setBedrock}
+                    evidence={evidence?.config ?? null}
                   />
                 ) : null}
-                {tab === "market" ? <MarketTab market={data.market} claims={data.claims} history={data.history} year={year} /> : null}
+                {tab === "market" ? <MarketTab market={data.market} claims={data.claims} history={data.history} year={Math.min(year, LAST)} /> : null}
+                {tab === "swarm" ? <SwarmTab town={data.town} /> : null}
                 {tab === "decision" ? (
-                  <DecisionTab features={evidence?.features ?? []} town={data.town} />
+                  <DecisionTab features={evidence?.features ?? []} />
                 ) : null}
               </Panel>
-              <ColorBy value={colorBy} onChange={setColorBy} />
+              <ColorBy value={colorBy} onChange={setColorBy} bedrock={bedrock} onBedrock={setBedrock} range={stakedRange(data.claims)} />
             </motion.div>
           )}
         </AnimatePresence>
+      ) : null}
+
+      {data ? (
+        <>
+          <MapControls controls={controls} />
+          <div ref={hoverChip} className="hover-chip" data-visible="false" aria-hidden="true" />
+          {below && plot ? (
+            <SafeBoundary fallback={null}>
+              <PlotBlock plot={plot} geochem={data.geochem} geology={data.geology} onClose={() => setBelow(false)} />
+            </SafeBoundary>
+          ) : null}
+          {story ? <PipelineStory data={data} features={evidence?.features ?? []} onClose={() => setStory(false)} onOpen={(next) => { setStory(false); explore(next); }} /> : null}
+          {/* The popover lives outside the animated layers: the map moves it each frame. */}
+          <PlotPopover
+            ref={anchor}
+            plot={mode !== "explore" ? plot : null}
+            claim={claim}
+            linkedPlot={claimPlot}
+            geochem={data.geochem}
+            onZoom={() => setZoomTo(selectedId)}
+            onDetails={() => {
+              // A claim with a sample inside opens that plot's sheet; a sampled plot opens its own.
+              const target = claimPlot ?? plot;
+              if (!target) return;
+              setSelectedId(`plot:${target.id}`);
+              setZoomTo(`plot:${target.id}`);
+              explore("land");
+            }}
+            onClose={close}
+          />
+        </>
       ) : null}
     </main>
   );

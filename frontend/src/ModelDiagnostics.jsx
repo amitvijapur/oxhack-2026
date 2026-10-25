@@ -52,6 +52,8 @@ export function CashDiagnostics({ diagnostics, controls }) {
     ['Probability of negative cash', 'negativeCashProbability', percent],
     ['Median cash outcome', 'medianCashUsd', money],
     ['Worst cash outcome with nonzero probability', 'worstCashUsd', money],
+    ['5th percentile cash outcome', 'p05CashUsd', money],
+    ['95th percentile cash outcome', 'p95CashUsd', money],
   ];
   return <section className="model-cash-diagnostics" aria-labelledby="model-cash-diagnostics-heading">
     <h3 id="model-cash-diagnostics-heading">What sits behind the average?</h3>

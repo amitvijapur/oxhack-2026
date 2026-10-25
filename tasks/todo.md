@@ -1,5 +1,13 @@
 # OXHack preparation
 
+## Homepage: history into a five-year projection, and a smoother map, 25 October 2026
+
+Owner: Salman. Scope: `frontend/` explorer and map only; the model is unchanged.
+
+- [x] Open on the history time-lapse (2016 to today, or since 1975), then continue the gold price to 2031 with the model's 2020–25 trend and the middle half of past five-year runs. Claims are not projected.
+- [x] Replace plot dots and drawn squares with a glow per stream sample (gold-ramp by anomaly class), real claim outlines with value-tinted fills, and decluttered value chips.
+- [x] Load smoothly: stills of each view (and of each history year's claims) show at once; the live map fades in only when fully sharp. `scripts/capture-map-snapshots.mjs` regenerates them.
+
 ## Canonical application integrated, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. The active app is the Next.js/Cesium

@@ -8,27 +8,35 @@ const MODES: { id: Mode; label: string }[] = [
   { id: "staked", label: "Staked year" },
 ];
 
-const LEGENDS: Record<Mode, { label: string; swatch: string }[]> = {
+const legends = ([first, last]: [number, number]): Record<Mode, { label: string; swatch: string }[]> => ({
   gold: [
-    { label: "Little", swatch: "rgb(255 255 255 / 0.18)" },
-    { label: "Above typical", swatch: "rgb(250 204 21 / 0.45)" },
-    { label: "Top 10%", swatch: "rgb(250 204 21 / 0.75)" },
-    { label: "Top 2%", swatch: "#fde047" },
+    { label: "Little", swatch: "radial-gradient(circle, rgb(229 231 235 / 0.6), transparent 70%)" },
+    { label: "Above typical", swatch: "radial-gradient(circle, rgb(250 204 21 / 0.8), transparent 70%)" },
+    { label: "Top 10%", swatch: "radial-gradient(circle, #fbbf24, transparent 75%)" },
+    { label: "Top 2%", swatch: "radial-gradient(circle, #fde047 30%, transparent 80%)" },
   ],
   ownership: [
-    { label: "Held", swatch: "rgb(255 255 255 / 0.7)" },
-    { label: "Lapsed", swatch: "rgb(255 255 255 / 0.2)" },
-    { label: "Illustrative square", swatch: "transparent" },
+    { label: "Held claim", swatch: "rgb(255 255 255 / 0.7)" },
+    { label: "Lapsed claim", swatch: "rgb(255 255 255 / 0.2)" },
+    { label: "Sample, no claim", swatch: "radial-gradient(circle, rgb(250 204 21 / 0.6), transparent 70%)" },
   ],
   staked: [
-    { label: "1977", swatch: "rgb(115 115 115 / 0.7)" },
-    { label: "2000s", swatch: "rgb(74 160 104 / 0.75)" },
-    { label: "2025", swatch: "#22c55e" },
+    { label: String(first), swatch: "rgb(115 115 115 / 0.7)" },
+    { label: String(Math.round((first + last) / 2)), swatch: "rgb(74 160 104 / 0.75)" },
+    { label: String(last), swatch: "#22c55e" },
   ],
-};
+});
 
 /** How the land is coloured on the map, with its legend. Sits on the map, bottom-left. */
-export function ColorBy({ value, onChange }: { value: Mode; onChange: (mode: Mode) => void }) {
+export function ColorBy({ value, onChange, bedrock, onBedrock, range }: {
+  value: Mode;
+  /** First and last staked year in the claims snapshot. */
+  range: [number, number];
+  onChange: (mode: Mode) => void;
+  /** The USGS bedrock map and known mines layer. */
+  bedrock: boolean;
+  onBedrock: (on: boolean) => void;
+}) {
   return (
     <div className="colorby">
       <div className="segmented" role="radiogroup" aria-label="Colour the land by">
@@ -37,10 +45,15 @@ export function ColorBy({ value, onChange }: { value: Mode; onChange: (mode: Mod
         ))}
       </div>
       <ul className="legend" aria-label="Legend">
-        {LEGENDS[value].map((l) => (
-          <li key={l.label}><i style={{ background: l.swatch }} className={l.swatch === "transparent" ? "is-dashed" : undefined} />{l.label}</li>
+        {legends(range)[value].map((l) => (
+          <li key={l.label}><i style={{ background: l.swatch }} />{l.label}</li>
         ))}
       </ul>
+      <label className="switch-row compact">
+        <input type="checkbox" role="switch" checked={bedrock} onChange={(e) => onBedrock(e.target.checked)} />
+        <span className="switch" aria-hidden="true" />
+        Geology: bedrock map and known mines
+      </label>
     </div>
   );
 }

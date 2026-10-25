@@ -1,10 +1,15 @@
 # Tok River application
 
 The Next.js application presents **Land Arbitrage: Gold**, a Cesium explorer for
-Tok River, Alaska. The Land, Ground, Market and Decision tabs connect pinned
+Tok River, Alaska. The Land, Ground, Market, Swarm and Decision tabs connect pinned
 claim context, historical measurements, market sources and the canonical option
-workbench. The opening time slider shows source-derived claim history and annual
-gold context. It does not assign daily dates to the 2016 samples.
+workbench. The site opens on today: claims held now and the gold spot, then
+plays the next 12 months forward using the model's descriptive 2020–25 gold
+trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
+the hypothetical demo contract (`projectionHorizons` in `src/lib/canonical-model.js`).
+It is labelled as a projection, not a prediction. **History** opens the claims
+time-lapse for the last ten years, or since 1975. Only the current Esri imagery
+is used; dated satellite layers were removed for speed and consistency.
 
 ## Run locally
 
@@ -72,6 +77,31 @@ and source references preserve their separate provenance. Illustrative sample
 squares are labelled separately from recorded claims. Neither an overlap check
 nor a historical claim status establishes available land, mineral rights,
 recoverable resources or an investable opportunity.
+
+## Swarm view
+
+The Swarm tab (`src/components/explorer/tabs/SwarmTab.tsx`) reads the pinned
+MiroFish bundle `../model/tok-option/data/swarm-source.json` through one adapter,
+`src/lib/swarm-view.js`, and the model's own `inspectSwarmSource` checks. It
+shows support by group and day for every judged run, the three-baseline spread,
+day 3–5 effects against that band, the report's checks, run configurations and
+interview coverage, and the bundle's limitations. The separate day-1 town pilot
+replay stays in the same tab, labelled with its own commit and judge check.
+
+To show a newer swarm run, replace `swarm-source.json` with the new attributed
+bundle, then run `node --test ../model/tok-option/tests/*.test.mjs` and the
+browser smoke check. No component holds swarm numbers of its own.
+
+## Where each view reads from
+
+| View | Source |
+| --- | --- |
+| Time-lapse, Market timeline | `showcase/claims.geojson` (DNR), `history.json`, `market.json` (Arjin's land branch) |
+| Plot sheet land records | `inspectLandSource` over `../model/tok-option/data/land-source.json` |
+| Ground, A/B evidence card | `geochem.json`, `gold-frontend-data.json`, `gold-source-catalog.json` |
+| What mineral ground has cost | `market.json` comparables and rent schedule |
+| How it works | data counts above, `runWorkbench` evidence gate and model gaps |
+| 3D terrain view | Terrarium and Esri tiles; beads only at real sample points, ranked against all sites |
 
 ## Canonical decision model
 

@@ -12,7 +12,9 @@ export type Claim = {
 };
 export type Claims = { type: "FeatureCollection"; retrieved: string; source: string; features: Claim[] };
 
-export type HistoryRow = { year: string; claims_active: string; claims_closed: string; claims_total: string; gold_usd_per_oz_mean: string };
+export type HistoryRow = { year: string; claims_active: string; claims_closed: string; claims_total: string; gold_usd_per_oz_mean: string;
+  /** Months in the yearly gold mean: 12, or fewer for the year in progress. */
+  gold_months: string; claims_change_pct: string; gold_change_pct: string };
 export type History = { source: Source; rows: HistoryRow[] };
 
 export type Person = { n: number; name: string; role: string; group: string; tier: number };
@@ -157,4 +159,10 @@ export function plotReading(plot: Plot, geochem: Geochem, element: string) {
     if (!best || level > best.level) best = { sample, value, level, k: anomalyClass(value, geochem.thresholds[element]) };
   }
   return best;
+}
+
+/** The first and last years a claim in the snapshot was staked: the range of the "staked year" colours. */
+export function stakedRange(claims: Claims | null): [number, number] {
+  const years = (claims?.features ?? []).map((f) => f.properties.start).filter((y): y is number => typeof y === "number");
+  return years.length ? [Math.min(...years), Math.max(...years)] : [0, 1];
 }

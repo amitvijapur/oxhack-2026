@@ -1,0 +1,18 @@
+# Vercel builds the app in frontend/ (Root Directory) and needs model/ for the
+# shared decision engine. Everything else stays out of the upload.
+.env*
+/.git
+/.github
+/.claude
+/.impeccable
+/design
+/docs
+/research
+/scripts
+/tasks
+/tests
+frontend/node_modules
+frontend/.next
+frontend/public/vendor
+frontend/artifacts
+frontend/tsconfig.tsbuildinfo

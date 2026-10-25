@@ -2,11 +2,12 @@
 
 import { X } from "lucide-react";
 
-export type Tab = "land" | "ground" | "market" | "decision";
+export type Tab = "land" | "ground" | "market" | "swarm" | "decision";
 export const TABS: { id: Tab; label: string }[] = [
   { id: "land", label: "Land" },
   { id: "ground", label: "Ground" },
   { id: "market", label: "Market" },
+  { id: "swarm", label: "Swarm" },
   { id: "decision", label: "Decision" },
 ];
 
@@ -30,7 +31,8 @@ export function Panel({ tab, onTab, onClose, card, children }: {
         </div>
         <button type="button" className="icon-button" onClick={onClose} aria-label="Back to the time-lapse"><X className="size-4" /></button>
       </div>
-      <div className="panel-scroll" id="tab-panel" role="tabpanel" aria-labelledby={`tab-${tab}`}>
+      {/* Keyed by tab, so each tab opens at its top. */}
+      <div key={tab} className="panel-scroll" id="tab-panel" role="tabpanel" aria-labelledby={`tab-${tab}`}>
         {card}
         {children}
       </div>

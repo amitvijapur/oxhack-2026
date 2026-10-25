@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, FileUp, RotateCcw } from 'lucide-react';
 import { DEFAULT_CONTROLS, parseSwarmImport, runWorkbench } from '../../model/tok-option/workbench.mjs';
+import { CAPITAL, EVIDENCE_RULE } from '../../model/tok-option/config.mjs';
 import syntheticSwarmExample from '../../model/tok-option/example-swarm.json';
 import { CashDiagnostics, DataCoverage, SwarmDiagnostics } from './ModelDiagnostics.jsx';
 import './model-workbench.css';
@@ -17,6 +18,7 @@ const finite = (value) => typeof value === 'number' && Number.isFinite(value);
 const money = (value) => finite(value) ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value) : 'Not available';
 const number = (value, digits = 3) => finite(value) ? new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value) : 'Not available';
 const percent = (value, digits = 1) => finite(value) ? `${number(value * 100, digits)}%` : 'Not available';
+const usd0 = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
 const signedMoney = (value) => finite(value) ? `${value > 0 ? '+' : ''}${money(value)}` : 'Not available';
 const message = (value) => typeof value === 'string' ? value.replaceAll('_', ' ') : value?.message || value?.reason || JSON.stringify(value);
 const actionText = (action) => ({ BUY_CANDIDATE: 'Demo buy candidate', SKIP: 'Skip this contract', INSUFFICIENT_DATA: 'Inputs missing', PENDING_SWARM: 'Swarm output pending' }[action] || 'No entry decision');
@@ -34,9 +36,9 @@ function EvidenceScreen({ evidence, area }) {
   const gate = evidence?.gate || 'UNKNOWN';
   return <div className="model-evidence">
     <div className="model-evidence-head"><h3>Observed evidence</h3><span className={`model-status model-status-${gate.toLowerCase()}`}>{gate === 'PASS' ? 'Screen passes' : gate === 'FAIL' ? 'Screen fails' : 'Screen unknown'}</span></div>
-    <p>Area {area} has <strong>{evidence?.pass ?? 0} qualifying samples</strong> out of {evidence?.total ?? 0} at the proposed 0.01 ppm primary-gold threshold.</p>
+    <p>Area {area} has <strong>{evidence?.pass ?? 0} qualifying samples</strong> out of {evidence?.total ?? 0} at the proposed {EVIDENCE_RULE.thresholdPpm} ppm primary-gold threshold.</p>
     <dl className="model-evidence-counts"><div><dt>Pass</dt><dd>{evidence?.pass ?? 0}</dd></div><div><dt>Fail</dt><dd>{evidence?.fail ?? 0}</dd></div><div><dt>Unknown</dt><dd>{evidence?.unknown ?? 0}</dd></div><div><dt>Qualifying range</dt><dd>{percent(evidence?.lowerFraction)} to {percent(evidence?.upperFraction)}</dd></div></dl>
-    <p className="model-note">At least 10 classified samples and a 50% qualifying lower bound are required. This screen does not estimate ounces or deposit probability. A and B are comparison areas, not verified mineral parcels.</p>
+    <p className="model-note">At least {EVIDENCE_RULE.minimumClassifiedSamples} classified samples and a {EVIDENCE_RULE.minimumQualifyingFraction * 100}% qualifying lower bound are required. This screen does not estimate ounces or deposit probability. A and B are comparison areas, not verified mineral parcels.</p>
   </div>;
 }
 
@@ -118,7 +120,7 @@ function FormulaTrace({ result, controls }) {
 function Portfolio({ portfolio, controls }) {
   const count = portfolio?.selectedIds?.length || 0;
   const available = portfolio?.status === 'illustrative';
-  return <section className="model-portfolio"><div className="model-section-heading"><h3>Size the commitment</h3><span className="model-assumption">Hypothetical $100,000 fund</span></div><p>{available ? count ? `The optimizer includes the one assumed Area ${controls.area} contract in this cohort.` : 'The optimizer leaves this assumed contract out of the cohort.' : 'Portfolio selection is unavailable until the required model inputs are complete.'} It maximizes positive expected net cash after the evidence, expiry, terms and risk screens.</p><dl><div><dt>Selected contracts</dt><dd>{available ? count : 'Not available'}</dd></div><div><dt>Total upfront risk</dt><dd>{money(available ? portfolio?.totalRiskUsd : null)}</dd></div><div><dt>Total expected cash</dt><dd>{money(available ? portfolio?.totalExpectedNetCashUsd : null)}</dd></div></dl><p className="model-note">Limits are $2,000 per option, $10,000 for the whole cohort and five positions. One interest can appear once. No borrowing, exercise or reinvestment. Positions can fail together. This screen contains one assumed contract, not live listings.</p>{portfolio?.reasons?.length > 0 && <ul className="model-reasons">{portfolio.reasons.map((reason, index) => <li key={index}>{message(reason)}</li>)}</ul>}</section>;
+  return <section className="model-portfolio"><div className="model-section-heading"><h3>Size the commitment</h3><span className="model-assumption">Hypothetical {usd0(CAPITAL.startingFundUsd)} fund</span></div><p>{available ? count ? `The optimizer includes the one assumed Area ${controls.area} contract in this cohort.` : 'The optimizer leaves this assumed contract out of the cohort.' : 'Portfolio selection is unavailable until the required model inputs are complete.'} It maximizes positive expected net cash after the evidence, expiry, terms and risk screens.</p><dl><div><dt>Selected contracts</dt><dd>{available ? count : 'Not available'}</dd></div><div><dt>Total upfront risk</dt><dd>{money(available ? portfolio?.totalRiskUsd : null)}</dd></div><div><dt>Total expected cash</dt><dd>{money(available ? portfolio?.totalExpectedNetCashUsd : null)}</dd></div></dl><p className="model-note">Limits are {usd0(CAPITAL.maxRiskPerOptionUsd)} per option, {usd0(CAPITAL.maxWholeCohortCommittedUsd)} for the whole cohort and {CAPITAL.maxPositions} positions. One interest can appear once. No borrowing, exercise or reinvestment. Positions can fail together. This screen contains one assumed contract, not live listings.</p>{portfolio?.reasons?.length > 0 && <ul className="model-reasons">{portfolio.reasons.map((reason, index) => <li key={index}>{message(reason)}</li>)}</ul>}</section>;
 }
 
 export default function ModelWorkbench({ features }) {
