@@ -7,7 +7,7 @@ async page => {
 
   // Opening: a still of the map at once, then the live map; history plays from 2016 to today,
   // rests on today, and carries on into the five-year gold projection.
-  await page.getByText('Land Arbitrage: Gold').first().waitFor();
+  await page.getByText('Orecast').first().waitFor();
   await page.locator('.map-snapshot img').first().waitFor({ state: 'attached' });
   const opening = page.locator('.timelapse');
   await opening.waitFor({ timeout: 20000 });
