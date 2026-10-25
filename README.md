@@ -128,10 +128,22 @@ engine used by the interface and export CLI. It models assignment over 30, 90 or
 180 days, with an explicit no-sale branch. It does not exercise an option or
 execute trades.
 
-The website option calculator always opens and resets in hypothetical demo
-mode. Recorded evidence and simulation scores remain attributed inputs; option
-economics remain assumptions. The interface separates total **Expected net
-cash** from **Change versus baseline** and shows the break-even entry premium.
+The website option calculator opens and resets to a small-response synthetic
+demo. Its headline is **Expected cash return on upfront capital**, calculated as
+expected net cash divided by premium, entry fee and unavoidable commitments.
+Returns cover the selected holding period and are not annualized. Changes between
+returns use percentage points; gold-price changes use their own price denominator.
+Price/cost inputs and the worked cash arithmetic retain USD units.
+
+The synthetic preset uses a 1% gold-response cap, an invented 0.5 support signal,
+100% exposure, 50% retention and zero baseline growth. It assumes a 0.25% gold
+increase and leaves contract prices, fees, quantities and sale hazard unchanged.
+At 90 days, expected cash return is 1.52% versus a 1.09% baseline, a 0.44 percentage
+point increase. The 51.2% no-sale branch has a -100% cash return on upfront capital;
+an unsold model mark is separate from cash. Thirty-day expected cash return remains
+negative. These muted response assumptions do not establish conservative market
+pricing, forecast accuracy or an empirical edge. The real historical pilot and
+its negative result remain visible.
 
 The baseline demo assumes 500 recoverable troy ounces at USD2,000/oz and produces
 USD1,500 assignment proceeds, a 48.8% sale probability and USD7.60 expected net
@@ -148,12 +160,15 @@ no-sale branch; it is not a guaranteed positive outcome.
 To use the actual saved swarm post scores, open **Decision** and choose
 **Use existing swarm results**. Approval and court blockage compare days 3–5
 with the matching Claude sports-placebo run. The default hypothetical contract
-returns about USD5.45 and USD10.22 expected cash respectively, alongside USD7.60
-without a support adjustment. Weights, exposure, holding period and contract
+retains the recorded support signs. Under the canonical 7% cap and other original
+defaults, approval and blockage cash returns are about 0.78% and 1.46%, alongside
+1.09% without a support adjustment. Selecting recorded results from the new preset
+retains the currently displayed pricing and response-cap assumptions; the output
+therefore reflects those controls. Weights, exposure, holding period and contract
 assumptions recalculate through the same engine. Swarm support changes the
 hypothetical gold price first, then mineral value, assignment value and cash.
-The adjustable gold response defaults to a 7% maximum at a full-strength signal;
-it is uncalibrated and source research checks remain failed. Missing scenarios and real-input
+The adjustable gold response is capped at 7%; the website preset starts at 1%.
+It is uncalibrated and source research checks remain failed. Missing scenarios and real-input
 financial outputs remain unavailable. No new swarm or judge API call is needed.
 See [the no-API method and handoff](research/swarm-no-api-demo-plan.md).
 

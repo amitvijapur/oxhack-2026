@@ -1,4 +1,5 @@
 import { ChevronDown } from 'lucide-react';
+import { capitalRatio } from './model-presentation.mjs';
 
 const finite = (x) => typeof x === 'number' && Number.isFinite(x);
 const money = (x) => finite(x) ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(x) : 'Not available';
@@ -41,7 +42,7 @@ export function SwarmDiagnostics({ diagnostic, illustrative = false }) {
   </section>;
 }
 
-export function CashDiagnostics({ diagnostics, controls }) {
+export function CashDiagnostics({ diagnostics, controls, evaluations }) {
   const selected = diagnostics?.mapped;
   const baseline = diagnostics?.baseline;
   const ready = selected?.status === 'illustrative';
@@ -49,15 +50,15 @@ export function CashDiagnostics({ diagnostics, controls }) {
   const saleProbability = ready && noSale ? 1 - noSale.probability : null;
   const breakEven = selected?.breakEven;
   const comparisons = [
-    ['Probability of negative cash', 'negativeCashProbability', percent],
-    ['Median cash outcome', 'medianCashUsd', money],
-    ['Worst cash outcome with nonzero probability', 'worstCashUsd', money],
+    ['Probability of negative net cash', 'negativeCashProbability', (value) => percent(value)],
+    ['Median cash return on upfront capital', 'medianCashUsd', (value, risk) => percent(capitalRatio(value, risk))],
+    ['Worst cash return with nonzero probability', 'worstCashUsd', (value, risk) => percent(capitalRatio(value, risk))],
   ];
   return <section className="model-cash-diagnostics" aria-labelledby="model-cash-diagnostics-heading">
     <h3 id="model-cash-diagnostics-heading">What sits behind the average?</h3>
-    <p className="model-note">Cash outcomes by day {controls.horizonDays}, under the selected assumptions. The hypothetical gold response reprices sale proceeds; it does not alter the assumed sale hazard or upfront commitment. An unsold option can still be held, so negative cash at this horizon is not necessarily a realized investment loss.</p>
-    {ready && noSale && <figure className="model-outcome-chart"><div className="model-outcome-bar" role="img" aria-label={`${percent(saleProbability)} chance of sale and ${percent(noSale.probability)} chance of no sale.`}><span style={{ width: percent(saleProbability, 6) }} /><span style={{ width: percent(noSale.probability, 6) }} /></div><figcaption><span>Sale {percent(saleProbability)}</span><span>No sale {percent(noSale.probability)}, cash {money(noSale.netCashUsd)}</span></figcaption></figure>}
-    <div className="model-table-scroll"><table><caption className="sr-only">Cash outcome diagnostics, including the no-sale branch.</caption><thead><tr><th scope="col">Measure</th><th scope="col">Baseline</th><th scope="col">Selected scenario</th></tr></thead><tbody>{comparisons.map(([name, key, format]) => <tr key={key}><th scope="row">{name}</th><td>{format(baseline?.[key])}</td><td>{format(selected?.[key])}</td></tr>)}</tbody></table></div>
+    <p className="model-note">Cash returns on upfront capital by day {controls.horizonDays}, under the selected assumptions. Returns are non-annualized; the denominator is premium + entry fee + unavoidable obligations. The hypothetical gold response reprices sale proceeds; it does not alter the assumed sale hazard or upfront commitment. An unsold option can still be held, so negative cash at this horizon is not necessarily a realized investment loss.</p>
+    {ready && noSale && <figure className="model-outcome-chart"><div className="model-outcome-bar" role="img" aria-label={`${percent(saleProbability)} chance of sale and ${percent(noSale.probability)} chance of no sale.`}><span style={{ width: percent(saleProbability, 6) }} /><span style={{ width: percent(noSale.probability, 6) }} /></div><figcaption><span>Sale {percent(saleProbability)}</span><span>No sale {percent(noSale.probability)}, cash return {percent(capitalRatio(noSale.netCashUsd, evaluations?.mapped?.amountAtRiskUsd))}</span></figcaption></figure>}
+    <div className="model-table-scroll"><table><caption className="sr-only">Cash return diagnostics on upfront capital, including the no-sale branch.</caption><thead><tr><th scope="col">Measure</th><th scope="col">Baseline</th><th scope="col">Selected scenario</th></tr></thead><tbody>{comparisons.map(([name, key, format]) => <tr key={key}><th scope="row">{name}</th><td>{format(baseline?.[key], evaluations?.baseline?.amountAtRiskUsd)}</td><td>{format(selected?.[key], evaluations?.mapped?.amountAtRiskUsd)}</td></tr>)}</tbody></table></div>
     {!ready && <p className="model-note">Select a complete demo scenario to see its cash distribution and break-even thresholds.</p>}
     {ready && <>
       <h4>How much room before expected cash reaches zero?</h4>

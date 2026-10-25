@@ -94,3 +94,10 @@ not supported runtime instructions. See [remaining work](remaining-work.md).
 ## Retrospective event component
 
 `research/event-study/evaluate.mjs` evaluates a frozen primary-source announcement ledger against attributed daily adjusted prices. It writes `frontend/public/data/event-study.json`, loaded by `EventStudy.tsx` in Decision. This is a separate retrospective equity assessment; it neither changes option controls nor supplies a fabricated historical swarm score. Predictions use only pre-entry information and matured earlier training outcomes. The current negative comparison and source limitations remain visible. See [pilot results](../research/event-study/RESULTS.md).
+
+The website return presentation divides canonical cash outputs by positive finite
+upfront capital at risk. It never changes the canonical USD calculation or
+publisher schema. Return deltas are percentage points, gold changes use starting
+or baseline gold as labelled, and zero/missing denominators are unavailable. The
+small-response synthetic UI preset is distinct from both recorded swarm inputs
+and the retrospective historical test; selecting it does not alter either source.

@@ -164,3 +164,8 @@
 .model-gold-values dd { margin-top: 4px; color: var(--ink); font: 15px var(--font-plex-mono),monospace; font-variant-numeric: tabular-nums; }
 .model-gold-forecast > .model-field { max-width: 220px; }
 .model-gold-forecast > .model-note { margin-top: 12px; }
+
+/* Return percentages retain an explicit invested-capital denominator. */
+.model-return-summary { padding: 16px 0; border-top: 1px solid var(--line); }
+.model-return-summary .model-gold-values dd { font-size: 22px; font-weight: 600; }
+.model-return-summary > .model-note { margin-top: 10px; }

@@ -1,3 +1,18 @@
+## Show percentage returns and a conservative synthetic demo
+
+Owner: Amit. Codex integrates; one UI worker owns presentation and preset tests, with separate arithmetic review. Scope is website presentation and an explicitly assumed preset, reusing the canonical engine.
+
+- [x] Trace the cash outputs and define return denominators, percentage-point deltas and unavailable states.
+- [x] Present performance summaries, comparisons and holding-period charts as percentages; retain price/cost inputs and detailed cash equations in their actual units.
+- [x] Add a modest positive synthetic demo with explicit pricing, probability and signal assumptions; preserve the historical pilot result and recorded-source provenance.
+- [x] Verify arithmetic, meaningful tests, production build and browser behavior; record results and remaining limits.
+
+The expected return denominator is upfront capital at risk. Gold movement, assignment-price movement and return changes must remain distinct. A synthetic positive expectation is a demonstration, not a measured trading edge.
+
+Review: percentage presentation reuses unchanged canonical cash math. The default/reset synthetic preset has a 1% cap, invented +0.5 signal and 50% retention, giving +0.25% gold, 1.52% 90-day cash return versus 1.09% baseline and +0.44 percentage points. No-sale probability remains 51.2%; positive upfront capital has a -100% no-sale cash return. The 30-day result remains -58.39%. Recorded scores, source failures and negative historical pilot are unchanged.
+
+Verification: 35 frontend tests passed, including eight new arithmetic/actual JSX-render tests; typecheck, scoped lint, production build and whitespace checks passed. Independent review passed. Local browser checks verified preset/default/reset, recorded approval at the current 1% cap, missing scenarios, premium-driven negative returns, zero-capital unavailable percentages, imported-source clearing and 1440/320-pixel layouts without overflow. No browser errors. The local site on port 5182 serves the new build. No push, hosted deployment or new API runs.
+
 ## Build a real-data Alaska project event pilot
 
 Owner: Amit. Codex integrates event-source research, a reproducible evaluator, website evidence view and independent review. Prioritise speed with a small fixed scope. No paid swarm reruns.

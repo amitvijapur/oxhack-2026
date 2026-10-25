@@ -2,6 +2,8 @@
 
 ## 25 October 2026
 
+- Lead the website with percentage returns and name the invested-capital denominator. Keep gold-price percentage changes separate from option returns and express differences between returns in percentage points. Monetary assumptions and worked cash arithmetic retain their units.
+
 - A working predictive calculation is not evidence of a trading edge. Before calling a strategy validated, identify dated realized target labels and compare incremental held-out performance against a simple baseline. Never use a stipulated simulation price as its successful prediction or treat post counts as independent market events.
 
 - Wiring swarm scores to option value is not completion of the requested predictive chain. Trace every promised layer through executable calculations: swarm, gold forecast, material value, option value and cash. Label a hypothetical transfer as uncalibrated and never count it twice.
