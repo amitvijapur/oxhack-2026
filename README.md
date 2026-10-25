@@ -3,8 +3,8 @@
 A team hackathon project built around the mandatory **TIME** theme. The current
 prototype compares two Tok River, Alaska study areas using measured gold and
 includes an interactive mineral-interest option model. Pinned land context,
-historical gold prices and swarm pilot diagnostics are connected. Completed
-swarm scenarios and verified option economics remain missing; financial outputs
+historical gold prices and six swarm score sets are connected. Simulation
+readiness checks and verified option economics remain incomplete; financial outputs
 use explicitly selected hypothetical assumptions.
 
 ## Repository and shared workflow

@@ -5,6 +5,8 @@ export const SOURCE_SCENARIOS = Object.freeze({ baseline: 'baseline', mine_appro
 export const SOURCE_GROUPS = Object.freeze({ government: 'government', land_industry: 'industry', land_community: 'community', funds: 'funds', retail: 'retail' });
 const EXPECTED = Object.freeze({ mine_approval: { funds: 1, government: 1, community: -1 }, proposed_tax: { funds: -1, industry: -1 }, protest: { community: -1, government: -1, funds: -1 }, mine_blocked: { funds: -1 }, gold_reversal: { funds: -1, retail: -1 } });
 const requiredDays = [3, 4, 5];
+const cutoffError = 'A valid knowledgeCutoff timestamp is required.';
+const hasCutoff = (document) => typeof document?.knowledgeCutoff === 'string' && Number.isFinite(Date.parse(document.knowledgeCutoff));
 const aggregate = (statuses) => statuses.includes('fail') ? 'fail' : statuses.length && statuses.every((s) => s === 'pass') ? 'pass' : 'unknown';
 const diagnostic = (id, label, status, detail) => ({ id, label, status, detail });
 const record = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -29,7 +31,7 @@ const reportedStatus = (check) => {
   return 'pass';
 };
 
-/** Accept the upstream report only with explicit source metadata, never an inferred cutoff. */
+/** Source attribution is required. A missing cutoff permits diagnostics, never a monetary import. */
 export function normalizeSwarmReport(report, metadata = {}) {
   if (!report || !Array.isArray(report.runs)) return { runs: null, errors: ['The source report must contain runs.'] };
   if (!record(metadata)) return { runs: null, errors: ['Explicit source metadata must be an object.'] };
@@ -59,7 +61,7 @@ export function normalizeSwarmReport(report, metadata = {}) {
     }
     if (row.unmapped_posts > 0) errors.push(`${row.folder}: source reports unmapped posts.`);
     if (row.outcome && row.outcome !== 'ok') errors.push(`${row.folder}: simulation outcome is not ok.`);
-    runs.push({ scenarioId: SOURCE_SCENARIOS[row.scenario], seed: row.seed, runId: row.folder, days, sourcePostCounts });
+    runs.push({ scenarioId: SOURCE_SCENARIOS[row.scenario], seed: row.seed, runId: row.folder, days, sourcePostCounts, configuration: row.configuration ?? null, interviewCoverage: row.interviewCoverage ?? null });
   }
   const document = {
     version: 1, provenance: 'simulated', sourceId: metadata.sourceId,
@@ -68,7 +70,9 @@ export function normalizeSwarmReport(report, metadata = {}) {
     generatedAt: report.generated ?? null, sourceChecks: { ...(report.checks ?? {}), judge: metadata.judgeCheck ?? report.checks?.judge }, runs,
   };
   const parsed = parseSwarmImport(JSON.stringify(document));
-  return errors.length || parsed.errors.length ? { runs: null, errors: [...new Set([...errors, ...parsed.errors])] } : parsed;
+  const allErrors = [...new Set([...errors, ...parsed.errors])];
+  const diagnosticRuns = allErrors.every((error) => error === cutoffError) ? document : null;
+  return allErrors.length ? { runs: null, diagnosticRuns, errors: allErrors } : { ...parsed, diagnosticRuns: document };
 }
 
 function meanFor(document, scenarioId, group, seed = 1) {
@@ -80,12 +84,36 @@ function meanFor(document, scenarioId, group, seed = 1) {
   return means.some((m) => m === null) ? null : means.reduce((a, b) => a + b, 0) / means.length;
 }
 
+const configFields = ['provider', 'modelName', 'tier1Model', 'tier2Model', 'tier3Model', 'mirofishCommit', 'patchSha256', 'minutesPerRound', 'tiers', 'memoryTokenLimit', 'maxCommentsPerPost', 'llmSemaphore'];
+const validConfigValue = (field, value) => field === 'tiers' ? record(value) && ['1', '2', '3'].every((tier) => Number.isSafeInteger(value[tier]) && value[tier] > 0) : field === 'minutesPerRound' ? Number.isFinite(value) && value > 0 : ['memoryTokenLimit', 'maxCommentsPerPost', 'llmSemaphore'].includes(field) ? (typeof value === 'string' && /^[1-9][0-9]*$/.test(value)) || (Number.isSafeInteger(value) && value > 0) : typeof value === 'string' && value.trim().length > 0;
+const stableValue = (value) => record(value) ? JSON.stringify(Object.entries(value).sort(([a], [b]) => a.localeCompare(b))) : JSON.stringify(value);
+function compareConfigurations(document) {
+  const baseline = document.runs.find((run) => run.scenarioId === 'baseline' && run.seed === 1)?.configuration;
+  const differences = new Set(); const missing = new Set();
+  for (const run of document.runs) for (const field of configFields) {
+    const a = baseline?.[field]; const b = run.configuration?.[field];
+    if (!validConfigValue(field, a) || !validConfigValue(field, b)) missing.add(field);
+    else if (stableValue(a) !== stableValue(b)) differences.add(field);
+  }
+  return diagnostic('config_comparability', 'Comparable provider and runtime configuration', differences.size ? 'fail' : missing.size ? 'unknown' : 'pass', differences.size ? `Baseline and other runs differ in ${[...differences].join(', ')}.${missing.size ? ` Some settings remain unverified: ${[...missing].join(', ')}.` : ''} Effects combine news with configuration changes and cannot identify a news-only response.` : missing.size ? `Configuration evidence is missing for ${[...missing].join(', ')}. Matching settings cannot be established.` : 'Provider, model tiers, simulator revision, patch and recorded runtime settings match across the supplied runs.');
+}
+function inspectInterviews(document) {
+  const incomplete = []; const unknown = [];
+  for (const run of document.runs) {
+    const c = run.interviewCoverage;
+    if (!record(c) || !['expected', 'returnedSlots', 'nonemptyResponses', 'parsedAnswers'].every((key) => Number.isSafeInteger(c[key]) && c[key] >= 0) || c.expected === 0 || c.returnedSlots > c.expected || c.nonemptyResponses > c.returnedSlots || c.parsedAnswers > c.nonemptyResponses) unknown.push(run.runId);
+    else if (c.returnedSlots !== c.expected || c.nonemptyResponses !== c.expected || c.parsedAnswers !== c.expected) incomplete.push(`${run.runId}: ${c.parsedAnswers}/${c.expected} parsed, ${c.nonemptyResponses} nonempty`);
+  }
+  return diagnostic('interview_coverage', 'Complete nonempty parsed interviews', incomplete.length ? 'fail' : unknown.length ? 'unknown' : 'pass', incomplete.length ? `${incomplete.join('; ')}. A completed wrapper does not establish interview coverage.` : unknown.length ? `Interview coverage evidence is missing or invalid for ${unknown.join(', ')}.` : 'Every expected interview slot has a nonempty parsed response in every supplied run.');
+}
+
 /** Simulator checks only. A pass does not establish predictive trading value. */
 export function inspectNormalizedSwarmDiagnostics(document, scenarioId = 'baseline') {
   const parsed = document ? parseSwarmImport(JSON.stringify(document)) : { runs: null, errors: ['No completed swarm export is supplied.'] };
   const errors = [...parsed.errors, ...validateSourceChecks(document?.sourceChecks)];
   const synthetic = document?.provenance === 'synthetic';
-  const valid = errors.length === 0;
+  // Parse against the monetary contract but retain descriptive scores when the only missing field is the cutoff.
+  const valid = errors.every((error) => error === cutoffError);
   const readMean = (scenario, group, seed) => valid ? meanFor(document, scenario, group, seed) : null;
   const baselineSpread = GROUPS.map((group) => {
     const means = [1, 2, 3].map((seed) => readMean('baseline', group, seed));
@@ -103,13 +131,16 @@ export function inspectNormalizedSwarmDiagnostics(document, scenarioId = 'baseli
   const sourceChecks = valid ? document.sourceChecks ?? {} : {};
   const sourceVeto = (computed, reported) => reportedStatus(reported) === 'fail' ? 'fail' : computed;
   const diagnostics = [
+    diagnostic('knowledge_cutoff', 'Scenario source knowledge cutoff', valid && hasCutoff(document) ? 'pass' : 'unknown', 'Input information availability must be supplied separately from generation, commit and retrieval times.'),
+    valid ? compareConfigurations(document) : diagnostic('config_comparability', 'Comparable provider and runtime configuration', 'unknown', 'A structurally valid report with recorded run configurations is required.'),
+    valid ? inspectInterviews(document) : diagnostic('interview_coverage', 'Complete nonempty parsed interviews', 'unknown', 'A structurally valid report with interview coverage is required.'),
     diagnostic('judge', 'Human check of scoring judge', reportedStatus(sourceChecks.judge), sourceChecks.judge?.scope ?? 'Requires a reported human agreement check; simulation scores alone cannot supply it.'),
     diagnostic('baseline_spread', 'Three-baseline spread available', allBands ? 'pass' : 'unknown', allBands ? 'Days 3–5 group means from seeds 1, 2 and 3 define max-minus-min chance bands.' : 'Complete days 3–5 group means from baseline seeds 1, 2 and 3 are required.'),
     diagnostic('placebo', 'Placebo remains inside baseline bands', sourceVeto(placeboQuiet === null ? 'unknown' : placeboQuiet ? 'pass' : 'fail', findPart(sourceChecks.placebo, 'placebo moves no group beyond its band')), placeboComplete ? 'Compares every group with the same-seed baseline; no placebo effect may exceed its baseline spread.' : 'The placebo and three scored baselines are required.'),
     diagnostic('baseline_calls', 'Baseline interview-call stability', reportedStatus(sourceChecks.stability), 'Upstream check requires at least two of three baseline majority calls to agree.'),
     diagnostic('grounding', 'Interview evidence grounding', reportedStatus(sourceChecks.grounding), 'Requires the upstream sampled-answer grounding check; no market outcome is tested.'),
   ];
-  const shared = () => diagnostics.filter((d) => ['judge', 'baseline_spread', 'placebo', 'baseline_calls', 'grounding'].includes(d.id));
+  const shared = () => diagnostics.filter((d) => ['knowledge_cutoff', 'config_comparability', 'interview_coverage', 'judge', 'baseline_spread', 'placebo', 'baseline_calls', 'grounding'].includes(d.id));
   const scenarioReadiness = {};
   for (const scenario of NEWS_SCENARIOS) {
     let status = 'unknown';
@@ -149,11 +180,12 @@ export function inspectNormalizedSwarmDiagnostics(document, scenarioId = 'baseli
 export function inspectSwarmSource(source, scenarioId = 'baseline') {
   const report = source?.report;
   const normalized = report ? normalizeSwarmReport(report, source) : { runs: null, errors: [] };
-  const checks = inspectNormalizedSwarmDiagnostics(normalized.runs, scenarioId);
+  const diagnosticRuns = normalized.diagnosticRuns ?? normalized.runs;
+  const checks = inspectNormalizedSwarmDiagnostics(diagnosticRuns, scenarioId);
   // The pinned pilot judge check is real evidence even though scenario diagnostics are absent.
   if (!report && source?.judgeCheck) {
     const judgeStatus = reportedStatus(source.judgeCheck);
-    checks.diagnostics[0] = diagnostic('judge', 'Human check of scoring judge', judgeStatus, `${source.judgeCheck.withinTolerance}/${source.judgeCheck.sampleSize} pilot scores within ${source.judgeCheck.tolerancePoints} points; threshold ${source.judgeCheck.minimumRequired}/${source.judgeCheck.sampleSize}. This does not validate market prediction.`);
+    checks.diagnostics[checks.diagnostics.findIndex((d) => d.id === 'judge')] = diagnostic('judge', 'Human check of scoring judge', judgeStatus, `${source.judgeCheck.withinTolerance}/${source.judgeCheck.sampleSize} pilot scores within ${source.judgeCheck.tolerancePoints} points; threshold ${source.judgeCheck.minimumRequired}/${source.judgeCheck.sampleSize}. This does not validate market prediction.`);
     for (const readiness of Object.values(checks.scenarioReadiness)) {
       readiness.reasons = readiness.reasons.filter((reason) => !reason.startsWith('Human check of scoring judge:'));
       if (judgeStatus !== 'pass') readiness.reasons.push(`Human check of scoring judge: ${judgeStatus}`);
@@ -164,8 +196,8 @@ export function inspectSwarmSource(source, scenarioId = 'baseline') {
   const coverage = [
     diagnostic('planned_runs', 'Scenario run inputs', inventory?.runInputConfigurations === 9 ? 'pass' : 'unknown', `${inventory?.runInputConfigurations ?? 0}/9 configurations supplied. Configurations are not completed simulations.`),
     diagnostic('pilot', 'One-day pilot output', source?.pilot?.days?.includes(1) ? 'pass' : 'unknown', source?.pilot?.detail ?? 'Pilot output not supplied.'),
-    diagnostic('full_runs', 'Completed scored scenario runs', normalized.runs && NEWS_SCENARIOS.every((id) => checks.scenarioReadiness[id]?.status === 'pass') ? 'pass' : 'unknown', report ? 'Daily output and applicable quality checks must pass for each scenario.' : 'No final report exists in the pinned branch tree; the day-1 pilot cannot supply day-3 scenario effects.'),
+    diagnostic('full_runs', 'Completed scored scenario runs', report && Object.values(checks.scenarioReadiness).some((r) => r.status === 'fail') ? 'fail' : normalized.runs && NEWS_SCENARIOS.every((id) => checks.scenarioReadiness[id]?.status === 'pass') ? 'pass' : 'unknown', report ? `${inventory?.completedScoredScenarioRuns ?? diagnosticRuns?.runs.length ?? 0}/9 runs scored. Daily output, comparable configurations and applicable quality checks must pass for every scenario.` : 'No final report exists in the pinned branch tree; the day-1 pilot cannot supply day-3 scenario effects.'),
     diagnostic('knowledge_cutoff', 'Scenario source knowledge cutoff', typeof source?.knowledgeCutoff === 'string' && Number.isFinite(Date.parse(source.knowledgeCutoff)) ? 'pass' : 'unknown', 'Input information availability must be supplied separately from generation, commit and retrieval times.'),
   ];
-  return { ...checks, status: normalized.errors.length ? 'INVALID_SWARM_SOURCE' : normalized.runs ? checks.status : 'PENDING_SWARM', runs: normalized.runs, coverage, errors: normalized.errors, pilot: source?.pilot ?? null, provenance: { type: 'simulated', sourceId: source?.sourceId ?? null, branch: source?.branch ?? null, revision: source?.commit ?? null, sourceUrl: source?.repository && source?.commit ? `https://github.com/${source.repository}/tree/${source.commit}/swarm` : null, commit: source?.commit ?? null, committedAt: source?.committedAt ?? null, retrievedAt: source?.retrievedAt ?? null, knowledgeCutoff: source?.knowledgeCutoff ?? null }, sourceFiles: source?.sourceFiles ?? [] };
+  return { ...checks, status: normalized.errors.length && !diagnosticRuns ? 'INVALID_SWARM_SOURCE' : diagnosticRuns ? checks.status : 'PENDING_SWARM', runs: normalized.runs, diagnosticRuns, rawReport: report ?? null, coverage, errors: normalized.errors, pilot: source?.pilot ?? null, provenance: { type: 'simulated', sourceId: source?.sourceId ?? null, branch: source?.branch ?? null, revision: source?.commit ?? null, sourceUrl: source?.repository && source?.commit ? `https://github.com/${source.repository}/tree/${source.commit}/swarm` : null, commit: source?.commit ?? null, committedAt: source?.committedAt ?? null, retrievedAt: source?.retrievedAt ?? null, knowledgeCutoff: source?.knowledgeCutoff ?? null }, sourceFiles: source?.sourceFiles ?? [] };
 }

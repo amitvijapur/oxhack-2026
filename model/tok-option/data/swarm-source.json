@@ -1,81 +1,231 @@
 {
   "version": 1,
   "kind": "tok-swarm-source",
-  "sourceId": "ahmed-gold-society-d7717cd",
+  "sourceId": "ahmed-gold-society-f2fe2971",
   "provenance": "simulated",
   "repository": "amitvijapur/oxhack-2026",
   "branch": "ahmed/gold-society-plan",
-  "commit": "d7717cd459b9e567bd3162a86b84ff55c9b0bfc3",
-  "committedAt": "2026-10-24T23:47:56Z",
-  "retrievedAt": "2026-10-25T00:05:46+00:00",
+  "commit": "f2fe2971d9f041a819f7b7ff4a78e10f840884f5",
+  "committedAt": "2026-10-25T03:36:07Z",
+  "retrievedAt": "2026-10-25T04:13:57+00:00",
   "knowledgeCutoff": null,
   "eventDefinition": "Gold futures jumped today from about $4,000 to about $4,500 an ounce. This hypothetical day-one news is common to all runs. Distinct day-three conditions are compared against the seed-1 baseline.",
   "sourceFiles": [
     {
       "path": "swarm/HANDOFF.md",
-      "sha256": "88c4722e01d0b293eb78f2f457ff12fcce877b352893b5a853287b68e2d4d482",
-      "bytes": 3592,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/HANDOFF.md"
-    },
-    {
-      "path": "swarm/scenarios.json",
-      "sha256": "186dcc7579dbea3eb3d38d1aae022c00dbd341ee96e3f2fc352aea4b127e38ed",
-      "bytes": 1125,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/scenarios.json"
-    },
-    {
-      "path": "swarm/score.py",
-      "sha256": "e927e2a3c0c26a1dbce36decb86f0d59c719d86c2e4cb267498596487c5a4bc0",
-      "bytes": 40345,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/score.py"
-    },
-    {
-      "path": "swarm/records/ingest.json",
-      "sha256": "2e305bd94c89b7f282fd475579fd9afa4a52f89986da3eaa46bdac0d5b50c70b",
-      "bytes": 83792,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/ingest.json"
-    },
-    {
-      "path": "swarm/records/judge-check/validation.txt",
-      "sha256": "e85661cb2457276a5e9093d646ae477c9c90b9db07c290f24c9a32c484082850",
-      "bytes": 513,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/judge-check/validation.txt"
-    },
-    {
-      "path": "swarm/records/judge-check/sample_key.csv",
-      "sha256": "ada3bf9116a24acbea7d5dd812948737968e68eb28c246fb34534de757cc87a4",
-      "bytes": 2424,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/judge-check/sample_key.csv"
-    },
-    {
-      "path": "swarm/records/pilot/README.md",
-      "sha256": "72bf291cae68a36c5aedcb246abf356950881cb6a5b6e80895eb43813851730c",
-      "bytes": 2250,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/pilot/README.md"
-    },
-    {
-      "path": "swarm/records/pilot/run_meta.json",
-      "sha256": "e7e9f1a780d1ef39cbb03f93d4579b04f3d2fef19fbe76c80f807da729390063",
-      "bytes": 845,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/pilot/run_meta.json"
-    },
-    {
-      "path": "swarm/records/pilot/scores.jsonl",
-      "sha256": "7ed48486ec615720e43784cf673812f97d2159e55eb2f30d74e89a33a3bb07e5",
-      "bytes": 205690,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/records/pilot/scores.jsonl"
+      "sha256": "457f62e9aac08db8ed54502f11fe953d8b196e716630e63ec2a90fbb5d112b1f",
+      "bytes": 5822,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/HANDOFF.md"
     },
     {
       "path": "swarm/judge_prompt.txt",
       "sha256": "2f1f58cb4509b472c1688580ef67873bb9f63515d685078933ce199045b9c10f",
       "bytes": 1081,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm/judge_prompt.txt"
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/judge_prompt.txt"
     },
     {
-      "path": "research/gold-swarm-plan.md",
-      "sha256": "6c1b43934d204024f4408f468c8ad049499b0ea094f0b3fc976bbd0097016f07",
-      "bytes": 20184,
-      "url": "https://github.com/amitvijapur/oxhack-2026/blob/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/research/gold-swarm-plan.md"
+      "path": "swarm/records/judge-check/sample.csv",
+      "sha256": "590ba8f00cdff8b75181de3d6c5c55a04dac27f29527a27531e5bba6ac010ce4",
+      "bytes": 17610,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/judge-check/sample.csv"
+    },
+    {
+      "path": "swarm/records/judge-check/sample_key_glm-5.3-flash.csv",
+      "sha256": "89f49df14705e0ff105757ee5d5ceda4dd9285ec3149eee68846a9974e365432",
+      "bytes": 2336,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/judge-check/sample_key_glm-5.3-flash.csv"
+    },
+    {
+      "path": "swarm/records/judge-check/validation.txt",
+      "sha256": "e85661cb2457276a5e9093d646ae477c9c90b9db07c290f24c9a32c484082850",
+      "bytes": 513,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/judge-check/validation.txt"
+    },
+    {
+      "path": "swarm/records/results/01_baseline_s1/interviews.json",
+      "sha256": "9ec3150ae7062d819a45076b4034810472231e28a9f7cb7ce4b3bae0232941d0",
+      "bytes": 16851,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/01_baseline_s1/interviews.json"
+    },
+    {
+      "path": "swarm/records/results/01_baseline_s1/run_meta.json",
+      "sha256": "0cef1bac5c06e2d3f9d23a55617e2a381d94489901d526b8e3fcd9612214572b",
+      "bytes": 995,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/01_baseline_s1/run_meta.json"
+    },
+    {
+      "path": "swarm/records/results/01_baseline_s1/scores.jsonl",
+      "sha256": "75b97a14e0be588cac061cba48b9976bc37b1fb1b45d3ed68e94cf82d1be5d06",
+      "bytes": 504063,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/01_baseline_s1/scores.jsonl"
+    },
+    {
+      "path": "swarm/records/results/02_baseline_s2/interviews.json",
+      "sha256": "2d2d2158aa04d86ed6edf4f2890a741333bf32c03b4b499fdeab9a8492fdf839",
+      "bytes": 35531,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/02_baseline_s2/interviews.json"
+    },
+    {
+      "path": "swarm/records/results/02_baseline_s2/run_meta.json",
+      "sha256": "ecc5b475b0f5655621525d09d655bb3ffd715a686d3d04a5550e08fbee0b3237",
+      "bytes": 995,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/02_baseline_s2/run_meta.json"
+    },
+    {
+      "path": "swarm/records/results/02_baseline_s2/scores.jsonl",
+      "sha256": "f4868e21135143c5d735f8a5c4828963a3c8f4f9354e986c8e7b243f090671bd",
+      "bytes": 504656,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/02_baseline_s2/scores.jsonl"
+    },
+    {
+      "path": "swarm/records/results/03_baseline_s3/interviews.json",
+      "sha256": "64fe2bd3f19d1f73f448609ab634af9b89970371b6b5713b25a0de07d1e33659",
+      "bytes": 36670,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/03_baseline_s3/interviews.json"
+    },
+    {
+      "path": "swarm/records/results/03_baseline_s3/run_meta.json",
+      "sha256": "f010fa7c2d3d413ceda022f51f877cf233c6361e4b4a3301ca30ea66a6d06bd7",
+      "bytes": 995,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/03_baseline_s3/run_meta.json"
+    },
+    {
+      "path": "swarm/records/results/03_baseline_s3/scores.jsonl",
+      "sha256": "6893a82693b4b85cf7de16976aab60b9a76ed02cad03d0b873454aed0699eb53",
+      "bytes": 515714,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/03_baseline_s3/scores.jsonl"
+    },
+    {
+      "path": "swarm/records/results/04_placebo_s1/interviews.json",
+      "sha256": "706fad8c0b6c3f0d72a07c69aad90a6f2aaa547d4bdde312682b374fc9c8688b",
+      "bytes": 6751,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/04_placebo_s1/interviews.json"
+    },
+    {
+      "path": "swarm/records/results/04_placebo_s1/run_meta.json",
+      "sha256": "c078014ffcef6362a6812a23dcf2a5f827f08465070bc452f0d89d4f9c3475f1",
+      "bytes": 1469,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/04_placebo_s1/run_meta.json"
+    },
+    {
+      "path": "swarm/records/results/04_placebo_s1/scores.jsonl",
+      "sha256": "13d3c2732c378757be39e7108dc266dc1097c61c86cadec59c2b59ae6d3e6a2c",
+      "bytes": 979618,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/04_placebo_s1/scores.jsonl"
+    },
+    {
+      "path": "swarm/records/results/05_mine_approved_s1/interviews.json",
+      "sha256": "5a88ec8262392c0978221d6146de639059732956004f6d73eace510c2287f6d5",
+      "bytes": 6751,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/05_mine_approved_s1/interviews.json"
+    },
+    {
+      "path": "swarm/records/results/05_mine_approved_s1/run_meta.json",
+      "sha256": "a41a825b28576c7f6df08457683dd2f8dd3f32484388fae7f4036f0a3088078a",
+      "bytes": 1481,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/05_mine_approved_s1/run_meta.json"
+    },
+    {
+      "path": "swarm/records/results/05_mine_approved_s1/scores.jsonl",
+      "sha256": "6ef6a3b9f408552ec9b43cf21d4f85fd8172b1e1ee5e5584d2a6d648184b68d8",
+      "bytes": 748991,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/05_mine_approved_s1/scores.jsonl"
+    },
+    {
+      "path": "swarm/records/results/06_court_blocks_mine_s1/interviews.json",
+      "sha256": "2668f0a1ff52ff29fe9e55f0d77f2fa79a989251f176908bb1f8b2de6940ff47",
+      "bytes": 13298,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/06_court_blocks_mine_s1/interviews.json"
+    },
+    {
+      "path": "swarm/records/results/06_court_blocks_mine_s1/run_meta.json",
+      "sha256": "deb65019b53c034673928abd7fa5e02ad9e3cee831e718ffcb7383aec561c179",
+      "bytes": 1488,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/06_court_blocks_mine_s1/run_meta.json"
+    },
+    {
+      "path": "swarm/records/results/06_court_blocks_mine_s1/scores.jsonl",
+      "sha256": "6098e713130d46a18b2c5a1b2b9de1253eeb2fd24c95b79cae29ca1923515a4e",
+      "bytes": 783423,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/06_court_blocks_mine_s1/scores.jsonl"
+    },
+    {
+      "path": "swarm/records/results/results.json",
+      "sha256": "c1c88445c8ffda6a4d4f9d8ff93f1c254162ce22030203c3421fd9ed166f2f63",
+      "bytes": 59954,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/records/results/results.json"
+    },
+    {
+      "path": "swarm/run_one.py",
+      "sha256": "cc692e19d712082f2357afa603fc2352416087d152eb35ec2a0f5b2f62f374b1",
+      "bytes": 12933,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/run_one.py"
+    },
+    {
+      "path": "swarm/runs/01_baseline_s1/simulation_config.json",
+      "sha256": "d3797b3283b4534af110962d356326599346c40af157d7843165434eda9409b7",
+      "bytes": 43814,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/01_baseline_s1/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/02_baseline_s2/simulation_config.json",
+      "sha256": "f1c1d1fee26aca0a425a9076bab15d646f529cadcbd9e6e974b5ae668e7724e7",
+      "bytes": 43814,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/02_baseline_s2/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/03_baseline_s3/simulation_config.json",
+      "sha256": "a975bb6419c80084f863c1b319d06a5826483b560dcbb389d4eb0e6a71d473d9",
+      "bytes": 43814,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/03_baseline_s3/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/04_placebo_s1/simulation_config.json",
+      "sha256": "f7faa22f5a210d7c5762fcf47d0404f9781cc14f697420efdb12e3f7dd467932",
+      "bytes": 44031,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/04_placebo_s1/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/05_mine_approved_s1/simulation_config.json",
+      "sha256": "0b429f8938ad88e2b53647707690d8d472eeb49dfa8f989fb034bdab7614df2f",
+      "bytes": 44031,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/05_mine_approved_s1/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/06_court_blocks_mine_s1/simulation_config.json",
+      "sha256": "6056bba38a9d60d0bb86131c6b7280b4d0ad8cd07473dbbb356a467a962fca74",
+      "bytes": 44035,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/06_court_blocks_mine_s1/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/07_tax_rise_s1/simulation_config.json",
+      "sha256": "f74720cd05d67194c2f8a1e00f6a79f903c7b11e047e5ce154981ec7739c52e6",
+      "bytes": 44038,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/07_tax_rise_s1/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/08_protest_s1/simulation_config.json",
+      "sha256": "7be08d2de8dc0b2da16b57170a63b3e2512ecf28f3f9faced470eed93389c044",
+      "bytes": 44034,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/08_protest_s1/simulation_config.json"
+    },
+    {
+      "path": "swarm/runs/09_gold_back_to_4000_s1/simulation_config.json",
+      "sha256": "83f2f79a49d6a999a65c027da39fb194e28c9da83dce76ac2f801faff3f800b4",
+      "bytes": 43998,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/runs/09_gold_back_to_4000_s1/simulation_config.json"
+    },
+    {
+      "path": "swarm/scenarios.json",
+      "sha256": "186dcc7579dbea3eb3d38d1aae022c00dbd341ee96e3f2fc352aea4b127e38ed",
+      "bytes": 1125,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/scenarios.json"
+    },
+    {
+      "path": "swarm/score.py",
+      "sha256": "42c7f66620e3e50c25304207626f828586792e1c4092932764d3867130ee7071",
+      "bytes": 43680,
+      "url": "https://github.com/amitvijapur/oxhack-2026/blob/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm/score.py"
     }
   ],
   "inventory": {
@@ -83,66 +233,1484 @@
     "plannedConditions": 7,
     "plannedRuns": 9,
     "runInputConfigurations": 9,
-    "finalReportPresent": false,
+    "finalReportPresent": true,
     "finalReportPath": "swarm/records/results/results.json",
-    "completedScoredScenarioRuns": 0
-  },
-  "pilot": {
-    "isScoredScenarioRun": false,
-    "scenario": "baseline",
-    "seed": 1,
-    "days": [
-      1
+    "completedScoredScenarioRuns": 6,
+    "missingRunFolders": [
+      "07_tax_rise_s1",
+      "08_protest_s1",
+      "09_gold_back_to_4000_s1"
     ],
-    "totalScoredRows": 296,
-    "onTopicPosts": 277,
-    "offTopicPosts": 19,
-    "startedAt": "2026-10-24T21:39:48.780628+00:00",
-    "finishedAt": "2026-10-24T22:14:42.974089+00:00",
-    "groups": [
-      {
-        "group": "government",
-        "onTopicPosts": 23,
-        "meanSupport": 5.043478260869565
-      },
-      {
-        "group": "industry",
-        "onTopicPosts": 67,
-        "meanSupport": 5.791044776119403
-      },
-      {
-        "group": "community",
-        "onTopicPosts": 35,
-        "meanSupport": 4.685714285714286
-      },
-      {
-        "group": "funds",
-        "onTopicPosts": 114,
-        "meanSupport": 5.298245614035087
-      },
-      {
-        "group": "retail",
-        "onTopicPosts": 38,
-        "meanSupport": 5.657894736842105
-      }
-    ],
-    "sourcePath": "swarm/records/pilot/scores.jsonl",
-    "detail": "One-day timing and format pilot only. It has no day-3 intervention or days 3\u20135 observations."
+    "totalScoredRows": 3499,
+    "numericScoredRows": 3121,
+    "offTopicOrNullScoredRows": 378
   },
+  "pilot": null,
   "judgeCheck": {
     "status": "pass",
-    "withinTolerance": 27,
+    "judgeModel": "glm-5.3-flash",
+    "withinTolerance": 26,
     "sampleSize": 30,
     "minimumRequired": 24,
     "tolerancePoints": 2,
-    "sourcePath": "swarm/records/judge-check/validation.txt",
-    "scope": "Pilot human agreement with the support-scoring judge, not market prediction validation."
+    "sourcePath": "swarm/records/judge-check/sample_key_glm-5.3-flash.csv",
+    "humanScoresPath": "swarm/records/judge-check/sample.csv",
+    "scope": "Recomputed GLM-5.3-flash judge agreement is 26/30 within two points against the supplied human marks. This is a replacement scoring judge, not the pre-registered GPT judge and not market prediction validation. The legacy validation.txt reports the earlier judge at 27/30."
   },
-  "report": null,
+  "report": {
+    "generated": "2026-10-25T03:28:52+00:00",
+    "judge_model": "glm-5.3-flash",
+    "checks": {
+      "placebo": {
+        "status": "fail",
+        "parts": [
+          {
+            "part": "placebo moves no group beyond its band",
+            "status": "fail",
+            "detail": "government +0.61 (band 0.07); land_industry +1.06 (band 0.16); land_community +0.06 (band 0.42); funds +0.29 (band 0.29); retail -0.22 (band 1.00)"
+          },
+          {
+            "part": "mine_approved",
+            "status": "pass",
+            "detail": "funds +0.21 (expected up; band 0.29, placebo 0.29); government -0.03 (expected up; band 0.07, placebo 0.61); land_community -0.52 (expected down; band 0.42, placebo 0.06) qualifies"
+          },
+          {
+            "part": "tax_rise",
+            "status": "not run",
+            "detail": "run missing or not judged"
+          },
+          {
+            "part": "protest",
+            "status": "not run",
+            "detail": "run missing or not judged"
+          },
+          {
+            "part": "court_blocks_mine",
+            "status": "fail",
+            "detail": "funds +1.11 (expected down; band 0.29, placebo 0.29)"
+          },
+          {
+            "part": "gold_back_to_4000",
+            "status": "not run",
+            "detail": "run missing or not judged"
+          }
+        ]
+      },
+      "mirrors": {
+        "status": "fail",
+        "parts": [
+          {
+            "part": "funds move opposite ways after mine approved and court blocks, both beyond the band",
+            "status": "fail",
+            "detail": "mine_approved +0.21, court_blocks_mine +1.11, band 0.29"
+          },
+          {
+            "part": "funds and retail fall beyond their bands when gold drops back",
+            "status": "not run",
+            "detail": "needs run 09 and the three baselines judged"
+          }
+        ]
+      },
+      "stability": {
+        "status": "pass",
+        "parts": [
+          {
+            "part": "price",
+            "status": "pass",
+            "detail": "up / up / up"
+          },
+          {
+            "part": "policy",
+            "status": "pass",
+            "detail": "weeks / weeks / weeks"
+          },
+          {
+            "part": "leaning",
+            "status": "pass",
+            "detail": "split / split / split"
+          }
+        ]
+      },
+      "grounding": {
+        "status": "fail",
+        "parts": [
+          {
+            "part": "20 sampled answers",
+            "status": "fail",
+            "detail": "8 of 20 grounded (needs 14)"
+          }
+        ]
+      }
+    },
+    "chance_band": {
+      "government": 0.07275132275132279,
+      "land_industry": 0.16400995966526377,
+      "land_community": 0.41619042030941333,
+      "funds": 0.2933255415987537,
+      "retail": 1.004322882999353
+    },
+    "effects": {
+      "placebo": {
+        "land_industry": {
+          "effect": 1.0590124737130182,
+          "band": 0.16400995966526377,
+          "beyond_band": true,
+          "expected": null,
+          "timing": 3
+        },
+        "government": {
+          "effect": 0.605820105820106,
+          "band": 0.07275132275132279,
+          "beyond_band": true,
+          "expected": null,
+          "timing": 3
+        },
+        "funds": {
+          "effect": 0.2886050236337354,
+          "band": 0.2933255415987537,
+          "beyond_band": false,
+          "expected": null,
+          "timing": 3
+        },
+        "retail": {
+          "effect": -0.22184065934065966,
+          "band": 1.004322882999353,
+          "beyond_band": false,
+          "expected": null,
+          "timing": "none"
+        },
+        "land_community": {
+          "effect": 0.058475783475783416,
+          "band": 0.41619042030941333,
+          "beyond_band": false,
+          "expected": null,
+          "timing": 3
+        }
+      },
+      "mine_approved": {
+        "land_industry": {
+          "effect": 0.7989874110563768,
+          "band": 0.16400995966526377,
+          "beyond_band": true,
+          "expected": null,
+          "timing": 3
+        },
+        "retail": {
+          "effect": -0.581547619047619,
+          "band": 1.004322882999353,
+          "beyond_band": false,
+          "expected": null,
+          "timing": "none"
+        },
+        "land_community": {
+          "effect": -0.5167887667887672,
+          "band": 0.41619042030941333,
+          "beyond_band": true,
+          "expected": "down",
+          "timing": 4
+        },
+        "funds": {
+          "effect": 0.20519740535292907,
+          "band": 0.2933255415987537,
+          "beyond_band": false,
+          "expected": "up",
+          "timing": 4
+        },
+        "government": {
+          "effect": -0.02777777777777768,
+          "band": 0.07275132275132279,
+          "beyond_band": false,
+          "expected": "up",
+          "timing": 3
+        }
+      },
+      "court_blocks_mine": {
+        "funds": {
+          "effect": 1.10949569874436,
+          "band": 0.2933255415987537,
+          "beyond_band": true,
+          "expected": "down",
+          "timing": 4
+        },
+        "land_industry": {
+          "effect": 1.0258392629082298,
+          "band": 0.16400995966526377,
+          "beyond_band": true,
+          "expected": null,
+          "timing": 3
+        },
+        "government": {
+          "effect": 0.4907407407407405,
+          "band": 0.07275132275132279,
+          "beyond_band": true,
+          "expected": null,
+          "timing": 3
+        },
+        "retail": {
+          "effect": -0.39775733525733514,
+          "band": 1.004322882999353,
+          "beyond_band": false,
+          "expected": null,
+          "timing": 3
+        },
+        "land_community": {
+          "effect": 0.18764388346431726,
+          "band": 0.41619042030941333,
+          "beyond_band": false,
+          "expected": null,
+          "timing": 5
+        }
+      }
+    },
+    "runs": [
+      {
+        "folder": "01_baseline_s1",
+        "scenario": "baseline",
+        "seed": 1,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "models": {
+          "LLM_MODEL_NAME": "gpt-5.5",
+          "LLM_TIER1_MODEL": "gpt-5.5",
+          "LLM_TIER2_MODEL": "gpt-5.4-mini",
+          "LLM_TIER3_MODEL": "gpt-5-mini"
+        },
+        "outcome": "ok",
+        "status": "judged",
+        "daily": {
+          "government": {
+            "1": {
+              "support": 5.0,
+              "heat": 9
+            },
+            "2": {
+              "support": 4.6,
+              "heat": 10
+            },
+            "3": {
+              "support": 4.888888888888889,
+              "heat": 9
+            },
+            "4": {
+              "support": 4.888888888888889,
+              "heat": 9
+            },
+            "5": {
+              "support": 4.75,
+              "heat": 4
+            }
+          },
+          "land_industry": {
+            "1": {
+              "support": 5.111111111111111,
+              "heat": 36
+            },
+            "2": {
+              "support": 5.594594594594595,
+              "heat": 37
+            },
+            "3": {
+              "support": 5.448275862068965,
+              "heat": 29
+            },
+            "4": {
+              "support": 5.333333333333333,
+              "heat": 21
+            },
+            "5": {
+              "support": 5.214285714285714,
+              "heat": 28
+            }
+          },
+          "land_community": {
+            "1": {
+              "support": 4.470588235294118,
+              "heat": 17
+            },
+            "2": {
+              "support": 4.235294117647059,
+              "heat": 17
+            },
+            "3": {
+              "support": 3.95,
+              "heat": 20
+            },
+            "4": {
+              "support": 4.538461538461538,
+              "heat": 13
+            },
+            "5": {
+              "support": 4.133333333333334,
+              "heat": 15
+            }
+          },
+          "funds": {
+            "1": {
+              "support": 5.1875,
+              "heat": 48
+            },
+            "2": {
+              "support": 5.39344262295082,
+              "heat": 61
+            },
+            "3": {
+              "support": 5.517857142857143,
+              "heat": 56
+            },
+            "4": {
+              "support": 5.30188679245283,
+              "heat": 53
+            },
+            "5": {
+              "support": 5.413043478260869,
+              "heat": 46
+            }
+          },
+          "retail": {
+            "1": {
+              "support": 5.444444444444445,
+              "heat": 9
+            },
+            "2": {
+              "support": 5.214285714285714,
+              "heat": 14
+            },
+            "3": {
+              "support": 6.5,
+              "heat": 14
+            },
+            "4": {
+              "support": 6.1875,
+              "heat": 16
+            },
+            "5": {
+              "support": 6.571428571428571,
+              "heat": 14
+            }
+          }
+        },
+        "days3to5": {
+          "government": 4.842592592592593,
+          "land_industry": 5.331964969896004,
+          "land_community": 4.207264957264957,
+          "funds": 5.4109291378569475,
+          "retail": 6.419642857142857
+        },
+        "unmapped_posts": 0,
+        "unparsed_answers": 0,
+        "calls": {
+          "price": {
+            "call": "up",
+            "votes": {
+              "up": 6,
+              "flat": 3
+            },
+            "answers": 9,
+            "median_move_pct": 1.65
+          },
+          "policy": {
+            "call": "weeks",
+            "votes": {
+              "weeks": 8
+            },
+            "answers": 8
+          },
+          "leaning": {
+            "call": "split",
+            "votes": {
+              "split": 7
+            },
+            "answers": 7
+          }
+        },
+        "configuration": {
+          "provider": "openai",
+          "providerEvidence": "Inferred from the recorded GPT model bundle and run_one.py default; no provider field was recorded.",
+          "modelName": "gpt-5.5",
+          "tier1Model": "gpt-5.5",
+          "tier2Model": "gpt-5.4-mini",
+          "tier3Model": "gpt-5-mini",
+          "mirofishCommit": "743a0b8b5f287f29a53d4d9444aefae8fd722766",
+          "patchSha256": "82ffee0b2e53f9c9b784645be559fce0327e6a4365a98d1997815c0169239b71",
+          "minutesPerRound": 120,
+          "tiers": {
+            "1": 6,
+            "2": 18,
+            "3": 37
+          },
+          "memoryTokenLimit": null,
+          "maxCommentsPerPost": null,
+          "llmSemaphore": null
+        },
+        "interviewCoverage": {
+          "expected": 48,
+          "returnedSlots": 24,
+          "nonemptyResponses": 24,
+          "parsedAnswers": 24,
+          "wrapperStatus": "completed"
+        },
+        "scoreRows": {
+          "total": 715,
+          "numeric": 605,
+          "offTopicOrNull": 110,
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "folder": "02_baseline_s2",
+        "scenario": "baseline",
+        "seed": 2,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "models": {
+          "LLM_MODEL_NAME": "gpt-5.5",
+          "LLM_TIER1_MODEL": "gpt-5.5",
+          "LLM_TIER2_MODEL": "gpt-5.4-mini",
+          "LLM_TIER3_MODEL": "gpt-5-mini"
+        },
+        "outcome": "ok",
+        "status": "judged",
+        "daily": {
+          "government": {
+            "1": {
+              "support": 4.7272727272727275,
+              "heat": 11
+            },
+            "2": {
+              "support": 4.9,
+              "heat": 10
+            },
+            "3": {
+              "support": 5.0,
+              "heat": 10
+            },
+            "4": {
+              "support": 4.857142857142857,
+              "heat": 7
+            },
+            "5": {
+              "support": 4.888888888888889,
+              "heat": 9
+            }
+          },
+          "land_industry": {
+            "1": {
+              "support": 5.621621621621622,
+              "heat": 37
+            },
+            "2": {
+              "support": 5.28,
+              "heat": 25
+            },
+            "3": {
+              "support": 5.4324324324324325,
+              "heat": 37
+            },
+            "4": {
+              "support": 5.37037037037037,
+              "heat": 27
+            },
+            "5": {
+              "support": 5.636363636363637,
+              "heat": 33
+            }
+          },
+          "land_community": {
+            "1": {
+              "support": 4.416666666666667,
+              "heat": 24
+            },
+            "2": {
+              "support": 4.363636363636363,
+              "heat": 22
+            },
+            "3": {
+              "support": 4.478260869565218,
+              "heat": 23
+            },
+            "4": {
+              "support": 4.842105263157895,
+              "heat": 19
+            },
+            "5": {
+              "support": 4.55,
+              "heat": 20
+            }
+          },
+          "funds": {
+            "1": {
+              "support": 5.361702127659575,
+              "heat": 47
+            },
+            "2": {
+              "support": 5.549019607843137,
+              "heat": 51
+            },
+            "3": {
+              "support": 5.588235294117647,
+              "heat": 51
+            },
+            "4": {
+              "support": 5.675,
+              "heat": 40
+            },
+            "5": {
+              "support": 5.8,
+              "heat": 40
+            }
+          },
+          "retail": {
+            "1": {
+              "support": 5.785714285714286,
+              "heat": 14
+            },
+            "2": {
+              "support": 5.714285714285714,
+              "heat": 14
+            },
+            "3": {
+              "support": 6.357142857142857,
+              "heat": 14
+            },
+            "4": {
+              "support": 5.75,
+              "heat": 16
+            },
+            "5": {
+              "support": 5.666666666666667,
+              "heat": 12
+            }
+          }
+        },
+        "days3to5": {
+          "government": 4.915343915343915,
+          "land_industry": 5.479722146388813,
+          "land_community": 4.623455377574371,
+          "funds": 5.6877450980392155,
+          "retail": 5.924603174603175
+        },
+        "unmapped_posts": 0,
+        "unparsed_answers": 0,
+        "calls": {
+          "price": {
+            "call": "up",
+            "votes": {
+              "up": 11,
+              "flat": 7
+            },
+            "answers": 18,
+            "median_move_pct": 3.5
+          },
+          "policy": {
+            "call": "weeks",
+            "votes": {
+              "weeks": 14,
+              "days": 2
+            },
+            "answers": 16
+          },
+          "leaning": {
+            "call": "split",
+            "votes": {
+              "split": 14
+            },
+            "answers": 14
+          }
+        },
+        "configuration": {
+          "provider": "openai",
+          "providerEvidence": "Inferred from the recorded GPT model bundle and run_one.py default; no provider field was recorded.",
+          "modelName": "gpt-5.5",
+          "tier1Model": "gpt-5.5",
+          "tier2Model": "gpt-5.4-mini",
+          "tier3Model": "gpt-5-mini",
+          "mirofishCommit": "743a0b8b5f287f29a53d4d9444aefae8fd722766",
+          "patchSha256": "82ffee0b2e53f9c9b784645be559fce0327e6a4365a98d1997815c0169239b71",
+          "minutesPerRound": 120,
+          "tiers": {
+            "1": 6,
+            "2": 18,
+            "3": 37
+          },
+          "memoryTokenLimit": null,
+          "maxCommentsPerPost": null,
+          "llmSemaphore": null
+        },
+        "interviewCoverage": {
+          "expected": 48,
+          "returnedSlots": 48,
+          "nonemptyResponses": 48,
+          "parsedAnswers": 48,
+          "wrapperStatus": "completed"
+        },
+        "scoreRows": {
+          "total": 684,
+          "numeric": 613,
+          "offTopicOrNull": 71,
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "folder": "03_baseline_s3",
+        "scenario": "baseline",
+        "seed": 3,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "models": {
+          "LLM_MODEL_NAME": "gpt-5.5",
+          "LLM_TIER1_MODEL": "gpt-5.5",
+          "LLM_TIER2_MODEL": "gpt-5.4-mini",
+          "LLM_TIER3_MODEL": "gpt-5-mini"
+        },
+        "outcome": "ok",
+        "status": "judged",
+        "daily": {
+          "government": {
+            "1": {
+              "support": 5.0,
+              "heat": 8
+            },
+            "2": {
+              "support": 4.75,
+              "heat": 8
+            },
+            "3": {
+              "support": 4.625,
+              "heat": 8
+            },
+            "4": {
+              "support": 5.1,
+              "heat": 10
+            },
+            "5": {
+              "support": 5.0,
+              "heat": 8
+            }
+          },
+          "land_industry": {
+            "1": {
+              "support": 5.666666666666667,
+              "heat": 39
+            },
+            "2": {
+              "support": 5.67741935483871,
+              "heat": 31
+            },
+            "3": {
+              "support": 5.741935483870968,
+              "heat": 31
+            },
+            "4": {
+              "support": 5.382352941176471,
+              "heat": 34
+            },
+            "5": {
+              "support": 5.363636363636363,
+              "heat": 33
+            }
+          },
+          "land_community": {
+            "1": {
+              "support": 4.681818181818182,
+              "heat": 22
+            },
+            "2": {
+              "support": 4.555555555555555,
+              "heat": 18
+            },
+            "3": {
+              "support": 4.235294117647059,
+              "heat": 17
+            },
+            "4": {
+              "support": 4.3076923076923075,
+              "heat": 13
+            },
+            "5": {
+              "support": 4.357142857142857,
+              "heat": 14
+            }
+          },
+          "funds": {
+            "1": {
+              "support": 5.0,
+              "heat": 45
+            },
+            "2": {
+              "support": 5.625,
+              "heat": 64
+            },
+            "3": {
+              "support": 5.5476190476190474,
+              "heat": 42
+            },
+            "4": {
+              "support": 5.2682926829268295,
+              "heat": 41
+            },
+            "5": {
+              "support": 5.36734693877551,
+              "heat": 49
+            }
+          },
+          "retail": {
+            "1": {
+              "support": 5.125,
+              "heat": 24
+            },
+            "2": {
+              "support": 6.75,
+              "heat": 16
+            },
+            "3": {
+              "support": 5.647058823529412,
+              "heat": 17
+            },
+            "4": {
+              "support": 5.214285714285714,
+              "heat": 14
+            },
+            "5": {
+              "support": 5.384615384615385,
+              "heat": 13
+            }
+          }
+        },
+        "days3to5": {
+          "government": 4.908333333333333,
+          "land_industry": 5.495974929561267,
+          "land_community": 4.300043094160741,
+          "funds": 5.394419556440462,
+          "retail": 5.415319974143504
+        },
+        "unmapped_posts": 0,
+        "unparsed_answers": 0,
+        "calls": {
+          "price": {
+            "call": "up",
+            "votes": {
+              "up": 12,
+              "flat": 6
+            },
+            "answers": 18,
+            "median_move_pct": 2.5
+          },
+          "policy": {
+            "call": "weeks",
+            "votes": {
+              "weeks": 11,
+              "days": 5
+            },
+            "answers": 16
+          },
+          "leaning": {
+            "call": "split",
+            "votes": {
+              "split": 14
+            },
+            "answers": 14
+          }
+        },
+        "configuration": {
+          "provider": "openai",
+          "providerEvidence": "Inferred from the recorded GPT model bundle and run_one.py default; no provider field was recorded.",
+          "modelName": "gpt-5.5",
+          "tier1Model": "gpt-5.5",
+          "tier2Model": "gpt-5.4-mini",
+          "tier3Model": "gpt-5-mini",
+          "mirofishCommit": "743a0b8b5f287f29a53d4d9444aefae8fd722766",
+          "patchSha256": "82ffee0b2e53f9c9b784645be559fce0327e6a4365a98d1997815c0169239b71",
+          "minutesPerRound": 120,
+          "tiers": {
+            "1": 6,
+            "2": 18,
+            "3": 37
+          },
+          "memoryTokenLimit": null,
+          "maxCommentsPerPost": null,
+          "llmSemaphore": null
+        },
+        "interviewCoverage": {
+          "expected": 48,
+          "returnedSlots": 48,
+          "nonemptyResponses": 48,
+          "parsedAnswers": 48,
+          "wrapperStatus": "completed"
+        },
+        "scoreRows": {
+          "total": 723,
+          "numeric": 619,
+          "offTopicOrNull": 104,
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "folder": "04_placebo_s1",
+        "scenario": "placebo",
+        "seed": 1,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "models": {
+          "LLM_MODEL_NAME": "claude-haiku-4-5",
+          "LLM_TIER1_MODEL": "claude-sonnet-5",
+          "LLM_TIER2_MODEL": "claude-haiku-4-5",
+          "LLM_TIER3_MODEL": "claude-haiku-4-5"
+        },
+        "outcome": "ok",
+        "status": "judged",
+        "daily": {
+          "government": {
+            "1": {
+              "support": 4.909090909090909,
+              "heat": 11
+            },
+            "2": {
+              "support": 4.5,
+              "heat": 10
+            },
+            "3": {
+              "support": 5.25,
+              "heat": 12
+            },
+            "4": {
+              "support": 5.428571428571429,
+              "heat": 7
+            },
+            "5": {
+              "support": 5.666666666666667,
+              "heat": 3
+            }
+          },
+          "land_industry": {
+            "1": {
+              "support": 5.838709677419355,
+              "heat": 31
+            },
+            "2": {
+              "support": 6.0,
+              "heat": 28
+            },
+            "3": {
+              "support": 6.315789473684211,
+              "heat": 19
+            },
+            "4": {
+              "support": 6.0,
+              "heat": 13
+            },
+            "5": {
+              "support": 6.857142857142857,
+              "heat": 14
+            }
+          },
+          "land_community": {
+            "1": {
+              "support": 4.111111111111111,
+              "heat": 18
+            },
+            "2": {
+              "support": 4.3076923076923075,
+              "heat": 13
+            },
+            "3": {
+              "support": 4.375,
+              "heat": 16
+            },
+            "4": {
+              "support": 4.222222222222222,
+              "heat": 9
+            },
+            "5": {
+              "support": 4.2,
+              "heat": 10
+            }
+          },
+          "funds": {
+            "1": {
+              "support": 5.276595744680851,
+              "heat": 47
+            },
+            "2": {
+              "support": 5.902439024390244,
+              "heat": 41
+            },
+            "3": {
+              "support": 5.875,
+              "heat": 40
+            },
+            "4": {
+              "support": 5.571428571428571,
+              "heat": 28
+            },
+            "5": {
+              "support": 5.6521739130434785,
+              "heat": 23
+            }
+          },
+          "retail": {
+            "1": {
+              "support": 4.769230769230769,
+              "heat": 13
+            },
+            "2": {
+              "support": 6.285714285714286,
+              "heat": 7
+            },
+            "3": {
+              "support": 6.285714285714286,
+              "heat": 7
+            },
+            "4": {
+              "support": 6.3076923076923075,
+              "heat": 13
+            },
+            "5": {
+              "support": 6.0,
+              "heat": 3
+            }
+          }
+        },
+        "days3to5": {
+          "government": 5.448412698412699,
+          "land_industry": 6.390977443609022,
+          "land_community": 4.265740740740741,
+          "funds": 5.699534161490683,
+          "retail": 6.197802197802197
+        },
+        "unmapped_posts": 0,
+        "unparsed_answers": 48,
+        "calls": {
+          "price": {
+            "call": null,
+            "votes": {},
+            "answers": 18,
+            "median_move_pct": null
+          },
+          "policy": {
+            "call": null,
+            "votes": {},
+            "answers": 16
+          },
+          "leaning": {
+            "call": null,
+            "votes": {},
+            "answers": 14
+          }
+        },
+        "configuration": {
+          "provider": "claude",
+          "providerEvidence": "recorded in run_meta.json",
+          "modelName": "claude-haiku-4-5",
+          "tier1Model": "claude-sonnet-5",
+          "tier2Model": "claude-haiku-4-5",
+          "tier3Model": "claude-haiku-4-5",
+          "mirofishCommit": "0af6f3af770010e793f7c80b9cd7a8503b591cd6",
+          "patchSha256": "d39356ddb97201a8cce30e995c0d0a27ce549201e80a907675c6ce8a2e029a9f",
+          "minutesPerRound": 120,
+          "tiers": {
+            "1": 6,
+            "2": 18,
+            "3": 37
+          },
+          "memoryTokenLimit": "100000",
+          "maxCommentsPerPost": "10",
+          "llmSemaphore": "10"
+        },
+        "interviewCoverage": {
+          "expected": 48,
+          "returnedSlots": 48,
+          "nonemptyResponses": 0,
+          "parsedAnswers": 0,
+          "wrapperStatus": "completed"
+        },
+        "scoreRows": {
+          "total": 474,
+          "numeric": 436,
+          "offTopicOrNull": 38,
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "folder": "05_mine_approved_s1",
+        "scenario": "mine_approved",
+        "seed": 1,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "models": {
+          "LLM_MODEL_NAME": "claude-haiku-4-5",
+          "LLM_TIER1_MODEL": "claude-sonnet-5",
+          "LLM_TIER2_MODEL": "claude-haiku-4-5",
+          "LLM_TIER3_MODEL": "claude-haiku-4-5"
+        },
+        "outcome": "ok",
+        "status": "judged",
+        "daily": {
+          "government": {
+            "1": {
+              "support": 5.181818181818182,
+              "heat": 11
+            },
+            "2": {
+              "support": 5.25,
+              "heat": 12
+            },
+            "3": {
+              "support": 4.777777777777778,
+              "heat": 9
+            },
+            "4": {
+              "support": 5.0,
+              "heat": 9
+            },
+            "5": {
+              "support": 4.666666666666667,
+              "heat": 6
+            }
+          },
+          "land_industry": {
+            "1": {
+              "support": 6.0,
+              "heat": 36
+            },
+            "2": {
+              "support": 6.208333333333333,
+              "heat": 24
+            },
+            "3": {
+              "support": 6.142857142857143,
+              "heat": 21
+            },
+            "4": {
+              "support": 5.9375,
+              "heat": 16
+            },
+            "5": {
+              "support": 6.3125,
+              "heat": 16
+            }
+          },
+          "land_community": {
+            "1": {
+              "support": 4.0625,
+              "heat": 16
+            },
+            "2": {
+              "support": 3.823529411764706,
+              "heat": 17
+            },
+            "3": {
+              "support": 4.0,
+              "heat": 16
+            },
+            "4": {
+              "support": 3.5,
+              "heat": 12
+            },
+            "5": {
+              "support": 3.5714285714285716,
+              "heat": 7
+            }
+          },
+          "funds": {
+            "1": {
+              "support": 5.571428571428571,
+              "heat": 42
+            },
+            "2": {
+              "support": 6.029411764705882,
+              "heat": 34
+            },
+            "3": {
+              "support": 5.78125,
+              "heat": 32
+            },
+            "4": {
+              "support": 5.62962962962963,
+              "heat": 27
+            },
+            "5": {
+              "support": 5.4375,
+              "heat": 16
+            }
+          },
+          "retail": {
+            "1": {
+              "support": 5.7,
+              "heat": 10
+            },
+            "2": {
+              "support": 6.222222222222222,
+              "heat": 9
+            },
+            "3": {
+              "support": 6.0,
+              "heat": 8
+            },
+            "4": {
+              "support": 5.8,
+              "heat": 10
+            },
+            "5": {
+              "support": 5.714285714285714,
+              "heat": 7
+            }
+          }
+        },
+        "days3to5": {
+          "government": 4.814814814814815,
+          "land_industry": 6.1309523809523805,
+          "land_community": 3.6904761904761902,
+          "funds": 5.616126543209877,
+          "retail": 5.838095238095238
+        },
+        "unmapped_posts": 0,
+        "unparsed_answers": 48,
+        "calls": {
+          "price": {
+            "call": null,
+            "votes": {},
+            "answers": 18,
+            "median_move_pct": null
+          },
+          "policy": {
+            "call": null,
+            "votes": {},
+            "answers": 16
+          },
+          "leaning": {
+            "call": null,
+            "votes": {},
+            "answers": 14
+          }
+        },
+        "configuration": {
+          "provider": "claude",
+          "providerEvidence": "recorded in run_meta.json",
+          "modelName": "claude-haiku-4-5",
+          "tier1Model": "claude-sonnet-5",
+          "tier2Model": "claude-haiku-4-5",
+          "tier3Model": "claude-haiku-4-5",
+          "mirofishCommit": "0af6f3af770010e793f7c80b9cd7a8503b591cd6",
+          "patchSha256": "d39356ddb97201a8cce30e995c0d0a27ce549201e80a907675c6ce8a2e029a9f",
+          "minutesPerRound": 120,
+          "tiers": {
+            "1": 6,
+            "2": 18,
+            "3": 37
+          },
+          "memoryTokenLimit": "100000",
+          "maxCommentsPerPost": "10",
+          "llmSemaphore": "10"
+        },
+        "interviewCoverage": {
+          "expected": 48,
+          "returnedSlots": 48,
+          "nonemptyResponses": 0,
+          "parsedAnswers": 0,
+          "wrapperStatus": "completed"
+        },
+        "scoreRows": {
+          "total": 454,
+          "numeric": 423,
+          "offTopicOrNull": 31,
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "folder": "06_court_blocks_mine_s1",
+        "scenario": "court_blocks_mine",
+        "seed": 1,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "models": {
+          "LLM_MODEL_NAME": "claude-haiku-4-5",
+          "LLM_TIER1_MODEL": "claude-sonnet-5",
+          "LLM_TIER2_MODEL": "claude-haiku-4-5",
+          "LLM_TIER3_MODEL": "claude-haiku-4-5"
+        },
+        "outcome": "ok",
+        "status": "judged",
+        "daily": {
+          "government": {
+            "1": {
+              "support": 4.75,
+              "heat": 8
+            },
+            "2": {
+              "support": 5.333333333333333,
+              "heat": 12
+            },
+            "3": {
+              "support": 5.0,
+              "heat": 6
+            },
+            "4": {
+              "support": 5.5,
+              "heat": 6
+            },
+            "5": {
+              "support": 5.5,
+              "heat": 6
+            }
+          },
+          "land_industry": {
+            "1": {
+              "support": 5.571428571428571,
+              "heat": 35
+            },
+            "2": {
+              "support": 5.7272727272727275,
+              "heat": 22
+            },
+            "3": {
+              "support": 6.055555555555555,
+              "heat": 18
+            },
+            "4": {
+              "support": 6.375,
+              "heat": 16
+            },
+            "5": {
+              "support": 6.642857142857143,
+              "heat": 14
+            }
+          },
+          "land_community": {
+            "1": {
+              "support": 3.5,
+              "heat": 18
+            },
+            "2": {
+              "support": 3.75,
+              "heat": 16
+            },
+            "3": {
+              "support": 4.2631578947368425,
+              "heat": 19
+            },
+            "4": {
+              "support": 4.333333333333333,
+              "heat": 9
+            },
+            "5": {
+              "support": 4.588235294117647,
+              "heat": 17
+            }
+          },
+          "funds": {
+            "1": {
+              "support": 5.0212765957446805,
+              "heat": 47
+            },
+            "2": {
+              "support": 5.923076923076923,
+              "heat": 39
+            },
+            "3": {
+              "support": 5.352941176470588,
+              "heat": 34
+            },
+            "4": {
+              "support": 6.833333333333333,
+              "heat": 24
+            },
+            "5": {
+              "support": 7.375,
+              "heat": 16
+            }
+          },
+          "retail": {
+            "1": {
+              "support": 5.2,
+              "heat": 10
+            },
+            "2": {
+              "support": 5.714285714285714,
+              "heat": 7
+            },
+            "3": {
+              "support": 5.454545454545454,
+              "heat": 11
+            },
+            "4": {
+              "support": 7.111111111111111,
+              "heat": 9
+            },
+            "5": {
+              "support": 5.5,
+              "heat": 6
+            }
+          }
+        },
+        "days3to5": {
+          "government": 5.333333333333333,
+          "land_industry": 6.3578042328042335,
+          "land_community": 4.394908840729275,
+          "funds": 6.520424836601308,
+          "retail": 6.021885521885522
+        },
+        "unmapped_posts": 0,
+        "unparsed_answers": 38,
+        "calls": {
+          "price": {
+            "call": null,
+            "votes": {},
+            "answers": 18,
+            "median_move_pct": null
+          },
+          "policy": {
+            "call": "weeks",
+            "votes": {
+              "weeks": 8
+            },
+            "answers": 16
+          },
+          "leaning": {
+            "call": "split",
+            "votes": {
+              "split": 2
+            },
+            "answers": 14
+          }
+        },
+        "configuration": {
+          "provider": "claude",
+          "providerEvidence": "recorded in run_meta.json",
+          "modelName": "claude-haiku-4-5",
+          "tier1Model": "claude-sonnet-5",
+          "tier2Model": "claude-haiku-4-5",
+          "tier3Model": "claude-haiku-4-5",
+          "mirofishCommit": "0af6f3af770010e793f7c80b9cd7a8503b591cd6",
+          "patchSha256": "d39356ddb97201a8cce30e995c0d0a27ce549201e80a907675c6ce8a2e029a9f",
+          "minutesPerRound": 120,
+          "tiers": {
+            "1": 6,
+            "2": 18,
+            "3": 37
+          },
+          "memoryTokenLimit": "100000",
+          "maxCommentsPerPost": "10",
+          "llmSemaphore": "10"
+        },
+        "interviewCoverage": {
+          "expected": 48,
+          "returnedSlots": 48,
+          "nonemptyResponses": 10,
+          "parsedAnswers": 10,
+          "wrapperStatus": "completed"
+        },
+        "scoreRows": {
+          "total": 449,
+          "numeric": 425,
+          "offTopicOrNull": 24,
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "folder": "07_tax_rise_s1",
+        "scenario": "tax_rise",
+        "seed": 1,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "status": "not judged"
+      },
+      {
+        "folder": "08_protest_s1",
+        "scenario": "protest",
+        "seed": 1,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "status": "not judged"
+      },
+      {
+        "folder": "09_gold_back_to_4000_s1",
+        "scenario": "gold_back_to_4000",
+        "seed": 1,
+        "minutes_per_round": 120,
+        "tiers": {
+          "1": 6,
+          "2": 18,
+          "3": 37
+        },
+        "status": "not judged"
+      }
+    ]
+  },
   "limitations": [
-    "The complete pinned tree contains planned run inputs and the day-1 pilot, but no completed nine-run report.",
-    "The upstream handoff records desktop failures and a batch-size fix; it does not prove the reruns completed.",
-    "Simulation support is not an observed market probability or evidence of predictive trading skill.",
-    "No publication/knowledge cutoff for the scenario input evidence is supplied; retrieval and commit times are not substitutes."
+    "Only runs 01-06 have scored five-day output. Runs 07-09 have input configurations only.",
+    "The exact input knowledge cutoff is unknown. Report generation, retrieval and commit times do not establish it.",
+    "Baseline runs use OpenAI GPT models; placebo and mine approval/block runs use Claude with changed simulator code, patches and memory/comment/concurrency settings. Their differences cannot identify a news-only effect. Baseline runtime caps were not recorded in run metadata; the handoff describes them as uncapped.",
+    "The upstream placebo, mirror and sampled grounding checks fail. Grounding is 8/20 against a 14/20 requirement. Passing baseline interview calls do not repair missing interviews.",
+    "Nonempty interviews are 24/48, 48/48, 48/48, 0/48, 0/48 and 10/48 despite completed interview wrappers.",
+    "The report judge is GLM-5.3-flash, replacing the pre-registered GPT judge. Legacy validation.txt applies to the earlier judge.",
+    "Simulation support and interview guesses are not observed market probabilities or validated financial signals. No monetary adjustment is authorized by this report."
   ]
 }

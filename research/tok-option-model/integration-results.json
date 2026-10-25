@@ -96,13 +96,13 @@
     },
     "swarm": {
       "type": "simulated",
-      "sourceId": "ahmed-gold-society-d7717cd",
+      "sourceId": "ahmed-gold-society-f2fe2971",
       "branch": "ahmed/gold-society-plan",
-      "revision": "d7717cd459b9e567bd3162a86b84ff55c9b0bfc3",
-      "sourceUrl": "https://github.com/amitvijapur/oxhack-2026/tree/d7717cd459b9e567bd3162a86b84ff55c9b0bfc3/swarm",
-      "commit": "d7717cd459b9e567bd3162a86b84ff55c9b0bfc3",
-      "committedAt": "2026-10-24T23:47:56Z",
-      "retrievedAt": "2026-10-25T00:05:46+00:00",
+      "revision": "f2fe2971d9f041a819f7b7ff4a78e10f840884f5",
+      "sourceUrl": "https://github.com/amitvijapur/oxhack-2026/tree/f2fe2971d9f041a819f7b7ff4a78e10f840884f5/swarm",
+      "commit": "f2fe2971d9f041a819f7b7ff4a78e10f840884f5",
+      "committedAt": "2026-10-25T03:36:07Z",
+      "retrievedAt": "2026-10-25T04:13:57+00:00",
       "knowledgeCutoff": null
     }
   },
@@ -227,14 +227,14 @@
     {
       "id": "pilot",
       "label": "One-day pilot output",
-      "status": "pass",
-      "detail": "One-day timing and format pilot only. It has no day-3 intervention or days 3–5 observations."
+      "status": "unknown",
+      "detail": "Pilot output not supplied."
     },
     {
       "id": "full_runs",
       "label": "Completed scored scenario runs",
-      "status": "unknown",
-      "detail": "No final report exists in the pinned branch tree; the day-1 pilot cannot supply day-3 scenario effects."
+      "status": "fail",
+      "detail": "6/9 runs scored. Daily output, comparable configurations and applicable quality checks must pass for every scenario."
     },
     {
       "id": "knowledge_cutoff",
@@ -251,45 +251,63 @@
   ],
   "swarmDiagnostics": [
     {
+      "id": "knowledge_cutoff",
+      "label": "Scenario source knowledge cutoff",
+      "status": "unknown",
+      "detail": "Input information availability must be supplied separately from generation, commit and retrieval times."
+    },
+    {
+      "id": "config_comparability",
+      "label": "Comparable provider and runtime configuration",
+      "status": "fail",
+      "detail": "Baseline and other runs differ in provider, modelName, tier1Model, tier2Model, tier3Model, mirofishCommit, patchSha256. Some settings remain unverified: memoryTokenLimit, maxCommentsPerPost, llmSemaphore. Effects combine news with configuration changes and cannot identify a news-only response."
+    },
+    {
+      "id": "interview_coverage",
+      "label": "Complete nonempty parsed interviews",
+      "status": "fail",
+      "detail": "01_baseline_s1: 24/48 parsed, 24 nonempty; 04_placebo_s1: 0/48 parsed, 0 nonempty; 05_mine_approved_s1: 0/48 parsed, 0 nonempty; 06_court_blocks_mine_s1: 10/48 parsed, 10 nonempty. A completed wrapper does not establish interview coverage."
+    },
+    {
       "id": "judge",
       "label": "Human check of scoring judge",
       "status": "pass",
-      "detail": "27/30 pilot scores within 2 points; threshold 24/30. This does not validate market prediction."
+      "detail": "Recomputed GLM-5.3-flash judge agreement is 26/30 within two points against the supplied human marks. This is a replacement scoring judge, not the pre-registered GPT judge and not market prediction validation. The legacy validation.txt reports the earlier judge at 27/30."
     },
     {
       "id": "baseline_spread",
       "label": "Three-baseline spread available",
-      "status": "unknown",
-      "detail": "Complete days 3–5 group means from baseline seeds 1, 2 and 3 are required."
+      "status": "pass",
+      "detail": "Days 3–5 group means from seeds 1, 2 and 3 define max-minus-min chance bands."
     },
     {
       "id": "placebo",
       "label": "Placebo remains inside baseline bands",
-      "status": "unknown",
-      "detail": "The placebo and three scored baselines are required."
+      "status": "fail",
+      "detail": "Compares every group with the same-seed baseline; no placebo effect may exceed its baseline spread."
     },
     {
       "id": "baseline_calls",
       "label": "Baseline interview-call stability",
-      "status": "unknown",
+      "status": "pass",
       "detail": "Upstream check requires at least two of three baseline majority calls to agree."
     },
     {
       "id": "grounding",
       "label": "Interview evidence grounding",
-      "status": "unknown",
+      "status": "fail",
       "detail": "Requires the upstream sampled-answer grounding check; no market outcome is tested."
     },
     {
       "id": "direction_mine_approval",
       "label": "mine approval expected response",
-      "status": "unknown",
+      "status": "pass",
       "detail": "At least one pre-registered group must move in the expected direction beyond both its chance band and the placebo effect."
     },
     {
       "id": "mirror_mine_approval",
       "label": "Approval and court-block mirror",
-      "status": "unknown",
+      "status": "fail",
       "detail": "Fund responses must oppose each other and each exceed the baseline band."
     },
     {
@@ -307,13 +325,13 @@
     {
       "id": "direction_mine_blocked",
       "label": "mine blocked expected response",
-      "status": "unknown",
+      "status": "fail",
       "detail": "At least one pre-registered group must move in the expected direction beyond both its chance band and the placebo effect."
     },
     {
       "id": "mirror_mine_blocked",
       "label": "Approval and court-block mirror",
-      "status": "unknown",
+      "status": "fail",
       "detail": "Fund responses must oppose each other and each exceed the baseline band."
     },
     {
