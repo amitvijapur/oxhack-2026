@@ -2,7 +2,21 @@
 
 The executable core, React adapter and workbench implement the accepted hackathon model. These checks establish implementation behavior, not predictive accuracy or a feasible real trade.
 
-## Current gold forecast, model v2
+## Current whole-contract lot, 25 October 2026
+
+The active shared basis is `regional-initial-payment-whole-contract-v1`: USD30,000 selected historical initial-payment reference, plus separate assumed USD50 entry and USD50 exit fees and zero additional obligations. It is not a current Tok average, complete contract cost or available option. The existing 500-ounce valuation is unchanged and gives USD1,500 assignment proceeds. At 90 days, USD30,050 upfront capital and 48.8% sale probability give USD-29,342.40 expected cash and a SKIP. The approved hypothetical fund is USD1,502,500 with USD30,050 per-option and USD150,250 open/lifetime limits, preserving 2%/10% ratios and five whole lots.
+
+- `node --test model/tok-option/tests/*.test.mjs`: 132 passed, zero failed. This includes whole-lot costs, fee-inclusive risk boundaries, nonreplenishing whole-position capacity, unchanged valuation/SKIP, historical arithmetic fixtures, canonical publication context and zero/multi-period hurdle cases.
+- `node research/tok-option-model/validate-plan.mjs`: all 29 specification checks passed. The USD650/700 fixture and its original USD2,000 risk policy remain explicitly historical examples.
+- `npm exec vitest run convex/ingest.test.ts`: 16 passed. Current summaries preserve the whole-lot basis and required-proceeds diagnostic; immutable historical v1 summaries remain readable.
+- `npm run typecheck:backend`: exit zero, `tsc --noEmit` passed.
+- Parent's full Python publisher/transport run: 16 passed with loopback permission. This lane also reproduced the 14 non-socket successes; two initial sandbox socket errors were environmental.
+- `requiredAssignmentProceeds(result, {targetReturnRatio: 0.25})` reconciles through the existing monthly cash engine. The 90-day constant gross proceeds hurdle is USD77,022.3361; cash break-even is USD61,627.8689. Neither replaces the USD1,500 model assignment or establishes a resale price.
+- Historical publication fixtures retain their original controls and material provenance. The active candidate has a new whole-contract identity; its unchanged assumed material exposure retains its original fixture source ID. New publication summaries label custom premiums separately from the historical reference.
+
+These checks establish implementation consistency only. Source research checks remain failed or unknown, real mode still has null economics, and no assignment outcome, return calibration or trading edge is established. Frontend/browser and deck verification is recorded by their integration owners after this model/input checkpoint.
+
+## Historical gold forecast verification before whole-contract alignment
 
 The current method applies the assumed swarm response to Au price first, then recomputes material value, interest, assignment proceeds and every monthly sale outcome. The old direct option markup has been removed. The sections below this one retain earlier v1 results and are historical.
 

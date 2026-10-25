@@ -85,18 +85,57 @@ test('saved finite cash must agree with the canonical distribution diagnostic', 
 });
 
 test('unknown monetary fields remain null and non-finite money is rejected', () => {
-  const output = outputFor();
-  output.result.mapped.entryAction = null;
-  output.result.mapped.status = 'INSUFFICIENT_DATA';
-  output.result.mapped.expectedNetCashUsd = null;
-  output.result.mapped.saleProbability = null;
-  output.result.mapped.intervals = [];
+  // A genuine canonical unavailable result, not a caller-redacted decision.
+  const output = outputFor({ remainingBuyerConsiderationUsd: 100000 });
   const mapped = decisionSummary(output).selected.mapped;
   assert.equal(mapped.expectedNetCashUsd, null);
   assert.equal(mapped.negativeCashProbability, null);
   assert.equal(mapped.entryAction, null);
   output.result.mapped.assignmentValueUsd = Infinity;
   assert.throws(() => decisionSummary(output), /finite or null/);
+});
+
+test('canonical cash cannot be republished with a forged BUY above the whole-contract risk cap', () => {
+  const output = outputFor({ quantity: 50000, entryPremiumUsd: 30001 });
+  assert.equal(output.result.mapped.amountAtRiskUsd, 30051);
+  assert.equal(output.result.mapped.riskGate, 'FAIL');
+  assert.equal(output.result.mapped.entryAction, 'SKIP');
+  assert.ok(output.result.mapped.expectedNetCashUsd > 0);
+  const originalMoney = output.result.mapped.expectedNetCashUsd;
+  for (const row of output.result.horizons) for (const value of [row.baseline, row.mapped]) {
+    Object.assign(value, { riskGate: 'PASS', entryAction: 'BUY_CANDIDATE', status: 'illustrative', reasons: [] });
+  }
+  // Selected objects share the same original identity as their horizon rows.
+  assert.equal(output.result.mapped.expectedNetCashUsd, originalMoney);
+  assert.throws(() => decisionOutput({ selection: output.selection, result: output.result }), /riskGate does not match canonical decision policy/);
+  assert.throws(() => decisionSummary(output), /riskGate does not match canonical decision policy/);
+});
+
+test('publication checks expiry, action, status and reasons against canonical decisions', () => {
+  const mutations = [
+    ['expiryGate', 'PASS', { quantity: 50000, entryPremiumUsd: 100, remainingMaturityDays: 90 }],
+    ['entryAction', null, {}],
+    ['status', 'INSUFFICIENT_DATA', {}],
+    ['reasons', [], {}],
+  ];
+  for (const [key, replacement, controls] of mutations) {
+    const output = outputFor(controls);
+    assert.notDeepEqual(output.result.mapped[key], replacement);
+    output.result.mapped[key] = replacement;
+    assert.throws(() => decisionSummary(output), new RegExp(`${key} does not match canonical decision policy`));
+  }
+});
+
+test('a priced synthetic placebo remains diagnostic while its baseline retains canonical gates', () => {
+  const imported = JSON.parse(readFileSync(new URL('../example-swarm.json', import.meta.url)));
+  imported.runs[1].scenarioId = 'sports_placebo';
+  const controls = { ...DEFAULT_CONTROLS, mode: 'demo', scenarioId: 'sports_placebo', quantity: 50000, entryPremiumUsd: 100 };
+  const result = runWorkbench({ features, controls, swarmRuns: imported });
+  const summary = decisionSummary(decisionOutput({ selection: { area: 'A', horizonDays: 90, scenarioId: 'sports_placebo' }, result }));
+  assert.equal(summary.selected.baseline.entryAction, 'BUY_CANDIDATE');
+  assert.equal(summary.selected.mapped.status, 'diagnostic');
+  assert.equal(summary.selected.mapped.entryAction, null);
+  assert.deepEqual(summary.selected.mapped.reasons, ['sports_placebo_is_diagnostic_only']);
 });
 
 test('actual contrast publication attributes the method while retaining failed research readiness', () => {
