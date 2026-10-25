@@ -5,29 +5,29 @@ import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { loadEvidence } from "@/lib/evidence.js";
 import { SITE_NAME, SITE_PLACE } from "@/lib/copy.js";
-import { loadShowcase, plotReading, stakedRange, type ColorBy as ColorMode, type Showcase as Data } from "@/lib/showcase";
+import { loadShowcase, stakedRange, type ColorBy as ColorMode, type Showcase as Data } from "@/lib/showcase";
 import type { Evidence } from "@/lib/types";
 import type { MapControl } from "@/components/earth/Earth";
 import { PlotPopover } from "./PlotPopover";
 import { MapControls } from "./MapControls";
 import { PipelineStory } from "./PipelineStory";
 import { SafeBoundary } from "@/components/SafeBoundary";
-import { LivePill } from "./LivePill";
+import { LivePill, useGold } from "./LivePill";
 import { Timelapse, LAST, RECENT } from "./Timelapse";
 import stills from "./stills.json";
 import { Panel, type Tab } from "./Panel";
 import { PlotSheet } from "./PlotSheet";
 import { ColorBy } from "./ColorBy";
 import { LandTab, orderPlots, type Sort } from "./tabs/LandTab";
-import { GroundTab } from "./tabs/GroundTab";
-import { MarketTab } from "./tabs/MarketTab";
-import { DecisionTab } from "./tabs/DecisionTab";
-import { SwarmTab } from "./tabs/SwarmTab";
+import { DecideTab, type Site } from "./tabs/DecideTab";
+import { CrowdTab } from "./tabs/CrowdTab";
 import "./explorer.css";
 
 // Three.js loads only when someone opens a plot's 3D terrain view.
 const PlotBlock = dynamic(() => import("@/components/geo/PlotBlock").then((m) => m.PlotBlock), { ssr: false });
 const Earth = dynamic(() => import("@/components/earth/Earth").then((m) => m.Earth), { ssr: false });
+// The plot card no longer shows elevation, so the map's terrain reading has nowhere to go.
+const ignoreElevation = () => {};
 
 /** The opening time-lapse (history, today, then the projection) or the explorer panel. */
 export type Mode = "timelapse" | "explore";
@@ -57,10 +57,8 @@ export function Explorer() {
   const [year, setYear] = useState(RECENT);
   const [first, setFirst] = useState(RECENT);
   const [playing, setPlaying] = useState(false);
-  const [tab, setTab] = useState<Tab>("land");
+  const [tab, setTab] = useState<Tab>("decide");
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [element, setElement] = useState("Au");
-  const [bedrock, setBedrock] = useState(true);
   const [zoomTo, setZoomTo] = useState<string | null>(null);
   const [story, setStory] = useState(false);
   const [below, setBelow] = useState(false);
@@ -71,8 +69,9 @@ export function Explorer() {
   const controls = useRef<MapControl>(null);
   const [colorBy, setColorBy] = useState<ColorMode>("gold");
   const [hoverId, setHoverId] = useState<string | null>(null);
-  const [elevation, setElevation] = useState<number | null>(null);
   const [sort, setSort] = useState<Sort>("gold");
+  const [site, setSite] = useState<Site>("A");
+  const gold = useGold();
   const [snapshotGone, setSnapshotGone] = useState(false);
   // Capturing: the explore still as the panel opens; the time-lapse stills one per year, on request.
   useEffect(() => {
@@ -120,7 +119,7 @@ export function Explorer() {
     return () => window.clearTimeout(t);
   }, [data, earth, snapshot]);
 
-  const explore = useCallback((next: Tab = "land") => {
+  const explore = useCallback((next: Tab = "decide") => {
     setPlaying(false);
     setYear(LAST);
     setTab(next);
@@ -130,15 +129,13 @@ export function Explorer() {
   const back = useCallback(() => { close(); setPlaying(false); setYear(LAST); setMode("timelapse"); }, [close]);
 
   // On the time-lapse a plot opens a popover on the map (and pauses); while exploring it opens the
-  // plot sheet and flies into the parcel. Mines open the ground tab.
+  // plot card in the Land tab, the only tab that shows it, and flies into the parcel.
   const select = useCallback((id: string | null) => {
     setSelectedId(id);
     if (!id) { setZoomTo(null); return; }
-    if (mode !== "explore") {
-      setPlaying(false);
-      if (id.startsWith("occ:")) explore("ground");
-    } else if (id.startsWith("plot:")) setZoomTo(id);
-  }, [mode, explore]);
+    if (mode !== "explore") setPlaying(false);
+    else if (id.startsWith("plot:")) { setZoomTo(id); setTab("land"); }
+  }, [mode]);
 
   // The plots in list order, so the sheet's ‹ › and the arrow keys follow what the list shows.
   const ordered = useMemo(() => (data ? orderPlots(data.plots.plots, data.geochem, sort) : []), [data, sort]);
@@ -169,8 +166,6 @@ export function Explorer() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [mode, tab, selectedId, zoomTo, back, close, step, story, below]);
-
-  const siteOf = (sampleId: string) => evidence?.features.find((f) => f.properties.sample_id === sampleId)?.properties.area ?? null;
 
   return (
     <main className="explorer" data-mode={mode} data-earth={earth} data-snapshot={snapshot ? "true" : undefined}>
@@ -204,13 +199,13 @@ export function Explorer() {
           onSelect={select}
           onReady={setEarth}
           geochem={data?.geochem ?? null}
-          element={element}
+          element="Au"
           occurrences={data?.occurrences ?? null}
-          bedrock={bedrock}
+          bedrock={false}
           colorBy={colorBy}
           hoverId={hoverId}
           onHover={setHoverId}
-          onElevation={setElevation}
+          onElevation={ignoreElevation}
           zoomTo={zoomTo}
           anchor={anchor}
           controls={controls}
@@ -224,7 +219,7 @@ export function Explorer() {
         <button type="button" className="name" onClick={back}>
           {SITE_NAME} <span>{SITE_PLACE}</span>
         </button>
-        <LivePill />
+        <LivePill gold={gold} />
       </header>
 
       {error ? <p className="toast" role="alert">The data could not be loaded: {error}</p> : null}
@@ -236,7 +231,7 @@ export function Explorer() {
           {mode === "timelapse" ? (
             <motion.div key="timelapse" className="layer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
               <Timelapse claims={data.claims} history={data.history} year={year} onYear={setYear} playing={playing} onPlaying={setPlaying} onExplore={() => explore()} onStory={() => { setPlaying(false); setStory(true); }}
-                first={first} onFirst={setFirst} onNow={back}
+                first={first} onFirst={setFirst} onNow={back} live={gold?.usd_per_oz ?? null}
                 follow={followAction} onFollow={setFollowAction} />
             </motion.div>
           ) : (
@@ -245,50 +240,33 @@ export function Explorer() {
                 tab={tab}
                 onTab={setTab}
                 onClose={back}
-                card={plot ? (
+                card={tab === "land" && plot ? (
                   <PlotSheet
                     plot={plot}
                     index={index}
                     total={ordered.length}
                     geochem={data.geochem}
                     market={data.market}
-                    elevation={elevation}
                     onPrev={() => step(-1)}
                     onNext={() => step(1)}
                     onClose={close}
                     onZoom={() => setZoomTo(`plot:${plot.id}`)}
                     onBelow={() => setBelow(true)}
-                    onElements={() => setTab("ground")}
-                    onDecision={() => setTab("decision")}
+                    onDecide={() => { setSite(plot.site); setTab("decide"); }}
                   />
                 ) : null}
               >
+                {tab === "decide" ? (
+                  <DecideTab features={evidence?.features ?? []} gold={gold} plots={data.plots} geochem={data.geochem}
+                    site={site} onSite={setSite} plot={plot} />
+                ) : null}
                 {tab === "land" && !plot ? (
-                  <LandTab plots={data.plots} geochem={data.geochem} features={evidence?.features ?? []} sort={sort} onSort={setSort}
-                    hoverId={hoverId} onHover={setHoverId} onPick={select} onDecision={() => setTab("decision")} />
+                  <LandTab plots={data.plots} geochem={data.geochem} sort={sort} onSort={setSort}
+                    hoverId={hoverId} onHover={setHoverId} onPick={select} />
                 ) : null}
-                {tab === "ground" ? (
-                  <GroundTab
-                    geochem={data.geochem}
-                    geology={data.geology}
-                    occurrences={data.occurrences}
-                    element={element}
-                    onElement={setElement}
-                    sampleId={plot ? plotReading(plot, data.geochem, "Au")?.sample.id ?? null : null}
-                    occurrenceId={selectedId?.startsWith("occ:") ? selectedId.slice(4) : null}
-                    siteOf={siteOf}
-                    bedrock={bedrock}
-                    onBedrock={setBedrock}
-                    evidence={evidence?.config ?? null}
-                  />
-                ) : null}
-                {tab === "market" ? <MarketTab market={data.market} claims={data.claims} history={data.history} year={Math.min(year, LAST)} /> : null}
-                {tab === "swarm" ? <SwarmTab town={data.town} /> : null}
-                {tab === "decision" ? (
-                  <DecisionTab features={evidence?.features ?? []} />
-                ) : null}
+                {tab === "crowd" ? <CrowdTab crowd={data.crowd} /> : null}
               </Panel>
-              <ColorBy value={colorBy} onChange={setColorBy} bedrock={bedrock} onBedrock={setBedrock} range={stakedRange(data.claims)} />
+              <ColorBy value={colorBy} onChange={setColorBy} range={stakedRange(data.claims)} />
             </motion.div>
           )}
         </AnimatePresence>

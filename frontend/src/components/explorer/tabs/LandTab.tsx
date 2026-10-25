@@ -2,14 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { formatAssayValue, plotReading, plotStatus, type Geochem, type Plot, type Plots } from "@/lib/showcase";
-import { inspectRealInputs } from "@/lib/canonical-model.js";
-import type { Sample } from "@/lib/types";
 import { Section, TabBody } from "../TabBody";
 
-export type Sort = "gold" | "id" | "tok";
-type Filter = "all" | "held" | "open";
+export type Sort = "gold" | "tok";
+type Filter = "all" | "held";
 
 const titleCase = (text: string) => text.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()).replace(/\bLlc\b/g, "LLC");
 
@@ -17,50 +14,39 @@ const titleCase = (text: string) => text.toLowerCase().replace(/\b\w/g, (c) => c
 export function orderPlots(plots: Plot[], geochem: Geochem, sort: Sort, filter: Filter = "all") {
   const gold = (p: Plot) => plotReading(p, geochem, "Au")?.level ?? -1;
   return plots
-    .filter((p) => filter === "all" || (filter === "held" ? plotStatus(p) === "held" : plotStatus(p) === "open"))
-    .sort((a, b) => (sort === "gold" ? gold(b) - gold(a) : sort === "tok" ? a.km_to_tok - b.km_to_tok : a.label.localeCompare(b.label)));
+    .filter((p) => filter === "all" || plotStatus(p) === "held")
+    .sort((a, b) => (sort === "gold" ? gold(b) - gold(a) : a.km_to_tok - b.km_to_tok));
 }
 
-export function LandTab({ plots, geochem, features, sort, onSort, hoverId, onHover, onPick, onDecision }: {
+export function LandTab({ plots, geochem, sort, onSort, hoverId, onHover, onPick }: {
   plots: Plots;
   geochem: Geochem;
-  features: Sample[];
   sort: Sort;
   onSort: (sort: Sort) => void;
   hoverId: string | null;
   onHover: (id: string | null) => void;
   onPick: (id: string) => void;
-  onDecision: () => void;
 }) {
-  const readiness = useMemo(() => inspectRealInputs(features), [features]);
   const [filter, setFilter] = useState<Filter>("all");
   const rows = useMemo(() => orderPlots(plots.plots, geochem, sort, filter), [plots, geochem, sort, filter]);
   const top = Math.max(...plots.plots.map((p) => plotReading(p, geochem, "Au")?.level ?? 0));
-  const counts = { held: plots.plots.filter((p) => plotStatus(p) === "held").length, open: plots.plots.filter((p) => plotStatus(p) === "open").length };
 
   return (
     <TabBody
       evidence={[
         { label: `Checked Alaska DNR claim snapshot retrieved ${plots.claims_retrieved}` },
         { label: plots.open_plot_note },
-        { label: "Canonical Tok option model. Real contract terms, recoverable resources and resale evidence remain missing." },
       ]}
     >
-      <button type="button" className="signal-line" onClick={onDecision}>
-        <span className="signal-word">{readiness.status === "INSUFFICIENT_DATA" ? "Inputs missing" : "Inspect inputs"}</span>
-        <span>Inspect option assumptions and real-data gaps</span>
-        <ArrowRight className="size-4" aria-hidden="true" />
-      </button>
-
       <Section
         title={`${plots.plots.length} sampled areas`}
-        lede={<>Each sample glows on the map, brighter where gold runs higher, inside the outline of the checked claim that holds it. {counts.held} overlap held state claims; {counts.open} have no checked claim overlap. Pick one to inspect its context.</>}
+        lede={<>Each sample glows on the map, brighter where gold runs higher, inside the outline of the checked claim that holds it. Pick one to inspect its context.</>}
       >
         <div className="list-tools">
           <div className="segmented" role="radiogroup" aria-label="Show">
-            {(["all", "held", "open"] as Filter[]).map((f) => (
+            {(["all", "held"] as Filter[]).map((f) => (
               <button key={f} type="button" role="radio" aria-checked={filter === f} onClick={() => setFilter(f)}>
-                {f === "all" ? "All" : f === "held" ? "Held" : "Unmatched"}
+                {f === "all" ? "All" : "Held"}
               </button>
             ))}
           </div>
@@ -68,7 +54,6 @@ export function LandTab({ plots, geochem, features, sort, onSort, hoverId, onHov
             Sort
             <select value={sort} onChange={(e) => onSort(e.target.value as Sort)} aria-label="Sort plots">
               <option value="gold">Most gold</option>
-              <option value="id">Plot ID</option>
               <option value="tok">Nearest Tok</option>
             </select>
           </label>

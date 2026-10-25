@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 import { usd } from "@/lib/showcase";
 
-type Gold = { usd_per_oz: number; updated_at: string; stale: boolean; source: string };
+export type Gold = { usd_per_oz: number; updated_at: string; stale: boolean; source: string };
 
 const TOK_TIME = new Intl.DateTimeFormat("en-US", { timeZone: "America/Anchorage", hour: "numeric", minute: "2-digit" });
 
-/** "● Live · Gold $3,997 · Tok 7:41 pm": the spot price through /api/gold-price (polled every 30 s) and the time in Tok. */
-export function LivePill() {
+/** The spot price through /api/gold-price, polled every 30 s. One poll feeds the pill and the Decide tab, so both show the same price. */
+export function useGold() {
   const [gold, setGold] = useState<Gold | null>(null);
-  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -20,9 +19,20 @@ export function LivePill() {
       .catch(() => {});
     load();
     const poll = window.setInterval(load, 30_000);
+    return () => { active = false; window.clearInterval(poll); };
+  }, []);
+
+  return gold;
+}
+
+/** "● Live · Gold $3,997 · Tok 7:41 pm": the shared spot price and the time in Tok. */
+export function LivePill({ gold }: { gold: Gold | null }) {
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
     const tick = window.setInterval(() => setNow(new Date()), 15_000);
     const first = window.setTimeout(() => setNow(new Date()), 0); // after hydration, so server and client agree
-    return () => { active = false; window.clearInterval(poll); window.clearInterval(tick); window.clearTimeout(first); };
+    return () => { window.clearInterval(tick); window.clearTimeout(first); };
   }, []);
 
   const live = gold && !gold.stale;

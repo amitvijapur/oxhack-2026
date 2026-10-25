@@ -87,7 +87,7 @@ export function PipelineStory({ data, features, onClose, onOpen }: { data: Showc
               <div key={e}><span className="tabular">{e}</span><i style={{ width: `${(n / facts.goldRich) * 100}%` }} /><span className="tabular">{n}/{facts.goldRich}</span></div>
             ))}
           </div>
-          <button type="button" className="button secondary" onClick={() => onOpen("ground")}>See it on the map <ArrowRight className="size-4" aria-hidden="true" /></button>
+          <button type="button" className="button secondary" onClick={() => onOpen("land")}>See it on the map <ArrowRight className="size-4" aria-hidden="true" /></button>
         </section>
 
         <section className="story-step" data-step={1}>
@@ -101,20 +101,20 @@ export function PipelineStory({ data, features, onClose, onOpen }: { data: Showc
             ))}
           </svg>
           <div className="story-axis tabular"><span>{FIRST}</span><span>today: {held.at(-1)?.toLocaleString()} held</span></div>
-          <button type="button" className="button secondary" onClick={() => onOpen("market")}>Explore the market <ArrowRight className="size-4" aria-hidden="true" /></button>
+          <button type="button" className="button secondary" onClick={() => onOpen("land")}>Explore the land <ArrowRight className="size-4" aria-hidden="true" /></button>
         </section>
 
         <section className="story-step" data-step={2}>
           <p className="story-kicker">3 · The people</p>
           <h2>Ask simulated stakeholders how they would react.</h2>
-          <p className="story-lede">A MiroFish swarm of <strong className="tabular">{facts.agents}</strong> simulated stakeholders hears &ldquo;{swarm.news}&rdquo; and posts for five simulated days. A judge model scores each post for support of mining, 0–10. <strong className="tabular">{facts.judged}</strong> of {swarm.runs.length} planned runs are scored.</p>
+          <p className="story-lede">A MiroFish swarm of <strong className="tabular">{facts.agents}</strong> simulated stakeholders hears the same day-1 gold news and posts for five simulated days. A judge model scores each post for support of mining, 0–10. <strong className="tabular">{facts.judged}</strong> of {swarm.runs.length} planned runs are scored.</p>
           <div className="story-bars is-mood">
             {facts.groups.map((g) => (
               <div key={g.label}><span>{g.label}</span><i style={{ width: `${((g.mood ?? 0) / 10) * 100}%` }} /><span className="tabular">{g.mood?.toFixed(1) ?? "—"}</span></div>
             ))}
           </div>
           <p className="story-note">Baseline seed 1, days 3–5 mean support. Simulated, not a survey. The placebo, mirror and grounding checks fail, so the model does not let these scores move a price yet.</p>
-          <button type="button" className="button secondary" onClick={() => onOpen("swarm")}>See every run and check <ArrowRight className="size-4" aria-hidden="true" /></button>
+          <button type="button" className="button secondary" onClick={() => onOpen("crowd")}>See the crowd <ArrowRight className="size-4" aria-hidden="true" /></button>
         </section>
 
         <section className="story-step" data-step={3}>
@@ -127,12 +127,12 @@ export function PipelineStory({ data, features, onClose, onOpen }: { data: Showc
             ))}
           </div>
           <p className="story-note">{gate.interpretation}</p>
-          <button type="button" className="button secondary" onClick={() => onOpen("decision")}>Open the model <ArrowRight className="size-4" aria-hidden="true" /></button>
+          <button type="button" className="button secondary" onClick={() => onOpen("decide")}>See the call <ArrowRight className="size-4" aria-hidden="true" /></button>
         </section>
 
         <section className="story-step" data-step={4}>
           <p className="story-kicker">5 · What the model still needs</p>
-          <h2>No trade until the real inputs exist.</h2>
+          <h2>A BUY candidate isn&apos;t a trade until the real inputs exist.</h2>
           <p className="story-lede">With observed data only, the model returns no money figures. Its 30/90/180-day assignment arithmetic runs only on clearly labelled hypothetical inputs, until these are supplied:</p>
           <ol className="story-flow">
             {gaps.map((g) => <li key={g.id}><strong>{g.label}.</strong> {g.detail}</li>)}

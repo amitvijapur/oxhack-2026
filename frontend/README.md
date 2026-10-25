@@ -1,9 +1,10 @@
 # Tok River application
 
 The Next.js application presents **Land Arbitrage: Gold**, a Cesium explorer for
-Tok River, Alaska. The Land, Ground, Market, Swarm and Decision tabs connect pinned
-claim context, historical measurements, market sources and the canonical option
-workbench. The site opens on today: claims held now and the gold spot, then
+Tok River, Alaska. The side panel has three tabs. Decide (the default) shows the
+live gold price and each comparison site's call from the canonical gold-evidence
+screen, with no option dollar outputs. Land lists the sampled plots with a short
+plot card. Crowd charts the judged swarm scenarios. The site opens on today: claims held now and the gold spot, then
 plays the next 12 months forward using the model's descriptive 2020–25 gold
 trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
 the hypothetical demo contract (`projectionHorizons` in `src/lib/canonical-model.js`).
@@ -102,7 +103,8 @@ recoverable resources or an investable opportunity.
 
 ## Swarm view
 
-The Swarm tab (`src/components/explorer/tabs/SwarmTab.tsx`) reads the pinned
+The Swarm tab component (`src/components/explorer/tabs/SwarmTab.tsx`, no longer
+mounted in the panel; the Crowd tab charts the judged runs instead) reads the pinned
 MiroFish bundle `../model/tok-option/data/swarm-source.json` through one adapter,
 `src/lib/swarm-view.js`, and the model's own `inspectSwarmSource` checks. It
 shows support by group and day for every judged run, the three-baseline spread,
@@ -127,7 +129,9 @@ browser smoke check. No component holds swarm numbers of its own.
 
 ## Canonical decision model
 
-The Decision tab embeds `src/ModelWorkbench.jsx`, importing the pure
+The Decide tab reads only the gold-evidence screen (`evidenceByArea` in
+`src/lib/canonical-model.js`). The Decision tab component, no longer mounted in the
+panel, embeds `src/ModelWorkbench.jsx`, importing the pure
 `../model/tok-option/workbench.mjs` engine. The website always opens and resets
 in hypothetical demo mode, with no alternative financial modes. Total expected
 cash and change versus baseline are separate, and the current break-even

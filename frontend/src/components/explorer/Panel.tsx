@@ -2,13 +2,11 @@
 
 import { X } from "lucide-react";
 
-export type Tab = "land" | "ground" | "market" | "swarm" | "decision";
+export type Tab = "decide" | "land" | "crowd";
 export const TABS: { id: Tab; label: string }[] = [
+  { id: "decide", label: "Decide" },
   { id: "land", label: "Land" },
-  { id: "ground", label: "Ground" },
-  { id: "market", label: "Market" },
-  { id: "swarm", label: "Swarm" },
-  { id: "decision", label: "Decision" },
+  { id: "crowd", label: "Crowd" },
 ];
 
 /** The explorer's one side panel: plain text tabs, an optional plot card, then the tab's content. */
