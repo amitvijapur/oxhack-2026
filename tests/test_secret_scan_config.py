@@ -22,8 +22,8 @@ class CacheFingerprintExceptionTests(unittest.TestCase):
             target.write_text(json.dumps({field: value}) + "\n")
             return subprocess.run(
                 [SCANNER, "dir", "--config", str(ROOT / ".gitleaks.toml"),
-                 "--redact", "--no-banner", directory],
-                capture_output=True, text=True, check=False,
+                 "--redact", "--no-banner", "."],
+                cwd=directory, capture_output=True, text=True, check=False,
             ).returncode
 
     def test_cache_prompt_fingerprint_is_allowed(self):
@@ -31,6 +31,9 @@ class CacheFingerprintExceptionTests(unittest.TestCase):
 
     def test_same_key_outside_cache_is_detected(self):
         self.assertEqual(self.scan("app/settings.json"), 1)
+
+    def test_nested_cache_path_is_not_exempt(self):
+        self.assertEqual(self.scan("nested/swarm/records/judge_cache.jsonl"), 1)
 
     def test_credential_field_inside_cache_is_detected(self):
         self.assertEqual(self.scan("swarm/records/judge_cache.jsonl", field="api_key"), 1)
