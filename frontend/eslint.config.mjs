@@ -21,6 +21,7 @@ const eslintConfig = defineConfig([
     // Rebuilt Cesium runtime assets, copied from the pinned dependency.
     "public/vendor/**",
     "tests/browser-smoke.js",
+    "tests/browser-workflow-smoke.js",
   ]),
 ]);
 

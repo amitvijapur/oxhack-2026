@@ -13,7 +13,7 @@ async page => {
   await opening.waitFor({ timeout: 20000 });
   const years = page.getByRole('slider', { name: 'Year' });
   check(await years.getAttribute('min') === '2016' && await years.getAttribute('max') === '2031', 'Opening must run 2016 to 2031');
-  check(await page.getByRole('button', { name: 'Swarm' }).count() === 1, 'The opening must offer the Swarm button');
+  check(await page.getByRole('link', { name: 'Swarm' }).getAttribute('href') === '/swarm', 'The opening must link to the swarm page');
   await page.waitForFunction(() => document.querySelector('.explorer')?.dataset.earth === 'ready', null, { timeout: 60000 });
   await page.waitForFunction(() => document.querySelector('input[aria-label="Year"]')?.value === '2031', null, { timeout: 60000 });
   const future = await opening.innerText();
@@ -121,13 +121,6 @@ async page => {
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: /Explore the land/ }).waitFor();
 
-  // The opening's Swarm button opens the panel on the Crowd tab.
-  await page.getByRole('button', { name: 'Swarm' }).click();
-  await panel.waitFor();
-  check(await page.getByRole('tab', { name: 'Crowd' }).getAttribute('aria-selected') === 'true', 'The Swarm button must open the Crowd tab');
-  await page.keyboard.press('Escape');
-  await page.getByRole('button', { name: /Explore the land/ }).waitFor();
-
   // How it works: every step from data or the model, ending on what is still missing.
   await page.getByRole('button', { name: 'How it works' }).click();
   const story = page.getByRole('dialog', { name: 'How it works' });
@@ -144,9 +137,6 @@ async page => {
     check(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `Horizontal overflow at ${width}px`);
   }
   await page.screenshot({ path: 'frontend/artifacts/mobile.png' });
-
-  // The /swarm model output page was removed with its $2,000 option figures.
-  check((await page.request.get('http://127.0.0.1:3000/swarm')).status() === 404, 'The /swarm page must be gone');
 
   // Missing data: say so instead of showing a blank page.
   const broken = await page.context().newPage();

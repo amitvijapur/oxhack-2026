@@ -230,7 +230,7 @@ export function Explorer() {
         <AnimatePresence mode="wait">
           {mode === "timelapse" ? (
             <motion.div key="timelapse" className="layer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-              <Timelapse claims={data.claims} history={data.history} year={year} onYear={setYear} playing={playing} onPlaying={setPlaying} onExplore={() => explore()} onStory={() => { setPlaying(false); setStory(true); }} onCrowd={() => explore("crowd")}
+              <Timelapse claims={data.claims} history={data.history} year={year} onYear={setYear} playing={playing} onPlaying={setPlaying} onExplore={() => explore()} onStory={() => { setPlaying(false); setStory(true); }}
                 first={first} onFirst={setFirst} onNow={back} live={gold?.usd_per_oz ?? null}
                 follow={followAction} onFollow={setFollowAction} />
             </motion.div>

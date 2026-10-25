@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import Link from "next/link";
 import { ArrowRight, Crosshair, Network, RotateCcw } from "lucide-react";
 import { claimState, usd, type Claims, type History } from "@/lib/showcase";
 import { goldTrend } from "@/lib/canonical-model.js";
@@ -91,7 +92,7 @@ function StockLine({ values, upto, max, x, className }: {
  * The opening: the claims and gold price over the last ten years (or since 1975), playing by itself
  * up to today, then the gold price five years on, grown by the model's trend.
  */
-export function Timelapse({ claims, history, year, onYear, playing, onPlaying, onExplore, onStory, onCrowd, follow, onFollow, first, onFirst, onNow, live }: {
+export function Timelapse({ claims, history, year, onYear, playing, onPlaying, onExplore, onStory, follow, onFollow, first, onFirst, onNow, live }: {
   claims: Claims;
   history: History;
   year: number;
@@ -100,8 +101,6 @@ export function Timelapse({ claims, history, year, onYear, playing, onPlaying, o
   onPlaying: (playing: boolean) => void;
   onExplore: () => void;
   onStory: () => void;
-  /** Open the panel on the Crowd tab, the simulated stakeholders' mood. */
-  onCrowd: () => void;
   /** Whether the map camera follows where claims change while it plays. */
   follow: boolean;
   onFollow: (on: boolean) => void;
@@ -189,7 +188,7 @@ export function Timelapse({ claims, history, year, onYear, playing, onPlaying, o
           </button>
           {year !== LAST ? <button type="button" className="button secondary" onClick={onNow}>Jump to today</button> : null}
           <button type="button" className="button secondary" onClick={onStory}>How it works</button>
-          <button type="button" className="button secondary" onClick={onCrowd}><Network className="size-4" aria-hidden="true" /> Swarm</button>
+          <Link href="/swarm" className="button secondary"><Network className="size-4" aria-hidden="true" /> Swarm</Link>
         </div>
       </div>
 

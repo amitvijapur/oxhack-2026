@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import ModelWorkbench from "@/ModelWorkbench.jsx";
 import type { Sample } from "@/lib/types";
 import { TabBody } from "../TabBody";
@@ -14,6 +16,10 @@ export function DecisionTab({ features }: { features: Sample[] }) {
       { label: "Swarm runs and their checks: see the Swarm tab. Recorded scenario posts can be selected under an explicit hypothetical policy; their original research checks remain failed." },
     ]}>
       <EventStudy />
+      <Link href="/swarm" className="workflow-link">
+        <span><strong>Swarm workflow</strong><small>Follow the recorded data through scoring and model checks</small></span>
+        <ArrowUpRight size={18} aria-hidden="true" />
+      </Link>
       <ModelWorkbench features={features} />
     </TabBody>
   );
