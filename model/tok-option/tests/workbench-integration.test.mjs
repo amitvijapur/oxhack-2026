@@ -13,6 +13,9 @@ test('pinned branch evidence is visible before selecting demo assumptions', () =
   assert.equal(a.sourceAudit.land.summary.totalSamples, 33);
   assert.equal(inspectIntegratedSources('B').land.summary.activeClaimSamples, 20);
   assert.equal(a.sourceAudit.swarm.runs, null);
+  assert.equal(a.sourceAudit.swarm.status, 'fail');
+  assert.equal(a.sourceAudit.swarm.diagnosticRuns.runs.length, 6);
+  assert.equal(a.sourceAudit.swarm.rawReport.runs.length, 9);
   assert.equal(a.sourceAudit.swarm.diagnostics.find((d) => d.id === 'judge').status, 'pass');
   assert.equal(a.baseline, null);
   assert.equal(a.cashDiagnostics.mapped, null);
@@ -24,7 +27,7 @@ test('new sources preserve the baseline oracle and expose its negative median', 
   close(r.cashDiagnostics.mapped.medianCashUsd, -700);
   close(r.cashDiagnostics.mapped.breakEven.premiumHeadroomUsd, 7.6);
 });
-test('pilot-only source cannot fill a news scenario with zero or a synthetic score', () => {
+test('failed and confounded source report cannot fill a news scenario with zero or a synthetic score', () => {
   const r = run({ scenarioId: 'mine_approval' });
   assert.equal(r.status, 'PENDING_SWARM');
   assert.equal(r.signal.value, null);
@@ -32,6 +35,7 @@ test('pilot-only source cannot fill a news scenario with zero or a synthetic sco
   assert.equal(r.delta.expectedNetCashUsd, null);
   assert.equal(r.portfolio.totalRiskUsd, null);
   close(r.baseline.expectedNetCashUsd, 7.6);
+  for (const id of ['config_comparability', 'interview_coverage', 'grounding', 'placebo']) assert.equal(r.sourceAudit.swarm.diagnostics.find((d) => d.id === id).status, 'fail');
 });
 test('land context never populates real option economics', () => {
   const r = run({ mode: 'real', quantity: 1e9, hazardPer30Days: 1 });
