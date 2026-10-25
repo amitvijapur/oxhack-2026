@@ -42,12 +42,12 @@ test('Decide keeps evidence eligibility distinct from whole-contract economic re
   const a = render('A');
   const b = render('B');
   for (const html of [a, b]) {
-    for (const text of ['SKIP', 'hypothetical lot', '$30,000', '$50', '$30,050.00', '-97.65%', '-$29,342.40', '$1,500.00', '$2,000', '$9,999', 'Live spot is separate', 'Not a current quote', 'Detailed hypothetical model', 'event model did not beat baseline']) assert.ok(html.includes(text), text);
+    for (const text of ['Skip hypothetical contract', 'per whole contract', '$30,000', '$50', '$30,050.00', '-97.65%', '-97.64%', '-$29,342.40', '-$29,339.35', '$1,500.00', '$1,506.25', '$2,000', '$9,999', 'The live gold quote above is not used here', 'not a current Tok quote', 'Detailed hypothetical model', 'event model did not beat baseline', 'Required resale hurdle for a 25% return', '$77,022.34', 'Hypothetical fund', 'lifetime cohort commitments', 'Tibbs', 'Northway']) assert.ok(html.includes(text), text);
     assert.ok(!html.includes('BUY candidate'));
   }
-  assert.ok(a.includes('Evidence passes'));
+  assert.ok(a.includes('Screen passed'));
   assert.ok(a.includes('25 of 33'));
-  assert.ok(b.includes('Evidence fails'));
+  assert.ok(b.includes('Screen failed'));
   assert.ok(b.includes('16 of 34'));
   assert.ok(!a.includes('id="option-model"'), 'Detailed synthetic controls remain collapsed on entry');
 });
@@ -55,7 +55,7 @@ test('Decide keeps evidence eligibility distinct from whole-contract economic re
 
 test('an incomplete evidence screen is never described as a failed screen', () => {
   const html = render('A', []);
-  assert.ok(html.includes('Evidence incomplete'));
-  assert.ok(html.includes('More classified samples are needed before it can pass or fail'));
+  assert.ok(html.includes('Screen incomplete'));
+  assert.ok(html.includes('No geological eligibility is established until the evidence is sufficient and unambiguous'));
   assert.ok(!html.includes('A failed evidence screen independently rejects entry'));
 });

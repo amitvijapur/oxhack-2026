@@ -62,7 +62,7 @@ export function WorkflowTab() {
           </li>
           <li>
             <strong>Gold forecast</strong>
-            <p>The signal would nudge an assumed gold price by at most 7%. The link is uncalibrated, so the call doesn&apos;t use it yet.</p>
+            <p>The pinned workflow snapshot uses a 7% cap on the assumed gold response. Decide&apos;s compact demo can apply recorded contrasts with its separately displayed 1% cap and 50% retention. Both transfers are hypothetical and uncalibrated, not validated forecasts.</p>
           </li>
           <li>
             <strong>Option value</strong>

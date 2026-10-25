@@ -68,7 +68,7 @@ export function CrowdTab({ crowd }: { crowd: Crowd }) {
         title="How the crowd's mood moved"
         lede={<>Each group&apos;s mean support for mining, 0 to 10, over five simulated days. The scenario news lands at the start of day 3 (dashed line).</>}
       >
-        <p className="note crowd-honest">Exploratory: an unrelated news item moved the mood too, so the call doesn&apos;t use the crowd yet.</p>
+        <p className="note crowd-honest">Exploratory: an unrelated news item moved the mood too. The geological screen does not use the crowd. Decide can apply recorded contrasts to hypothetical economics, but the price response is uncalibrated.</p>
         <ul className="crowd-legend">
           {crowd.scenarios.map((s) => (
             <li key={s.id} data-s={s.id}>

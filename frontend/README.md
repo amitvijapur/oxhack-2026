@@ -2,16 +2,33 @@
 
 The Next.js application presents **Orecast**, a Cesium explorer for
 Tok River, Alaska. The side panel has four tabs. Decide (the default) shows the
-live gold spot, the observed gold-evidence screen and a separately labelled
-hypothetical whole-contract cash decision. Land lists the sampled plots with a short
-plot card. Crowd charts the judged swarm scenarios, and Swarm explains the
-recorded workflow with a link to the full calculation page. The site opens on today: claims held now and the gold spot, then
+live gold spot and each comparison site's geological screen, followed by a
+separate hypothetical whole-contract financial decision with percentage returns,
+cash risks and break-even assumptions. Land keeps all sampled plots in a compact
+grid beside the selected context. Crowd charts the judged swarm scenarios, and
+Swarm explains the recorded workflow with a link to the full calculation page.
+The site opens on today: claims held now and the gold spot, then
 plays the next 12 months forward using the model's descriptive 2020–25 gold
 trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
 the hypothetical demo contract (`projectionHorizons` in `src/lib/canonical-model.js`).
 It is labelled as a projection, not a prediction. **History** opens the claims
 time-lapse for the last ten years, or since 1975. Only the current Esri imagery
 is used; dated satellite layers were removed for speed and consistency.
+
+## Land overview
+
+Land displays all 57 plot IDs at once in a compact grid, coloured by the measured
+gold class. The selected context stays alongside on desktop and beneath the grid
+on phones. All/Held and the sort order also control previous/next navigation.
+Arrow keys move within the grid; Enter or Space selects a focused plot. The map,
+selected plot and Decide handoff retain the same identity.
+
+The normal Land layout fits the overview and core evidence without scrolling.
+Expanded source/deal context, enlarged text or short viewports retain a safe
+scroll fallback. **View on map** opens the selected location in the full map;
+its Details action returns to Land. Terrain in 3D and the DNR record remain
+available. Sample squares are not legal parcels, sediment ppm is not a resource
+estimate, and comparable project deals are not option resale evidence.
 
 ## Swarm workflow
 
@@ -130,18 +147,37 @@ browser smoke check. No component holds swarm numbers of its own.
 
 ## Canonical decision model
 
-The Decide tab distinguishes the observed gold-evidence screen (`evidenceByArea`)
-from the canonical 90-day hypothetical cash decision. Its **Detailed hypothetical
-model** disclosure embeds `src/ModelWorkbench.jsx`, using the same pure
-`../model/tok-option/workbench.mjs` engine. Switching sites also resets the detailed
-calculator to that area. The website calculator opens and resets
-in hypothetical demo mode, with no alternative financial modes. Total expected
-cash and change versus baseline are separate, and the current break-even
-premium comes from the canonical cash diagnostics. The engine's programmatic
+The Decide tab presents two distinct layers. The geological screen
+(`evidenceByArea` in `src/lib/canonical-model.js`) reports passed, failed or
+incomplete, never a buy recommendation. Selecting a land plot uses its area's
+screen, not a plot-specific valuation. `FinancialDecision.jsx` then calls the
+same pure `../model/tok-option/workbench.mjs` engine through the presentation
+adapter `src/decide-financial.mjs`, with the selected site and 30/90/180-day
+horizon. The preset inherits the current $30,000 whole-contract historical
+initial-payment reference, plus assumed fees. This does not make the contract
+profitable. Economic action comes from the engine and cannot override a failed
+evidence gate.
+
+The financial section is always hypothetical. It shows expected cash return,
+baseline delta in percentage points, no-sale and negative-net-cash probability,
+median/worst cash returns, canonical break-even thresholds, and the gross
+assignment proceeds required for a 25% expected cash return. That target hurdle
+is not a forecast or resale quote. Historical payment sources, separate
+obligations and current capital limits remain inspectable in the whole-contract
+cost disclosure. Monetary assumptions retain USD units. The $2,000/oz model
+input is separate from the live spot quote. An unsold mark is not a cash receipt.
+Missing scenarios stay unavailable.
+
+The **Detailed hypothetical model** disclosure embeds `src/ModelWorkbench.jsx`,
+using the same pure engine. Switching sites resets the detailed calculator to
+that area. It opens and resets in hypothetical demo mode only. A separate
+historical-validation disclosure retains the negative event-pilot result.
+The engine's programmatic
 pending/real modes still retain null financial outputs.
 
-**Use existing swarm results** compares the recorded Claude approval/blockage
-posts with matching sports placebo inside hypothetical economics. It retains
+Decide's recorded approval/blockage scenarios compare simulated posts with
+matching sports placebo inside hypothetical economics. They retain the same
+1% response cap and 50% retention as the synthetic preset. They retain
 failed research checks and source identity. Strict source imports still require
 readiness; no missing event is filled with an invented simulation. Historical
 CAGR is an optional assumption, not a forecast.
@@ -154,7 +190,7 @@ configured by this integration.
 
 ### Hypothetical gold forecast
 
-The Decide calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The cap defaults to 7%, affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.
+The Decide calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The compact Decide preset uses a 1% cap and 50% retention; the recorded workflow snapshot states its separate 7% cap. The cap affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.
 
 ### Current algorithm calculation snapshot
 

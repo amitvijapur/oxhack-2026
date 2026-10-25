@@ -113,26 +113,26 @@ export function PipelineStory({ data, features, onClose, onOpen }: { data: Showc
               <div key={g.label}><span>{g.label}</span><i style={{ width: `${((g.mood ?? 0) / 10) * 100}%` }} /><span className="tabular">{g.mood?.toFixed(1) ?? "—"}</span></div>
             ))}
           </div>
-          <p className="story-note">Baseline seed 1, days 3–5 mean support. Simulated, not a survey. The placebo, mirror and grounding checks fail, so the model does not let these scores move a price yet.</p>
+          <p className="story-note">Baseline seed 1, days 3–5 mean support. Simulated, not a survey. The placebo, mirror and grounding checks fail. Decide can explore matched recorded contrasts with an explicitly hypothetical gold response; those research failures remain unchanged.</p>
           <button type="button" className="button secondary" onClick={() => onOpen("crowd")}>See the crowd <ArrowRight className="size-4" aria-hidden="true" /></button>
         </section>
 
         <section className="story-step" data-step={3}>
           <p className="story-kicker">4 · The evidence gate</p>
           <h2>Screen each area on measured gold first.</h2>
-          <p className="story-lede">The team model classifies every primary gold assay against <strong className="tabular">{gate.rule.thresholdPpm} ppm</strong>. An area passes when at least {Math.round(gate.rule.minimumQualifyingFraction * 100)}% of at least {gate.rule.minimumClassifiedSamples} classified samples clear it.</p>
+          <p className="story-lede">The team model classifies every primary gold assay against <strong className="tabular">{gate.rule.thresholdPpm} ppm</strong>. An area needs at least {gate.rule.minimumClassifiedSamples} classified samples, with at least {Math.round(gate.rule.minimumQualifyingFraction * 100)}% of all its samples confirmed to clear the threshold.</p>
           <div className="story-bars">
             {gate.areas.map((a) => (
               <div key={a.area}><span>Area {a.area}</span><i style={{ width: `${(a.pass / (a.total || 1)) * 100}%` }} /><span className="tabular">{a.pass}/{a.total} · {a.gate}</span></div>
             ))}
           </div>
           <p className="story-note">{gate.interpretation}</p>
-          <button type="button" className="button secondary" onClick={() => onOpen("decide")}>See the call <ArrowRight className="size-4" aria-hidden="true" /></button>
+          <button type="button" className="button secondary" onClick={() => onOpen("decide")}>See the screen and financial demo <ArrowRight className="size-4" aria-hidden="true" /></button>
         </section>
 
         <section className="story-step" data-step={4}>
           <p className="story-kicker">5 · What the model still needs</p>
-          <h2>A BUY candidate isn&apos;t a trade until the real inputs exist.</h2>
+          <h2>A passed geological screen is only the first gate.</h2>
           <p className="story-lede">With observed data only, the model returns no money figures. Its 30/90/180-day assignment arithmetic runs only on clearly labelled hypothetical inputs, until these are supplied:</p>
           <ol className="story-flow">
             {gaps.map((g) => <li key={g.id}><strong>{g.label}.</strong> {g.detail}</li>)}
