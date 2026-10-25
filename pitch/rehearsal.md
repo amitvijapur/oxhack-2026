@@ -1,6 +1,6 @@
 # Five-minute pitch rehearsal
 
-Team rehearsal guide, 25 October 2026. The algorithm name stays open. Options remain **Stratempo**, **StrataSignal**, **LodeLogic** and **Chronolith**. The deck uses the neutral title **Mineral option timing**.
+Team rehearsal guide, 25 October 2026. The project is named **Orecast**.
 
 ## What the judges should remember
 
@@ -12,7 +12,7 @@ Use these as talking points. Keep your own wording and leave time to point at th
 
 | Slide | Time | Cumulative | Speaking and visual cue |
 | --- | --- | --- | --- |
-| 1. Mineral option timing | 20 seconds | 0:20 | Introduce Tok River and the question of finding a buyer before time runs out. The ring cover introduces the neutral project title; geography appears later. |
+| 1. Orecast | 20 seconds | 0:20 | Introduce Tok River and the question of finding a buyer before time runs out. The ring cover introduces the project name; geography appears later. |
 | 2. Three clocks | 35 seconds | 0:55 | Explain evidence availability, changing conditions and time to exit. Say that we assume an option we can transfer to a future buyer before expiry. |
 | 3. Observed evidence | 35 seconds | 1:30 | Point to one sample and the 67-record source. Separate sediment evidence from the recoverable ounces assumed in the economics. |
 | 4. Algorithm | 55 seconds | 2:25 | Read the layers from top to bottom: evidence, assumed option, scenario and exit calculation. Explain that the final output includes reasons and a skip state. |

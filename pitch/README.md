@@ -1,4 +1,4 @@
-# Mineral option timing pitch
+# Orecast pitch
 
 Approved nine-slide pitch deck for team editing. The first seven slides form a five-minute presentation, with timings of 20, 35, 35, 55, 50, 60 and 45 seconds. The final two slides are appendices for questions.
 
@@ -7,6 +7,23 @@ Approved nine-slide pitch deck for team editing. The first seven slides form a f
 Pull the latest `main`, then open [oxhack-pitch.pptx](oxhack-pitch.pptx) in PowerPoint or another PPTX editor. Foreground text, diagrams, the slide 6 chart and the appendix tables are editable native objects. Screenshots remain images. Save team edits in this file and submit them through the repository's usual branch and pull-request workflow. No special authoring runtime is required to edit the PPTX.
 
 Use [oxhack-pitch.pdf](oxhack-pitch.pdf) as the fixed appearance reference. [preview.png](preview.png) shows all nine slides. Check an edited deck against the PDF before presenting, especially after importing it into a different slide editor. The files preserve the final approved deck byte-for-byte; no earlier rejected deck versions are included.
+
+## Edits after approval
+
+25 October 2026, Arjin. Changes to the approved deck:
+
+- **Section numbers:** slides 5–7 now read 04, 05 and 06. Before, slides 4 and 5 both read 03.
+- **Slide 5:** the swarm screenshot is shown uncropped, so its edge labels are no longer cut. The terrain image no longer runs off the slide edge.
+- **Slide 3:** added land context from [research/tok-land](../research/tok-land/README.md):
+  - A: 25/33 samples pass the gold screen, and 2 sit in active claims.
+  - B: 16/34 pass, and 20 sit in active claims.
+  - A caption notes that A was staked in 2011 and mostly dropped, and that the adjacent Delta block was agreed for sale in September 2026.
+  - The speaker notes say the same.
+- **Slide 7 speaker note:** the demo address is now port 3000.
+- **Slide 2:** says who the problem is for: an investor holding a mineral option who must find a buyer before it expires.
+- **Slide 1:** the title is now **Orecast**, and a team line gives each person's part. The speaker notes say the same.
+
+In the PDF, slides 1, 2, 3 and 5 were re-rendered with LibreOffice using DM Sans. On slides 6 and 7 only the section badge was replaced. All other pages are the approved originals.
 
 ## Fonts and appearance
 
@@ -20,7 +37,7 @@ The exported lightweight face is named `DM Sans Light`. An editor may substitute
 
 Run the team app on its default port 3000 using the repository setup instructions. Captures were made from a newer local prototype, so the exact controls and optional financial comparison may differ from current `main`. Rehearse the actual revision before attempting the live premium change; use the PDF if it differs. The notes in the unchanged PPTX retain the original capture's local port, while this guide and the portable JSON use the team default.
 
-The neutral title remains **Mineral option timing**. **Stratempo**, **StrataSignal**, **LodeLogic** and **Chronolith** are provisional options, not approved names.
+The project is named **Orecast**. It replaces the neutral working title, Mineral option timing, and the earlier name options.
 
 The prototype connects observed evidence, recorded simulations and assumed assignment economics. Financial results are hypothetical; the package does not establish available rights, recoverable resources, calibrated liquidity or measured investment edge. Keep the provenance labels and failed research checks when editing.
 

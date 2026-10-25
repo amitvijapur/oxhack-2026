@@ -28,7 +28,7 @@ write access.
 The [five-minute pitch deck and editing guide](pitch/README.md) includes the
 [editable PowerPoint](pitch/oxhack-pitch.pptx), [PDF](pitch/oxhack-pitch.pdf),
 speaker notes, rehearsal flow and source images. Start from the PPTX when
-revising the deck. The algorithm name remains open.
+revising the deck. The project is named Orecast.
 
 ## Event brief
 

@@ -1,9 +1,9 @@
 [
   {
     "slide": 1,
-    "title": "Mineral option timing",
+    "title": "Orecast",
     "seconds": 20,
-    "body": "We are investigating Tok River, Alaska. We built a way to investigate a mineral opportunity and test what could change before you find a buyer. Our prototype brings geological evidence, simulated reactions and exit timing into one decision you can inspect. The title is neutral while our algorithm name remains open.",
+    "body": "We are investigating Tok River, Alaska. We built a way to investigate a mineral opportunity and test what could change before you find a buyer. Our prototype brings geological evidence, simulated reactions and exit timing into one decision you can inspect. The project is called Orecast. Our team: Amit built the evidence packs and the app, Salman the decision model, Muhd the stakeholder simulations and Arjin the land and claim data.",
     "sources": [
       "Current explorer design and terrain capture from the local prototype.",
       "Satellite terrain is geographic context. Alaska DGGS sediment assays are a separate evidence source.",
@@ -32,11 +32,12 @@
     "slide": 3,
     "title": "The evidence starts with measured samples",
     "seconds": 35,
-    "body": "These are 67 measured sediment samples from Alaska DGGS. We preserve their primary assay qualification, retests and provenance. A contains 33 samples, B 34, and both have checked land-source context. The canonical Au screen uses 0.01 ppm, at least ten classified samples and a qualifying lower bound of 50%. A has 25/33 passing; B has 16/34 and fails. The screen does not convert concentration into recoverable ounces. Dots, claim overlaps and illustrative squares do not establish a deposit or available investment. The map’s 57 sampled areas are not tradable listings.",
+    "body": "These are 67 measured sediment samples from Alaska DGGS. We preserve their primary assay qualification, retests and provenance. A contains 33 samples, B 34, and both have checked land-source context. The canonical Au screen uses 0.01 ppm, at least ten classified samples and a qualifying lower bound of 50%. A has 25/33 passing; B has 16/34 and fails. The screen does not convert concentration into recoverable ounces. Dots, claim overlaps and illustrative squares do not establish a deposit or available investment. The map’s 57 sampled areas are not tradable listings. Land context: only 2 of A's 33 samples sit inside an active state claim. A was staked in 2011 and 112 of those 114 claims are now closed. B has 20 of 34 samples inside active claims, mostly Contango's. Next to A, Agnico Eagle agreed on 8 September 2026 to sell the 249-claim Delta project to Vizsla Copper. So the stronger gold evidence sits on the less-claimed ground.",
     "sources": [
       "https://doi.org/10.14509/29688",
       "https://arcgis.dnr.alaska.gov/arcgis/rest/services/OpenData/NaturalResource_StateMiningClaim/FeatureServer",
       "https://github.com/amitvijapur/oxhack-2026/tree/34eaf1d6e87fedd54c46b04dec093b0cc2b18581/research/tok-land",
+      "https://www.sec.gov/Archives/edgar/data/0000002809/000110465926106256/tm2625112d1_ex99-1.htm",
       "Screenshot: current local explorer. Basemap attribution remains separate from DGGS.",
       "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",

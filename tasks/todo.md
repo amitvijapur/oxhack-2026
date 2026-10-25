@@ -1,5 +1,16 @@
 # OXHack preparation
 
+## Edit the pitch deck, 25 October 2026
+
+Human owner: Arjin. Scope: `pitch/` only. Amit asked for general edits to the deck.
+
+- [x] Fix the section numbers on slides 5–7, the cropped images on slide 5 and the demo port in the slide 7 note.
+- [x] Add the Site A/B land context to slide 3 and its notes. See [pitch/README.md](../pitch/README.md#edits-after-approval).
+- [x] Say who the problem is for on slide 2, and add the team line to slide 1.
+- [x] Validate the PPTX, re-render the changed slides and check them visually.
+
+The PPTX package checks passed. Native PowerPoint opening is still untested.
+
 ## Share the five-minute pitch deck, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. Scope is the approved Palantir-style
