@@ -1,121 +1,134 @@
-# OXHack 2026
+<p align="center">
+  <img src="brand/orecast/readme/cover.png" alt="Orecast. Mineral intelligence over time. Built at OXHack 2026 around 30, 90 and 180-day decision horizons." width="100%">
+</p>
 
-A team hackathon project built around the mandatory **TIME** theme. The prototype combines a Tok River, Alaska land and evidence explorer with a
-canonical mineral-interest assignment model. The Cesium globe connects historical
-claims, 67 measured sediment samples, market context and six swarm score sets.
-The Decide tab keeps missing trade inputs and failed simulation diagnostics
-visible. Financial calculations require explicitly selected hypothetical assumptions.
+# Orecast
 
-## Repository and shared workflow
+**Mineral intelligence over time.**
 
-The repository is [amitvijapur/oxhack-2026](https://github.com/amitvijapur/oxhack-2026), private initially. Amit uses
-Codex with Cortex as his personal router. Teammates use Claude Code with their
-existing skills. Everyone follows [the shared rules](AGENTS.md); no additional
-workflow installation is required. Claude Code imports those rules through
-`CLAUDE.md`.
+[Explore the demo](https://oxhack-land-arbitrage.vercel.app) · [Follow the swarm](https://oxhack-land-arbitrage.vercel.app/swarm) · [Pitch PDF](pitch/orecast/output/orecast-pitch.pdf) · [Editable deck](pitch/orecast/output/orecast-pitch.pptx) · [Run locally](#run-locally)
 
-Use short task branches, one owner per task, and frequent integration into a
-runnable `main`. Track ownership, plans, and outcomes in [the task list](tasks/todo.md).
-Amit owns integration. Module ownership and remaining work are recorded in the task list.
+Orecast brings geological evidence, simulated stakeholder reactions and time-dependent
+contract economics into one inspectable decision. Explore Tok River, Alaska, follow
+news through a stakeholder swarm, and see whether a hypothetical mineral-interest
+option is worth acquiring and assigning before expiry.
 
-Team GitHub accounts: [amitvijapur](https://github.com/amitvijapur),
-[meep-boop](https://github.com/meep-boop), [arjn15](https://github.com/arjn15),
-and [iloveclouduk](https://github.com/iloveclouduk). All teammates have accepted
-write access.
+Built at **OXHack 2026** for the theme **TIME**.
 
-## Pitch deck
+| Real ground | Recorded simulations | Decision windows |
+| :--- | :--- | :--- |
+| **67** historical sediment samples | **6** scored swarm runs | **30 / 90 / 180** days |
 
-The algorithm is named **Orecast**. The [current deck and editing guide](pitch/orecast/README.md)
-includes the [editable PowerPoint](pitch/orecast/output/orecast-pitch.pptx),
-[PDF](pitch/orecast/output/orecast-pitch.pdf), speaker notes, rehearsal flow and
-source images. The [brand kit](brand/orecast/BRAND.md) includes transparent wordmarks,
-fonts and palette tokens. The deck reflects the gold-first model and retains
-the approved Palantir presentation style.
+<p align="center">
+  <a href="https://oxhack-land-arbitrage.vercel.app">
+    <img src="brand/orecast/readme/explorer.jpg" alt="Orecast's deployed Tok River explorer with the Decide, Land, Crowd and Swarm tabs. Site A passes the evidence screen while its hypothetical contract receives SKIP." width="100%">
+  </a>
+</p>
 
-## Event brief
+*The deployed explorer. Live spot is capture-time context, separate from the model's
+fixed gold assumption. Imagery: Esri, Maxar and Earthstar Geographics. Terrain: Mapzen.*
 
-Read the [supplied Granola ceremony notes](research/opening-ceremony-notes.md)
-for the working event brief and initial brainstorm. Unverified sponsor names,
-deadlines, and eligibility details are labelled in those notes. The
-[event context](research/event-context.md) adds the official schedule, the
-Sunday 12:00 hacking cutoff, prize rubrics, and corrected sponsor names from
-the slide deck. Every idea the team has scored so far, with status and the
-reasons ideas were dropped, is in [the ideas list](research/all-ideas.md), and the deep check of the
-shortlist is in [the idea scores](research/idea-scores.md).
+## A promising sample is only the beginning
 
-## Checks and merging
+The interesting question is what happens between finding a signal and being able to
+act on it. Orecast connects the ground, the story and the clock. A geological screen
+can pass while a contract still fails its cash test. A simulated news reaction can
+change an assumed gold price while the option remains a **SKIP**.
 
-Follow the [team workflow and security guide](docs/team-workflow.md).
-CI checks repository hygiene, workflow validity, committed secrets, application
-tests, type checks and the production build. See the workflow guide for required
-check names and merge requirements.
-Keep each PR small. Teammate review is optional; merge after the required CI
-checks pass on the current branch and all conversations are resolved.
+Every step can be inspected. Evidence retains its source, simulations retain their
+run identities, and the financial model exposes its assumptions and no-sale outcome.
 
-## Deploying
+## Take a tour
 
-Every push to `main` that passes CI deploys to
-<https://oxhack-land-arbitrage.vercel.app> through
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), whoever pushed.
-Pull requests never deploy and never receive the credentials. To redeploy by
-hand, run **Actions → Deploy → Run workflow** on `main`.
+| View | What to explore |
+| :--- | :--- |
+| **Decide** | Compare the A/B evidence screens with the hypothetical whole-contract cash decision. Expand the model to adjust assumptions or inspect the historical validation. |
+| **Land** | Explore sediment measurements, checked claim records and local context on the 3D globe. Select a plot and inspect its source record or terrain. |
+| **Crowd** | Compare five stakeholder groups across simulated news scenarios and days. The recorded mood charts keep their simulated origin visible. |
+| **Swarm** | Walk through inputs, stakeholders, support scores, the signal, gold forecast and option value. Open the full workflow for the calculation trace. |
 
-The workflow needs three repository secrets, set once by the repository owner:
+The separate **[/swarm workflow](https://oxhack-land-arbitrage.vercel.app/swarm)**
+replays pinned results and shows how each stage feeds the next. Its saved calculations
+remain separate from edits in the live calculator.
 
-```sh
-gh secret set VERCEL_TOKEN -R amitvijapur/oxhack-2026   # paste a Vercel token for iloveclouduks-projects
-gh secret set VERCEL_ORG_ID -R amitvijapur/oxhack-2026 -b team_E7NK1Ow5swOQOAdaFPLPSri1
-gh secret set VERCEL_PROJECT_ID -R amitvijapur/oxhack-2026 -b prj_2XwaSZaMWlOgZ4ULciWz0xAyNyMo
+## From evidence to a decision
+
+```mermaid
+flowchart LR
+    S[Simulated support] --> G[Hypothetical gold]
+    G --> V[Mineral and assignment value]
+    V --> C[Sale and no-sale cash]
+    T[Assumed terms and holding time] --> C
+    C --> D[Cash decision]
+    E[Observed evidence screen] --> D
+    classDef default fill:#0a0a0a,stroke:#737373,color:#fafafa
+    classDef decision stroke:#22c55e,stroke-width:2px
+    class D decision
 ```
 
-The token comes from <https://vercel.com/account/tokens> (scope
-`iloveclouduks-projects`); share it privately, never in chat or Git. Vercel's
-own Git connection is not used: on the Hobby plan it skips commits by anyone but
-the account owner on a private repository.
+The shared engine in [`model/tok-option/`](model/tok-option/README.md) powers the
+interface, saved calculation snapshots and export CLI. It models **assignment before
+expiry**, with sale proceeds, transaction costs and a separate no-sale branch.
+Unsold model value stays separate from cash. The application does not execute trades.
 
-## Optional local tools
+**Time changes the answer.** The opening connects claim and gold-price history to a
+labelled projection. Simulations track reactions over five simulated days. The model
+compares 30, 90 and 180-day sale windows, while expiry, data availability and the chance
+of remaining unsold constrain the decision. Historical evaluation uses chronological
+holdouts rather than shuffled observations.
 
-The [selected tools from Muhammad's kit](docs/optional-team-kit.md) provide a
-staged secret scan, manual `/oxhack-debug` and `/oxhack-cleanup` skills for Claude
-Code, and an explicitly loaded Claude permission profile. The Git hook and deny
-profile are inactive until each teammate chooses to enable them. These tools
-add no review requirement or separate workflow. Cortex remains Amit's personal
-router.
+### What the current model actually says
 
-## Gold evidence packs
+The active whole-contract example uses a **US$30,000 historical initial-payment
+reference**, plus a separately assumed **US$50 entry fee**. The reference comes from
+two selected historical signing payments; current contract quotes and the full cost
+of those agreements have not been established.
 
-**Team download:** [Get both gold packs and the original source](research/gold-data-downloads.md). The named release assets include the ignored data files; a Git pull alone does not.
+At the fixed US$2,000/oz model assumption, the no-event 90-day baseline gives US$1,500
+conditional assignment proceeds and **−US$29,342.40 expected net cash**, or **−97.65%**
+on US$30,050 upfront capital. Its decision is **SKIP**, even when geological evidence
+passes. The displayed live gold observation is separate from this assumed input.
 
-Amit owns both current packs. [The verified build results](research/gold-evidence-results.md) list the data files, archives and checks. [The evidence contract](research/gold-evidence-contract.md) records the official source, exact regeneration commands, field meanings and future land-record join requirements. [The source catalogue](research/gold-source-catalog.json) pins the publication, download, metadata and file hashes; [the selection](research/gold-site-selection.json) freezes A33/B34. The [feasibility report](research/us-gold-dataset-feasibility.md) explains why this source is suitable for the demo and its limits.
+The US$77,022.34 assignment amount needed for a 25% expected return is a **target
+hurdle**, separate from the model's valuation. Returns cover the selected holding
+period and are not annualized. The [model guide](model/tok-option/README.md) and
+[contract-pricing research](research/orecast-contract-pricing/README.md) explain the
+arithmetic, capital limits and remaining obligations.
 
-Use Python 3 with the standard library. No framework is required. The contract's commands generate `data/generated/tok-gold/site-a` and `site-b` and run the focused gold tests. Each pack includes original records, normalized CSV, GeoJSON points, separately qualified primary/retest gold assays, secondary lithium, source provenance and an unevaluated land-match template.
+## Know what each layer means
 
-Raw sources and generated packs are ignored by Git. A pull supplies code and documentation; transfer the portable handoff or download the pinned source separately. Pinned land-source context and MiroFish outputs are integrated separately.
-Checked claim overlaps do not establish available contracts or mineral rights.
+| Layer | Provenance and limits |
+| :--- | :--- |
+| **Observed** | Historical sediment assays, checked claim records and attributed commodity history. A/B are comparison areas. Sample concentration does not establish recoverable ounces, available land or mineral rights. |
+| **Simulated** | Six scored runs across five stakeholder groups, including three baseline seeds. Recorded scores are not surveyed opinion. Missing scenarios and failed research checks remain visible. |
+| **Assumed** | Contract economics, recoverable quantity, sale probability and support-to-gold response. These make the mechanism reproducible; they do not establish calibrated predictive skill. |
 
-### Earlier copper prototype
+A separate [12-announcement historical pilot](research/event-study/RESULTS.md) tested
+an event adjustment against simple baselines. It performed worse on the five-event
+holdout. That negative result remains part of the demonstration. The
+[remaining-work guide](docs/remaining-work.md) records the data and validation needed
+for a useful real trade assessment.
 
-The Arizona soil extractor and its artifacts remain available as the earlier prototype. Their commands and definitions are in [the soil contract](research/soil-evidence-contract.md). They are not the current gold/lithium packs.
+## Run locally
 
-## Application setup
-
-The current application uses Next.js 16.4.3, React 19.3.1 and Cesium 1.146.0.
-Use Node.js 24 and the committed npm lockfile:
+Use **Node.js 24** and npm. The committed snapshots support the local demo without
+API keys, a Convex account or the full raw data packs.
 
 ```sh
-cd frontend
+git clone https://github.com/amitvijapur/oxhack-2026.git
+cd oxhack-2026/frontend
 npm ci --ignore-scripts
 npm run dev
 ```
 
-Open [the local application](http://127.0.0.1:3000/). Development and production
-servers bind to loopback. The bundled evidence and showcase snapshots support a
-fresh clone without the ignored full packs or a Convex account. Satellite imagery,
-terrain, optional geology tiles and the live gold-price observation require
-network access. No map key is required for the default globe. See the
-[frontend guide](frontend/README.md) for optional configuration and source limits.
+Open **[127.0.0.1:3000](http://127.0.0.1:3000/)**. Satellite imagery, terrain and live
+gold observations require network access. The default globe needs no map key.
+The [frontend guide](frontend/README.md) covers optional configuration and display
+rules. Optional publishing and storage are documented in [infrastructure](docs/infrastructure.md).
 
-From `frontend/`, run the application checks:
+### Verify the build
+
+From `frontend/`:
 
 ```sh
 npm test
@@ -123,112 +136,72 @@ node --test ../model/tok-option/tests/*.test.mjs
 npm run test:backend
 npm run typecheck:backend
 npm run typecheck
+npm run lint
 npm run build
 npm start
 ```
 
-From the repository root, check the publisher and inspect canonical outputs:
+From the repository root:
 
 ```sh
-python3 -m unittest tests/test_publish_run.py
+python3 -m unittest discover -s tests -p test_publish_run.py
 node model/tok-option/audit.mjs
 node model/tok-option/demo.mjs
-node model/tok-option/export.mjs > /tmp/tok-pending.json
-python3 scripts/publish_run.py decision /tmp/tok-pending.json --dry-run
-```
-
-`npm test` covers the frontend evidence, API and presentation contracts. The
-separate model suite exercises the shared decision engine. Backend tests use a
-local Convex mock. `npm start` serves the built Next.js app locally; it does not
-create a hosted deployment. No hosted deployment or credentials are configured
-by this repository integration.
-
-## Model, architecture and remaining work
-
-Use the explorer's **Decide** tab for source readiness, hypothetical controls,
-cash outcomes and swarm diagnostics. `model/tok-option/` is the sole decision
-engine used by the interface and export CLI. It models assignment over 30, 90 or
-180 days, with an explicit no-sale branch. It does not exercise an option or
-execute trades.
-
-The website option calculator opens and resets to a small-response synthetic
-demo. Its headline is **Expected cash return on upfront capital**, calculated as
-expected net cash divided by premium, entry fee and unavoidable commitments.
-Returns cover the selected holding period and are not annualized. Changes between
-returns use percentage points; gold-price changes use their own price denominator.
-Price/cost inputs and the worked cash arithmetic retain USD units.
-
-The active demo uses one indivisible whole-contract lot with a US$30,000 initial
-payment. This is the scale of two selected historical signing payments, Tibbs
-2017 and Northway 2018, rather than a current Tok quote or full contract cost.
-The [regional pricing workup](research/orecast-contract-pricing/README.md) records
-primary sources, remaining obligations and the comparison limits. An assumed
-US$50 entry fee puts US$30,050 upfront at risk before any additional obligations.
-The assumed exit fee is US$50. Actual scholarship, work, royalty and recurring
-commitments need separate inputs.
-
-Amit selected the existing capital ratios at this lot size. The exact demo fund
-is US$1,502,500, with US$30,050 per option (2%), US$150,250 open and whole-cohort
-committed limits (10%), and at most five indivisible positions. Exits do not
-restore the cohort allowance. This is a demonstration policy, not sourced fund
-capital or a measure of safety.
-
-The valuation remains independent of entry price. The original assumed 500
-recoverable troy ounces at US$2,000/oz still yield US$1,500 conditional assignment
-proceeds. At 90 days, the assumed 48.8% sale probability gives US$-29,342.40
-expected net cash and a -97.65% return, so the model skips the lot. The 51.2%
-no-sale branch has US$-30,050 cash. Its unsold model mark remains separate.
-Increasing the entry basis has not established a higher resale value.
-
-The website's synthetic preset retains its 1% gold-response cap, invented 0.5
-support signal, 100% exposure, 50% retention and zero baseline growth. It changes
-gold by 0.25% and assignment proceeds to US$1,506.25, yielding US$-29,339.35
-expected cash at 90 days. Neither this preset nor the recorded scenarios covers
-the new lot's entry cost. The separate real historical pilot retains its negative
-result.
-
-The workbench separately displays a required assignment hurdle. At the flat
-90-day baseline, cash break-even needs US$61,627.87 in conditional assignment
-proceeds and a 25% expected return needs US$77,022.34. These are target-solving
-calculations using assumed liquidity and costs, not forecast or observed resale
-prices. The earlier US$650 premium, US$700 upfront and US$7.60 expected-cash
-example remains an explicitly historical arithmetic fixture only.
-
-To use the actual saved swarm post scores, open **Decide**, expand **Detailed hypothetical model** and choose
-**Use existing swarm results**. Approval and court blockage compare days 3–5
-with the matching Claude sports-placebo run. The default hypothetical contract
-retains the recorded support signs. Under the canonical 7% cap and current lot
-basis, approval and blockage remain negative and the decision is SKIP. Selecting
-recorded results from the new preset retains the currently displayed pricing and response-cap assumptions; the output
-therefore reflects those controls. Weights, exposure, holding period and contract
-assumptions recalculate through the same engine. Swarm support changes the
-hypothetical gold price first, then mineral value, assignment value and cash.
-The adjustable gold response is capped at 7%; the website preset starts at 1%.
-It is uncalibrated and source research checks remain failed. Missing scenarios and real-input
-financial outputs remain unavailable. No new swarm or judge API call is needed.
-See [the no-API method and handoff](research/swarm-no-api-demo-plan.md).
-
-Read the [model guide](model/tok-option/README.md),
-[architecture](docs/architecture.md), [remaining work](docs/remaining-work.md),
-and [integration findings](research/tok-option-model/integration-review.md).
-[Optional Convex publishing](docs/infrastructure.md) stores attributed outputs;
-it requires separate account configuration and does not fill missing trade inputs.
-
-## Open decisions
-
-- Complete the trade-input and validation work in [remaining work](docs/remaining-work.md).
-- Confirm the submission deadline, judging format, repository rules, and exact
-  Zed/Delta prize requirements.
-- [ ] Review the repository and switch it to public before submission.
-
-See [the repository plan](research/repository-plan.md) and
-[the harness comparison](research/harness-comparison.md) for the current approach.
-
-### Historical event test
-
-Decide includes a real-data Alaska mining-share pilot in its Historical validation disclosure. It compares a gold-only drift forecast, a simple event adjustment and no change using a frozen 12-announcement ledger, delayed entry and chronological holdouts. The event adjustment performed worse in the five-event test set; the website shows this negative result and its limitations. It is not a validated swarm or option-trading edge. Read [results](research/event-study/RESULTS.md) and [reproduction instructions](research/event-study/README.md).
-
-```sh
 node --test research/event-study/evaluate.test.mjs
-node research/event-study/evaluate.mjs
 ```
+
+The frontend, model and local Convex-mock suites check different boundaries. The
+production server binds to loopback. See [verification](model/tok-option/VERIFICATION.md)
+for numerical checks and [the frontend guide](frontend/README.md) for browser smoke checks.
+
+## Inside the repository
+
+| Path | Purpose |
+| :--- | :--- |
+| [`frontend/`](frontend/README.md) | Next.js, React, TypeScript and Cesium explorer, API routes and optional Convex integration. |
+| [`model/tok-option/`](model/tok-option/README.md) | Shared pure JavaScript evidence, gold, assignment, liquidity and portfolio engine. |
+| [`research/`](research/) | Source contracts, acquisition steps, simulation provenance, experiments and preserved planning history. |
+| [`pitch/orecast/`](pitch/orecast/README.md) | Current nine-slide deck, speaker notes, source images and rehearsal guide. |
+| [`brand/orecast/`](brand/orecast/BRAND.md) | Orecast wordmarks, DM Sans fonts, palette tokens and usage rules. |
+| [`docs/`](docs/architecture.md) | Architecture, infrastructure, collaboration and remaining work. |
+
+<details>
+<summary><strong>Source packs, research and reproducibility</strong></summary>
+
+- **Gold data:** [download both packs](research/gold-data-downloads.md), [evidence contract](research/gold-evidence-contract.md), [verified build results](research/gold-evidence-results.md), [source catalogue](research/gold-source-catalog.json), [frozen A33/B34 selection](research/gold-site-selection.json), [feasibility](research/us-gold-dataset-feasibility.md).
+- **Swarm:** [no-API method and handoff](research/swarm-no-api-demo-plan.md), [integration findings](research/tok-option-model/integration-review.md).
+- **Model:** [strategy and historical amendments](research/tok-option-strategy.md), [historical pilot reproduction](research/event-study/README.md), [contract-pricing primary sources](research/orecast-contract-pricing/README.md).
+- **Earlier work:** [copper soil contract](research/soil-evidence-contract.md), [ideas list](research/all-ideas.md), [idea scores](research/idea-scores.md).
+- **Event:** [supplied Granola ceremony notes](research/opening-ceremony-notes.md), [event context](research/event-context.md).
+- **Collaboration:** [repository plan](research/repository-plan.md), [harness comparison](research/harness-comparison.md), [task ownership and progress](tasks/todo.md).
+
+Raw sources and full generated packs are outside Git. Release downloads and pinned
+acquisition commands supply them separately; the compact display snapshots are included.
+For canonical JSON exports and attributed publication, follow the
+[model guide](model/tok-option/README.md) and [infrastructure guide](docs/infrastructure.md).
+
+</details>
+
+<details>
+<summary><strong>Deployment and contributing</strong></summary>
+
+Successful CI on a push to `main` triggers the [Vercel deployment workflow](.github/workflows/deploy.yml).
+PRs do not deploy or receive deployment credentials. The repository owner configures
+`VERCEL_TOKEN`, `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` as GitHub Actions secrets.
+Manual redeployment is available through **Actions → Deploy → Run workflow** on `main`.
+
+Use bounded task branches and follow [the shared rules](AGENTS.md) and
+[team workflow](docs/team-workflow.md). The required checks are **Frontend checks**,
+**Repository checks** and **Secret scan**. Teammate review is optional; current required
+checks must pass and conversations must be resolved. Amit owns integration.
+[Optional team tools](docs/optional-team-kit.md) add manual debugging, cleanup and
+secret scanning without another required workflow.
+
+</details>
+
+---
+
+Built by [Amit](https://github.com/amitvijapur), [Muhammad](https://github.com/meep-boop),
+[Arjin](https://github.com/arjn15) and [Salman](https://github.com/iloveclouduk) at OXHack 2026.
+
+[Brand kit](brand/orecast/BRAND.md) · [Pitch and rehearsal](pitch/orecast/README.md) · [Architecture](docs/architecture.md)
