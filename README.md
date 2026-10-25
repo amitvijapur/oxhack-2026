@@ -23,6 +23,13 @@ Team GitHub accounts: [amitvijapur](https://github.com/amitvijapur),
 and [iloveclouduk](https://github.com/iloveclouduk). All teammates have accepted
 write access.
 
+## Pitch deck
+
+The [five-minute pitch deck and editing guide](pitch/README.md) includes the
+[editable PowerPoint](pitch/oxhack-pitch.pptx), [PDF](pitch/oxhack-pitch.pdf),
+speaker notes, rehearsal flow and source images. Start from the PPTX when
+revising the deck. The algorithm name remains open.
+
 ## Event brief
 
 Read the [supplied Granola ceremony notes](research/opening-ceremony-notes.md)

@@ -1,5 +1,28 @@
 # OXHack preparation
 
+## Share the five-minute pitch deck, 25 October 2026
+
+Human owner: Amit. Integration owner: Codex. Scope is the approved Palantir-style
+deck, editable presentation objects, PDF, rehearsal notes and supporting assets.
+The earlier local-only limit is superseded by Amit's explicit push-and-merge request.
+
+- [x] Rebuild and visually compare all nine slides with the selected reference compositions.
+- [x] Verify editable chart and tables, nine speaker-note parts, cash arithmetic and the 300-second main sequence.
+- [x] Package the approved deck and portable team handoff, with independent scope review.
+- [x] Prepare an isolated publication branch for the required hosted checks and squash merge.
+
+Seven main slides carry the five-minute talk; two appendix slides support questions.
+The neutral title is Mineral option timing. Naming options remain open. Presentation
+editing, source images and rehearsal instructions are in [pitch/README.md](../pitch/README.md).
+Native PowerPoint opening and its font rendering have not been tested; the PDF
+preserves the approved appearance.
+
+Publication review: the PPTX and PDF match the approved originals byte-for-byte.
+All 16 changed paths belong to the pitch package and its two repository index notes.
+Whitespace, portable documentation links, editable chart/workbook and tables, note
+timings, asset attribution and a redacted secret scan passed. Required hosted
+checks and final merge status are recorded on the publication pull request.
+
 ## Canonical application integrated, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. The active app is the Next.js/Cesium
