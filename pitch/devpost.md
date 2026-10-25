@@ -25,7 +25,7 @@ From there you can explore five layers:
 - Market: ten years of gold price, claims, land prices per acre and yearly claim rent, on charts that move together. It also shows what companies actually paid nearby, from $50k up to the $1bn Donlin deal.
 - Swarm (experimental): 61 simulated stakeholders react to the same news for five days. We compare how a mine approval or a court blockage shifts their support. This layer is for exploring scenarios, not for making predictions.
 - Decision:
-  - The evidence gate: Area A passes 25 of 33 evidence checks, Area B fails with 16 of 34.
+  - The evidence gate: Area A passes: 25 of its 33 stream samples show gold, Area B fails with 16 of 34.
   - The hypothetical option: about 1.1% average return at 90 days, but a 51.2% chance it never sells.
   - Then a historical event test on real Alaska mining announcements.
 
