@@ -51,6 +51,43 @@ GLM_ENV = {
     "LLM_SEMAPHORE": "10",
 }
 
+# Anthropic's native Messages API with prompt caching (MiroFish scripts/anthropic_native.py). The key is
+# ANTHROPIC_API_KEY in MiroFish's .env, which the runner loads itself; run_meta records these settings.
+CLAUDE_ENV = {
+    "LLM_PROVIDER": "anthropic",
+    "LLM_MODEL_NAME": "claude-haiku-4-5",
+    "LLM_TIER1_MODEL": "claude-sonnet-5",
+    "LLM_TIER2_MODEL": "claude-haiku-4-5",
+    "LLM_TIER3_MODEL": "claude-haiku-4-5",
+    "LLM_BOOST_API_KEY": "",
+    "OPENAI_LOG": "info",
+    "ANTHROPIC_LOG": "info",
+    "AGENT_MEMORY_TOKEN_LIMIT": "100000",
+    "MAX_COMMENTS_PER_POST": "10",
+    "LLM_SEMAPHORE": "10",
+}
+# $ per million tokens: input, 5-minute cache write, cache read, output (platform.claude.com pricing).
+CLAUDE_PRICES = {"claude-haiku-4-5": (1.00, 1.25, 0.10, 5.00), "claude-sonnet-5": (2.00, 2.50, 0.20, 10.00)}
+
+
+def claude_cost(usage_log: Path, state: dict) -> float:
+    """Running dollar cost from the backend's per-call usage log."""
+    try:
+        with open(usage_log, "rb") as f:
+            f.seek(state["pos"])
+            chunk = f.read()
+    except OSError:
+        return state["usd"]
+    end = chunk.rfind(b"\n") + 1  # only whole lines; the rest is read next time
+    state["pos"] += end
+    for line in chunk[:end].splitlines():
+        u = json.loads(line)
+        price = next((p for name, p in CLAUDE_PRICES.items() if u["model"].startswith(name)), max(CLAUDE_PRICES.values()))
+        state["usd"] += (u["input"] * price[0] + u["cache_write"] * price[1] + u["cache_read"] * price[2]
+                         + u["output"] * price[3]) / 1e6
+    return state["usd"]
+
+
 # Fixed before any scored run (plan section 6); changing it breaks comparability.
 INTERVIEW_PROMPT = (
     "Answer as yourself, based only on what you have seen, said and know so far. "
@@ -112,8 +149,9 @@ def glm_key() -> str:
 
 
 def count_api_errors(log_path: Path, state: dict) -> int:
-    """Running count of rate-limit and server errors in the runner log. OASIS swallows agent API
-    errors, so without this a run that ran out of quota would carry on with silent agents."""
+    """Failed API calls since the last successful one in the runner log. OASIS swallows agent API
+    errors, so without this a run that ran out of quota or spend would carry on with silent
+    agents; occasional rate limits that a retry gets past don't add up."""
     try:
         with open(log_path, "rb") as f:
             f.seek(state["pos"])
@@ -121,7 +159,8 @@ def count_api_errors(log_path: Path, state: dict) -> int:
     except OSError:
         return state["n"]
     state["pos"] += len(chunk)
-    state["n"] += len(re.findall(rb"HTTP/1\.1 (?:429|5\d\d)", chunk))
+    for status in re.findall(rb"HTTP/1\.1 (\d{3})", chunk):
+        state["n"] = 0 if status == b"200" else state["n"] + 1
     return state["n"]
 
 
@@ -138,10 +177,16 @@ def main():
     parser.add_argument("sim_dir", type=Path)
     parser.add_argument("--max-rounds", type=int, default=None)
     parser.add_argument("--timeout-hours", type=float, default=4.0)
-    parser.add_argument("--provider", choices=["openai", "glm"], default="openai")
+    parser.add_argument("--provider", choices=["openai", "glm", "claude"], default="openai")
+    parser.add_argument("--budget-usd", type=float, default=None,
+                        help="claude only: stop the run when its API cost passes this")
     args = parser.parse_args()
-    model_env = GLM_ENV if args.provider == "glm" else MODEL_ENV
+    model_env = {"glm": GLM_ENV, "claude": CLAUDE_ENV}.get(args.provider, MODEL_ENV)
     secret_env = {"LLM_API_KEY": glm_key()} if args.provider == "glm" else {}
+    if args.provider == "claude":
+        env_file = (MIROFISH_BACKEND.parent / ".env").read_text(encoding="utf-8-sig")
+        if not re.search(r"^(ANTHROPIC_API_KEY=.+|LLM_API_KEY=\s*sk-ant-)", env_file, re.M):
+            raise SystemExit("no Anthropic key in MiroFish's .env (ANTHROPIC_API_KEY, or an sk-ant- LLM_API_KEY)")
 
     sim_dir = args.sim_dir.resolve()
     config_path = sim_dir / "simulation_config.json"
@@ -167,19 +212,25 @@ def main():
     cmd = ["uv", "run", "python", "scripts/run_parallel_simulation.py", "--config", str(config_path)]
     if args.max_rounds:
         cmd += ["--max-rounds", str(args.max_rounds)]
+    usage_log = sim_dir / "anthropic_usage.jsonl"
+    usage_log.unlink(missing_ok=True)
+    run_env = {"ANTHROPIC_USAGE_LOG": str(usage_log)} if args.provider == "claude" else {}
     log = open(sim_dir / "runner.log", "w", encoding="utf-8")
     proc = subprocess.Popen(cmd, cwd=MIROFISH_BACKEND, stdout=log, stderr=subprocess.STDOUT,
-                            env={**os.environ, **model_env, **secret_env})
+                            env={**os.environ, **model_env, **secret_env, **run_env})
     meta["provider"] = args.provider
     meta["models"] = model_env
     t0 = time.time()
+    cost = {"pos": 0, "usd": 0.0}
 
     try:
         deadline = t0 + args.timeout_hours * 3600
         errors = {"pos": 0, "n": 0}
         while read_status(sim_dir) != "alive":
             if count_api_errors(sim_dir / "runner.log", errors) > 50:
-                raise RuntimeError(f"{errors['n']} rate-limit or server errors from the API; quota may be used up")
+                raise RuntimeError(f"{errors['n']} failed API calls in a row; quota, spend or rate limit reached")
+            if args.budget_usd and claude_cost(usage_log, cost) > args.budget_usd:
+                raise RuntimeError(f"API cost ${cost['usd']:.2f} passed the run budget ${args.budget_usd:.2f}")
             if proc.poll() is not None:
                 raise RuntimeError(f"runner exited (code {proc.returncode}) before the simulation finished")
             if time.time() > deadline:
@@ -207,6 +258,8 @@ def main():
         meta["outcome"] = f"failed: {exc}"
         kill_tree(proc)
     finally:
+        if args.provider == "claude":
+            meta["api_cost_usd"] = round(claude_cost(usage_log, cost), 2)
         meta["finished"] = now()
         meta["total_seconds"] = round(time.time() - t0, 1)
         log.close()
