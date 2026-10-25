@@ -1,5 +1,25 @@
 # Share Orecast branding and the revised pitch deck
 
+## Align the whole platform to the Orecast contract lot, 25 October 2026
+
+Human owner: Amit. Codex owns integration and review. Model worker owns shared
+lot/economics/serialization; UI worker owns consumers; deck worker owns the
+existing Orecast presentation. Amit selected the existing risk ratios at an
+approximately US$1.5m demo fund. The exact fund is US$1,502,500, giving US$30,050
+per option and US$150,250 open/lifetime committed risk for five indivisible lots.
+
+- [x] Define one shared US$30,000 whole-contract initial-payment reference with historical provenance; keep fees and obligations separate.
+- [x] Align model defaults, capital policy, UI, exports and regenerated snapshots. Preserve independent valuation inputs and distinguish return hurdles from forecasts.
+- [x] Refresh active documentation and the approved Orecast deck/handoff without changing its visual language.
+- [x] Run meaningful model, publication, frontend and build checks; inspect the platform and changed slides; independently review the result.
+
+The existing 500oz valuation remains unchanged. At the new entry basis its
+US$1,500 assignment assumption yields a negative expectation and SKIP. A 25%
+expected-return resale hurdle is underwriting arithmetic, not an observed price
+or model forecast. The US$30k reference is two selected historical initial
+payments and excludes full contract commitments.
+
+
 25 October 2026. Human owner: Amit. Integration owner: Codex. User authorized
 push and merge of the completed Orecast package. Scope is presentation and brand
 assets plus repository index notes; application code is unchanged.
@@ -21,6 +41,23 @@ Publication review confirmed the approved PPTX/PDF bytes, nine matching note par
 300-second main sequence, native chart/workbook and tables, relative links,
 licences and image attribution. Whitespace and redacted directory scans passed.
 The 29 changed paths contain only brand/presentation assets and their index notes.
+
+Integration review: preserved main's new Decide/Land/Crowd panel from PR 48
+and the additional Swarm walkthrough tab from PR 49.
+Decide separates observed evidence PASS/FAIL from the canonical whole-lot cash
+decision, keeps live gold separate, and exposes the detailed calculator and
+negative historical validation through disclosures. The financial model,
+exports, frozen Swarm trace, current deck and documentation share one lot basis.
+An independent review also found and repaired a publisher check that accepted
+forged decision labels despite canonical risk failure.
+
+Verification: 135 model, 58 frontend, 21 backend and 16 publisher tests
+passed, plus 29 specification checks, frontend/backend typechecks and production
+builds. Parent inspected all nine slide renders and refreshed pages after repair.
+The presentation finalizer reports zero findings and warnings. Desktop and mobile browser review passed, including Site B initialization/reset,
+whole-lot costs, negative expected returns, source/hurdle distinctions and no
+horizontal page overflow. The current deck has nine slides and a 300-second main
+sequence. The protected PR records hosted checks and merge status.
 
 ## Publish and squash merge the verified forecast
 

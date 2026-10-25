@@ -8,6 +8,7 @@ import { inspectLandSource } from './integrations/land.mjs';
 import { inspectSwarmSource, inspectNormalizedSwarmDiagnostics, normalizeSwarmReport } from './integrations/swarm.mjs';
 import { mapIllustrativeContrast } from './illustrative.mjs';
 import { GOLD_FORECAST_METHOD } from './gold.mjs';
+import { LOT_BASIS, DEMO_ENTRY_COSTS, lotContext } from './lot-basis.mjs';
 import landSource from './data/land-source.json' with { type: 'json' };
 import swarmSource from './data/swarm-source.json' with { type: 'json' };
 
@@ -35,10 +36,10 @@ export function inspectIntegratedSources(area = 'A') {
   return { land: inspectLandSource(landSource, { area }), swarm: inspectSwarmSource(swarmSource), modelGaps: [...MODEL_GAPS] };
 }
 
-export const DEFAULT_CONTROLS = Object.freeze({ mode: 'pending', area: 'A', horizonDays: 90, scenarioId: 'baseline', swarmPolicy: 'strict', syntheticSignal: 0.203, goldResponseCap: 0.07, quantity: 500, price: 2000, annualGrowthRate: 0, ownershipFraction: 0.5, kappa: 0.02, pGeo: 0.25, remainingBuyerConsiderationUsd: 4000, entryPremiumUsd: 650, entryFeeUsd: 50, exitFeeUsd: 50, unavoidableAdditionalObligationsUsd: 0, remainingMaturityDays: 365, hazardPer30Days: 0.2, eventExposure: 1, retention: 1, weights: WEIGHTS });
+export const DEFAULT_CONTROLS = Object.freeze({ mode: 'pending', area: 'A', horizonDays: 90, scenarioId: 'baseline', swarmPolicy: 'strict', syntheticSignal: 0.203, goldResponseCap: 0.07, quantity: 500, price: 2000, annualGrowthRate: 0, ownershipFraction: 0.5, kappa: 0.02, pGeo: 0.25, remainingBuyerConsiderationUsd: 4000, entryPremiumUsd: LOT_BASIS.initialPremiumUsd, ...DEMO_ENTRY_COSTS, remainingMaturityDays: 365, hazardPer30Days: 0.2, eventExposure: 1, retention: 1, weights: WEIGHTS });
 
 export function createDemoCandidate(controls = DEFAULT_CONTROLS) {
-  return { id: `hypothetical-option-${controls.area}`, underlyingId: `hypothetical-interest-${controls.area}`, provenance: 'assumed', sourceId: 'tok-option-fixture-v1', materials: [{ material: 'Au', quantity: controls.quantity, unit: 'troy_oz', price: controls.price, priceUnit: 'USD/troy_oz', currency: 'USD', annualGrowthRate: controls.annualGrowthRate, sourceId: 'tok-option-fixture-v1', provenance: 'assumed', derivedFromPpm: false }], ownershipFraction: controls.ownershipFraction, kappa: controls.kappa, pGeo: controls.pGeo, remainingBuyerConsiderationUsd: controls.remainingBuyerConsiderationUsd, resolutionBeforeExercise: true, zeroFailureValue: true, entryPremiumUsd: controls.entryPremiumUsd, entryFeeUsd: controls.entryFeeUsd, exitFeeUsd: controls.exitFeeUsd, unavoidableAdditionalObligationsUsd: controls.unavoidableAdditionalObligationsUsd, remainingMaturityDays: controls.remainingMaturityDays, assignable: true, consentSatisfied: true, releasedOnAssignment: true, obligationsCapped: true, indivisible: true, hasLaterMandatoryObligations: false };
+  return { lotContext: lotContext(controls), id: `hypothetical-option-${controls.area}`, underlyingId: `hypothetical-interest-${controls.area}`, provenance: 'assumed', sourceId: 'orecast-whole-contract-demo-v1', materials: [{ material: 'Au', quantity: controls.quantity, unit: 'troy_oz', price: controls.price, priceUnit: 'USD/troy_oz', currency: 'USD', annualGrowthRate: controls.annualGrowthRate, sourceId: 'tok-option-fixture-v1', provenance: 'assumed', derivedFromPpm: false }], ownershipFraction: controls.ownershipFraction, kappa: controls.kappa, pGeo: controls.pGeo, remainingBuyerConsiderationUsd: controls.remainingBuyerConsiderationUsd, resolutionBeforeExercise: true, zeroFailureValue: true, entryPremiumUsd: controls.entryPremiumUsd, entryFeeUsd: controls.entryFeeUsd, exitFeeUsd: controls.exitFeeUsd, unavoidableAdditionalObligationsUsd: controls.unavoidableAdditionalObligationsUsd, remainingMaturityDays: controls.remainingMaturityDays, assignable: true, consentSatisfied: true, releasedOnAssignment: true, obligationsCapped: true, indivisible: true, hasLaterMandatoryObligations: false };
 }
 
 const deltaOf = (baseline, mapped) => ({ assignmentValueUsd: baseline?.assignmentValueUsd != null && mapped?.assignmentValueUsd != null ? mapped.assignmentValueUsd - baseline.assignmentValueUsd : null, expectedNetCashUsd: baseline?.expectedNetCashUsd != null && mapped?.expectedNetCashUsd != null ? mapped.expectedNetCashUsd - baseline.expectedNetCashUsd : null });
@@ -58,7 +59,8 @@ function validateControls(c) {
 
 const ASSUMPTIONS = Object.freeze([
   'Primary sediment assays and supplied land-source context are observed inputs. A and B remain comparison areas, not verified mineral interests.',
-  'Recoverable ounces, commodity price and growth, contract terms, success probability and conversion factor are hypothetical.',
+  'The USD 30,000 whole-contract initial-payment reference is based on two selected historical signing payments, not a current Tok average, full contract capital or an available offer. Demo use as a premium remains assumed; fees and obligations are separate.',
+  'Recoverable ounces, commodity price and growth, contract terms, success probability and conversion factor are independent hypothetical inputs. The initial-payment reference does not estimate them.',
   'The success state resolves before buyer exercise and failure interest value is zero. This call-shaped proxy omits option time value.',
   'Sale hazard is assumed per 30 days. It is unchanged by news or asking price in this controlled comparison.',
   'The bounded swarm response changes Au price once before material value and the assignment floor. The cap is a hypothetical gold-price response, not an option-return or investment-loss limit.',
@@ -73,7 +75,7 @@ export function runWorkbench({ features = [], controls = {}, swarmRuns = null } 
   const sourceAudit = inspectIntegratedSources(c.area);
   const activeRuns = swarmRuns ?? sourceAudit.swarm.runs;
   const swarmDiagnostics = activeRuns ? inspectNormalizedSwarmDiagnostics(activeRuns, c.scenarioId) : sourceAudit.swarm;
-  const base = { version: VERSION, mode: c.mode, status: 'pending', reasons: [], evidence, sourceAudit, swarmDiagnostics, cashDiagnostics: { baseline: null, mapped: null }, baseline: null, mapped: null, signal: { status: 'PENDING_SWARM', value: null, adjustment: null, groups: [], reasons: ['swarm_import_required'] }, horizons: HORIZONS.map((days) => ({ days, baseline: null, mapped: null, delta: deltaOf(null, null) })), delta: deltaOf(null, null), portfolio: { status: 'INSUFFICIENT_DATA', selectedIds: [], totalRiskUsd: null, totalExpectedNetCashUsd: null, reasons: ['no_evaluated_contract'] }, assumptions: [...ASSUMPTIONS], validationErrors: [] };
+  const base = { version: VERSION, mode: c.mode, lotContext: c.mode === 'demo' ? lotContext(c) : null, status: 'pending', reasons: [], evidence, sourceAudit, swarmDiagnostics, cashDiagnostics: { baseline: null, mapped: null }, baseline: null, mapped: null, signal: { status: 'PENDING_SWARM', value: null, adjustment: null, groups: [], reasons: ['swarm_import_required'] }, horizons: HORIZONS.map((days) => ({ days, baseline: null, mapped: null, delta: deltaOf(null, null) })), delta: deltaOf(null, null), portfolio: { status: 'INSUFFICIENT_DATA', selectedIds: [], totalRiskUsd: null, totalExpectedNetCashUsd: null, reasons: ['no_evaluated_contract'] }, assumptions: [...ASSUMPTIONS], validationErrors: [] };
   const validationErrors = validateControls(c);
   if (validationErrors.length) return { ...base, status: 'INSUFFICIENT_DATA', reasons: ['invalid_controls'], validationErrors };
   if (c.mode === 'pending') return { ...base, reasons: ['Select explicit demo assumptions to run the hypothetical economics, or inspect real-data availability.'] };

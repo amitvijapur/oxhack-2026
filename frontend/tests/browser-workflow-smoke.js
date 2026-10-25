@@ -20,9 +20,9 @@ async (page) => {
   p=await payload('model-output');check(Math.abs(p.assignmentValueUsd-1495.5936297092217)<1e-8,'Option valuation unchanged');await close();
   p=await payload('decision-output');
   const result=p.result??p;
-  check(Math.abs(result.expectedNetCashUsd-5.449691298100333)<1e-8,'Expected cash unchanged');
-  check(Math.abs((p.expectedReturnPercent??result.expectedReturnPercent)-(5.449691298100333/700*100))<1e-10,'Return uses full upfront amount at risk');
-  check(result.amountAtRiskUsd===700 && result.entryAction==='BUY_CANDIDATE','Output retains denominator and action');
+  check(Math.abs(result.expectedNetCashUsd--29344.5503087019)<1e-8,'Historical-payment scale preserves negative expected cash');
+  check(Math.abs((p.expectedReturnPercent??result.expectedReturnPercent)-(-29344.5503087019/30050*100))<1e-10,'Return uses full upfront amount at risk');
+  check(result.amountAtRiskUsd===30050 && result.entryAction==='SKIP','Output uses whole-contract capital and skips entry');
   await page.screenshot({path:'.impeccable/review/swarm-layout/inspector.png',fullPage:true,animations:'disabled'});await close();
   await page.getByRole('button',{name:'Validation details',exact:true}).click();
   check(await page.getByRole('button',{name:'Validation details',exact:true}).getAttribute('aria-expanded')==='true','One validation summary expands');

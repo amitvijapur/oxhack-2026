@@ -42,20 +42,38 @@ async page => {
   check((await page.getByRole('tab').allInnerTexts()).join('|') === 'Decide|Land|Crowd|Swarm', 'The panel must have Decide, Land, Crowd and Swarm tabs');
   check(await page.getByRole('tab', { name: 'Decide' }).getAttribute('aria-selected') === 'true', 'Decide must open first');
   const call = page.locator('.decide .answer-signal');
-  await page.waitForFunction(() => /^(BUY candidate|SKIP)$/.test(document.querySelector('.decide .answer-signal')?.textContent ?? ''), null, { timeout: 15000 });
+  await page.waitForFunction(() => /^SKIP/.test(document.querySelector('.decide .answer-signal')?.textContent ?? ''), null, { timeout: 15000 });
   const top = await page.locator('.decide').innerText();
   const decideGold = (await page.locator('.live').innerText()).match(/\$[\d,]+/)?.[0];
   check(decideGold && top.includes(decideGold), 'Decide must show the same gold price as the header');
-  check(top.includes('Site A · BUY candidate · passes the gold-evidence screen'), 'Site A must show its call and reason');
+  check(top.includes('Site A · Evidence passes'), 'Site A must show its call and reason');
+  for (const part of ['$30,000', '$50', '$30,050', '-97.65%', 'expected net cash', 'Live spot is separate', 'Not a current quote']) check(top.includes(part), `Whole-contract summary missing ${part}`);
+  check(!top.includes('BUY'), 'Evidence PASS must not become a financial BUY');
   const decide = await panel.evaluate((el) => el.textContent);
   for (const pattern of [/\bEV\b/, /P\(loss\)/, /Outlook/, /Inputs missing/, /Not the gold price/]) check(!pattern.test(decide), `Decide should not show ${pattern}`);
   const box = await page.locator('.decide').boundingBox();
   check(box && box.y + box.height <= 900, 'The Decide top block must fit without scrolling');
   await page.getByRole('radio', { name: /Site B/ }).click();
-  check(await call.innerText() === 'SKIP', 'Site B fails its gold screen, so its call is SKIP');
-  check((await page.locator('.decide').innerText()).includes('fails the gold-evidence screen (16 of 34 samples, needs 17)'), 'Site B must give its screen counts');
+  check((await call.innerText()).startsWith('SKIP'), 'Site B fails its gold screen, so its call is SKIP');
+  check((await page.locator('.decide').innerText()).includes('Evidence fails (16 of 34 samples, needs 17)'), 'Site B must give its screen counts');
   await page.getByRole('radio', { name: /Site A/ }).click();
   await page.screenshot({ path: 'frontend/artifacts/1-decide.png' });
+  await panel.getByText('Detailed hypothetical model', { exact: true }).click();
+  const model = page.locator('#option-model');
+  await model.getByRole('heading', { name: 'Hypothetical option model', exact: true }).waitFor();
+  check(await model.getByLabel('Comparison area').inputValue() === 'A', 'Detailed model starts at active Site A');
+  check(await model.locator('#model-entryPremiumUsd').inputValue() === '30000', 'Detailed controls retain historical whole-contract default');
+  check(await model.locator('.model-total-row td').last().innerText() === '-97.64%', 'Synthetic workbench remains separate from baseline');
+  await model.getByText('Contract economics', { exact: true }).click();
+  await model.locator('#model-entryPremiumUsd').fill('31000');
+  check((await model.locator('.model-total-row td').last().innerText()).startsWith('-'), 'Changing lot cost preserves negative cash');
+  await model.getByRole('button', { name: 'Reset assumptions', exact: true }).click();
+  check(await model.locator('#model-entryPremiumUsd').inputValue() === '30000', 'Reset restores lot default');
+  await page.getByRole('radio', { name: /Site B/ }).click();
+  check(await model.getByLabel('Comparison area').inputValue() === 'B', 'Detailed model follows active site after switching');
+  await page.getByRole('radio', { name: /Site A/ }).click();
+  await panel.getByText('Detailed hypothetical model', { exact: true }).click();
+  check(await panel.getByText('Historical validation · event model did not beat baseline', { exact: true }).count() === 1, 'Negative historical validation stays accessible');
 
   // Land: every sampled plot, richest first; All and Held only.
   await page.getByRole('tab', { name: 'Land' }).click();
@@ -96,7 +114,7 @@ async page => {
   await page.getByRole('button', { name: 'Previous plot' }).click();
   await page.getByRole('button', { name: /Test this plot in Decide/ }).click();
   check((await page.locator('.decide').innerText()).includes('Testing plot B-19'), 'Decide must name the plot it was sent');
-  check(await call.innerText() === 'SKIP', 'B-19 sits in Site B, so Decide must show Site B');
+  check((await call.innerText()).startsWith('SKIP'), 'B-19 sits in Site B, so Decide must show Site B');
   await page.getByRole('tab', { name: 'Land' }).click();
   await page.getByRole('button', { name: 'Close plot' }).click();
 

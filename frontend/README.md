@@ -1,10 +1,11 @@
 # Tok River application
 
-The Next.js application presents **Land Arbitrage: Gold**, a Cesium explorer for
-Tok River, Alaska. The side panel has three tabs. Decide (the default) shows the
-live gold price and each comparison site's call from the canonical gold-evidence
-screen, with no option dollar outputs. Land lists the sampled plots with a short
-plot card. Crowd charts the judged swarm scenarios. The site opens on today: claims held now and the gold spot, then
+The Next.js application presents **Orecast**, a Cesium explorer for
+Tok River, Alaska. The side panel has four tabs. Decide (the default) shows the
+live gold spot, the observed gold-evidence screen and a separately labelled
+hypothetical whole-contract cash decision. Land lists the sampled plots with a short
+plot card. Crowd charts the judged swarm scenarios, and Swarm explains the
+recorded workflow with a link to the full calculation page. The site opens on today: claims held now and the gold spot, then
 plays the next 12 months forward using the model's descriptive 2020–25 gold
 trend (`historicalGoldTrend`, `projectPrice`) and its 30/90/180-day horizons on
 the hypothetical demo contract (`projectionHorizons` in `src/lib/canonical-model.js`).
@@ -129,10 +130,11 @@ browser smoke check. No component holds swarm numbers of its own.
 
 ## Canonical decision model
 
-The Decide tab reads only the gold-evidence screen (`evidenceByArea` in
-`src/lib/canonical-model.js`). The Decision tab component, no longer mounted in the
-panel, embeds `src/ModelWorkbench.jsx`, importing the pure
-`../model/tok-option/workbench.mjs` engine. The website always opens and resets
+The Decide tab distinguishes the observed gold-evidence screen (`evidenceByArea`)
+from the canonical 90-day hypothetical cash decision. Its **Detailed hypothetical
+model** disclosure embeds `src/ModelWorkbench.jsx`, using the same pure
+`../model/tok-option/workbench.mjs` engine. Switching sites also resets the detailed
+calculator to that area. The website calculator opens and resets
 in hypothetical demo mode, with no alternative financial modes. Total expected
 cash and change versus baseline are separate, and the current break-even
 premium comes from the canonical cash diagnostics. The engine's programmatic
@@ -152,12 +154,12 @@ configured by this integration.
 
 ### Hypothetical gold forecast
 
-The Decision calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The cap defaults to 7%, affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.
+The Decide calculator exposes model v2 gold forecasts before mineral and option valuation. Baseline and scenario gold prices, the assumed response cap, and cash deltas come from the same canonical model. The cap defaults to 7%, affects gold once at each sale date, and is not a cap on option movement or loss. Recorded swarm scores retain their failed research checks; the support-to-gold relationship is uncalibrated.
 
 ### Current algorithm calculation snapshot
 
 The `/swarm` graph now reads a source-pinned snapshot of `tok-option-demo-v2`
-from the newer local integration revision `8399adb6`. It is a display of default
+from committed canonical inputs at `37991ad5de416e5abf8541264c5f4926a2ec91e8`. It is a display of default
 hypothetical calculations, not live synchronization with the explorer's model
 controls. Select A/B and a 30/90/180-day horizon to inspect its recorded output.
 Approval/blockage compare against the matching Claude placebo. The assumed
@@ -187,3 +189,10 @@ pilot errors and unavailable swarm lift. These findings remain separate from
 the financial calculation. The study's trading-session horizon does not change
 the option holding period. Inspection retains full-precision source outputs and
 intermediate valuation formulas.
+
+The active indivisible lot uses the shared US$30,000 historical initial-payment
+reference plus a separately assumed US$50 entry fee. The US$1,502,500 demo fund
+preserves 2% per-option and 10% open/cohort capital ratios with at most five lots.
+The unchanged US$1,500 assignment assumption yields SKIP. The separate US$77,022.34
+90-day assignment hurdle solves a 25% expected return under assumed liquidity; it
+does not replace the forecast. Live spot never overwrites the assumed model gold.

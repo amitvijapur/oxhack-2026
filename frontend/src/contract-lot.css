@@ -1,0 +1,14 @@
+.contract-lot { margin: 14px 0; padding: 14px 0; border-block: 1px solid var(--line, #262626); font-size: 12px; line-height: 1.6; }
+.contract-lot h3 { margin: 0 0 10px; font-size: 14px; font-weight: 500; }
+.contract-lot p { margin: 10px 0 0; color: var(--ink-2, #a3a3a3); }
+.contract-lot-costs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; margin: 10px 0; }
+.contract-lot-costs dt { color: var(--ink-2, #a3a3a3); font-size: 11px; }
+.contract-lot-costs dd { margin: 3px 0 0; font-variant-numeric: tabular-nums; font-size: 15px; }
+.contract-lot summary { cursor: pointer; font-size: 11px; overflow-wrap: anywhere; }
+.contract-lot-sources { margin-top: 12px; }
+.contract-lot ul { padding-left: 16px; margin: 10px 0; }
+.contract-lot a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.contract-lot-compact { margin: 10px 0; padding: 10px 0; font-size: 11px; }
+.contract-lot-compact .contract-lot-costs { grid-template-columns: 1fr; gap: 5px; }
+.contract-lot-compact .contract-lot-costs > div { display: flex; justify-content: space-between; gap: 12px; }
+.contract-lot-compact .contract-lot-costs dd { margin: 0; font-size: 11px; }

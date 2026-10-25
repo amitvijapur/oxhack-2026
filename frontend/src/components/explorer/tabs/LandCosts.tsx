@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { usd, type Market } from "@/lib/showcase";
 import { Section } from "../TabBody";
+import { LOT_BASIS } from "../../../../../model/tok-option/lot-basis.mjs";
 
 /** Log scale for $/acre, framed by the recorded comparables. */
 function scale(values: number[]) {
@@ -30,6 +31,7 @@ export function LandCosts({ market }: { market: Market }) {
       title="What mineral ground has cost"
       lede={<>{comparables.length} recorded transactions with a price per acre ({regions.join(", ")}), and the yearly state rent to hold a 160-acre claim. Mixed stages and states: context, not a value for Tok land or an option.</>}
     >
+      <p className="deep-note">The Decision demo uses {usd(LOT_BASIS.initialPremiumUsd)} per whole contract as a selected historical initial-payment reference. These price-per-acre transactions do not set that payment or the model&apos;s assignment proceeds. The historical reference is not a current Tok quote and excludes further obligations.</p>
       <div className="lab-strip">
         <div className="lab-track" role="img" aria-label={`Price per acre of ${comparables.length} recorded deals, ${usd(comparables[0].usd_per_acre)} to ${usd(comparables.at(-1)!.usd_per_acre)}`}>
           {comparables.map((c) => (

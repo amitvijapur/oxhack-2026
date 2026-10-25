@@ -49,6 +49,8 @@ export async function buildAlgorithmSnapshot(sourceRoot) {
       sourceCommit, sourcePath: validationPath, sourceSha256: inputHashes[validationPath],
     };
   }
+  const { LOT_BASIS } = await import(pathToFileURL(join(modelDirectory, 'lot-basis.mjs')).href);
+  const { CAPITAL } = await import(pathToFileURL(join(modelDirectory, 'config.mjs')).href);
   const { runWorkbench, createDemoCandidate } = await import(pathToFileURL(join(modelDirectory, 'workbench.mjs')).href);
   const features = (await Promise.all(['a', 'b'].map(async (area) => JSON.parse(await readFile(join(root, `frontend/public/data/tok-gold/site-${area}/samples.geojson`), 'utf8')).features))).flat();
   const areas = {};
@@ -93,6 +95,7 @@ export async function buildAlgorithmSnapshot(sourceRoot) {
   }
   return {
     schemaVersion: 1,
+    lotBasis: LOT_BASIS, capitalPolicy: CAPITAL,
     source: { commit: sourceCommit, modelVersion, inputHashes, provenance: 'Canonical engine output snapshot', economics: 'assumed', liquidity: 'assumed', goldResponse: 'uncalibrated assumed relationship', mode: 'demo', researchReadiness: 'failed_or_unknown', note: 'Recorded contrasts can drive hypothetical calculations only; this does not change strict research readiness or supply executable land prices.' },
     researchDiagnostics, ...(validationStudy ? { validationStudy } : {}), areas,
   };
