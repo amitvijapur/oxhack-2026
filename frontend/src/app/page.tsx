@@ -1,5 +1,5 @@
-import { Showcase } from "@/components/showcase/Showcase";
+import { Explorer } from "@/components/explorer/Explorer";
 
 export default function Home() {
-  return <Showcase />;
+  return <Explorer />;
 }

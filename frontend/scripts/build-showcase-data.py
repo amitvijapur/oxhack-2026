@@ -10,6 +10,7 @@ Writes frontend/public/data/showcase/:
   occurrences.json known mines, prospects and occurrences near Tok (USGS ARDF)
   geology.json     the mapped bedrock unit under each sample (USGS SIM 3340 via Macrostrat)
   market.json      land sales, claim rent, Alaska deals and exit comparables over time
+  plots.json       the land plot under each sample: its DNR claim, or a drawn 160-acre open plot
 
 Inputs are read from Git refs with `git show`, so no branch has to be checked out. Every file
 records its source ref and commit. Standard library only. Run from anywhere in the repository:
@@ -25,6 +26,7 @@ import html
 import importlib.util
 import io
 import json
+import math
 from pathlib import Path
 import re
 import subprocess
@@ -278,6 +280,53 @@ def build_market():
     })
 
 
+def inside(lon, lat, ring):
+    """Ray casting: whether a point is inside one polygon ring of [lon, lat] pairs."""
+    hit = False
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:] + ring[:1]):
+        if (y1 > lat) != (y2 > lat) and lon < x1 + (lat - y1) * (x2 - x1) / (y2 - y1):
+            hit = not hit
+    return hit
+
+
+def in_feature(lon, lat, geometry):
+    polygons = [geometry["coordinates"]] if geometry["type"] == "Polygon" else geometry["coordinates"]
+    return any(inside(lon, lat, poly[0]) and not any(inside(lon, lat, hole) for hole in poly[1:]) for poly in polygons)
+
+
+OPEN_PLOT_M = 804.67  # one side of a 160-acre square, the size of a state claim
+
+
+def build_plots():
+    """The land plot each sample sits on: the real DNR claim that contains it (an active claim
+    first, else the most recent lapsed one), or a drawn 160-acre square on unclaimed ground."""
+    claims = json.loads((OUT / "claims.geojson").read_text())["features"]
+    samples = json.loads((OUT / "geochem.json").read_text())["samples"]
+    plots, by_claim = [], {}
+    for s in samples:
+        hits = [c for c in claims if in_feature(s["lon"], s["lat"], c["geometry"])]
+        hits.sort(key=lambda c: (c["properties"]["status"] != "active", -(c["properties"]["start"] or 0)))
+        if hits:
+            c = hits[0]
+            key = c["properties"]["id"]
+            if key not in by_claim:
+                by_claim[key] = {"kind": "claim", **c["properties"], "geometry": c["geometry"], "samples": []}
+                plots.append(by_claim[key])
+            by_claim[key]["samples"].append(s["id"])
+        else:
+            half_lat = OPEN_PLOT_M / 2 / 111_320
+            half_lon = half_lat / math.cos(math.radians(s["lat"]))
+            w, e, so, n = s["lon"] - half_lon, s["lon"] + half_lon, s["lat"] - half_lat, s["lat"] + half_lat
+            plots.append({"kind": "open", "id": f"open:{s['id']}", "samples": [s["id"]],
+                          "geometry": {"type": "Polygon", "coordinates": [[[w, so], [e, so], [e, n], [w, n], [w, so]]]}})
+    claimed = sum(p["kind"] == "claim" for p in plots)
+    write("plots.json", {"claims_retrieved": json.loads((OUT / "claims.geojson").read_text())["retrieved"],
+                         "open_plot_note": "Drawn 160-acre square centred on a sample on ground with no claim on record",
+                         "plots": plots})
+    print(f"plots: {len(plots)} ({claimed} claims holding {sum(len(p['samples']) for p in plots if p['kind'] == 'claim')} samples, "
+          f"{len(plots) - claimed} open)")
+
+
 def histogram(dist, edges):
     counts = [0.0] * (len(edges) - 1)
     for cash, prob in dist.items():
@@ -369,6 +418,7 @@ def build_decision():
 
 if __name__ == "__main__":
     steps = {"claims": build_claims, "history": build_history, "town": build_town, "decision": build_decision,
-             "geochem": build_geochem, "occurrences": build_occurrences, "geology": build_geology, "market": build_market}
+             "geochem": build_geochem, "occurrences": build_occurrences, "geology": build_geology, "market": build_market,
+             "plots": build_plots}
     for name in sys.argv[1:] or steps:
         steps[name]()

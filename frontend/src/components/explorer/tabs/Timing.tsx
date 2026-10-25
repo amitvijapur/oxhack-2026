@@ -2,13 +2,13 @@
 
 import { signedUsd, usd, type Decision, type Market, type World } from "@/lib/showcase";
 import { LogStrip, YearAxis, YearLine } from "../charts";
-import { DeepDive, Section } from "../DeepDive";
+import { Section } from "../TabBody";
 
 const H = 200;
 const W = 480;
 const Q_WORDS: Record<string, string> = { "0.003": "1 in 333", "0.03": "1 in 33", "0.1": "1 in 10", "0.25": "1 in 4", "0.5": "1 in 2" };
 
-export function TimingDeep({ decision, market, world, onClose }: { decision: Decision; market: Market; world: World; onClose: () => void }) {
+export function Timing({ decision, market, world }: { decision: Decision; market: Market; world: World }) {
   const acres = decision.contract.acres;
   const offers = decision.exit_offers_usd_per_acre.map((v) => v * acres);
   const bar = world.sell_if_offer_at_least_usd;
@@ -25,21 +25,11 @@ export function TimingDeep({ decision, market, world, onClose }: { decision: Dec
   const byRegion = (regions: string[]) => market.comparables.filter((c) => regions.includes(c.region)).map((c) => c.usd_per_acre);
 
   return (
-    <DeepDive
-      kicker="Deep dive · The decision"
-      title="When would we sell, and is there a spread?"
-      mode="Model"
-      onClose={onClose}
-      evidence={[
-        { label: "Decision engine: optimal monthly plan by backward induction (Solver.policy)", source: decision.source },
-        { label: `${decision.bids_label.split(". ")[0]}.` },
-        { label: "Comparable deals ($/acre)", source: market.sources[1] },
-      ]}
-    >
+    <>
       {world.acceleration ? (
       <Section
         title="The sell line, month by month"
-        lede={<>For this world ({Q_WORDS[String(world.q)]} new claims bring a buyer{world.acceleration ? ", early completion allowed" : ""}), the algorithm sells only if an offer clears the gold line. Each grey line is one offer a buyer might make; <strong>{clearing} of {offers.length}</strong> clear it.</>}
+        lede={<>For this world ({Q_WORDS[String(world.q)]} new claims bring a buyer{world.acceleration ? ", early completion allowed" : ""}), the algorithm sells only if an offer clears the white line. Each thin line is one offer a buyer might make (green if it clears); <strong>{clearing} of {offers.length}</strong> clear it.</>}
       >
         <svg viewBox={`0 0 ${W} ${H + 22}`} className="sell-chart" role="img" aria-label={`Sell if an offer is at least ${usd(bar[0])} in month 0; ${clearing} of ${offers.length} possible offers clear it.`}>
           {offers.map((o, i) => (
@@ -104,6 +94,6 @@ export function TimingDeep({ decision, market, world, onClose }: { decision: Dec
           <li>Reversing the early-completion term changes this world to {signedUsd(world.value_if_acceleration_flipped_usd)}.</li>
         </ul>
       </Section>
-    </DeepDive>
+    </>
   );
 }

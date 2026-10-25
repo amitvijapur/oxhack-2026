@@ -1,7 +1,7 @@
 // Every user-facing sentence in one place, so wording can change without touching layout.
 
-/** Placeholder until the team names the project (PRODUCT.md: Amit asked to keep it blank). */
-export const SITE_NAME = 'PROJECT';
+/** Chosen by Salman on 25 Oct 2026, replacing the blank placeholder (see PRODUCT.md). */
+export const SITE_NAME = 'Land Arbitrage: Gold';
 
 export const HERO = {
   question: 'Is there gold worth claiming near Tok, Alaska?',

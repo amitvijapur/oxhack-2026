@@ -4,19 +4,18 @@ import { useMemo } from "react";
 import { ExternalLink } from "lucide-react";
 import { claimState, usd, type Claims, type History, type Market as MarketData } from "@/lib/showcase";
 import { Bar, YearAxis, YearLine } from "../charts";
-import { DeepDive, Section } from "../DeepDive";
+import { Section, TabBody } from "../TabBody";
 
 const FIRST = 1975;
 const LAST = 2026;
 const YEARS = Array.from({ length: LAST - FIRST + 1 }, (_, i) => FIRST + i);
 const TOK_REGION = "Richardson, Alaska Highways";
 
-export function MarketDeep({ market, claims, history, year, onClose }: {
+export function MarketTab({ market, claims, history, year }: {
   market: MarketData;
   claims: Claims;
   history: History;
   year: number;
-  onClose: () => void;
 }) {
   const series = useMemo(() => {
     const gold = new Map(history.rows.map((r) => [Number(r.year), Number(r.gold_usd_per_oz_mean)]));
@@ -43,11 +42,7 @@ export function MarketDeep({ market, claims, history, year, onClose }: {
   const deals = [...market.deals].sort((a, b) => b.deal_date.localeCompare(a.deal_date));
 
   return (
-    <DeepDive
-      kicker="Deep dive · The land"
-      title="When do people pay, and how much?"
-      mode="State records"
-      onClose={onClose}
+    <TabBody
       evidence={[
         { label: `Alaska DNR state mining claims, retrieved ${claims.retrieved}`, href: claims.source },
         { label: "Gold price by year (World Bank)", source: history.source },
@@ -85,6 +80,6 @@ export function MarketDeep({ market, claims, history, year, onClose }: {
           ))}
         </ul>
       </Section>
-    </DeepDive>
+    </TabBody>
   );
 }

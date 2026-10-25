@@ -10,7 +10,7 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Should we buy this piece of Alaska? · Tok River",
+  title: "Land Arbitrage: Gold · Tok River, Alaska",
   description: HERO.lede,
   icons: { icon: "/favicon.svg" },
 };

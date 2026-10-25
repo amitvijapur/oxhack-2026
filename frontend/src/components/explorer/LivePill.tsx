@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { usd } from "@/lib/showcase";
 
-type Gold = { usd_per_oz: number; updated_at: string; stale: boolean };
+type Gold = { usd_per_oz: number; updated_at: string; stale: boolean; source: string };
 
 const TOK_TIME = new Intl.DateTimeFormat("en-US", { timeZone: "America/Anchorage", hour: "numeric", minute: "2-digit" });
 
-/** Live gold spot price (polled every 30 s through /api/gold-price) and the time in Tok right now. */
-export function Ticker() {
+/** "● Live · Gold $3,997 · Tok 7:41 pm": the spot price through /api/gold-price (polled every 30 s) and the time in Tok. */
+export function LivePill() {
   const [gold, setGold] = useState<Gold | null>(null);
   const [now, setNow] = useState<Date | null>(null);
 
@@ -25,18 +25,15 @@ export function Ticker() {
     return () => { active = false; window.clearInterval(poll); window.clearInterval(tick); window.clearTimeout(first); };
   }, []);
 
+  const live = gold && !gold.stale;
   return (
-    <div className="ticker" aria-live="off">
-      <span className="ticker-item" title={gold ? `Spot price, updated ${new Date(gold.updated_at).toLocaleTimeString()}` : undefined}>
-        <span className={`live-dot${gold && !gold.stale ? "" : " is-off"}`} aria-hidden="true" />
-        <span className="ticker-label">Gold</span>
-        <span className="tabular ticker-value">{gold ? `${usd(gold.usd_per_oz)}/oz` : "—"}</span>
-        <span className="ticker-label">{gold ? (gold.stale ? "last" : "live") : ""}</span>
-      </span>
-      <span className="ticker-item">
-        <span className="ticker-label">Tok</span>
-        <span className="tabular ticker-value">{now ? TOK_TIME.format(now) : "—"}</span>
-      </span>
+    <div className="live" title={gold ? `${gold.source}, updated ${new Date(gold.updated_at).toLocaleTimeString()}` : "Connecting to the gold price"}>
+      <span className={`live-dot${live ? "" : " is-off"}`} aria-hidden="true" />
+      <span>{live ? "Live" : gold ? "Last price" : "Live"}</span>
+      <span className="live-sep" aria-hidden="true" />
+      <span>Gold <strong className="tabular">{gold ? usd(gold.usd_per_oz) : "—"}</strong></span>
+      <span className="live-sep live-tok" aria-hidden="true" />
+      <span className="live-tok">Tok <strong className="tabular">{now ? TOK_TIME.format(now) : "—"}</strong></span>
     </div>
   );
 }

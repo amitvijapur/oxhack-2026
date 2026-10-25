@@ -72,7 +72,7 @@ export type Market = {
 
 export type Showcase = {
   claims: Claims; history: History; town: Town; decision: Decision;
-  geochem: Geochem; occurrences: Occurrences; geology: Geology; market: Market;
+  geochem: Geochem; occurrences: Occurrences; geology: Geology; market: Market; plots: Plots;
 };
 
 async function json<T>(path: string): Promise<T> {
@@ -82,11 +82,12 @@ async function json<T>(path: string): Promise<T> {
 }
 
 export async function loadShowcase(): Promise<Showcase> {
-  const [claims, history, town, decision, geochem, occurrences, geology, market] = await Promise.all([
+  const [claims, history, town, decision, geochem, occurrences, geology, market, plots] = await Promise.all([
     json<Claims>("claims.geojson"), json<History>("history.json"), json<Town>("town.json"), json<Decision>("decision.json"),
     json<Geochem>("geochem.json"), json<Occurrences>("occurrences.json"), json<Geology>("geology.json"), json<Market>("market.json"),
+    json<Plots>("plots.json"),
   ]);
-  return { claims, history, town, decision, geochem, occurrences, geology, market };
+  return { claims, history, town, decision, geochem, occurrences, geology, market, plots };
 }
 
 /** A claim's state in a given year: not yet staked, held, or lapsed. */
@@ -102,11 +103,11 @@ export const usd = (value: number, digits = 0) =>
 /** "−$9,877" style, with a true minus sign. */
 export const signedUsd = (value: number) => `${value < 0 ? "−" : "+"}${usd(Math.abs(value))}`;
 
-/** Support score 0–10 to a colour from cool grey (against) through white to gold (for). */
+/** Support score 0–10 to a colour from grey (against) through white to green (for). */
 export function supportColor(score: number) {
   const t = Math.max(0, Math.min(1, score / 10));
-  const from = t < 0.5 ? [120, 140, 170] : [235, 238, 242];
-  const to = t < 0.5 ? [235, 238, 242] : [232, 176, 75];
+  const from = t < 0.5 ? [115, 115, 115] : [229, 229, 229];
+  const to = t < 0.5 ? [229, 229, 229] : [34, 197, 94];
   const k = t < 0.5 ? t * 2 : (t - 0.5) * 2;
   const c = from.map((v, i) => Math.round(v + (to[i] - v) * k));
   return `rgb(${c[0]} ${c[1]} ${c[2]})`;
@@ -138,4 +139,27 @@ export function km(lon1: number, lat1: number, lon2: number, lat2: number) {
   const r = Math.PI / 180;
   const a = Math.sin(((lat2 - lat1) * r) / 2) ** 2 + Math.cos(lat1 * r) * Math.cos(lat2 * r) * Math.sin(((lon2 - lon1) * r) / 2) ** 2;
   return 2 * 6371.0088 * Math.asin(Math.sqrt(a));
+}
+
+/** A land plot under one or more samples: the real DNR claim that contains them, or a drawn open square. */
+export type Plot = {
+  kind: "claim" | "open";
+  id: string;
+  samples: string[];
+  geometry: Claim["geometry"];
+} & Partial<Pick<ClaimProps, "status" | "owner" | "name" | "start" | "end" | "acres">>;
+export type Plots = { claims_retrieved: string; open_plot_note: string; plots: Plot[] };
+
+/** A plot's strongest reading for one element: the sample, its value and its anomaly class. */
+export function plotReading(plot: Plot, geochem: Geochem, element: string) {
+  const byId = new Map(geochem.samples.map((s) => [s.id, s]));
+  let best: { sample: GeoSample; value: Assay; level: number; k: 0 | 1 | 2 | 3 } | null = null;
+  for (const id of plot.samples) {
+    const sample = byId.get(id);
+    if (!sample) continue;
+    const value = sample.values[element] ?? null;
+    const level = assayLevel(value) ?? -1;
+    if (!best || level > best.level) best = { sample, value, level, k: anomalyClass(value, geochem.thresholds[element]) };
+  }
+  return best;
 }

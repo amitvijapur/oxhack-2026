@@ -4,12 +4,12 @@ import { useMemo } from "react";
 import { ExternalLink } from "lucide-react";
 import { anomalyClass, assayLevel, formatAssayValue, km, type Geochem as GeochemData, type Geology, type Occurrences } from "@/lib/showcase";
 import { Bar } from "../charts";
-import { DeepDive, Section } from "../DeepDive";
+import { Section, TabBody } from "../TabBody";
 
 const CLASS_LABELS = ["Below median", "Above median", "Top 10%", "Top 2%"] as const;
 const PATHFINDERS = ["As", "Sb", "Bi", "Te", "W", "Mo", "Cu", "Ag"];
 
-export function GeochemDeep({ geochem, geology, occurrences, element, onElement, sampleId, occurrenceId, siteOf, onClose }: {
+export function GroundTab({ geochem, geology, occurrences, element, onElement, sampleId, occurrenceId, siteOf, bedrock, onBedrock }: {
   geochem: GeochemData;
   geology: Geology;
   occurrences: Occurrences;
@@ -20,7 +20,9 @@ export function GeochemDeep({ geochem, geology, occurrences, element, onElement,
   /** The selected known-mine record (ARDF number), if any. */
   occurrenceId: string | null;
   siteOf: (sampleId: string) => "A" | "B" | null;
-  onClose: () => void;
+  /** Whether the bedrock geology map and known mines show on the map. */
+  bedrock: boolean;
+  onBedrock: (on: boolean) => void;
 }) {
   const t = geochem.thresholds;
   const info = geochem.elements[element];
@@ -70,11 +72,7 @@ export function GeochemDeep({ geochem, geology, occurrences, element, onElement,
   };
 
   return (
-    <DeepDive
-      kicker="Deep dive · The ground"
-      title="What else is in the dirt?"
-      mode="2016 survey"
-      onClose={onClose}
+    <TabBody
       evidence={[
         { label: "Alaska DGGS RDF 2016-10, all ME-MS61 elements and PGM-MS23 gold, −200 mesh", href: geochem.source.doi },
         { label: `Percentile thresholds across the ${geochem.samples.length} sites; lab-limit values rank at their limit` },
@@ -82,7 +80,7 @@ export function GeochemDeep({ geochem, geology, occurrences, element, onElement,
         { label: `Known mines and prospects: USGS Alaska Resource Data File, retrieved ${occurrences.retrieved}`, href: "https://mrdata.usgs.gov/ardf/" },
       ]}
     >
-      <Section title="Colour the map by element" lede={<>The lab measured {geochem.order.length} elements in every sample. Pick one; the pins on the map show where it runs high.</>}>
+      <Section title="Colour the map by element" lede={<>The lab measured {geochem.order.length} elements in every sample. Pick one; the plots on the map light up where it runs high.</>}>
         <div className="chips" role="radiogroup" aria-label="Element">
           {geochem.key_elements.map((e) => (
             <button key={e} type="button" role="radio" aria-checked={element === e} className="chip" onClick={() => onElement(e)} title={geochem.elements[e]?.name}>
@@ -131,7 +129,7 @@ export function GeochemDeep({ geochem, geology, occurrences, element, onElement,
           <a className="link-button" href={occurrence.url} target="_blank" rel="noreferrer">Full USGS record {occurrence.id}</a>
         </Section>
       ) : (
-        <p className="deep-note">Tap a pin or a mine marker on the map to see its full record here.</p>
+        <p className="deep-note">Tap a plot or a mine marker on the map to see its full record here.</p>
       )}
 
       <Section
@@ -144,7 +142,13 @@ export function GeochemDeep({ geochem, geology, occurrences, element, onElement,
         <p className="deep-note">Counts only. Tungsten, tellurium and bismuth alongside gold is a pattern geologists link to intrusion-related gold, which is common in Interior Alaska; this data alone can&apos;t confirm that.</p>
       </Section>
 
-      <Section title="The rock underneath" lede="The coloured layer on the map is the USGS bedrock map. Here is the unit at each sample site, and how many of the gold-rich streams drain it.">
+      <Section title="The rock underneath" lede="The mapped bedrock unit at each sample site, and how many of the gold-rich streams drain it.">
+        <label className="switch-row">
+          <input type="checkbox" role="switch" checked={bedrock} onChange={(e) => onBedrock(e.target.checked)} />
+          <span className="switch" aria-hidden="true" />
+          Show the bedrock map and known mines on the map
+        </label>
+        <div className="spacer" />
         {units.map((u) => (
           <Bar key={u.name} label={u.name} value={u.all} total={geochem.samples.length} highlight={u.gold} note={`${u.all} sites · ${u.gold} gold-rich`} />
         ))}
@@ -178,6 +182,6 @@ export function GeochemDeep({ geochem, geology, occurrences, element, onElement,
         </table>
       </Section>
 
-    </DeepDive>
+    </TabBody>
   );
 }

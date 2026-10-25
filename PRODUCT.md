@@ -36,7 +36,7 @@ OXHack under the event's TIME theme. The current website uses a historical 2016 
 
 - Dark theme.
 - Use Mapbox as visual inspiration for navigation, typography, controls and the map-first workspace. Keep visible green land and real shaded relief, informed by the earlier reference draft.
-- Project name remains blank or a placeholder, explicitly requested by Amit.
+- Project name: "Land Arbitrage: Gold", chosen by Salman on 25 Oct 2026 (it was blank at Amit's request until then; Amit to confirm).
 - Palette, typography, graphic motifs and layout selection remain proposals.
 
 ## Evidence on Hand

@@ -1,37 +1,19 @@
-# Tok River showcase website
+# Land Arbitrage: Gold
 
-A Next.js website that presents the whole project on a live 3D Earth, in four
-screens with one question each:
+A Next.js website on a live 3D map of the Tok River valley, Alaska.
 
-1. **The ground**: the 67 Alaska DGGS 2016 stream-sediment samples as gold pins,
-   with height set by the gold the lab measured.
-2. **The land**: the real Alaska DNR state mining claims near Tok, with a time
-   scrubber from 1975 to today next to the gold price.
-3. **The people**: the 61-person MiroFish society replaying its scored day-1
-   pilot posts (simulated).
-4. **The decision**: the decision engine's outcome distribution as falling dots,
-   with its SKIP/BUY signal and a buyer-rate slider that flips it at the
-   documented point.
+**The opening is a time-lapse.** It plays 1975 to today by itself:
+- real state mining claims appear the year they were staked (green), stay while held, and fade when they lapse
+- the year, claims held and the gold price count up with them, over a growth line you can scrub
 
-Three screens have an opt-in **Deep dive** sheet:
+**"Explore the land" opens one side panel with four tabs:**
 
-- **The ground: what else is in the dirt?** All 49 elements the lab measured,
-  pins coloured by any element's anomaly class (50th/90th/98th percentile of
-  the 67 sites), which elements travel with gold, the USGS bedrock unit under
-  each sample, and known mines and prospects from the USGS Alaska Resource
-  Data File.
-- **The land: when do people pay, and how much?** Gold price, claims staked
-  and held near Tok, state land sale prices, and claim rent on one 1975–2026
-  timeline that follows the scrubber. It also shows who holds the claims and
-  recent Alaska gold deals.
-- **The decision: when would we sell, and is there a spread?** The engine's
-  month-by-month sell line against the offers buyers might make, cash at risk
-  over time, the per-acre arbitrage spread against comparable deals, and what
-  would flip the answer to BUY.
+- **Overview:** today's signal for the Tok Site B contract (SKIP), why, and the three numbers behind it.
+- **Ground:** the 57 sampled 160-acre plots coloured by any of 49 measured elements, which elements travel with gold, and an optional bedrock map with known mines (USGS).
+- **Market:** gold price, claims staked and held, land prices and claim rent from 1975 to today, who holds the claims, and recent Alaska gold deals.
+- **Decision:** the decision engine's outcome distribution with a buyer-rate slider, its month-by-month sell line, the per-acre arbitrage spread, and the simulated town (61 AI residents) reacting to gold news.
 
-A live gold spot price and the time in Tok run across the top. Every screen
-labels how real its numbers are (2016 survey, state records, simulated, model)
-and links its sources under "Evidence".
+Tap any plot on the map for its card: holder, since when, and the gold found there. A live gold spot price and the time in Tok sit top right. Monochrome, with green only for live data and growth.
 
 See [the team improvement guide](CONTRIBUTING.md) for file ownership boundaries.
 

@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { RotateCcw } from "lucide-react";
-import { signedUsd, usd, type Decision as DecisionData, type Market, type World } from "@/lib/showcase";
-import { Panel } from "./Panel";
-import type { Depth } from "./Ground";
-import { TimingDeep } from "./deep/Timing";
+import { useEffect, useMemo, useRef } from "react";
+import { signedUsd, usd, type Decision, type Market, type Town, type World } from "@/lib/showcase";
+import { Section, TabBody } from "../TabBody";
+import { Timing } from "./Timing";
+import { Swarm } from "./Swarm";
 
 const DOTS = 300;
-const Q_LABELS: Record<string, string> = { "0.003": "1 in 333", "0.03": "1 in 33", "0.1": "1 in 10", "0.25": "1 in 4", "0.5": "1 in 2" };
+export const Q_LABELS: Record<string, string> = { "0.003": "1 in 333", "0.03": "1 in 33", "0.1": "1 in 10", "0.25": "1 in 4", "0.5": "1 in 2" };
 const AXIS: Record<number, string> = { [-100000]: "−$100k", [-25000]: "−$25k", [-10000]: "−$10k", 0: "$0", 50000: "+$50k", 200000: "+$200k", 800000: "+$800k" };
 
 /** Split DOTS across bins in proportion to probability (largest remainder), so the pile is the real distribution. */
@@ -24,109 +22,69 @@ function allocate(histogram: number[]) {
   return counts;
 }
 
-export function Decision({ decision, market, deep, tour, onRestart }: {
-  decision: DecisionData;
+/** The world the slider and switch pick out of the engine's precomputed grid. */
+export function worldFor(decision: Decision, qIndex: number, early: boolean) {
+  const qs = [...new Set(decision.worlds.map((w) => w.q))].sort((a, b) => a - b);
+  return { qs, world: decision.worlds.find((w) => w.q === qs[qIndex] && w.acceleration === early)! };
+}
+
+export function DecisionTab({ decision, market, town, qIndex, onQIndex, early, onEarly }: {
+  decision: Decision;
   market: Market;
-  deep: Depth;
-  tour: boolean;
-  onRestart: () => void;
+  town: Town;
+  qIndex: number;
+  onQIndex: (index: number) => void;
+  early: boolean;
+  onEarly: (early: boolean) => void;
 }) {
-  const qs = useMemo(() => [...new Set(decision.worlds.map((w) => w.q))].sort((a, b) => a - b), [decision]);
-  const [qIndex, setQIndex] = useState(2);
-  const [early, setEarly] = useState(true);
-  const [settled, setSettled] = useState(false);
-  const [run, setRun] = useState(0);
-  const world = decision.worlds.find((w) => w.q === qs[qIndex] && w.acceleration === early)!;
-
-  // In the tour: let the dots land, slide to the most optimistic world until it flips to BUY,
-  // then return to the default, so the tour ends on the real answer rather than the best case.
-  useEffect(() => {
-    if (!tour) return;
-    const timers = [[5000, 3], [8000, 4], [13_500, 2]].map(([ms, index]) => window.setTimeout(() => setQIndex(index), ms));
-    return () => timers.forEach(window.clearTimeout);
-  }, [tour]);
-
+  const { qs, world } = worldFor(decision, qIndex, early);
   const stages = decision.contract.stages;
   return (
-    <>
-      <Panel
-        step={4}
-        onDeep={deep.onOpen}
-        mode="Model"
-        title="So, do we buy?"
-        lede={<>Every dot is one possible future for a four-year, {usd(stages.reduce((a, s) => a + s.payment_usd, 0))} staged deal on {decision.contract.acres} acres. The algorithm plays each one month by month, and the dots land where the money ends up.</>}
-        evidence={[
-          { label: "Decision engine: monthly backward induction over buyer arrivals, offers from comparable deals", source: decision.source },
-          { label: decision.contract.terms_label },
-          { label: `Across all ${decision.combinations} assumption sets: ${decision.verdict_text}; average ${signedUsd(decision.expected_value_usd)}` },
-          { label: "Land status and mineral rights are not yet confirmed, so any BUY would go to manual review" },
-        ]}
+    <TabBody
+      evidence={[
+        { label: "Decision engine: monthly backward induction over buyer arrivals; offers from comparable deals", source: decision.source },
+        { label: `${decision.bids_label.split(". ")[0]}.` },
+        { label: decision.contract.terms_label },
+        { label: "Comparable deals ($/acre)", source: market.sources[1] },
+        { label: `Swarm: MiroFish society, ${town.run.kind} run, seed ${town.run.seed}`, source: town.source },
+      ]}
+    >
+      <Section
+        title="Play the deal forward"
+        lede={<>A four-year staged option on {decision.contract.acres} acres: {stages.map((s) => `$${s.payment_usd / 1000}k`).join(" → ")}. Every dot is one possible future; it lands where the money ends up.</>}
       >
-        <ol className="ladder" aria-label="Payments">
-          {stages.map((s) => (
-            <li key={s.month}><span className="tabular">{usd(s.payment_usd / 1000)}k</span><small>{s.month === 0 ? "now" : `year ${s.month / 12}`}</small></li>
-          ))}
-        </ol>
         <div className="control">
           <label htmlFor="q-slider">How often does a new claim nearby bring a buyer?</label>
-          <input
-            id="q-slider"
-            type="range"
-            min={0}
-            max={qs.length - 1}
-            step={1}
-            value={qIndex}
-            onChange={(e) => setQIndex(Number(e.target.value))}
-            aria-valuetext={Q_LABELS[String(qs[qIndex])]}
-          />
+          <input id="q-slider" type="range" min={0} max={qs.length - 1} step={1} value={qIndex}
+            onChange={(e) => onQIndex(Number(e.target.value))} aria-valuetext={Q_LABELS[String(qs[qIndex])]} />
           <div className="control-scale tabular" aria-hidden="true">
             {qs.map((q, i) => <span key={q} data-on={i === qIndex || undefined}>{Q_LABELS[String(q)]}</span>)}
           </div>
         </div>
         <label className="switch-row">
-          <input type="checkbox" role="switch" checked={early} onChange={(e) => setEarly(e.target.checked)} />
+          <input type="checkbox" role="switch" checked={early} onChange={(e) => onEarly(e.target.checked)} />
           <span className="switch" aria-hidden="true" />
           We may pay the rest early to close a sale
         </label>
-      </Panel>
-
-      {deep.open ? <TimingDeep decision={decision} market={market} world={world} onClose={deep.onClose} /> : null}
-      <div className="stage stage-decision">
-        <Board world={world} edges={decision.histogram_edges_usd} run={run} onSettled={setSettled} />
-        <AnimatePresence mode="wait">
-          {settled ? (
-            <motion.div
-              key={`${world.action}-${world.q}-${world.acceleration}`}
-              className="verdict"
-              initial={{ opacity: 0, scale: 1.25 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ type: "spring", stiffness: 380, damping: 18 }}
-            >
-              <span className={`stamp${world.action === "BUY" ? " is-buy" : ""}`}>{world.action}</span>
-              <span className="verdict-line tabular">Expected {signedUsd(world.value_usd)} in this world</span>
-              <span className="verdict-sub">{Math.round(world.p_loss * 100)}% of futures lose money</span>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-        <div className="board-foot">
-          <p className="board-overall">
-            Across all {decision.combinations} worlds we tested: <strong>{decision.verdict}</strong>, BUY in only {decision.combinations_buy}.
-          </p>
-          <button type="button" className="ghost-button small" onClick={() => setRun((r) => r + 1)}>
-            <RotateCcw className="size-3.5" aria-hidden="true" /> Drop again
-          </button>
-          <button type="button" className="ghost-button small" onClick={onRestart}>Start over</button>
+        <div className="verdict-row" aria-live="polite">
+          <span className={`signal${world.action === "BUY" ? " is-buy" : ""}`}>{world.action}</span>
+          <span className="tabular">{signedUsd(world.value_usd)} expected · {Math.round(world.p_loss * 100)}% of futures lose money</span>
         </div>
-      </div>
-    </>
+        <Board world={world} edges={decision.histogram_edges_usd} />
+        <p className="note">Across all {decision.combinations} assumption sets the engine tested: <strong>{decision.verdict}</strong>, BUY in only {decision.combinations_buy}. Top offer the model draws: {usd(Math.max(...decision.exit_offers_usd_per_acre) * decision.contract.acres)}.</p>
+      </Section>
+
+      <Timing decision={decision} market={market} world={world} />
+
+      <Swarm town={town} />
+    </TabBody>
   );
 }
 
 type Particle = { x: number; y: number; vy: number; tx: number; ty: number; delay: number; gain: boolean };
 
 /** The falling dots: each lands in the outcome bin the engine assigns it, stacking into the real distribution. */
-function Board({ world, edges, run, onSettled }: { world: World; edges: number[]; run: number; onSettled: (done: boolean) => void }) {
+function Board({ world, edges }: { world: World; edges: number[] }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const counts = useMemo(() => allocate(world.histogram), [world]);
   const bins = counts.length;
@@ -141,7 +99,6 @@ function Board({ world, edges, run, onSettled }: { world: World; edges: number[]
     el.height = h * dpr;
     const ctx = el.getContext("2d")!;
     ctx.scale(dpr, dpr);
-    onSettled(false);
 
     const floor = h - 34;
     const col = w / bins;
@@ -173,7 +130,7 @@ function Board({ world, edges, run, onSettled }: { world: World; edges: number[]
       const t = now - start;
       ctx.clearRect(0, 0, w, h);
       // Axis: zero line and bin labels.
-      ctx.strokeStyle = "rgba(255,255,255,0.18)";
+      ctx.strokeStyle = "rgba(255,255,255,0.16)";
       ctx.beginPath(); ctx.moveTo(0, floor + 0.5); ctx.lineTo(w, floor + 0.5); ctx.stroke();
       const zx = zeroBin * col;
       ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(zx, 8); ctx.lineTo(zx, floor); ctx.stroke(); ctx.setLineDash([]);
@@ -199,7 +156,7 @@ function Board({ world, edges, run, onSettled }: { world: World; edges: number[]
           p.x += (p.tx - p.x) * 0.09;
           moving++;
         } else if (t <= p.delay) moving++;
-        ctx.fillStyle = p.gain ? "#e8b04b" : "rgba(226,232,240,0.85)";
+        ctx.fillStyle = p.gain ? "#22c55e" : "rgba(229,229,229,0.8)";
         ctx.fillRect(p.x - size / 2 + 0.5, p.y - size / 2 + 0.5, size - 1, size - 1);
       }
       // Name the tallest pile once the dots have landed.
@@ -214,11 +171,10 @@ function Board({ world, edges, run, onSettled }: { world: World; edges: number[]
         ctx.fillText(pile.note, x, pile.top + 32);
       }
       if (moving > 0) frame = requestAnimationFrame(draw);
-      else onSettled(true);
     };
     frame = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(frame);
-  }, [counts, bins, edges, run, onSettled, world]);
+  }, [counts, bins, edges, world]);
 
   return (
     <canvas
