@@ -2,111 +2,96 @@ async page => {
   const check = (condition, message) => { if (!condition) throw new Error(message); };
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.setViewportSize({ width: 1440, height: 1000 });
+  const heading = (name) => page.getByRole('heading', { name, exact: true }).waitFor({ timeout: 20000 });
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('http://127.0.0.1:3000/');
-  await page.getByRole('heading', { name: 'Compare the two areas' }).waitFor();
-  await page.waitForFunction(() => document.querySelector('.globe-frame')?.dataset.mapStatus === 'ready');
-  // The globe flies down to Tok first; sample markers exist only after it lands.
-  await page.getByRole('link', { name: 'Explore the map' }).click();
-  await page.waitForFunction(() => document.querySelector('.globe-frame')?.dataset.arrived === 'true', null, { timeout: 30000 });
-  check((await page.locator('h1').innerText()).includes('gold worth claiming near Tok'), 'Hero question missing');
-  await page.getByRole('button', { name: 'Browse all 67 samples' }).click();
-  await page.evaluate(() => document.fonts.ready);
-  check(await page.locator('[data-sample-id]').count() === 67, 'All view must contain 67 map markers');
-  check(await page.locator('tbody tr').count() === 67, 'Sample table must contain 67 records');
-  check(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), 'Desktop horizontal overflow');
-  await page.screenshot({ path: 'frontend/artifacts/desktop.png', fullPage: true });
 
-  const filters = page.getByRole('group', { name: 'Filter and frame sampling area' });
-  await filters.getByRole('button', { name: /^Tok east/ }).click();
-  await page.waitForFunction(() => document.querySelectorAll('[data-sample-id]').length === 34);
-  // The map sits below the hero; bring it into view before clicking a marker.
-  await page.locator('.map-shell').evaluate((el) => el.scrollIntoView({ block: 'center' }));
-  await page.waitForTimeout(300);
-  const point = await page.locator('[data-sample-id="16MBW012"]').boundingBox();
-  await page.mouse.click(point.x + point.width / 2, point.y + point.height / 2);
-  await page.getByRole('button', { name: 'Inspect nearby sample 16MBW012', exact: true }).click();
-  const drawer = page.locator('.sample-drawer');
-  await drawer.getByRole('heading', { name: '16MBW012' }).waitFor();
-  await drawer.getByText('Lab details', { exact: true }).click();
-  check(await drawer.getByText('>1 ppm', { exact: true }).count() === 1, 'Qualified primary gold not displayed');
-  check(await drawer.getByText('1.1 ppm', { exact: true }).count() === 1, 'Separate retest not displayed');
-  check((await drawer.innerText()).includes('PGM-MS23') && (await drawer.innerText()).includes('Au-AA25'), 'Methods must remain separate');
-  check((await drawer.innerText()).includes('-143.388173') && (await drawer.innerText()).includes('63.163121'), 'Selected sample coordinates wrong');
-  check((await drawer.innerText()).includes('-2'), 'Primary raw qualification missing');
-  await page.screenshot({ path: 'frontend/artifacts/sample-details.png', fullPage: true });
-  await drawer.getByRole('button', { name: 'Close sample details' }).click();
-  check(await page.locator('[data-sample-id="16MBW012"]').evaluate(el => document.activeElement === el), 'Closing drawer must restore keyboard focus');
+  // Arrival: the question, live ticker and the two ways in.
+  await heading('Should we buy this piece of Alaska?');
+  await page.getByRole('button', { name: /Go to Tok/ }).waitFor();
+  await page.waitForFunction(() => document.querySelector('.ticker')?.innerText.includes('/oz'), null, { timeout: 15000 });
+  await page.screenshot({ path: 'frontend/artifacts/0-arrival.png' });
 
-  await page.getByRole('button', { name: 'Frame Tok west on map' }).click();
-  await page.waitForFunction(() => document.querySelectorAll('[data-sample-id]').length === 33);
-  await filters.getByRole('button', { name: /^All/ }).click();
-  await page.waitForFunction(() => document.querySelectorAll('[data-sample-id]').length === 67);
-  await page.getByRole('button', { name: 'Reset view', exact: true }).click();
-  const search = page.getByRole('searchbox');
-  await search.fill('16MBW012');
-  check(await page.locator('tbody tr').count() === 1, 'Search must isolate selected sample');
-  await page.getByRole('button', { name: '16MBW012', exact: true }).focus();
-  await page.keyboard.press('Enter');
-  await drawer.getByRole('heading', { name: '16MBW012' }).waitFor();
+  // 1. The ground: the richest sample is above the lab's upper limit and must read as such.
+  await page.getByRole('button', { name: /Go to Tok/ }).click();
+  await heading('Is there gold in the ground?');
+  await page.getByRole('button', { name: /Show the richest sample, 16MBW012/ }).click();
+  const callout = await page.locator('.callout').innerText();
+  check(callout.includes('16MBW012') && callout.includes('>1 ppm'), `Richest sample callout wrong: ${callout}`);
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: 'frontend/artifacts/1-ground.png' });
+
+  // 2. The land: the scrubber changes the year and the claim count.
+  await page.keyboard.press('ArrowRight');
+  await heading('Who already owns it?');
+  const held = async () => page.locator('.stat-row dd').nth(1).innerText();
+  const now = await held();
+  await page.getByRole('slider', { name: 'Year' }).fill('1990');
+  check((await page.locator('.stat-row dd').first().innerText()) === '1990', 'Scrubber did not move the year');
+  check((await held()) !== now, 'Claim count did not change with the year');
+  await page.getByRole('slider', { name: 'Year' }).fill('2026');
+  await page.waitForTimeout(3000);
+  await page.screenshot({ path: 'frontend/artifacts/2-land.png' });
+
+  // 3. The people: a full simulated day plays and every scored post is counted.
+  await page.getByRole('button', { name: 'What would the town think?' }).click();
+  await heading('What would the town think?');
+  check(await page.locator('.town-svg circle.town-dot').count() === 60, 'Town must show 60 people plus the news wire');
+  await page.getByRole('button', { name: 'Play the day' }).click();
+  await page.getByRole('button', { name: 'Play again' }).waitFor({ timeout: 30000 });
+  const town = await page.locator('.stat-row').innerText();
+  check(town.includes('24 / 24') && town.includes('277'), `Town did not finish the day: ${town}`);
+  check(/\d\.\d/.test(await page.locator('.stat-row dd').nth(2).innerText()), 'Town mood missing');
+  await page.screenshot({ path: 'frontend/artifacts/3-town.png' });
+
+  // 4. The decision: SKIP by default, BUY only at the optimistic end with early completion.
+  await page.getByRole('button', { name: 'So, do we buy?' }).click();
+  await heading('So, do we buy?');
+  const stamp = page.locator('.stamp');
+  await stamp.waitFor({ timeout: 15000 });
+  check(await stamp.innerText() === 'SKIP', 'Default decision must be SKIP');
+  check((await page.locator('.board-overall').innerText()).includes('BUY in only 5'), 'Robust summary missing');
+  await page.locator('#q-slider').focus();
+  await page.keyboard.press('End');
+  await page.waitForFunction(() => document.querySelector('.stamp')?.innerText === 'BUY', null, { timeout: 15000 });
+  check((await page.locator('.verdict-line').innerText()).includes('+$1,499'), 'Optimistic world value wrong');
+  await page.screenshot({ path: 'frontend/artifacts/4-decision-buy.png' });
+  await page.getByText('We may pay the rest early to close a sale').click();
+  await page.waitForFunction(() => document.querySelector('.stamp')?.innerText === 'SKIP', null, { timeout: 15000 });
+
+  // Arrow keys move back through the steps; the stepper names each one.
   await page.keyboard.press('Escape');
-  await page.getByRole('heading', { name: 'Compare the two areas' }).waitFor();
-  await search.fill('no-such-sample');
-  check(await page.locator('tbody tr').count() === 0, 'Empty search should show no records');
-  check((await page.locator('.no-records').innerText()).includes('No samples match'), 'Missing empty-search feedback');
-  await search.fill('');
-
-  const timeline = await page.locator('.timeline-section').innerText();
-  check(timeline.includes('Jun–Jul 2016') && timeline.includes('Nov 2016'), 'Timeline must preserve month precision');
-  const streams = await page.locator('.workstreams').innerText();
-  check(['Amit', 'Arjin', 'Muhd', 'Salman'].every(value => streams.includes(value)), 'Workstream owners missing');
-  check(/Live|Coming soon/.test(streams), 'Workstream statuses missing');
-  check(await page.locator('.workstream').count() === 4, 'Must show the four pieces');
-  check((await page.locator('.evidence-footer').innerText()).includes('RDF 2016-10'), 'DGGS attribution missing');
+  await page.locator('body').click({ position: { x: 5, y: 5 } }).catch(() => {});
+  await page.getByRole('navigation', { name: 'Steps' }).getByRole('button', { name: 'The ground' }).click();
+  await heading('Is there gold in the ground?');
 
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: 844 });
-    await page.evaluate(() => window.scrollTo(0, 0));
     check(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `Horizontal overflow at ${width}px`);
-    check(await page.locator('[data-sample-id]').count() === 67, 'Mobile lost sample markers');
-    await page.waitForFunction(() => {
-      const frame = document.querySelector('.globe-frame').getBoundingClientRect();
-      return [...document.querySelectorAll('[data-sample-id]')].every((marker) => {
-        const box = marker.getBoundingClientRect();
-        const x = box.x + box.width / 2;
-        const y = box.y + box.height / 2;
-        return x >= frame.left && x <= frame.right && y >= frame.top && y <= frame.bottom;
-      });
-    });
-    if (width === 390) await page.screenshot({ path: 'frontend/artifacts/mobile.png', fullPage: true });
   }
+  await page.screenshot({ path: 'frontend/artifacts/mobile-ground.png' });
 
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.route('**/data/gold-frontend-data.json', route => route.fulfill({ status: 503, body: 'Unavailable' }));
-  await page.reload();
-  await page.getByRole('heading', { name: 'Evidence could not be loaded' }).waitFor();
-  check(await page.getByRole('button', { name: 'Retry loading evidence' }).isVisible(), 'Failed load needs retry');
-  await page.unroute('**/data/gold-frontend-data.json');
-  await page.getByRole('button', { name: 'Retry loading evidence' }).click();
-  await page.getByRole('heading', { name: 'Compare the two areas' }).waitFor();
-  await page.waitForFunction(() => document.querySelectorAll('[data-sample-id]').length === 67);
+  // Missing data: say so instead of showing a blank page.
+  const broken = await page.context().newPage();
+  await broken.route('**/data/showcase/decision.json', route => route.fulfill({ status: 503, body: 'Unavailable' }));
+  await broken.goto('http://127.0.0.1:3000/');
+  await broken.getByRole('alert').filter({ hasText: 'decision.json' }).waitFor();
+  await broken.close();
 
-  const fallbackPage = await page.context().newPage();
-  await fallbackPage.addInitScript(() => {
+  // No WebGL: the 3D map is skipped with a note, and the steps still work.
+  const flat = await page.context().newPage();
+  await flat.addInitScript(() => {
     const original = HTMLCanvasElement.prototype.getContext;
     HTMLCanvasElement.prototype.getContext = function (type, ...args) {
       return String(type).includes('webgl') ? null : original.call(this, type, ...args);
     };
   });
-  await fallbackPage.goto('http://127.0.0.1:3000/');
-  await fallbackPage.locator('.sample-plot').waitFor();
-  check(await fallbackPage.locator('[data-sample-id]').count() === 67, 'No-WebGL fallback lost samples');
-  await fallbackPage.locator('[data-sample-id="16MBW012"]').focus();
-  await fallbackPage.keyboard.press('Enter');
-  await fallbackPage.getByRole('button', { name: 'Inspect nearby sample 16MBW012', exact: true }).click();
-  await fallbackPage.locator('.sample-drawer').getByRole('heading', { name: '16MBW012' }).waitFor();
-  await fallbackPage.close();
-  await page.evaluate(() => window.scrollTo(0, 0));
+  await flat.goto('http://127.0.0.1:3000/');
+  await flat.getByText('could not start the 3D map').waitFor({ timeout: 20000 });
+  await flat.getByRole('button', { name: /Go to Tok/ }).click();
+  await flat.getByRole('heading', { name: 'Is there gold in the ground?' }).waitFor();
+  await flat.close();
+
   check(errors.length === 0, `Unexpected runtime errors: ${errors.join('; ')}`);
-  return { result: 'pass', markerCounts: [67, 34, 33, 67], viewportWidths: [1440, 390, 320], qualifiedSample: '16MBW012', retries: 'passed', noWebGLFallback: 'passed', runtimeErrors: errors };
+  return { result: 'pass', screens: 5, richestSample: '16MBW012', decision: { default: 'SKIP', optimistic: 'BUY +$1,499' }, viewportWidths: [1440, 390, 320], noWebGL: 'passed', runtimeErrors: errors };
 }

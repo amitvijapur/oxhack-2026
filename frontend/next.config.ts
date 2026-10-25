@@ -14,6 +14,9 @@ const convex = !convexUrl
 // The basemap (OpenFreeMap: style, tiles, glyphs, sprites) and the Mapzen
 // terrain tiles the globe and relief read (src/components/globe/terrain-style.ts).
 const MAP_HOSTS = "https://tiles.openfreemap.org https://s3.amazonaws.com";
+// The showcase Earth (src/components/earth/Earth.tsx): Esri satellite imagery,
+// and Google Photorealistic 3D Tiles when a Maps key is set.
+const EARTH_HOSTS = "https://server.arcgisonline.com https://tile.googleapis.com";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
@@ -27,12 +30,13 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Next's inline bootstrap scripts; eval only for dev's fast refresh.
-      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+      // wasm-unsafe-eval: Cesium decodes Draco meshes (Google 3D Tiles) in WebAssembly.
+      `script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${isDev ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
-      `img-src 'self' data: blob: ${MAP_HOSTS}`,
+      `img-src 'self' data: blob: ${MAP_HOSTS} ${EARTH_HOSTS}`,
       "font-src 'self'",
-      `connect-src 'self' ${MAP_HOSTS}${convex}`,
-      // MapLibre runs its tile workers from a blob URL.
+      `connect-src 'self' ${MAP_HOSTS} ${EARTH_HOSTS}${convex}`,
+      // MapLibre runs its tile workers from a blob URL; Cesium's come from /vendor.
       "worker-src 'self' blob:",
       "child-src 'self' blob:",
       "object-src 'none'",

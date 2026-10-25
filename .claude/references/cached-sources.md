@@ -18,7 +18,7 @@ this table in the same PR.
 | convex-backend (Rust) | opensrc tag `1.47.0` (contains **1.48.0**) | Limits and storage behaviour not in the npm package | `crates/common/src/document.rs`, `crates/value/src/{array,object,size}.rs`, `crates/common/src/knobs.rs`, `crates/common/src/sha256.rs` |
 | convex-test / vitest / @edge-runtime/vm | 0.0.65 / 5.0.5 / 5.0.0 | Backend tests; vitest peer range allows Vite 8 | `frontend/node_modules/convex-test/`, `npm view vitest@5.0.5 peerDependencies` |
 | vite | 8.3.5 | `loadEnv`, `VITE_` exposure, `preview.headers` used to mirror Vercel headers | `packages/vite/src/node/env.ts`, `src/node/preview.ts` |
-| maplibre-gl | 6.15.0 | Worker URL setup; compact attribution starts expanded below 640 px | `src/ui/control/attribution_control.ts` |
+| cesium (+ @cesium/engine, @cesium/core) | 1.146.0 (engine 26.4.0) | The showcase Earth: `createGooglePhotorealistic3DTileset`, `CustomHeightmapTerrainProvider`, `GroundPrimitive` per-instance attributes, `HeightReference` | **`frontend/node_modules/@cesium/engine/Source/`** (the npm package ships its source): `Scene/createGooglePhotorealistic3DTileset.js`, `Core/CustomHeightmapTerrainProvider.js`, `Scene/HeightReference.js`, `DataSources/CylinderGraphics.js` |
 | vercel CLI | 63.1.2 | Offline `vercel build` check of `vercel.json`, the `/api` function and rewrites | `npx vercel@63.1.2 build` output in `.vercel/output/` |
 
 The opensrc directory `~/.opensrc/repos/github.com/get-convex/convex-backend/1.47.0` holds
@@ -27,6 +27,18 @@ check client and CLI behaviour in `frontend/node_modules/convex/src/`, which is 
 1.47.0. Re-check this when upgrading.
 
 Verified facts this setup depends on:
+
+- Cesium 1.146.0's `@cesium/core` imports `earcut`, `mersenne-twister` and `urijs`
+  without declaring them (`node_modules/@cesium/core/package.json` has no
+  dependencies). `earcut` is therefore a direct dependency at the version
+  `@cesium/engine` pins (3.0.2); without it the build fails with "Can't resolve 'earcut'".
+- `createGooglePhotorealistic3DTileset` falls back to a Cesium ion asset when no
+  key is given (`Scene/createGooglePhotorealistic3DTileset.js`), so `Earth.tsx`
+  calls it only when `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` is set.
+- `CustomHeightmapTerrainProvider`'s callback may return a promise of a typed array
+  (`Core/CustomHeightmapTerrainProvider.js`, `requestTileGeometry`).
+- `HeightReference.RELATIVE_TO_GROUND` covers terrain and 3D Tiles
+  (`Scene/HeightReference.js`), so the pins work with both globes.
 
 - `convex deploy` rejects a production deploy key in a non-production Vercel
   build (`src/cli/deploy.ts`), so Production and Preview need separate keys.

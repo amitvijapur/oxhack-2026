@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "./site.css";
 
 /*
  * Tok River design system: an Alaska night. Deep slate canvas, gold as the one
@@ -12,8 +11,6 @@
 @theme inline {
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

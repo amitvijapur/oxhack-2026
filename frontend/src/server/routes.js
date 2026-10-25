@@ -1,4 +1,5 @@
 import { json } from './http.js';
+import { goldPrice } from './gold.js';
 
 /**
  * Every API route, keyed "METHOD /path" under /api. Add a route here, not a new route file:
@@ -11,4 +12,5 @@ export const routes = {
     environment: process.env.VERCEL_ENV ?? 'local',
     commit: process.env.VERCEL_GIT_COMMIT_SHA ?? null,
   }),
+  'GET /gold-price': () => goldPrice(),
 };

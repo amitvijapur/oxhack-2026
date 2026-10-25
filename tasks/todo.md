@@ -248,6 +248,16 @@ Owner: Amit, with Codex maintaining the repository configuration and documentati
 
 ## Review
 
+25 October 2026, showcase website (Salman, `frontend/`, branch `salman/showcase-earth`):
+replaced the stacked evidence page with a four-screen story on a Cesium 3D Earth
+(ground → land → people → decision), a live gold price and the Tok clock. The data
+is copied from `arjin/tok-land-data`, `ahmed/gold-society-plan` and
+`salman/decision-engine` by `frontend/scripts/build-showcase-data.py`, with source
+commits recorded; DNR claims were fetched on 25 October. The checks passed: `npm test`
+(20), typecheck, lint, `next build`, the rewritten `tests/browser-smoke.js`, and a
+full tour run with no runtime errors. Google 3D Tiles need a Maps key, which has not
+been added yet.
+
 24 October 2026, optional kit import: inspected Muhammad's actual archive at
 `d517f31`, then adapted only the staged scan, two manual skills and supporting
 references, and an explicitly loaded deny profile. All 13 disposable-repository
