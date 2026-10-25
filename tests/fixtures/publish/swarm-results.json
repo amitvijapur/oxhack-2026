@@ -1,0 +1,74 @@
+{
+  "generated": "2026-10-25T07:00:00+00:00",
+  "judge_model": "gpt-5.4-mini",
+  "checks": {
+    "placebo": {
+      "status": "pass",
+      "parts": []
+    },
+    "mirrors": {
+      "status": "not run",
+      "parts": []
+    },
+    "stability": {
+      "status": "fail",
+      "parts": []
+    },
+    "grounding": {
+      "status": "pass, partly not run",
+      "parts": []
+    }
+  },
+  "chance_band": {
+    "Funds": 0.4
+  },
+  "effects": {
+    "mine_approved": {
+      "Funds": {
+        "effect": 0.8,
+        "band": 0.4,
+        "beyond_band": true,
+        "expected": "up",
+        "timing": 3
+      }
+    }
+  },
+  "runs": [
+    {
+      "folder": "01-baseline-s1",
+      "scenario": "baseline",
+      "seed": 1,
+      "status": "judged",
+      "calls": {
+        "price": {
+          "call": "up",
+          "votes": {
+            "up": 5
+          },
+          "answers": 6,
+          "median_move_pct": 3.0
+        },
+        "policy": {
+          "call": null,
+          "votes": {},
+          "answers": 4,
+          "statements": []
+        },
+        "leaning": {
+          "call": "split",
+          "votes": {
+            "split": 3
+          },
+          "answers": 5
+        }
+      }
+    },
+    {
+      "folder": "05-mine_approved-s1",
+      "scenario": "mine_approved",
+      "seed": 1,
+      "status": "not run"
+    }
+  ],
+  "grounding_sample": []
+}

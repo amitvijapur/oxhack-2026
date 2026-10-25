@@ -1,0 +1,84 @@
+{
+  "contractVersion": "tok-assignment-output-v1",
+  "modelVersion": "tok-option-demo-v1",
+  "selection": {
+    "area": "A",
+    "horizonDays": 90,
+    "scenarioId": "baseline"
+  },
+  "result": {
+    "version": "tok-option-demo-v1",
+    "mode": "pending",
+    "status": "pending",
+    "reasons": [
+      "Select explicit demo assumptions to run the hypothetical economics, or inspect real-data availability."
+    ],
+    "evidence": {
+      "gate": "PASS",
+      "pass": 25,
+      "fail": 8,
+      "unknown": 0,
+      "total": 33,
+      "lowerFraction": 0.7575757575757576,
+      "upperFraction": 0.7575757575757576,
+      "rule": {
+        "thresholdPpm": 0.01,
+        "minimumClassifiedSamples": 10,
+        "minimumQualifyingFraction": 0.5
+      },
+      "reasons": [],
+      "area": "A",
+      "provenance": "observed",
+      "interpretation": "Comparison-area screen only; not a deposit probability, legal parcel or resource estimate."
+    },
+    "baseline": null,
+    "mapped": null,
+    "signal": {
+      "status": "PENDING_SWARM",
+      "value": null,
+      "adjustment": null,
+      "groups": [],
+      "reasons": [
+        "swarm_import_required"
+      ]
+    },
+    "horizons": [
+      {
+        "days": 30,
+        "baseline": null,
+        "mapped": null,
+        "delta": {
+          "assignmentValueUsd": null,
+          "expectedNetCashUsd": null
+        }
+      },
+      {
+        "days": 90,
+        "baseline": null,
+        "mapped": null,
+        "delta": {
+          "assignmentValueUsd": null,
+          "expectedNetCashUsd": null
+        }
+      },
+      {
+        "days": 180,
+        "baseline": null,
+        "mapped": null,
+        "delta": {
+          "assignmentValueUsd": null,
+          "expectedNetCashUsd": null
+        }
+      }
+    ],
+    "assumptions": [
+      "Primary sediment assays and supplied land-source context are observed inputs. A and B remain comparison areas, not verified mineral interests.",
+      "Recoverable ounces, commodity price and growth, contract terms, success probability and conversion factor are hypothetical.",
+      "The success state resolves before buyer exercise and failure interest value is zero. This call-shaped proxy omits option time value.",
+      "Sale hazard is assumed per 30 days. It is unchanged by news or asking price in this controlled comparison.",
+      "The ±7% cap limits one model price adjustment, not investment loss. The full upfront commitment can be lost.",
+      "Unsold model marks are separate from cash and never fund new positions. No exercise, leverage or reinvestment.",
+      "One hypothetical option is screened against the selected comparison area. No available Tok contract is asserted."
+    ]
+  }
+}

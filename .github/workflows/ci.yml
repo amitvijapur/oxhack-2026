@@ -52,6 +52,12 @@ jobs:
           node ../research/tok-option-model/validate-plan.mjs
           node ../model/tok-option/audit.mjs > "$RUNNER_TEMP/tok-model-audit.json"
 
+      - name: Verify canonical backend contract
+        run: |
+          npm run test:backend
+          npm run typecheck:backend
+          python3 -m unittest discover -s ../tests -p test_publish_run.py
+
       - name: Build website
         run: npm run build
 
