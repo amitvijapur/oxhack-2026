@@ -11,12 +11,18 @@ PRs require no approving reviews. Teammates can review when useful, but neither
 a teammate approval nor an approval of the latest push is a merge requirement.
 Do not reinstate mandatory approvals without Amit's request.
 
-Merging still requires the branch to be up to date, both required CI checks to
+Merging still requires the branch to be up to date, all three required CI checks to
 pass, and all conversations to be resolved. Linear history is required, and
 force pushes and deletion of `main` are blocked. The repository owner follows
 the same protected-branch requirements. GitHub's API readback confirmed these
 rules on the private repository on 24 October 2026, including checks tied to
 the GitHub Actions App. This policy supersedes the initial one-approval rule.
+
+The application integration adds `Frontend checks` alongside `Repository checks`
+and `Secret scan`. The frontend job runs the canonical option-model suite and
+source/specification checks explicitly, so changing a framework test script
+cannot silently remove financial-model verification. Our assignment model is
+the active decision engine; historical engine prototypes remain research only.
 
 The intended API configuration is versioned in
 [main-branch-protection.json](../.github/main-branch-protection.json).
