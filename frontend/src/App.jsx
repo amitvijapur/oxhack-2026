@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import MapView from './MapView.jsx';
 import BackendStatus from './backend/BackendStatus.jsx';
+import { WithLandMatches, WithWorkstreams } from './backend/LiveData.jsx';
+import { runMeta, summaryLine } from './workstreamSummary.js';
 import {
   boundsFor, formatAssay, formatNumber, getVisibleFeatures, loadEvidence,
 } from './evidence.js';
@@ -106,7 +108,21 @@ function SampleDrawer({ feature, source, onClose }) {
       </dl>
       <a className="text-link" href={source.publication_url} target="_blank" rel="noreferrer">Alaska DGGS source <ExternalLink size={13} aria-hidden="true" /></a>
     </section>
+    <WithLandMatches sampleKey={feature.id}>{(land) => land && land.matches.length > 0 && <LandRecords matches={land.matches} />}</WithLandMatches>
   </aside>;
+}
+
+/** Present-day land records at the sample point, from the latest published land run. */
+function LandRecords({ matches }) {
+  return <section className="record-detail land-records" aria-label="Land records at this sample">
+    <h3>Land records</h3>
+    <p className="land-records-note">Snapshot {matches[0].contractSnapshotAt ?? 'date not provided'}. Present-day records, not 2016 ownership.</p>
+    <ul>{matches.map((m, index) => <li key={`${m.contractRecordId ?? m.matchStatus}-${index}`}>
+      <strong>{m.contractRecordId ?? 'No record in checked layers'}</strong>
+      <span>{m.contractInterestType ?? m.notes ?? ''}</span>
+      {m.boundaryDistanceM !== null && <span className="mono">{formatNumber(m.boundaryDistanceM, 0)} m from the record boundary</span>}
+    </li>)}</ul>
+  </section>;
 }
 
 function Timeline({ timeline }) {
@@ -136,16 +152,18 @@ function Timeline({ timeline }) {
 
 function Workstreams({ pending }) {
   const streams = [
-    { key: 'land_contracts', title: 'Land & contracts', description: 'Land records and contract evidence.', icon: FileText },
-    { key: 'simulation_prediction', title: 'MiroFish & prediction', description: 'Simulation results and predictive modelling.', icon: Layers },
-    { key: 'decision', title: 'Algorithm & output', description: 'Decision logic and its resulting actions.', icon: Database },
+    { key: 'land_contracts', live: 'land', title: 'Land & contracts', description: 'Land records and contract evidence.', icon: FileText },
+    { key: 'simulation_prediction', live: 'swarm', title: 'MiroFish & prediction', description: 'Simulation results and predictive modelling.', icon: Layers },
+    { key: 'decision', live: 'decision', title: 'Algorithm & output', description: 'Decision logic and its resulting actions.', icon: Database },
   ];
   return <section className="workstreams" id="workstreams" aria-labelledby="workstream-heading">
     <div className="section-title"><h2 id="workstream-heading">Connected workstreams</h2><span>Evidence first, team handoffs next</span><BackendStatus /></div>
-    <div className="workstream-grid">{streams.map(({ key, title, description, icon: Icon }) => {
+    <WithWorkstreams>{(live) => <div className="workstream-grid">{streams.map(({ key, live: liveKey, title, description, icon: Icon }) => {
       const stream = pending[key];
-      return <article className="workstream" key={key}><Icon size={18} aria-hidden="true" /><div><div className="workstream-title"><h3>{title}</h3><span className="pending-status">{stream.status === 'planning' ? 'Planning' : 'Pending'}</span></div><p>{description}</p><span className="workstream-owner">{stream.owner}</span></div></article>;
-    })}</div>
+      // A published run replaces the static placeholder; offline, the snapshot's pending state remains.
+      const latest = live?.find((item) => item.key === liveKey)?.latest;
+      return <article className="workstream" key={key}><Icon size={18} aria-hidden="true" /><div><div className="workstream-title"><h3>{title}</h3>{latest ? <span className="live-status">Live</span> : <span className="pending-status">{stream.status === 'planning' ? 'Planning' : 'Pending'}</span>}</div>{latest ? <><p className="workstream-summary">{summaryLine(latest.summary)}</p><span className="workstream-meta">{runMeta(latest)}</span></> : <p>{description}</p>}<span className="workstream-owner">{stream.owner}</span></div></article>;
+    })}</div>}</WithWorkstreams>
   </section>;
 }
 

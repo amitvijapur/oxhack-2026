@@ -161,6 +161,14 @@ dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
 .pending-status { color: #f0ce9c; font-size: 11px; padding: 3px 9px; background: #d7af7912; border: 1px solid #d7af7938; border-radius: 999px; }
 .workstream p { font-size: 13px; color: var(--muted); margin: 8px 0 11px; line-height: 1.55; }
 .workstream-owner { color: #c5d2e4; font-size: 12px; }
+.live-status { color: var(--sage); font-size: 11px; padding: 3px 9px; background: #a3d3b112; border: 1px solid #a3d3b138; border-radius: 999px; }
+.workstream .workstream-summary { color: var(--text); }
+.workstream-meta { display: block; color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+.land-records-note { color: var(--muted); font-size: 12px; margin: 8px 0 12px; line-height: 1.5; }
+.land-records ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.land-records li { display: grid; gap: 3px; font-size: 12px; color: var(--muted); padding-bottom: 10px; border-bottom: 1px solid #24364e; }
+.land-records li:last-child { border-bottom: 0; }
+.land-records li strong { color: var(--text); font-weight: 600; font-size: 13px; }
 .section-title > .backend-status { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; padding: 3px 10px; font-size: 11px; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; }
 .backend-dot { width: 7px; height: 7px; border-radius: 50%; background: #6b7a90; }
 .backend-status.is-connecting .backend-dot { background: var(--amber); }
