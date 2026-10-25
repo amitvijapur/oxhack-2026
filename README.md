@@ -66,10 +66,67 @@ The Arizona soil extractor and its artifacts remain available as the earlier pro
 
 ## Application setup
 
-The language, framework, dependencies, and deployment approach are pending.
-Rust and Zed are under consideration, with algorithm runtime as the performance
-concern. No application setup or run commands exist yet. Add reproducible setup,
-run, demo, and verification commands here when the stack is agreed.
+The analysis is standard-library Python 3. The website is React, Vite and
+MapLibre on Node.js 24, with an optional Convex backend and Vercel hosting.
+These commands assume the decision engine (PR #26), the website (PR #27) and
+the publishing layer (PRs #28 and #30) are on `main`. Run every Python command
+from the repository root, because the scripts resolve their input paths from
+the current directory.
+
+### Decision engine
+
+```sh
+python3 -m unittest discover -s tests          # large raw CSVs absent: some tests skip
+python3 scripts/decision_engine.py research/decision-engine/tok-demo.json
+python3 scripts/claims_forecast.py             # writes forecast_2025.csv
+python3 scripts/decision_engine.py research/decision-engine/nv-forecast-demo.json
+```
+
+The Tok demo prints a JSON decision: the BUY/WAIT/SKIP signal, its status
+(`manual_review` while land status and mineral rights are unconfirmed), the
+outcome distribution, the month-by-month hold/sell/lapse plan, and the facts
+that flip the result. [The decision engine guide](research/decision-engine/README.md)
+explains every number.
+
+### Website
+
+```sh
+cd frontend
+npm ci --ignore-scripts
+npm test                  # display contracts and evidence data
+npm run test:backend      # Convex ingest
+npm run build
+npm run dev -- --port 5173
+```
+
+Open http://127.0.0.1:5173/. The site runs without a backend; with
+`VITE_CONVEX_URL` set it shows published workstream runs.
+
+### Publishing a run to the website
+
+Each owner publishes with their own secret from `.env.publish` (see
+[the infrastructure guide](docs/infrastructure.md)). Check the payload first:
+
+```sh
+python3 scripts/decision_engine.py research/decision-engine/tok-demo.json \
+  | python3 scripts/publish_run.py decision - --run-id tok-demo-site-b --dry-run
+```
+
+Remove `--dry-run` to publish. The Decision card then changes from "Pending" to
+"Live". Land and swarm runs use `publish_run.py land research/tok-land` and
+`publish_run.py swarm <results.json>`.
+
+### Demo walkthrough
+
+1. Map: the 67 Tok River samples, Site A against Site B, with measured gold.
+2. Decision card: the Tok Site B result. It is a conditional BUY under manual
+   review, with an 87% chance of a loss and a long right tail.
+3. TIME: the contract's payment schedule is the time axis. The plan says when
+   to hold, the offer that justifies selling each month, and when to let the
+   option lapse.
+4. What to check next: the engine names the two facts that flip the decision
+   (early completion of the option, and the date of the single 2025 staking
+   event) before any money is paid.
 
 ## Open decisions
 

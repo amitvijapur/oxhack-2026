@@ -1,5 +1,10 @@
 # OXHack preparation
 
+## Demo run commands in the README (owner: Salman)
+
+- [x] Replace the pending "Application setup" section with run, test, publish and demo commands for the engine (#26), website (#27) and publishing layer (#28, #30).
+- [ ] Merge after those PRs land, then rerun every command from a fresh clone of `main`.
+
 ## Gold stakeholder swarm on MiroFish (owner: Muhd)
 
 Plan: [gold swarm plan](../research/gold-swarm-plan.md). Approved by Muhd; MiroFish runs on Muhd's laptop (team decision).
