@@ -18,6 +18,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 import random
 import re
 import statistics
@@ -36,7 +37,9 @@ from build_runs import RUN_ORDER
 HERE = Path(__file__).resolve().parent
 ENV_FILE = Path(__file__).resolve().parents[2] / "MiroFish" / ".env"  # MiroFish sits next to this repo
 CACHE_FILE = HERE / "records" / "judge_cache.jsonl"
-MODEL = "gpt-5.4-mini"
+PREREGISTERED_MODEL = "gpt-5.4-mini"
+# The OpenAI budget ran out on 25 Oct; JUDGE_MODEL=claude-sonnet-5 scores with Claude instead (see Client).
+MODEL = os.environ.get("JUDGE_MODEL", PREREGISTERED_MODEL)
 WORKERS = 8
 ATTEMPTS = 8
 SEED = 2026  # fixed, so the grounding sample and the human-check sample can be redrawn exactly
@@ -192,16 +195,43 @@ class Client:
             name, sep, value = line.partition("=")
             if sep and not name.strip().startswith("#"):
                 env[name.strip()] = value.strip().strip("'\"")
-        self.url = env["LLM_BASE_URL"].rstrip("/") + "/chat/completions"
-        self._key = env["LLM_API_KEY"]
         self.calls = 0
         self._lock = threading.Lock()
+        if MODEL.startswith("claude-"):
+            import anthropic  # only this judge needs the SDK: uv run --with anthropic ...
+            llm_key = env.get("LLM_API_KEY", "")
+            self._key = env.get("ANTHROPIC_API_KEY") or (llm_key if llm_key.startswith("sk-ant-") else "")
+            self._anthropic = anthropic.Anthropic(api_key=self._key, max_retries=ATTEMPTS)
+            return
+        self.url = env["LLM_BASE_URL"].rstrip("/") + "/chat/completions"
+        self._key = env["LLM_API_KEY"]
 
     def _redact(self, text):
         # OpenAI's 401 body echoes a masked key; nothing key-shaped goes to the console.
-        return re.sub(r"sk-[\w*-]+", "sk-<redacted>", text.replace(self._key, "<key>"))
+        return re.sub(r"sk-[\w*-]+", "sk-<redacted>", text.replace(self._key, "<key>") if self._key else text)
+
+    def complete_claude(self, prompt):
+        import anthropic
+        with self._lock:
+            self.calls += 1
+        try:  # the SDK retries rate limits and server errors itself (max_retries above)
+            # Thinking off, as the pre-registered judge ran at low reasoning effort: a short JSON label.
+            reply = self._anthropic.messages.create(model=MODEL, max_tokens=300, thinking={"type": "disabled"},
+                                                    messages=[{"role": "user", "content": prompt}])
+        except (anthropic.AuthenticationError, anthropic.PermissionDeniedError, anthropic.NotFoundError) as e:
+            raise StopCalls(f"HTTP {e.status_code}: {self._redact(str(e))[:300]}") from None
+        except anthropic.APIStatusError as e:
+            detail = self._redact(str(e))[:300]
+            if "usage limit" in detail:  # a spend limit; every further call would hit it too
+                raise StopCalls(f"HTTP {e.status_code}: {detail}") from None
+            raise RuntimeError(f"HTTP {e.status_code}: {detail}") from None
+        text = "".join(b.text for b in reply.content if b.type == "text")
+        # The reply should be bare JSON; keep only the object if the model wrapped it in a code fence.
+        return text[text.find("{"):text.rfind("}") + 1] if "{" in text else text
 
     def complete(self, prompt):
+        if MODEL.startswith("claude-"):
+            return self.complete_claude(prompt)
         # Low reasoning effort was accepted by gpt-5.4-mini in a test call; a short JSON label needs no more.
         body = json.dumps({"model": MODEL, "messages": [{"role": "user", "content": prompt}],
                            "response_format": {"type": "json_object"},
@@ -242,7 +272,9 @@ class Cache:
 
     @staticmethod
     def key(prompt):
-        return hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+        # Another judge's replies must never be read as the pre-registered judge's, or the reverse.
+        tagged = prompt if MODEL == PREREGISTERED_MODEL else f"{MODEL}\n{prompt}"
+        return hashlib.sha256(tagged.encode("utf-8")).hexdigest()
 
     def get(self, prompt):
         return self.replies.get(self.key(prompt))
