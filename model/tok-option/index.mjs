@@ -6,6 +6,8 @@ export * from './gold.mjs';
 export * from './liquidity.mjs';
 export * from './swarm.mjs';
 export * from './portfolio.mjs';
+export * from './lot-basis.mjs';
+export * from './diagnostics.mjs';
 
 import { CAPITAL, HORIZONS, VERSION, within, unique } from './config.mjs';
 import { valueOption } from './valuation.mjs';

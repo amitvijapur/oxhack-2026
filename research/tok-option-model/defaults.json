@@ -138,10 +138,10 @@
     "sellingPolicy": "At each 30-day interval end, offer assignment at model A(t); a hypothetical completed-sale branch closes at exactly that amount without negotiation. No real buyer quote is implied."
   },
   "capital": {
-    "startingFundUsd": 100000,
-    "maxRiskPerOptionUsd": 2000,
-    "maxOpenRiskUsd": 10000,
-    "maxWholeCohortCommittedUsd": 10000,
+    "startingFundUsd": 1502500,
+    "maxRiskPerOptionUsd": 30050,
+    "maxOpenRiskUsd": 150250,
+    "maxWholeCohortCommittedUsd": 150250,
     "maxPositions": 5,
     "leverage": false,
     "exercise": false,
@@ -163,7 +163,7 @@
       "maximumCandidateCount": 20,
       "overLimit": "Refuse and request a declared prefilter; do not silently truncate."
     },
-    "scope": "One nonreplenishing cohort. Portfolio constraints are proposed configuration, not implemented or tested by validate-plan.mjs."
+    "scope": "One nonreplenishing cohort. User approved demo fund scaling to preserve 2% per-option and 10% cohort limits, including the USD 50 entry fee. Five indivisible USD 30,050 lots fit; this does not make negative expected cash eligible."
   },
   "provenance": [
     {
@@ -216,5 +216,18 @@
       "status": "proposed_default",
       "qualification": "Except separately identified user choices. User requested sizing help; the numerical fund/risk limits and all model formulas remain editable prototype proposals."
     }
-  ]
+  ],
+  "lotBasis": {
+    "id": "regional-initial-payment-whole-contract-v1",
+    "unit": "whole_contract",
+    "currency": "USD",
+    "initialPremiumUsd": 30000,
+    "referenceKind": "selected_historical_initial_payments",
+    "referenceCount": 2,
+    "entryFeeUsd": 50,
+    "exitFeeUsd": 50,
+    "unavoidableAdditionalObligationsUsd": 0,
+    "costProvenance": "assumed",
+    "limitations": "Historical initial-payment scale only, not current Tok average, total contract capital or observed assignment proceeds. Valuation inputs remain unchanged."
+  }
 }

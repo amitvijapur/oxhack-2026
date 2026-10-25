@@ -96,11 +96,11 @@ check('missing swarm preserves baseline and null mapped outputs', () => {
   assert.equal(c.expected.status, 'PENDING_SWARM');
   for (const key of ['mappedAssignmentValueUsd', 'mappedExpectedNetCashUsd', 'entryAction']) assert.equal(c.expected[key], null);
 });
-check('over-risk entry is rejected', () => {
+check('historical USD 650 fixture retains its explicit former risk policy', () => {
   const c = blocked.over_risk;
   const amount = c.entryPremiumUsd + c.entryFeeUsd + b.unavoidableAdditionalObligationsUsd;
   close(amount, c.expected.amountAtRiskUsd);
-  assert.ok(amount > d.capital.maxRiskPerOptionUsd);
+  assert.ok(amount > 2000); // Historical fixture limit, not the active whole-lot policy.
   assert.equal(c.expected.riskGate, 'FAIL');
   assert.equal(c.expected.entryAction, 'SKIP');
 });
@@ -161,7 +161,11 @@ check('configuration-only guardrails and fixed scope', () => {
   assert.equal(d.swarm.assumedRetention, 1);
   assert.equal(b.eventExposure, d.swarm.assumedEventExposure);
   assert.equal(b.retention, d.swarm.assumedRetention);
-  assert.deepEqual([d.capital.startingFundUsd, d.capital.maxRiskPerOptionUsd, d.capital.maxOpenRiskUsd, d.capital.maxWholeCohortCommittedUsd, d.capital.maxPositions], [100000, 2000, 10000, 10000, 5]);
+  assert.deepEqual([d.capital.startingFundUsd, d.capital.maxRiskPerOptionUsd, d.capital.maxOpenRiskUsd, d.capital.maxWholeCohortCommittedUsd, d.capital.maxPositions], [1502500, 30050, 150250, 150250, 5]);
+  assert.equal(d.lotBasis.initialPremiumUsd, 30000);
+  assert.equal(d.lotBasis.initialPremiumUsd + d.lotBasis.entryFeeUsd + d.lotBasis.unavoidableAdditionalObligationsUsd, d.capital.maxRiskPerOptionUsd);
+  assert.equal(d.capital.maxRiskPerOptionUsd / d.capital.startingFundUsd, 0.02);
+  assert.equal(d.capital.maxWholeCohortCommittedUsd / d.capital.startingFundUsd, 0.10);
   assert.ok(!d.capital.leverage && !d.capital.exercise && !d.capital.reinvestment);
   assert.equal(d.capital.oneUnderlyingAtMostOnce, true);
   assert.equal(d.capital.optimizer.maximumCandidateCount, 20);

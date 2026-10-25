@@ -1,14 +1,16 @@
+import { LEGACY_CONTROLS, LEGACY_CAPITAL } from './helpers/legacy-fixture.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { classifyBounds, sampleBounds, evidenceFromCounts, evaluateEvidence, growthFromHistory, projectPrice, valueOption, cashOutcomes, evaluateOpportunity, mapSwarm, parseSwarmImport, optimizePortfolio, WEIGHTS, GROUPS } from '../index.mjs';
+import { classifyBounds, sampleBounds, evidenceFromCounts, evaluateEvidence, growthFromHistory, projectPrice, valueOption, cashOutcomes, evaluateOpportunity, mapSwarm, parseSwarmImport, optimizePortfolio as currentOptimizePortfolio, WEIGHTS, GROUPS } from '../index.mjs';
 import { DEFAULT_CONTROLS, createDemoCandidate, runWorkbench } from '../workbench.mjs';
 const close = (actual, expected, epsilon = 1e-8) => assert.ok(typeof actual === 'number' && Math.abs(actual - expected) < epsilon, `${actual} should equal ${expected}`);
 const fixture = JSON.parse(readFileSync(new URL('../../../research/tok-option-model/fixtures.json', import.meta.url)));
 const sampleFeatures = ['a', 'b'].flatMap((area) => JSON.parse(readFileSync(new URL(`../../../frontend/public/data/tok-gold/site-${area}/samples.geojson`, import.meta.url))).features);
 const example = JSON.parse(readFileSync(new URL('../example-swarm.json', import.meta.url)));
-const candidate = createDemoCandidate(DEFAULT_CONTROLS);
-const evaluate = (overrides = {}) => evaluateOpportunity({ candidate, evidenceGate: 'PASS', horizonDays: 90, hazardPer30Days: 0.2, ...overrides });
+const candidate = createDemoCandidate(LEGACY_CONTROLS);
+const optimizePortfolio = (rows, options = {}) => currentOptimizePortfolio(rows, { ...options, limits: { ...LEGACY_CAPITAL, ...options.limits } });
+const evaluate = (overrides = {}) => evaluateOpportunity({ maxRiskPerOptionUsd: LEGACY_CAPITAL.maxRiskPerOptionUsd, candidate, evidenceGate: 'PASS', horizonDays: 90, hazardPer30Days: 0.2, ...overrides });
 const cloned = (value) => JSON.parse(JSON.stringify(value));
 
 for (const row of fixture.cashCases) test(`fixed cash oracle: ${row.id}`, () => {
@@ -175,22 +177,22 @@ test('workbench requires explicit demo and never leaks fixture economics into re
   assert.equal(real.baseline, null); assert.equal(real.mapped, null); assert.equal(real.evidence.gate, 'PASS');
 });
 test('workbench preserves baseline when swarm pending and applies observed B failure', () => {
-  const pending = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', scenarioId: 'mine_approval' } });
+  const pending = runWorkbench({ features: sampleFeatures, controls: { ...LEGACY_CONTROLS, mode: 'demo', scenarioId: 'mine_approval' } });
   close(pending.baseline.expectedNetCashUsd, 7.6); assert.equal(pending.mapped, null); assert.equal(pending.status, 'PENDING_SWARM');
-  const b = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', area: 'B' } });
+  const b = runWorkbench({ features: sampleFeatures, controls: { ...LEGACY_CONTROLS, mode: 'demo', area: 'B' } });
   assert.equal(b.mapped.entryAction, 'SKIP'); assert.deepEqual(b.portfolio.selectedIds, []);
 });
 test('workbench delta and scenario imports use the same core', () => {
-  const r = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', scenarioId: 'mine_approval' }, swarmRuns: example });
+  const r = runWorkbench({ features: sampleFeatures, controls: { ...LEGACY_CONTROLS, mode: 'demo', scenarioId: 'mine_approval' }, swarmRuns: example });
   close(r.mapped.expectedNetCashUsd, 24.9362); close(r.delta.expectedNetCashUsd, 17.3362); close(r.delta.assignmentValueUsd, 35.525);
-  const r2 = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', scenarioId: 'synthetic', syntheticSignal: -1 } });
+  const r2 = runWorkbench({ features: sampleFeatures, controls: { ...LEGACY_CONTROLS, mode: 'demo', scenarioId: 'synthetic', syntheticSignal: -1 } });
   assert.equal(r2.mapped.entryAction, 'SKIP');
-  const r3 = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', pGeo: '' } });
+  const r3 = runWorkbench({ features: sampleFeatures, controls: { ...LEGACY_CONTROLS, mode: 'demo', pGeo: '' } });
   assert.ok(r3.validationErrors.length); assert.equal(r3.baseline, null);
 });
 test('sports placebo is diagnostic only and cannot enter the portfolio', () => {
   const runs = cloned(example); runs.runs[1].scenarioId = 'sports_placebo';
-  const r = runWorkbench({ features: sampleFeatures, controls: { mode: 'demo', scenarioId: 'sports_placebo' }, swarmRuns: runs });
+  const r = runWorkbench({ features: sampleFeatures, controls: { ...LEGACY_CONTROLS, mode: 'demo', scenarioId: 'sports_placebo' }, swarmRuns: runs });
   assert.equal(r.mapped.entryAction, null); assert.deepEqual(r.portfolio.selectedIds, []);
 });
 test('malformed nullable evidence and history records return unavailable instead of throwing', () => {

@@ -85,8 +85,27 @@ const goldForecast = v.object({
   reasons: v.array(v.string()),
 });
 
+const assignmentHurdle = v.object({
+  status: v.union(v.literal("illustrative"), v.literal("INSUFFICIENT_DATA")),
+  kind: v.literal("required_assignment_proceeds"), currency: v.literal("USD"),
+  horizonDays: v.union(horizonDays, v.null()), amountAtRiskUsd: nullableNumber,
+  saleProbability: nullableNumber, exitFeeUsd: nullableNumber, targetReturnRatio: nullableNumber,
+  requiredAssignmentProceedsUsd: nullableNumber, reasons: v.array(v.string()), assumption: v.string(),
+});
+const lotContext = v.object({
+  id: v.literal("regional-initial-payment-whole-contract-v1"), currency: v.literal("USD"),
+  unit: v.literal("whole_contract"), initialPremiumUsd: v.number(),
+  referenceKind: v.literal("selected_historical_initial_payments"), referenceCount: v.number(),
+  sources: v.array(v.object({ project: v.string(), label: v.string(), agreementDate: v.string(), initialPaymentUsd: v.number(), url: v.string() })),
+  limitations: v.array(v.string()), selectedInitialPremiumUsd: v.number(),
+  selectionKind: v.union(v.literal("historical_reference_applied_as_assumption"), v.literal("custom_assumed_premium")),
+  economicsProvenance: v.literal("assumed"), entryFeeUsd: v.number(), exitFeeUsd: v.number(),
+  unavoidableAdditionalObligationsUsd: v.number(), additionalCostProvenance: v.literal("assumed"),
+});
 const legacyDecisionOutcome = v.union(v.null(), v.object(decisionOutcomeFields));
-const decisionOutcome = v.union(v.null(), v.object({ ...decisionOutcomeFields, goldForecast }));
+const decisionOutcome = v.union(v.null(), v.object({ ...decisionOutcomeFields, goldForecast,
+  assignmentHurdles: v.optional(v.object({ breakEven: assignmentHurdle, target25Percent: assignmentHurdle })),
+}));
 
 const outcomePair = { baseline: decisionOutcome, mapped: decisionOutcome };
 const legacyOutcomePair = { baseline: legacyDecisionOutcome, mapped: legacyDecisionOutcome };
@@ -117,6 +136,7 @@ export const decisionSummary = v.union(
   v.object({
     ...decisionSummaryFields,
     modelVersion: v.literal("tok-option-demo-v2"),
+    lotContext: v.optional(v.union(lotContext, v.null())),
     horizons: v.array(v.object({ days: horizonDays, ...outcomePair })),
     selected: v.object(outcomePair),
   }),

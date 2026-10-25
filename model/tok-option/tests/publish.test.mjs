@@ -1,3 +1,4 @@
+import { LEGACY_CONTROLS } from './helpers/legacy-fixture.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -18,9 +19,9 @@ test('projection preserves canonical oracle, day horizons and cash diagnostic me
   const summary = decisionSummary(outputFor());
   assert.equal(summary.modelVersion, 'tok-option-demo-v2');
   assert.deepEqual(summary.horizons.map((row) => row.days), [30, 90, 180]);
-  assert.ok(Math.abs(summary.selected.mapped.expectedNetCashUsd - 7.6) < 1e-8);
-  assert.ok(Math.abs(summary.selected.mapped.negativeCashProbability - 0.512) < 1e-12);
-  assert.equal(summary.selected.mapped.entryAction, 'BUY_CANDIDATE');
+  assert.ok(Math.abs(summary.selected.mapped.expectedNetCashUsd + 29342.4) < 1e-8);
+  assert.ok(Math.abs(summary.selected.mapped.negativeCashProbability - 1) < 1e-12);
+  assert.equal(summary.selected.mapped.entryAction, 'SKIP');
   assert.equal(summary.provenance.economics, 'assumed');
   assert.equal(decisionRunMode(summary), 'scenario');
   assert.equal('pLoss' in summary.selected.mapped, false);
@@ -40,12 +41,12 @@ test('missing swarm preserves the baseline, failed evidence preserves SKIP, unkn
   const swarm = decisionSummary(outputFor({ scenarioId: 'mine_approval' }));
   assert.equal(swarm.status, 'PENDING_SWARM');
   assert.equal(swarm.selected.mapped, null);
-  assert.ok(swarm.selected.baseline.expectedNetCashUsd > 0);
+  assert.ok(swarm.selected.baseline.expectedNetCashUsd < 0);
   assert.equal(decisionSummary(outputFor({ area: 'B' })).selected.mapped.entryAction, 'SKIP');
   const controls = { ...DEFAULT_CONTROLS, mode: 'demo' };
   const unknown = decisionSummary(decisionOutput({ selection: { area: 'A', horizonDays: 90, scenarioId: 'baseline' }, result: runWorkbench({ controls }) }));
   assert.equal(unknown.readiness.evidenceGate, 'UNKNOWN');
-  assert.equal(unknown.selected.mapped.entryAction, null);
+  assert.equal(unknown.selected.mapped.entryAction, 'SKIP');
 });
 
 test('selection metadata, model version and quote gates cannot be silently replaced', () => {
@@ -209,7 +210,7 @@ test('non-finite forecast arithmetic exports an unavailable result without inven
 });
 
 test('v1 direct option markup cannot be relabelled as a v2 gold-first result', () => {
-  const output = outputFor({ scenarioId: 'synthetic', syntheticSignal: 0.203 });
+  const output = outputFor({ ...LEGACY_CONTROLS, mode: 'demo', scenarioId: 'synthetic', syntheticSignal: 0.203 });
   for (const row of output.result.horizons) {
     const value = row.mapped;
     const oldAssignment = value.baselineAssignmentValueUsd * (1 + output.result.signal.adjustment);
