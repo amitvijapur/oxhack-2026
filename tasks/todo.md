@@ -23,6 +23,76 @@ Whitespace, portable documentation links, editable chart/workbook and tables, no
 timings, asset attribution and a redacted secret scan passed. Required hosted
 checks and final merge status are recorded on the publication pull request.
 
+## Connect existing swarm results to the website, 25 October 2026
+
+Human owner: Amit. Source owner: Muhd. Integration owner: Codex.
+Branch: `codex/swarm-website-replay`. No new swarm or judge API calls.
+
+- [x] Add a bounded, explicit illustrative policy to the canonical workbench using matching actual Claude runs.
+- [x] Add website controls, provenance and live recalculation of values/cash/deltas.
+- [x] Preserve failed research checks, null real outputs, unsupported scenarios and source identity.
+- [x] Check publication metadata and run focused model/UI/boundary checks.
+- [x] Independently review and verify the working website on desktop/mobile.
+- [x] Document the result, remaining limitations and reproducible demo instructions.
+
+Result: **Decision > Use existing swarm results** now calculates approval
+USD6.31 and court blockage USD9.17 expected cash versus USD7.60 baseline under
+the default assumptions. Exposure zero restores the baseline; costs and weights
+use the same live model. Source checks remain failed and actual scenarios with
+no results remain unavailable. The current local production website is served
+at `http://127.0.0.1:5182/`. No hosted deployment or Git publication was made.
+
+Verification: 108 model, 23 frontend, 19 Convex and 16 Python publisher tests
+pass, with frontend/backend typechecks, production build, 29 specification
+checks and independent boundary review. Lint has four incumbent warnings and
+no errors. Browser checks cover mode changes, signed deltas, exposure/cost
+recalculation, real/missing-scenario null states and 1440/390/320-pixel layouts.
+
+## Plan a no-new-API swarm demo, 25 October 2026
+
+Human owner: Amit. Simulation source owner: Muhd. Analysis and model-plan owner:
+Codex. Scope: reuse existing results with explicit hackathon assumptions. No new
+simulation/judge calls, algorithm edits or deployment are authorized by this plan.
+
+- [x] Compute same-configuration scenario contrasts and local cash sensitivities.
+- [x] Separate usable post scores, missing interview inputs and failed research checks.
+- [x] Review an explicit exploratory demo path while preserving strict readiness.
+- [x] Write the model integration contract and exact no-cost handoff for Muhd.
+- [x] Record the plan, assumptions, verification and deferred paid work.
+
+Review: `research/swarm-no-api-demo-plan.md` recommends a post-only illustrative
+comparison of the matching Claude runs. Offline weighted signals are -0.02517926
+for approval and +0.03073433 for blockage versus placebo. Full assumed transfer
+gives USD6.31/USD9.17 expected cash versus USD7.60 baseline. Independent review
+passed. Existing strict failures remain; no new paid call or application change.
+
+## Check Muhd's latest swarm data, 25 October 2026
+
+Human owner: Amit. Review owner: Codex. Read-only audit of current remote branches,
+raw run files and the integrated source bundle. Visualization is deferred.
+
+- [x] Verify remote swarm/main heads and recent result-related pushes.
+- [x] Compare report coverage and raw score/interview files with the bundled source.
+- [x] Independently check whether missing runs or readiness evidence exist upstream.
+- [x] Report any omitted data, remaining gaps and the exact reviewed source revision.
+
+Review: `f2fe2971` is still the remote source head. All six scored runs are
+already connected. Full-tree/blob comparison and 36 source fingerprints pass;
+raw recount confirms 3,499 score rows, 3,121 numeric and 130/288 nonempty
+interviews. Runs 07–09 have no committed outputs. The empty interviews and
+readiness failures exist upstream. Read `research/swarm-latest-data-check.md`.
+
+## Visualize the integrated pipeline, 25 October 2026
+
+Human owner: Amit. Integration and review owner: Codex. Scope: local explanatory
+visualization of current main, with no model, publication or deployment changes.
+
+- [x] Audit actual source, browser, model, API and optional publishing connections.
+- [x] Generate checked traces from the canonical engine, including blocked states.
+- [x] Prepare the flow interactively with source types, gates and separate cash/marks.
+- [ ] Finish browser layout checks and show the visualization. Deferred at Amit's request while latest swarm pushes are audited.
+- [ ] Record findings and the remaining real-input gaps in the build log.
+
 ## Canonical application integrated, 25 October 2026
 
 Human owner: Amit. Integration owner: Codex. The active app is the Next.js/Cesium

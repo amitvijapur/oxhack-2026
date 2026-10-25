@@ -25,8 +25,14 @@ land or mineral rights.
 The pinned `f2fe2971` swarm bundle supplies six score sets, with three scenarios
 missing and interviews incomplete. The 26/30 judge check does not clear failed
 placebo/mirror/grounding diagnostics, configuration confounds or an unknown
-knowledge cutoff. Monetary scenario runs remain unavailable until readiness is
-established. The default hypothetical demo stays available for arithmetic review.
+knowledge cutoff. Strict monetary scenario runs remain unavailable until
+readiness is established. The website's explicit **Use existing swarm results**
+option supports a post-only hypothetical comparison of the matching Claude
+approval/block/placebo runs, without requiring new paid simulations. That option
+does not mark the research checks passed. The missing scenarios and empirical
+validation above are later research work, rather than prerequisites for this
+bounded hackathon demonstration. The default hypothetical demo also remains
+available for arithmetic review.
 
 The illustrative 90-day fixture has USD7.60 expected cash, 48.8% sale probability
 and a 51.2% no-sale branch at USD−700 cash. Optional historical 14.22% CAGR yields

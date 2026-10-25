@@ -97,3 +97,64 @@ test('unknown monetary fields remain null and non-finite money is rejected', () 
   output.result.mapped.assignmentValueUsd = Infinity;
   assert.throws(() => decisionSummary(output), /finite or null/);
 });
+
+test('actual contrast publication attributes the method while retaining failed research readiness', () => {
+  for (const [scenarioId, runId] of [['mine_approval', '05_mine_approved_s1'], ['mine_blocked', '06_court_blocks_mine_s1']]) {
+    const output = outputFor({ scenarioId, swarmPolicy: 'illustrative_contrast' });
+    const summary = decisionSummary(output);
+    const context = summary.signalContext;
+    assert.equal(output.result.signal.status, 'ready');
+    assert.equal(summary.readiness.swarmStatus, 'fail');
+    assert.equal(summary.provenance.signal, 'simulated');
+    assert.equal(context.usagePolicy, 'illustrative_contrast');
+    assert.equal(context.calculationStatus, 'ready');
+    assert.equal(context.methodVersion, 'matched-placebo-post-contrast-v1');
+    assert.equal(context.referenceRunId, '04_placebo_s1');
+    assert.equal(context.scenarioRunId, runId);
+    assert.equal(context.sourceId, 'ahmed-gold-society-f2fe2971');
+    assert.equal(context.revision, 'f2fe2971d9f041a819f7b7ff4a78e10f840884f5');
+    assert.equal(context.knowledgeCutoff, null);
+    assert.equal(context.demoEligible, true);
+    assert.equal(context.pairwiseConfigurationStatus, 'match');
+    assert.deepEqual(context.scoreWindow, [3, 4, 5]);
+    assert.equal(context.scoreMetric, 'mining_support');
+    assert.equal(context.scoreAggregation, 'equal_daily_means');
+    assert.equal(context.researchReadiness.status, 'fail');
+    assert.ok(context.researchReadiness.diagnostics.some((row) => row.id === 'interview_coverage' && row.status === 'fail'));
+    assert.ok(context.sourceChecks.some((row) => row.name === 'grounding' && row.status === 'fail'));
+    assert.deepEqual(context.researchReadiness.scenarioReadiness, output.result.signal.researchReadiness.scenarioReadiness);
+    assert.equal(decisionRunMode(summary), 'scenario');
+    assert.ok(summary.assumptions.some((line) => line.includes('does not identify a causal news effect')));
+    assert.equal(JSON.parse(JSON.stringify(output)).result.signal.groups[0].referenceMean, output.result.signal.groups[0].referenceMean);
+  }
+});
+
+test('contrast publication cannot hide source failures or claim another policy, run or revision', () => {
+  const contrast = () => JSON.parse(JSON.stringify(outputFor({ scenarioId: 'mine_approval', swarmPolicy: 'illustrative_contrast' })));
+  const policy = contrast(); policy.result.controls.swarmPolicy = 'strict';
+  assert.throws(() => decisionSummary(policy), /explicit demo controls and policy/);
+  const missingPolicy = contrast(); delete missingPolicy.result.signal.usagePolicy;
+  assert.throws(() => decisionSummary(missingPolicy), /explicit signal usage policy/);
+  const reference = contrast(); reference.result.signal.referenceRunId = '01_baseline_s1';
+  assert.throws(() => decisionSummary(reference), /reference and scenario run attribution/);
+  const revision = contrast(); revision.result.signal.revision = 'a'.repeat(40);
+  assert.throws(() => decisionSummary(revision), /revision does not match/);
+  const cutoff = contrast(); cutoff.result.signal.knowledgeCutoff = '2026-10-25T00:00:00Z';
+  assert.throws(() => decisionSummary(cutoff), /knowledgeCutoff does not match/);
+  const readiness = contrast(); readiness.result.signal.researchReadiness.status = 'pass';
+  assert.throws(() => decisionSummary(readiness), /preserve the original source status/);
+  const diagnostics = contrast(); diagnostics.result.signal.researchReadiness.diagnostics[0].status = 'pass';
+  assert.throws(() => decisionSummary(diagnostics), /preserve the original source checks/);
+  const eligibility = contrast(); eligibility.result.signal.demoEligible = false;
+  assert.throws(() => decisionSummary(eligibility), /eligible matched configuration/);
+  assert.equal(decisionSummary(outputFor({ scenarioId: 'mine_approval' })).signalContext, undefined);
+});
+
+test('blocked contrast requests keep pending and real economics unavailable', () => {
+  for (const controls of [{ mode: 'pending', scenarioId: 'mine_approval' }, { mode: 'real', scenarioId: 'mine_approval' }, { mode: 'demo', scenarioId: 'proposed_tax' }]) {
+    const summary = decisionSummary(outputFor({ ...controls, swarmPolicy: 'illustrative_contrast' }));
+    assert.equal(summary.selected.mapped, null);
+    assert.equal(summary.signalContext, undefined);
+    if (controls.mode !== 'demo') assert.equal(summary.selected.baseline, null);
+  }
+});

@@ -145,7 +145,7 @@ describe("decision runs", () => {
   });
 
   test("pending, real and missing swarm outputs preserve null money and readiness", async () => {
-    for (const controls of [{ mode: "pending" }, { mode: "real" }, { scenarioId: "mine_approval" }]) {
+    for (const controls of [{ mode: "pending" }, { mode: "real" }, { scenarioId: "mine_approval" }, { mode: "real", scenarioId: "mine_approval", swarmPolicy: "illustrative_contrast" }]) {
       const t = convexTest(schema, modules);
       const body = bodyFor(controls);
       expect((await post(t, body, { path: "/ingest/decision" })).status).toBe(201);
@@ -189,6 +189,43 @@ describe("decision runs", () => {
     expect((await post(t, body, { path: "/ingest/decision" })).status).toBe(200);
     const other = bodyFor({ horizonDays: 180 });
     expect((await post(t, other, { path: "/ingest/decision" })).status).toBe(409);
+  });
+
+  test("actual contrast publications retain attributed methods and failed source checks on read", async () => {
+    for (const scenarioId of ["mine_approval", "mine_blocked"]) {
+      const t = convexTest(schema, modules);
+      const body = bodyFor({ scenarioId, swarmPolicy: "illustrative_contrast" });
+      expect((await post(t, body, { path: "/ingest/decision" })).status).toBe(201);
+      const summary = (await t.query(api.workstreams.list, {})).find((stream) => stream.key === "decision")!.latest!.summary;
+      expect(summary).toEqual(body.summary);
+      if (summary.kind !== "decision") throw new Error("missing decision summary");
+      expect(summary.readiness.swarmStatus).toBe("fail");
+      expect(summary.signalContext?.usagePolicy).toBe("illustrative_contrast");
+      expect(summary.signalContext?.calculationStatus).toBe("ready");
+      expect(summary.signalContext?.knowledgeCutoff).toBeNull();
+      expect(summary.signalContext?.referenceRunId).toBe("04_placebo_s1");
+      expect(summary.signalContext?.researchReadiness.status).toBe("fail");
+      expect(summary.signalContext?.sourceChecks).toContainEqual({ name: "grounding", status: "fail" });
+      const stored = await t.run(async (ctx) => {
+        const run = await ctx.db.query("runs").first();
+        return (await ctx.storage.get(run!.payloadFileId))!.text();
+      });
+      expect(stored).toEqual(body.payloadJson);
+      expect(JSON.parse(stored).result.signal.originalSourceChecks.grounding.status).toBe("fail");
+    }
+  });
+
+  test("contrast publications cannot upgrade source readiness or substitute the attributed source", async () => {
+    const t = convexTest(schema, modules);
+    const changedSummary = bodyFor({ scenarioId: "mine_approval", swarmPolicy: "illustrative_contrast" });
+    changedSummary.summary.readiness.swarmStatus = "ready";
+    expect((await post(t, changedSummary, { path: "/ingest/decision" })).status).toBe(400);
+    const changedSource = bodyFor({ scenarioId: "mine_approval", swarmPolicy: "illustrative_contrast" });
+    const payload = JSON.parse(changedSource.payloadJson);
+    payload.result.signal.revision = "a".repeat(40);
+    changedSource.payloadJson = JSON.stringify(payload);
+    expect((await post(t, changedSource, { path: "/ingest/decision" })).status).toBe(400);
+    expect(await t.run((ctx) => ctx.db.system.query("_storage").collect())).toHaveLength(0);
   });
 });
 

@@ -52,6 +52,29 @@ The normalized daily score array contains one published group mean, marked `scor
 
 ## Verification and refresh
 
+### Explicit website illustration
+
+The website can use the already-recorded post means under a separate
+`illustrative_contrast` policy selected explicitly in demo mode. Pairwise
+configuration checks compare Claude run 04 with selected Claude run 05 or 06.
+The whole-experiment OpenAI/Claude configuration check and other original
+research failures remain unchanged. The use policy retains actual simulated
+provenance, comparison IDs, source revision and an unknown source cutoff.
+
+The method equally averages days 3–5 per group, subtracts the sports-placebo
+reference and applies the current stakeholder weights after dividing score
+differences by ten. Approval's normalized contrast is -0.0251792588 and court
+blockage's is +0.0307343316. Under the existing hypothetical 7% transfer these
+become -0.17625% and +0.21514% assignment shifts. The default model's expected
+cash becomes USD6.31 and USD9.17, alongside USD7.60 without a support adjustment.
+This is an assumed financial sensitivity, not a prediction or experiment pass.
+
+Missing interviews are not imputed into this post-only illustration. Tax, protest
+and gold-reversal results remain unavailable. The strict import/default policy
+and real-input mode keep their existing source/economic restrictions. Read the
+[no-API plan](../swarm-no-api-demo-plan.md) for the comparison limits and Muhd's
+remaining manual handoff.
+
 The 87 model tests pass, including 25 focused swarm/workbench integration tests. They cover the actual pinned report and hashes, exact aggregate counts, recomputed baseline bands, failed checks, null cutoff diagnostics, a historical pilot fixture, isolated provider/runtime confounds, missing/null/unparsed interviews, malformed imports and preserved baseline monetary oracles. Invented passing fixtures supply explicit, matching runtime and complete interview evidence. They do not replace actual results.
 
 ```sh

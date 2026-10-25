@@ -25,6 +25,30 @@ const gate = v.union(v.literal("PASS"), v.literal("FAIL"), v.literal("UNKNOWN"))
 const horizonDays = v.union(v.literal(30), v.literal(90), v.literal(180));
 const decisionStatus = v.union(v.literal("pending"), v.literal("INSUFFICIENT_DATA"), v.literal("PENDING_SWARM"), v.literal("illustrative"), v.literal("ineligible"), v.literal("diagnostic"));
 const signalStatus = v.union(v.literal("ready"), v.literal("PENDING_SWARM"), v.literal("INSUFFICIENT_DATA"));
+const researchStatus = v.union(v.literal("pass"), v.literal("fail"), v.literal("unknown"));
+const signalContext = v.object({
+  usagePolicy: v.literal("illustrative_contrast"),
+  calculationStatus: signalStatus,
+  provenance: v.literal("simulated"),
+  methodVersion: v.literal("matched-placebo-post-contrast-v1"),
+  comparisonMethod: v.literal("matched_configuration_placebo_contrast"),
+  referenceRunId: v.literal("04_placebo_s1"),
+  scenarioRunId: v.string(),
+  sourceId: v.string(),
+  revision: v.string(),
+  knowledgeCutoff: nullableString,
+  scoreWindow: v.array(v.number()),
+  scoreMetric: v.literal("mining_support"),
+  scoreAggregation: v.literal("equal_daily_means"),
+  demoEligible: v.boolean(),
+  researchReadiness: v.object({
+    status: researchStatus,
+    diagnostics: v.array(v.object({ id: v.string(), label: v.string(), status: researchStatus, detail: v.string() })),
+    scenarioReadiness: v.object({ status: researchStatus, reasons: v.array(v.string()) }),
+  }),
+  sourceChecks: v.array(v.object({ name: v.string(), status: v.string() })),
+  pairwiseConfigurationStatus: v.union(v.literal("match"), v.literal("different"), v.literal("unknown")),
+});
 
 /** Canonical assignment-only output. Cash shortfall is not a realized loss. */
 const decisionOutcome = v.union(v.null(), v.object({
@@ -51,7 +75,8 @@ export const decisionSummary = v.object({
   area: v.union(v.literal("A"), v.literal("B")),
   horizonDays,
   scenarioId: v.string(),
-  readiness: v.object({ evidenceGate: gate, swarmStatus: signalStatus, economicsStatus: v.union(v.literal("assumed"), v.literal("missing")) }),
+  readiness: v.object({ evidenceGate: gate, swarmStatus: v.union(signalStatus, researchStatus), economicsStatus: v.union(v.literal("assumed"), v.literal("missing")) }),
+  signalContext: v.optional(signalContext),
   provenance: v.object({ evidence: nullableString, economics: nullableString, liquidity: nullableString, signal: nullableString }),
   reasons: v.array(v.string()),
   assumptions: v.array(v.string()),

@@ -29,13 +29,13 @@ export function DataCoverage({ audit, demo, onUseGoldTrend }) {
   </section>;
 }
 
-export function SwarmDiagnostics({ diagnostic }) {
+export function SwarmDiagnostics({ diagnostic, illustrative = false }) {
   if (!diagnostic) return null;
   const shared = (diagnostic.diagnostics || []).filter((check) => !/^(direction|mirror)_/.test(check.id));
   const scenarios = (diagnostic.diagnostics || []).filter((check) => /^(direction|mirror)_/.test(check.id));
   const checks = (rows) => <div className="model-check-list">{rows.map((check) => <div key={check.id}><div><strong>{check.label}</strong><span className={`model-status model-status-${tone(check.status)}`}>{label(check.status)}</span></div><p>{check.detail}</p></div>)}</div>;
   return <section className="model-swarm-diagnostics" aria-labelledby="model-swarm-diagnostics-heading">
-    <div className="model-section-heading"><div><h3 id="model-swarm-diagnostics-heading">Check the simulation before using its signal</h3><p>These checks test simulator behaviour. They do not establish a trading edge.</p></div><span className={`model-status model-status-${tone(diagnostic.status)}`}>{label(diagnostic.status)}</span></div>
+    <div className="model-section-heading"><div><h3 id="model-swarm-diagnostics-heading">{illustrative ? 'Original research checks' : 'Check the simulation before using its signal'}</h3><p>{illustrative ? 'These source results are unchanged. Using recorded posts in an illustration does not turn failed or missing checks into passes.' : 'These checks test simulator behaviour. They do not establish a trading edge.'}</p></div><span className={`model-status model-status-${tone(diagnostic.status)}`}>{label(diagnostic.status)}</span></div>
     {checks(shared)}
     {scenarios.length > 0 && <details className="model-detail"><summary>Inspect scenario directions and mirror checks<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content">{checks(scenarios)}</div></details>}
   </section>;

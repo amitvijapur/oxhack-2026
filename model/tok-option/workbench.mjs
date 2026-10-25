@@ -6,6 +6,7 @@ import { optimizePortfolio } from './portfolio.mjs';
 import { diagnoseCash } from './diagnostics.mjs';
 import { inspectLandSource } from './integrations/land.mjs';
 import { inspectSwarmSource, inspectNormalizedSwarmDiagnostics, normalizeSwarmReport } from './integrations/swarm.mjs';
+import { mapIllustrativeContrast } from './illustrative.mjs';
 import landSource from './data/land-source.json' with { type: 'json' };
 import swarmSource from './data/swarm-source.json' with { type: 'json' };
 
@@ -33,7 +34,7 @@ export function inspectIntegratedSources(area = 'A') {
   return { land: inspectLandSource(landSource, { area }), swarm: inspectSwarmSource(swarmSource), modelGaps: [...MODEL_GAPS] };
 }
 
-export const DEFAULT_CONTROLS = Object.freeze({ mode: 'pending', area: 'A', horizonDays: 90, scenarioId: 'baseline', syntheticSignal: 0.203, quantity: 500, price: 2000, annualGrowthRate: 0, ownershipFraction: 0.5, kappa: 0.02, pGeo: 0.25, remainingBuyerConsiderationUsd: 4000, entryPremiumUsd: 650, entryFeeUsd: 50, exitFeeUsd: 50, unavoidableAdditionalObligationsUsd: 0, remainingMaturityDays: 365, hazardPer30Days: 0.2, eventExposure: 1, retention: 1, weights: WEIGHTS });
+export const DEFAULT_CONTROLS = Object.freeze({ mode: 'pending', area: 'A', horizonDays: 90, scenarioId: 'baseline', swarmPolicy: 'strict', syntheticSignal: 0.203, quantity: 500, price: 2000, annualGrowthRate: 0, ownershipFraction: 0.5, kappa: 0.02, pGeo: 0.25, remainingBuyerConsiderationUsd: 4000, entryPremiumUsd: 650, entryFeeUsd: 50, exitFeeUsd: 50, unavoidableAdditionalObligationsUsd: 0, remainingMaturityDays: 365, hazardPer30Days: 0.2, eventExposure: 1, retention: 1, weights: WEIGHTS });
 
 export function createDemoCandidate(controls = DEFAULT_CONTROLS) {
   return { id: `hypothetical-option-${controls.area}`, underlyingId: `hypothetical-interest-${controls.area}`, provenance: 'assumed', sourceId: 'tok-option-fixture-v1', materials: [{ material: 'Au', quantity: controls.quantity, unit: 'troy_oz', price: controls.price, priceUnit: 'USD/troy_oz', currency: 'USD', annualGrowthRate: controls.annualGrowthRate, sourceId: 'tok-option-fixture-v1', provenance: 'assumed', derivedFromPpm: false }], ownershipFraction: controls.ownershipFraction, kappa: controls.kappa, pGeo: controls.pGeo, remainingBuyerConsiderationUsd: controls.remainingBuyerConsiderationUsd, resolutionBeforeExercise: true, zeroFailureValue: true, entryPremiumUsd: controls.entryPremiumUsd, entryFeeUsd: controls.entryFeeUsd, exitFeeUsd: controls.exitFeeUsd, unavoidableAdditionalObligationsUsd: controls.unavoidableAdditionalObligationsUsd, remainingMaturityDays: controls.remainingMaturityDays, assignable: true, consentSatisfied: true, releasedOnAssignment: true, obligationsCapped: true, indivisible: true, hasLaterMandatoryObligations: false };
@@ -44,6 +45,7 @@ const deltaOf = (baseline, mapped) => ({ assignmentValueUsd: baseline?.assignmen
 function validateControls(c) {
   const errors = [];
   if (!['pending', 'demo', 'real'].includes(c.mode)) errors.push('Choose pending, demo or real mode.');
+  if (!['strict', 'illustrative_contrast'].includes(c.swarmPolicy)) errors.push('Choose strict or illustrative_contrast swarm policy.');
   if (!['A', 'B'].includes(c.area)) errors.push('Choose comparison area A or B.');
   if (!HORIZONS.includes(c.horizonDays)) errors.push('Choose a 30, 90 or 180 day horizon.');
   if (![...SCENARIOS, 'synthetic'].includes(c.scenarioId)) errors.push('Choose a supported scenario.');
@@ -77,10 +79,15 @@ export function runWorkbench({ features = [], controls = {}, swarmRuns = null } 
   if (c.scenarioId === 'baseline') signal = { status: 'ready', value: 0, adjustment: 0, groups: GROUPS.map((group) => ({ group, weight: c.weights[group], baselineMean: null, scenarioMean: null, delta: 0, contribution: 0 })), reasons: [], provenance: 'baseline_comparison', diagnosticOnly: true };
   else if (c.scenarioId === 'synthetic' && c.mode === 'demo') signal = { status: 'ready', value: c.syntheticSignal, adjustment: 0.07 * c.syntheticSignal * c.eventExposure * c.retention, groups: GROUPS.map((group) => ({ group, weight: c.weights[group], baselineMean: null, scenarioMean: null, delta: null, contribution: null })), reasons: [], provenance: 'synthetic_sensitivity', diagnosticOnly: false };
   else if (c.scenarioId === 'synthetic' || (c.mode === 'real' && activeRuns?.provenance === 'synthetic')) signal = { ...base.signal, reasons: ['synthetic_signals_require_explicit_demo_mode'] };
+  else if (c.swarmPolicy === 'illustrative_contrast') {
+    if (c.mode !== 'demo') signal = { ...base.signal, usagePolicy: 'illustrative_contrast', demoEligible: false, reasons: ['illustrative_contrast_requires_explicit_demo_mode'] };
+    else if (swarmRuns !== null) signal = { ...base.signal, usagePolicy: 'illustrative_contrast', demoEligible: false, reasons: ['illustrative_contrast_requires_bundled_source'] };
+    else signal = mapIllustrativeContrast({ source: sourceAudit.swarm, scenarioId: c.scenarioId, weights: c.weights, exposure: c.eventExposure, retention: c.retention });
+  }
   else signal = mapSwarm({ runs: activeRuns, scenarioId: c.scenarioId, weights: c.weights, exposure: c.eventExposure, retention: c.retention });
   // Display support scores but do not price a real simulation while its checks
   // are failed or missing. Explicit synthetic demo fixtures remain exploratory.
-  if (signal.value !== null && activeRuns?.provenance === 'simulated' && !['baseline', 'synthetic'].includes(c.scenarioId)) {
+  if (signal.value !== null && signal.usagePolicy !== 'illustrative_contrast' && activeRuns?.provenance === 'simulated' && !['baseline', 'synthetic'].includes(c.scenarioId)) {
     const readiness = swarmDiagnostics.scenarioReadiness?.[c.scenarioId];
     if (readiness?.status !== 'pass') signal = { ...signal, status: 'PENDING_SWARM', value: null, adjustment: null, reasons: [readiness?.status === 'fail' ? 'swarm_diagnostics_failed' : 'swarm_diagnostics_incomplete', ...(readiness?.reasons || [])] };
   }
@@ -95,5 +102,5 @@ export function runWorkbench({ features = [], controls = {}, swarmRuns = null } 
   });
   const selected = horizons.find((row) => row.days === c.horizonDays);
   const portfolio = selected.mapped ? optimizePortfolio([selected.mapped]) : base.portfolio;
-  return { ...base, status: signal.value === null ? 'PENDING_SWARM' : selected.mapped?.status ?? selected.baseline.status, reasons: signal.value === null ? signal.reasons : selected.mapped?.reasons ?? [], baseline: selected.baseline, mapped: selected.mapped, signal, horizons, delta: selected.delta, portfolio, cashDiagnostics: { baseline: diagnoseCash(selected.baseline, { candidate }), mapped: diagnoseCash(selected.mapped, { candidate }) }, controls: c, candidateId: candidate.id, provenance: { evidence: 'observed', economics: 'assumed', liquidity: 'assumed', signal: signal.provenance }, validationErrors: [] };
+  return { ...base, status: signal.value === null ? 'PENDING_SWARM' : selected.mapped?.status ?? selected.baseline.status, reasons: signal.value === null ? signal.reasons : selected.mapped?.reasons ?? [], baseline: selected.baseline, mapped: selected.mapped, signal, horizons, delta: selected.delta, portfolio, cashDiagnostics: { baseline: diagnoseCash(selected.baseline, { candidate }), mapped: diagnoseCash(selected.mapped, { candidate }) }, assumptions: [...ASSUMPTIONS, ...(signal.usagePolicy === 'illustrative_contrast' && signal.demoEligible ? signal.limitations : [])], controls: c, candidateId: candidate.id, provenance: { evidence: 'observed', economics: 'assumed', liquidity: 'assumed', signal: signal.provenance }, validationErrors: [] };
 }

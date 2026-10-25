@@ -2,6 +2,35 @@
 
 The executable core, React adapter and workbench implement the accepted hackathon model. These checks establish implementation behavior, not predictive accuracy or a feasible real trade.
 
+## Existing swarm results in the current Next.js website
+
+The current implementation adds an explicit actual-post illustration to the
+canonical workbench. The sections below this one retain earlier Vite/MapLibre
+verification history.
+
+- Canonical model suite: 108 tests pass, including pairwise configuration,
+  source/provenance, strict/real/pending boundaries and publication regressions.
+- Frontend suite: 23 tests pass. Convex mock suite: 19 pass; backend typecheck
+  passes. Python publisher/transport suite: 16 pass with local mock-server
+  permission. Two initial sandbox socket errors were resolved by rerunning with
+  loopback access.
+- Frontend typecheck and production Webpack build pass. Lint has no errors and
+  four pre-existing backend warnings. All 29 specification checks pass.
+- Independent source/boundary review passes, with 22 targeted model/publication
+  checks. No source research check was promoted to pass.
+- Browser checks reproduce approval USD6.31 and blockage USD9.17 versus baseline
+  USD7.60. Exposure zero gives USD7.60; restoring exposure recalculates the actual
+  contrast. Premium USD800 makes approval USD-143.69 and displays a skip result.
+- Unsupported tax stays unavailable; real mode leaves both cash columns
+  unavailable. Returning to existing results restores approval calculations.
+- The existing-results control and cash summary fit 1440, 390 and 320 pixel
+  layouts without page/panel overflow. No browser errors were recorded.
+
+The price transfer and contract/liquidity inputs remain hypothetical. Source
+run IDs, the Claude sports-placebo reference, unknown cutoff and failed research
+checks remain attached to the calculation and optional publication summary.
+No new swarm or judge API calls were made.
+
 ## Automated checks
 
 - `cd frontend && npm test`: 51 passed, 0 failed. Includes 41 model checks and 10 existing evidence checks.

@@ -1,5 +1,18 @@
 # Session lessons
 
+## 25 October 2026
+
+- Amit means a working feature in the existing website when discussing this
+  hackathon demo. Say "Use existing swarm results" and explain the visible
+  behavior; avoid "demo replay" without explaining that it recalculates the
+  actual application from stored simulation data.
+
+- For a hackathon with no remaining swarm API budget, distinguish an explicitly
+  hypothetical demonstration from empirical readiness. Reuse actual scored
+  outputs where possible and make the transfer assumptions visible. Do not make
+  expensive complete reruns a prerequisite for a useful demo, and do not relabel
+  real simulated observations as synthetic or claim failed checks have passed.
+
 ## 24 October 2026
 
 - Amit wants gold as the primary commodity and lithium as secondary. Choosing America did not authorise choosing copper. Confirm the target commodity before building its evidence pack; never let a convenient dataset column silently decide the product. The existing soil table has lithium but no gold, so a gold source must be verified before rebuilding gold packs. Copper outputs remain labelled prototypes, never gold proxies.

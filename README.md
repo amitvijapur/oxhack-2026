@@ -135,6 +135,16 @@ arithmetic assumptions, not observed resources, contract terms or predictive
 performance. Explicitly applying the descriptive 2020–2025 gold CAGR of 14.22%
 changes the illustrative expectation to about USD32.60.
 
+To use the actual saved swarm post scores, open **Decision** and choose
+**Use existing swarm results**. Approval and court blockage compare days 3–5
+with the matching Claude sports-placebo run. The default hypothetical contract
+returns about USD6.31 and USD9.17 expected cash respectively, alongside USD7.60
+without a support adjustment. Weights, exposure, holding period and contract
+assumptions recalculate through the same engine. The support-to-price mapping is
+assumed; source research checks remain failed. Missing scenarios and real-input
+financial outputs remain unavailable. No new swarm or judge API call is needed.
+See [the no-API method and handoff](research/swarm-no-api-demo-plan.md).
+
 Read the [model guide](model/tok-option/README.md),
 [architecture](docs/architecture.md), [remaining work](docs/remaining-work.md),
 and [integration findings](research/tok-option-model/integration-review.md).

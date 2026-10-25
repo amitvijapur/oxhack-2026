@@ -7,6 +7,8 @@ export const SUMMARY_CONTRACT = 'tok-assignment-summary-v1';
 const MODES = ['pending', 'demo', 'real'];
 const STATUSES = ['pending', 'INSUFFICIENT_DATA', 'PENDING_SWARM', 'illustrative', 'ineligible', 'diagnostic'];
 const GATES = ['PASS', 'FAIL', 'UNKNOWN'];
+const RESEARCH_STATUSES = ['pass', 'fail', 'unknown'];
+const CONTRAST_RUNS = { mine_approval: '05_mine_approved_s1', mine_blocked: '06_court_blocks_mine_s1' };
 const object = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
 const fail = (message) => { throw new Error(`Invalid canonical assignment output: ${message}`); };
 const requireThat = (condition, message) => { if (!condition) fail(message); };
@@ -19,6 +21,66 @@ export function canonicalJson(value) {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
   if (object(value)) return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(',')}}`;
   return JSON.stringify(value);
+}
+
+function contrastContext(result, selection) {
+  const signal = result.signal;
+  if (signal.usagePolicy !== 'illustrative_contrast') {
+    requireThat(!(result.controls?.swarmPolicy === 'illustrative_contrast' && Object.hasOwn(CONTRAST_RUNS, selection.scenarioId) && signal.value !== null), 'priced contrast requires explicit signal usage policy');
+    return null;
+  }
+  // Rejected requests retain their null mapped outcomes and reasons. They have
+  // no completed contrast to attribute, including real mode and rejected imports.
+  if (signal.demoEligible === false && signal.value === null) return null;
+  requireThat(result.mode === 'demo' && result.controls?.swarmPolicy === 'illustrative_contrast', 'contrast publication requires explicit demo controls and policy');
+  requireThat(signal.provenance === 'simulated' && signal.methodVersion === 'matched-placebo-post-contrast-v1'
+    && signal.comparisonMethod === 'matched_configuration_placebo_contrast', 'contrast method and simulated provenance are required');
+  requireThat(Object.hasOwn(CONTRAST_RUNS, selection.scenarioId) && signal.referenceRunId === '04_placebo_s1' && signal.baselineRunId === signal.referenceRunId
+    && signal.scenarioRunId === CONTRAST_RUNS[selection.scenarioId], 'contrast reference and scenario run attribution must match');
+  const source = result.sourceAudit?.swarm;
+  const provenance = source?.provenance;
+  for (const key of ['sourceId', 'revision', 'knowledgeCutoff']) {
+    requireThat(signal[key] === provenance?.[key], `contrast ${key} does not match the source audit`);
+  }
+  requireThat(typeof signal.sourceId === 'string' && signal.sourceId.length > 0 && signal.sourceId.length <= 256
+    && typeof signal.revision === 'string' && /^[0-9a-f]{40}$/.test(signal.revision), 'contrast source identity and pinned revision are required');
+  requireThat(signal.knowledgeCutoff === null || (typeof signal.knowledgeCutoff === 'string' && Number.isFinite(Date.parse(signal.knowledgeCutoff))), 'contrast knowledge cutoff must remain null or an attributed timestamp');
+  requireThat(canonicalJson(signal.scoreWindow) === '[3,4,5]', 'contrast score window must be days 3, 4 and 5');
+  requireThat(signal.scoreMetric === 'mining_support' && signal.scoreAggregation === 'equal_daily_means', 'contrast score metric and aggregation are required');
+  requireThat(typeof signal.demoEligible === 'boolean' && ['match', 'different', 'unknown'].includes(signal.pairwiseConfiguration?.status), 'contrast eligibility and pairwise configuration are required');
+  if (signal.value !== null) requireThat(signal.demoEligible && signal.pairwiseConfiguration.status === 'match', 'priced contrast requires an eligible matched configuration');
+  const research = signal.researchReadiness;
+  const original = result.swarmDiagnostics;
+  requireThat(object(research) && RESEARCH_STATUSES.includes(research.status) && research.status === original?.status && research.status === source.status,
+    'contrast research status must preserve the original source status');
+  requireThat(canonicalJson(research.diagnostics) === canonicalJson(original.diagnostics)
+    && canonicalJson(research.diagnostics) === canonicalJson(source.diagnostics)
+    && canonicalJson(research.scenarioReadiness) === canonicalJson(original.scenarioReadiness?.[selection.scenarioId])
+    && canonicalJson(research.scenarioReadiness) === canonicalJson(source.scenarioReadiness?.[selection.scenarioId]),
+  'contrast research diagnostics must preserve the original source checks');
+  requireThat(Array.isArray(research.diagnostics) && research.diagnostics.length <= 50, 'contrast diagnostics must hold at most 50 checks');
+  const diagnostics = research.diagnostics.map((item) => {
+    requireThat(object(item) && RESEARCH_STATUSES.includes(item.status), 'contrast diagnostic status is required');
+    for (const key of ['id', 'label', 'detail']) requireThat(typeof item[key] === 'string' && item[key].length <= 4096, `contrast diagnostic ${key} must be bounded text`);
+    return { id: item.id, label: item.label, status: item.status, detail: item.detail };
+  });
+  const scenario = research.scenarioReadiness;
+  requireThat(object(scenario) && RESEARCH_STATUSES.includes(scenario.status), 'contrast scenario research readiness is required');
+  requireThat(object(signal.originalSourceChecks) && canonicalJson(signal.originalSourceChecks) === canonicalJson(source.diagnosticRuns?.sourceChecks), 'contrast must retain original reported source checks');
+  const sourceChecks = Object.entries(signal.originalSourceChecks).map(([name, check]) => {
+    requireThat(name.length <= 128 && object(check) && typeof check.status === 'string' && check.status.length <= 128, 'contrast source check must have a bounded name and status');
+    return { name, status: check.status };
+  });
+  requireThat(sourceChecks.length <= 50, 'contrast source checks must hold at most 50 checks');
+  return {
+    usagePolicy: signal.usagePolicy, calculationStatus: signal.status, provenance: signal.provenance,
+    methodVersion: signal.methodVersion, comparisonMethod: signal.comparisonMethod,
+    referenceRunId: signal.referenceRunId, scenarioRunId: signal.scenarioRunId,
+    sourceId: signal.sourceId, revision: signal.revision, knowledgeCutoff: signal.knowledgeCutoff,
+    scoreWindow: [...signal.scoreWindow], scoreMetric: signal.scoreMetric, scoreAggregation: signal.scoreAggregation, demoEligible: signal.demoEligible,
+    researchReadiness: { status: research.status, diagnostics, scenarioReadiness: { status: scenario.status, reasons: strings(scenario.reasons, 'contrast scenario research reasons') } },
+    sourceChecks, pairwiseConfigurationStatus: signal.pairwiseConfiguration.status,
+  };
 }
 
 function outcome(value, mode, horizonDays, evidenceGate) {
@@ -70,6 +132,7 @@ export function decisionSummary(output) {
     && result.horizons.every((row, index) => object(row) && row.days === HORIZONS[index]), 'all 30/90/180 day horizons are required in order');
   requireThat(object(result.signal) && ['ready', 'PENDING_SWARM', 'INSUFFICIENT_DATA'].includes(result.signal.status), 'signal readiness is required');
   requireThat(result.signal.value === null || (typeof result.signal.value === 'number' && Number.isFinite(result.signal.value)), 'signal value must be finite or null');
+  const signalContext = contrastContext(result, selection);
   if (result.mode !== 'demo' || result.signal.value === null) requireThat(result.mapped === null && result.horizons.every((row) => row.mapped === null), 'pending or unavailable signals cannot carry mapped money');
   if (result.mode !== 'demo') requireThat(result.baseline === null && result.horizons.every((row) => row.baseline === null), 'pending and real-data modes cannot carry demo money');
   const selected = result.horizons.find((row) => row.days === selection.horizonDays);
@@ -81,10 +144,11 @@ export function decisionSummary(output) {
   return {
     kind: 'decision', contractVersion: SUMMARY_CONTRACT, modelVersion: VERSION,
     modelMode: result.mode, status: result.status, area: selection.area, horizonDays: selection.horizonDays, scenarioId: selection.scenarioId,
-    readiness: { evidenceGate: result.evidence.gate, swarmStatus: result.signal.status, economicsStatus: hasEconomics ? 'assumed' : 'missing' },
+    readiness: { evidenceGate: result.evidence.gate, swarmStatus: signalContext?.researchReadiness.status ?? result.signal.status, economicsStatus: hasEconomics ? 'assumed' : 'missing' },
     provenance: { evidence: result.evidence.provenance ?? null, economics: hasEconomics ? result.provenance.economics : null, liquidity: hasEconomics ? result.provenance.liquidity : null, signal: result.signal.provenance ?? null },
     reasons: strings(result.reasons, 'reasons'), assumptions: strings(result.assumptions, 'assumptions'),
     horizons, selected: { baseline: selectedSummary.baseline, mapped: selectedSummary.mapped },
+    ...(signalContext ? { signalContext } : {}),
   };
 }
 

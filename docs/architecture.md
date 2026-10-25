@@ -47,8 +47,17 @@ Historical gold CAGR can be selected explicitly as an assumption.
 
 The six pinned swarm score sets are partial simulated evidence. Missing scenarios,
 incomplete interviews, failed placebo/mirror/grounding checks, provider/configuration
-confounds and unknown input cutoff block their monetary use. Diagnostic day means
+confounds and unknown input cutoff block strict monetary use. Diagnostic day means
 remain inspectable. Synthetic imports are available only as labelled demonstrations.
+
+An explicit **Use existing swarm results** selection enables a separate
+illustrative policy inside demo mode. It compares approval/blockage with the
+matching Claude sports-placebo run, preserves simulated source identities and
+failed research diagnostics, and applies the selected support contrast through
+the same hypothetical assignment/cash engine. Pairwise configuration matching
+establishes demo eligibility only. Strict imports and real mode keep their
+original gates. Exports carry the comparison policy, run IDs, source revision,
+unknown cutoff and research status so stored outputs retain their meaning.
 
 ## Publication boundary
 

@@ -78,6 +78,30 @@ Invalid JSON, unsupported groups/scenarios, out-of-scale scores, malformed diagn
 
 The pinned `ahmed/gold-society-plan` branch at `f2fe2971` supplies six five-day score sets and a replacement judge check at 26/30. Three scenarios are absent, interviews are incomplete, placebo/mirror/grounding checks fail, and baseline/news configurations differ. Exact daily means are exposed through `diagnosticRuns` for inspection. The unknown input knowledge cutoff and failed readiness checks keep monetary `runs` null. See [swarm integration](../../research/tok-option-model/swarm-integration.md).
 
+### Existing results in the website
+
+The **Use existing swarm results** action selects explicit demo mode with
+`controls.swarmPolicy = 'illustrative_contrast'`. The default policy is `strict`.
+The illustrative policy compares the recorded Claude approval or court-block
+run with Claude sports placebo `04_placebo_s1`. It requires matching pairwise
+configurations and complete numeric group/day inputs. The three-day support
+contrast is divided by ten and combined with the selected stakeholder weights.
+The existing 7% transfer, exposure and retention map it into an assumed
+assignment-price sensitivity. This does not change geology or sale hazard.
+
+The underlying source remains `simulated`; the output adds an illustrative-use
+policy, method version, comparison run IDs, source revision and original failed
+research status. The sports placebo is not a neutral no-news control, and there
+is only one recorded Claude seed per condition. Default expected 90-day cash is
+USD6.3098 for approval and USD9.1748 for court blockage, versus USD7.60 baseline.
+The surprising signs are preserved. Changing economic controls or weights
+recalculates the same canonical model. Missing event scenarios remain unavailable.
+
+This is a post-only hypothetical pathway. Missing interviews and source cutoffs
+are disclosed rather than invented. It does not clear strict source readiness,
+enable real-mode financial outputs, replace actual data with a synthetic fixture,
+or establish predictive value. No new swarm or judge API calls are needed.
+
 ## Source coverage and diagnostic outputs
 
 `runWorkbench` also returns `sourceAudit`, `swarmDiagnostics` and `cashDiagnostics`. The pinned land branch at `34eaf1d` joins all 67 sample identities to checked land layers. It supplies 10 heterogeneous deal examples, dated cost schedules, annual gold means and statewide surface sales. These provide context without becoming available option terms or liquidity estimates. See [land integration](../../research/tok-option-model/land-integration.md).

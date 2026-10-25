@@ -43,11 +43,12 @@ function EvidenceScreen({ evidence, area }) {
 function Flow({ result, controls }) {
   const baseline = result.baseline;
   const mapped = result.mapped;
+  const existing = result.signal?.usagePolicy === 'illustrative_contrast';
   const steps = [
     { title: 'Evidence screen', value: result.evidence?.gate || 'UNKNOWN', text: 'Primary gold samples determine eligibility.' },
     { title: 'Material assumption', value: money(baseline?.rawMaterialValueUsd), text: 'Assumed ounces × price grown to the horizon.' },
     { title: 'Contract mapping', value: money(baseline?.assignmentValueUsd), text: 'Ownership, value conversion, success probability and buyer consideration.' },
-    { title: 'Swarm adjustment', value: percent(result.signal?.adjustment, 2), text: 'Stakeholder signal × exposure × retention, capped at ±7%.' },
+    { title: existing ? 'Assumed price transfer' : 'Swarm adjustment', value: percent(result.signal?.adjustment, 2), text: existing ? 'Recorded support contrast × assumed 7% transfer × exposure × retention.' : 'Stakeholder signal × assumed 7% transfer × exposure × retention.' },
     { title: 'Sale-adjusted cash', value: money(mapped?.expectedNetCashUsd), text: `Sale timing and costs over ${controls.horizonDays} days, including no sale.` },
   ];
   return <div className="model-flow-wrap"><h3>Follow the calculation</h3><ol className="model-flow">{steps.map((step, index) => <li key={step.title}><div><span>{step.title}</span><strong>{step.value}</strong><p>{step.text}</p></div>{index < steps.length - 1 && <ArrowRight size={17} aria-hidden="true" />}</li>)}</ol></div>;
@@ -68,6 +69,7 @@ function Comparison({ result, controls }) {
   return <section className="model-results" aria-labelledby="model-results-heading">
     <div className="model-section-heading"><div><h3 id="model-results-heading">What changes at {controls.horizonDays} days?</h3><p>One assumed assignable option. All amounts are USD.</p></div><span className={`model-status ${mapped?.entryAction === 'BUY_CANDIDATE' ? 'model-status-pass' : 'model-status-unknown'}`}>{actionText(status)}</span></div>
     <div className="model-table-scroll"><table className="model-comparison"><caption className="sr-only">Baseline and selected scenario economics with no sale included in expected cash.</caption><thead><tr><th scope="col">Measure</th><th scope="col">Baseline</th><th scope="col">{controls.scenarioId === 'baseline' ? 'Baseline comparison' : 'Selected scenario'}</th></tr></thead><tbody>{rows.map(([label, key, format]) => <tr key={key} className={key === 'expectedNetCashUsd' ? 'model-total-row' : undefined}><th scope="row">{label}</th><td>{format(baseline?.[key])}</td><td>{format(mapped?.[key])}</td></tr>)}</tbody></table></div>
+    {result.signal?.usagePolicy === 'illustrative_contrast' && <p className="model-note">Baseline cash uses the same hypothetical option with no support adjustment. The score comparison uses the matching Claude sports-placebo run.</p>}
     <div className="model-delta" aria-live="polite" aria-atomic="true"><span>Scenario delta versus baseline</span><div><span>Assignment price <strong>{signedMoney(result.delta?.assignmentValueUsd)}</strong></span><span>Expected net cash <strong>{signedMoney(result.delta?.expectedNetCashUsd)}</strong></span></div></div>
     <p className="model-note">If nothing sells, sale proceeds are $0 and the full upfront commitment can be lost. The ±7% cap limits the price adjustment, not the loss. The unsold contract mark is separate from cash and cannot fund another position. Its unweighted horizon mark is {money(mapped?.unweightedNoSaleResidualMarkUsd)}.</p>
     {mapped?.reasons?.length > 0 && <ul className="model-reasons">{mapped.reasons.map((reason, index) => <li key={index}>{message(reason)}</li>)}</ul>}
@@ -103,12 +105,13 @@ function Horizons({ result }) {
 
 function FormulaTrace({ result, controls }) {
   const baseline = result.baseline;
+  const existing = result.signal?.usagePolicy === 'illustrative_contrast';
   return <details className="model-detail"><summary>Equations and worked numbers<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content model-formulas">
     <p>These equations describe the prototype. The quantities, conversion factor, success probability and liquidity assumptions are editable, not measured Tok estimates.</p>
     <dl><div><dt>Grow the material price first</dt><dd><code>P(t) = P₀ × (1 + g)^(t / 365)</code><span>At the selected horizon, assumed material value is {money(baseline?.rawMaterialValueUsd)}.</span></dd></div>
       <div><dt>Map material value to the interest</dt><dd><code>Vsuccess = Q × P(t) × ownership × κ</code><span>Success-state interest value is {money(baseline?.successValueUsd)}. κ absorbs omitted development economics in this simple demonstration.</span></dd></div>
       <div><dt>Map the interest to assignment proceeds</dt><dd><code>A₀(t) = pGeo × max(Vsuccess − K, 0)</code><span>Baseline proceeds are {money(baseline?.assignmentValueUsd)}. The future buyer pays K on exercise. We only assign the option.</span></dd></div>
-      <div><dt>Apply the news scenario once</dt><dd><code>s = Σ weight × (scenario mean − baseline mean) / 10</code><code>A(t) = A₀(t) × (1 + 0.07 × s × exposure × retention)</code><span>The mapped adjustment is {percent(result.signal?.adjustment, 2)}. The signal is not a probability.</span></dd></div>
+      <div><dt>Apply the news scenario once</dt><dd><code>{controls.scenarioId === 'baseline' ? 's = 0 · unadjusted reference' : existing ? 's = Σ weight × (event mean − Claude sports-placebo mean) / 10' : 's = Σ weight × (scenario mean − baseline mean) / 10'}</code><code>A(t) = A₀(t) × (1 + 0.07 × s × exposure × retention)</code><span>The mapped adjustment is {percent(result.signal?.adjustment, 2)}. {existing && 'Means equally weight days 3, 4 and 5. '}The 7% transfer is assumed. The signal is neither a probability nor a gold-price prediction.</span></dd></div>
       <div><dt>Account for sale timing and no sale</dt><dd><code>wⱼ = (1 − h)^(j − 1) × h</code><code>Expected cash = Σ wⱼ × (A(30j) − exit fee) − upfront risk</code><span>At {controls.horizonDays} days, no-sale probability is {percent(result.mapped?.noSaleProbability)}. No-sale cash proceeds are zero.</span></dd></div></dl>
     <p className="model-note">The contract proxy omits option time value and assumes geological success or failure resolves before the future buyer exercises. Cash is nominal, with no discounting. Sediment ppm never becomes recoverable ounces.</p>
     {result.mapped?.intervals?.length > 0 && <div className="model-table-scroll"><table><caption>Expected-cash sale branches</caption><thead><tr><th scope="col">Sale day</th><th scope="col">Branch probability</th><th scope="col">Assignment</th><th scope="col">After exit fee</th></tr></thead><tbody>{result.mapped.intervals.map((row) => <tr key={row.day}><th scope="row">Day {row.day}</th><td>{percent(row.weight, 3)}</td><td>{money(row.assignmentValueUsd)}</td><td>{money(row.netSaleProceedsUsd)}</td></tr>)}</tbody></table></div>}
@@ -121,6 +124,30 @@ function Portfolio({ portfolio, controls }) {
   return <section className="model-portfolio"><div className="model-section-heading"><h3>Size the commitment</h3><span className="model-assumption">Hypothetical $100,000 fund</span></div><p>{available ? count ? `The optimizer includes the one assumed Area ${controls.area} contract in this cohort.` : 'The optimizer leaves this assumed contract out of the cohort.' : 'Portfolio selection is unavailable until the required model inputs are complete.'} It maximizes positive expected net cash after the evidence, expiry, terms and risk screens.</p><dl><div><dt>Selected contracts</dt><dd>{available ? count : 'Not available'}</dd></div><div><dt>Total upfront risk</dt><dd>{money(available ? portfolio?.totalRiskUsd : null)}</dd></div><div><dt>Total expected cash</dt><dd>{money(available ? portfolio?.totalExpectedNetCashUsd : null)}</dd></div></dl><p className="model-note">Limits are $2,000 per option, $10,000 for the whole cohort and five positions. One interest can appear once. No borrowing, exercise or reinvestment. Positions can fail together. This screen contains one assumed contract, not live listings.</p>{portfolio?.reasons?.length > 0 && <ul className="model-reasons">{portfolio.reasons.map((reason, index) => <li key={index}>{message(reason)}</li>)}</ul>}</section>;
 }
 
+function ExistingSwarmResults({ result, selected, horizonDays, onUse, onStrict, busy }) {
+  const signal = result.signal;
+  const usingPosts = signal?.usagePolicy === 'illustrative_contrast' && finite(signal.value);
+  const source = result.sourceAudit?.swarm;
+  const research = signal?.researchReadiness ?? source;
+  const sourceUrl = source?.provenance?.sourceUrl;
+  return <section className="model-existing-swarm" aria-labelledby="model-existing-swarm-heading">
+    <div className="model-section-heading"><h3 id="model-existing-swarm-heading">Existing swarm results</h3>{selected && <span className="model-status">Hypothetical economics</span>}</div>
+    <p>Compare the recorded mine-approval or court-block posts with the matching Claude sports-placebo run. No new simulation is needed.</p>
+    <div className="model-source-actions"><button type="button" className="model-import-button" aria-pressed={selected} disabled={busy} onClick={onUse}>Use existing swarm results</button>{selected && <button type="button" className="model-text-button" onClick={onStrict}>Use strict source checks</button>}</div>
+    {selected && <div className="model-existing-context">
+      <p><strong>Recorded simulated posts, hypothetical economics.</strong> The ±7% transfer is assumed. Exposure and retention start at 100% and stay editable.</p>
+      {usingPosts ? <p>Support contrast <strong className="tabular">{number(signal.value, 6)}</strong>; assumed price adjustment <strong className="tabular">{percent(signal.adjustment, 3)}</strong>. The actual sign is retained.</p> : <p>Actual post-score comparisons are available only for mine approval and mine blocked. Other missing scenarios stay unavailable; baseline remains the unadjusted reference.</p>}
+      <div className="model-existing-cash"><p>Expected net cash at {horizonDays} days, including no sale.</p><dl aria-live="polite" aria-atomic="true"><div><dt>Baseline</dt><dd>{money(result.baseline?.expectedNetCashUsd)}</dd></div><div><dt>Selected scenario</dt><dd>{money(result.mapped?.expectedNetCashUsd)}</dd></div><div><dt>Cash change</dt><dd>{signedMoney(result.delta?.expectedNetCashUsd)}</dd></div></dl></div>
+      <p className="model-note">Research checks remain {research?.status === 'fail' ? 'failed' : 'incomplete'}. Matching these runs permits illustration only.</p>
+    </div>}
+    {selected && <details className="model-detail"><summary>Simulation provenance and original checks<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content">
+      {usingPosts && <dl className="model-land-facts"><div><dt>Event run</dt><dd>{signal.scenarioRunId}</dd></div><div><dt>Score reference</dt><dd>{signal.referenceRunId} · Claude sports placebo</dd></div><div><dt>Score window</dt><dd>Days {(signal.scoreWindow ?? []).join(', ')} · equal daily means · support scores 0–10</dd></div><div><dt>Source revision</dt><dd>{sourceUrl ? <a href={sourceUrl} target="_blank" rel="noreferrer">{signal.revision}</a> : signal.revision}</dd></div><div><dt>Input knowledge cutoff</dt><dd>{signal.knowledgeCutoff ?? 'Not supplied'}</dd></div><div><dt>Comparison method</dt><dd>{signal.methodVersion}</dd></div></dl>}
+      <p className="model-note">The sports placebo is not an untreated control, and one seed does not estimate uncertainty. Matching recorded configurations does not clear the failed research checks. The common day-1 gold jump is not applied again as a separate return.</p>
+      <SwarmDiagnostics diagnostic={research} illustrative />
+    </div></details>}
+  </section>;
+}
+
 export default function ModelWorkbench({ features }) {
   const [controls, setControls] = useState(() => ({ ...DEFAULT_CONTROLS, weights: { ...DEFAULT_CONTROLS.weights } }));
   const [swarmRuns, setSwarmRuns] = useState(null);
@@ -129,12 +156,14 @@ export default function ModelWorkbench({ features }) {
   const [importing, setImporting] = useState(false);
   const result = useMemo(() => runWorkbench({ features, controls, swarmRuns }), [features, controls, swarmRuns]);
   const demo = controls.mode === 'demo';
+  const existingSelected = demo && controls.swarmPolicy === 'illustrative_contrast';
+  const usingExistingPosts = result.signal?.usagePolicy === 'illustrative_contrast';
   const sourceSwarm = result.sourceAudit?.swarm;
   const sourceRunCount = sourceSwarm?.diagnosticRuns?.runs?.length ?? sourceSwarm?.runs?.runs?.length ?? 0;
   const sourceChecksBlocked = sourceSwarm?.diagnostics?.some((check) => check.status !== 'pass');
   const sourceCutoffMissing = sourceSwarm?.diagnostics?.find((check) => check.id === 'knowledge_cutoff')?.status !== 'pass';
-  const sourceSwarmNote = `The bundled source has ${sourceRunCount} scored simulation ${sourceRunCount === 1 ? 'run' : 'runs'} for inspection. ${sourceChecksBlocked ? 'Failed or incomplete checks block price changes.' : 'Scenario readiness checks still apply.'}${sourceCutoffMissing ? ' The source knowledge cutoff is missing.' : ''}`;
-  const set = (key, value) => setControls((current) => ({ ...current, [key]: value }));
+  const sourceSwarmNote = `The bundled source has ${sourceRunCount} scored simulation ${sourceRunCount === 1 ? 'run' : 'runs'} for inspection. ${sourceChecksBlocked ? 'Failed or incomplete research checks block strict monetary use.' : 'Scenario readiness checks still apply.'}${sourceCutoffMissing ? ' The source knowledge cutoff is missing.' : ''}`;
+  const set = (key, value) => setControls((current) => ({ ...current, [key]: value, ...((key === 'mode' && value !== 'demo') || (key === 'scenarioId' && value === 'synthetic') ? { swarmPolicy: 'strict' } : {}) }));
   const input = (name, label, options = {}) => <NumericField key={name} name={name} label={label} value={controls[name]} onChange={(value) => set(name, value)} {...options} />;
   const changeWeight = (group, value) => setControls((current) => ({ ...current, weights: { ...current.weights, [group]: value } }));
   const weightTotal = Object.values(controls.weights).every(finite) ? Object.values(controls.weights).reduce((sum, value) => sum + value, 0) : null;
@@ -152,7 +181,7 @@ export default function ModelWorkbench({ features }) {
       if (file.size > 2_000_000) throw new Error('This file is too large. Import a swarm JSON export smaller than 2 MB.');
       const parsed = parseSwarmImport(await file.text());
       if (parsed.errors?.length || !parsed.runs) setImportErrors(parsed.errors?.length ? parsed.errors : ['This file has no usable runs. Check the swarm import schema.']);
-      else { setSwarmRuns(parsed.runs); setImportName(file.name); }
+      else { setSwarmRuns(parsed.runs); setImportName(file.name); setControls((current) => ({ ...current, swarmPolicy: 'strict' })); }
     } catch (error) { setImportErrors([error.message || 'The file could not be read. Try importing it again.']); }
     finally { setImporting(false); event.target.value = ''; }
   }
@@ -163,7 +192,14 @@ export default function ModelWorkbench({ features }) {
     setSwarmRuns(parsed.runs);
     setImportName('Bundled group-score example');
     setImportErrors([]);
-    setControls((current) => ({ ...current, mode: 'demo', scenarioId: 'mine_approval' }));
+    setControls((current) => ({ ...current, mode: 'demo', swarmPolicy: 'strict', scenarioId: 'mine_approval' }));
+  }
+
+  function useExistingResults() {
+    setSwarmRuns(null);
+    setImportName('');
+    setImportErrors([]);
+    setControls((current) => ({ ...current, mode: 'demo', swarmPolicy: 'illustrative_contrast', scenarioId: 'mine_approval', eventExposure: 1, retention: 1 }));
   }
 
   function downloadExample() {
@@ -176,16 +212,17 @@ export default function ModelWorkbench({ features }) {
   }
 
   return <section className="model-workbench" id="option-model" aria-labelledby="model-heading">
-    <div className="model-heading"><div><h2 id="model-heading">Tok option model</h2><p>Trace mineral exposure into an assumed contract price, then ask what can actually become cash.</p></div><span className="model-assumption">Hackathon prototype</span></div>
+    <div className="model-heading"><div><h2 id="model-heading">Tok option model</h2><p>Trace mineral exposure into an assumed contract price, then ask what can actually become cash.</p></div><span className="model-assumption">Hypothetical economics</span></div>
     <div className="model-mode-bar"><div role="group" aria-label="Model data mode" className="model-segmented">{[['pending', 'Evidence only'], ['demo', 'Use hypothetical demo'], ['real', 'Real inputs']].map(([mode, label]) => <button type="button" key={mode} aria-pressed={controls.mode === mode} onClick={() => set('mode', mode)}>{label}</button>)}</div><button type="button" className="model-text-button" onClick={() => setControls({ ...DEFAULT_CONTROLS, weights: { ...DEFAULT_CONTROLS.weights }, mode: controls.mode })}><RotateCcw size={14} aria-hidden="true" />Reset assumptions</button></div>
     <p className="model-mode-note">{demo ? 'Demo selected. Samples and land context are sourced; contract terms, ounces, price forecasts and sale probabilities are assumptions. No investment edge has been demonstrated.' : controls.mode === 'real' ? 'Real-input mode. Land records and historical gold prices are connected. Verified Tok option terms, resources and resale data remain missing, so financial outputs stay unavailable.' : `Observed samples and land context are connected. ${sourceSwarmNote}`}</p>
-    <div className="model-toolbar"><label>Comparison area<select value={controls.area} onChange={(event) => set('area', event.target.value)}><option value="A">A · Tok west</option><option value="B">B · Tok east</option></select></label><label>Holding period<select value={controls.horizonDays} onChange={(event) => set('horizonDays', Number(event.target.value))}>{[30, 90, 180].map((days) => <option key={days} value={days}>{days} days{days === 90 ? ' · primary' : ''}</option>)}</select></label><label className="model-scenario-select">Scenario comparison<select value={controls.scenarioId} onChange={(event) => set('scenarioId', event.target.value)}><optgroup label="Reference and sensitivity"><option value="baseline">Baseline reference</option><option value="synthetic">Synthetic sensitivity</option></optgroup><optgroup label="News scenarios require imported runs">{SCENARIOS.map(([id, label]) => <option value={id} key={id}>{label}</option>)}</optgroup></select></label></div>
+    <ExistingSwarmResults result={result} selected={existingSelected} horizonDays={controls.horizonDays} busy={importing} onUse={useExistingResults} onStrict={() => setControls((current) => ({ ...current, swarmPolicy: 'strict', scenarioId: 'baseline' }))} />
+    <div className="model-toolbar"><label>Comparison area<select value={controls.area} onChange={(event) => set('area', event.target.value)}><option value="A">A · Tok west</option><option value="B">B · Tok east</option></select></label><label>Holding period<select value={controls.horizonDays} onChange={(event) => set('horizonDays', Number(event.target.value))}>{[30, 90, 180].map((days) => <option key={days} value={days}>{days} days{days === 90 ? ' · primary' : ''}</option>)}</select></label><label className="model-scenario-select">Scenario comparison<select value={controls.scenarioId} onChange={(event) => set('scenarioId', event.target.value)}><optgroup label="Reference and sensitivity"><option value="baseline">Baseline reference</option><option value="synthetic">Synthetic sensitivity</option></optgroup><optgroup label={existingSelected ? "Recorded comparisons and unavailable scenarios" : "News scenarios require imported runs"}>{SCENARIOS.map(([id, label]) => <option value={id} key={id}>{label}{existingSelected && !['mine_approval', 'mine_blocked'].includes(id) ? ' · unavailable' : ''}</option>)}</optgroup></select></label></div>
     <EvidenceScreen evidence={result.evidence} area={controls.area} />
     <details className="model-detail"><summary>Data sources and missing inputs<ChevronDown size={17} aria-hidden="true" /></summary><DataCoverage audit={result.sourceAudit} demo={demo} onUseGoldTrend={() => set('annualGrowthRate', result.sourceAudit.land.goldTrend.annualGrowthRate)} /></details>
     <details className="model-detail"><summary>Simulation source and import<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-import-row"><div><h3>Connect the swarm</h3><p>{importName ? <><Check size={14} aria-hidden="true" />{swarmRuns?.provenance === 'synthetic' ? 'Synthetic fixture loaded: ' : 'Imported simulation: '}<strong>{importName}</strong></> : sourceSwarmNote}</p></div><button type="button" className="model-import-button" onClick={loadSyntheticExample}>Load synthetic group-score demo</button><label className={`model-import-button${importing ? ' is-loading' : ''}`}><FileUp size={16} aria-hidden="true" /><span>{importing ? 'Reading file…' : 'Import swarm JSON'}</span><input type="file" accept=".json,application/json" onChange={importFile} disabled={importing} aria-label="Import swarm JSON" /></label>{importName && <button type="button" className="model-text-button" onClick={() => { setSwarmRuns(null); setImportName(''); setImportErrors([]); }}>Clear import</button>}</div>
     <details className="model-import-help"><summary>Import format and example</summary><p>Use version 1 normalized JSON, or the team&apos;s scored report wrapped as <code>{'{report, metadata}'}</code>. Metadata must supply sourceId, knowledgeCutoff and eventDefinition. Each scenario needs seed 1 and all five groups on days 3, 4 and 5. Simulated signals also need complete baseline, placebo, judge and scenario diagnostics before they can change a model price.</p><button type="button" className="model-text-button" onClick={downloadExample}>Download the synthetic schema example</button><p>The bundled example is invented for testing the weights. It is not your teammate&apos;s simulation output. Import limit: 2 MB.</p>{swarmRuns && <p>Source: {swarmRuns.sourceId}. Knowledge cutoff: {swarmRuns.knowledgeCutoff}. {swarmRuns.eventDefinition}</p>}</details>
-    <SwarmDiagnostics diagnostic={result.swarmDiagnostics} /></details>
-    {importErrors.length > 0 && <div className="model-error" role="alert"><strong>Import was not applied.</strong><ul>{importErrors.map((error, index) => <li key={index}>{message(error)}</li>)}</ul><p>The last valid import, if any, is still in use.</p></div>}
+    {!existingSelected && <SwarmDiagnostics diagnostic={result.swarmDiagnostics} />}</details>
+    {importErrors.length > 0 && <div className="model-error" role="alert"><strong>Import was not applied.</strong><ul>{importErrors.map((error, index) => <li key={index}>{message(error)}</li>)}</ul><p>The active source is unchanged.</p></div>}
     {result.validationErrors?.length > 0 && <div className="model-error" role="alert"><strong>Check these assumptions to calculate a result.</strong><ul>{result.validationErrors.map((error, index) => <li key={index}>{message(error)}</li>)}</ul></div>}
     {result.reasons?.length > 0 && <div className="model-notice" role="status">{result.reasons.map((reason, index) => <p key={index}>{message(reason)}</p>)}</div>}
     <Flow result={result} controls={controls} />
@@ -211,15 +248,15 @@ export default function ModelWorkbench({ features }) {
         </div></details>
         <details className="model-detail" open={controls.scenarioId === 'synthetic' ? true : undefined}><summary>Signal and stakeholder weights<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content">
           {controls.scenarioId === 'synthetic' && <div className="model-synthetic"><label htmlFor="model-signal-range">Synthetic signal <output>{number(controls.syntheticSignal)}</output></label><input id="model-signal-range" aria-label="Synthetic signal sensitivity" type="range" min="-1" max="1" step="0.01" value={finite(controls.syntheticSignal) ? controls.syntheticSignal : 0} onChange={(event) => set('syntheticSignal', Number(event.target.value))} /><div><span>−1 · negative bound</span><span>+1 · positive bound</span></div><p>Made-up sensitivity only. This bypasses stakeholder aggregation to test the maximum ±7% price adjustment.</p></div>}
-          <p className="model-note">Industry and funds lead the imported signal. Each group compares its equal-weight mean for days 3, 4 and 5 with baseline seed 1. Scores measure support, not price probabilities.</p>
+          <p className="model-note">{existingSelected ? 'Industry and funds lead the recorded contrast. Each group compares equal-weight means for days 3, 4 and 5 with the matching Claude sports-placebo run.' : 'Industry and funds lead the imported signal. Each group compares its equal-weight mean for days 3, 4 and 5 with baseline seed 1.'} Scores measure simulated support, not price probabilities.</p>
           <div className="model-field-grid model-weights">{GROUPS.map((group) => <NumericField key={group} name={`weight-${group}`} label={group[0].toUpperCase() + group.slice(1)} value={controls.weights[group]} onChange={(value) => changeWeight(group, value)} unit="%" min={0} max={100} step={1} scale={100} />)}</div>
           <div className="model-weight-total"><span>Total <strong>{percent(weightTotal, 2)}</strong></span><button type="button" className="model-text-button" disabled={!finite(weightTotal) || weightTotal <= 0 || Object.values(controls.weights).some((weight) => weight < 0)} onClick={normalizeWeights}>Normalize to 100%</button></div>
           <div className="model-field-grid">{input('eventExposure', 'Property event exposure', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}{input('retention', 'Signal retained through horizon', { unit: '%', scale: 100, min: 0, max: 100, step: 5 })}</div>
-          <p className="model-note">Exposure and retention are assumptions. Weights apply to imported simulations. Synthetic sensitivity uses its direct signal instead.</p>
+          <p className="model-note">Exposure and retention are assumptions, not measured reliability. Weights apply to the selected post-score comparison. Synthetic sensitivity uses its direct, invented signal instead.</p>
         </div></details>
       </fieldset>
     </aside><div className="model-output"><Comparison result={result} controls={controls} /><CashDiagnostics diagnostics={result.cashDiagnostics} controls={controls} /><Horizons result={result} /><Portfolio portfolio={result.portfolio} controls={controls} /></div></div>
-    {result.signal?.groups?.length > 0 && <details className="model-detail"><summary>Inspect stakeholder contributions<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content model-table-scroll"><table><caption>Imported scenario support compared with baseline seed 1. Missing group-days cannot be filled with zero.</caption><thead><tr><th scope="col">Group</th><th scope="col">Weight</th><th scope="col">Baseline mean</th><th scope="col">Scenario mean</th><th scope="col">Normalized change</th><th scope="col">Contribution</th></tr></thead><tbody>{result.signal.groups.map((group) => <tr key={group.group}><th scope="row">{group.group}</th><td>{percent(group.weight)}</td><td>{number(group.baselineMean)}</td><td>{number(group.scenarioMean)}</td><td>{number(group.delta)}</td><td>{number(group.contribution, 4)}</td></tr>)}</tbody></table></div></details>}
+    {result.signal?.provenance !== 'baseline_comparison' && result.signal?.groups?.length > 0 && <details className="model-detail"><summary>Inspect stakeholder contributions<ChevronDown size={17} aria-hidden="true" /></summary><div className="model-detail-content model-table-scroll"><table><caption>{usingExistingPosts ? 'Recorded Claude event support compared with the matching sports-placebo run, using equal daily means for days 3, 4 and 5.' : 'Imported scenario support compared with baseline seed 1.'} Missing group-days cannot be filled with zero.</caption><thead><tr><th scope="col">Group</th><th scope="col">Weight</th><th scope="col">{usingExistingPosts ? 'Sports-placebo mean' : 'Baseline mean'}</th><th scope="col">Scenario mean</th><th scope="col">Normalized change</th><th scope="col">Contribution</th></tr></thead><tbody>{result.signal.groups.map((group) => <tr key={group.group}><th scope="row">{group.group}</th><td>{percent(group.weight)}</td><td>{number(group.baselineMean)}</td><td>{number(group.scenarioMean)}</td><td>{number(group.delta)}</td><td>{number(group.contribution, 4)}</td></tr>)}</tbody></table></div></details>}
     <FormulaTrace result={result} controls={controls} />
     <p className="model-footer-note">The prototype tests a possible relationship between news, mineral exposure and option assignment value. Geological samples are observed data. Simulated reactions and assumed economics are not evidence of predictive performance. Real contract terms, comparable transactions and chronological validation are still needed.</p>
   </section>;
