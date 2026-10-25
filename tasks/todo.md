@@ -5,10 +5,12 @@ Human owner: Amit. Integration owner: Codex. Scope: canonical model, financial U
 - [x] Integrate the latest Land/Decide changes and preserve geological screening separately from financial decisions.
 - [x] Isolate code and result documentation from new slide artifacts and active deck pointers.
 - [x] Verify model, frontend/backend, publisher, build and independent integration review.
-- [ ] Push and protected squash merge the code PR after all required checks pass.
-- [ ] Only after the code merge, publish the approved slides in a separate PR and verify their hashes.
+- [x] Push and protected squash merge the code PR after all required checks pass.
+- [x] Only after the code merge, publish the approved slides in a separate PR and verify their hashes.
 
 Code review:152 model/event tests,71 frontend tests,21 backend tests,16 publisher tests and30 static specification checks passed. Frontend/backend typechecks and production build passed. Lint has zero errors and seven existing backend warnings. Independent review confirmed24 source hashes and no slide changes. Production UI verified12.35% baseline, fee sensitivity and no-sale cash;30days correctly changes the decision to Skip.
+
+Code publication complete: [PR #54](https://github.com/amitvijapur/oxhack-2026/pull/54) merged as `e180e2af1e1e7cca091e69a23f5787ec56e353e6` after all three required checks passed on head `7cd066d`. The merged tree exactly matches the reviewed branch and has no pitch or brand changes. The separate slide PR [#56](https://github.com/amitvijapur/oxhack-2026/pull/56) starts from this merged commit. Required-check and protected-merge outcomes are recorded on that PR and in the external build log. Slide publication review confirmed the approved PPTX/PDF hashes,10matching note bodies,300-second main sequence, native chart and tables, all active local links,24model hashes and zero application/model changes.
 
 The model source checkpoint is retained through the `orecast-model-inputs-v1` Git tag so clean clones can reproduce the 24 source hashes after squash integration. Current results are US$69,230.77 assignment, US$3,710.22 expected baseline cash and 12.3468% over90days with fixed fees. No-sale probability51.2% and lossUS$30,050 remain explicit. Proportional reference fees produce1.0857% and fail the per-option cap. The default synthetic financial card uses its actual1%response cap/50%retention and returns12.82%, separately from the7%recorded workflow.
 

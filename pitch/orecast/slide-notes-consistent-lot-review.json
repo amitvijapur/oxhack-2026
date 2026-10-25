@@ -1,0 +1,185 @@
+[
+  {
+    "slide": 1,
+    "title": "Orecast",
+    "seconds": 20,
+    "body": "Orecast investigates how evidence, an assumed gold forecast and the time available to find a buyer affect one mineral decision. This local review uses one explicit synthetic contract and makes the effect of its fee assumptions visible.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 1
+  },
+  {
+    "slide": 2,
+    "title": "One hypothetical contract over time",
+    "seconds": 30,
+    "body": "We hold one synthetic contract fixed across every comparison. Its invented reference exposure is scaled by 30,000 divided by 650, giving 23,076.92 assumed ounces and 184,615.38 dollars buyer consideration. Historical signing payments only motivate the entry scale; they do not value this interest. We assume 50-dollar entry and exit fees. Proportional fees instead give 1.09% return and fail the risk cap.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606",
+      "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+    ],
+    "preparation": "Three clocks stay distinct: observed collection/publication in 2016; five simulated days with news on day 3; and 30/90/180-day holding horizons. The simulated fund remains $1,502,500, with a $30,050 per-option cap, $150,250 open/lifetime commitment caps and at most five positions. The scale factor does not mean multiple contracts.",
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 12
+  },
+  {
+    "slide": 3,
+    "title": "Observed evidence",
+    "seconds": 30,
+    "body": "We begin with 67 measured sediment samples from Tok River, Alaska: 33 in Area A and 34 in B. Source provenance stays attached to each observation. Under the proposed gold-assay screen, A passes and B fails. The samples provide observed evidence, not recoverable ounces or geological success probabilities. Those remain separate assumptions. Map claims and illustrative squares provide context; they do not establish available mineral rights or an investment.",
+    "sources": [
+      "https://doi.org/10.14509/29688",
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 5
+  },
+  {
+    "slide": 4,
+    "title": "Gold forecast and assignment",
+    "seconds": 60,
+    "body": "Read the layers from top to bottom. Primary assays screen eligibility. Recorded simulated support is compared against the matching sports-placebo reference. The model adjusts an assumed gold forecast, then recomputes material value, interest value, assignment proceeds and cash at each possible sale date. The same synthetic quantity and buyer consideration remain fixed across scenarios, horizons and premium edits. They are not inferred from assays or from the historical payments. The 7% gold response is uncalibrated and is not a loss cap. Geological success, ownership, conversion, contract permission, costs and sale hazard are assumptions. Candidate is conditional on those assumptions and screens. There is no execution, borrowing, exercise or reinvestment.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 11
+  },
+  {
+    "slide": 5,
+    "title": "Recorded scenario contrast",
+    "seconds": 55,
+    "body": "The same synthetic contract is used in both recorded comparisons. Mine approval has support minus 0.0252 and assumed gold of 1996.47 dollars an ounce; court blockage has plus 0.0307 and 2004.30 dollars. At 90 days, expected cash is 3610.97 dollars for approval and 3831.36 for blockage, or 12.02% and 12.75% on 30,050 dollars upfront. The quantities, buyer consideration and fixed 50-dollar fees do not change. These are conditional hypothetical candidates, not trades or observed margins. Research checks remain failed; the matching sports placebo is not an untreated control. The recorded signs and the uncalibrated financial mapping remain visible.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 13
+  },
+  {
+    "slide": 6,
+    "title": "Time, return and fees",
+    "seconds": 60,
+    "body": "With one fixed synthetic exposure and 50-dollar entry and exit fees, the 90-day baseline has 3710.22 dollars expected cash and 12.35% expected option return. This is non-annualized and not a gold return. The 30-day case skips; the 180-day case has more assumed chances to sell. At 90 days, 51.2% of paths still have no sale and median cash is minus 30,050 dollars. The higher headline return depends on the fixed-fee assumption. If both reference fees scale with exposure, each is 2307.69 dollars: return falls to 1.09% and upfront capital exceeds the current risk cap. No exposure was chosen from a 25% target. Its 77,022.34-dollar required-resale hurdle is separate, not a forecast.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs."
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 20
+  },
+  {
+    "slide": 7,
+    "title": "Local demonstration",
+    "seconds": 45,
+    "body": "Compare approval with blockage for Area A at 90 days. Expected return changes from 12.02% to 12.75%, using the synthetic contract and fixed fees. These are conditional candidates, not trades. No sale remains possible. The fee sensitivity is essential: proportional fees reduce the baseline to 1.09% and fail the risk cap. Next, validate resources, full costs and real assignment liquidity.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "Imagery: Esri, Maxar, Earthstar Geographics. Terrain: Mapzen Terrarium (AWS Open Data).",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "https://registry.opendata.aws/terrain-tiles/"
+    ],
+    "preparation": "Allow up to 20 seconds for the rehearsed local /swarm comparison. Use the new synthetic-exposure review capture, Area A, 90 days and simulated day 5. If the browser differs, explain the saved image. Do not use the previously published SKIP fixture or a different startup scenario as this controlled comparison.",
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 23
+  },
+  {
+    "slide": 8,
+    "title": "Cash reconciliation",
+    "seconds": 0,
+    "body": "Baseline conditional assignment is 69,230.76923 dollars. Less the 50-dollar exit fee and 30,050-dollar upfront commitment, the sale branch has 39,130.76923 dollars cash. The no-sale branch has minus 30,050. Weighting by 48.8% and 51.2% gives 3710.21538 dollars mean cash and 12.3468066% expected return. The median is still minus 30,050. The 25% expected-return hurdle requires 77,022.34 dollars constant gross assignment proceeds at each possible sale date. That hurdle is not a forecast and did not determine the frozen exposure. The model quantity, consideration, success and conversion inputs are synthetic, not a real valuation inferred from two historical payments.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606",
+      "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 43
+  },
+  {
+    "slide": 9,
+    "title": "Historical pilot",
+    "seconds": 0,
+    "body": "This remains a small retrospective equity component test, not Tok option returns. Twelve selected events produce five held-out observations for each horizon, in different cohorts. Mean absolute errors in percentage points, lower is better: no change 2.5562/5.9474; gold-only 3.1291/7.5670; gold plus event 8.0596/14.3108 for five/twenty sessions. The event adjustment did not beat baseline. No historical swarm outcomes are paired with realized option returns. Repeated issuers, a selected incomplete sample, current-vintage prices and date uncertainty limit inference.",
+    "sources": [
+      "https://github.com/amitvijapur/oxhack-2026/blob/37991ad5de416e5abf8541264c5f4926a2ec91e8/research/event-study/RESULTS.md",
+      "https://github.com/amitvijapur/oxhack-2026/blob/37991ad5de416e5abf8541264c5f4926a2ec91e8/research/event-study/protocol.md"
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 44
+  },
+  {
+    "slide": 10,
+    "title": "Fee sensitivity on the same exposure",
+    "seconds": 0,
+    "body": "Both cases use the same one-contract exposure, premium, gold forecast and sale hazard. Fixed fees are 50 dollars each, upfront capital is 30,050, expected cash is 3710.21538 and expected return is 12.3468066%. Proportional fees are the invented reference 50 times the frozen factor 30,000/650: each fee is 2307.6923 dollars. Upfront becomes 32,307.6923, expected cash is 350.76923 and return is 1.0857143%. This exceeds the 30,050 per-option risk cap and the model skips. The comparison identifies the fee assumption driving the return difference. Neither case is calibrated to real transaction costs, resources or realized market returns.",
+    "sources": [
+      "Local unpublished source: model/tok-option/workbench.mjs (runWorkbench and compareFeePolicies).",
+      "Local unpublished source: model/tok-option/lot-basis.mjs (SYNTHETIC_LOT_PROFILE).",
+      "Local source: model/tok-option/gold.mjs, valuation.mjs, liquidity.mjs and diagnostics.mjs.",
+      "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606",
+      "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+    ],
+    "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+    "modelVersion": "tok-option-demo-v2",
+    "sourceIsPublished": false,
+    "reviewStatus": "local_unpublished_review",
+    "sourcePage": 43
+  }
+]

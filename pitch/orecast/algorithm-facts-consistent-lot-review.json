@@ -1,0 +1,977 @@
+{
+  "name": "Orecast",
+  "reviewStatus": "local_unpublished_review",
+  "sourceRevision": "69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2",
+  "sourceIsPublished": false,
+  "sourceUrl": null,
+  "modelVersion": "tok-option-demo-v2",
+  "presentationChart": {
+    "currency": "USD",
+    "decimalPlaces": 2,
+    "basis": "Cash series is displayed and packaged to cents; canonical outputs below retain full precision."
+  },
+  "sourcePaths": [
+    "model/tok-option/lot-basis.mjs",
+    "model/tok-option/config.mjs",
+    "model/tok-option/diagnostics.mjs",
+    "model/tok-option/workbench.mjs",
+    "model/tok-option/valuation.mjs",
+    "model/tok-option/liquidity.mjs",
+    "model/tok-option/gold.mjs"
+  ],
+  "assumedInputs": {
+    "area": "A",
+    "horizonDays": 90,
+    "goldResponseCap": 0.07,
+    "quantity": 23076.923076923078,
+    "price": 2000,
+    "annualGrowthRate": 0,
+    "ownershipFraction": 0.5,
+    "kappa": 0.02,
+    "pGeo": 0.25,
+    "remainingBuyerConsiderationUsd": 184615.38461538462,
+    "entryPremiumUsd": 30000,
+    "entryFeeUsd": 50,
+    "exitFeeUsd": 50,
+    "unavoidableAdditionalObligationsUsd": 0,
+    "remainingMaturityDays": 365,
+    "hazardPer30Days": 0.2,
+    "eventExposure": 1,
+    "retention": 1,
+    "weights": {
+      "government": 0.1,
+      "industry": 0.4,
+      "community": 0.07,
+      "funds": 0.4,
+      "retail": 0.03
+    }
+  },
+  "syntheticLotProfile": {
+    "id": "synthetic-same-interest-whole-contract-v1",
+    "provenance": "assumed",
+    "currency": "USD",
+    "unit": "whole_contract",
+    "referenceUnit": {
+      "initialPremiumUsd": 650,
+      "quantity": 500,
+      "remainingBuyerConsiderationUsd": 4000,
+      "entryFeeUsd": 50,
+      "exitFeeUsd": 50
+    },
+    "initialPremiumUsd": 30000,
+    "scaleFactor": 46.15384615384615,
+    "quantity": 23076.923076923078,
+    "quantityUnit": "troy_oz",
+    "remainingBuyerConsiderationUsd": 184615.38461538462,
+    "ownershipFraction": 0.5,
+    "kappa": 0.02,
+    "pGeo": 0.25,
+    "price": 2000,
+    "annualGrowthRate": 0,
+    "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+    "limitations": [
+      "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+      "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+      "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+      "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+      "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+    ]
+  },
+  "historicalPaymentReference": {
+    "id": "regional-initial-payment-whole-contract-v1",
+    "currency": "USD",
+    "unit": "whole_contract",
+    "initialPremiumUsd": 30000,
+    "referenceKind": "selected_historical_initial_payments",
+    "referenceCount": 2,
+    "sources": [
+      {
+        "project": "Tibbs",
+        "label": "Tectonic 2019 Q2 MD&A, pp4–5",
+        "agreementDate": "2017-06",
+        "initialPaymentUsd": 30000,
+        "url": "https://www.tectonicmetals.com/_resources/financials/MDA-Q2-2019-FINAL.pdf?v=070606"
+      },
+      {
+        "project": "Northway",
+        "label": "Tectonic audited 2018 statements, pp17–19",
+        "agreementDate": "2018-06",
+        "initialPaymentUsd": 30000,
+        "url": "https://www.tectonicmetals.com/_resources/financials/FS-Tectonic-2018YE-AUDITED.pdf?v=090403"
+      }
+    ],
+    "limitations": [
+      "Two selected historical initial payments from the same acquirer, not a representative current Tok average or an available assignable option.",
+      "The reference excludes fees, scholarships, exploration work, recurring payments, royalties and other obligations; it is not full contract capital.",
+      "Northway also involved a separate USD 25,000 scholarship and USD 400,000 first-year exploration obligation. These are not included in the initial-payment statistic.",
+      "Comparison areas A and B are sample partitions, not legal parcels. No observed assignment resale price or margin is supplied.",
+      "Use of the historical payment as a hypothetical option premium does not verify equivalent rights, assignment permission, term or current value."
+    ]
+  },
+  "assumedCosts": {
+    "entryFeeUsd": 50,
+    "exitFeeUsd": 50,
+    "unavoidableAdditionalObligationsUsd": 0
+  },
+  "capital": {
+    "startingFundUsd": 1502500,
+    "maxRiskPerOptionUsd": 30050,
+    "maxOpenRiskUsd": 150250,
+    "maxWholeCohortCommittedUsd": 150250,
+    "maxPositions": 5,
+    "maximumCandidateCount": 20
+  },
+  "formulas": {
+    "support": "s = sum_group(weight_group * (mean_days3to5(event) - mean_days3to5(reference)) / 10)",
+    "baselineGold": "P_base(t) = P0 * (1 + g)^(t / 365)",
+    "goldResponse": "r_Au = goldResponseCap * s * exposure * retention",
+    "scenarioGold": "P_scenario(t) = P_base(t) * (1 + r_Au)",
+    "material": "G(t) = sum_i(Q_i * P_scenario_i(t)); only Au receives the response",
+    "interest": "V_success(t) = ownership * kappa * G(t)",
+    "assignment": "A(t) = pGeo * max(V_success(t) - buyerConsideration, 0)",
+    "saleWeight": "w_j = (1-h)^(j-1) * h; j=1..horizonDays/30",
+    "noSale": "P_no_sale = (1-h)^(horizonDays/30)",
+    "cash": "E[cash] = sum_j(w_j * (A(30*j) - exitFee)) - premium - entryFee - unavoidableUpfrontObligations",
+    "return": "expected option return = E[cash] / upfrontRisk; non-annualized",
+    "change": "delta return in percentage points = 100 * (R_scenario - R_baseline)",
+    "expiry": "horizonDays + 15 <= remainingMaturityDays",
+    "requiredAssignment": "required S = upfrontRisk * (1 + targetReturnRatio) / saleProbability + exitFee; constant gross assignment proceeds at each sale date, not a forecast",
+    "exposureScale": "Frozen s = 30000 / 650; Q = 500*s; buyer consideration = 4000*s. One synthetic interest; no input is selected from a return target.",
+    "feeComparison": "Canonical compareFeePolicies holds the same premium/exposure/gold/sale policy fixed, comparing USD50/50 fees with USD50*s per fee."
+  },
+  "baseline": [
+    {
+      "horizonDays": 30,
+      "scenarioId": "baseline",
+      "area": "A",
+      "supportContrast": 0,
+      "scenarioGoldUsdPerOz": 2000.0000000000002,
+      "scenarioAssignmentUsd": 69230.76923076925,
+      "scenarioExpectedCashUsd": -16213.846153846149,
+      "scenarioOptionReturnPercent": -53.95622680148468,
+      "upfrontRiskUsd": 30050,
+      "saleProbability": 0.19999999999999996,
+      "noSaleProbability": 0.8,
+      "entryAction": "SKIP",
+      "evidenceGate": "PASS",
+      "riskGate": "PASS",
+      "exposureContext": {
+        "id": "synthetic-same-interest-whole-contract-v1",
+        "provenance": "assumed",
+        "currency": "USD",
+        "unit": "whole_contract",
+        "referenceUnit": {
+          "initialPremiumUsd": 650,
+          "quantity": 500,
+          "remainingBuyerConsiderationUsd": 4000,
+          "entryFeeUsd": 50,
+          "exitFeeUsd": 50
+        },
+        "initialPremiumUsd": 30000,
+        "scaleFactor": 46.15384615384615,
+        "quantity": 23076.923076923078,
+        "quantityUnit": "troy_oz",
+        "remainingBuyerConsiderationUsd": 184615.38461538462,
+        "ownershipFraction": 0.5,
+        "kappa": 0.02,
+        "pGeo": 0.25,
+        "price": 2000,
+        "annualGrowthRate": 0,
+        "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+        "limitations": [
+          "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+          "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+          "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+          "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+          "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+        ],
+        "selectionKind": "default_synthetic_profile",
+        "selectedInputs": {
+          "quantity": 23076.923076923078,
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0
+        }
+      }
+    },
+    {
+      "horizonDays": 90,
+      "scenarioId": "baseline",
+      "area": "A",
+      "supportContrast": 0,
+      "scenarioGoldUsdPerOz": 2000.0000000000002,
+      "scenarioAssignmentUsd": 69230.76923076925,
+      "scenarioExpectedCashUsd": 3710.215384615396,
+      "scenarioOptionReturnPercent": 12.346806604377358,
+      "upfrontRiskUsd": 30050,
+      "saleProbability": 0.4879999999999999,
+      "noSaleProbability": 0.5120000000000001,
+      "entryAction": "BUY_CANDIDATE",
+      "evidenceGate": "PASS",
+      "riskGate": "PASS",
+      "exposureContext": {
+        "id": "synthetic-same-interest-whole-contract-v1",
+        "provenance": "assumed",
+        "currency": "USD",
+        "unit": "whole_contract",
+        "referenceUnit": {
+          "initialPremiumUsd": 650,
+          "quantity": 500,
+          "remainingBuyerConsiderationUsd": 4000,
+          "entryFeeUsd": 50,
+          "exitFeeUsd": 50
+        },
+        "initialPremiumUsd": 30000,
+        "scaleFactor": 46.15384615384615,
+        "quantity": 23076.923076923078,
+        "quantityUnit": "troy_oz",
+        "remainingBuyerConsiderationUsd": 184615.38461538462,
+        "ownershipFraction": 0.5,
+        "kappa": 0.02,
+        "pGeo": 0.25,
+        "price": 2000,
+        "annualGrowthRate": 0,
+        "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+        "limitations": [
+          "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+          "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+          "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+          "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+          "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+        ],
+        "selectionKind": "default_synthetic_profile",
+        "selectedInputs": {
+          "quantity": 23076.923076923078,
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0
+        }
+      }
+    },
+    {
+      "horizonDays": 180,
+      "scenarioId": "baseline",
+      "area": "A",
+      "supportContrast": 0,
+      "scenarioGoldUsdPerOz": 2000.0000000000002,
+      "scenarioAssignmentUsd": 69230.76923076925,
+      "scenarioExpectedCashUsd": 20995.445661538484,
+      "scenarioOptionReturnPercent": 69.8683715858186,
+      "upfrontRiskUsd": 30050,
+      "saleProbability": 0.7378559999999998,
+      "noSaleProbability": 0.2621440000000001,
+      "entryAction": "BUY_CANDIDATE",
+      "evidenceGate": "PASS",
+      "riskGate": "PASS",
+      "exposureContext": {
+        "id": "synthetic-same-interest-whole-contract-v1",
+        "provenance": "assumed",
+        "currency": "USD",
+        "unit": "whole_contract",
+        "referenceUnit": {
+          "initialPremiumUsd": 650,
+          "quantity": 500,
+          "remainingBuyerConsiderationUsd": 4000,
+          "entryFeeUsd": 50,
+          "exitFeeUsd": 50
+        },
+        "initialPremiumUsd": 30000,
+        "scaleFactor": 46.15384615384615,
+        "quantity": 23076.923076923078,
+        "quantityUnit": "troy_oz",
+        "remainingBuyerConsiderationUsd": 184615.38461538462,
+        "ownershipFraction": 0.5,
+        "kappa": 0.02,
+        "pGeo": 0.25,
+        "price": 2000,
+        "annualGrowthRate": 0,
+        "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+        "limitations": [
+          "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+          "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+          "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+          "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+          "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+        ],
+        "selectionKind": "default_synthetic_profile",
+        "selectedInputs": {
+          "quantity": 23076.923076923078,
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0
+        }
+      }
+    }
+  ],
+  "recordedScenarios": {
+    "mine_approval": [
+      {
+        "horizonDays": 30,
+        "scenarioId": "mine_approval",
+        "area": "A",
+        "supportContrast": -0.02517925880444946,
+        "scenarioGoldUsdPerOz": 1996.4749037673773,
+        "scenarioAssignmentUsd": 69027.39829427176,
+        "scenarioExpectedCashUsd": -16254.520341145648,
+        "scenarioOptionReturnPercent": -54.09158183409534,
+        "upfrontRiskUsd": 30050,
+        "saleProbability": 0.19999999999999996,
+        "noSaleProbability": 0.8,
+        "entryAction": "SKIP",
+        "evidenceGate": "PASS",
+        "riskGate": "PASS",
+        "exposureContext": {
+          "id": "synthetic-same-interest-whole-contract-v1",
+          "provenance": "assumed",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "referenceUnit": {
+            "initialPremiumUsd": 650,
+            "quantity": 500,
+            "remainingBuyerConsiderationUsd": 4000,
+            "entryFeeUsd": 50,
+            "exitFeeUsd": 50
+          },
+          "initialPremiumUsd": 30000,
+          "scaleFactor": 46.15384615384615,
+          "quantity": 23076.923076923078,
+          "quantityUnit": "troy_oz",
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0,
+          "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+          "limitations": [
+            "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+            "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+            "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+            "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+            "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+          ],
+          "selectionKind": "default_synthetic_profile",
+          "selectedInputs": {
+            "quantity": 23076.923076923078,
+            "remainingBuyerConsiderationUsd": 184615.38461538462,
+            "ownershipFraction": 0.5,
+            "kappa": 0.02,
+            "pGeo": 0.25,
+            "price": 2000,
+            "annualGrowthRate": 0
+          }
+        }
+      },
+      {
+        "horizonDays": 90,
+        "scenarioId": "mine_approval",
+        "area": "A",
+        "supportContrast": -0.02517925880444946,
+        "scenarioGoldUsdPerOz": 1996.4749037673773,
+        "scenarioAssignmentUsd": 69027.39829427176,
+        "scenarioExpectedCashUsd": 3610.9703676046192,
+        "scenarioOptionReturnPercent": 12.016540324807385,
+        "upfrontRiskUsd": 30050,
+        "saleProbability": 0.4879999999999999,
+        "noSaleProbability": 0.5120000000000001,
+        "entryAction": "BUY_CANDIDATE",
+        "evidenceGate": "PASS",
+        "riskGate": "PASS",
+        "exposureContext": {
+          "id": "synthetic-same-interest-whole-contract-v1",
+          "provenance": "assumed",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "referenceUnit": {
+            "initialPremiumUsd": 650,
+            "quantity": 500,
+            "remainingBuyerConsiderationUsd": 4000,
+            "entryFeeUsd": 50,
+            "exitFeeUsd": 50
+          },
+          "initialPremiumUsd": 30000,
+          "scaleFactor": 46.15384615384615,
+          "quantity": 23076.923076923078,
+          "quantityUnit": "troy_oz",
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0,
+          "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+          "limitations": [
+            "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+            "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+            "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+            "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+            "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+          ],
+          "selectionKind": "default_synthetic_profile",
+          "selectedInputs": {
+            "quantity": 23076.923076923078,
+            "remainingBuyerConsiderationUsd": 184615.38461538462,
+            "ownershipFraction": 0.5,
+            "kappa": 0.02,
+            "pGeo": 0.25,
+            "price": 2000,
+            "annualGrowthRate": 0
+          }
+        }
+      },
+      {
+        "horizonDays": 180,
+        "scenarioId": "mine_approval",
+        "area": "A",
+        "supportContrast": -0.02517925880444946,
+        "scenarioGoldUsdPerOz": 1996.4749037673773,
+        "scenarioAssignmentUsd": 69027.39829427176,
+        "scenarioExpectedCashUsd": 20845.38719581819,
+        "scenarioOptionReturnPercent": 69.36900897110878,
+        "upfrontRiskUsd": 30050,
+        "saleProbability": 0.7378559999999998,
+        "noSaleProbability": 0.2621440000000001,
+        "entryAction": "BUY_CANDIDATE",
+        "evidenceGate": "PASS",
+        "riskGate": "PASS",
+        "exposureContext": {
+          "id": "synthetic-same-interest-whole-contract-v1",
+          "provenance": "assumed",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "referenceUnit": {
+            "initialPremiumUsd": 650,
+            "quantity": 500,
+            "remainingBuyerConsiderationUsd": 4000,
+            "entryFeeUsd": 50,
+            "exitFeeUsd": 50
+          },
+          "initialPremiumUsd": 30000,
+          "scaleFactor": 46.15384615384615,
+          "quantity": 23076.923076923078,
+          "quantityUnit": "troy_oz",
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0,
+          "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+          "limitations": [
+            "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+            "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+            "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+            "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+            "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+          ],
+          "selectionKind": "default_synthetic_profile",
+          "selectedInputs": {
+            "quantity": 23076.923076923078,
+            "remainingBuyerConsiderationUsd": 184615.38461538462,
+            "ownershipFraction": 0.5,
+            "kappa": 0.02,
+            "pGeo": 0.25,
+            "price": 2000,
+            "annualGrowthRate": 0
+          }
+        }
+      }
+    ],
+    "mine_blocked": [
+      {
+        "horizonDays": 30,
+        "scenarioId": "mine_blocked",
+        "area": "A",
+        "supportContrast": 0.030734331593609505,
+        "scenarioGoldUsdPerOz": 2004.3028064231055,
+        "scenarioAssignmentUsd": 69479.00806287146,
+        "scenarioExpectedCashUsd": -16164.198387425706,
+        "scenarioOptionReturnPercent": -53.79100960873779,
+        "upfrontRiskUsd": 30050,
+        "saleProbability": 0.19999999999999996,
+        "noSaleProbability": 0.8,
+        "entryAction": "SKIP",
+        "evidenceGate": "PASS",
+        "riskGate": "PASS",
+        "exposureContext": {
+          "id": "synthetic-same-interest-whole-contract-v1",
+          "provenance": "assumed",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "referenceUnit": {
+            "initialPremiumUsd": 650,
+            "quantity": 500,
+            "remainingBuyerConsiderationUsd": 4000,
+            "entryFeeUsd": 50,
+            "exitFeeUsd": 50
+          },
+          "initialPremiumUsd": 30000,
+          "scaleFactor": 46.15384615384615,
+          "quantity": 23076.923076923078,
+          "quantityUnit": "troy_oz",
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0,
+          "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+          "limitations": [
+            "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+            "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+            "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+            "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+            "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+          ],
+          "selectionKind": "default_synthetic_profile",
+          "selectedInputs": {
+            "quantity": 23076.923076923078,
+            "remainingBuyerConsiderationUsd": 184615.38461538462,
+            "ownershipFraction": 0.5,
+            "kappa": 0.02,
+            "pGeo": 0.25,
+            "price": 2000,
+            "annualGrowthRate": 0
+          }
+        }
+      },
+      {
+        "horizonDays": 90,
+        "scenarioId": "mine_blocked",
+        "area": "A",
+        "supportContrast": 0.030734331593609505,
+        "scenarioGoldUsdPerOz": 2004.3028064231055,
+        "scenarioAssignmentUsd": 69479.00806287146,
+        "scenarioExpectedCashUsd": 3831.3559346812835,
+        "scenarioOptionReturnPercent": 12.749936554679811,
+        "upfrontRiskUsd": 30050,
+        "saleProbability": 0.4879999999999999,
+        "noSaleProbability": 0.5120000000000001,
+        "entryAction": "BUY_CANDIDATE",
+        "evidenceGate": "PASS",
+        "riskGate": "PASS",
+        "exposureContext": {
+          "id": "synthetic-same-interest-whole-contract-v1",
+          "provenance": "assumed",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "referenceUnit": {
+            "initialPremiumUsd": 650,
+            "quantity": 500,
+            "remainingBuyerConsiderationUsd": 4000,
+            "entryFeeUsd": 50,
+            "exitFeeUsd": 50
+          },
+          "initialPremiumUsd": 30000,
+          "scaleFactor": 46.15384615384615,
+          "quantity": 23076.923076923078,
+          "quantityUnit": "troy_oz",
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0,
+          "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+          "limitations": [
+            "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+            "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+            "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+            "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+            "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+          ],
+          "selectionKind": "default_synthetic_profile",
+          "selectedInputs": {
+            "quantity": 23076.923076923078,
+            "remainingBuyerConsiderationUsd": 184615.38461538462,
+            "ownershipFraction": 0.5,
+            "kappa": 0.02,
+            "pGeo": 0.25,
+            "price": 2000,
+            "annualGrowthRate": 0
+          }
+        }
+      },
+      {
+        "horizonDays": 180,
+        "scenarioId": "mine_blocked",
+        "area": "A",
+        "supportContrast": 0.030734331593609505,
+        "scenarioGoldUsdPerOz": 2004.3028064231055,
+        "scenarioAssignmentUsd": 69479.00806287146,
+        "scenarioExpectedCashUsd": 21178.6101732381,
+        "scenarioOptionReturnPercent": 70.47790407067588,
+        "upfrontRiskUsd": 30050,
+        "saleProbability": 0.7378559999999998,
+        "noSaleProbability": 0.2621440000000001,
+        "entryAction": "BUY_CANDIDATE",
+        "evidenceGate": "PASS",
+        "riskGate": "PASS",
+        "exposureContext": {
+          "id": "synthetic-same-interest-whole-contract-v1",
+          "provenance": "assumed",
+          "currency": "USD",
+          "unit": "whole_contract",
+          "referenceUnit": {
+            "initialPremiumUsd": 650,
+            "quantity": 500,
+            "remainingBuyerConsiderationUsd": 4000,
+            "entryFeeUsd": 50,
+            "exitFeeUsd": 50
+          },
+          "initialPremiumUsd": 30000,
+          "scaleFactor": 46.15384615384615,
+          "quantity": 23076.923076923078,
+          "quantityUnit": "troy_oz",
+          "remainingBuyerConsiderationUsd": 184615.38461538462,
+          "ownershipFraction": 0.5,
+          "kappa": 0.02,
+          "pGeo": 0.25,
+          "price": 2000,
+          "annualGrowthRate": 0,
+          "assumption": "One synthetic whole-contract interest retains the invented reference unit economics by scaling both quantity and remaining buyer consideration. The scale is frozen; editing the premium does not change exposure or assignment value.",
+          "limitations": [
+            "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+            "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+            "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+            "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+            "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile."
+          ],
+          "selectionKind": "default_synthetic_profile",
+          "selectedInputs": {
+            "quantity": 23076.923076923078,
+            "remainingBuyerConsiderationUsd": 184615.38461538462,
+            "ownershipFraction": 0.5,
+            "kappa": 0.02,
+            "pGeo": 0.25,
+            "price": 2000,
+            "annualGrowthRate": 0
+          }
+        }
+      }
+    ]
+  },
+  "feeSensitivity": {
+    "baseline": {
+      "status": "illustrative",
+      "profileId": "synthetic-same-interest-whole-contract-v1",
+      "scaleFactor": 46.15384615384615,
+      "assumption": "Fee sensitivity for one unchanged assumed interest and the same premium, valuation and sale hazard. Fixed USD 50 fees are compared with reference-unit fees multiplied by the frozen exposure scale. Returns are non-annualized; proportional fees can fail the approved risk cap. Neither case is a market-calibrated margin.",
+      "source": "compareFeePolicies",
+      "fixedFees": {
+        "feePolicyId": "fixed_50_usd_assumption",
+        "entryFeeUsd": 50,
+        "exitFeeUsd": 50,
+        "upfrontRiskUsd": 30050,
+        "assignmentUsd": 69230.76923076925,
+        "expectedCashUsd": 3710.215384615396,
+        "returnRatio": 0.12346806604377358,
+        "returnPercent": 12.346806604377358,
+        "entryAction": "BUY_CANDIDATE",
+        "riskGate": "PASS",
+        "reasons": []
+      },
+      "proportionalFees": {
+        "feePolicyId": "proportional_reference_fee_assumption",
+        "entryFeeUsd": 2307.6923076923076,
+        "exitFeeUsd": 2307.6923076923076,
+        "upfrontRiskUsd": 32307.69230769231,
+        "assignmentUsd": 69230.76923076925,
+        "expectedCashUsd": 350.76923076924504,
+        "returnRatio": 0.0108571428571433,
+        "returnPercent": 1.0857142857143298,
+        "entryAction": "SKIP",
+        "riskGate": "FAIL",
+        "reasons": [
+          "per_option_risk_exceeded"
+        ]
+      }
+    },
+    "mine_approval": {
+      "status": "illustrative",
+      "profileId": "synthetic-same-interest-whole-contract-v1",
+      "scaleFactor": 46.15384615384615,
+      "assumption": "Fee sensitivity for one unchanged assumed interest and the same premium, valuation and sale hazard. Fixed USD 50 fees are compared with reference-unit fees multiplied by the frozen exposure scale. Returns are non-annualized; proportional fees can fail the approved risk cap. Neither case is a market-calibrated margin.",
+      "source": "compareFeePolicies",
+      "fixedFees": {
+        "feePolicyId": "fixed_50_usd_assumption",
+        "entryFeeUsd": 50,
+        "exitFeeUsd": 50,
+        "upfrontRiskUsd": 30050,
+        "assignmentUsd": 69027.39829427176,
+        "expectedCashUsd": 3610.9703676046192,
+        "returnRatio": 0.12016540324807386,
+        "returnPercent": 12.016540324807385,
+        "entryAction": "BUY_CANDIDATE",
+        "riskGate": "PASS",
+        "reasons": []
+      },
+      "proportionalFees": {
+        "feePolicyId": "proportional_reference_fee_assumption",
+        "entryFeeUsd": 2307.6923076923076,
+        "exitFeeUsd": 2307.6923076923076,
+        "upfrontRiskUsd": 32307.69230769231,
+        "assignmentUsd": 69027.39829427176,
+        "expectedCashUsd": 251.52421375846825,
+        "returnRatio": 0.007785273283000207,
+        "returnPercent": 0.7785273283000207,
+        "entryAction": "SKIP",
+        "riskGate": "FAIL",
+        "reasons": [
+          "per_option_risk_exceeded"
+        ]
+      }
+    },
+    "mine_blocked": {
+      "status": "illustrative",
+      "profileId": "synthetic-same-interest-whole-contract-v1",
+      "scaleFactor": 46.15384615384615,
+      "assumption": "Fee sensitivity for one unchanged assumed interest and the same premium, valuation and sale hazard. Fixed USD 50 fees are compared with reference-unit fees multiplied by the frozen exposure scale. Returns are non-annualized; proportional fees can fail the approved risk cap. Neither case is a market-calibrated margin.",
+      "source": "compareFeePolicies",
+      "fixedFees": {
+        "feePolicyId": "fixed_50_usd_assumption",
+        "entryFeeUsd": 50,
+        "exitFeeUsd": 50,
+        "upfrontRiskUsd": 30050,
+        "assignmentUsd": 69479.00806287146,
+        "expectedCashUsd": 3831.3559346812835,
+        "returnRatio": 0.1274993655467981,
+        "returnPercent": 12.749936554679811,
+        "entryAction": "BUY_CANDIDATE",
+        "riskGate": "PASS",
+        "reasons": []
+      },
+      "proportionalFees": {
+        "feePolicyId": "proportional_reference_fee_assumption",
+        "entryFeeUsd": 2307.6923076923076,
+        "exitFeeUsd": 2307.6923076923076,
+        "upfrontRiskUsd": 32307.69230769231,
+        "assignmentUsd": 69479.00806287146,
+        "expectedCashUsd": 471.9097808351253,
+        "returnRatio": 0.014606731311563401,
+        "returnPercent": 1.4606731311563401,
+        "entryAction": "SKIP",
+        "riskGate": "FAIL",
+        "reasons": [
+          "per_option_risk_exceeded"
+        ]
+      }
+    }
+  },
+  "cashReconciliation90": {
+    "upfrontRiskUsd": 30050,
+    "sale": {
+      "probability": 0.4879999999999999,
+      "netCashUsd": 39130.76923076925,
+      "weightedCashUsd": 19095.815384615395
+    },
+    "noSale": {
+      "probability": 0.5120000000000001,
+      "netCashUsd": -30050,
+      "weightedCashUsd": -15385.600000000004
+    },
+    "meanCashUsd": 3710.2153846153906,
+    "medianCashUsd": -30050
+  },
+  "hurdles": {
+    "cashBreakEven": {
+      "status": "illustrative",
+      "kind": "required_assignment_proceeds",
+      "currency": "USD",
+      "horizonDays": 90,
+      "amountAtRiskUsd": 30050,
+      "saleProbability": 0.4879999999999999,
+      "exitFeeUsd": 50,
+      "targetReturnRatio": 0,
+      "requiredAssignmentProceedsUsd": 61627.86885245903,
+      "reasons": [],
+      "assumption": "Required constant gross assignment proceeds at every sale date under the existing assumed liquidity. Non-annualized return on all upfront capital; unsold marks excluded. A hurdle, not a forecast or observed resale price."
+    },
+    "target25Percent": {
+      "status": "illustrative",
+      "kind": "required_assignment_proceeds",
+      "currency": "USD",
+      "horizonDays": 90,
+      "amountAtRiskUsd": 30050,
+      "saleProbability": 0.4879999999999999,
+      "exitFeeUsd": 50,
+      "targetReturnRatio": 0.25,
+      "requiredAssignmentProceedsUsd": 77022.33606557379,
+      "reasons": [],
+      "assumption": "Required constant gross assignment proceeds at every sale date under the existing assumed liquidity. Non-annualized return on all upfront capital; unsold marks excluded. A hurdle, not a forecast or observed resale price."
+    }
+  },
+  "historicalPilot": {
+    "eventCount": 12,
+    "instruments": [
+      "NG",
+      "NAK"
+    ],
+    "horizons": [
+      {
+        "tradingSessions": 5,
+        "primary": true,
+        "trainCount": 7,
+        "testCount": 5,
+        "trainEventIds": [
+          "NG-20200206-state-authorizations",
+          "NAK-20200724-final-eis",
+          "NAK-20200824-not-permittable",
+          "NAK-20201125-permit-denial",
+          "NAK-20210225-appeal-accepted",
+          "NAK-20220525-epa-proposal",
+          "NAK-20221202-epa-recommendation"
+        ],
+        "testEventIds": [
+          "NAK-20230131-epa-final",
+          "NAK-20230426-appeal-remand",
+          "NAK-20240416-remand-stopped",
+          "NG-20251027-fast41",
+          "NG-20251118-state-court-upholds"
+        ],
+        "metrics": {
+          "goldBaseline": {
+            "maePercentagePoints": 3.129094706562224,
+            "directionHits": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "sampleSize": 5
+          },
+          "eventModel": {
+            "maePercentagePoints": 8.059555218458533,
+            "directionHits": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "sampleSize": 5
+          },
+          "noChange": {
+            "maePercentagePoints": 2.556165327782003,
+            "directionHits": {
+              "numerator": 3,
+              "denominator": 5,
+              "rate": 0.6
+            },
+            "sampleSize": 5
+          }
+        },
+        "eventVersusGoldMaeReductionPercentagePoints": -4.9304605118963085
+      },
+      {
+        "tradingSessions": 20,
+        "primary": false,
+        "trainCount": 6,
+        "testCount": 5,
+        "trainEventIds": [
+          "NG-20200206-state-authorizations",
+          "NAK-20200724-final-eis",
+          "NAK-20200824-not-permittable",
+          "NAK-20201125-permit-denial",
+          "NAK-20210225-appeal-accepted",
+          "NAK-20220525-epa-proposal"
+        ],
+        "testEventIds": [
+          "NAK-20221202-epa-recommendation",
+          "NAK-20230131-epa-final",
+          "NAK-20230426-appeal-remand",
+          "NAK-20240416-remand-stopped",
+          "NG-20251027-fast41"
+        ],
+        "metrics": {
+          "goldBaseline": {
+            "maePercentagePoints": 7.567043516164337,
+            "directionHits": {
+              "numerator": 1,
+              "denominator": 5,
+              "rate": 0.2
+            },
+            "sampleSize": 5
+          },
+          "eventModel": {
+            "maePercentagePoints": 14.310828266970665,
+            "directionHits": {
+              "numerator": 0,
+              "denominator": 5,
+              "rate": 0
+            },
+            "sampleSize": 5
+          },
+          "noChange": {
+            "maePercentagePoints": 5.947409162738812,
+            "directionHits": {
+              "numerator": 2,
+              "denominator": 5,
+              "rate": 0.4
+            },
+            "sampleSize": 5
+          }
+        },
+        "eventVersusGoldMaeReductionPercentagePoints": -6.743784750806328
+      }
+    ],
+    "swarmLift": {
+      "status": "unavailable",
+      "value": null,
+      "reason": "Zero historical outcomes are paired with the existing fictional swarm scenarios. Event polarity is not a swarm prediction."
+    },
+    "limitations": [
+      "This is a small source-selected liquid-equity event sample, with repeated issuers and correlated events. Numeric comparisons do not establish broad predictive accuracy.",
+      "Current-vintage adjusted prices lack historical as-of vintages. Adjusted closes are not literal executable fills; the delayed-close policy is hypothetical.",
+      "GLD is a traded gold ETF, not spot gold. Stock-minus-benchmark returns are observed diagnostics, not forecasts or a replicated hedge.",
+      "Favourable events alone enter the long-only diagnostic; adverse/mixed events hold cash. Costs are an assumed stress, not measured execution.",
+      "The pilot does not estimate Tok option returns, mineral resources, assignment liquidity or incremental swarm value.",
+      "This is a bounded, incomplete source sample, not a comprehensive event census.",
+      "Nine Pebble events and three Donlin events are heavily concentrated in two issuers.",
+      "Procedural admissions, environmental review completion, proposed restrictions and final decisions differ in materiality; direction is a coarse document-effect code.",
+      "All timestamps are date-only; several announcements lag actions and may lag first public awareness.",
+      "Donlin adverse and mixed rulings were located in later reports but excluded where contemporaneous qualifying publication could not be verified. This can create direction and source-availability bias.",
+      "Publication dates identify documented availability, not surprise, investor knowledge, or market reaction.",
+      "Issuer and government releases have interested-party framing; direction rationales use procedural effect rather than their promotional claims.",
+      "Current-vintage vendor history may contain later corrections; no archived as-of vintage is claimed.",
+      "GLD is a traded gold ETF proxy, not spot gold or a Tok mineral-interest price.",
+      "Adjusted closes are total-return comparison inputs, not literal executable fill quotes.",
+      "No missing price is forward-filled. The hypothetical closing-entry policy assumes access to a closing execution.",
+      "Penny-stock prices may have limited vendor precision. Some NAK evaluation windows are flat at the supplied precision; those zeros are not independently verified at finer precision."
+    ]
+  },
+  "inputHashes": {
+    "model/tok-option/lot-basis.mjs": "86263c0c506bb0c3c4f2b4df7c5f13769c768462e5bc15586a6b2c2f7eede286",
+    "model/tok-option/config.mjs": "71bc46948c42df85d7ad2a3d571ddcefa89132eb7385e92c515ab70338f36186",
+    "model/tok-option/diagnostics.mjs": "141844752ea8c994e92ba2eb68ba99363ff4f9705840ce22671534cc4f10bb29",
+    "model/tok-option/workbench.mjs": "443252f4295802ed3f6202d3599ffc817e85a8c5114c043b00ad6caa01affbd9",
+    "model/tok-option/valuation.mjs": "99da2222cdab5eded26bafbe06d891ba6f048687ae3c9a4850df7660c3b0fc55",
+    "model/tok-option/liquidity.mjs": "62c8f4e4b83874d35ad4c49ca09408c71708467070178fcb046801547c8747e4",
+    "model/tok-option/gold.mjs": "b907890ccfc5e4023eef16b004a394825b802c12fe6388ec13cd83a134af7611"
+  },
+  "limits": [
+    "The reference unit and its premium-to-exposure ratio are invented arithmetic assumptions, not evidence of mispricing, resources, fair value or attainable returns.",
+    "The historical USD 30,000 initial-payment reference does not establish this quantity, buyer consideration or assignment price. This is not the valuation of Tibbs or Northway.",
+    "The scale factor is not a number of tradable contracts. This example remains one indivisible assumed interest.",
+    "Fixed USD 50 fees are a separate assumption. Proportionally scaled reference fees preserve the original arithmetic return and can exceed the approved risk limit.",
+    "Assignment consent, real obligations, resources, sale probability and exit prices remain unverified. No observed market outcome calibrates this profile.",
+    "Two selected historical initial payments from the same acquirer, not a representative current Tok average or an available assignable option.",
+    "The reference excludes fees, scholarships, exploration work, recurring payments, royalties and other obligations; it is not full contract capital.",
+    "Northway also involved a separate USD 25,000 scholarship and USD 400,000 first-year exploration obligation. These are not included in the initial-payment statistic.",
+    "Comparison areas A and B are sample partitions, not legal parcels. No observed assignment resale price or margin is supplied.",
+    "Use of the historical payment as a hypothetical option premium does not verify equivalent rights, assignment permission, term or current value.",
+    "This is a local unpublished synthetic exposure review, not a valuation inferred from the historical initial payments.",
+    "The fixed exposure is used across horizons, scenarios and premium edits; a scale factor is not a number of contracts.",
+    "The 12.35% baseline result depends on separate fixed USD50 entry and exit fees. Proportional fees return about 1.09% and exceed the USD30,050 risk cap.",
+    "The USD77,022.34 25% required-resale hurdle is not a forecast, observed assignment price or input used to choose exposure.",
+    "Candidate is conditional on invented terms and eligibility screens, not a trade, executable quote or measured edge.",
+    "No-sale probability is 51.2% at 90 days and median cash is −USD30,050 in the fixed-fee case. Unsold marks are not cash.",
+    "The retrospective equity event pilot did not beat baseline; no historical swarm predictions are paired with realized option returns."
+  ]
+}

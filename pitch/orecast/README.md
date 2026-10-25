@@ -1,49 +1,100 @@
 # Orecast teammate handoff
 
-Orecast is the selected algorithm name. **Mineral intelligence over time** is proposed descriptor copy. The deck retains the approved Palantir compositions and the project's white, charcoal and sparse green palette.
+Use the approved ten-slide consistent-lot deck. Orecast is the selected name and
+**Mineral intelligence over time** is its descriptor. The approved Palantir
+compositions, white/charcoal palette and sparse green accents remain in place.
 
 ## Start here
 
-- Edit [the PowerPoint](output/orecast-pitch.pptx). Text, diagrams, the horizon chart and appendix tables are native editable objects. Screenshots remain images.
-- Use [the PDF](output/orecast-pitch.pdf) as the appearance reference and [preview.png](preview.png) for the nine-slide overview.
-- Follow [the rehearsal guide](rehearsal.md). Seven main slides total 300 seconds; two appendices support questions.
-- Inspect [algorithm-facts.json](algorithm-facts.json) and [slide-notes.json](slide-notes.json) for portable figures, formulas, source references and speaking notes.
-- Use [the brand guide](../../brand/orecast/BRAND.md) for wordmarks, fonts, palette and spacing.
+- Edit [the PowerPoint](output/orecast-consistent-lot-review.pptx).
+- Use [the PDF](output/orecast-consistent-lot-review.pdf) as the appearance reference and [the overview](preview-consistent-lot-review.png) to scan all ten pages.
+- Rehearse with [the five-minute guide](rehearsal-consistent-lot-review.md). Seven main slides total 300 seconds; three appendices cover cash, the negative pilot and fees.
+- Check [the figures and formulas](algorithm-facts-consistent-lot-review.json) and [portable speaking notes](slide-notes-consistent-lot-review.json) before changing content.
+- Follow [the brand guide](../../brand/orecast/BRAND.md) and preserve [image attribution](assets/README.md).
 
-The package contains the current whole-lot revision. The older neutral-title deck remains an archived presentation at `../oxhack-pitch.pptx`; its numerical fixture is not the current default.
+**Publication status.** Amit approved publication of these reviewed artifacts on
+25 October 2026. Their filenames and frozen facts, notes, rehearsal and review
+report retain the build-time local-review wording. That wording records their
+creation context; it is not a current restriction on the approved publication.
+The frozen model input is `69a0b5b4d2ca8db16cc46f15ff0b07f954e72ed2`, model
+`tok-option-demo-v2`. The checkpoint is now published as [orecast-model-inputs-v1](https://github.com/amitvijapur/oxhack-2026/tree/orecast-model-inputs-v1). Code merged first in [PR #54](https://github.com/amitvijapur/oxhack-2026/pull/54), commit `e180e2a`. The PPTX/PDF and frozen build metadata remain byte-identical to the reviewed package.
 
-The reviewed source is [`37991ad5de416e5abf8541264c5f4926a2ec91e8`](https://github.com/amitvijapur/oxhack-2026/tree/37991ad5de416e5abf8541264c5f4926a2ec91e8), model `tok-option-demo-v2`.
+To reproduce the frozen model/report after a squash merge, fetch its checkpoint explicitly:
 
-## Whole-lot basis and fund limits
+```sh
+git fetch origin tag orecast-model-inputs-v1
+node research/orecast-contract-pricing/build-consistent-lot-review.mjs
+```
 
-The hypothetical premium is **$30,000 per indivisible whole contract**, plus a separate **$50 assumed entry fee**, for **$30,050 upfront capital**. The $30,000 reference is the mean and median of two selected historical initial payments, Tibbs in 2017 and Northway in 2018. Both involved the same acquirer and materially different obligations. This is an initial-payment scale reference, not a current Tok market average, available quote or full contract cost. Assignment permission and comparable resale prices remain unverified. A/B are evidence comparison areas, not legal parcels or fractional traded units.
+Run these commands from the repository root. The report checks all 24 source hashes against the tag commit and current inputs.
 
-The exact simulated starting fund is **$1,502,500**. Per-option risk is capped at **$30,050**. Open risk and lifetime cohort commitments are each capped at **$150,250**, with at most **five positions**. This capacity does not establish five available or eligible contracts; the displayed example is rejected.
+## One frozen synthetic interest
 
-Economic valuation remains independent: 500 assumed recoverable ounces, $2,000/oz gold, 50% ownership, 2% conversion, 25% geological success and $4,000 buyer consideration still yield **$1,500 baseline assignment proceeds**. Entry cost does not scale the exit value to create a margin.
+The example is one indivisible hypothetical contract with a **$30,000 premium**,
+**$50 assumed entry fee** and **$50 assumed exit fee**, giving **$30,050 upfront**.
+The initial-payment scale comes from two selected historical payments, Tibbs and
+Northway. These involved different rights and substantial additional obligations.
+They are not a current Tok average, assignable offer or valuation of this interest.
 
-At 90 days the baseline has **−$29,342.40 expected cash**, **−97.65% non-annualized expected option return** and **SKIP**. Recorded approval and blockage produce **−$29,344.55 / −97.65%** and **−$29,339.78 / −97.64%**, respectively. Both remain skips. All returns divide expected cash by the same $30,050 upfront capital; gold-price changes use a different denominator.
+The original invented reference ratio is scaled once by `s = 30,000 / 650`:
+**Q = 23,076.9230769 assumed troy ounces** and **K = $184,615.38 remaining buyer
+consideration**. Ownership stays 50%, conversion 2%, geological success 25% and
+model gold $2,000/oz, with zero growth and 20% conditional sale hazard per 30 days.
+These are arithmetic assumptions, not measured resources or independently
+validated unit economics. The scale factor is not multiple tradable contracts.
+Quantity and buyer consideration remain fixed across horizons, scenarios and
+premium edits. No input was selected from a return target.
 
-## Required return is a hurdle, not a forecast
+## Cash, fees and the separate target
 
-For a **25% expected 90-day return**, the assumed 48.8% sale probability and $50 exit fee require **$77,022.34 conditional gross assignment proceeds**, held constant at every possible sale date:
+The no-event baseline assignment value is **$69,230.77**. At 90 days, fixed $50
+fees give **$3,710.22 expected cash** and **12.35% non-annualized expected return**.
+Area A passes the assumed screens and is a conditional model candidate; Area B
+fails evidence. At 90 days, **51.2% of paths have no sale**, with **−$30,050 no-sale
+and median cash**. An unsold mark is not cash or a measured realized loss.
 
-`required S = $30,050 × 1.25 / 0.488 + $50`
+The same interest with proportional reference fees of **$2,307.69 each** gives
+**$350.77 expected cash**, **1.09% return** and **$32,307.69 upfront**. It **fails
+the $30,050 per-option risk cap** and is skipped. The higher fixed-fee return
+comes from a separate fee assumption, not measured predictive skill. Actual work,
+scholarship, royalty, recurring payments and assignment consent remain unverified.
 
-No such resale price was observed or forecast. The independent model still returns $1,500. The hurdle does not replace valuation, calibrate the sale hazard or justify entry. The $50 fees and zero-additional-obligations setting are assumptions; historical work, scholarships, royalties and recurring payments are not included in the signing-payment statistic.
+The exact assumed fund is **$1,502,500**, with **$30,050 per option**, **$150,250
+open and lifetime commitment caps**, and at most **five positions**. This does not
+establish five available contracts.
 
-The rehearsed recorded workflow is at `/swarm`. The **Decide** tab provides the lot summary and expandable full calculator; its synthetic startup preset is a separate example. **Land** and **Crowd** provide supporting context.
+A **25% expected 90-day return** requires **$77,022.34 constant gross assignment
+proceeds at every possible sale date** under the assumed liquidity. It is a
+required hurdle, not a forecast or an input used to choose exposure. The baseline
+valuation and return do not meet it.
 
-## Algorithm and validation
+## Demonstration and validation
 
-Recorded mining support first changes an assumed gold forecast. Orecast then recomputes material and mineral-interest value, assignment proceeds and dated sale/no-sale cash. The 7% response coefficient is uncalibrated and does not cap investment loss. Failed simulation research checks remain visible.
+Rehearse `/swarm`, Area A, 90 days, simulated day 5. Recorded approval gives
+**$3,610.97 / 12.02%** and blockage gives **$3,831.36 / 12.75%** expected cash/return
+on the same contract and fees. Use the matching saved captures if the running app
+differs. The **Decide** calculator's small-response startup preset is a separate
+sensitivity case. **Land** and **Crowd** provide context.
 
-The historical equity pilot is separate from Tok option returns. Its fitted event adjustment did not beat baseline; no paired historical swarm outcomes establish incremental value. Preserve that negative result and the unavailable measured edge when editing.
+Recorded mining support changes assumed gold first, then mineral value, interest
+value, assignment and dated cash. The response mapping is uncalibrated. Candidate
+is not a trade or quote; simulation research checks remain failed. The historical
+equity pilot remains separate and its event adjustment did not beat baseline.
+There are no paired historical swarm outcomes establishing incremental option value.
 
-## Editing and presentation
+## Editing and archived presentations
 
-Keep the white editorial pages, rounded charcoal panels, regular/light DM Sans, thin underlined focal numbers and native exploded diagram. Green marks the selected horizon, not a profitable decision.
+Foreground text, diagrams, the horizon chart and appendix tables are native
+editable objects. Screenshots remain images. Use regular/light DM Sans, thin
+rules, underlined focal numbers and rounded charcoal panels. Green identifies
+selected content; it is not proof of profit. DM Sans Light may need mapping to
+weight 300. [Font sources](../../brand/orecast/fonts/) use WOFF2, which some desktop
+editors cannot install directly. Check wrapping against the PDF. Native PowerPoint
+opening and system font rendering have not been verified.
 
-DM Sans Light may need manual mapping to weight 300 in a desktop slide editor. WOFF2 source assets are in [the brand kit](../../brand/orecast/fonts/); some editors need equivalent desktop faces from the official DM Sans distribution. The PDF preserves appearance when fonts substitute. Native PowerPoint opening and system font rendering have not been tested.
-
-Current workflow captures show the Orecast website identity. Reused geographic/research captures can retain earlier application labels. Reuse them with [their attribution](assets/README.md). No hosted deployment or trade execution is implied.
+The [earlier nine-slide Orecast PPTX](output/orecast-pitch.pptx),
+[PDF](output/orecast-pitch.pdf), [notes](slide-notes.json) and
+[rehearsal](rehearsal.md) are **archived cost-only fixtures**. They retain the
+500-ounce, $1,500-assignment SKIP example and are not the current defaults.
+The [earlier neutral-title PPTX](../oxhack-pitch.pptx) and
+[PDF](../oxhack-pitch.pdf) are also archived. All earlier binaries remain unchanged.
